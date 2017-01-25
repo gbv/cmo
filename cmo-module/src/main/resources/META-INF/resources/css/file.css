@@ -1,0 +1,150 @@
+.file_box {
+  border:0 solid #ecf0f1;
+  border-radius:0;
+  margin-bottom:30px
+}
+.file_box .header .headline {
+  border-bottom:1px solid #ddd;
+  padding:0 0 0 0
+}
+.file_box .header .headline .title {
+  padding:0 0 0 0
+}
+.file_box .header .headline .title .file_toggle {
+  font-size:16px;
+  border:none;
+  background-color:transparent;
+  color:#333;
+  padding:0;
+  font-weight:300
+}
+.file_box .header .headline .title .file_toggle .set_number {
+  margin-left:6px
+}
+.file_box .header .headline .title .file_toggle .caret {
+  margin-left:6px
+}
+.file_box .header .headline .options .dropdown-menu>li>a:hover {
+  background-color:#f39c12
+}
+.file_box .header .headline .options .btn {
+  border:0 solid transparent;
+  margin-right:0;
+  background-color:transparent;
+  color:#2c3e50;
+  padding:5px 10px;
+  font-size:12px;
+  line-height:1.5
+}
+.file_box .header .headline .options .btn:hover {
+  color:#4b8fbc;
+  background-color:transparent
+}
+.file_box .header .headline .options .caret {
+  margin-left:6px
+}
+.file_box .header .headline .options .open>.dropdown-toggle {
+  color:#f39c12;
+  background-color:transparent
+}
+.file_box .header .headline .options .open>.dropdown-toggle .btn-default {
+  background-color:transparent
+}
+.file_box .header .headline .options .open>.dropdown-toggle:hover {
+  color:#4b8fbc
+}
+.file_box .header .headline .options .option {
+  color:#95a5a6;
+  background-color:transparent
+}
+.file_box .header .headline .options .option:hover {
+  color:white
+}
+.file_box .header .headline .options .option .glyphicon {
+  margin-right:5px
+}
+.file_box .header .headline .title {
+  float:left
+}
+.file_box .body {
+  margin-top:5px
+}
+.file_box .body div:nth-child(odd) .file_set {
+  background-color:#f5f5f5
+}
+.file_box .body div:nth-child(even) .file_set {
+  background-color:#f9f9f9
+}
+.file_box .body .file_set {
+  border-top:0 solid #ecf0f1;
+  padding:5px 0 5px 0
+}
+.file_box .body .file_set>.glyphicon-star {
+  color:#fafafa;
+  padding-right:5px;
+  padding-left:5px
+}
+.file_box .body .file_set.active_file>.glyphicon-star {
+  color:#6eba6b
+}
+.file_box .body .file_set .options .dropdown-menu>li>a:hover {
+  background-color:#f39c12
+}
+.file_box .body .file_set .options .btn {
+  margin-right:0;
+  padding:2px 10px;
+  background-color:transparent;
+  border:1px solid #b4bcc2;
+  border-width:0 0 0 0;
+  border-radius:0;
+  border-top-right-radius:0;
+  color:#95a5a6
+}
+.file_box .body .file_set .options .btn:hover {
+  color:#4b8fbc;
+  background-color:transparent
+}
+.file_box .body .file_set .options .caret {
+  margin-left:6px
+}
+.file_box .body .file_set .options .open>.dropdown-toggle {
+  color:#f39c12;
+  background-color:transparent
+}
+.file_box .body .file_set .options .open>.dropdown-toggle .btn-default {
+  background-color:transparent
+}
+.file_box .body .file_set .options .open>.dropdown-toggle:hover {
+  color:#4b8fbc
+}
+.file_box .body .file_set .options .option {
+  color:#95a5a6;
+  background-color:transparent
+}
+.file_box .body .file_set .options .option:hover {
+  color:white
+}
+.file_box .body .file_set .options .option .glyphicon {
+  margin-right:5px
+}
+.file_box .body .file_set .file_date {
+  color:#95a5a6;
+  padding-right:10px
+}
+.file_box .body .file_set .file_preview {
+  padding-right:10px
+}
+.file_box .body .file_set .file_preview img {
+  border:1 px solid #ccc;
+  width:16px;
+  height:16px;
+  background-color:#eee
+}
+.file_box .body .file_set .file_urn {
+  padding-left:2px
+}
+.file_box .body .file_set .file_size {
+  color:#95a5a6;
+  padding:0 10px 0 10px;
+  float:right
+}

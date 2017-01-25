@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+
+  <section title="Willkommen!" xml:lang="de">
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Hello, world!</h1>
+        <p>
+          This is only a template for start page. At vero eos et accusam et justo duo
+          dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+          Lorem ipsum dolor sit amet.
+         </p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h3><span class="glyphicon glyphicon-check"></span> fertig</h3>
+            <p>At vero eos et accusam et justo duo dolores et ea rebum.
+            Stet clita kasd gubergren, no sea takimata sanctus est
+            Lorem ipsum dolor sit amet.</p>
+        </div>
+        <div class="col-md-4">
+            <h3><span class="glyphicon glyphicon-flash"></span> mächtig</h3>
+            <p>At vero eos et accusam et justo duo dolores et ea rebum.
+            Stet clita kasd gubergren, no sea takimata sanctus est
+            Lorem ipsum dolor sit amet.</p>
+        </div>
+        <div class="col-md-4">
+            <h3><span class="glyphicon glyphicon-heart"></span> lebendig</h3>
+            <p>At vero eos et accusam et justo duo dolores et ea rebum.
+            Stet clita kasd gubergren, no sea takimata sanctus est
+            Lorem ipsum dolor sit amet.</p>
+        </div>
+    </div>
+  </section>
+  <meta>
+    <log date="2011-11-15" time="10:53" labelPath=" » Start" lastEditor="Kathleen Neumann" />
+  </meta>
+</MyCoReWebPage>

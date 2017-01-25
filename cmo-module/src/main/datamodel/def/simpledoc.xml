@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttype xmlns:mods="http://www.loc.gov/mods/v3"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            name="simpledoc"
+            isChild="true"
+            isParent="true"
+            hasDerivates="true"
+            xsi:noNamespaceSchemaLocation="datamodel.xsd">
+  <metadata>
+    <element name="creator" type="text" minOccurs="0" maxOccurs="unbounded" />
+    <element name="title" type="text" minOccurs="1" maxOccurs="unbounded" />
+    <element name="date" type="date" minOccurs="0" maxOccurs="unbounded" />
+    <element name="language" type="classification" minOccurs="1" maxOccurs="1">
+      <classification id="rfc4646" />
+    </element>
+  </metadata>
+</objecttype>

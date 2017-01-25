@@ -1,0 +1,6 @@
+update all classifications from directory ${app.home}/config/classifications
+update classification from url http://www.mycore.org/classifications/state.xml
+update classification from url http://www.mycore.org/classifications/mcr-roles.xml
+init superuser
+process ${app.home}/config/acl/defaultrules-commands.txt
+process ${app.home}/config/acl/webacl-commands.txt

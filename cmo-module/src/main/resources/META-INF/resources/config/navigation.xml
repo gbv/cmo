@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigation dir="/content" href="navigation" hrefStartingPage="/content/index.xml" template="template_cmo">
+  <menu id="brand" dir="/content/brand">
+    <label xml:lang="de">Menü</label>
+    <label xml:lang="en">menu</label>
+    <item href="/content/index.xml" type="intern">
+      <label xml:lang="de">Start</label>
+      <label xml:lang="en">Start</label>
+    </item>
+    <item href="/content/brand/impressum.xml" type="intern">
+      <label xml:lang="de">Impressum</label>
+      <label xml:lang="en">Impressum</label>
+    </item>
+    <item href="/content/brand/contact.xml" type="intern">
+      <label xml:lang="de">Kontakt</label>
+      <label xml:lang="en">Contact</label>
+    </item>
+  </menu>
+  <menu id="search">
+    <!-- search menu  -->
+    <label xml:lang="de">Suche</label>
+    <label xml:lang="en">Search</label>
+    <item href="/content/search/simple.xed" type="intern">
+      <label xml:lang="de">einfach</label>
+      <label xml:lang="en">simple</label>
+    </item>
+    <item href="/search/search-expert.xed" type="intern">
+      <label xml:lang="de">expert</label>
+      <label xml:lang="en">expert</label>
+    </item>
+  </menu>
+  <menu id="publish">
+    <!-- work with content menu  -->
+    <label xml:lang="de">Erfassen</label>
+    <label xml:lang="en">Publish</label>
+    <item href="/content/publish/simpledoc.xed" type="intern">
+      <label xml:lang="de">Neues 'simpledoc' anlegen</label>
+      <label xml:lang="en">Create new simpledoc</label>
+    </item>
+  </menu>
+  <menu id="user">
+    <label xml:lang="de">Nutzermenü</label>
+    <label xml:lang="en">User menu</label>
+    <group id="thisuser">
+      <item href="/authorization/change-password.xed?action=password" type="intern">
+        <label xml:lang="de">Passwort ändern</label>
+        <label xml:lang="en">Change Password</label>
+      </item>
+      <item href="/servlets/MCRUserServlet?action=show" type="intern">
+        <label xml:lang="de">Benutzerdaten anzeigen</label>
+        <label xml:lang="en">Show User Data</label>
+      </item>
+      <item href="/authorization/change-current-user.xed?action=saveCurrentUser" type="intern">
+        <label xml:lang="de">Kontaktdaten ändern</label>
+        <label xml:lang="en">Change user contact</label>
+      </item>
+    </group>
+    <group id="contentadmin">
+      <item href="/modules/classeditor/classificationEditor.xml" type="intern">
+        <label xml:lang="de">Klassifikationseditor</label>
+        <label xml:lang="en">Edit Classifications</label>
+      </item>
+      <item href="/rsc/ACLE/start" type="intern">
+        <label xml:lang="de">ACL-Editor</label>
+        <label xml:lang="en">ACL Editor</label>
+      </item>
+    </group>
+    <group id="useradmin">
+      <item href="/servlets/MCRUserServlet" type="intern">
+        <label xml:lang="de">Nutzerverwaltung</label>
+        <label xml:lang="en">Admin Users</label>
+      </item>
+      <item href="/authorization/new-user.xed?action=save" type="intern">
+        <label xml:lang="de">Nutzer anlegen</label>
+        <label xml:lang="en">Create User</label>
+      </item>
+      <item href="/authorization/roles-editor.xml" type="intern">
+        <label xml:lang="de">Rollen administrieren</label>
+        <label xml:lang="en">Manage roles</label>
+      </item>
+    </group>
+    <group id="miscadmin">
+      <item href="/modules/webcli/launchpad.xml" type="intern">
+        <label xml:lang="de">WebCLI</label>
+        <label xml:lang="en">WebCLI</label>
+      </item>
+      <item href="/servlets/MCRSessionListingServlet" type="intern">
+        <label xml:lang="de">Aktive Sitzungen</label>
+        <label xml:lang="en">Session Management</label>
+      </item>
+      <item href="/modules/wcms2/wcms2.xml?XSL.useMT=false" type="intern">
+        <label xml:lang="de">WCMS</label>
+        <label xml:lang="en">WCMS</label>
+      </item>
+    </group>
+    <item href="/servlets/logout?url=../content/index.xml" type="intern">
+      <label xml:lang="de">Abmelden</label>
+      <label xml:lang="en">Logout</label>
+    </item>
+  </menu>
+</navigation>
