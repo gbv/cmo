@@ -43,7 +43,7 @@
         <xsl:copy-of select="head/*" />
       </head>
 
-      <body>
+      <body style="font-family: 'molengo', 'Trebuchet MS', sans-serif;font-size: 16px;">
 
         <header>
             <xsl:call-template name="navigation" />
