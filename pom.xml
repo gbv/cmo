@@ -1,141 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.mycore</groupId>
     <artifactId>mycore-parent</artifactId>
-    <version>29</version>
+    <version>31-SNAPSHOT</version>
   </parent>
-  <groupId>org.mycore.cmo</groupId>
+  <groupId>de.vzg.cmo</groupId>
   <artifactId>cmo-parent</artifactId>
   <version>2017.01-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>CMO</name>
-  <description>MyCoRe application for project Corpus Musicae Ottomanicae</description>
+  <description>MyCoRe based application for project Corpus Musicae Ottomanicae</description>
   <inceptionYear>2017</inceptionYear>
+  <scm>
+    <connection>scm:git:https://github.com/gbv/cmo.git</connection>
+    <developerConnection>scm:git:https://github.com/gbv/cmo.git</developerConnection>
+    <url>https://github.com/gbv/cmo/tree/master</url>
+    <tag>HEAD</tag>
+  </scm>
   <prerequisites>
-    <maven>3.1.0</maven>
+    <maven>3.2.2</maven>
   </prerequisites>
   <properties>
     <!-- shall be in sync with corresponding MIR release -->
-    <java.target.version>1.8</java.target.version>
-    <mycore.version>2016.06.0.2-SNAPSHOT</mycore.version>
-    <hibernate.version>5.2.0.Final</hibernate.version>
-    <jetty.version>9.3.10.v20160621</jetty.version>
-    <tomcat8.version>8.5.5</tomcat8.version>
-    <node.version>v4.2.2</node.version>
-    <npm.version>3.5.0</npm.version>
-    <cargo.version>1.5.0</cargo.version>
-    <cargo.servlet.uriencoding>UTF-8</cargo.servlet.uriencoding>
     <cargo.container.zipUrlInstaller.downloadDir>${settings.localRepository}/../cargo/containers</cargo.container.zipUrlInstaller.downloadDir>
-    <cargo.deployable.default.groupId>${project.groupId}</cargo.deployable.default.groupId>
-    <cargo.deployable.default.artifactId>${project.artifactId}</cargo.deployable.default.artifactId>
-    <cargo.deployable.default.context>/</cargo.deployable.default.context>
-    <cargo.rmi.port>8290</cargo.rmi.port>
-    <cargo.servlet.port>8291</cargo.servlet.port>
-    <cargo.tomcat.ajp.port>8292</cargo.tomcat.ajp.port>
     <cargo.debug.address>8295</cargo.debug.address>
     <cargo.debug.suspend>n</cargo.debug.suspend>
+    <cargo.deployable.default.artifactId>${project.artifactId}</cargo.deployable.default.artifactId>
+    <cargo.deployable.default.context>/</cargo.deployable.default.context>
+    <cargo.deployable.default.groupId>${project.groupId}</cargo.deployable.default.groupId>
+    <cargo.rmi.port>8290</cargo.rmi.port>
+    <cargo.servlet.port>8291</cargo.servlet.port>
+    <cargo.servlet.uriencoding>UTF-8</cargo.servlet.uriencoding>
+    <cargo.tomcat.ajp.port>8292</cargo.tomcat.ajp.port>
+    <cargo.version>1.6.1</cargo.version>
     <changelog.since>2017-01-25</changelog.since>
+    <!-- until snapshot matches released version (required for 'mvn changes:changes-check') -->
+    <changes.version>2017.01</changes.version>
+    <hibernate.version>5.2.2.Final</hibernate.version>
+    <java.target.version>1.8</java.target.version>
+    <jetty.version>9.3.14.v20161028</jetty.version>
+    <mycore.version>2017.01-SNAPSHOT</mycore.version>
     <site.suffix />
+    <tomcat8.version>8.5.8</tomcat8.version>
   </properties>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>MyCoRe HQ</id>
-      <url>http://artifactory.mycore.de/mycore-releases</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </pluginRepository>
-    <pluginRepository>
-      <id>MyCoRe HQ Snapshots</id>
-      <url>http://artifactory.mycore.de/mycore-snapshots</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
-  <repositories>
-    <repository>
-      <id>MyCoRe HQ</id>
-      <url>http://artifactory.mycore.de/mycore-releases</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>MyCoRe HQ Snapshots</id>
-      <url>http://artifactory.mycore.de/mycore-snapshots</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
   <build>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <configuration>
-          <verbose>false</verbose>
-          <addSvnKeyWords>true</addSvnKeyWords>
-          <licenseName>gpl_v3</licenseName>
-        </configuration>
-        <executions>
-          <execution>
-            <id>download-licenses</id>
-            <goals>
-              <goal>update-project-license</goal>
-            </goals>
-            <phase>process-sources</phase>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-changes-plugin</artifactId>
-        <configuration>
-          <issueManagementSystems>
-            <issueManagementSystem>JIRA</issueManagementSystem>
-          </issueManagementSystems>
-          <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
-          <smtpPort implementation="java.lang.Integer">25</smtpPort>
-          <toAddresses>
-            <toAddress implementation="java.lang.String">mycore-user@lists.sourceforge.net</toAddress>
-          </toAddresses>
-          <mailSender>
-            <name>${changes.mailSender.name}</name>
-            <email>${changes.mailSender.email}</email>
-          </mailSender>
-          <template>announcement.vm</template>
-          <useJql>true</useJql>
-          <templateDirectory>src/changes</templateDirectory>
-              <!-- due to: http://jira.codehaus.org/browse/MCHANGES-333 -->
-          <maxEntries>1000</maxEntries>
-          <urlDownload>${project.url}/download.html</urlDownload>
-        </configuration>
-      </plugin>
-    </plugins>
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>license-maven-plugin</artifactId>
-          <version>1.9</version>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <dependencies>
+            <dependency>
+              <groupId>org.commonjava.maven.enforcer</groupId>
+              <artifactId>enforce-managed-deps-rule</artifactId>
+              <version>1.0</version>
+            </dependency>
+          </dependencies>
+          <executions>
+            <execution>
+              <id>enforce</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <requireManagedDeps implementation="org.commonjava.maven.enforcer.rule.EnforceManagedDepsRule">
+                    <checkProfiles>true</checkProfiles>
+                    <failOnViolation>true</failOnViolation>
+                  </requireManagedDeps>
+                  <!-- Disabled, https://issues.apache.org/jira/browse/MENFORCER-189 -->
+                  <!--
+                  <reactorModuleConvergence />
+                  -->
+                  <bannedDependencies>
+                    <excludes>
+                      <exclude>log4j</exclude>
+                      <exclude>org.slf4j</exclude>
+                      <exclude>javax.servlet:servlet-api</exclude>
+                    </excludes>
+                    <includes>
+                      <include>org.slf4j:slf4j-api</include>
+                      <include>org.slf4j:slf4j-ext</include>
+                      <include>org.slf4j:jcl-over-slf4j</include>
+                    </includes>
+                  </bannedDependencies>
+                </rules>
+                <fail>true</fail>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
-          <version>2.10</version>
+          <executions>
+            <execution>
+              <id>analyze</id>
+              <goals>
+                <goal>analyze-only</goal>
+              </goals>
+              <inherited>true</inherited>
+              <configuration>
+                <failOnWarning>true</failOnWarning>
+                <ignoreNonCompile>true</ignoreNonCompile>
+                <outputXML>true</outputXML>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>de.thetaphi</groupId>
+          <artifactId>forbiddenapis</artifactId>
+          <version>1.7</version>
+          <configuration>
+            <failOnUnsupportedJava>false</failOnUnsupportedJava>
+            <!-- compile would fail anyway and this is required for MCR-873 -->
+            <failOnMissingClasses>false</failOnMissingClasses>
+            <failOnUnresolvableSignatures>false</failOnUnresolvableSignatures>
+            <bundledSignatures>
+              <bundledSignature>jdk-unsafe</bundledSignature>
+              <bundledSignature>jdk-deprecated</bundledSignature>
+              <bundledSignature>commons-io-unsafe-2.4</bundledSignature>
+            </bundledSignatures>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>license-maven-plugin</artifactId>
+          <version>1.10</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
-          <version>2.6</version>
+          <version>3.0.0</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -146,11 +143,6 @@
           <groupId>org.codehaus.cargo</groupId>
           <artifactId>cargo-maven2-plugin</artifactId>
           <version>${cargo.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>com.github.eirslett</groupId>
-          <artifactId>frontend-maven-plugin</artifactId>
-          <version>1.0</version>
         </plugin>
         <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
         <plugin>
@@ -192,70 +184,84 @@
         </plugin>
       </plugins>
     </pluginManagement>
-  </build>
-  <reporting>
     <plugins>
       <plugin>
-        <artifactId>maven-changelog-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>license-maven-plugin</artifactId>
         <configuration>
-          <issueLinkUrl>https://mycore.atlassian.net/browse/%ISSUE%</issueLinkUrl>
-          <type>date</type>
-          <dates>
-            <date implementation="java.lang.String">${changelog.since}</date>
-          </dates>
-          <dateFormat>yyyy-MM-dd</dateFormat>
+          <verbose>false</verbose>
+          <addSvnKeyWords>true</addSvnKeyWords>
+          <licenseName>gpl_v3</licenseName>
         </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-changes-plugin</artifactId>
-        <version>2.11</version>
-        <inherited>false</inherited>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>jira-report</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-        <configuration>
-          <onlyCurrentVersion>true</onlyCurrentVersion>
-          <useJql>true</useJql>
-          <columnNames>Type,Key,Summary,Assignee,Status,Resolution,Component</columnNames>
-          <sortColumnNames>Type,Component,Key DESC</sortColumnNames>
-        </configuration>
+        <executions>
+          <execution>
+            <id>download-licenses</id>
+            <goals>
+              <goal>update-project-license</goal>
+            </goals>
+            <phase>process-sources</phase>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
-  </reporting>
-  <modules>
-    <module>cmo-module</module>
-    <module>cmo-webapp</module>
-    <module>cmo-cli</module>
-  </modules>
-  <developers>
-    <developer>
-      <id>kkrebs</id>
-      <name>Kathleen Neumann</name>
-      <organization>Verbundzentrale des GBV (VZG), Document Management System</organization>
-      <email>Kathleen.Neumann (at) gbv.de</email>
-      <organizationUrl>http://www.gbv.de</organizationUrl>
-      <timezone>+1</timezone>
-      <roles>
-        <role>coordination</role>
-        <role>developer</role>
-      </roles>
-    </developer>
-    <developer>
-      <id>paschty</id>
-      <name>Sebastian Hofmann</name>
-      <organization>Verbundzentrale des GBV (VZG), Document Management System</organization>
-      <email>Sebastian.Hofmann (at) gbv.de</email>
-      <organizationUrl>http://www.gbv.de</organizationUrl>
-      <timezone>+1</timezone>
-      <roles>
-        <role>developer</role>
-      </roles>
-    </developer>
-  </developers>
+  </build>
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>MyCoRe HQ</id>
+      <url>http://artifactory.mycore.de/mycore-releases</url>
+    </repository>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>MyCoRe HQ Snapshots</id>
+      <url>http://artifactory.mycore.de/mycore-snapshots</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </pluginRepository>
+    <pluginRepository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>MyCoRe HQ</id>
+      <url>http://artifactory.mycore.de/mycore-releases</url>
+    </pluginRepository>
+    <pluginRepository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>MyCoRe HQ Snapshots</id>
+      <url>http://artifactory.mycore.de/mycore-snapshots</url>
+    </pluginRepository>
+  </pluginRepositories>
   <profiles>
     <profile>
       <id>release-profile</id>
@@ -363,11 +369,29 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>com.yahoo.platform.yui</groupId>
+        <artifactId>yuicompressor</artifactId>
+        <version>2.4.8</version>
+      </dependency>
+      <dependency>
+        <groupId>de.erichseifert.vectorgraphics2d</groupId>
+        <artifactId>VectorGraphics2D</artifactId>
+        <version>0.11</version>
+      </dependency>
+      <dependency>
+        <groupId>io.bit3</groupId>
+        <artifactId>jsass</artifactId>
+        <version>4.1.0</version>
+      </dependency>
+      <dependency>
         <groupId>org.mycore</groupId>
-        <artifactId>mycore</artifactId>
+        <artifactId>mycore-base</artifactId>
         <version>${mycore.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mycore</groupId>
+        <artifactId>mycore-iview2</artifactId>
+        <version>${mycore.version}</version>
       </dependency>
       <dependency>
         <groupId>org.mycore</groupId>
@@ -388,29 +412,6 @@
             <artifactId>maven-scm-provider-svnexe</artifactId>
           </exclusion>
         </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
-        <artifactId>mycore-base</artifactId>
-        <version>${mycore.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
-        <artifactId>mycore-base</artifactId>
-        <version>${mycore.version}</version>
-        <type>test-jar</type>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
-        <artifactId>mycore-ifs</artifactId>
-        <version>${mycore.version}</version>
-        <scope>runtime</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
-        <artifactId>mycore-iview2</artifactId>
-        <version>${mycore.version}</version>
       </dependency>
       <dependency>
         <groupId>org.mycore</groupId>
@@ -451,11 +452,76 @@
       </dependency>
       <dependency>
         <groupId>org.mycore</groupId>
+        <artifactId>mycore-viewer</artifactId>
+        <version>${mycore.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mycore</groupId>
         <artifactId>mycore-wfc</artifactId>
         <version>${mycore.version}</version>
       </dependency>
+      <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+      <dependency>
+        <groupId>com.mchange</groupId>
+        <artifactId>c3p0</artifactId>
+        <version>0.9.5.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mycore</groupId>
+        <artifactId>mycore-ifs</artifactId>
+        <version>${mycore.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mycore</groupId>
+        <artifactId>mycore</artifactId>
+        <version>${mycore.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <version>1.4.193</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mycore</groupId>
+        <artifactId>mycore-base</artifactId>
+        <version>${mycore.version}</version>
+        <type>test-jar</type>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
+  <developers>
+    <developer>
+      <id>kkrebs</id>
+      <name>Kathleen Neumann</name>
+      <organization>Verbundzentrale des GBV (VZG), Document Management System</organization>
+      <email>Kathleen.Neumann (at) gbv.de</email>
+      <organizationUrl>http://www.gbv.de</organizationUrl>
+      <timezone>+1</timezone>
+      <roles>
+        <role>coordination</role>
+        <role>developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>paschty</id>
+      <name>Sebastian Hofmann</name>
+      <organization>Verbundzentrale des GBV (VZG), Document Management System</organization>
+      <email>Sebastian.Hofmann (at) gbv.de</email>
+      <organizationUrl>http://www.gbv.de</organizationUrl>
+      <timezone>+1</timezone>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
+  </developers>
+  <modules>
+    <module>cmo-module</module>
+    <module>cmo-webapp</module>
+    <module>cmo-cli</module>
+  </modules>
 </project>
-
-

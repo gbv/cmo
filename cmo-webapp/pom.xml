@@ -1,9 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.mycore.cmo</groupId>
+    <groupId>de.vzg.cmo</groupId>
     <artifactId>cmo-parent</artifactId>
     <version>2017.01-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>cmo-webapp</artifactId>
   <packaging>war</packaging>
@@ -11,30 +13,12 @@
   <description>Web application that bundles are part in a single artifact</description>
   <properties>
     <MCR.AppName>cmo</MCR.AppName>
-    <solr.home>${cmo.solr.home}</solr.home>
-    <solr.data.dir>${cmo.solr.data.dir}</solr.data.dir>
-    <cargo.jvmargs>
-      -DMCR.AppName=${MCR.AppName}
+    <cargo.jvmargs>-DMCR.AppName=${MCR.AppName}
       -Dsolr.solr.home=${solr.home}
-      -Dsolr.data.dir=${solr.data.dir}
-    </cargo.jvmargs>
+      -Dsolr.data.dir=${solr.data.dir}</cargo.jvmargs>
+    <solr.data.dir>${cmo.solr.data.dir}</solr.data.dir>
+    <solr.home>${cmo.solr.home}</solr.home>
   </properties>
-  <profiles>
-    <profile>
-      <id>dev</id>
-      <properties>
-        <MCR.DataPrefix>dev</MCR.DataPrefix>
-        <cargo.jvmargs>
-          -Djava.awt.headless=true
-          -DMCR.AppName=${MCR.AppName}
-          -DMCR.DataPrefix=${MCR.DataPrefix}
-          -Dsolr.solr.home=${solr.home}
-          -Dsolr.data.dir=${solr.data.dir}
-          -Xrunjdwp:transport=dt_socket,server=y,suspend=${cargo.debug.suspend},address=${cargo.debug.address}
-        </cargo.jvmargs>
-      </properties>
-    </profile>
-  </profiles>
   <build>
     <finalName>cmo-${project.version}</finalName>
     <plugins>
@@ -49,16 +33,16 @@
                 <!-- used by this war -->
                 <useDependency>org.mycore:mycore-meta</useDependency>
                 <useDependency>org.mycore.mir:mir-common-resources</useDependency>
-                <useDependency>org.mycore.cmo:cmo-module</useDependency>
+                <useDependency>de.vzg.cmo:cmo-module</useDependency>
               </usedDependencies>
             </configuration>
           </execution>
           <execution>
             <id>copy</id>
-            <phase>compile</phase>
             <goals>
               <goal>copy</goal>
             </goals>
+            <phase>compile</phase>
             <configuration>
               <artifactItems>
                 <artifactItem>
@@ -110,11 +94,9 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>org.mycore.solr</groupId>
-      <artifactId>solr</artifactId>
-      <version>4.10.4</version>
-      <type>war</type>
-      <scope>provided</scope>
+      <groupId>org.mycore.mir</groupId>
+      <artifactId>mir-common-resources</artifactId>
+      <version>2017.01-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -127,9 +109,25 @@
       <type>pom</type>
     </dependency>
     <dependency>
-      <groupId>org.mycore.mir</groupId>
-      <artifactId>mir-common-resources</artifactId>
-      <version>2016.06.0.2-SNAPSHOT</version>
+      <groupId>org.mycore.solr</groupId>
+      <artifactId>solr</artifactId>
+      <version>4.10.4</version>
+      <type>war</type>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <properties>
+        <MCR.DataPrefix>dev</MCR.DataPrefix>
+        <cargo.jvmargs>-Djava.awt.headless=true
+          -DMCR.AppName=${MCR.AppName}
+          -DMCR.DataPrefix=${MCR.DataPrefix}
+          -Dsolr.solr.home=${solr.home}
+          -Dsolr.data.dir=${solr.data.dir}
+          -Xrunjdwp:transport=dt_socket,server=y,suspend=${cargo.debug.suspend},address=${cargo.debug.address}</cargo.jvmargs>
+      </properties>
+    </profile>
+  </profiles>
 </project>
