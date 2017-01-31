@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="de" title="Tutorial">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Tutorial</h1>
+        <p>
+          This section should be included only if it is possible to add video
+          tutorials on how to use the website/search functions in the future.
+          Details must be clarified with the technical team.
+        </p>
+      </div>
+    </div>
+  </section>
+  <meta>
+    <log date="2017-01-30" time="11:59" labelPath=" » Tutorial" lastEditor="Kathleen Neumann" />
+  </meta>
+</MyCoReWebPage>

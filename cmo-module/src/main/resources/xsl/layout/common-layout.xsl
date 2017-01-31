@@ -2,10 +2,10 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:basket="xalan://org.mycore.frontend.basket.MCRBasketManager" xmlns:mcr="http://www.mycore.org/" xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
   xmlns:actionmapping="xalan://org.mycore.wfc.actionmapping.MCRURLRetriever" xmlns:mcrver="xalan://org.mycore.common.MCRCoreVersion"
-  xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions" xmlns:layoutUtils="xalan:///org.mycore.frontend.MCRLayoutUtilities"
-  exclude-result-prefixes="layoutUtils xlink basket actionmapping mcr mcrver mcrxsl i18n">
+  xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions" xmlns:layoutUtils="xalan:///org.mycore.frontend.MCRLayoutUtilities" xmlns:exslt="http://exslt.org/common"
+  exclude-result-prefixes="layoutUtils xlink basket actionmapping mcr mcrver mcrxsl i18n exslt">
   <xsl:strip-space elements="*" />
-  <xsl:param name="CurrentLang" select="'de'" />
+  <xsl:param name="CurrentLang" select="'en'" />
   <xsl:param name="CurrentUser" />
   <xsl:param name="numPerPage" />
   <xsl:param name="previousObject" />
@@ -16,6 +16,7 @@
   <xsl:param name="page" />
   <xsl:param name="breadCrumb" />
   <xsl:param name="MCR.NameOfProject" />
+  <xsl:param name="MCR.Metadata.Languages" select="'en'" />
   <xsl:include href="layout-utils.xsl" />
   <xsl:variable name="loaded_navigation_xml" select="layoutUtils:getPersonalNavigation()/navigation" />
   <xsl:variable name="browserAddress">
@@ -171,6 +172,51 @@
         <xsl:value-of select="label[lang($DefaultLang)]" />
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="languageMenu">
+    <li class="dropdown">
+      <a data-toggle="dropdown" title="{i18n:translate('language.change')}">
+        <xsl:value-of select="i18n:translate(concat('language.change.', $CurrentLang))" />
+        <span class="caret" />
+      </a>
+      <ul class="dropdown-menu language-menu" role="menu">
+        <xsl:variable name="availableLanguages">
+          <xsl:call-template name="Tokenizer"><!-- use split function from mycore-base/coreFunctions.xsl -->
+            <xsl:with-param name="string" select="$MCR.Metadata.Languages" />
+            <xsl:with-param name="delimiter" select="','" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:for-each select="exslt:node-set($availableLanguages)/token">
+          <xsl:variable name="lang"><xsl:value-of select="mcrxsl:trim(.)" /></xsl:variable>
+          <xsl:if test="$lang!='' and $CurrentLang!=$lang">
+            <li>
+              <xsl:variable name="langURL">
+                <xsl:call-template name="languageLink">
+                  <xsl:with-param name="lang" select="$lang" />
+                </xsl:call-template>
+              </xsl:variable>
+              <a href="{$langURL}" title="{i18n:translate(concat('language.', $lang))}">
+                <xsl:value-of select="i18n:translate(concat('language.change.', $lang))" />
+              </a>
+            </li>
+          </xsl:if>
+        </xsl:for-each>
+      </ul>
+    </li>
+  </xsl:template>
+  <xsl:template name="languageLink">
+    <xsl:param name="lang" />
+    <xsl:variable name="langURL">
+      <xsl:call-template name="UrlSetParam">
+        <xsl:with-param name="url" select="$RequestURL" />
+        <xsl:with-param name="par" select="'lang'" />
+        <xsl:with-param name="value" select="$lang" />
+      </xsl:call-template>
+    </xsl:variable>
+    <xsl:call-template name="UrlAddSession">
+      <xsl:with-param name="url" select="$langURL" />
+    </xsl:call-template>
   </xsl:template>
 
 

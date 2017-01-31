@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="de" title="Imprint">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Imprint</h1>
+        <p>
+          Corpus Musicae Ottomanicae <br />
+          Westfälische Wilhelms-Universität Münster <br />
+          Philippistr. 3 <br />
+          48149 Münster <br />
+          Tel.: +49 251 83-24441 <br />
+          Fax:  +49 251 83-24450 <br />
+          E-Mail: <a href="mailto:monika.zimmermann@uni-muenster.de">
+            monika.zimmermann@uni-muenster.de</a><br />
+          Projekt-Leitung: <a ref="http://wwwuv2.uni-muenster.de/kommentieren/kontakt.php?empf=ralf.jaeger&amp;k=1">ralf.jaeger@uni-muenster.de</a>
+        </p>
+        <p>Das CMO-Projekt ist ein von der Deutschen Forschungsgemeinschaft
+          (DFG) gefördertes Langzeitvorhaben. Zentraler Durchführungsort ist
+          das Institut für Musikwissenschaft an der Westfälischen
+          Wilhelms-Universität Münster (Fachbereich 8). Der Fachbereich 8 ist
+          eine Einrichtung der Westfälischen Wilhelms-Universität Münster. Die
+          Westfälische Wilhelms-Universität (WWU) Münster ist eine
+          Körperschaft des öffentlichen Rechts und zugleich eine Einrichtung
+          des Landes Nordrhein-Westfalen. Sie wird vertreten durch den Rektor/
+          die Rektorin.</p>
+        <p>
+          Ebenfalls ins das Projekt involviert sind das <a href="https://www.uni-muenster.de/ArabistikIslam/"
+          >Institut für Arabistik und Islamwissenschaft</a> an der Westfälischen Wilhelms-Universität
+          Münster, die <a href="http://www.maxweberstiftung.de/startseite.html">Max Weber Stiftung –
+          Deutsche Geisteswissenschaftliche Institute im Ausland</a> sowie das
+          <a href="http://www.maxweberstiftung.de/institute/institute-oi-istanbul.html">Orient-Institut Istanbul</a>.
+        </p>
+
+      </div>
+    </div>
+  </section>
+  <meta>
+    <log date="2017-01-30" time="11:59" labelPath=" » Imprint" lastEditor="Kathleen Neumann" />
+  </meta>
+</MyCoReWebPage>

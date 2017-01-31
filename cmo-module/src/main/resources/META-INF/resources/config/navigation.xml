@@ -1,41 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <navigation dir="/content" href="navigation" hrefStartingPage="/content/index.xml" template="template_cmo">
-  <menu id="brand" dir="/content/brand">
+  <menu id="main">
     <label xml:lang="de">Menü</label>
-    <label xml:lang="en">menu</label>
+    <label xml:lang="en">Menu</label>
     <item href="/content/index.xml" type="intern">
       <label xml:lang="de">Start</label>
       <label xml:lang="en">Start</label>
     </item>
-    <item href="/content/brand/impressum.xml" type="intern">
+  </menu>
+  <menu id="brand" dir="/content/brand">
+    <label xml:lang="de">Über uns</label>
+    <label xml:lang="en">About</label>
+    <item href="/content/brand/about.xml" type="intern">
+      <label xml:lang="de">Über uns</label>
+      <label xml:lang="en">About</label>
+    </item>
+  </menu>
+  <menu id="below" dir="/content/below">
+    <item href="/content/below/impressum.xml" type="intern">
       <label xml:lang="de">Impressum</label>
       <label xml:lang="en">Impressum</label>
     </item>
-    <item href="/content/brand/contact.xml" type="intern">
+    <item href="/content/below/contact.xml" type="intern">
       <label xml:lang="de">Kontakt</label>
       <label xml:lang="en">Contact</label>
     </item>
   </menu>
-  <menu id="search">
-    <!-- search menu  -->
-    <label xml:lang="de">Suche</label>
-    <label xml:lang="en">Search</label>
-    <item href="/content/search/simple.xed" type="intern">
-      <label xml:lang="de">einfach</label>
-      <label xml:lang="en">simple</label>
+  <menu id="edition" dir="/content/edition">
+    <!-- CMO edition menu  -->
+    <label xml:lang="de">CMO Edition</label>
+    <label xml:lang="en">CMO Edition</label>
+    <item href="/content/edition/browse.xml" type="intern">
+      <label xml:lang="de">Blättern</label>
+      <label xml:lang="en">Browse edition</label>
     </item>
-    <item href="/search/search-expert.xed" type="intern">
-      <label xml:lang="de">expert</label>
-      <label xml:lang="en">expert</label>
+    <item href="/content/edition/search.xed" type="intern">
+      <label xml:lang="de">Suchen</label>
+      <label xml:lang="en">Search Edition</label>
+    </item>
+    <item href="/content/edition/guidelines.xml" type="intern">
+      <label xml:lang="de">Leitlinien</label>
+      <label xml:lang="en">Edition guidelines</label>
     </item>
   </menu>
-  <menu id="publish">
+  <menu id="catalogue" dir="/content/catalogue">
+    <!-- CMO catalogue menu  -->
+    <label xml:lang="de">CMO Katalog</label>
+    <label xml:lang="en">CMO catalogue</label>
+    <item href="/content/catalogue/browse.xml" type="intern">
+      <label xml:lang="de">Blättern</label>
+      <label xml:lang="en">Browse catalogue</label>
+    </item>
+    <item href="/content/catalogue/user_guide.xml" type="intern">
+      <label xml:lang="de">Handbuch</label>
+      <label xml:lang="en">User guide</label>
+    </item>
+  </menu>
+  <menu id="help" dir="/content/help">
+    <!-- CMO help menu  -->
+    <label xml:lang="de">Hilfe</label>
+    <label xml:lang="en">Help</label>
+    <item href="/content/help/user_guide.xml" type="intern">
+      <label xml:lang="de">Nutzerhandbuch</label>
+      <label xml:lang="en">User Guide</label>
+    </item>
+    <item href="/content/help/tutorial.xml" type="intern">
+      <label xml:lang="de">Tutorials</label>
+      <label xml:lang="en">Tutorials</label>
+    </item>
+  </menu>
+  <menu id="publish" dir="/content/publish">
     <!-- work with content menu  -->
-    <label xml:lang="de">Erfassen</label>
-    <label xml:lang="en">Publish</label>
+    <label xml:lang="de">Bearbeiter</label>
+    <label xml:lang="en">Editor</label>
     <item href="/content/publish/simpledoc.xed" type="intern">
       <label xml:lang="de">Neues 'simpledoc' anlegen</label>
       <label xml:lang="en">Create new simpledoc</label>
+    </item>
+    <item href="/search/search-expert.xed" type="intern">
+      <label xml:lang="de">Expertensuche</label>
+      <label xml:lang="en">expert search</label>
     </item>
   </menu>
   <menu id="user">

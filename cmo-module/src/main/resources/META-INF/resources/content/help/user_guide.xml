@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="de" title="User guide">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>User guide</h1>
+        <p>
+          The user guide is not available yet; it will be prepared after the
+          search functions and methods are defined more clearly.
+        </p>
+      </div>
+    </div>
+  </section>
+  <meta>
+    <log date="2017-01-30" time="11:59" labelPath=" » User guide" lastEditor="Kathleen Neumann" />
+  </meta>
+</MyCoReWebPage>

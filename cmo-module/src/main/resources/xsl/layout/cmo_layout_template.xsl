@@ -66,35 +66,10 @@
         <footer class="panel-footer" role="contentinfo">
           <div class="container">
             <div class="row">
-              <div class="col-xs-12 col-sm-6 col-md-4">
-                <h4>Über uns</h4>
-                  <p>
-                      Lorem ipsum dolor sit amet, consetetur sadipscing
-                      elitr, sed diam nonumy eirmod tempor invidunt ut
-                      labore et dolore magna aliquyam erat, sed diam voluptua.
-                      <span class="read_more">
-                        <a href="#">Mehr erfahren ...</a>
-                      </span>
-                  </p>
-                </div>
-                <div class="col-xs-6 col-sm-3 col-md-2">
+                <div class="col-md-12">
                   <h4>Navigation</h4>
                   <ul class="internal_links">
-                    <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='brand']/*" />
-                  </ul>
-                </div>
-                <div class="col-xs-6 col-sm-3 col-md-2">
-                  <h4>Netzwerke</h4>
-                  <ul class="social_links">
-                      <li><a href="#"><button type="button" class="fa fa-facebook"></button>Facebook</a></li>
-                      <li><a href="#"><button type="button" class="fa fa-twitter"></button>Twitter</a></li>
-                      <li><a href="#"><button type="button" class="fa fa-google-plus"></button>Google+</a></li>
-                  </ul>
-                </div>
-                <div class="col-xs-6 col-sm-3 col-md-2">
-                  <h4>Layout based on</h4>
-                  <ul class="internal_links">
-                    <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
+                    <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='below']/*" />
                   </ul>
                 </div>
             </div>
@@ -142,6 +117,7 @@
         <nav>
           <ul class="nav navbar-nav pull-right">
             <xsl:call-template name="loginMenu" />
+            <xsl:call-template name="languageMenu" />
           </ul>
         </nav>
       </div>
@@ -151,7 +127,7 @@
           Corpus Musicae Ottomanicae
       </a>
       </div>
-      </div>
+    </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="navbar navbar-default">
@@ -180,8 +156,11 @@
 
         <nav class="collapse navbar-collapse main-nav-entries">
           <ul class="nav navbar-nav pull-left">
-            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='search']" />
-            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='browse']" />
+            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='brand']" />
+            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='edition']" />
+            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='catalogue']" />
+            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='help']" />
+            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='tutorial']" />
             <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='publish']" />
           </ul>
         </nav>

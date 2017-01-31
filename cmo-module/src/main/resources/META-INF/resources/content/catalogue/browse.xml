@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="de" title="Browse catalogue">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Browse catalogue</h1>
+        <p>
+          Indexes of following categories based on the data derived from the CMO
+          Catalogue with links to respective data:
+        </p>
+        <ul>
+          <li>Source</li>
+          <li>Composer</li>
+          <li>Lyricist</li>
+          <li>Makâm</li>
+          <li>Usûl</li>
+          <li>Genre</li>
+          <li>Literary form</li>
+          <li>Incipit</li>
+          <li>Poetic title</li>
+        </ul>
+        <p>
+          For a suggestion of how an index list might be displayed, see
+          ex. 6. Exact contents of individual lists are still to be decided by
+          the editorial team.
+        </p>
+      </div>
+    </div>
+  </section>
+  <meta>
+    <log date="2017-01-30" time="11:59" labelPath=" » Browse catalogue" lastEditor="Kathleen Neumann" />
+  </meta>
+</MyCoReWebPage>

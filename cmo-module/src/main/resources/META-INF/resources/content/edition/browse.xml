@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="de" title="Browse edition">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Browse edition</h1>
+        <p>
+          (This naming might be changed later; content remains the
+          same.) List of publications according to publication plan with
+          options to view/download certain elements and connections to
+          the CMO Catalogue (see Appendix V for details).
+        </p>
+      </div>
+    </div>
+  </section>
+  <meta>
+    <log date="2017-01-30" time="11:59" labelPath=" » Browse edition"
+      lastEditor="Kathleen Neumann" />
+  </meta>
+</MyCoReWebPage>

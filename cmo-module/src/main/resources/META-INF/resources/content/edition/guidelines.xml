@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="de" title="Edition guidelines">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Edition guidelines</h1>
+        <p>
+          Guidelines are displayed as text, including a list of “Bibliography”
+          (data derived from CMO Catalogue), and a “List of abbreviations” as
+          text, both of which will be updated from time to time.
+        </p>
+        <p>
+          “Standard List of Musical Terms” will be explained in text and will also
+          be available to download as PDF.
+        </p>
+      </div>
+    </div>
+  </section>
+  <meta>
+    <log date="2017-01-30" time="11:59" labelPath=" » Edition guidelines" lastEditor="Kathleen Neumann" />
+  </meta>
+</MyCoReWebPage>
