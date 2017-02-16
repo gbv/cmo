@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0"
+             xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_litform">
+  <label text="cmo_litform" xml:lang="ar" />
+  <categories>
+    <category ID="lf-99333322-3">
+      <label xml:lang="ar" text="Ġazel" />
+    </category>
+    <category ID="lf-24518214-2">
+      <label xml:lang="ar" text="İlâhî" />
+    </category>
+    <category ID="lf-96462412-2">
+      <label xml:lang="ar" text="Ḳaṣīde" />
+    </category>
+    <category ID="lf-18905691-5">
+      <label xml:lang="ar" text="Rubāʿī" />
+    </category>
+    <category ID="lf-93591502-1">
+      <label xml:lang="ar" text="Musammaṭ" />
+    </category>
+    <category ID="lf-16034782-6">
+      <label xml:lang="ar" description="Müzdeviç" text="Müzdevic" />
+    </category>
+    <category ID="lf-90720593-5">
+      <label xml:lang="ar" text="Mükerrer" />
+    </category>
+    <category ID="lf-13163872-5">
+      <label xml:lang="ar" text="Murabbaʿ" />
+    </category>
+    <category ID="lf-87849683-5">
+      <label xml:lang="ar" text="Muḫammes" />
+    </category>
+    <category ID="lf-32736242-5">
+      <label xml:lang="ar" text="Şarḳı" />
+    </category>
+    <category ID="lf-07422053-0">
+      <label xml:lang="ar" description="Naẓm" text="Ḳıṭʿa" />
+    </category>
+    <category ID="lf-29865332-7">
+      <label xml:lang="ar" description="Mustazād" text="Müstezād" />
+    </category>
+  </categories>
+</mycoreclass>

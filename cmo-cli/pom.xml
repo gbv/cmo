@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>de.vzg.cmo</groupId>
@@ -11,7 +12,7 @@
   <name>CMO: Command Line Interface</name>
   <description>ZIP package ready to run MyCoRe commands from shell</description>
   <properties>
-    <MCR.AppName>cmo</MCR.AppName>
+    <MCR.AppName>dev-cmo</MCR.AppName>
     <acl-description.admins>administrators only</acl-description.admins>
     <acl-description.all>always allowed</acl-description.all>
     <acl-description.editors>administrators and editors</acl-description.editors>

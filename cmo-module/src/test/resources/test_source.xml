@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~  This file is part of ***  M y C o R e  ***
+  ~  See http://www.mycore.de/ for details.
+  ~
+  ~  This program is free software; you can use it, redistribute it
+  ~  and / or modify it under the terms of the GNU General Public License
+  ~  (GPL) as published by the Free Software Foundation; either version 2
+  ~  of the License or (at your option) any later version.
+  ~
+  ~  This program is distributed in the hope that it will be useful, but
+  ~  WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with this program, in a file called gpl.txt or license.txt.
+  ~  If not, write to the Free Software Foundation Inc.,
+  ~  59 Temple Place - Suite 330, Boston, MA  02111-1307 USA
+  ~
+  -->
+<source xmlns="http://www.music-encoding.org/ns/mei" xml:id="pr-35605954-8">
+  <identifier type="CMO">TMKl-Zek/III</identifier>
+  <titleStmt>
+    <title type="main">Türk Musikisi Klasiklerinden</title>
+    <title type="sub">Hafız M. Zekâi Dede Efendi Külliyatı Zeyli: Üçüncü Cild</title>
+    <title type="sub">Hamamı Zade İsmail Dedenin Hicaz buselik ve Saba buselik; Mehmet Arif ağanın
+      Acem buselik ve Halim, Mehmet Arif ağaların Sultanî Irak fasılları ve Dede efendinin Eviç
+      buselik bestesi</title>
+    <title type="desc">Zekâi Dede Zade Ahmed ve Doktor Subhiden müteşekkil konservatuar [sic]
+      «Tasnif ve Tesbit Heyeti» tarafından notaya alınmış kıymeti haiz eserleri havidir.</title>
+    <editor>
+      [Irsoy], Zekâi Dede Zade Ahmed
+      <persName nymref="cmo_person_00000341">Irsoy,
+        Ahmed</persName>
+    </editor>
+    <editor>
+      [Ezgi], Subhi
+      <persName nymref="cmo_person_00000211">Ezgi, Suphi Zühtü</persName>
+    </editor>
+    <respStmt>
+      <resp>Printer</resp>
+      <corpName>Alkaya Matbaası</corpName>
+    </respStmt>
+  </titleStmt>
+  <itemList />
+  <pubStmt>
+    <publisher>İstanbul Konservatuarı [sic] Neşriyatı</publisher>
+    <pubPlace>
+      <geogName>Istanbul</geogName>
+    </pubPlace>
+    <date startdate="1943" enddate="1943" calendar="gregorian">1943</date>
+  </pubStmt>
+  <seriesStmt>
+    <title type="main">Türk Musikisi Klasiklerinden</title>
+    <title type="sub">Hafız M. Zekâi Dede Efendi Külliyatı</title>
+    <biblScope unit="vol">III</biblScope>
+  </seriesStmt>
+  <contents>
+    <p />
+  </contents>
+  <notesStmt>
+    <annot />
+  </notesStmt>
+  <classification>
+    <termList>
+      <term>Printed source</term>
+      <term>Mixed musical Collection</term>
+      <term>Staff notation</term>
+    </termList>
+  </classification>
+  <langUsage>
+    <language xml:id="tur">Modern Turkish</language>
+    <language xml:id="ota-latn">Ottoman Turkish in Latin script</language>
+  </langUsage>
+  <componentGrp />
+</source>

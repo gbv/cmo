@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0"
+             xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_usuler">
+  <label text="cmo_usuler" xml:lang="ar" />
+  <categories>
+    <category ID="us-81480666-4">
+      <label xml:lang="ar" text="Aksak" />
+    </category>
+    <category ID="us-30852288-X">
+      <label xml:lang="ar" text="Aksak semâî" />
+    </category>
+    <category ID="us-05538099-3">
+      <label xml:lang="ar" description="Aksak semâî evfer" text="Aksak semâî evferi" />
+    </category>
+    <category ID="us-80223909-8">
+      <label xml:lang="ar" text="Artık aksak" />
+    </category>
+    <category ID="us-54909720-9">
+      <label xml:lang="ar" text="Aydın aksak" />
+    </category>
+    <category ID="us-29595531-8">
+      <label xml:lang="ar" description="Bektâşî rakış" text="Bektâşî raksı" />
+    </category>
+    <category ID="us-78967153-0">
+      <label xml:lang="ar" text="Berefşân" />
+    </category>
+    <category ID="us-53652964-6">
+      <label xml:lang="ar" text="Bulgar darbı" />
+    </category>
+    <category ID="us-28338775-X">
+      <label xml:lang="ar" text="Curcuna" />
+    </category>
+    <category ID="us-03024586-2">
+      <label xml:lang="ar" description="Çember" text="Çenber" />
+    </category>
+    <category ID="us-77710396-3">
+      <label xml:lang="ar" description="Çengi harbi" text="Çeng-i harbî" />
+    </category>
+    <category ID="us-52396207-0">
+      <label xml:lang="ar" text="Çifte düyek" />
+    </category>
+    <category ID="us-27082018-6">
+      <label xml:lang="ar" text="Çifte sofyân" />
+    </category>
+    <category ID="us-01767829-9">
+      <label xml:lang="ar" description="Darp, Zarb, Zarp" text="Darb" />
+    </category>
+    <category ID="us-76453640-X">
+      <label xml:lang="ar" description="Darbeyin, Zarbeyn, Zarbeyin" text="Darbeyn" />
+    </category>
+    <category ID="us-51139451-0">
+      <label xml:lang="ar" description="Darbı fetih, Zarbı fetih" text="Darb-ı fetih" />
+    </category>
+    <category ID="us-25825262-5">
+      <label xml:lang="ar"
+             description="Zarb-ı Türki , Darbı Türki, Zarbı Türki, Türkî darp, Türk darbı, Türkî zarp, Türk zarbı"
+             text="Darb-ı Türkî" />
+    </category>
+    <category ID="us-51078557-3">
+      <label xml:lang="ar" text="Darb-ı Kürdî" />
+    </category>
+    <category ID="us-00511072-7">
+      <label xml:lang="ar" description="Devri Hindi" text="Devr-i Hindî" />
+    </category>
+    <category ID="us-75196883-4">
+      <label xml:lang="ar" description="Devri kebir" text="Devr-i kebîr" />
+    </category>
+    <category ID="us-49882694-9">
+      <label xml:lang="ar" description="Devr-i rivan, Devri revan, Devri rivan" text="Devr-i revân" />
+    </category>
+    <category ID="us-24568505-2">
+      <label xml:lang="ar" description="Devri Turan" text="Devr-i Tûrân" />
+    </category>
+    <category ID="us-99254316-5">
+      <label xml:lang="ar" text="Dolap" />
+    </category>
+    <category ID="us-73940127-7">
+      <label xml:lang="ar" description="Durak evfer" text="Durak evferi" />
+    </category>
+    <category ID="us-48625938-3">
+      <label xml:lang="ar" text="Düyek" />
+    </category>
+    <category ID="us-23311749-6">
+      <label xml:lang="ar" text="Evfer" />
+    </category>
+    <category ID="us-97997559-9">
+      <label xml:lang="ar" text="Evsat" />
+    </category>
+    <category ID="us-72683370-X">
+      <label xml:lang="ar" text="Fâhte" />
+    </category>
+    <category ID="us-47369181-3">
+      <label xml:lang="ar" description="Fer" text="Fer’" />
+    </category>
+    <category ID="us-22054992-9">
+      <label xml:lang="ar" description="Firengi fer', Frengi fer, Firengi fer, Frengifer, Firengifer"
+             text="Frengî fer’" />
+    </category>
+    <category ID="us-96740803-3">
+      <label xml:lang="ar" description="Firenkcin" text="Frenkçîn" />
+    </category>
+    <category ID="us-71426614-4">
+      <label xml:lang="ar" description="Frenkcinikar, Firenkcini kar, Firenkcinikar" text="Frenkçinî kâr" />
+    </category>
+    <category ID="us-46112425-X">
+      <label xml:lang="ar" text="Hafîf" />
+    </category>
+    <category ID="us-20798235-2">
+      <label xml:lang="ar" text="Hâvî" />
+    </category>
+    <category ID="us-95484046-5">
+      <label xml:lang="ar" text="Hezec" />
+    </category>
+    <category ID="us-70169857-9">
+      <label xml:lang="ar" text="Karadeniz" />
+    </category>
+    <category ID="us-44855668-3">
+      <label xml:lang="ar" description="Katikofti" text="Katakofti" />
+    </category>
+    <category ID="us-19541479-9">
+      <label xml:lang="ar" description="Lenkfahte" text="Lenk fâhte" />
+    </category>
+    <category ID="us-94227290-5">
+      <label xml:lang="ar" description="Mandıra" text="Mandra" />
+    </category>
+    <category ID="us-68913101-2">
+      <label xml:lang="ar" description="Mevlevi devri revanı" text="Mevlevî devr-i revânı" />
+    </category>
+    <category ID="us-43598912-X">
+      <label xml:lang="ar" text="Muhammes" />
+    </category>
+    <category ID="us-18284722-4">
+      <label xml:lang="ar" description="Muzaaf devri kebir" text="Muzâaf devr-i kebîr" />
+    </category>
+    <category ID="us-92970533-3">
+      <label xml:lang="ar" text="Müsemmen" />
+    </category>
+    <category ID="us-67656344-7">
+      <label xml:lang="ar" description="Nazlı devri Hindi" text="Nâzlı devr-i Hindî" />
+    </category>
+    <category ID="us-42342155-X">
+      <label xml:lang="ar" text="Nâzlı düyek" />
+    </category>
+    <category ID="us-17027966-6">
+      <label xml:lang="ar" description="Nîmberefşân" text="Nîm berefşân" />
+    </category>
+    <category ID="us-91713777-5">
+      <label xml:lang="ar" description="Nîmdevir" text="Nîm devir" />
+    </category>
+    <category ID="us-66399588-2">
+      <label xml:lang="ar" description="Nîmevsat" text="Nîm evsat" />
+    </category>
+    <category ID="us-41085398-4">
+      <label xml:lang="ar" description="Nîmhafîf" text="Nîm hafîf" />
+    </category>
+    <category ID="us-15771209-1">
+      <label xml:lang="ar" description="Nîmsakîl, Nîm sakıyl, Nîmsakıyl" text="Nîm sakîl" />
+    </category>
+    <category ID="us-90457020-8">
+      <label xml:lang="ar" description="Nîmsofyân" text="Nîm sofyân" />
+    </category>
+    <category ID="us-65142831-6">
+      <label xml:lang="ar" text="Orta aksak" />
+    </category>
+    <category ID="us-39828642-9">
+      <label xml:lang="ar" text="Oynak" />
+    </category>
+    <category ID="us-14514453-1">
+      <label xml:lang="ar" text="Raks" />
+    </category>
+    <category ID="us-89200264-4">
+      <label xml:lang="ar" description="Raks aksak" text="Raks aksağı" />
+    </category>
+    <category ID="us-63886075-8">
+      <label xml:lang="ar" text="Raksân" />
+    </category>
+    <category ID="us-38571885-5">
+      <label xml:lang="ar" text="Remel" />
+    </category>
+    <category ID="us-13257696-6">
+      <label xml:lang="ar" description="Sakıyl" text="Sakîl" />
+    </category>
+    <category ID="us-87943507-0">
+      <label xml:lang="ar" text="Semâî" />
+    </category>
+    <category ID="us-62629318-1">
+      <label xml:lang="ar" description="Zengin semai" text="Sengîn semâî" />
+    </category>
+    <category ID="us-37315129-7">
+      <label xml:lang="ar" text="Sofyân" />
+    </category>
+    <category ID="us-12000940-0">
+      <label xml:lang="ar" description="Şarkı devri revanı" text="Şarkı devr-i revânı" />
+    </category>
+    <category ID="us-86686751-4">
+      <label xml:lang="ar" text="Türk aksağı" />
+    </category>
+    <category ID="us-61372561-6">
+      <label xml:lang="ar" text="Türk aksak semâîsi" />
+    </category>
+    <category ID="us-36058372-X">
+      <label xml:lang="ar" text="Usûlsüz" />
+    </category>
+    <category ID="us-10744183-1">
+      <label xml:lang="ar" text="[Various]" />
+    </category>
+    <category ID="us-85429994-5">
+      <label xml:lang="ar" text="Yürük aksak semâî" />
+    </category>
+    <category ID="us-60115805-0">
+      <label xml:lang="ar" text="Yürük düyek" />
+    </category>
+    <category ID="us-34801616-5">
+      <label xml:lang="ar" text="Yürük semâî" />
+    </category>
+    <category ID="us-09487427-2">
+      <label xml:lang="ar" text="Yürük sofyân" />
+    </category>
+    <category ID="us-84173238-2">
+      <label xml:lang="ar" description="Zincir" text="Zencîr" />
+    </category>
+  </categories>
+</mycoreclass>

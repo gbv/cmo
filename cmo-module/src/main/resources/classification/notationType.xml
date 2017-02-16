@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0"
+             xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_tempi">
+  <label text="cmo_tempi" xml:lang="ar" />
+  <categories>
+    <category ID="nt-75642613-7">
+      <label xml:lang="ar" text="Hampartsum notation" />
+    </category>
+    <category ID="nt-26270991-1">
+      <label xml:lang="ar" text="Staff notation" />
+    </category>
+    <category ID="nt-51585180-3">
+      <label xml:lang="ar" text="Cantemir notation" />
+    </category>
+    <category ID="nt-76899369-2">
+      <label xml:lang="ar" text="Ebced notation" />
+    </category>
+    <category ID="nt-02213558-9">
+      <label xml:lang="ar" text="Post-Byzantine notation" />
+    </category>
+    <category ID="nt-27527748-7">
+      <label xml:lang="ar" text="Letter-based notation" />
+    </category>
+  </categories>
+</mycoreclass>

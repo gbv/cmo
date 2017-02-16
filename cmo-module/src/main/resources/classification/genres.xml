@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0"
+             xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_musictype">
+  <label text="cmo_musictype" xml:lang="en" />
+  <categories>
+    <category ID="gn-66217054-X">
+      <label xml:lang="en" text="Vocal music" />
+      <category ID="gn-17560226-8">
+        <label xml:lang="en" text="1. Selâm" />
+      </category>
+      <category ID="gn-68903397-4">
+        <label xml:lang="en" text="2. Selâm" />
+      </category>
+      <category ID="gn-20246569-9">
+        <label xml:lang="en" text="3. Selâm" />
+      </category>
+      <category ID="gn-71589740-X">
+        <label xml:lang="en" text="4. Selâm" />
+      </category>
+      <category ID="gn-22932912-4">
+        <label xml:lang="en" text="Ağır semâî" />
+      </category>
+      <category ID="gn-74276083-2">
+        <label xml:lang="en" text="Aksak semâî" />
+      </category>
+      <category ID="gn-25619255-5">
+        <label xml:lang="en" text="Beste" />
+      </category>
+      <category ID="gn-76962426-X">
+        <label xml:lang="en" text="Çifte telli" />
+      </category>
+      <category ID="gn-28305598-0">
+        <label xml:lang="en" text="Destân" />
+      </category>
+      <category ID="gn-79648769-3">
+        <label xml:lang="en" text="Dîvân" />
+      </category>
+      <category ID="gn-30991941-7">
+        <label xml:lang="en" text="Durak" />
+      </category>
+      <category ID="gn-82335112-4">
+        <label xml:lang="en" text="Hava" />
+      </category>
+      <category ID="gn-33678284-8">
+        <label xml:lang="en" text="İlâhî" />
+      </category>
+      <category ID="gn-85021455-X">
+        <label xml:lang="en" text="Kanto" />
+      </category>
+      <category ID="gn-36364627-6">
+        <label xml:lang="en" text="Kâr" />
+      </category>
+      <category ID="gn-87707798-2">
+        <label xml:lang="en" text="Karşılama" />
+      </category>
+      <category ID="gn-39050970-X">
+        <label xml:lang="en" text="Köçekçe" />
+      </category>
+      <category ID="gn-90394141-7">
+        <label xml:lang="en" text="Mahfel sürmesi" />
+      </category>
+      <category ID="gn-41737313-X">
+        <label xml:lang="en" text="Marş" />
+      </category>
+      <category ID="gn-02804076-4">
+        <label xml:lang="en" text="Methal" />
+      </category>
+      <category ID="gn-93080484-2">
+        <label xml:lang="en" text="Mersiye" />
+      </category>
+      <category ID="gn-44423656-5">
+        <label xml:lang="en" text="Mîrâciyye, Mî'râciye, Mîrâciye" />
+      </category>
+      <category ID="gn-95766827-8">
+        <label xml:lang="en" text="Murabbâ" />
+      </category>
+      <category ID="gn-47109999-9">
+        <label xml:lang="en" text="Münâcât" />
+      </category>
+      <category ID="gn-98453170-9">
+        <label xml:lang="en" text="Müstezât" />
+      </category>
+      <category ID="gn-49796342-5">
+        <label xml:lang="en" text="Nakş" />
+      </category>
+      <category ID="gn-75803196-5">
+        <label xml:lang="en" text="Nakş ağır semâî" />
+      </category>
+      <category ID="gn-69312561-2">
+        <label xml:lang="en" text="Nakş aksak semâî" />
+      </category>
+      <category ID="gn-43998372-6">
+        <label xml:lang="en" text="Nakş beste" />
+      </category>
+      <category ID="gn-57471526-0">
+        <label xml:lang="en" text="Nakş yürük semâî" />
+      </category>
+      <category ID="gn-45244802-X">
+        <label xml:lang="en" text="Nakış hava" />
+      </category>
+      <category ID="gn-01139513-5">
+        <label xml:lang="en" text="Nat" />
+      </category>
+      <category ID="gn-52482685-8">
+        <label xml:lang="en" text="Nefes" />
+      </category>
+      <category ID="gn-03825856-X">
+        <label xml:lang="en" text="Ninni" />
+      </category>
+      <category ID="gn-55169028-1">
+        <label xml:lang="en" text="Salât" />
+      </category>
+      <category ID="gn-06512199-2">
+        <label xml:lang="en" text="Savft" />
+      </category>
+      <category ID="gn-57855371-4">
+        <label xml:lang="en" text="Semâî" />
+      </category>
+      <category ID="gn-09198542-0">
+        <label xml:lang="en" text="Zengîn semâî" />
+      </category>
+      <category ID="gn-60541714-X">
+        <label xml:lang="en" text="Şarkı" />
+      </category>
+      <category ID="gn-11884885-2">
+        <label xml:lang="en" text="Şuul, Şuğul" />
+      </category>
+      <category ID="gn-63228057-0">
+        <label xml:lang="en" text="Tekbîr" />
+      </category>
+      <category ID="gn-14571228-8">
+        <label xml:lang="en" text="Temcîd" />
+      </category>
+      <category ID="gn-65914400-6">
+        <label xml:lang="en" text="Terennüm" />
+      </category>
+      <category ID="gn-17257571-X">
+        <label xml:lang="en" text="Tevşîh" />
+      </category>
+      <category ID="gn-68600743-1">
+        <label xml:lang="en" text="Türkü" />
+      </category>
+      <category ID="gn-19943914-7">
+        <label xml:lang="en" text="Yürük semâî" />
+      </category>
+    </category>
+    <category ID="gn-71287086-3">
+      <label xml:lang="en" text="Instrumental music" />
+      <category ID="gn-22630258-8">
+        <label xml:lang="en" text="Longa" />
+      </category>
+      <category ID="gn-73973429-0">
+        <label xml:lang="en" text="Oyun havası" />
+      </category>
+      <category ID="gn-25316601-2">
+        <label xml:lang="en" text="Peşrev" />
+      </category>
+      <category ID="gn-76659772-2">
+        <label xml:lang="en" text="Saz semâîsi" />
+      </category>
+      <category ID="gn-28002944-8">
+        <label xml:lang="en" text="Sirto" />
+      </category>
+      <category ID="gn-79346115-8">
+        <label xml:lang="en" text="Son peşrev" />
+      </category>
+      <category ID="gn-30689287-9">
+        <label xml:lang="en" text="Son yürük semâî" />
+      </category>
+      <category ID="gn-82032458-0">
+        <label xml:lang="en" text="Taksîm" />
+      </category>
+    </category>
+    <category ID="gn-33375630-5">
+      <label xml:lang="en" text="Cycle of music" />
+      <category ID="gn-84718801-4">
+        <label xml:lang="en" text="Âyîn" />
+      </category>
+    </category>
+  </categories>
+</mycoreclass>
