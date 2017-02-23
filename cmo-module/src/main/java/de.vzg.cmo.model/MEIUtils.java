@@ -81,8 +81,11 @@ public class MEIUtils {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private static final XPathExpression<Element> REF_TARGET_XPATH = XPathFactory.instance()
-        .compile(".//tei:ref[@target]", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE);
+    private static final XPathExpression<Element> DATA_XPATH = XPathFactory.instance()
+        .compile(".//tei:*[@data]|.//mei:*[@data]", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE);
+
+    private static final XPathExpression<Element> TARGET_XPATH = XPathFactory.instance()
+        .compile(".//tei:*[@target]|.//mei:*[@target]", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE);
 
     private static final XPathExpression<Element> EXPRESSION_LIST_XPATH = XPathFactory.instance()
         .compile(".//mei:expressionList/mei:expression", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE);
@@ -115,7 +118,7 @@ public class MEIUtils {
         CMO_BAD_ATTRIBUTES.evaluate(root).forEach(attr -> {
             attr.getParent().removeAttribute(attr);
         });
-        CMO_BAD_ELEMENTS.evaluate(root).stream().forEach(elem->{
+        CMO_BAD_ELEMENTS.evaluate(root).stream().forEach(elem -> {
             elem.getParent().removeContent(elem);
         });
     }
@@ -143,7 +146,13 @@ public class MEIUtils {
         switch (linkElement.getName()) {
             case "relation":
             case "ref":
-                return linkElement.getAttributeValue("target");
+            case "bibl":
+                if (linkElement.getAttributeValue("data") != null) {
+                    return linkElement.getAttributeValue("data");
+                }
+                if (linkElement.getAttributeValue("target") != null) {
+                    return linkElement.getAttributeValue("target");
+                }
             case "expression":
                 return linkElement.getAttributeValue("data");
             case "persName":
@@ -161,6 +170,8 @@ public class MEIUtils {
 
     private static void setLinkTarget(Element linkElement, String newTarget) {
         switch (linkElement.getName()) {
+            case "bibl":
+                linkElement.removeAttribute("data");
             case "relation":
             case "ref":
                 linkElement.setAttribute("target", newTarget);
@@ -211,12 +222,16 @@ public class MEIUtils {
     }
 
     public static Stream<Element> getLinkElementStream(Element root) {
-        List<Element> elementList1 = REF_TARGET_XPATH.evaluate(root);
+        List<Element> elementList1 = TARGET_XPATH.evaluate(root);
         List<Element> elementList2 = RELATION_XPATH.evaluate(root);
         List<Element> elementList3 = EXPRESSION_LIST_XPATH.evaluate(root);
         List<Element> elementList4 = PERSON_XPATH.evaluate(root);
+        List<Element> elementList5 = DATA_XPATH.evaluate(root);
+
         return Stream.concat(elementList1.stream(),
-            Stream.concat(elementList2.stream(), Stream.concat(elementList3.stream(), elementList4.stream())));
+            Stream.concat(elementList2.stream(),
+                Stream.concat(elementList3.stream(),
+                    Stream.concat(elementList4.stream(), elementList5.stream())))).distinct();
     }
 
     public static void main(String[] args) {

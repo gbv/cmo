@@ -53,6 +53,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -79,21 +80,21 @@ import org.xml.sax.SAXException;
 
 public class MEIImporter extends SimpleFileVisitor<Path> {
 
-    public static final String BIBLIOGRAPHY_FOLDER = "bibliography";
+    private static final String BIBLIOGRAPHY_FOLDER = "bibliography";
 
-    public static final String EXPRESSIONS_FOLDER = "expressions";
+    private static final String EXPRESSIONS_FOLDER = "expressions";
 
-    public static final String MANUSCRIPTS_FOLDER = "manuscripts";
+    private static final String MANUSCRIPTS_FOLDER = "manuscripts";
 
-    public static final String PERSONS_FOLDER = "persons";
+    private static final String PERSONS_FOLDER = "persons";
 
-    public static final String WORKS_FOLDER = "works";
+    private static final String WORKS_FOLDER = "works";
 
-    public static final String PRINTS_FOLDER = "prints";
+    private static final String PRINTS_FOLDER = "prints";
 
-    public static final String CLASSIFICATION_FOLDER = "_index";
+    private static final String CLASSIFICATION_FOLDER = "_index";
 
-    public static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     // bibliography folder
     private ConcurrentHashMap<String, Document> bibliographicMap;
@@ -150,49 +151,13 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
         Set<String> typeSet = new HashSet<>();
         Files.walkFileTree(root, this);
         ConcurrentHashMap<String, Document> newSourceChilds = new ConcurrentHashMap<>();
-        sourceMap.forEach((idOfElementToExtractFrom, elementToExtractFrom) -> {
-            ConcurrentHashMap<String, Document> m = MEIUtils
-                .extractChildren(idOfElementToExtractFrom, elementToExtractFrom.getRootElement());
-            m.forEach((extractedID, document) -> {
-                childParentMap.put(extractedID, idOfElementToExtractFrom);
-            });
-            newSourceChilds.putAll(m);
-        });
-        sourceMap.putAll(newSourceChilds);
 
-        ConcurrentHashMap<String, Document> newWorkChildren = new ConcurrentHashMap<>();
-        workMap.forEach((idOfElementToExtractFrom, elementToExtractFrom) -> {
-            ConcurrentHashMap<String, Document> m = MEIUtils
-                .extractChildren(idOfElementToExtractFrom, elementToExtractFrom.getRootElement());
-            m.forEach((extractedID, document) -> {
-                childParentMap.put(extractedID, idOfElementToExtractFrom);
-            });
-            newWorkChildren.putAll(m);
-        });
-        workMap.putAll(newWorkChildren);
+        extractChildren(sourceMap);
+        extractChildren(workMap);
+        extractChildren(expressionMap);
 
-        ConcurrentHashMap<String, Document> newExpressionChildren = new ConcurrentHashMap<>();
-        expressionMap.forEach((idOfElementToExtractFrom, elementToExtractFrom) -> {
-            ConcurrentHashMap<String, Document> m = MEIUtils
-                .extractChildren(idOfElementToExtractFrom, elementToExtractFrom.getRootElement());
-            m.forEach((extractedID, document) -> {
-                childParentMap.put(extractedID, idOfElementToExtractFrom);
-            });
-            newExpressionChildren.putAll(m);
-        });
-        expressionMap.putAll(newExpressionChildren);
-
-        ConcurrentHashMap<String, Document> newPersonMap = new ConcurrentHashMap<>();
-        personMap.forEach((cmoID, doc) -> {
-            MCRXSLTransformer transformer = new MCRXSLTransformer("xsl/model/cmo/import/tei-person2mei-person.xsl");
-            try {
-                Document document = transformer.transform(new MCRJDOMContent(doc)).asXML();
-                newPersonMap.put(cmoID, document);
-            } catch (JDOMException | IOException | SAXException e) {
-                LOGGER.error(e);
-            }
-        });
-        personMap = newPersonMap;
+        convertPerson();
+        convertSources();
 
         combine();
 
@@ -215,7 +180,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             MCRObjectMetadata metadata = mcrObject.getMetadata();
 
             String typeId = cmoID.getTypeId();
-            if("bibl".equals(typeId)){
+            if ("bibl".equals(typeId)) {
                 mcrObject.setSchema("datamodel-tei-" + typeId + ".xsd");
             } else {
                 mcrObject.setSchema("datamodel-mei-" + typeId + ".xsd");
@@ -237,16 +202,16 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
                 });
             MEIWrapper wrapper = null;
-            switch (cmoID.getTypeId()){
+            switch (cmoID.getTypeId()) {
                 case "source":
-                     wrapper = new MEISourceWrapper(rootElement);
+                    wrapper = new MEISourceWrapper(rootElement);
                     break;
                 case "expression":
                     wrapper = new MEIExpressionWrapper(rootElement);
                     break;
             }
 
-            if(wrapper!=null){
+            if (wrapper != null) {
                 wrapper.orderTopLevelElement();
             }
 
@@ -271,7 +236,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                     xmlOutputter.output(document, os);
                 }
             } catch (IOException e) {
-                LOGGER.error("Error while exporting file " + cmoID.toString() + " (" + key.toString() + ")", e);
+                LOGGER.error("Error while exporting file " + cmoID.toString() + " (" + key + ")", e);
             }
         });
         return typeSet.stream()
@@ -279,8 +244,49 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                 return getOrder(p1) - getOrder(p2);
             })
             .map(type -> temp.resolve(type).toString())
-            .map(pathToFolder -> "load all objects in topological order from directory " + pathToFolder.toString())
+            .map(pathToFolder -> "load all objects in topological order from directory " + pathToFolder)
             .collect(Collectors.toList());
+    }
+
+    public void convertSources() {
+        ConcurrentHashMap<String, Document> newSourceMap = new ConcurrentHashMap<>();
+        sourceMap.forEach((cmoID, doc) -> {
+            MCRXSLTransformer transformer = new MCRXSLTransformer("xsl/model/cmo/import/source-fix-physLocation.xsl");
+            try {
+                Document document = transformer.transform(new MCRJDOMContent(doc)).asXML();
+                newSourceMap.put(cmoID, document);
+            } catch (JDOMException | IOException | SAXException e) {
+                LOGGER.error(e);
+            }
+        });
+        sourceMap = newSourceMap;
+    }
+
+    public void convertPerson() {
+        ConcurrentHashMap<String, Document> newPersonMap = new ConcurrentHashMap<>();
+        personMap.forEach((cmoID, doc) -> {
+            MCRXSLTransformer transformer = new MCRXSLTransformer("xsl/model/cmo/import/tei-person2mei-person.xsl");
+            try {
+                Document document = transformer.transform(new MCRJDOMContent(doc)).asXML();
+                newPersonMap.put(cmoID, document);
+            } catch (JDOMException | IOException | SAXException e) {
+                LOGGER.error(e);
+            }
+        });
+        personMap = newPersonMap;
+    }
+
+    public void extractChildren(Map<String, Document> newChildMap) {
+        ConcurrentHashMap<String, Document> newWorkChildren = new ConcurrentHashMap<>();
+        newChildMap.forEach((idOfElementToExtractFrom, elementToExtractFrom) -> {
+            ConcurrentHashMap<String, Document> m = MEIUtils
+                .extractChildren(idOfElementToExtractFrom, elementToExtractFrom.getRootElement());
+            m.forEach((extractedID, document) -> {
+                childParentMap.put(extractedID, idOfElementToExtractFrom);
+            });
+            newWorkChildren.putAll(m);
+        });
+        newChildMap.putAll(newWorkChildren);
     }
 
     public int getOrder(String type) {
@@ -436,5 +442,4 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
     public FileVisitResult visitFileFailed(Path file, IOException exception) throws IOException {
         return FileVisitResult.CONTINUE;
     }
-
 }
