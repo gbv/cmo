@@ -35,12 +35,13 @@ import org.mycore.frontend.cli.annotation.MCRCommandGroup;
 public class MCRCMOImportCommands {
 
 
-    @MCRCommand(syntax = "import cmo from folder {0}")
-    public static List<String> importCMOFromFolder(String folder) {
+    @MCRCommand(syntax = "import cmo from folder {0} {1}")
+    public static List<String> importCMOFromFolder(String folder, String tempFolder) {
         try {
             MEIImporter meiImporter;
             meiImporter = new MEIImporter();
-           return  meiImporter.importMEIS(FileSystems.getDefault().getPath(folder), FileSystems.getDefault().getPath("/Users/sebastian/tempImport/"));
+           return  meiImporter.importMEIS(FileSystems.getDefault().getPath(folder), FileSystems.getDefault().getPath(
+               tempFolder));
         } catch (IOException e) {
             e.printStackTrace();
         }
