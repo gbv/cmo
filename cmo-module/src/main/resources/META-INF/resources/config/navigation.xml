@@ -28,8 +28,8 @@
   </menu>
   <menu id="edition" dir="/content/edition">
     <!-- CMO edition menu  -->
-    <label xml:lang="de">CMO Edition</label>
-    <label xml:lang="en">CMO Edition</label>
+    <label xml:lang="de">Edition</label>
+    <label xml:lang="en">Edition</label>
     <item href="/content/edition/browse.xml" type="intern">
       <label xml:lang="de">Blättern</label>
       <label xml:lang="en">Browse edition</label>
@@ -45,8 +45,8 @@
   </menu>
   <menu id="catalogue" dir="/content/catalogue">
     <!-- CMO catalogue menu  -->
-    <label xml:lang="de">CMO Katalog</label>
-    <label xml:lang="en">CMO catalogue</label>
+    <label xml:lang="de">Katalog</label>
+    <label xml:lang="en">Catalogue</label>
     <item href="/content/catalogue/browse.xml" type="intern">
       <label xml:lang="de">Blättern</label>
       <label xml:lang="en">Browse catalogue</label>
