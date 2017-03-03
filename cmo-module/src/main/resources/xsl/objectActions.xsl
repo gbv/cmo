@@ -1,115 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalan="http://xml.apache.org/xalan"
-  xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation" xmlns:acl="xalan://org.mycore.access.MCRAccessManager"
-  xmlns:mcr="http://www.mycore.org/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mods="http://www.loc.gov/mods/v3"
-  xmlns:encoder="xalan://java.net.URLEncoder" xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions" xmlns:mcrurn="xalan://org.mycore.urn.MCRXMLFunctions"
-  exclude-result-prefixes="xalan xlink mcr i18n acl mods mcrxsl mcrurn encoder" version="1.0">
+<xsl:stylesheet
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xalan="http://xml.apache.org/xalan"
+  xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
+  xmlns:acl="xalan://org.mycore.access.MCRAccessManager"
+  xmlns:mcr="http://www.mycore.org/"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:encoder="xalan://java.net.URLEncoder"
+  xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions"
+  xmlns:mcrurn="xalan://org.mycore.urn.MCRXMLFunctions"
+  exclude-result-prefixes="xalan xlink mcr i18n acl mcrxsl mcrurn encoder" version="1.0">
   <xsl:param name="MCR.Users.Superuser.UserName" />
   <xsl:param name="MCR.URN.Resolver.MasterURL" select="''" />
-
-
-  <xsl:template match="/mycoreobject[contains(@ID,'_simpledoc_')]">
-
-    <head>
-      <link href="{$WebApplicationBaseURL}css/file.css" rel="stylesheet" />
-    </head>
-
-    <div class="row">
-
-      <xsl:call-template name="objectActions">
-        <xsl:with-param name="id" select="@ID" />
-      </xsl:call-template>
-
-      <h1>
-        <xsl:value-of select="metadata/def.title/title" />
-      </h1>
-
-      <table class="table">
-        <tr>
-          <th>
-            <xsl:value-of select="i18n:translate('docdetails.ID')" />
-          </th>
-          <td>
-            <xsl:call-template name="objectLink">
-              <xsl:with-param select="." name="mcrobj" />
-            </xsl:call-template>
-          </td>
-        </tr>
-
-        <xsl:if test="metadata/def.creator/creator">
-          <tr>
-            <th>
-              <xsl:value-of select="i18n:translate('editor.label.author')" />
-            </th>
-            <td>
-              <xsl:for-each select="metadata/def.creator/creator">
-                <xsl:value-of select="." />
-                <br />
-              </xsl:for-each>
-            </td>
-          </tr>
-        </xsl:if>
-
-        <xsl:if test="metadata/def.date/date">
-          <tr>
-            <th>
-              <xsl:value-of select="i18n:translate('editor.label.date')" />
-            </th>
-            <td>
-              <xsl:value-of select="metadata/def.date/date" />
-            </td>
-          </tr>
-        </xsl:if>
-        <xsl:if test="metadata/def.language/language">
-          <tr>
-            <th>
-              <xsl:value-of select="i18n:translate('editor.label.language')" />
-            </th>
-            <td>
-              <xsl:for-each select="metadata/def.language/language">
-                <xsl:variable name="classlink">
-                  <xsl:call-template name="ClassCategLink">
-                    <xsl:with-param name="classid">
-                      <xsl:value-of select="./@classid" />
-                    </xsl:with-param>
-                    <xsl:with-param name="categid">
-                      <xsl:value-of select="./@categid" />
-                    </xsl:with-param>
-                  </xsl:call-template>
-                </xsl:variable>
-                <xsl:for-each select="document($classlink)/mycoreclass/categories/category">
-                  <xsl:variable name="selectLang">
-                    <xsl:call-template name="selectLang">
-                      <xsl:with-param name="nodes" select="./label" />
-                    </xsl:call-template>
-                  </xsl:variable>
-                  <xsl:for-each select="./label[lang($selectLang)]">
-                    <xsl:value-of select="@text" />
-                  </xsl:for-each>
-                </xsl:for-each>
-              </xsl:for-each>
-            </td>
-          </tr>
-        </xsl:if>
-      </table>
-    </div>
-
-    <!-- show derivates if available and CurrentUser has read access -->
-    <xsl:if test="structure/derobjects/derobject[acl:checkPermission(@xlink:href,'read')]">
-      <div class="row">
-        <xsl:apply-templates select="structure/derobjects/derobject[acl:checkPermission(@xlink:href,'read')]">
-          <xsl:with-param name="objID" select="@ID" />
-        </xsl:apply-templates>
-      </div>
-    </xsl:if>
-
-  </xsl:template>
-
 
   <xsl:template name="objectActions">
     <xsl:param name="id" select="./@ID" />
     <xsl:param name="accessedit" select="acl:checkPermission($id,'writedb')" />
     <xsl:param name="accessdelete" select="acl:checkPermission($id,'deletedb')" />
+
+    <head>
+      <link href="{$WebApplicationBaseURL}css/file.css" rel="stylesheet" />
+    </head>
 
     <xsl:if test="$accessedit or $accessdelete">
       <div class="dropdown pull-right">
@@ -118,11 +29,11 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-          <li role="presentation">
+          <!-- li role="presentation">
             <a role="menuitem" tabindex="-1" href="{$WebApplicationBaseURL}content/publish/simpledoc.xed?id={$id}">
               <xsl:value-of select="i18n:translate('object.editObject')" />
             </a>
-          </li>
+          </li -->
           <li role="presentation">
             <a href="{$ServletsBaseURL}derivate/create{$HttpSession}?id={$id}" role="menuitem" tabindex="-1">
               <xsl:value-of select="i18n:translate('derivate.addDerivate')" />
@@ -313,7 +224,7 @@
                     <a href="{$WebApplicationBaseURL}servlets/MCRDerivateServlet{$HttpSession}?derivateid={$derId}&amp;objectid={$objID}&amp;todo=sdelfile&amp;file={$fileName}"
                       class="option confirm_deletion">
                       <xsl:attribute name="data-text">
-                        <xsl:value-of select="i18n:translate(concat('mir.confirm.',@type,'.text'))" />
+                        <xsl:value-of select="i18n:translate(concat('confirm.',@type,'.text'))" />
                       </xsl:attribute>
                       <xsl:attribute name="title">
                         <xsl:value-of select="i18n:translate(concat('IFS.',@type,'Delete'))" />
@@ -441,7 +352,7 @@
             </xsl:if>
             <xsl:if test="acl:checkPermission($deriv,'deletedb') and $derivateWithURN=false()">
               <li class="last">
-                <a href="{$ServletsBaseURL}derivate/delete{$HttpSession}?id={$deriv}" class="confirm_deletion option" data-text="{i18n:translate('mir.confirm.derivate.text')}">
+                <a href="{$ServletsBaseURL}derivate/delete{$HttpSession}?id={$deriv}" class="confirm_deletion option" data-text="{i18n:translate('confirm.derivate.text')}">
                   <xsl:value-of select="i18n:translate('component.swf.derivate.delDerivate')" />
                 </a>
               </li>
