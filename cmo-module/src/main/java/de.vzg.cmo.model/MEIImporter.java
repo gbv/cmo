@@ -161,6 +161,8 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
         combine();
 
+        convertClassifications();
+
         allCombinedMap.entrySet().stream().sequential().forEach((es) -> {
             Document v = es.getValue();
             String k = es.getKey();
@@ -246,6 +248,20 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             .map(type -> temp.resolve(type).toString())
             .map(pathToFolder -> "load all objects in topological order from directory " + pathToFolder)
             .collect(Collectors.toList());
+    }
+
+    public void convertClassifications() {
+        ConcurrentHashMap<String, Document> newAllCombinedMap = new ConcurrentHashMap<>();
+        allCombinedMap.forEach((k, doc)->{
+            MCRXSLTransformer transformer = new MCRXSLTransformer("xsl/model/cmo/import/convert-classifications.xsl");
+            try {
+                Document document = transformer.transform(new MCRJDOMContent(doc)).asXML();
+                newAllCombinedMap.put(k, document);
+            } catch (JDOMException | IOException | SAXException e) {
+                LOGGER.error(e);
+            }
+        });
+        this.allCombinedMap = newAllCombinedMap;
     }
 
     public void convertSources() {

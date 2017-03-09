@@ -87,6 +87,9 @@ public class MEIUtils {
     private static final XPathExpression<Element> TARGET_XPATH = XPathFactory.instance()
         .compile(".//tei:*[@target]|.//mei:*[@target]", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE);
 
+    private static final XPathExpression<Element> HAND_RESP_XPATH = XPathFactory.instance()
+        .compile(".//mei:hand[@resp]", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE);
+
     private static final XPathExpression<Element> EXPRESSION_LIST_XPATH = XPathFactory.instance()
         .compile(".//mei:expressionList/mei:expression", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE);
 
@@ -144,6 +147,8 @@ public class MEIUtils {
 
     private static String getLinkTarget(Element linkElement) {
         switch (linkElement.getName()) {
+            case "hand":
+                return linkElement.getAttributeValue("resp");
             case "relation":
             case "ref":
             case "bibl":
@@ -170,6 +175,9 @@ public class MEIUtils {
 
     private static void setLinkTarget(Element linkElement, String newTarget) {
         switch (linkElement.getName()) {
+            case "hand":
+                linkElement.setAttribute("resp", newTarget);
+                break;
             case "bibl":
                 linkElement.removeAttribute("data");
             case "relation":
@@ -227,11 +235,14 @@ public class MEIUtils {
         List<Element> elementList3 = EXPRESSION_LIST_XPATH.evaluate(root);
         List<Element> elementList4 = PERSON_XPATH.evaluate(root);
         List<Element> elementList5 = DATA_XPATH.evaluate(root);
+        List<Element> elementList6 = HAND_RESP_XPATH.evaluate(root);
 
         return Stream.concat(elementList1.stream(),
             Stream.concat(elementList2.stream(),
                 Stream.concat(elementList3.stream(),
-                    Stream.concat(elementList4.stream(), elementList5.stream())))).distinct();
+                    Stream.concat(elementList4.stream(),
+                        Stream.concat(elementList5.stream(),
+                            elementList6.stream()))))).distinct();
     }
 
     public static void main(String[] args) {

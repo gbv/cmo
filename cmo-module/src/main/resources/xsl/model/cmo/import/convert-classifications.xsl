@@ -24,14 +24,83 @@
                 xmlns:cmo="http://www.corpus-musicae-ottomanicae.de/ns/cmo"
                 xmlns:mei="http://www.music-encoding.org/ns/mei">
 
+  <xsl:output indent="yes" />
+
   <xsl:template match="@*|node()">
     <xsl:copy>
       <xsl:apply-templates select="@*|node()" />
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="cmo:">
+  <xsl:template match="mei:term[text()]">
+    <xsl:variable name="classID">
+      <xsl:choose>
+        <xsl:when test="@cmo:term-type='type of source'">
+          <xsl:value-of select="'cmo_sourceType'" />
+        </xsl:when>
+        <xsl:when test="@cmo:term-type='type of content'">
+          <xsl:value-of select="'cmo_sourceType'" />
+        </xsl:when>
+        <xsl:when test="@cmo:term-type='notation'">
+          <xsl:value-of select="'cmo_notationType'" />
+        </xsl:when>
+        <xsl:when test="@cmo:term-type='genre'">
+          <xsl:value-of select="'cmo_musictype'" />
+        </xsl:when>
+        <xsl:when test="@cmo:term-type='music type'">
+          <xsl:value-of select="'cmo_musictype'" />
+        </xsl:when>
+        <xsl:when test="@cmo:term-type='notation type'">
+          <xsl:value-of select="'cmo_notationType'" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:message>Cannot find class id
+            <xsl:value-of select="@cmo:term-type" />
+          </xsl:message>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="categID">
+      <xsl:choose>
+        <xsl:when test="@cmo:classLink">
+          <xsl:value-of select="@cmo:classLink" />
+        </xsl:when>
+      </xsl:choose>
+    </xsl:variable>
+    <mei:term analog="{$classID}/{$categID}"></mei:term>
+  </xsl:template>
 
+  <xsl:template match="cmo:usul|cmo:makam">
+  </xsl:template>
+
+  <xsl:template match="mei:*[cmo:usul or cmo:makam and not(mei:classification)]">
+    <xsl:copy>
+      <mei:classification>
+        <mei:termList>
+          <xsl:for-each select="cmo:makam">
+            <mei:term analog="cmo_makamler/{@cmo:classLink}"></mei:term>
+          </xsl:for-each>
+
+          <xsl:for-each select="cmo:usul">
+            <mei:term analog="cmo_usuler/{@cmo:classLink}"></mei:term>
+          </xsl:for-each>
+        </mei:termList>
+      </mei:classification>
+      <xsl:apply-templates select="node()" />
+    </xsl:copy>
+  </xsl:template>
+
+
+  <xsl:template match="mei:classification/mei:termList">
+    <mei:termList>
+      <xsl:for-each select="../../cmo:usul">
+        <mei:term analog="cmo_usuler/{@cmo:classLink}"></mei:term>
+      </xsl:for-each>
+      <xsl:for-each select="../../cmo:makam">
+        <mei:term analog="cmo_makam/{@cmo:classLink}"></mei:term>
+      </xsl:for-each>
+      <xsl:apply-templates />
+    </mei:termList>
   </xsl:template>
 
 

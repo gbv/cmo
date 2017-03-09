@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><mycoreclass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_contentType">
+<label text="cmo_contentType" xml:lang="en"/>
+<categories>
+<category ID="ct-19052915-9">
+<label xml:lang="en" text="Vocal Music"/>
+</category>
+<category ID="ct-72909599-3">
+<label xml:lang="en" text="Instrumental Music"/>
+</category>
+<category ID="ct-99837941-9">
+<label xml:lang="en" text="Mixed musical collection"/>
+</category>
+<category ID="ct-26766284-1">
+<label xml:lang="en" text="Song-Text collection"/>
+</category>
+<category ID="ct-53694626-6">
+<label xml:lang="en" text="Theoretical Works"/>
+</category>
+<category ID="ct-80622968-4">
+<label xml:lang="en" text="Fasıl"/>
+</category>
+<category ID="ct-07551311-0">
+<label xml:lang="en" text="Takım"/>
+</category>
+</categories>
+</mycoreclass>

@@ -31,7 +31,7 @@
   <xsl:output indent="yes" />
 
   <!-- replace language here -->
-  <xsl:variable name="lang" select="'ar'" />
+  <xsl:variable name="lang" select="'en'" />
 
   <xsl:template match="/">
     <mycoreclass ID="{tei:list/@xml:id}" xsi:noNamespaceSchemaLocation="MCRClassification.xsd">
@@ -59,5 +59,6 @@
     </category>
 
   </xsl:template>
+
 
 </xsl:stylesheet>
