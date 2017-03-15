@@ -42,12 +42,6 @@
 
 package de.vzg.cmo.model;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -60,11 +54,9 @@ import org.apache.logging.log4j.Logger;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.Parent;
 import org.jdom2.filter.Filters;
-import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
@@ -103,14 +95,14 @@ public class MEIUtils {
         .compile(".//mei:source//mei:relationList/mei:relation[@rel='isEmbodimentOf']", Filters.element(), null,
             TEI_NAMESPACE, MEI_NAMESPACE);
 
-    private static final Namespace CMO_NAMESPACE = Namespace
+    public static final Namespace CMO_NAMESPACE = Namespace
         .getNamespace("cmo", "http://www.corpus-musicae-ottomanicae.de/ns/cmo");
 
     private static final XPathExpression<Attribute> CMO_BAD_ATTRIBUTES = XPathFactory.instance()
-        .compile("//@cmo:*|//@meiversion.num", Filters.attribute(), null, TEI_NAMESPACE, MEI_NAMESPACE, CMO_NAMESPACE);
+        .compile(".//@cmo:*|.//@meiversion.num", Filters.attribute(), null, TEI_NAMESPACE, MEI_NAMESPACE, CMO_NAMESPACE);
 
     private static final XPathExpression<Element> CMO_BAD_ELEMENTS = XPathFactory.instance()
-        .compile("//cmo:*", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE, CMO_NAMESPACE);
+        .compile(".//cmo:*", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE, CMO_NAMESPACE);
 
     private static final String EXTRACT_XPATH_STRING = "/mei:*/mei:componentGrp/mei:*";
 
@@ -243,64 +235,6 @@ public class MEIUtils {
                     Stream.concat(elementList4.stream(),
                         Stream.concat(elementList5.stream(),
                             elementList6.stream()))))).distinct();
-    }
-
-    public static void main(String[] args) {
-        Path path = FileSystems.getDefault()
-            .getPath("/Users/sebastian/IdeaProjects/gitworkspace/cmo_old/cmo-paket_all/works/wr-25544197-5.xml");
-        SAXBuilder saxBuilder = new SAXBuilder();
-
-        try (InputStream inputStream = Files.newInputStream(path)) {
-            Document document = saxBuilder.build(inputStream);
-            Element rootElement = document.getRootElement();
-
-            clearCircularDependency(rootElement);
-            ArrayList<String> targets = new ArrayList<>();
-            resolveLinkTargets(rootElement, (e) -> {
-                System.out.println("links to " + e);
-                targets.add(e);
-            });
-            targets.forEach(t -> {
-                removeLinkTo(t, rootElement);
-            });
-            resolveLinkTargets(rootElement, t -> {
-                throw new RuntimeException("There is a lt left " + t);
-            });
-
-            extractChildren(rootElement.getAttributeValue("id", Namespace.XML_NAMESPACE), rootElement);
-        } catch (IOException | JDOMException e) {
-            e.printStackTrace();
-        }
-
-        Path path1 = FileSystems.getDefault()
-            .getPath("/Users/sebastian/IdeaProjects/gitworkspace/cmo_old/cmo-paket_all/expressions/ex-10035085-5.xml");
-        try (InputStream inputStream = Files.newInputStream(path1)) {
-            Document document = saxBuilder.build(inputStream);
-            Element rootElement = document.getRootElement();
-            resolveLinkTargets(rootElement, (e) -> {
-                System.out.println("links to " + e);
-            });
-            extractChildren(rootElement.getAttributeValue("id", Namespace.XML_NAMESPACE), rootElement);
-        } catch (IOException | JDOMException e) {
-            e.printStackTrace();
-        }
-
-        Path path2 = FileSystems.getDefault()
-            .getPath("/Users/sebastian/IdeaProjects/gitworkspace/cmo_old/cmo-paket_all/prints/pr-26361457-9.xml");
-        try (InputStream inputStream = Files.newInputStream(path2)) {
-            Document document = saxBuilder.build(inputStream);
-            Element rootElement = document.getRootElement();
-
-            resolveLinkTargets(rootElement, (e) -> {
-                System.out.println("links to " + e);
-            });
-
-            clearCircularDependency(rootElement);
-
-            extractChildren(rootElement.getAttributeValue("id", Namespace.XML_NAMESPACE), rootElement);
-        } catch (IOException | JDOMException e) {
-            e.printStackTrace();
-        }
     }
 
     public static ConcurrentHashMap<String, Document> extractChildren(String idOfElementToExtractFrom,

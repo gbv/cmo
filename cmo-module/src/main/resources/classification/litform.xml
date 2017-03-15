@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mycoreclass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0"
              xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_litform">
-  <label text="cmo_litform" xml:lang="ar" />
+  <label text="litform" xml:lang="ar" />
   <categories>
     <category ID="lf-99333322-3">
       <label xml:lang="ar" text="Ġazel" />

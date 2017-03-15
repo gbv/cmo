@@ -23,15 +23,30 @@ package de.vzg.cmo.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jdom2.Content;
 import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.mycore.datamodel.metadata.MCRMetaXML;
+import org.mycore.datamodel.metadata.MCRObject;
+import org.mycore.mei.classification.MCRMEIAuthorityInfo;
+import org.mycore.mei.classification.MCRMEIClassificationSupport;
 
 public abstract class MEIWrapper {
 
     private final Element root;
 
-    public MEIWrapper(Element root) {
+    private static final Logger LOGGER = LogManager.getLogger();
+
+    protected MEIWrapper(Element root) {
         String rootName = root.getName();
         if (!getWrappedElementName().equals(rootName)) {
             throw new IllegalArgumentException(rootName + " is can not be wrapped by " + this.getClass().toString());
@@ -57,5 +72,104 @@ public abstract class MEIWrapper {
             .forEach(this.root::addContent);
     }
 
+    public static MEIWrapper getWrapper(Element rootElement) {
+        String id = rootElement.getName();
+        switch (id) {
+            case "source":
+                return new MEISourceWrapper(rootElement);
+            case "expression":
+                return new MEIExpressionWrapper(rootElement);
+            case "persName":
+                return new MEIPersonWrapper(rootElement);
+            case "work":
+                return new MEIWorkWrapper(rootElement);
+        }
+        return null;
+    }
+
+    public static MEIWrapper getWrapper(MCRObject object) {
+        MCRMetaXML mx = (MCRMetaXML) (object.getMetadata().getMetadataElement("def.meiContainer").getElement(0));
+        for (Content content : mx.getContent()) {
+            if (content instanceof Element) {
+                return getWrapper((Element) content);
+            }
+        }
+        throw new IllegalArgumentException("The given MCRObject is not a valid mei object!");
+    }
+
+
+
+    public HashMap<MCRMEIAuthorityInfo, List<String>> getClassification() {
+        Element classificationElement = this.root.getChild("classification", MEIUtils.MEI_NAMESPACE);
+        HashMap<MCRMEIAuthorityInfo, List<String>> classificationMap = new HashMap<>();
+
+        if (classificationElement != null) {
+            List<Element> classCodes = classificationElement.getChildren("classCode", MEIUtils.MEI_NAMESPACE);
+            List<Element> terMListElements = classificationElement.getChildren("termList", MEIUtils.MEI_NAMESPACE);
+
+            for (Element classCodeElement : classCodes) {
+                // this is the value which is used to Link a term to class code
+                String classCodeID = classCodeElement.getAttributeValue("id", Namespace.XML_NAMESPACE);
+
+
+                MCRMEIAuthorityInfo authorityInfo = MCRMEIClassificationSupport.getAuthorityInfo(classCodeElement);
+
+                Optional<Element> matchingListOptional = terMListElements.stream()
+                    .filter(element -> ("#" + classCodeID).equals(element.getAttributeValue("classcode")))
+                    .findFirst();
+
+                if (!matchingListOptional.isPresent()) {
+                    LOGGER.warn("No matching term list for " + classCodeID + ". Skip Element..");
+                    continue;
+                }
+
+                Element matchingList = matchingListOptional.get();
+                List<Element> terms = matchingList.getChildren("term", MEIUtils.MEI_NAMESPACE);
+                List<String> termStringList = terms.stream().map(e -> e.getTextTrim()).collect(Collectors.toList());
+                classificationMap.put(authorityInfo, termStringList);
+            }
+        }
+
+        return classificationMap;
+    }
+
+    public void setClassification(Map<MCRMEIAuthorityInfo, List<String>> classificationMap) {
+        deleteClassification();
+        Element classificationElement = new Element("classification", MEIUtils.MEI_NAMESPACE);
+        if (classificationMap.size() > 0) {
+            this.root.addContent(classificationElement);
+            classificationMap.forEach((authorityInfo, valueList) -> {
+                Element classCodeElement = new Element("classCode", MEIUtils.MEI_NAMESPACE);
+                String authorityURI = authorityInfo.getAuthorityURI();
+                if (authorityURI != null) {
+                    classCodeElement.setAttribute("authorityURI", authorityURI);
+                }
+                String authority = authorityInfo.getAuthority();
+                if (authority != null) {
+                    classCodeElement.setAttribute("authority", authority);
+                }
+
+                String uniqID = String.format("id%s", Integer.toHexString(authorityInfo.hashCode()));
+                classCodeElement.setAttribute("id", uniqID, Namespace.XML_NAMESPACE);
+                classificationElement.addContent(classCodeElement);
+
+                Element termList = new Element("termList", MEIUtils.MEI_NAMESPACE);
+                termList.setAttribute("classcode", "#" + uniqID);
+                classificationElement.addContent(termList);
+
+                valueList
+                    .stream()
+                    .map(v -> {
+                        Element term = new Element("term", MEIUtils.MEI_NAMESPACE);
+                        term.setText(v);
+                        return term;
+                    }).forEach(termList::addContent);
+            });
+        }
+    }
+
+    public void deleteClassification() {
+        this.root.getChildren("classification", MEIUtils.MEI_NAMESPACE).forEach(Element::detach);
+    }
 
 }

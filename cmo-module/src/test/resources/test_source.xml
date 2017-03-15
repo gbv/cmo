@@ -64,9 +64,9 @@
   </notesStmt>
   <classification>
     <termList>
-      <term>Printed source</term>
-      <term>Mixed musical Collection</term>
-      <term>Staff notation</term>
+      <term cmo:term-type="genre">Printed source</term>
+      <term cmo:term-type="genre1">Mixed musical Collection</term>
+      <term cmo:term-type="genre2">Staff notation</term>
     </termList>
   </classification>
   <langUsage>

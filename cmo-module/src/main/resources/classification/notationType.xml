@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mycoreclass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0"
              xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_notationType">
-  <label text="cmo_notationType" xml:lang="en" />
+  <label text="notation type" xml:lang="en" />
   <categories>
     <category ID="nt-75642613-7">
       <label xml:lang="en" text="Hampartsum notation" />

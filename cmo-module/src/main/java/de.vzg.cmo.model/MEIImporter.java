@@ -50,7 +50,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -64,9 +66,12 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
+import org.jdom2.filter.Filters;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
 import org.mycore.common.MCRException;
 import org.mycore.common.content.MCRJDOMContent;
 import org.mycore.common.content.transformer.MCRXSLTransformer;
@@ -75,6 +80,7 @@ import org.mycore.datamodel.metadata.MCRMetaXML;
 import org.mycore.datamodel.metadata.MCRObject;
 import org.mycore.datamodel.metadata.MCRObjectID;
 import org.mycore.datamodel.metadata.MCRObjectMetadata;
+import org.mycore.mei.classification.MCRMEIAuthorityInfo;
 import org.mycore.tools.MCRObjectFactory;
 import org.xml.sax.SAXException;
 
@@ -123,6 +129,26 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
     private Path root;
 
+    private static final XPathExpression<Element> classificationXpath = XPathFactory.instance()
+        .compile(".//mei:classification", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
+
+    private static final XPathExpression<Element> MAKAM_XPATH = XPathFactory.instance()
+        .compile(".//cmo:makam", Filters.element(), null, MEIUtils.CMO_NAMESPACE);
+
+    private static final XPathExpression<Element> USUL_XPATH = XPathFactory.instance()
+        .compile(".//cmo:usul", Filters.element(), null, MEIUtils.CMO_NAMESPACE);
+
+    private static final Map<String, String> cmo_mei_typeMapping = new HashMap<>();
+
+    static {
+        cmo_mei_typeMapping.put("type of source", "cmo_sourceType");
+        cmo_mei_typeMapping.put("type of content", "cmo_contentType");
+        cmo_mei_typeMapping.put("notation", "cmo_notationType");
+        cmo_mei_typeMapping.put("genre", "cmo_musictype");
+        cmo_mei_typeMapping.put("music type", "cmo_musictype");
+        cmo_mei_typeMapping.put("notation type", "cmo_notationType");
+    }
+
     public MEIImporter() {
         bibliographicMap = new ConcurrentHashMap<>();
         expressionMap = new ConcurrentHashMap<>();
@@ -161,8 +187,6 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
         combine();
 
-        convertClassifications();
-
         allCombinedMap.entrySet().stream().sequential().forEach((es) -> {
             Document v = es.getValue();
             String k = es.getKey();
@@ -188,8 +212,6 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                 mcrObject.setSchema("datamodel-mei-" + typeId + ".xsd");
             }
 
-            MEIUtils.clear(v.getRootElement());
-
             MCRMetaXML meiContainer = new MCRMetaXML("meiContainer", null, 0);
             List<MCRMetaXML> list = Collections.nCopies(1, meiContainer);
             MCRMetaElement defModsContainer = new MCRMetaElement(MCRMetaXML.class, "def.meiContainer",
@@ -203,22 +225,49 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                     return id == null ? null : id.toString();
 
                 });
-            MEIWrapper wrapper = null;
-            switch (cmoID.getTypeId()) {
-                case "source":
-                    wrapper = new MEISourceWrapper(rootElement);
-                    break;
-                case "expression":
-                    wrapper = new MEIExpressionWrapper(rootElement);
-                    break;
-            }
+            MEIWrapper wrapper = MEIWrapper.getWrapper(rootElement);
 
             if (wrapper != null) {
+                List<Element> classificationElements = classificationXpath.evaluate(rootElement);
+                Map<MCRMEIAuthorityInfo, List<String>> classifications = new HashMap<>();
+                for (Element classificationElement : classificationElements) {
+                    Element termList = classificationElement.getChild("termList", MEIUtils.MEI_NAMESPACE);
+                    if (termList != null) {
+                        List<Element> termElements = termList
+                            .getChildren("term", MEIUtils.MEI_NAMESPACE);
+
+                        for (Element termElement : termElements) {
+                            String cmoTermType = termElement.getAttributeValue("term-type", MEIUtils.CMO_NAMESPACE);
+                            String classification = cmo_mei_typeMapping.get(cmoTermType);
+                            String classLink = termElement.getAttributeValue("classLink", MEIUtils.CMO_NAMESPACE);
+                            if (classLink == null) {
+                                classLink = termElement.getTextTrim();
+                            }
+
+                            List<String> enabledClassLinks;
+                            if (!classifications.containsKey(classification)) {
+                                enabledClassLinks = new ArrayList<>();
+                                classifications.put(new MCRMEIAuthorityInfo(classification, null), enabledClassLinks);
+                            } else {
+                                enabledClassLinks = classifications.get(classification);
+                            }
+
+                            enabledClassLinks.add(classLink);
+                        }
+
+                        classificationElement.detach();
+                    }
+                }
+
+                addCustomClassifications("cmo_makamler", classifications, MAKAM_XPATH.evaluate(rootElement));
+                addCustomClassifications("cmo_usuler", classifications, USUL_XPATH.evaluate(rootElement));
+
+                wrapper.setClassification(classifications);
                 wrapper.orderTopLevelElement();
             }
 
             MEIUtils.clearCircularDependency(rootElement);
-
+            MEIUtils.clear(rootElement);
             meiContainer.addContent(rootElement);
 
             if (childParentMap.containsKey(key)) {
@@ -250,18 +299,14 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             .collect(Collectors.toList());
     }
 
-    public void convertClassifications() {
-        ConcurrentHashMap<String, Document> newAllCombinedMap = new ConcurrentHashMap<>();
-        allCombinedMap.forEach((k, doc)->{
-            MCRXSLTransformer transformer = new MCRXSLTransformer("xsl/model/cmo/import/convert-classifications.xsl");
-            try {
-                Document document = transformer.transform(new MCRJDOMContent(doc)).asXML();
-                newAllCombinedMap.put(k, document);
-            } catch (JDOMException | IOException | SAXException e) {
-                LOGGER.error(e);
-            }
-        });
-        this.allCombinedMap = newAllCombinedMap;
+    public void addCustomClassifications(String classificationName,
+        Map<MCRMEIAuthorityInfo, List<String>> classifications, List<Element> elementList) {
+        if (elementList.size() > 0) {
+            List<String> values = elementList.stream()
+                .map(element -> element.getAttributeValue("classLink", MEIUtils.CMO_NAMESPACE))
+                .collect(Collectors.toList());
+            classifications.put(new MCRMEIAuthorityInfo(classificationName, null), values);
+        }
     }
 
     public void convertSources() {

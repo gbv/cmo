@@ -88,20 +88,7 @@
           </tr>
         </xsl:if>
 
-        <xsl:if test="//mei:classification/mei:termList/mei:term">
-          <tr>
-            <th>
-              <xsl:value-of select="i18n:translate('editor.label.classification')" />
-            </th>
-            <td>
-              <ul>
-                <xsl:for-each select="//mei:classification/mei:termList/mei:term">
-                  <li><xsl:value-of select="." /></li>
-                </xsl:for-each>
-              </ul>
-            </td>
-          </tr>
-        </xsl:if>
+        <xsl:call-template name="listClassifications" />
 
         <xsl:if test="structure/children/child">
           <tr>

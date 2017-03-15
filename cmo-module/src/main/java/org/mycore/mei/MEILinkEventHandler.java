@@ -19,9 +19,11 @@
  *
  */
 
-package de.vzg.cmo.model;
+package org.mycore.mei;
 
 import static org.mycore.datamodel.common.MCRLinkTableManager.ENTRY_TYPE_REFERENCE;
+
+import de.vzg.cmo.model.MEIUtils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

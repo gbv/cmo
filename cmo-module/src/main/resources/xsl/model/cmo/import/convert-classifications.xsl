@@ -32,7 +32,7 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="mei:term[text()]">
+  <xsl:template match="mei:classification">
     <xsl:variable name="classID">
       <xsl:choose>
         <xsl:when test="@cmo:term-type='type of source'">
@@ -67,40 +67,47 @@
         </xsl:when>
       </xsl:choose>
     </xsl:variable>
-    <mei:term analog="{$classID}/{$categID}"></mei:term>
+
+
+
+    <mei:classification>
+
+      <mei:classCode authURI="{$classID}" xml:id="{$classID}" />
+      <!-- load @authority with event handler from classification -->
+      <mei:termList classcode="{$classID}">
+        <mei:term>
+          <xsl:value-of select="$categID" />
+        </mei:term>
+      </mei:termList>
+    </mei:classification>
   </xsl:template>
+
 
   <xsl:template match="cmo:usul|cmo:makam">
+    <xsl:variable name="classID">
+      <xsl:choose>
+        <xsl:when test="local-name()='usul'">
+          <xsl:value-of select="'cmo_usuler'" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="'cmo_makam'" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <mei:classification>
+      <mei:classCode authURI="{$classID}" />
+      <!-- load @authority with event handler from classification -->
+      <mei:termList>
+        <mei:term>
+          <xsl:value-of select="@cmo:classLink" />
+        </mei:term>
+      </mei:termList>
+    </mei:classification>
   </xsl:template>
 
-  <xsl:template match="mei:*[cmo:usul or cmo:makam and not(mei:classification)]">
-    <xsl:copy>
-      <mei:classification>
-        <mei:termList>
-          <xsl:for-each select="cmo:makam">
-            <mei:term analog="cmo_makamler/{@cmo:classLink}"></mei:term>
-          </xsl:for-each>
 
-          <xsl:for-each select="cmo:usul">
-            <mei:term analog="cmo_usuler/{@cmo:classLink}"></mei:term>
-          </xsl:for-each>
-        </mei:termList>
-      </mei:classification>
-      <xsl:apply-templates select="node()" />
-    </xsl:copy>
-  </xsl:template>
-
-
-  <xsl:template match="mei:classification/mei:termList">
-    <mei:termList>
-      <xsl:for-each select="../../cmo:usul">
-        <mei:term analog="cmo_usuler/{@cmo:classLink}"></mei:term>
-      </xsl:for-each>
-      <xsl:for-each select="../../cmo:makam">
-        <mei:term analog="cmo_makam/{@cmo:classLink}"></mei:term>
-      </xsl:for-each>
-      <xsl:apply-templates />
-    </mei:termList>
+  <xsl:template match="mei:classification">
+      <xsl:apply-templates select="mei:termList/mei:term" />
   </xsl:template>
 
 

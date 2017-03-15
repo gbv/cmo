@@ -26,47 +26,27 @@ import java.util.List;
 
 import org.jdom2.Element;
 
-public class MEIExpressionWrapper extends MEIWrapper {
+public class MEIPersonWrapper extends MEIWrapper {
+
+    public MEIPersonWrapper(Element root) {
+        super(root);
+    }
 
     private static final List<String> TOP_LEVEL_ELEMENT_ORDER = new ArrayList<>();
 
     static {
-        TOP_LEVEL_ELEMENT_ORDER.add("identifier");
-        TOP_LEVEL_ELEMENT_ORDER.add("titleStmt");
-
-        TOP_LEVEL_ELEMENT_ORDER.add("key");
-        TOP_LEVEL_ELEMENT_ORDER.add("mesuration");
-        TOP_LEVEL_ELEMENT_ORDER.add("meter");
-        TOP_LEVEL_ELEMENT_ORDER.add("tempo");
-        TOP_LEVEL_ELEMENT_ORDER.add("incip");
-
-        TOP_LEVEL_ELEMENT_ORDER.add("otherChar");
-
-        TOP_LEVEL_ELEMENT_ORDER.add("creation");
-        TOP_LEVEL_ELEMENT_ORDER.add("history");
-        TOP_LEVEL_ELEMENT_ORDER.add("langUsage");
-        TOP_LEVEL_ELEMENT_ORDER.add("perfMedium");
-        TOP_LEVEL_ELEMENT_ORDER.add("perfDuration");
-        TOP_LEVEL_ELEMENT_ORDER.add("extent");
-        TOP_LEVEL_ELEMENT_ORDER.add("scoreFormat");
-        TOP_LEVEL_ELEMENT_ORDER.add("contents");
-        TOP_LEVEL_ELEMENT_ORDER.add("context");
-        TOP_LEVEL_ELEMENT_ORDER.add("biblList");
-        TOP_LEVEL_ELEMENT_ORDER.add("notesStmt");
-        TOP_LEVEL_ELEMENT_ORDER.add("classification");
-        TOP_LEVEL_ELEMENT_ORDER.add("componentGrp");
-        TOP_LEVEL_ELEMENT_ORDER.add("relationList");
-        TOP_LEVEL_ELEMENT_ORDER.add("extMeta");
-
-    }
-
-    public MEIExpressionWrapper(Element root) {
-        super(root);
+        TOP_LEVEL_ELEMENT_ORDER.add("addName");
+        TOP_LEVEL_ELEMENT_ORDER.add("famName");
+        TOP_LEVEL_ELEMENT_ORDER.add("foreName");
+        TOP_LEVEL_ELEMENT_ORDER.add("genName");
+        TOP_LEVEL_ELEMENT_ORDER.add("nameLink");
+        TOP_LEVEL_ELEMENT_ORDER.add("roleName");
+        TOP_LEVEL_ELEMENT_ORDER.add("annot");
     }
 
     @Override
     public String getWrappedElementName() {
-        return "expression";
+        return "persName";
     }
 
     @Override

@@ -23,15 +23,20 @@ package de.vzg.cmo.model;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
+import org.jdom2.filter.Filters;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,6 +63,19 @@ public class MEISourceWrapperTest {
         new MEISourceWrapper(rootElement).orderTopLevelElement();
         LOGGER.info(new XMLOutputter(Format.getPrettyFormat()).outputString(rootElement));
         Assert.assertEquals("langUsage", rootElement.getChildren().get(4).getName());
+    }
+    private static final XPathExpression<Element> classificationXpath = XPathFactory.instance()
+        .compile("//mei:classification", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
+
+    private static final Map<String, String> cmo_mei_typeMapping = new HashMap<>();
+
+    static {
+        cmo_mei_typeMapping.put("type of source", "cmo_sourceType");
+        cmo_mei_typeMapping.put("type of content", "cmo_sourceType");
+        cmo_mei_typeMapping.put("notation", "cmo_notationType");
+        cmo_mei_typeMapping.put("genre", "cmo_musictype");
+        cmo_mei_typeMapping.put("music type", "cmo_musictype");
+        cmo_mei_typeMapping.put("notation type", "cmo_notationType");
     }
 
 }
