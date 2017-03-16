@@ -47,13 +47,41 @@
     <!-- CMO catalogue menu  -->
     <label xml:lang="de">Katalog</label>
     <label xml:lang="en">Catalogue</label>
-    <item href="/content/catalogue/browse.xml" type="intern">
-      <label xml:lang="de">Blättern</label>
-      <label xml:lang="en">Browse catalogue</label>
+    <item href="/content/catalogue/source.xml" type="intern">
+      <label xml:lang="de">Art der Quelle</label>
+      <label xml:lang="en">Browse Source</label>
     </item>
-    <item href="/content/catalogue/user_guide.xml" type="intern">
-      <label xml:lang="de">Handbuch</label>
-      <label xml:lang="en">User guide</label>
+    <item href="/content/catalogue/composer.xml" type="intern">
+      <label xml:lang="de">Komponist</label>
+      <label xml:lang="en">Browse Composer</label>
+    </item>
+    <item href="/content/catalogue/lyricist.xml" type="intern">
+      <label xml:lang="de">Textschreiber</label>
+      <label xml:lang="en">Browse Lyricist</label>
+    </item>
+    <item href="/content/catalogue/makam.xml" type="intern">
+      <label xml:lang="de">Makâm</label>
+      <label xml:lang="en">Browse Makâm</label>
+    </item>
+    <item href="/content/catalogue/usul.xml" type="intern">
+      <label xml:lang="de">Usûl</label>
+      <label xml:lang="en">Browse Usûl</label>
+    </item>
+    <item href="/content/catalogue/music_type.xml" type="intern">
+      <label xml:lang="de">Genre der Musik</label>
+      <label xml:lang="en">Browse Genre</label>
+    </item>
+    <item href="/content/catalogue/literary_form.xml" type="intern">
+      <label xml:lang="de">Literarische Form</label>
+      <label xml:lang="en">Browse Literary Form</label>
+    </item>
+    <item href="/content/catalogue/incipit.xml" type="intern">
+      <label xml:lang="de">Textanfänge</label>
+      <label xml:lang="en">Browse Incipit</label>
+    </item>
+    <item href="/content/catalogue/poetic_title.xml" type="intern">
+      <label xml:lang="de">Poetischer Titel</label>
+      <label xml:lang="en">Browse Poetic title</label>
     </item>
   </menu>
   <menu id="help" dir="/content/help">

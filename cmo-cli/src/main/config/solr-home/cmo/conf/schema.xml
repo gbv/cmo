@@ -400,19 +400,107 @@
   <field name="_root_" type="string" docValues="false" indexed="true" stored="false"/>
   <field name="_text_" type="text_general" multiValued="true" indexed="true" stored="false"/>
   <field name="_version_" type="long" indexed="false" stored="false"/>
-  <field name="allMeta" type="strings"/>
-  <field name="created" type="tdates" indexed="true" multiValued="false"/>
-  <field name="derCount" type="tlongs"/>
-  <field name="hasFiles" type="booleans"/>
-  <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
-  <field name="link" type="strings"/>
-  <field name="modified" type="tdates"/>
-  <field name="modifiedby" type="strings"/>
-  <field name="objectKind" type="strings"/>
-  <field name="objectProject" type="strings"/>
-  <field name="objectType" type="strings"/>
-  <field name="parent" type="strings"/>
-  <field name="returnId" type="strings"/>
+
+   <!-- kind of mcrobjectid, mcrderivateid, fileid -->
+   <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+
+    <!-- Start: MyCoRe specific schema definition -->
+    <field name="objectKind" type="string" />
+    <field name="objectType" type="string" />
+    <field name="objectProject" type="string" />
+    <field name="returnId" type="string" />
+    <field name="link" type="string" multiValued="true"/>
+    <field name="derivateLink" type="string" multiValued="true" />
+    <field name="category" type="string" multiValued="true"/>
+    <field name="category.top" type="string" multiValued="true"/>
+
+    <field name="created" type="date" />
+    <field name="modified" type="date" />
+    <field name="createdby" type="string" />
+    <field name="modifiedby" type="string" />
+    <field name="state" type="string" />
+
+    <!-- parent handling -->
+    <field name="parent" type="string" />
+    <field name="parentLinkText" type="string" indexed="false"/>
+
+    <!-- MCRObject structure -->
+    <field name="derivates" type="string" multiValued="true" />
+    <field name="derCount" type="int" />
+
+    <!-- MCRDerivate related metadata -->
+    <field name="derivateURN" type="string" />
+    <field name="derivateDisplay" type="boolean" />
+    <field name="urn" type="string" multiValued="true" />
+    <field name="fileURN" type="string" />
+    <field name="fileCategory" type="string" multiValued="true"/>
+    <field name="maindoc" type="string" />
+    <field name="iviewFile" type="string" />
+	<field name="hasFiles" type="boolean" />
+
+    <!-- MCRFile related fields -->
+    <field name="derivateID" type="string" />
+    <field name="filePath" type="string" />
+    <field name="fileName" type="string" />
+    <field name="content" type="text_general" stored="false" />
+
+    <!-- default search fields -->
+    <field name="allMeta" type="text_general" multiValued="true" stored="false" />
+    <field name="search_result_link_text" type="text_de" indexed="false"/>
+
+
+    <!-- mycore-mods -->
+    <field name="mods.type" type="string" />
+    <field name="mods.title" type="text_general" multiValued="true" />
+    <field name="mods.title.host" type="text_general" multiValued="true" />
+    <field name="mods.title.main" type="text_general" />
+    <field name="mods.title.subtitle" type="text_de" />
+    <field name="mods.nameIdentifier" type="string" multiValued="true" />
+    <field name="mods.nameIdentifier.top" type="string" multiValued="true" />
+    <field name="mods.name" type="string" multiValued="true" />
+    <field name="mods.name.top" type="string" multiValued="true" />
+    <field name="mods.author" type="string" multiValued="true" />
+    <field name="mods.mainAuthor" type="text_general" indexed="true" stored="false" />
+    <field name="mods.genre" type="string" multiValued="true" />
+    <field name="mods.identifier" type="string" multiValued="true" />
+    <field name="mods.identifier.host" type="string" multiValued="true" />
+    <field name="mods.abstract" type="text_de" multiValued="true" />
+    <field name="mods.abstract.result" type="text_de" indexed="false" />
+    <field name="mods.dateIssued" type="string"/>
+    <field name="mods.dateIssued.host" type="string"/>
+    <field name="mods.yearIssued" type="int"/>
+    <field name="mods.publisher" type="text_de" multiValued="true"/>
+    <field name="mods.place" type="text_de" multiValued="true"/>
+    <field name="mods.pindexname" type="string" multiValued="true" />
+    <field name="mods.pindexname.published" type="string" multiValued="true" />
+    <field name="mods.embargo" type="string" />
+    <field name="mods.part" type="string" multiValued="true" />
+    <dynamicField name="mods.part.*" type="string" />
+    <dynamicField name="mods.part.order*" type="int" />
+    <dynamicField name="mods.relatedItem*" type="string" multiValued="true" />
+
+    <!-- ******************************************** -->
+    <!-- * SEARCH -->
+    <!-- ******************************************** -->
+    <field name="title" type="text_general" multiValued="true" stored="false" />
+    <field name="title_de" type="text_de"  multiValued="true" stored="false" />
+    <field name="title_en" type="text_en"  multiValued="true" stored="false" />
+    <dynamicField name="title_*" type="text_general" multiValued="true" stored="false"/>
+    <copyField source="title_*" dest="title" />
+    <!-- identifier (gnd, pnd, etc.) -->
+    <dynamicField name="id.*" type="string" />
+
+    <!-- all names (personal and corporate) with role in fieldname -->
+    <dynamicField name="mods.nameByRole.*" type="string" multiValued="true" />
+
+    <field name="mods.name.conference" type="string" multiValued="true" />
+
+    <dynamicField name="identifier.type.*" type="string" multiValued="true" />
+    <field name="topic" type="string" multiValued="true" />
+
+    <!-- End: MyCoRe specific schema definition -->
+
+
   <dynamicField name="*_txt_en_split_tight" type="text_en_splitting_tight" indexed="true" stored="true"/>
   <dynamicField name="*_descendent_path" type="descendent_path" indexed="true" stored="true"/>
   <dynamicField name="*_ancestor_path" type="ancestor_path" indexed="true" stored="true"/>

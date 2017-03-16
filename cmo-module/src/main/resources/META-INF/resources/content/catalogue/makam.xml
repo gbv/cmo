@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+
+<MyCoReWebPage>
+
+  <section i18n="cmo.browse.makam" xml:lang="all">
+
+    <div class="row">
+      <div class="col-md-8" lang="de">
+        <h3><i18n key="cmo.browse.makam" /></h3>
+        <classificationbrowser classification="cmo_makamler"
+                                   objecttype="expression"
+                                        field="category.top"
+                                 countresults="true"
+                                   addclassid="true"
+                                  emptyleaves="false"
+                                        style="bootstrap"
+                                 addParameter="XSL.template=template_cmo"
+        />
+      </div>
+    </div>
+  </section>
+
+</MyCoReWebPage>

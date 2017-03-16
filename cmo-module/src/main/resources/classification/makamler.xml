@@ -2,6 +2,7 @@
 <mycoreclass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0"
              xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_makamler">
   <label text="makamler" xml:lang="ar" />
+  <label text="Makam" xml:lang="de" />
   <categories>
     <category ID="mk-24574777-9">
       <label xml:lang="ar" text="Acem" />

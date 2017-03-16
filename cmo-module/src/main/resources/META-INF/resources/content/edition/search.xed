@@ -50,6 +50,30 @@
                   </div>
                 </div>
               </div>
+              <!-- search in all metadata -->
+              <div class="form-group">
+                <label class="col-md-3 control-label" for="inputMeta">
+                  <xed:output i18n="editor.search.makam" />
+                </label>
+                <div class="col-md-9">
+                  <div class="input-group">
+                    <xed:bind
+                      xpath="condition[@field='category.top'][1][@operator='=']/@value"
+                      default="*">
+                      <select id="makam" class="form-control">
+                        <option value="">
+                          <xed:output i18n="editor.common.select" />
+                        </option>
+                        <xed:include uri="xslStyle:items2options:classification:editorComplete:-1:children:cmo_makamler" />
+                      </select>
+                      <span data-toggle="tooltip" class="input-group-addon"
+                        title="Filtermöglichkeit nach Makâm">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                      </span>
+                    </xed:bind>
+                  </div>
+                </div>
+              </div>
               <!-- search in derivate content -->
               <div class="form-group">
                 <label class="col-md-3 control-label" for="inputContent">
