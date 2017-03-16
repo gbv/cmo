@@ -92,7 +92,7 @@ public class MEIUtils {
         .compile(".//mei:persName/@analog", Filters.attribute(), null, TEI_NAMESPACE, MEI_NAMESPACE);
 
     private static final XPathExpression<Element> EMBODIMENT_RELATION = XPathFactory.instance()
-        .compile(".//mei:source//mei:relationList/mei:relation[@rel='isEmbodimentOf']", Filters.element(), null,
+        .compile("mei:relationList[local-name(..) = 'source']/mei:relation[@rel='isEmbodimentOf']", Filters.element(), null,
             TEI_NAMESPACE, MEI_NAMESPACE);
 
     public static final Namespace CMO_NAMESPACE = Namespace
