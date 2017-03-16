@@ -23,9 +23,11 @@ package org.mycore.mei.classification;
 
 import de.vzg.cmo.model.MEIUtils;
 
+import java.text.MessageFormat;
 import java.util.Optional;
 
 import org.jdom2.Namespace;
+import org.mycore.datamodel.classifications2.MCRCategory;
 import org.mycore.datamodel.classifications2.MCRCategoryDAO;
 import org.mycore.datamodel.classifications2.MCRCategoryDAOFactory;
 import org.mycore.datamodel.classifications2.MCRLabel;
@@ -90,6 +92,26 @@ public class MCRMEIClassificationSupport {
     }
 
     public static String getClassValue(NodeList terms) {
+        MCRCategory category = getClassificationFromTerm(terms);
+        if (category != null) {
+            Optional<MCRLabel> currentLabel = category.getCurrentLabel();
+
+            if (currentLabel.isPresent()) {
+                return currentLabel.get().getText();
+            }
+        }
+
+        return terms.item(0).getTextContent();
+    }
+
+    public static String getClassificationLinkFromTerm(NodeList terms) {
+        MCRCategory category = getClassificationFromTerm(terms);
+        return MessageFormat
+            .format("classification:metadata:0:parents:{0}:{1}", category.getId().getRootID(),
+                category.getId().getID());
+    }
+
+    private static MCRCategory getClassificationFromTerm(NodeList terms) {
         Node termNode = terms.item(0);
         Node termList = termNode.getParentNode();
 
@@ -110,22 +132,17 @@ public class MCRMEIClassificationSupport {
                     for (int i = 0; i < classCodeElements.getLength(); i++) {
                         Element classCodeElement = (Element) classCodeElements.item(i);
                         String id = classCodeElement.getAttributeNS(Namespace.XML_NAMESPACE.getURI().toString(), "id");
-                        if(id.equals(classcode)){
+                        if (id.equals(classcode)) {
                             MCRMEIAuthorityInfo authorityInfo = getAuthorityInfo(classCodeElement);
-                            Optional<MCRLabel> currentLabel = DAO
-                                .getCategory(authorityInfo.getCategoryID(termNode.getTextContent()), 0)
-                                .getCurrentLabel();
-
-                            if(currentLabel.isPresent()){
-                                return currentLabel.get().getText();
-                            }
+                            return DAO
+                                .getCategory(authorityInfo.getCategoryID(termNode.getTextContent()), 0);
                         }
                     }
                 }
             }
         }
 
-        return termNode.getTextContent();
+        return null;
     }
 
 }
