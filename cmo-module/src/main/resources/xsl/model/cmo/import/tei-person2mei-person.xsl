@@ -36,12 +36,19 @@
 
   <xsl:template match="/tei:person">
     <mei:persName>
+      <xsl:apply-templates select="@xml:id" />
       <xsl:apply-templates select="tei:idno" />
       <xsl:apply-templates select="tei:persName" />
       <xsl:apply-templates select="tei:birth" />
       <xsl:apply-templates select="tei:death" />
       <xsl:apply-templates select="tei:list/tei:item" />
     </mei:persName>
+  </xsl:template>
+
+  <xsl:template match="@xml:id">
+    <mei:identifier type="cmo_intern">
+      <xsl:value-of select="." />
+    </mei:identifier>
   </xsl:template>
 
   <xsl:template match="tei:idno">
