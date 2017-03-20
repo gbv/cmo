@@ -13,7 +13,7 @@
                                         field="category.top"
                                  countresults="true"
                                    addclassid="true"
-                                  emptyleaves="false"
+                                  emptyleaves="true"
                                         style="bootstrap"
                                  addParameter="XSL.template=template_cmo"
         />

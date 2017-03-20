@@ -15,23 +15,21 @@
       <xsl:value-of select="count(structure/derobjects/derobject)&gt;0" />
     </field>
 
-    <xsl:apply-templates select="//meiContainer/*/mei:classification"/>
+    <xsl:apply-templates select="//meiContainer/*/mei:classification/mei:termList/mei:term" />
   </xsl:template>
 
-
-  <xsl:template match="mei:classification">
-    <xsl:for-each select="mei:classCode">
-      <xsl:variable name="classid" select="@authority" />
-      <xsl:variable name="linkID" select="concat('#', @xml:id)" />
-      <xsl:for-each select="../mei:termList[@classcode=$linkID]/mei:term">
-        <field name="category">
-          <xsl:value-of select="concat($classid, ':', .)" />
-        </field>
-        <field name="category.top">
-          <xsl:value-of select="concat($classid, ':', .)" />
-        </field>
-      </xsl:for-each>
-    </xsl:for-each>
+  <xsl:template match="mei:term">
+    <xsl:variable name="uri" xmlns:mcrmei="xalan://org.mycore.mei.classification.MCRMEIClassificationSupport" select="mcrmei:getClassificationLinkFromTerm(.)" />
+    <xsl:if test="string-length($uri) &gt; 0">
+      <xsl:variable name="topField" select="true()" /> <!-- TODO: not(ancestor::mods:relatedItem) -->
+      <xsl:variable name="classdoc" select="document($uri)" />
+      <xsl:variable name="classid" select="$classdoc/mycoreclass/@ID" />
+      <xsl:apply-templates select="$classdoc//category" mode="category">
+        <xsl:with-param name="classid" select="$classid" />
+        <xsl:with-param name="withTopField" select="$topField" />
+      </xsl:apply-templates>
+    </xsl:if>
   </xsl:template>
+
 
 </xsl:stylesheet>
