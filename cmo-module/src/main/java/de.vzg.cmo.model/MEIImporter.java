@@ -244,12 +244,13 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                                 classLink = termElement.getTextTrim();
                             }
 
+                            MCRMEIAuthorityInfo authorityInfo = new MCRMEIAuthorityInfo(classification, null);
                             List<String> enabledClassLinks;
-                            if (!classifications.containsKey(classification)) {
+                            if (!classifications.containsKey(authorityInfo)) {
                                 enabledClassLinks = new ArrayList<>();
-                                classifications.put(new MCRMEIAuthorityInfo(classification, null), enabledClassLinks);
+                                classifications.put(authorityInfo, enabledClassLinks);
                             } else {
-                                enabledClassLinks = classifications.get(classification);
+                                enabledClassLinks = classifications.get(authorityInfo);
                             }
 
                             enabledClassLinks.add(classLink);
