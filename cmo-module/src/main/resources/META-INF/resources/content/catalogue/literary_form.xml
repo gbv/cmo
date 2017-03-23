@@ -9,7 +9,6 @@
       <div class="col-md-8" lang="de">
         <h3><i18n key="cmo.browse.literary_form" /></h3>
         <classificationbrowser classification="cmo_litform"
-                                   objecttype="expression"
                                         field="category.top"
                                  countresults="true"
                                    addclassid="true"

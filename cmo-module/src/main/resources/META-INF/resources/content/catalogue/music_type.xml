@@ -9,7 +9,6 @@
       <div class="col-md-8" lang="de">
         <h3><i18n key="cmo.browse.music_type" /></h3>
         <classificationbrowser classification="cmo_musictype"
-                                   objecttype="expression"
                                         field="category.top"
                                  countresults="true"
                                    addclassid="true"

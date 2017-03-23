@@ -9,7 +9,6 @@
       <div class="col-md-8" lang="de">
         <h3><i18n key="cmo.browse.source" /></h3>
         <classificationbrowser classification="cmo_sourceType"
-                                   objecttype="expression"
                                         field="category.top"
                                  countresults="true"
                                    addclassid="true"
