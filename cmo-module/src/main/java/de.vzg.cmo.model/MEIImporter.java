@@ -138,6 +138,9 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
     private static final XPathExpression<Element> USUL_XPATH = XPathFactory.instance()
         .compile(".//cmo:usul", Filters.element(), null, MEIUtils.CMO_NAMESPACE);
 
+    private static final XPathExpression<Element> DATE_SOURCE_XPATH = XPathFactory.instance()
+        .compile(".//mei:date[@source]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
+
     private static final Map<String, String> cmo_mei_typeMapping = new HashMap<>();
 
     static {
@@ -184,7 +187,6 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
         convertPerson();
         convertSources();
-
         combine();
 
         allCombinedMap.entrySet().stream().sequential().forEach((es) -> {
@@ -194,6 +196,17 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             MCRObjectID cmoID = createMyCoReID(k);
             idMCRObjectIDMap.put(k, cmoID);
             LOGGER.info("{} new id will be {}", k, cmoID.toString());
+        });
+
+        personMap.forEach((cmoID, document) -> {
+            DATE_SOURCE_XPATH.evaluate(document.getRootElement()).forEach(dateElement -> {
+                String oldCMOSourceID = dateElement.getAttributeValue("source");
+                if (this.idMCRObjectIDMap.containsKey(oldCMOSourceID)) {
+                    dateElement.setAttribute("source", this.idMCRObjectIDMap.get(oldCMOSourceID).toString());
+                } else {
+                    LOGGER.warn("Could not replace id: \"{}\" of person \"{}\"", oldCMOSourceID, cmoID);
+                }
+            });
         });
 
         XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
