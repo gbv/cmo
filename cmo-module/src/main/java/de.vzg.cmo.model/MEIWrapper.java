@@ -28,13 +28,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Content;
 import org.jdom2.Element;
+import org.jdom2.EntityRef;
 import org.jdom2.Namespace;
+import org.jdom2.ProcessingInstruction;
+import org.jdom2.Text;
+import org.mycore.datamodel.metadata.MCRMetaElement;
 import org.mycore.datamodel.metadata.MCRMetaXML;
 import org.mycore.datamodel.metadata.MCRObject;
 import org.mycore.mei.classification.MCRMEIAuthorityInfo;
@@ -87,14 +92,23 @@ public abstract class MEIWrapper {
         return null;
     }
 
+    /**
+     * Gets the MEIWrapper for a specific MyCoRe-Object.
+     * @param object
+     * @return the wrapper or null if it cannot be wrapped
+     */
     public static MEIWrapper getWrapper(MCRObject object) {
-        MCRMetaXML mx = (MCRMetaXML) (object.getMetadata().getMetadataElement("def.meiContainer").getElement(0));
-        for (Content content : mx.getContent()) {
-            if (content instanceof Element) {
-                return getWrapper((Element) content);
+        MCRMetaElement metadataElement = object.getMetadata().getMetadataElement("def.meiContainer");
+        if (metadataElement != null) {
+            MCRMetaXML mx = (MCRMetaXML) (metadataElement.getElement(0));
+            for (Content content : mx.getContent()) {
+                if (content instanceof Element) {
+                    return getWrapper((Element) content);
+                }
             }
         }
-        throw new IllegalArgumentException("The given MCRObject is not a valid mei object!");
+
+        return null;
     }
 
 
@@ -172,4 +186,32 @@ public abstract class MEIWrapper {
         this.root.getChildren("classification", MEIUtils.MEI_NAMESPACE).forEach(Element::detach);
     }
 
+    /**
+     * @param node
+     * @return true if the content is empty and can be removed
+     */
+    private static boolean removeNodes(Content node) {
+        if (node instanceof Element) {
+            Predicate<Content> removeNodes = MEIWrapper::removeNodes;
+            List<Content> content = ((Element) node).getContent();
+            List<Content> elementsToRemove = content.stream().filter(removeNodes)
+                .collect(Collectors.toList());
+            elementsToRemove.forEach(((Element) node)::removeContent);
+
+            return content.size() - elementsToRemove.size() == 0 && ((Element) node).getAttributes().size() == 0;
+        } else if (node instanceof Text) {
+            return ((Text) node).getTextTrim().equals("");
+        } else if (node instanceof ProcessingInstruction || node instanceof EntityRef) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Removes all empty elements recursive
+     */
+    public void removeEmptyElements() {
+        removeNodes(this.root);
+    }
 }
