@@ -2,7 +2,7 @@
 <mycoreclass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0"
              xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_usuler">
   <label text="usuler" xml:lang="ar" />
-  <label text="Usul" xml:lang="ar" />
+  <label text="Usul" xml:lang="de" />
   <categories>
     <category ID="us-81480666-4">
       <label xml:lang="ar" text="Aksak" />
