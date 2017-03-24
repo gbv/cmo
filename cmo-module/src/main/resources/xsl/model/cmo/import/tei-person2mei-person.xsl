@@ -52,7 +52,7 @@
   </xsl:template>
 
   <xsl:template match="tei:idno">
-    <mei:identifier type="cmo">
+    <mei:identifier type="{@type}">
       <xsl:value-of select="." />
     </mei:identifier>
   </xsl:template>
