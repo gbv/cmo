@@ -30,6 +30,7 @@ import org.jdom2.Namespace;
 import org.mycore.datamodel.classifications2.MCRCategory;
 import org.mycore.datamodel.classifications2.MCRCategoryDAO;
 import org.mycore.datamodel.classifications2.MCRCategoryDAOFactory;
+import org.mycore.datamodel.classifications2.MCRCategoryID;
 import org.mycore.datamodel.classifications2.MCRLabel;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -134,8 +135,12 @@ public class MCRMEIClassificationSupport {
                         String id = classCodeElement.getAttributeNS(Namespace.XML_NAMESPACE.getURI().toString(), "id");
                         if (id.equals(classcode)) {
                             MCRMEIAuthorityInfo authorityInfo = getAuthorityInfo(classCodeElement);
+                            MCRCategoryID categoryID = authorityInfo.getCategoryID(termNode.getTextContent());
+                            if(categoryID==null){
+                                return null;
+                            }
                             return DAO
-                                .getCategory(authorityInfo.getCategoryID(termNode.getTextContent()), 0);
+                                .getCategory(categoryID, 0);
                         }
                     }
                 }
