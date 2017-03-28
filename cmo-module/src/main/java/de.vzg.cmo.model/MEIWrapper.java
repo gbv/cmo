@@ -41,7 +41,9 @@ import org.jdom2.ProcessingInstruction;
 import org.jdom2.Text;
 import org.mycore.datamodel.metadata.MCRMetaElement;
 import org.mycore.datamodel.metadata.MCRMetaXML;
+import org.mycore.datamodel.metadata.MCRMetadataManager;
 import org.mycore.datamodel.metadata.MCRObject;
+import org.mycore.datamodel.metadata.MCRObjectID;
 import org.mycore.mei.classification.MCRMEIAuthorityInfo;
 import org.mycore.mei.classification.MCRMEIClassificationSupport;
 
@@ -111,6 +113,11 @@ public abstract class MEIWrapper {
         return null;
     }
 
+    public static MEIWrapper getWrapper(String objectIdString){
+        MCRObjectID objectID = MCRObjectID.getInstance(objectIdString);
+        MCRObject object = MCRMetadataManager.retrieveMCRObject(objectID);
+        return getWrapper(object);
+    }
 
 
     public HashMap<MCRMEIAuthorityInfo, List<String>> getClassification() {

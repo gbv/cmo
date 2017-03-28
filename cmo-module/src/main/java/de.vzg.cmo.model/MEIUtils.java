@@ -44,6 +44,7 @@ package de.vzg.cmo.model;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -86,7 +87,7 @@ public class MEIUtils {
         .compile(".//mei:expressionList/mei:expression", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE);
 
     private static final XPathExpression<Element> PERSON_XPATH = XPathFactory.instance()
-        .compile(".//mei:persName[@dbkey]", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE);
+        .compile(".//mei:persName[@dbkey|@nymref]", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE);
 
     private static final XPathExpression<Attribute> PERSON_ANALOG_XPATH = XPathFactory.instance()
         .compile(".//mei:persName/@analog", Filters.attribute(), null, TEI_NAMESPACE, MEI_NAMESPACE);
@@ -137,7 +138,7 @@ public class MEIUtils {
         });
     }
 
-    private static String getLinkTarget(Element linkElement) {
+    public static String getLinkTarget(Element linkElement) {
         switch (linkElement.getName()) {
             case "hand":
                 return linkElement.getAttributeValue("resp");
@@ -163,6 +164,43 @@ public class MEIUtils {
             default:
                 return null;
         }
+    }
+
+    private static void setLinkTitle(Element linkElement, String newLabel) {
+        switch (linkElement.getName()) {
+            case "hand":
+                // cannot set title
+                /**
+                 * <hand xml:lang="ota-arab" medium="Pencil" resp="cmo_person_00000061">
+                 * 2nd hand (Refik Fersan); headings by 1st hand are transcribed into Ottoman Turkish in Arabic script; may also have added lines separating columns.
+                 * </hand>
+                 */
+                break;
+            case "bibl":
+            case "ref":
+            case "persName":
+                linkElement.setText(newLabel);
+                break;
+            case "expression":
+            case "relation":
+                linkElement.setAttribute("label", newLabel);
+                break;
+        }
+    }
+
+    private static String getLinkTitle(Element linkElement) {
+        switch (linkElement.getName()) {
+            case "hand":
+                return "";
+            case "bibl":
+            case "ref":
+            case "persName":
+                return linkElement.getText();
+            case "expression":
+            case "relation":
+                return linkElement.getAttributeValue("label");
+        }
+        return "";
     }
 
     private static void setLinkTarget(Element linkElement, String newTarget) {
@@ -216,6 +254,21 @@ public class MEIUtils {
                 newValue = changeFunction.apply(oldValue);
                 if (newValue != null) {
                     setLinkTarget(element, newValue);
+                }
+            }
+        });
+    }
+
+    public static void changeLinkLabels(Element root, BiFunction<Element, String, String> changeFunction) {
+        Stream<Element> linkTargetElementStream = getLinkElementStream(root);
+
+        linkTargetElementStream.forEach(element -> {
+            String target, newTitle;
+            target = getLinkTarget(element);
+            if (target != null) {
+                newTitle = changeFunction.apply(element, target);
+                if (newTitle != null) {
+                    setLinkTitle(element, newTitle);
                 }
             }
         });

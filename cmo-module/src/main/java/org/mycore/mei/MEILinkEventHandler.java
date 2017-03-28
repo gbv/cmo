@@ -24,10 +24,23 @@ package org.mycore.mei;
 import static org.mycore.datamodel.common.MCRLinkTableManager.ENTRY_TYPE_REFERENCE;
 
 import de.vzg.cmo.model.MEIUtils;
+import de.vzg.cmo.model.MEIWrapper;
+
+import java.util.AbstractMap;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jdom2.Attribute;
 import org.jdom2.Element;
+import org.jdom2.Text;
+import org.jdom2.filter.Filters;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
+import org.mycore.common.config.MCRConfiguration;
 import org.mycore.common.events.MCREvent;
 import org.mycore.common.events.MCREventHandlerBase;
 import org.mycore.datamodel.common.MCRLinkTableManager;
@@ -37,12 +50,68 @@ import org.mycore.datamodel.metadata.MCRObjectID;
 /**
  * This event handler looks to which objects the created/edited object links in the metadata and according to this
  * information it updates the Database.
+ * It also changes the Labels of the links according to rules defined in <i>MEILinkEventHandler.labelRules.</i>.
+ * Rules have to be like
+ *
+ * MEILinkEventHandler.LabelRules.sourceType.localLinkElementName.targetType=xpath
+ * MEILinkEventHandler.LabelRules.source.persName.person=.//mei:identifier[@type="TMAS-main"]
+ *
  */
 public class MEILinkEventHandler extends MCREventHandlerBase {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    private static final String MEILINK_EVENT_HANDLER_LABEL_RULES = "MEILinkEventHandler.LabelRules.";
+
     static MCRLinkTableManager linkTable = MCRLinkTableManager.instance();
+
+    private Map<String, Function<Element, String>> changeFunctions = buildChangeFunctions();
+
+    private Map<String, Function<Element, String>> buildChangeFunctions() {
+        HashMap<String, Function<Element, String>> changeFunctions = new HashMap<>();
+
+        Map<String, String> propertiesMap = MCRConfiguration.instance()
+            .getPropertiesMap(MEILINK_EVENT_HANDLER_LABEL_RULES);
+
+        propertiesMap = propertiesMap.entrySet().stream()
+            .map(e -> new AbstractMap.SimpleEntry<>(e.getKey()
+                .substring(MEILINK_EVENT_HANDLER_LABEL_RULES.length()), e.getValue()))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        propertiesMap.forEach((rule, xpath) -> {
+            String[] ruleDef = rule.split(".");
+            if (ruleDef.length != 3) {
+                LOGGER.error("Invalid Rule {}", rule);
+            }
+
+            Function<Element, String> changeFunction = (Element element) -> {
+                XPathExpression xp = XPathFactory.instance().compile(xpath, Filters.fpassthrough(), null, MEIUtils.MEI_NAMESPACE);
+
+                String linkTarget = MEIUtils.getLinkTarget(element);
+
+                Element root = MEIWrapper.getWrapper(linkTarget).getRoot();
+                Object match = xp.evaluateFirst(root);
+
+                if (match instanceof Element) {
+                    return ((Element) match).getTextTrim();
+                }
+
+                if (match instanceof Attribute) {
+                    return ((Attribute) match).getValue();
+                }
+
+                if (match instanceof Text) {
+                    return ((Text) match).getTextTrim();
+                }
+
+                return null;
+            };
+
+            changeFunctions.put(rule, changeFunction);
+        });
+
+        return changeFunctions;
+    }
 
     @Override
     protected void handleObjectCreated(MCREvent evt, MCRObject obj) {
@@ -50,6 +119,25 @@ public class MEILinkEventHandler extends MCREventHandlerBase {
 
         MCRObjectID id = obj.getId();
         deleteOldLinks(id);
+
+        LOGGER.info("Handle references of {}", id);
+        MEIUtils.changeLinkLabels(objectXML, (element, target) -> {
+            String sourceType = id.getTypeId();
+            if (MCRObjectID.isValid(target)) {
+
+                String targetType = MCRObjectID.getInstance(target).getTypeId();
+                String name = element.getName();
+                String key = String.format("%s.%s.%s", sourceType, name, targetType);
+
+                if (changeFunctions.containsKey(key)) {
+                    LOGGER.info("Found rule for " + key);
+                    return changeFunctions.get(key).apply(element);
+                } else {
+                    LOGGER.info("No rule for " + key);
+                }
+            }
+            return null;
+        });
 
         MEIUtils.resolveLinkTargets(objectXML, (linksTo) -> {
             LOGGER.info("Add reference from {} to {} to the Database.", id, linksTo);
