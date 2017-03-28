@@ -204,8 +204,7 @@ public abstract class MEIWrapper {
             List<Content> elementsToRemove = content.stream().filter(removeNodes)
                 .collect(Collectors.toList());
             elementsToRemove.forEach(((Element) node)::removeContent);
-
-            return content.size() - elementsToRemove.size() == 0 && ((Element) node).getAttributes().size() == 0;
+            return content.size() == 0 && ((Element) node).getAttributes().size() == 0;
         } else if (node instanceof Text) {
             return ((Text) node).getTextTrim().equals("");
         } else if (node instanceof ProcessingInstruction || node instanceof EntityRef) {
