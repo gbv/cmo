@@ -87,7 +87,7 @@ public class MCRMEIAuthorityInfo {
             return representedCategID;
         }
 
-        LOGGER.warn("The id: '{}' was not found in classification '{}'", value, representedCategID.getID());
+        LOGGER.warn("The id: '{}' was not found in classification '{}'", value, getRootID().getRootID());
         return null;
     }
 
