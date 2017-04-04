@@ -19,7 +19,6 @@
   ~  59 Temple Place - Suite 330, Boston, MA  02111-1307 USA
   ~
   -->
-
 <xsl:stylesheet
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:xalan="http://xml.apache.org/xalan"
@@ -47,15 +46,14 @@
     </mei:termList>
   </mei:classification>
   -->
-  <xsl:template name="listClassifications">
-    <xsl:if test="//mei:classification/mei:termList/mei:term">
-      <xsl:for-each select="//mei:classification/mei:classCode">
-        <tr>
-          <xsl:variable name="classCodeID" select="@xml:id" />
-          <th>
-            <xsl:value-of select="classification:getClassLabel(.)" />
-          </th>
-          <td>
+  <xsl:template match="mei:classification" mode="metadataView">
+    <xsl:comment>mei/classification.xsl > mei:classification</xsl:comment>
+    <xsl:if test="mei:termList/mei:term">
+      <xsl:for-each select="mei:classCode">
+        <xsl:variable name="classCodeID" select="@xml:id" />
+        <xsl:call-template name="metadataTextContent">
+          <xsl:with-param name="text" select="classification:getClassLabel(.)" />
+          <xsl:with-param name="content">
             <ul>
               <xsl:for-each
                 select="../mei:termList[@classcode=concat('#', $classCodeID)]/mei:term">
@@ -64,8 +62,8 @@
                 </li>
               </xsl:for-each>
             </ul>
-          </td>
-        </tr>
+          </xsl:with-param>
+        </xsl:call-template>
       </xsl:for-each>
     </xsl:if>
   </xsl:template>

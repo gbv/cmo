@@ -9,128 +9,36 @@
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
   <xsl:template match="/mycoreobject[contains(@ID,'_expression_')]">
+    <xsl:call-template name="metadataPage">
+      <xsl:with-param name="content">
+        <!--Show metadata -->
+        <xsl:call-template name="metadataSection">
+          <xsl:with-param name="content">
 
-    <div class="row">
+            <xsl:apply-templates select="structure/parents/parent" mode="metadataView">
+              <xsl:with-param name="type" select="'expression'" />
+            </xsl:apply-templates>
 
-      <xsl:call-template name="objectActions">
-        <xsl:with-param name="id" select="@ID" />
-      </xsl:call-template>
-
-      <h1>
-        <xsl:value-of select="//mei:expression/mei:identifier" />
-      </h1>
-
-      <xsl:if test="structure/parents/parent">
-        <h2>
-          Back to top expression
-          <xsl:call-template name="objectLink">
-            <xsl:with-param select="structure/parents/parent/@xlink:href" name="obj_id" />
-          </xsl:call-template>
-        </h2>
-      </xsl:if>
-
-      <table class="table">
-        <tr>
-          <th>
-            <xsl:value-of select="i18n:translate('docdetails.ID')" />
-          </th>
-          <td>
-            <a href="http://quellen-perspectivia.net/en/cmo/{//mei:expression/@xml:id}"><xsl:value-of select="//mei:expression/@xml:id" /></a>
-          </td>
-        </tr>
-
-        <xsl:if test="//mei:composer/mei:persName">
-          <tr>
-            <th>
-              <xsl:value-of select="i18n:translate('editor.label.composer')" />
-            </th>
-            <td>
-              <xsl:for-each select="//mei:composer/mei:persName">
-                <xsl:value-of select="." />
-                <br />
-              </xsl:for-each>
-            </td>
-          </tr>
-        </xsl:if>
-
-        <!--  Makam:   Râst  Râst
-              Usul:
-              Tempo:  -->
-
-        <xsl:if test="//mei:incip/mei:incipText">
-          <tr>
-            <th>
-              <xsl:value-of disable-output-escaping="yes" select="i18n:translate('editor.label.incipText')" />
-            </th>
-            <td>
-              <xsl:text>„</xsl:text>
-              <xsl:value-of select="//mei:incip/mei:incipText" />
-              <xsl:text>“</xsl:text>
-            </td>
-          </tr>
-        </xsl:if>
-
-        <xsl:if test="//mei:langUsage/mei:language">
-          <tr>
-            <th>
-              <xsl:value-of select="i18n:translate('editor.label.language')" />
-            </th>
-            <td>
-              <xsl:value-of select="//mei:langUsage/mei:language" />
-            </td>
-          </tr>
-        </xsl:if>
-
-        <xsl:if test="//mei:relationList/mei:relation">
-          <tr>
-            <th>
-              <xsl:value-of select="i18n:translate('editor.label.relatedSources')" />
-            </th>
-            <td>
-              <xsl:for-each select="//mei:relationList/mei:relation">
-                <xsl:call-template name="objectLink">
-                  <xsl:with-param select="./@target" name="obj_id" />
+            <xsl:call-template name="metadataContainer">
+              <xsl:with-param name="content">
+                <xsl:call-template name="displayIdWithOldLink">
+                  <xsl:with-param name="id" select="//mei:expression/@xml:id" />
                 </xsl:call-template>
-                <br />
-              </xsl:for-each>
-            </td>
-          </tr>
-        </xsl:if>
+                <xsl:apply-templates select="//mei:identifier" mode="metadataView" />
+                <xsl:apply-templates select="//mei:titleStmt" mode="metadataView" />
+                <xsl:apply-templates select="//mei:incip" mode="metadataView" />
+                <xsl:apply-templates select="//mei:langUsage" mode="metadataView" />
+                <xsl:apply-templates select="//mei:relationList" mode="metadataView" />
+                <xsl:apply-templates select="//mei:classification" mode="metadataView" />
+                <xsl:apply-templates select="structure/children" mode="metadataView" />
+              </xsl:with-param>
+            </xsl:call-template>
+          </xsl:with-param>
+        </xsl:call-template>
 
-        <xsl:call-template name="listClassifications" />
-
-        <xsl:if test="structure/children/child">
-          <tr>
-            <th>
-              <xsl:value-of select="i18n:translate('editor.label.contents')" />
-            </th>
-            <td>
-              <ul>
-                <xsl:for-each select="structure/children/child">
-                  <xsl:sort select="@xlink:title" />
-                  <li>
-                    <xsl:call-template name="objectLink">
-                      <xsl:with-param select="./@xlink:href" name="obj_id" />
-                    </xsl:call-template>
-                  </li>
-                </xsl:for-each>
-              </ul>
-            </td>
-          </tr>
-        </xsl:if>
-
-      </table>
-    </div>
-
-    <!-- show derivates if available and CurrentUser has read access -->
-    <xsl:if test="structure/derobjects/derobject[acl:checkPermission(@xlink:href,'read')]">
-      <div class="row">
-        <xsl:apply-templates select="structure/derobjects/derobject[acl:checkPermission(@xlink:href,'read')]">
-          <xsl:with-param name="objID" select="@ID" />
-        </xsl:apply-templates>
-      </div>
-    </xsl:if>
-
+        <xsl:call-template name="displayDerivateSection" />
+      </xsl:with-param>
+    </xsl:call-template>
   </xsl:template>
 
 

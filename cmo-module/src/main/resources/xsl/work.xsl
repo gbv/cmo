@@ -10,76 +10,39 @@
 
   <xsl:template match="/mycoreobject[contains(@ID,'_work_')]">
 
-    <div class="row">
+    <xsl:call-template name="metadataPage">
+      <xsl:with-param name="content">
+        <!--Show metadata -->
+        <xsl:call-template name="metadataSection">
+          <xsl:with-param name="content">
 
-      <xsl:call-template name="objectActions">
-        <xsl:with-param name="id" select="@ID" />
-      </xsl:call-template>
+            <xsl:call-template name="objectActions">
+              <xsl:with-param name="id" select="@ID" />
+            </xsl:call-template>
 
-      <h1>
-        <xsl:value-of select="//mei:work/mei:identifier" />
-      </h1>
-
-      <table class="table">
-        <tr>
-          <th>
-            <xsl:value-of select="i18n:translate('docdetails.ID')" />
-          </th>
-          <td>
-            <a href="http://quellen-perspectivia.net/en/cmo/{//mei:work/@xml:id}"><xsl:value-of select="//mei:work/@xml:id" /></a>
-          </td>
-        </tr>
-
-        <xsl:if test="//mei:work/mei:biblList/mei:bibl">
-          <tr>
-            <th>
-              <xsl:value-of select="i18n:translate('editor.label.biblList')" />
-            </th>
-            <td>
-              <xsl:for-each select="//mei:work/mei:biblList/mei:bibl">
-                <xsl:call-template name="objectLink">
-                  <xsl:with-param select="./@target" name="obj_id" />
+            <xsl:call-template name="metadataContainer">
+              <xsl:with-param name="content">
+                <xsl:call-template name="displayIdWithOldLink">
+                  <xsl:with-param name="id" select="//mei:work/@xml:id" />
                 </xsl:call-template>
-                <br />
-              </xsl:for-each>
-            </td>
-          </tr>
-        </xsl:if>
+                <xsl:apply-templates select="//mei:identifier" mode="metadataView" />
+                <xsl:apply-templates select="//mei:composer" mode="metadataView" />
+                <xsl:apply-templates select="//mei:lyricist" mode="metadataView" />
+                <xsl:apply-templates select="//mei:notesStmt" mode="metadataView" />
+                <xsl:apply-templates select="//mei:biblList" mode="metadataView" />
+                <xsl:apply-templates select="//mei:classification" mode="metadataView" />
+                <xsl:apply-templates select="//mei:expressionList" mode="metadataView" />
+              </xsl:with-param>
+            </xsl:call-template>
+          </xsl:with-param>
+        </xsl:call-template>
 
-        <xsl:if test="//mei:bibl/mei:pubPlace">
-          <tr>
-            <th>
-              <xsl:value-of select="i18n:translate('editor.label.pubPlace')" />
-            </th>
-            <td>
-              <xsl:value-of select="//mei:bibl/mei:pubPlace" />
-            </td>
-          </tr>
-        </xsl:if>
-
-        <xsl:if test="//mei:bibl/mei:date">
-          <tr>
-            <th>
-              <xsl:value-of select="i18n:translate('editor.label.date')" />
-            </th>
-            <td>
-              <xsl:value-of select="//mei:bibl/mei:date" />
-            </td>
-          </tr>
-        </xsl:if>
-      </table>
-    </div>
-
-    <!-- show derivates if available and CurrentUser has read access -->
-    <xsl:if test="structure/derobjects/derobject[acl:checkPermission(@xlink:href,'read')]">
-      <div class="row">
-        <xsl:apply-templates select="structure/derobjects/derobject[acl:checkPermission(@xlink:href,'read')]">
-          <xsl:with-param name="objID" select="@ID" />
-        </xsl:apply-templates>
-      </div>
-    </xsl:if>
-
+        <xsl:call-template name="displayDerivateSection" />
+      </xsl:with-param>
+    </xsl:call-template>
   </xsl:template>
+
+
 
 
   <xsl:template priority="1" mode="resulttitle" match="mycoreobject[contains(@ID,'_work_')]">
