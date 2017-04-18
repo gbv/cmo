@@ -23,18 +23,6 @@
     <maven>3.2.2</maven>
   </prerequisites>
   <properties>
-    <!-- shall be in sync with corresponding MIR release -->
-    <cargo.container.zipUrlInstaller.downloadDir>${settings.localRepository}/../cargo/containers</cargo.container.zipUrlInstaller.downloadDir>
-    <cargo.debug.address>8295</cargo.debug.address>
-    <cargo.debug.suspend>n</cargo.debug.suspend>
-    <cargo.deployable.default.artifactId>${project.artifactId}</cargo.deployable.default.artifactId>
-    <cargo.deployable.default.context>/</cargo.deployable.default.context>
-    <cargo.deployable.default.groupId>${project.groupId}</cargo.deployable.default.groupId>
-    <cargo.rmi.port>8290</cargo.rmi.port>
-    <cargo.servlet.port>8291</cargo.servlet.port>
-    <cargo.servlet.uriencoding>UTF-8</cargo.servlet.uriencoding>
-    <cargo.tomcat.ajp.port>8292</cargo.tomcat.ajp.port>
-    <cargo.version>1.6.1</cargo.version>
     <changelog.since>2017-01-25</changelog.since>
     <!-- until snapshot matches released version (required for 'mvn changes:changes-check') -->
     <changes.version>2017.01</changes.version>
@@ -43,7 +31,6 @@
     <jetty.version>9.3.14.v20161028</jetty.version>
     <mycore.version>2017.01-SNAPSHOT</mycore.version>
     <site.suffix />
-    <tomcat8.version>8.5.8</tomcat8.version>
   </properties>
   <build>
     <pluginManagement>
@@ -138,11 +125,6 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>exec-maven-plugin</artifactId>
           <version>1.5.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.cargo</groupId>
-          <artifactId>cargo-maven2-plugin</artifactId>
-          <version>${cargo.version}</version>
         </plugin>
         <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
         <plugin>
@@ -267,102 +249,6 @@
       <id>release-profile</id>
       <properties>
         <site.suffix>-${project.version}</site.suffix>
-      </properties>
-    </profile>
-    <profile>
-      <id>jetty</id>
-      <activation>
-        <property>
-          <name>jetty</name>
-        </property>
-      </activation>
-      <properties>
-        <cargo.container>jetty9x</cargo.container>
-      </properties>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.codehaus.cargo</groupId>
-              <artifactId>cargo-maven2-plugin</artifactId>
-              <configuration>
-                <container>
-                  <containerId>${cargo.container}</containerId>
-                  <artifactInstaller>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-distribution</artifactId>
-                    <version>${jetty.version}</version>
-                  </artifactInstaller>
-                </container>
-                <configuration>
-                  <properties>
-                    <cargo.servlet.port>${cargo.servlet.port}</cargo.servlet.port>
-                  </properties>
-                  <xmlReplacements>
-                    <xmlReplacement>
-                      <file>etc/jetty-logging.xml</file>
-                      <xpathExpression>/Configure</xpathExpression>
-                      <value>&lt;!-- disabled --&gt;</value>
-                    </xmlReplacement>
-                  </xmlReplacements>
-                </configuration>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-      </build>
-    </profile>
-    <profile>
-      <id>tomcat</id>
-      <activation>
-        <property>
-          <name>tomcat</name>
-        </property>
-      </activation>
-      <properties>
-        <cargo.container>tomcat${tomcat}x</cargo.container>
-      </properties>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.codehaus.cargo</groupId>
-              <artifactId>cargo-maven2-plugin</artifactId>
-              <configuration>
-                <container>
-                  <containerId>${cargo.container}</containerId>
-                  <zipUrlInstaller>
-                    <url>http://ftp.fau.de/apache/tomcat/tomcat-${tomcat}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.tar.gz</url>
-                    <downloadDir>${cargo.container.zipUrlInstaller.downloadDir}</downloadDir>
-                  </zipUrlInstaller>
-                </container>
-                <home>${project.build.directory}/catalina-base</home>
-                <configuration>
-                  <properties>
-                    <cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
-                    <cargo.servlet.port>${cargo.servlet.port}</cargo.servlet.port>
-                    <cargo.tomcat.ajp.port>${cargo.tomcat.ajp.port}</cargo.tomcat.ajp.port>
-                    <cargo.servlet.uriencoding>${cargo.servlet.uriencoding}</cargo.servlet.uriencoding>
-                    <!-- fixes IIIF identifier encoding issues -->
-                    <cargo.start.jvmargs>-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true</cargo.start.jvmargs>
-                  </properties>
-                </configuration>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-      </build>
-    </profile>
-    <profile>
-      <id>tomcat8</id>
-      <activation>
-        <property>
-          <name>tomcat</name>
-          <value>8</value>
-        </property>
-      </activation>
-      <properties>
-        <tomcat.version>${tomcat8.version}</tomcat.version>
       </properties>
     </profile>
   </profiles>

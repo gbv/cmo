@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>de.vzg.cmo</groupId>
@@ -13,11 +14,7 @@
   <description>Web application that bundles are part in a single artifact</description>
   <properties>
     <MCR.AppName>cmo</MCR.AppName>
-    <cargo.jvmargs>-DMCR.AppName=${MCR.AppName}
-      -Dsolr.solr.home=${solr.home}
-      -Dsolr.data.dir=${solr.data.dir}</cargo.jvmargs>
-    <solr.data.dir>${cmo.solr.data.dir}</solr.data.dir>
-    <solr.home>${cmo.solr.home}</solr.home>
+    <solr.location>${user.home}/.mycore/dev-cmo/data/solr</solr.location>
   </properties>
   <build>
     <finalName>cmo-${project.version}</finalName>
@@ -62,33 +59,63 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.cargo</groupId>
-        <artifactId>cargo-maven2-plugin</artifactId>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>9.4.3.v20170317</version>
         <configuration>
-          <deployables>
-            <deployable>
-              <groupId>org.mycore.solr</groupId>
-              <artifactId>solr</artifactId>
-              <type>war</type>
-              <properties>
-                <context>/solr</context>
-              </properties>
-            </deployable>
-            <deployable>
-              <groupId>${project.groupId}</groupId>
-              <artifactId>${project.artifactId}</artifactId>
-              <properties>
-                <context>/${MCR.AppName}</context>
-              </properties>
-            </deployable>
-          </deployables>
-          <configuration>
-            <properties>
-              <cargo.jvmargs>${cargo.jvmargs}</cargo.jvmargs>
-              <cargo.servlet.users>submitter:submitter123:submitter|editor:editor123:editor</cargo.servlet.users>
-            </properties>
-          </configuration>
+          <scanIntervalSeconds>10</scanIntervalSeconds>
+          <systemProperties>
+            <systemProperty>
+              <name>MCR.AppName</name>
+              <value>${MCR.AppName}</value>
+            </systemProperty>
+            <systemProperty>
+              <name>MCR.DataPrefix</name>
+              <value>dev</value>
+            </systemProperty>
+          </systemProperties>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>de.vzg.maven</groupId>
+        <artifactId>solr-runner-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.mycore.solr</groupId>
+            <artifactId>mycore-solr-plugin</artifactId>
+            <version>0.2</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <solrHome>${solr.location}</solrHome>
+          <solrPort>8983</solrPort>
+          <solrHomeTemplate>${project.basedir}/src/main/solrHome</solrHomeTemplate>
+          <pluginCoreMappings>
+            <pluginCoreMapping>
+              <core>cmo</core>
+              <plugin>org.mycore.solr:mycore-solr-plugin</plugin>
+            </pluginCoreMapping>
+          </pluginCoreMappings>
+        </configuration>
+        <executions>
+          <execution>
+            <id>start-solr</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>copyHome</goal>
+              <goal>installSolrPlugins</goal>
+              <goal>start</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>stop-solr</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -108,26 +135,5 @@
       <artifactId>mycore-meta</artifactId>
       <type>pom</type>
     </dependency>
-    <dependency>
-      <groupId>org.mycore.solr</groupId>
-      <artifactId>solr</artifactId>
-      <version>4.10.4</version>
-      <type>war</type>
-      <scope>provided</scope>
-    </dependency>
   </dependencies>
-  <profiles>
-    <profile>
-      <id>dev</id>
-      <properties>
-        <MCR.DataPrefix>dev</MCR.DataPrefix>
-        <cargo.jvmargs>-Djava.awt.headless=true
-          -DMCR.AppName=${MCR.AppName}
-          -DMCR.DataPrefix=${MCR.DataPrefix}
-          -Dsolr.solr.home=${solr.home}
-          -Dsolr.data.dir=${solr.data.dir}
-          -Xrunjdwp:transport=dt_socket,server=y,suspend=${cargo.debug.suspend},address=${cargo.debug.address}</cargo.jvmargs>
-      </properties>
-    </profile>
-  </profiles>
 </project>
