@@ -20,7 +20,7 @@
 
   <xsl:template match="mei:term">
     <xsl:variable name="uri" xmlns:mcrmei="xalan://org.mycore.mei.classification.MCRMEIClassificationSupport" select="mcrmei:getClassificationLinkFromTerm(.)" />
-    <xsl:if test="string-length($uri) &gt; 0">
+    <xsl:if test="string-length($uri) &gt; 0 and string-length(substring-after(substring-after($uri,'parents:'),':')) &gt; 0">
       <xsl:variable name="topField" select="true()" /> <!-- TODO: not(ancestor::mods:relatedItem) -->
       <xsl:variable name="classdoc" select="document($uri)" />
       <xsl:variable name="classid" select="$classdoc/mycoreclass/@ID" />
