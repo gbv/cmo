@@ -15,7 +15,7 @@
 
   <!-- Various versions -->
   <xsl:variable name="bootstrap.version" select="'3.3.7'" />
-  <xsl:variable name="fontawesome.version" select="'4.5.0'" />
+  <xsl:variable name="fontawesome.version" select="'4.7.0'" />
   <xsl:variable name="jquery.version" select="'1.11.3'" />
   <xsl:variable name="jquery.migrate.version" select="'1.2.1'" />
   <!-- End of various versions -->
@@ -87,9 +87,6 @@
           <!-- Bootstrap & Query-Ui button conflict workaround  -->
           if (jQuery.fn.button){jQuery.fn.btn = jQuery.fn.button.noConflict();}
         </script>
-        <!--
-        <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/{$bootstrap.version}/js/bootstrap.min.js"></script>
-        -->
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap-sass/{$bootstrap.version}/javascripts/bootstrap.min.js"></script>
         <script>
           $( document ).ready(function() {
