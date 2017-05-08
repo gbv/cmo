@@ -79,17 +79,37 @@
 
     <xsl:for-each select="tei:date">
       <mei:date type="{$type}" calendar="gregorian">
+        <xsl:if test="@notBefore">
+          <xsl:attribute name="notbefore">
+            <xsl:value-of select="@notBefore" />
+          </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="@notAfter">
+          <xsl:attribute name="notafter">
+            <xsl:value-of select="@notAfter" />
+          </xsl:attribute>
+        </xsl:if>
         <xsl:if test="@from or @to or @when">
-          <xsl:attribute name="isodate">
             <xsl:choose>
+              <xsl:when test="@from and @to">
+                <xsl:attribute name="notbefore">
+                  <xsl:value-of select="@from" />
+                </xsl:attribute>
+                <xsl:attribute name="notafter">
+                  <xsl:value-of select="@to" />
+                </xsl:attribute>
+              </xsl:when>
               <xsl:when test="@from">
-                <xsl:value-of select="@from" />
+                <xsl:attribute name="isodate">
+                  <xsl:value-of select="@from" />
+                </xsl:attribute>
               </xsl:when>
               <xsl:when test="@to">
-                <xsl:value-of select="@to" />
+                <xsl:attribute name="isodate">
+                  <xsl:value-of select="@to" />
+                </xsl:attribute>
               </xsl:when>
             </xsl:choose>
-          </xsl:attribute>
         </xsl:if>
         <xsl:if test="tei:ref/@target">
           <xsl:attribute name="source">
@@ -100,6 +120,9 @@
               <xsl:value-of select="tei:ref/text()" />
             </xsl:attribute>
           </xsl:if>
+        </xsl:if>
+        <xsl:if test="string-length(text()) &gt; 0">
+          <xsl:value-of select="text()" />
         </xsl:if>
       </mei:date>
     </xsl:for-each>

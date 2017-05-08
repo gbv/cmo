@@ -83,7 +83,23 @@
               <ul>
                 <xsl:for-each select="key('dateByType', @type)">
                   <li>
-                    <xsl:value-of select="@isodate" />
+                    <xsl:choose>
+                      <xsl:when test="@isodate">
+                        <xsl:value-of select="@isodate" />
+                      </xsl:when>
+                      <xsl:when test="@notbefore and @notafter">
+                        <xsl:value-of select="concat(@notbefore, '-', @notafter)" />
+                      </xsl:when>
+                      <xsl:when test="@notbefore">
+                        <xsl:value-of select="concat(@notbefore, '-?')" />
+                      </xsl:when>
+                      <xsl:when test="@notafter">
+                        <xsl:value-of select="concat('?-', @notafter)" />
+                      </xsl:when>
+                    </xsl:choose>
+                    <xsl:if test="string-length(text()) &gt; 0">
+                      <xsl:value-of select="text()" />
+                    </xsl:if>
                     <xsl:text>(</xsl:text>
                     <xsl:call-template name="objectLink">
                       <xsl:with-param select="@source" name="obj_id" />
