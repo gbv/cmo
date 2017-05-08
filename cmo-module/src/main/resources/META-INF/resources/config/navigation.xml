@@ -47,6 +47,10 @@
     <!-- CMO catalogue menu  -->
     <label xml:lang="de">Katalog</label>
     <label xml:lang="en">Catalogue</label>
+    <item href="/content/catalogue/search.xed" type="intern">
+      <label xml:lang="de">Suchen</label>
+      <label xml:lang="en">Search Edition</label>
+    </item>
     <item href="/content/catalogue/source.xml" type="intern">
       <label xml:lang="de">Art der Quelle</label>
       <label xml:lang="en">Browse Source</label>

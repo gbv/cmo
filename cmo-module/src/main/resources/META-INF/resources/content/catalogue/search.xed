@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MyCoReWebPage>
-  <section title="Search edition" xml:lang="de">
+  <section title="Search catalogue" xml:lang="de">
     <div class="row">
       <div class="col-md-12">
-        <h1>Search edition</h1>
+        <h1>Search catalogue</h1>
         <p>
           Link to CMO Catalogue with predefined search functions to
-          search only within the editions (searching possibilities must
+          search only within the catalogue (searching possibilities must
           be clarified before deciding on how to display).
         </p>
       </div>
@@ -23,7 +23,6 @@
           <xed:bind xpath="@order" default="ascending" />
         </xed:bind>
         <xed:bind xpath="conditions[@format='xml']/boolean[@operator='and']">
-          <xed:bind xpath="condition0[@field='objectType'][@operator='=']/@value" default="mods" />
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">
@@ -51,6 +50,30 @@
                   </div>
                 </div>
               </div>
+              <!-- search in all metadata -->
+              <div class="form-group">
+                <label class="col-md-3 control-label" for="inputMeta">
+                  <xed:output i18n="editor.search.makam" />
+                </label>
+                <div class="col-md-9">
+                  <div class="input-group">
+                    <xed:bind
+                      xpath="condition[@field='category.top'][2][@operator='=']/@value"
+                      >
+                      <select id="makam" class="form-control">
+                        <option value="">
+                          <xed:output i18n="editor.common.select" />
+                        </option>
+                        <xed:include uri="xslStyle:items2options:classification:editorComplete:-1:children:cmo_makamler" />
+                      </select>
+                      <span data-toggle="tooltip" class="input-group-addon"
+                        title="Filtermöglichkeit nach Makâm">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                      </span>
+                    </xed:bind>
+                  </div>
+                </div>
+              </div>
               <!-- search in derivate content -->
               <div class="form-group">
                 <label class="col-md-3 control-label" for="inputContent">
@@ -59,7 +82,7 @@
                 <div class="col-md-9">
                   <div class="input-group">
                     <xed:bind
-                      xpath="condition2[@field='content'][@operator='contains']/@value">
+                      xpath="condition1[@field='content'][@operator='contains']/@value">
                       <input id="inputContent" class="form-control"
                         placeholder="in den Dateien" type="text" />
                       <span data-toggle="tooltip" class="input-group-addon"

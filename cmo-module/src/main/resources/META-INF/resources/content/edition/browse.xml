@@ -4,18 +4,21 @@
   <section xml:lang="de" title="Browse edition">
     <div class="row">
       <div class="col-md-12">
-        <h1>Browse edition</h1>
-        <p>
-          (This naming might be changed later; content remains the
-          same.) List of publications according to publication plan with
-          options to view/download certain elements and connections to
-          the CMO Catalogue (see Appendix V for details).
-        </p>
+        <p>List of publications according to publication plan with options to view/download certain elements and connections to the CMO Catalogue (see Appendix V for details). </p>
+        <h1>CMO Publication Plan</h1>
+        <h2>Part I: Edition of the Manuscripts in Hampartsum Notation</h2>
+        <h3>Series 1: The Manuscript Sources from Istanbul University, Nadir Eserler Kütühanesi</h3>
+        <ul>
+          <li>Volume 1: <a href="../../servlets/solr/select?q=Y.203-1%20AND%20objectType:mods">Manuscript Y.203-1</a></li>
+          <li>Volume 2: <a href="../../servlets/solr/select?q=Y.204-2%20AND%20objectType:mods">Manuscript Y.204-2</a></li>
+          <li>Volume 3: <a href="../../servlets/solr/select?q=Y.205-3%20AND%20objectType:mods">Manuscript Y.205-3</a></li>
+          <li>...</li>
+        </ul>
       </div>
     </div>
   </section>
   <meta>
-    <log date="2017-01-30" time="11:59" labelPath=" » Browse edition"
+    <log date="2017-05-08" time="13:59" labelPath=" » Browse edition"
       lastEditor="Kathleen Neumann" />
   </meta>
 </MyCoReWebPage>
