@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_licenses">
+  <label xml:lang="en" text="Licenses" />
+  <label xml:lang="de" text="Lizenzen" />
+  <label xml:lang="x-uri" text="http://cmo.gbv.de/classifications/cmo_licenses" />
+  <categories>
+    <category ID="rights_reserved">
+      <label xml:lang="de" text="Alle Rechte vorbehalten" />
+      <label xml:lang="en" text="all rights reserved" />
+    </category>
+    <category ID="cc_4.0">
+      <label xml:lang="en" text="Creative Commons 4.0 International Lizences" />
+      <label xml:lang="de" text="Creative Commons 4.0 International Lizenzen" />
+      <label xml:lang="x-group" text="true" />
+      <url xlink:href="https://creativecommons.org/licenses/" xlink:type="locator" />
+      <category ID="cc_by_4.0">
+        <label xml:lang="en" text="CC BY 4.0" description="Attribution 4.0" />
+        <label xml:lang="de" text="CC BY 4.0" description="Namensnennung 4.0" />
+        <url xlink:href="https://creativecommons.org/licenses/by/4.0/" xlink:type="locator" />
+      </category>
+      <category ID="cc_by-sa_4.0">
+        <label xml:lang="de" text="CC BY-SA 4.0" description="Namensnennung - Weitergabe unter gleichen Bedingungen 4.0" />
+        <label xml:lang="en" text="CC BY-SA 4.0" description="Attribution-ShareAlike 4.0" />
+        <url xlink:href="https://creativecommons.org/licenses/by-sa/4.0/" xlink:type="locator" />
+      </category>
+      <category ID="cc_by-nd_4.0">
+        <label xml:lang="en" text="CC BY-ND 4.0" description="Attribution-NoDerivatives 4.0" />
+        <label xml:lang="de" text="CC BY-ND 4.0" description="Namensnennung - Keine Bearbeitungen 4.0" />
+        <url xlink:href="https://creativecommons.org/licenses/by-nd/4.0/" xlink:type="locator" />
+      </category>
+      <category ID="cc_by-nc_4.0">
+        <label xml:lang="en" text="CC BY-NC 4.0" description="Attribution-NonCommercial 4.0" />
+        <label xml:lang="de" text="CC BY-NC 4.0" description="Namensnennung-Nicht kommerziell 4.0" />
+        <url xlink:href="https://creativecommons.org/licenses/by-nc/4.0/" xlink:type="locator" />
+      </category>
+      <category ID="cc_by-nc-sa_4.0">
+        <label xml:lang="de" text="CC BY-NC-SA 4.0" description="Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0" />
+        <label xml:lang="en" text="CC BY-NC-SA 4.0" description="Attribution-NonCommercial-ShareAlike 4.0" />
+        <url xlink:href="https://creativecommons.org/licenses/by-nc-sa/4.0/" xlink:type="locator" />
+      </category>
+      <category ID="cc_by-nc-nd_4.0">
+        <label xml:lang="de" text="CC BY-NC-ND 4.0" description="Namensnennung - Nicht kommerziell - Keine Bearbeitungen 4.0" />
+        <label xml:lang="en" text="CC BY-NC-ND 4.0" description="Attribution-NonCommercial-NoDerivatives 4.0" />
+        <url xlink:href="https://creativecommons.org/licenses/by-nc-nd/4.0/" xlink:type="locator" />
+      </category>
+    </category>
+  </categories>
+</mycoreclass>
