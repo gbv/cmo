@@ -63,10 +63,10 @@
     <annot />
   </notesStmt>
   <classification>
-    <termList xmlns:cmo="http://www.corpus-musicae-ottomanicae.de/ns/cmo">
-      <term cmo:term-type="genre">Printed source</term>
-      <term cmo:term-type="genre1">Mixed musical Collection</term>
-      <term cmo:term-type="genre2">Staff notation</term>
+    <termList>
+      <term>Printed source</term>
+      <term>Mixed musical Collection</term>
+      <term>Staff notation</term>
     </termList>
   </classification>
   <langUsage>
