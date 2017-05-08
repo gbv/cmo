@@ -189,6 +189,10 @@
     </dependency>
     <dependency>
       <groupId>org.mycore</groupId>
+      <artifactId>mycore-webcli</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mycore</groupId>
       <artifactId>mycore-sass</artifactId>
     </dependency>
     <dependency>
@@ -199,7 +203,7 @@
     <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>font-awesome</artifactId>
-      <version>4.5.0</version>
+      <version>4.7.0</version>
     </dependency>
     <dependency>
       <groupId>org.webjars</groupId>
