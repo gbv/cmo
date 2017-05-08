@@ -31,6 +31,8 @@
   <!-- TODO: display this -->
   <xsl:template match="mei:seriesStmt" mode="metadataView">
     <xsl:comment>mei/seriesStmt.xsl > mei:seriesStmt</xsl:comment>
+    <xsl:value-of select="text()" />
+    <br />
   </xsl:template>
 
 
