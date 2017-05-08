@@ -29,19 +29,18 @@
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
   <!-- TODO: display this -->
-  <xsl:template match="mei:notesStmt" mode="metadataView">
-    <xsl:comment>mei/notesStmt.xsl > mei:notesStmt</xsl:comment>
-    <xsl:if test="mei:annot">
+  <xsl:template match="mei:geogName" mode="metadataView">
+    <xsl:comment>mei/geogName.xsl > mei:geogName</xsl:comment>
+    <xsl:if test="mei:geogName">
       <xsl:call-template name="metadataLabelContent">
-        <xsl:with-param name="label" select="'editor.label.annot'" />
+        <xsl:with-param name="label" select="'editor.label.geogName'" />
         <xsl:with-param name="content">
-          <ul>
-            <xsl:for-each select="mei:annot">
-              <li>
-                <xsl:value-of select="." />
-              </li>
-            </xsl:for-each>
-          </ul>
+          <xsl:for-each select="mei:geogName">
+            <xsl:value-of select="." />
+            <xsl:if test="position() != last()">
+              <xsl:text> </xsl:text>
+            </xsl:if>
+          </xsl:for-each>
         </xsl:with-param>
       </xsl:call-template>
     </xsl:if>

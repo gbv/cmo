@@ -27,12 +27,23 @@
                 <xsl:call-template name="displayIdWithOldLink">
                   <xsl:with-param name="id" select="//mei:source/@xml:id" />
                 </xsl:call-template>
-                <xsl:apply-templates select="//mei:identifier" mode="metadataView" />
+                <xsl:apply-templates select="//mei:source/mei:identifier[@type='CMO']" mode="metadataView" />
+                <xsl:apply-templates select="//mei:physLoc/mei:repository/mei:corpName[@type='library']" mode="metadataView" />
+                <xsl:apply-templates select="//mei:physLoc/mei:repository/mei:geogName" mode="metadataView" />
+                <xsl:apply-templates select="//mei:physLoc/mei:repository/mei:identifier " mode="metadataView" />
+                <xsl:apply-templates select="//mei:source/mei:identifier[@type='RISM']" mode="metadataView" />
+
                 <xsl:apply-templates select="//mei:titleStmt" mode="metadataView" />
                 <xsl:apply-templates select="//mei:seriesStmt" mode="metadataView" />
+
+                <xsl:apply-templates select="//mei:physDesc" mode="metadataView" />
+                <xsl:apply-templates select="//mei:contents" mode="metadataView" />
+
                 <xsl:apply-templates select="//mei:langUsage" mode="metadataView" />
                 <xsl:apply-templates select="//mei:notesStmt" mode="metadataView" />
                 <xsl:apply-templates select="//mei:classification" mode="metadataView" />
+
+
                 <xsl:apply-templates select="structure/children" mode="metadataView" />
               </xsl:with-param>
             </xsl:call-template>
