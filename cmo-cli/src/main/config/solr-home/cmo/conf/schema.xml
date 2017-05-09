@@ -436,7 +436,7 @@
     <field name="fileCategory" type="string" multiValued="true"/>
     <field name="maindoc" type="string" />
     <field name="iviewFile" type="string" />
-	<field name="hasFiles" type="boolean" />
+  <field name="hasFiles" type="boolean" />
 
     <!-- MCRFile related fields -->
     <field name="derivateID" type="string" />
@@ -464,6 +464,7 @@
     <field name="mods.genre" type="string" multiValued="true" />
     <field name="mods.identifier" type="string" multiValued="true" />
     <field name="mods.identifier.host" type="string" multiValued="true" />
+    <field name="mods.identifier.references" type="string" multiValued="true" />
     <field name="mods.abstract" type="text_de" multiValued="true" />
     <field name="mods.abstract.result" type="text_de" indexed="false" />
     <field name="mods.dateIssued" type="string"/>
