@@ -276,11 +276,6 @@
       </dependency>
       <dependency>
         <groupId>org.mycore</groupId>
-        <artifactId>mycore-iview2</artifactId>
-        <version>${mycore.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
         <artifactId>mycore-meta</artifactId>
         <version>${mycore.version}</version>
         <type>pom</type>
@@ -304,69 +299,11 @@
         <artifactId>mycore-mods</artifactId>
         <version>${mycore.version}</version>
       </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
-        <artifactId>mycore-pi</artifactId>
-        <version>${mycore.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
-        <artifactId>mycore-solr</artifactId>
-        <version>${mycore.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
-        <artifactId>mycore-sword</artifactId>
-        <version>${mycore.version}</version>
-        <exclusions>
-          <!-- MCR-1100 -->
-          <exclusion>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-          </exclusion>
-          <!-- MCR-1101 -->
-          <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
-        <artifactId>mycore-user2</artifactId>
-        <version>${mycore.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
-        <artifactId>mycore-viewer</artifactId>
-        <version>${mycore.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
-        <artifactId>mycore-wfc</artifactId>
-        <version>${mycore.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
-        <artifactId>mycore-webcli</artifactId>
-        <version>${mycore.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
-        <artifactId>mycore-sass</artifactId>
-        <version>${mycore.version}</version>
-      </dependency>
       <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
       <dependency>
         <groupId>com.mchange</groupId>
         <artifactId>c3p0</artifactId>
         <version>0.9.5.2</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mycore</groupId>
-        <artifactId>mycore-ifs</artifactId>
-        <version>${mycore.version}</version>
-        <scope>runtime</scope>
       </dependency>
       <dependency>
         <groupId>org.mycore</groupId>

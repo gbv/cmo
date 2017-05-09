@@ -152,50 +152,6 @@
       <type>test-jar</type>
     </dependency>
     <dependency>
-      <groupId>org.mycore</groupId>
-      <artifactId>mycore-ifs</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mycore</groupId>
-      <artifactId>mycore-iview2</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mycore</groupId>
-      <artifactId>mycore-mods</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mycore</groupId>
-      <artifactId>mycore-pi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mycore</groupId>
-      <artifactId>mycore-solr</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mycore</groupId>
-      <artifactId>mycore-sword</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mycore</groupId>
-      <artifactId>mycore-user2</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mycore</groupId>
-      <artifactId>mycore-viewer</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mycore</groupId>
-      <artifactId>mycore-wfc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mycore</groupId>
-      <artifactId>mycore-webcli</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mycore</groupId>
-      <artifactId>mycore-sass</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>bootstrap-sass</artifactId>
       <version>3.3.7</version>
