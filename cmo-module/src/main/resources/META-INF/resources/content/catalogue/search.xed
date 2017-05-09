@@ -38,7 +38,7 @@
                 <div class="col-md-9">
                   <div class="input-group">
                     <xed:bind
-                      xpath="condition1[@field='allMeta'][@operator='contains']/@value"
+                      xpath="condition0[@field='allMeta'][@operator='contains']/@value"
                       default="*">
                       <input id="inputMeta" class="form-control"
                         placeholder="in den Metadaten" type="text" />
@@ -50,15 +50,14 @@
                   </div>
                 </div>
               </div>
-              <!-- search in all metadata -->
               <div class="form-group">
-                <label class="col-md-3 control-label" for="inputMeta">
+                <label class="col-md-3 control-label" for="inputMakam">
                   <xed:output i18n="editor.search.makam" />
                 </label>
                 <div class="col-md-9">
                   <div class="input-group">
                     <xed:bind
-                      xpath="condition[@field='category.top'][2][@operator='=']/@value"
+                      xpath="condition1[@field='category.top'][@operator='=']/@value"
                       >
                       <select id="makam" class="form-control">
                         <option value="">
@@ -74,6 +73,66 @@
                   </div>
                 </div>
               </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label" for="inputSourceType">
+                  <xed:output i18n="editor.search.sourceType" />
+                </label>
+                <div class="col-md-9">
+                  <div class="input-group">
+                    <xed:bind
+                      xpath="condition2[@field='category.top'][@operator='=']/@value"
+                      >
+                      <select id="sourceType" class="form-control">
+                        <option value="">
+                          <xed:output i18n="editor.common.select" />
+                        </option>
+                        <xed:include uri="xslStyle:items2options:classification:editorComplete:-1:children:cmo_sourceType" />
+                      </select>
+                      <span data-toggle="tooltip" class="input-group-addon"
+                        title="Filtermöglichkeit nach Art der Quelle">
+                        <i class="fa fa-info"></i>
+                      </span>
+                    </xed:bind>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label" for="inputType">
+                  <xed:output i18n="editor.search.objectType" />
+                </label>
+                <div class="col-md-9">
+                  <div class="input-group">
+                    <xed:bind
+                      xpath="condition3[@field='objectType'][@operator='=']/@value"
+                      >
+                      <select id="objectType" class="form-control">
+                        <option value="">
+                          <xed:output i18n="editor.common.select" />
+                        </option>
+                        <option value="source">
+                          <xed:output i18n="editor.cmo.select.source" />
+                        </option>
+                        <option value="expression">
+                          <xed:output i18n="editor.cmo.select.expression" />
+                        </option>
+                        <option value="person">
+                          <xed:output i18n="editor.cmo.select.person" />
+                        </option>
+                        <option value="work">
+                          <xed:output i18n="editor.cmo.select.work" />
+                        </option>
+                        <option value="bibl">
+                          <xed:output i18n="editor.cmo.select.bibl" />
+                        </option>
+                      </select>
+                      <span data-toggle="tooltip" class="input-group-addon"
+                        title="Filtermöglichkeit nach Entitätstyp">
+                        <i class="fa fa-info"></i>
+                      </span>
+                    </xed:bind>
+                  </div>
+                </div>
+              </div>
               <!-- search in derivate content -->
               <div class="form-group">
                 <label class="col-md-3 control-label" for="inputContent">
@@ -82,7 +141,7 @@
                 <div class="col-md-9">
                   <div class="input-group">
                     <xed:bind
-                      xpath="condition1[@field='content'][@operator='contains']/@value">
+                      xpath="condition3[@field='content'][@operator='contains']/@value">
                       <input id="inputContent" class="form-control"
                         placeholder="in den Dateien" type="text" />
                       <span data-toggle="tooltip" class="input-group-addon"
