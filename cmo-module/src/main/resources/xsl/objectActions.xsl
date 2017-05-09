@@ -25,7 +25,7 @@
     <xsl:if test="$accessedit or $accessdelete">
       <div class="dropdown pull-right">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-          <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Aktionen
+          <span class="fa fa-cog" aria-hidden="true"></span> Aktionen
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -214,7 +214,7 @@
                     <a title="{i18n:translate('IFS.mainFile')}"
                       href="{$WebApplicationBaseURL}servlets/MCRDerivateServlet{$HttpSession}?derivateid={$derId}&amp;objectid={$objID}&amp;todo=ssetfile&amp;file={$fileName}"
                       class="option" >
-                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="fa fa-star"></span>
                       <xsl:value-of select="i18n:translate('IFS.mainFile')" />
                     </a>
                   </li>
@@ -229,7 +229,7 @@
                       <xsl:attribute name="title">
                         <xsl:value-of select="i18n:translate(concat('IFS.',@type,'Delete'))" />
                       </xsl:attribute>
-                      <span class="glyphicon glyphicon-trash"></span>
+                      <span class="fa fa-trash"></span>
                       <xsl:value-of select="i18n:translate(concat('IFS.',@type,'Delete'))" />
                     </a>
                   </li>
@@ -245,7 +245,7 @@
           </xsl:call-template>
           <xsl:text> ]</xsl:text>
         </span>
-        <span class="{$fileCss} glyphicon glyphicon-star">
+        <span class="{$fileCss} fa fa-star">
         </span>
         <span class="file_date">
           <xsl:call-template name="formatISODate">

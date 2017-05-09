@@ -45,7 +45,7 @@
                         placeholder="in den Metadaten" type="text" />
                       <span data-toggle="tooltip" class="input-group-addon"
                         title="Suchfeld für alle bibliografischen Angaben">
-                        <i class="glyphicon glyphicon-info-sign"></i>
+                        <i class="fa fa-info"></i>
                       </span>
                     </xed:bind>
                   </div>
@@ -64,7 +64,7 @@
                         placeholder="in den Dateien" type="text" />
                       <span data-toggle="tooltip" class="input-group-addon"
                         title="Suchfeld für den Inhalt von Dateien">
-                        <i class="glyphicon glyphicon-info-sign"></i>
+                        <i class="fa fa-info"></i>
                       </span>
                     </xed:bind>
                   </div>
