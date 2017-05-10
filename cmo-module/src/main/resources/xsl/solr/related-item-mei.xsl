@@ -6,7 +6,7 @@
                 xmlns:mcrxml="xalan://org.mycore.common.xml.MCRXMLFunctions"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 exclude-result-prefixes="mods mei xlink">
-  <xsl:import href="xslImport:solr-document:solr/searchfields-solr.xsl" />
+  <xsl:import href="xslImport:solr-document:solr/related-item-mei.xsl" />
 
   <xsl:template match="mycoreobject">
     <xsl:apply-imports />
