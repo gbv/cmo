@@ -55,14 +55,6 @@
       <label xml:lang="de">Art der Quelle</label>
       <label xml:lang="en">Browse Source</label>
     </item>
-    <item href="/content/catalogue/composer.xml" type="intern">
-      <label xml:lang="de">Komponist</label>
-      <label xml:lang="en">Browse Composer</label>
-    </item>
-    <item href="/content/catalogue/lyricist.xml" type="intern">
-      <label xml:lang="de">Textschreiber</label>
-      <label xml:lang="en">Browse Lyricist</label>
-    </item>
     <item href="/content/catalogue/makam.xml" type="intern">
       <label xml:lang="de">Makâm</label>
       <label xml:lang="en">Browse Makâm</label>
@@ -70,6 +62,10 @@
     <item href="/content/catalogue/usul.xml" type="intern">
       <label xml:lang="de">Usûl</label>
       <label xml:lang="en">Browse Usûl</label>
+    </item>
+    <item href="/content/catalogue/person.xml" type="intern">
+      <label xml:lang="de">Person</label>
+      <label xml:lang="en">Browse Person</label>
     </item>
     <item href="/content/catalogue/music_type.xml" type="intern">
       <label xml:lang="de">Genre der Musik</label>
