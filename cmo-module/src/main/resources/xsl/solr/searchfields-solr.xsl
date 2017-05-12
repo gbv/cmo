@@ -15,7 +15,7 @@
       <xsl:value-of select="count(structure/derobjects/derobject)&gt;0" />
     </field>
 
-    <xsl:apply-templates select="//meiContainer/*/mei:classification/mei:termList/mei:term" />
+    <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/*/mei:classification/mei:termList/mei:term" />
   </xsl:template>
 
   <xsl:template match="mei:term">
