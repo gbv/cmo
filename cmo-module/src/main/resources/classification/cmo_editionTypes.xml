@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_editionTypes">
+  <label xml:lang="de" text="Editionsarten" />
+  <label xml:lang="x-uri" text="http://cmo.gbv.de/classifications/cmo_editionTypes" />
+  <label xml:lang="en" text="Edition types" />
+  <categories>
+    <category ID="vocal_music">
+      <label xml:lang="de" text="Vokalmusik" />
+      <label xml:lang="en" text="Vocal Music" />
+    </category>
+    <category ID="text">
+      <label xml:lang="en" text="Text" />
+      <label xml:lang="de" text="Text" />
+    </category>
+    <category ID="critical_commentary">
+      <label xml:lang="de" text="Kritischer Kommentar" />
+      <label xml:lang="en" text="Critical Commentary" />
+    </category>
+  </categories>
+</mycoreclass>
