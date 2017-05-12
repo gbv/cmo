@@ -34,7 +34,7 @@
 
     <xsl:call-template name="metadataContentContent">
       <xsl:with-param name="content1">
-        <abbr title="{i18n:translate('editor.label.incipText')}">Incip</abbr>
+        <abbr title="{i18n:translate('editor.label.incipText')}">Incipit</abbr>
       </xsl:with-param>
       <xsl:with-param name="content2">
         <xsl:text>„</xsl:text>
