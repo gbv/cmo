@@ -163,6 +163,31 @@
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template name="printEdition">
+    <xsl:param name="id" />
+
+    <xsl:variable name="query" select="concat('mods.relatedItem.references:', $id)"/>
+    <xsl:variable name="hits" xmlns:encoder="xalan://java.net.URLEncoder"
+                  select="document(concat('solr:q=',encoder:encode($query), '&amp;rows=1000'))" />
+
+    <xsl:comment>Edition Query: <xsl:value-of select="$query" /></xsl:comment>
+    <xsl:if test="$hits//result[@name='response']/@numFound &gt; 0">
+      <xsl:call-template name="metadataLabelContent">
+        <xsl:with-param name="label" select="'editor.label.edition'" />
+        <xsl:with-param name="content">
+          <ul>
+            <xsl:for-each select="$hits//result[@name='response']/doc">
+              <li>
+                <xsl:call-template name="objectLink">
+                  <xsl:with-param select="str[@name='id']" name="obj_id" />
+                </xsl:call-template>
+              </li>
+            </xsl:for-each>
+          </ul>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
 
   <xsl:template name="displayDerivateSection">
     <xsl:if test="structure/derobjects/derobject[acl:checkPermission(@xlink:href,'read')]">
