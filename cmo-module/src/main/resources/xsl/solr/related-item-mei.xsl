@@ -12,7 +12,6 @@
     <xsl:apply-imports />
 
     <xsl:for-each select="metadata/def.modsContainer/modsContainer/mods:mods/mods:relatedItem">
-      <xsl:if test="count(*)=0">
         <xsl:variable name="href" select="@xlink:href" />
         <xsl:variable name="meiDoc" select="document(concat('mcrobject:', $href))" />
         <xsl:variable name="id" select="$meiDoc/mycoreobject/@ID" />
@@ -25,7 +24,6 @@
         <field name="mods.relatedItem.{$type}">
           <xsl:value-of select="$id" />
         </field>
-      </xsl:if>
     </xsl:for-each>
   </xsl:template>
 
