@@ -449,7 +449,12 @@
     <field name="search_result_link_text" type="text_de" indexed="false"/>
 
 
-    <!-- mycore-mods -->
+  <!-- mei:work -->
+  <field name="mei.expressionList" type="string" multiValued="true" />
+  <field name="mei.biblList" type="string" multiValued="true" />
+
+
+  <!-- mycore-mods -->
     <field name="mods.type" type="string" />
     <field name="mods.title" type="text_general" multiValued="true" />
     <field name="mods.title.host" type="text_general" multiValued="true" />

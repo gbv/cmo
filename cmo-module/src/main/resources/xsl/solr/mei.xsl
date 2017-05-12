@@ -6,12 +6,27 @@
                 xmlns:mcrxml="xalan://org.mycore.common.xml.MCRXMLFunctions"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 exclude-result-prefixes="mods mei xlink">
-  <xsl:import href="xslImport:solr-document:solr/related-item-mei.xsl" />
+  <xsl:import href="xslImport:solr-document:solr/mei.xsl" />
 
   <xsl:template match="mycoreobject">
     <xsl:apply-imports />
 
-    
+    <xsl:for-each select="metadata/def.meiContainer/meiContainer/mei:work/mei:biblList/mei:bibl">
+      <xsl:variable name="biblID" select="@target" />
+      <field name="mei.biblList">
+        <xsl:value-of select="$biblID" />
+      </field>
+
+    </xsl:for-each>
+
+    <xsl:for-each select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression">
+      <xsl:variable name="expressionID" select="@data" />
+      <field name="mei.expressionList">
+        <xsl:value-of select="$expressionID" />
+      </field>
+    </xsl:for-each>
+
+
 
   </xsl:template>
 </xsl:stylesheet>
