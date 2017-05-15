@@ -145,6 +145,9 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
     private static final XPathExpression<Element> ANOT_SOURCE_XPATH = XPathFactory.instance()
         .compile(".//mei:annot[@source]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
 
+    private static final XPathExpression<Element> NAME_NYMREF_XPATH = XPathFactory.instance()
+        .compile(".//mei:name[@nymref]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
+
     private static final Map<String, String> cmo_mei_typeMapping = new HashMap<>();
 
     static {
@@ -203,16 +206,13 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
         });
 
         personMap.forEach((cmoID, document) -> {
-            Consumer<Element> sourceCorrector = element -> {
-                String oldCMOSourceID = element.getAttributeValue("source");
-                if (this.idMCRObjectIDMap.containsKey(oldCMOSourceID)) {
-                    element.setAttribute("source", this.idMCRObjectIDMap.get(oldCMOSourceID).toString());
-                } else {
-                    LOGGER.warn("Could not replace id: \"{}\" of person \"{}\"", oldCMOSourceID, cmoID);
-                }
-            };
-            DATE_SOURCE_XPATH.evaluate(document.getRootElement()).forEach(sourceCorrector);
-            ANOT_SOURCE_XPATH.evaluate(document.getRootElement()).forEach(sourceCorrector);
+            Consumer<Element> sourceCorrector = getElementCorrector(cmoID, "source");
+            Element rootElement = document.getRootElement();
+            DATE_SOURCE_XPATH.evaluate(rootElement).forEach(sourceCorrector);
+            ANOT_SOURCE_XPATH.evaluate(rootElement).forEach(sourceCorrector);
+
+            Consumer<Element> nymrefCorrector = getElementCorrector(cmoID, "nymref");
+            NAME_NYMREF_XPATH.evaluate(rootElement).forEach(nymrefCorrector);
         });
 
         XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
@@ -317,6 +317,17 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             .map(type -> temp.resolve(type).toString())
             .map(pathToFolder -> "load all objects in topological order from directory " + pathToFolder)
             .collect(Collectors.toList());
+    }
+
+    public Consumer<Element> getElementCorrector(String cmoID, String attrName) {
+        return element -> {
+            String oldID = element.getAttributeValue(attrName);
+            if (this.idMCRObjectIDMap.containsKey(oldID)) {
+                element.setAttribute(attrName, this.idMCRObjectIDMap.get(oldID).toString());
+            } else {
+                LOGGER.warn("Could not replace id: \"{}\" of person \"{}\"", oldID, cmoID);
+            }
+        };
     }
 
     public void addCustomClassifications(String classificationName,
