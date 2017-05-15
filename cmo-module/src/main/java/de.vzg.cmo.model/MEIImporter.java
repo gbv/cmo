@@ -58,6 +58,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
@@ -141,6 +142,9 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
     private static final XPathExpression<Element> DATE_SOURCE_XPATH = XPathFactory.instance()
         .compile(".//mei:date[@source]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
 
+    private static final XPathExpression<Element> ANOT_SOURCE_XPATH = XPathFactory.instance()
+        .compile(".//mei:annot[@source]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
+
     private static final Map<String, String> cmo_mei_typeMapping = new HashMap<>();
 
     static {
@@ -199,14 +203,16 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
         });
 
         personMap.forEach((cmoID, document) -> {
-            DATE_SOURCE_XPATH.evaluate(document.getRootElement()).forEach(dateElement -> {
-                String oldCMOSourceID = dateElement.getAttributeValue("source");
+            Consumer<Element> sourceCorrector = element -> {
+                String oldCMOSourceID = element.getAttributeValue("source");
                 if (this.idMCRObjectIDMap.containsKey(oldCMOSourceID)) {
-                    dateElement.setAttribute("source", this.idMCRObjectIDMap.get(oldCMOSourceID).toString());
+                    element.setAttribute("source", this.idMCRObjectIDMap.get(oldCMOSourceID).toString());
                 } else {
                     LOGGER.warn("Could not replace id: \"{}\" of person \"{}\"", oldCMOSourceID, cmoID);
                 }
-            });
+            };
+            DATE_SOURCE_XPATH.evaluate(document.getRootElement()).forEach(sourceCorrector);
+            ANOT_SOURCE_XPATH.evaluate(document.getRootElement()).forEach(sourceCorrector);
         });
 
         XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
