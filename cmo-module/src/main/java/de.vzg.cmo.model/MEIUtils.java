@@ -290,21 +290,22 @@ public class MEIUtils {
                             elementList6.stream()))))).distinct();
     }
 
-    public static ConcurrentHashMap<String, Document> extractChildren(String idOfElementToExtractFrom,
-        Element elementToExtractFrom) {
+    public static ConcurrentHashMap<String, Document> extractChildren(String idOfParent,
+        Element parentElement, ConcurrentHashMap<String, String> childParentMap) {
         ConcurrentHashMap<String, Document> newChildren = new ConcurrentHashMap<>();
 
-        CHILD_EXTRACT_XPATH.evaluate(elementToExtractFrom).forEach(matchedXpath -> {
-            String idOfElementToExtract = matchedXpath.getAttributeValue("id", Namespace.XML_NAMESPACE);
-            LOGGER.info("Found Element {} to extract in {}", idOfElementToExtract, idOfElementToExtractFrom);
+        CHILD_EXTRACT_XPATH.evaluate(parentElement).forEach(matchedXpath -> {
+            String childID = matchedXpath.getAttributeValue("id", Namespace.XML_NAMESPACE);
+            LOGGER.info("Found Element {} to extract in {}", childID, idOfParent);
+            childParentMap.put(childID,idOfParent);
             matchedXpath.getParent().removeContent(matchedXpath);
             Element newChild = matchedXpath.detach();
-            newChildren.put(idOfElementToExtract, new Document(newChild));
+            newChildren.put(childID, new Document(newChild));
         });
 
         ConcurrentHashMap<String, Document> newChildrenMap = new ConcurrentHashMap<>();
         newChildren.forEach((from, doc) -> {
-            newChildrenMap.putAll(extractChildren(from, doc.getRootElement()));
+            newChildrenMap.putAll(extractChildren(from, doc.getRootElement(), childParentMap));
         });
 
         newChildren.putAll(newChildrenMap);

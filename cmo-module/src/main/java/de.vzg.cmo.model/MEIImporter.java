@@ -370,13 +370,11 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
     public void extractChildren(Map<String, Document> newChildMap) {
         ConcurrentHashMap<String, Document> newWorkChildren = new ConcurrentHashMap<>();
-        newChildMap.forEach((idOfElementToExtractFrom, elementToExtractFrom) -> {
-            ConcurrentHashMap<String, Document> m = MEIUtils
-                .extractChildren(idOfElementToExtractFrom, elementToExtractFrom.getRootElement());
-            m.forEach((extractedID, document) -> {
-                childParentMap.put(extractedID, idOfElementToExtractFrom);
-            });
-            newWorkChildren.putAll(m);
+        newChildMap.forEach((parentID, elementToExtractFrom) -> {
+            ConcurrentHashMap<String, Document> extractedChildren = MEIUtils
+                .extractChildren(parentID, elementToExtractFrom.getRootElement(), this.childParentMap);
+
+            newWorkChildren.putAll(extractedChildren);
         });
         newChildMap.putAll(newWorkChildren);
     }
