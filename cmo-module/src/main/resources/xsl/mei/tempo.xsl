@@ -28,20 +28,13 @@
   xmlns:mei="http://www.music-encoding.org/ns/mei"
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
-  <!-- TODO: how to display publisher, pubPlace and Date -->
-  <xsl:template match="mei:incip" mode="metadataView">
-    <xsl:comment>mei/incip.xsl > mei:incip</xsl:comment>
-
-    <xsl:call-template name="metadataContentContent">
-      <xsl:with-param name="content1">
-        <abbr title="{i18n:translate('editor.label.incipText')}">Incipit</abbr>
-      </xsl:with-param>
-      <xsl:with-param name="content2">
-        <xsl:for-each select="mei:incipText">
-          <xsl:value-of select="." disable-output-escaping="yes" />
-          <small> (<xsl:value-of select="@label" />)</small>
-          <xsl:if test="position() != last()"><br /></xsl:if>
-        </xsl:for-each>
+  <!-- TODO: display this -->
+  <xsl:template match="mei:tempo" mode="metadataView">
+    <xsl:comment>mei/tempo.xsl > mei:tempo</xsl:comment>
+    <xsl:call-template name="metadataLabelContent">
+      <xsl:with-param name="label" select="'editor.label.tempo'" />
+      <xsl:with-param name="content">
+        <xsl:value-of select="." />
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
