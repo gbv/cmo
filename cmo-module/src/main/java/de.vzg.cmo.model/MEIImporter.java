@@ -58,6 +58,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
@@ -141,6 +142,12 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
     private static final XPathExpression<Element> DATE_SOURCE_XPATH = XPathFactory.instance()
         .compile(".//mei:date[@source]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
 
+    private static final XPathExpression<Element> ANOT_SOURCE_XPATH = XPathFactory.instance()
+        .compile(".//mei:annot[@source]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
+
+    private static final XPathExpression<Element> NAME_NYMREF_XPATH = XPathFactory.instance()
+        .compile(".//mei:name[@nymref]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
+
     private static final Map<String, String> cmo_mei_typeMapping = new HashMap<>();
 
     static {
@@ -199,14 +206,13 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
         });
 
         personMap.forEach((cmoID, document) -> {
-            DATE_SOURCE_XPATH.evaluate(document.getRootElement()).forEach(dateElement -> {
-                String oldCMOSourceID = dateElement.getAttributeValue("source");
-                if (this.idMCRObjectIDMap.containsKey(oldCMOSourceID)) {
-                    dateElement.setAttribute("source", this.idMCRObjectIDMap.get(oldCMOSourceID).toString());
-                } else {
-                    LOGGER.warn("Could not replace id: \"{}\" of person \"{}\"", oldCMOSourceID, cmoID);
-                }
-            });
+            Consumer<Element> sourceCorrector = getElementCorrector(cmoID, "source");
+            Element rootElement = document.getRootElement();
+            DATE_SOURCE_XPATH.evaluate(rootElement).forEach(sourceCorrector);
+            ANOT_SOURCE_XPATH.evaluate(rootElement).forEach(sourceCorrector);
+
+            Consumer<Element> nymrefCorrector = getElementCorrector(cmoID, "nymref");
+            NAME_NYMREF_XPATH.evaluate(rootElement).forEach(nymrefCorrector);
         });
 
         XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
@@ -313,6 +319,17 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             .collect(Collectors.toList());
     }
 
+    public Consumer<Element> getElementCorrector(String cmoID, String attrName) {
+        return element -> {
+            String oldID = element.getAttributeValue(attrName);
+            if (this.idMCRObjectIDMap.containsKey(oldID)) {
+                element.setAttribute(attrName, this.idMCRObjectIDMap.get(oldID).toString());
+            } else {
+                LOGGER.warn("Could not replace id: \"{}\" of person \"{}\"", oldID, cmoID);
+            }
+        };
+    }
+
     public void addCustomClassifications(String classificationName,
         Map<MCRMEIAuthorityInfo, List<String>> classifications, List<Element> elementList) {
         if (elementList.size() > 0) {
@@ -353,13 +370,11 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
     public void extractChildren(Map<String, Document> newChildMap) {
         ConcurrentHashMap<String, Document> newWorkChildren = new ConcurrentHashMap<>();
-        newChildMap.forEach((idOfElementToExtractFrom, elementToExtractFrom) -> {
-            ConcurrentHashMap<String, Document> m = MEIUtils
-                .extractChildren(idOfElementToExtractFrom, elementToExtractFrom.getRootElement());
-            m.forEach((extractedID, document) -> {
-                childParentMap.put(extractedID, idOfElementToExtractFrom);
-            });
-            newWorkChildren.putAll(m);
+        newChildMap.forEach((parentID, elementToExtractFrom) -> {
+            ConcurrentHashMap<String, Document> extractedChildren = MEIUtils
+                .extractChildren(parentID, elementToExtractFrom.getRootElement(), this.childParentMap);
+
+            newWorkChildren.putAll(extractedChildren);
         });
         newChildMap.putAll(newWorkChildren);
     }
