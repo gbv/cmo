@@ -83,31 +83,56 @@
               <ul>
                 <xsl:for-each select="key('dateByType', @type)">
                   <li>
-                    <xsl:choose>
-                      <xsl:when test="@isodate">
-                        <xsl:value-of select="@isodate" />
-                      </xsl:when>
-                      <xsl:when test="@notbefore and @notafter">
-                        <xsl:value-of select="concat(@notbefore, '-', @notafter)" />
-                      </xsl:when>
-                      <xsl:when test="@notbefore">
-                        <xsl:value-of select="concat(@notbefore, '-?')" />
-                      </xsl:when>
-                      <xsl:when test="@notafter">
-                        <xsl:value-of select="concat('?-', @notafter)" />
-                      </xsl:when>
-                    </xsl:choose>
-                    <xsl:if test="string-length(text()) &gt; 0">
-                      <xsl:value-of select="text()" />
-                    </xsl:if>
-                    <xsl:text>(</xsl:text>
+                    <xsl:variable name="displayDate">
+                      <xsl:choose>
+                        <xsl:when test="text()">
+                          <xsl:value-of select="text()" />
+                        </xsl:when>
+                        <xsl:when test="@isodate">
+                          <xsl:value-of select="@isodate" />
+                        </xsl:when>
+                        <xsl:when test="@notbefore and @notafter">
+                          <xsl:value-of select="concat(@notbefore, '-', @notafter)" />
+                        </xsl:when>
+                        <xsl:when test="@notbefore">
+                          <xsl:value-of select="concat(@notbefore, '-?')" />
+                        </xsl:when>
+                        <xsl:when test="@notafter">
+                          <xsl:value-of select="concat('?-', @notafter)" />
+                        </xsl:when>
+                      </xsl:choose>
+                    </xsl:variable>
+                    <xsl:variable name="isoDate">
+                      <xsl:choose>
+                        <xsl:when test="@isodate">
+                          <xsl:value-of select="@isodate" />
+                        </xsl:when>
+                        <xsl:when test="@notbefore and @notafter">
+                          <xsl:value-of select="concat(@notbefore, '-', @notafter)" />
+                        </xsl:when>
+                        <xsl:when test="@notbefore">
+                          <xsl:value-of select="concat(@notbefore, '-?')" />
+                        </xsl:when>
+                        <xsl:when test="@notafter">
+                          <xsl:value-of select="concat('?-', @notafter)" />
+                        </xsl:when>
+                      </xsl:choose>
+                    </xsl:variable>
+                    <time>
+                      <xsl:attribute name="datetime"><xsl:value-of select="$isoDate" /></xsl:attribute>
+                      <xsl:attribute name="title"><xsl:value-of select="$isoDate" /></xsl:attribute>
+                      <xsl:value-of select="$displayDate" />
+                    </time>
+                    <xsl:text> (</xsl:text>
+                    <xsl:value-of select="@calendar" />
+                    <xsl:text>; </xsl:text>
+                    <xsl:value-of select="i18n:translate('cmo.see')" />
+                    <xsl:text> </xsl:text>
                     <xsl:call-template name="objectLink">
                       <xsl:with-param select="@source" name="obj_id" />
                     </xsl:call-template>
-                    <xsl:text>; </xsl:text>
-                    <a href="http://quellen-perspectivia.net/en/cmo/{@source}">
-                      <xsl:value-of select="@label" />
-                    </a>
+                    <xsl:text> - </xsl:text>
+                    <xsl:value-of select="@label" />
                     <xsl:text>)</xsl:text>
                   </li>
                 </xsl:for-each>
@@ -131,6 +156,9 @@
       </xsl:with-param>
       <xsl:with-param name="content">
         <xsl:value-of select="text()" />
+        <xsl:if test="@nymref">
+          <small> (<xsl:call-template name="objectLink"><xsl:with-param select="@nymref" name="obj_id" /></xsl:call-template>)</small>
+        </xsl:if>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>

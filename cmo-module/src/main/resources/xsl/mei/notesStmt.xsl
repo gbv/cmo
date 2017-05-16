@@ -35,15 +35,29 @@
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="label" select="'editor.label.annot'" />
         <xsl:with-param name="content">
-          <ul>
-            <xsl:for-each select="mei:annot">
-              <li>
-                <xsl:value-of select="." />
-              </li>
-            </xsl:for-each>
-          </ul>
+          <xsl:for-each select="mei:annot">
+            <xsl:call-template name="printAnnot" />
+            <xsl:if test="position() != last()"><br /></xsl:if>
+          </xsl:for-each>
         </xsl:with-param>
       </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="mei:annot" mode="metadataView">
+    <xsl:call-template name="metadataLabelContent">
+      <xsl:with-param name="label" select="'editor.label.annot'" />
+      <xsl:with-param name="content">
+        <xsl:call-template name="printAnnot" />
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template name="printAnnot">
+    <xsl:value-of select="." />
+    <xsl:if test="@source">
+      <small> (<xsl:call-template name="objectLink"><xsl:with-param select="@source" name="obj_id" /></xsl:call-template>,
+        <xsl:value-of select="@label" />)</small>
     </xsl:if>
   </xsl:template>
 

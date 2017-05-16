@@ -17,9 +17,26 @@
       </xsl:call-template>
 
       <header>
-         <h1><xsl:value-of select="//tei:bibl/tei:title[@type='main']" /><small> (<xsl:value-of select="//tei:bibl/tei:title[@type='main']/@xml:lang" />)</small></h1>
-         <xsl:if test="//tei:bibl/tei:title[@type='sub']">
-           <p><xsl:value-of select="//tei:bibl/tei:title[@type='sub']" /><small> (<xsl:value-of select="//tei:bibl/tei:title[@type='sub']/@xml:lang" />)</small></p>
+         <h1>
+           <xsl:choose>
+             <xsl:when test="//meiContainer/tei:bibl/tei:title[@type='main']">
+               <xsl:value-of select="//meiContainer/tei:bibl/tei:title[@type='main']" />
+               <xsl:if test="//meiContainer/tei:bibl/tei:title[@type='main']/@xml:lang">
+                 <small> (<xsl:value-of select="//meiContainer/tei:bibl/tei:title[@type='main']/@xml:lang" />)</small>
+               </xsl:if>
+             </xsl:when>
+             <xsl:otherwise>
+               <xsl:value-of select="//meiContainer/tei:bibl/tei:title[not(@type)]" />
+             </xsl:otherwise>
+           </xsl:choose>
+         </h1>
+         <xsl:if test="//meiContainer/tei:bibl/tei:title[@type='sub']">
+           <p>
+             <xsl:value-of select="//meiContainer/tei:bibl/tei:title[@type='sub']" />
+             <xsl:if test="//meiContainer/tei:bibl/tei:title[@type='sub']/@xml:lang">
+               <small> (<xsl:value-of select="//meiContainer/tei:bibl/tei:title[@type='sub']/@xml:lang" />)</small>
+             </xsl:if>
+           </p>
          </xsl:if>
       </header>
 
@@ -29,28 +46,44 @@
             <xsl:value-of select="i18n:translate('docdetails.ID')" />
           </th>
           <td>
-            <a href="http://quellen-perspectivia.net/en/cmo/{//tei:bibl/@xml:id}"><xsl:value-of select="//tei:bibl/@xml:id" /></a>
+            <a href="http://quellen-perspectivia.net/en/cmo/{//meiContainer/tei:bibl/@xml:id}"><xsl:value-of select="//meiContainer/tei:bibl/@xml:id" /></a>
           </td>
         </tr>
 
-        <xsl:if test="//tei:bibl/tei:idno">
+        <xsl:if test="//meiContainer/tei:bibl/tei:bibl[@type='in']">
+          <tr>
+            <th>
+              <xsl:value-of select="i18n:translate('editor.label.bibl.in')" />
+            </th>
+            <td>
+              <xsl:value-of select="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:title" />
+              <xsl:text>. </xsl:text>
+              <xsl:value-of select="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:date" />
+              <xsl:text>, </xsl:text>
+              <xsl:value-of select="i18n:translate('cmo.biblScope')" />
+              <xsl:value-of select="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:biblScope" />
+            </td>
+          </tr>
+        </xsl:if>
+
+        <xsl:if test="//meiContainer/tei:bibl/tei:idno">
           <tr>
             <th>
               <xsl:value-of select="i18n:translate('editor.label.idno')" />
             </th>
             <td>
-              <xsl:value-of select="//tei:bibl/tei:idno" />
+              <xsl:value-of select="//meiContainer/tei:bibl/tei:idno" />
             </td>
           </tr>
         </xsl:if>
 
-        <xsl:if test="//tei:bibl/tei:author">
+        <xsl:if test="//meiContainer/tei:bibl/tei:author">
           <tr>
             <th>
               <xsl:value-of select="i18n:translate('editor.label.author')" />
             </th>
             <td>
-              <xsl:for-each select="//tei:bibl/tei:author">
+              <xsl:for-each select="//meiContainer/tei:bibl/tei:author">
                 <xsl:value-of select="." />
                 <xsl:if test="position() != last()">
                   <br />
@@ -60,13 +93,13 @@
           </tr>
         </xsl:if>
 
-        <xsl:if test="//tei:bibl/tei:editor">
+        <xsl:if test="//meiContainer/tei:bibl/tei:editor">
           <tr>
             <th>
               <xsl:value-of select="i18n:translate('editor.label.editor')" />
             </th>
             <td>
-              <xsl:for-each select="//tei:bibl/tei:editor">
+              <xsl:for-each select="//meiContainer/tei:bibl/tei:editor">
                 <xsl:value-of select="." />
                 <xsl:if test="position() != last()">
                   <br />
@@ -76,68 +109,68 @@
           </tr>
         </xsl:if>
 
-        <xsl:if test="//tei:bibl/tei:publisher">
+        <xsl:if test="//meiContainer/tei:bibl/tei:publisher">
           <tr>
             <th>
               <xsl:value-of select="i18n:translate('editor.label.publisher')" />
             </th>
             <td>
-              <xsl:value-of select="//tei:bibl/tei:publisher" />
+              <xsl:value-of select="//meiContainer/tei:bibl/tei:publisher" />
             </td>
           </tr>
         </xsl:if>
 
-        <xsl:if test="//tei:bibl/tei:pubPlace">
+        <xsl:if test="//meiContainer/tei:bibl/tei:pubPlace">
           <tr>
             <th>
               <xsl:value-of select="i18n:translate('editor.label.pubPlace')" />
             </th>
             <td>
-              <xsl:value-of select="//tei:bibl/tei:pubPlace" />
+              <xsl:value-of select="//meiContainer/tei:bibl/tei:pubPlace" />
             </td>
           </tr>
         </xsl:if>
 
-        <xsl:if test="//tei:bibl/tei:date">
+        <xsl:if test="//meiContainer/tei:bibl/tei:date">
           <tr>
             <th>
               <xsl:value-of select="i18n:translate('editor.label.date')" />
             </th>
             <td>
-              <xsl:value-of select="//tei:bibl/tei:date" />
+              <xsl:value-of select="//meiContainer/tei:bibl/tei:date" />
             </td>
           </tr>
         </xsl:if>
 
-        <xsl:if test="//tei:bibl/tei:extent">
+        <xsl:if test="//meiContainer/tei:bibl/tei:extent">
           <tr>
             <th>
               <xsl:value-of select="i18n:translate('editor.label.extent')" />
             </th>
             <td>
-              <xsl:value-of select="//tei:bibl/tei:extent" />
+              <xsl:value-of select="//meiContainer/tei:bibl/tei:extent" />
             </td>
           </tr>
         </xsl:if>
 
-        <xsl:if test="//tei:bibl/tei:series">
+        <xsl:if test="//meiContainer/tei:bibl/tei:series">
           <tr>
             <th>
               <xsl:value-of select="i18n:translate('editor.label.series')" />
             </th>
             <td>
-              <xsl:value-of select="//tei:bibl/tei:series" />
+              <xsl:value-of select="//meiContainer/tei:bibl/tei:series" />
             </td>
           </tr>
         </xsl:if>
 
-        <xsl:if test="//tei:bibl/tei:note">
+        <xsl:if test="//meiContainer/tei:bibl/tei:note">
           <tr>
             <th>
               <xsl:value-of select="i18n:translate('editor.label.note')" />
             </th>
             <td>
-              <xsl:value-of select="//tei:bibl/tei:note" />
+              <xsl:value-of select="//meiContainer/tei:bibl/tei:note" />
             </td>
           </tr>
         </xsl:if>
