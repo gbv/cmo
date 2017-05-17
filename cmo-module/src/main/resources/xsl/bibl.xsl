@@ -42,10 +42,10 @@
 
       <table class="table">
         <tr>
-          <th>
+          <th class="col-xs-3">
             <xsl:value-of select="i18n:translate('docdetails.ID')" />
           </th>
-          <td>
+          <td class="col-xs-9">
             <a href="http://quellen-perspectivia.net/en/cmo/{//meiContainer/tei:bibl/@xml:id}"><xsl:value-of select="//meiContainer/tei:bibl/@xml:id" /></a>
           </td>
         </tr>
@@ -56,12 +56,34 @@
               <xsl:value-of select="i18n:translate('editor.label.bibl.in')" />
             </th>
             <td>
-              <xsl:value-of select="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:title" />
-              <xsl:text>. </xsl:text>
-              <xsl:value-of select="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:date" />
-              <xsl:text>, </xsl:text>
-              <xsl:value-of select="i18n:translate('cmo.biblScope')" />
-              <xsl:value-of select="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:biblScope" />
+              <xsl:for-each select="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:author">
+                <xsl:value-of select="." />
+                <xsl:if test="position() != last()"><xsl:text>; </xsl:text></xsl:if>
+                <xsl:if test="position() = last()"><xsl:text>. </xsl:text></xsl:if>
+              </xsl:for-each>
+              <xsl:if test="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:title">
+                <em><xsl:value-of select="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:title" />
+                <xsl:text>. </xsl:text></em>
+              </xsl:if>
+              <xsl:if test="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:pubPlace or
+                            //meiContainer/tei:bibl/tei:bibl[@type='in']/tei:date or
+                            //meiContainer/tei:bibl/tei:bibl[@type='in']/tei:biblScope or
+                            //meiContainer/tei:bibl/tei:bibl[@type='in']/tei:series">
+                <br />
+                <xsl:if test="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:series">
+                  <xsl:value-of select="concat(//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:series, ', ')" />
+                </xsl:if>
+                <xsl:if test="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:pubPlace">
+                  <xsl:value-of select="concat(//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:pubPlace, ': ')" />
+                </xsl:if>
+                <xsl:if test="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:date">
+                  <xsl:value-of select="concat(//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:date, '. ')" />
+                </xsl:if>
+                <xsl:if test="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:biblScope">
+                  <xsl:value-of select="i18n:translate('cmo.biblScope')" />
+                  <xsl:value-of select="//meiContainer/tei:bibl/tei:bibl[@type='in']/tei:biblScope" />
+                </xsl:if>
+              </xsl:if>
             </td>
           </tr>
         </xsl:if>
