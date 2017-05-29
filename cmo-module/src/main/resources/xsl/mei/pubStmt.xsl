@@ -32,13 +32,81 @@
   <xsl:template match="mei:pubStmt" mode="metadataView">
     <xsl:comment>mei/pubStmt.xsl > mei:pubStmt</xsl:comment>
 
+    <xsl:apply-templates select="mei:publisher" mode="metadataView" />
+    <xsl:apply-templates select="mei:pubPlace" mode="metadataView" />
+    <xsl:apply-templates select="mei:date" mode="metadataView" />
+
+  </xsl:template>
+
+
+  <xsl:template match="mei:publisher" mode="metadataView">
     <xsl:call-template name="metadataLabelContent">
       <xsl:with-param name="label" select="'editor.label.publisher'" />
       <xsl:with-param name="content">
-        <xsl:value-of select="mei:publisher" />
+        <xsl:value-of select="." />
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="mei:pubPlace" mode="metadataView">
+    <xsl:call-template name="metadataLabelContent">
+      <xsl:with-param name="label" select="'editor.label.pubPlace'" />
+      <xsl:with-param name="content">
+        <xsl:value-of select="mei:geogName" />
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template match="mei:date" mode="metadataView">
+    <xsl:variable name="displayDate">
+      <xsl:choose>
+        <xsl:when test="text()">
+          <xsl:value-of select="text()" />
+        </xsl:when>
+        <xsl:when test="@isodate">
+          <xsl:value-of select="@isodate" />
+        </xsl:when>
+        <xsl:when test="@notbefore and @notafter">
+          <xsl:value-of select="concat(@notbefore, '-', @notafter)" />
+        </xsl:when>
+        <xsl:when test="@notbefore">
+          <xsl:value-of select="concat(@notbefore, '-?')" />
+        </xsl:when>
+        <xsl:when test="@notafter">
+          <xsl:value-of select="concat('?-', @notafter)" />
+        </xsl:when>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="isoDate">
+      <xsl:choose>
+        <xsl:when test="@isodate">
+          <xsl:value-of select="@isodate" />
+        </xsl:when>
+        <xsl:when test="@notbefore and @notafter">
+          <xsl:value-of select="concat(@notbefore, '-', @notafter)" />
+        </xsl:when>
+        <xsl:when test="@notbefore">
+          <xsl:value-of select="concat(@notbefore, '-?')" />
+        </xsl:when>
+        <xsl:when test="@notafter">
+          <xsl:value-of select="concat('?-', @notafter)" />
+        </xsl:when>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:call-template name="metadataLabelContent">
+      <xsl:with-param name="label" select="'editor.label.publishingDate'" />
+      <xsl:with-param name="content">
+        <time>
+          <xsl:attribute name="datetime"><xsl:value-of select="$isoDate" /></xsl:attribute>
+          <xsl:attribute name="title"><xsl:value-of select="$isoDate" /></xsl:attribute>
+          <xsl:value-of select="$displayDate" />
+        </time>
+        <xsl:text> (</xsl:text>
+        <xsl:value-of select="@calendar" />
+        <xsl:text>)</xsl:text>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
 
 </xsl:stylesheet>

@@ -45,17 +45,18 @@
     <xsl:call-template name="metadataTextContent">
       <xsl:with-param name="text" select="$respLabel" />
       <xsl:with-param name="content">
-        <xsl:apply-templates select="mei:corpName|mei:geogName|mei:persName" mode="metadataView" />
+        <xsl:apply-templates select="mei:corpName|mei:geogName" mode="metadataViewText" />
+        <xsl:apply-templates select="mei:persName" mode="metadataView" />
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template match="mei:corpName" mode="metadataView">
+  <xsl:template match="mei:corpName" mode="metadataViewText">
     <xsl:comment>mei/respStmt.xsl mei:corpName</xsl:comment>
     <xsl:value-of select="." />
   </xsl:template>
 
-  <xsl:template match="mei:geogName" mode="metadataView">
+  <xsl:template match="mei:geogName" mode="metadataViewText">
     <xsl:comment>mei/respStmt.xsl mei:geogName</xsl:comment>
     <xsl:value-of select="." />
   </xsl:template>

@@ -47,6 +47,16 @@
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="mei:editor" mode="metadataView">
+    <xsl:comment>mei/persName.xsl > mei:editor</xsl:comment>
+    <xsl:call-template name="metadataLabelContent">
+      <xsl:with-param name="label" select="'editor.label.editor'" />
+      <xsl:with-param name="content">
+        <xsl:apply-templates mode="metadataView" />
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+
   <xsl:template match="mei:composer" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:composer</xsl:comment>
     <xsl:call-template name="metadataLabelContent">

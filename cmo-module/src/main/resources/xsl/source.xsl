@@ -35,6 +35,7 @@
 
                 <xsl:apply-templates select="//mei:titleStmt" mode="metadataView" />
                 <xsl:apply-templates select="//mei:seriesStmt" mode="metadataView" />
+                <xsl:apply-templates select="//mei:pubStmt" mode="metadataView" />
 
                 <xsl:apply-templates select="//mei:physDesc" mode="metadataView" />
                 <xsl:apply-templates select="//mei:contents" mode="metadataView" />
@@ -42,7 +43,6 @@
                 <xsl:apply-templates select="//mei:langUsage" mode="metadataView" />
                 <xsl:apply-templates select="//mei:notesStmt" mode="metadataView" />
                 <xsl:apply-templates select="//mei:classification" mode="metadataView" />
-
 
                 <xsl:apply-templates select="structure/children" mode="metadataView" />
               </xsl:with-param>

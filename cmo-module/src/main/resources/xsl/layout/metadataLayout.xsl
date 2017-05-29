@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   ~  This file is part of ***  M y C o R e  ***
   ~  See http://www.mycore.de/ for details.
@@ -142,6 +144,20 @@
                 <xsl:call-template name="objectLink">
                   <xsl:with-param select="./@xlink:href" name="obj_id" />
                 </xsl:call-template>
+
+                <xsl:variable name="grandChildren"
+                  select="document(concat('solr:q=parent:', @xlink:href, '&amp;rows=1000&amp;fl=id'))/response/result" />
+                <xsl:if test="$grandChildren/@numFound &gt; 0">
+                  <ul>
+                    <xsl:for-each select="$grandChildren/doc">
+                      <li>
+                        <xsl:call-template name="objectLink">
+                          <xsl:with-param select="str[@name='id']" name="obj_id" />
+                        </xsl:call-template>
+                      </li>
+                    </xsl:for-each>
+                  </ul>
+                </xsl:if>
               </li>
             </xsl:for-each>
           </ul>

@@ -44,6 +44,7 @@
 
     <xsl:apply-templates select="mei:author" mode="metadataView" />
     <xsl:apply-templates select="mei:composer" mode="metadataView" />
+    <xsl:apply-templates select="mei:editor" mode="metadataView" />
     <xsl:apply-templates select="mei:respStmt" mode="metadataView" />
   </xsl:template>
 
