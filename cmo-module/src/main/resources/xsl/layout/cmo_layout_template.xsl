@@ -42,64 +42,133 @@
         <xsl:copy-of select="head/*" />
       </head>
 
-      <body style="font-family: 'molengo', 'Trebuchet MS', sans-serif;font-size: 16px;">
+      <body>
 
         <header>
-            <xsl:call-template name="navigation" />
-        </header>
-
-        <div class="container" id="page" style="margin-bottom:30px;">
-          <div id="main_content">
-            <xsl:call-template name="print.writeProtectionMessage" />
-            <xsl:choose>
-              <xsl:when test="$readAccess='true'">
-                <xsl:copy-of select="*[not(name()='head')]" />
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:call-template name="printNotLoggedIn" />
-              </xsl:otherwise>
-            </xsl:choose>
-          </div>
-        </div>
-
-        <footer class="panel-footer" role="contentinfo">
-          <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                  <h4>Navigation</h4>
-                  <ul class="internal_links">
-                    <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='below']/*" />
-                  </ul>
+            <div class="container-fluid">
+                <div class="row">
+                    <div id="logo"
+                         class="col-xs-4 col-sm-3 col-lg-2 text-center">
+                        <a href="{$WebApplicationBaseURL}">
+                            <img src="{$WebApplicationBaseURL}content/images/cmo_logo.jpg" alt="CMO" />
+                            <span id="slogan">Corpus Musicae Ottomanicae</span>
+                        </a>
+                    </div>
+                    <div id="suche"
+                         class="col-xs-8 col-md-9 col-lg-10">
+                        <div class="row">
+                            <div id="e_suche"
+                                 class="col-xs-6 col-md-8 col-lg-8">
+                                e-suche
+                            </div>
+                            <div id="k_suche"
+                                 class="col-xs-6 col-md-4 col-lg-4">
+                                k-suche
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-          </div>
+        </header>
+
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    <div id="side_menu_1"
+                         class="hidden-xs hidden-sm col-md-3 col-lg-2 text-center">
+                         <div class="fullheightbox">
+                            <nav class="collapse navbar-collapse main-nav-entries">
+                              <ul class="nav navbar-nav pull-left">
+                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='brand']" />
+                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='edition']" />
+                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='catalogue']" />
+                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='help']" />
+                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='tutorial']" />
+                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='publish']" />
+                              </ul>
+                            </nav>
+                         </div>
+                    </div>
+                    <div id="content"
+                         class="col-xs-12 col-md-9 col-lg-10">
+                        <nav>
+                          <ul class="nav navbar-nav pull-right">
+                            <xsl:call-template name="loginMenu" />
+                            <xsl:call-template name="languageMenu" />
+                          </ul>
+                        </nav>
+                        <div class="row">
+                            <div id="main"
+                                 class="col-md-8 col-lg-8">
+                                <xsl:call-template name="print.writeProtectionMessage" />
+                                <xsl:choose>
+                                  <xsl:when test="$readAccess='true'">
+                                    <xsl:copy-of select="*[not(name()='head')]" />
+                                  </xsl:when>
+                                  <xsl:otherwise>
+                                    <xsl:call-template name="printNotLoggedIn" />
+                                  </xsl:otherwise>
+                                </xsl:choose>
+                            </div>
+                            <div id="sidebar"
+                                 class="hidden-xs hidden-sm col-md-4 col-lg-4">
+                                sidebar
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div id="subnav" class="container-fluid">
+                <div class="row">
+                    <div id="side_menu_2"
+                         class="hidden-xs hidden-sm col-md-3 col-lg-2">
+                        <ul class="internal_links">
+                          <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='below']/*" />
+                        </ul>
+                    </div>
+                    <div id="bottom_menu"
+                         class="col-xs-12 col-md-6 col-lg-8 text-center">
+                         bottom menu
+                    </div>
+                    <div id="bottom_side"
+                         class="hidden-xs hidden-sm col-md-3 col-lg-2">
+                        &#160;
+                    </div>
+                </div>
+            </div>
+            <xsl:variable name="mcr_version" select="concat('MyCoRe ',mcrver:getCompleteVersion())" />
+            <div id="powered">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div id="contact"
+                             class="col-xs-12 col-sm-6 col-md-5 col-lg-4 col-lg-offset-1">
+                            Tel: +49-(0)251-83241-11 • cmo@uni-muenster.de
+                        </div>
+                        <div id="logo"
+                             class="hidden-xs hidden-sm col-md-2 col-lg-2">
+                            <a href="http://www.mycore.de/">
+                                <img src="{$WebApplicationBaseURL}content/images/mycore_logo_small_invert.png" title="{$mcr_version}" alt="powered by MyCoRe" />
+                            </a>
+                        </div>
+                        <div id="copyright"
+                             class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+                            © 2017 Corpus Musicae Ottomanicae (CMO)
+                        </div>
+                        <div id="logo"
+                             class="col-xs-12 col-sm-12 hidden-md hidden-lg">
+                            <a href="http://www.mycore.de/">
+                                <img src="{$WebApplicationBaseURL}content/images/mycore_logo_small_invert.png" title="{$mcr_version}" alt="powered by MyCoRe" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </footer>
 
-
-        <xsl:variable name="mcr_version" select="concat('MyCoRe ',mcrver:getCompleteVersion())" />
-        <div id="powered_by" class="text-center">
-          <a href="http://www.mycore.de">
-            <img src="{$WebApplicationBaseURL}content/images/mycore_logo_powered_120x30_blaue_schrift_frei.png" title="{$mcr_version}" alt="powered by MyCoRe" />
-          </a>
-        </div>
-
-        <script type="text/javascript">
-          <!-- Bootstrap & Query-Ui button conflict workaround  -->
-          if (jQuery.fn.button){jQuery.fn.btn = jQuery.fn.button.noConflict();}
-        </script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap-sass/{$bootstrap.version}/javascripts/bootstrap.min.js"></script>
-        <script>
-          $( document ).ready(function() {
-            $('.overtext').tooltip();
-            $.confirm.options = {
-              text: "<xsl:value-of select="i18n:translate('confirm.text')" />",
-              title: "<xsl:value-of select="i18n:translate('confirm.title')" />",
-              confirmButton: "<xsl:value-of select="i18n:translate('confirm.confirmButton')" />",
-              cancelButton: "<xsl:value-of select="i18n:translate('confirm.cancelButton')" />",
-              post: false
-            }
-          });
-        </script>
        </body>
     </html>
   </xsl:template>
