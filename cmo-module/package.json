@@ -1,0 +1,16 @@
+{
+  "name": "cmo-search",
+  "version": "2017.01",
+  "main": "index.js",
+  "repository": "https://github.com/gbv/cmo.git",
+  "author": "Sebastian Hofmann <hofmann.s@uni-jena.de>",
+  "license": "GPLv3",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "^2.2.1"
+  }
+}

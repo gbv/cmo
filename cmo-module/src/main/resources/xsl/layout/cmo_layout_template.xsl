@@ -38,7 +38,17 @@
         <link href="{$WebApplicationBaseURL}rsc/sass/bootstrap-cmo.css" rel="stylesheet" />
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery/{$jquery.version}/jquery.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery-migrate/{$jquery.migrate.version}/jquery-migrate.min.js"></script>
+        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/systemjs/0.19.3/dist/system.js"></script>
+        <script>
+          window["mcrBaseURL" ]= '<xsl:value-of select="$WebApplicationBaseURL" />';
 
+          System.config({
+          baseURL: '<xsl:value-of select="concat($WebApplicationBaseURL, 'js/')" />',
+          defaultJSExtensions: true
+          });
+          // loads /js/main.js
+          System.import('search/cmo.js');
+        </script>
         <xsl:copy-of select="head/*" />
       </head>
 

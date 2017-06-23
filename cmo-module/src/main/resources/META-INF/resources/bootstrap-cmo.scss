@@ -173,3 +173,43 @@ footer #powered #copyright {
         height: 60px;
     }
 }
+
+#e_suche, #k_suche {
+  height: 70px;
+  padding: 0px;
+
+  transition-property: width;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
+
+  .search {
+    width: 100%;
+    height: 100%;
+
+    input[type='search'] {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 0px;
+      border: none;
+    }
+
+    .extendedSearch {
+      transition-property: height;
+      transition-duration: 1s;
+      transition-timing-function: linear;
+
+      &.opened {
+        width: 100%;
+        height: 140px;
+        background: white;
+        border: 1px solid #ccc;
+      }
+
+      &.closed {
+        height: 0%;
+      }
+
+    }
+  }
+}
