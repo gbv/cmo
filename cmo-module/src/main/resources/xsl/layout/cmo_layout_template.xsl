@@ -16,8 +16,8 @@
   <!-- Various versions -->
   <xsl:variable name="bootstrap.version" select="'3.3.7'" />
   <xsl:variable name="fontawesome.version" select="'4.7.0'" />
-  <xsl:variable name="jquery.version" select="'1.11.3'" />
-  <xsl:variable name="jquery.migrate.version" select="'1.2.1'" />
+  <xsl:variable name="jquery.version" select="'3.1.1'" />
+  <xsl:variable name="jquery.migrate.version" select="'1.4.1'" />
   <!-- End of various versions -->
   <xsl:variable name="PageTitle" select="/*/@title" />
 
@@ -33,9 +33,14 @@
         </xsl:comment>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <link href="{$WebApplicationBaseURL}css/fileupload.css" rel="stylesheet" />
         <link href="{$WebApplicationBaseURL}webjars/font-awesome/{$fontawesome.version}/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="{$WebApplicationBaseURL}rsc/sass/bootstrap-cmo.css" rel="stylesheet" />
+
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+        <link href="{$WebApplicationBaseURL}css/fileupload.css" rel="stylesheet" />
+
+        <link href="{$WebApplicationBaseURL}rsc/sass/scss/bootstrap-cmo.css" rel="stylesheet" />
+
+
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery/{$jquery.version}/jquery.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery-migrate/{$jquery.migrate.version}/jquery-migrate.min.js"></script>
 
