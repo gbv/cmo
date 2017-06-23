@@ -1,20 +1,48 @@
-@import "webjars/bootstrap-sass/3.3.7/stylesheets/_bootstrap.scss";
+/* ---------------------------------------------------------------------------
+   override bootstrap sass variables specified here:
+   http://getbootstrap.com/customize/#less-variables
+----------------------------------------------------------------------------*/
+$gray-base:     #252626;
+$brand-primary: #eeab2b;
+$brand-success: #008200;
+$brand-info:    #666689;
+$brand-warning: #7800cc;
+$brand-danger:  #cc1400;
+$body-bg:       #666689;
+
+$font-family-sans-serif: "Open Sans", Helvetica, Arial, sans-serif;
+$font-size-base:         16px;
+
+$pagination-color:       $brand-info;
+$pagination-hover-color: $brand-danger;
+
 
 /* ---------------------------------------------------------------------------
-   inline sytles to css
+   import current stable bootstrap version
+----------------------------------------------------------------------------*/
+@import "../webjars/bootstrap-sass/3.3.7/stylesheets/_bootstrap.scss";
+
+
+/* ---------------------------------------------------------------------------
+   inline styles to css
    moved styles from the document here
 ----------------------------------------------------------------------------*/
-body {
-    font-family: 'Open Sans', helvetica, arial, sans-serif;
-    font-size: 16px;
-    background-color: #666689;
-}
 
+$cmo_purple_separators: $brand-info;
+$cmo_purple_footerBack: #fbfafb;
+$cmo_grey_fontColor:    $text-color;
+$cmo_shadow:            #dadada;
+
+
+/* ---------------------------------------------------------------------------
+   inline styles to css
+   moved styles from the document here
+----------------------------------------------------------------------------*/
 #project_logo_box {
     font-size:200%;
     margin:6px;
 }
-#project_logo_box a img{
+#project_logo_box a img {
     height:40px;
     margin-right:10px;
 }
@@ -23,30 +51,17 @@ body {
     margin-bottom:30px;
 }
 
-#main_content .jumbotron {
-    background: #ffffff url('../images/cover.png') no-repeat left top;
-    color: #668;
-}
-
-#main_content .jumbotron .container{
-    background-color: #ffffff80;
-}
 
 /* ---------------------------------------------------------------------------
    base structure
 ----------------------------------------------------------------------------*/
 
-/*
-    #666689 purple, separators
-    #fbfafb purple, footer back
-    #57595a gray, font color
-    #dadada gray, the SHADOW?!
-*/
-
 body {
     padding-top: 70px;
     min-width: 450px;
 }
+
+
 /* ---------------------------------------------------------------------------
    header
 ----------------------------------------------------------------------------*/
@@ -57,13 +72,13 @@ header {
     min-width: 540px;
     height: 70px;
     z-index: 500;
-    box-shadow: 10px 0px 8px #dadada;
+    box-shadow: 10px 0px 8px $cmo_shadow;
     background-color: white;
 }
 header #e_suche {
     height: 70px;
-    border-right: 1px solid #666689;
-    border-left: 1px solid #666689;
+    border-right: 1px solid $cmo_purple_separators;
+    border-left: 1px solid $cmo_purple_separators;
 }
 header #logo {
     height: 70px;
@@ -78,14 +93,15 @@ header #logo #slogan {
     display: none;
 }
 
+
 /* ---------------------------------------------------------------------------
    section
 ----------------------------------------------------------------------------*/
 section {
-    background-color: #fbfafb;
+    background-color: $cmo_purple_footerBack;
 }
 section #side_menu_1 {
-    color: #57595a;
+    color: $cmo_grey_fontColor;
 }
 section #content {
     min-height: 500px;
@@ -97,9 +113,13 @@ section #sidebar {
 }
 
 
+/* ---------------------------------------------------------------------------
+   bottom menu
+----------------------------------------------------------------------------*/
 #bottom_menu, #bottom_side, #side_menu_2 {
   height: 100px;
 }
+
 
 /* ---------------------------------------------------------------------------
    footer
@@ -108,38 +128,40 @@ footer {
     font-size: 12px;
 }
 footer #subnav #side_menu_2 {
-    color: #57595a;
+    color: $cmo_grey_fontColor;
     background-color: white;
     border-top: 1px solid #ccc;
 }
 
 footer #subnav #bottom_menu,
 footer #subnav #bottom_side {
-    color: #57595a;
-    background-color: #fbfafb;
+    color: $cmo_grey_fontColor;
+    background-color: $cmo_purple_footerBack;
     border-top: 1px solid #ccc;
 }
 
 footer #subnav #bottom_menu {
     border-left: 1px solid #ccc;
-
 }
 
 footer #powered {
     color: white;
-    background-color: #666689;
+    background-color: $cmo_purple_separators;
 }
 
 footer #powered #contact {
     margin-top: 15px;
 }
+
 footer #powered #logo {
     text-align: center;
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
 footer #powered #copyright {
 }
+
 
 /* ---------------------------------------------------------------------------
    responsive
@@ -174,6 +196,9 @@ footer #powered #copyright {
     }
 }
 
+/* ---------------------------------------------------------------------------
+   search stuff
+----------------------------------------------------------------------------*/
 #e_suche, #k_suche {
   height: 70px;
   padding: 0px;
