@@ -1,0 +1,32 @@
+/* ---------------------------------------------------------------------------
+   responsive
+----------------------------------------------------------------------------*/
+@media (min-width: 768px) {
+    footer {
+        font-size: 14px;
+    }
+    header #logo img {
+    }
+    footer #powered #contact {
+        margin-top: 20px;
+    }
+    footer #powered #logo {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    footer #powered #copyright {
+        margin-top: 20px;
+        text-align: right;
+    }
+}
+@media (min-width: 992px) {
+}
+@media (min-width: 1200px) {
+
+}
+@media (min-width: 1920px) {
+    header #logo img {
+        width: auto;
+        height: 60px;
+    }
+}
