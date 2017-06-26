@@ -25,6 +25,10 @@ body {
     min-width: 450px;
 }
 
+p {
+    margin: 0 0 20px;
+}
+
 
 /* ---------------------------------------------------------------------------
    header
@@ -51,7 +55,8 @@ header #logo {
     justify-content: center;
 }
 header #logo img {
-    width: 90%;
+  height: 80px !important;
+  padding: 18px 53px;
 }
 header #logo #slogan {
     display: none;
@@ -71,9 +76,23 @@ section #content {
     min-height: 500px;
     background-color: white;
     border-left: 1px solid #ccc;
+    padding-bottom: 40px;
 }
 section #sidebar {
     background-color: white;
+}
+
+
+/* ---------------------------------------------------------------------------
+   side menu
+----------------------------------------------------------------------------*/
+#side_menu_1 .nav {
+  float: none;
+  text-align: left;
+}
+
+#side_menu_1 .navbar-nav > li {
+  float: none;
 }
 
 

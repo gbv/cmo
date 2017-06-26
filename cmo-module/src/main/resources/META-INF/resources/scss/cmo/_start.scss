@@ -1,0 +1,27 @@
+
+#cmo_start {
+  h1 {
+    color: $brand-info;
+    font-weight: 600;
+  }
+    h2 {
+  font-size: 14px;
+  }
+  #cmo_pitch_set {
+    width: 100%;
+    margin: 80px 0;
+  }
+}
+
+
+#cmo_publish_catalogue {
+  ul {
+    list-style: none;
+  }
+  ul li img {
+    vertical-align: bottom;
+    margin-right: 10px;
+    width: 30%;
+    padding-bottom: 5px;
+  }
+}

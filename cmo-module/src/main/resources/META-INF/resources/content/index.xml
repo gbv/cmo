@@ -4,28 +4,29 @@
 
   <section title="Welcome to CMO Catalogue" xml:lang="de">
 
-    <div class="row">
-        <div class="col-md-12">
-          <h1>CMO Edition and Catalogue</h1>
-          <p>
-            Includes a short “welcome” text and logos of related institutions,
-            with an option to change the language (English, German and Turkish
-            – only the main text will be translated).
-          </p>
-          <p>
-            On the start page, there should be a search field for “Simple search”
-            function within the catalogue. Next to/above/below the search field,
-            there are two links/tabs directing the user to “Detailed search” and
-            “Search lyrics” sections of the CMO Catalogue (similar to search
-            fields of e.g. <a href="https://www.bach-digital.de/">Bach Digital</a>,
-            <a href="https://www.vifamusik.de/">ViFa Musik</a> or
-            <a href="https://kenom.gbv.de/fundkomplexe/">Fundmünzkatalog</a>). Details
-            of some of the search pages are explained in appendixes V to IX.
-          </p>
-        </div>
+    <div id="cmo_start" class="text-center">
+      <h1>CMO Edition and Catalogue</h1>
+      <h2>Online Catalogue for Metadata from CMO</h2>
+      <img id="cmo_pitch_set" src="images/pitch_set.png" />
+      <p>
+        Includes a short “welcome” text and logos of related institutions,
+        with an option to change the language (English, German and Turkish
+        – only the main text will be translated).
+      </p>
+      <p>
+        On the start page, there should be a search field for “Simple search”
+        function within the catalogue. Next to/above/below the search field,
+        there are two links/tabs directing the user to “Detailed search” and
+        “Search lyrics” sections of the CMO Catalogue (similar to search
+        fields of e.g. <a href="https://www.bach-digital.de/">Bach Digital</a>,
+        <a href="https://www.vifamusik.de/">ViFa Musik</a> or
+        <a href="https://kenom.gbv.de/fundkomplexe/">Fundmünzkatalog</a>). Details
+        of some of the search pages are explained in appendixes V to IX.
+      </p>
     </div>
+
   </section>
   <meta>
-    <log date="2017-01-30" time="16:53" labelPath=" » Start" lastEditor="Kathleen Neumann" />
+    <log date="2017-06-26" time="16:53" labelPath=" » Start" lastEditor="Kathleen Neumann" />
   </meta>
 </MyCoReWebPage>

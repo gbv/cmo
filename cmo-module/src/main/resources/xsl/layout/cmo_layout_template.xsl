@@ -93,7 +93,7 @@
                          class="hidden-xs hidden-sm col-md-3 col-lg-2 text-center">
                          <div class="fullheightbox">
                             <nav class="collapse navbar-collapse main-nav-entries">
-                              <ul class="nav navbar-nav pull-left">
+                              <ul class="nav navbar-nav">
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='brand']" />
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='edition']" />
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='catalogue']" />
@@ -114,21 +114,25 @@
                         </nav>
                         <div class="row">
                             <div id="main"
-                                 class="col-md-8 col-lg-8">
-                                <xsl:call-template name="print.writeProtectionMessage" />
-                                <xsl:choose>
-                                  <xsl:when test="$readAccess='true'">
-                                    <xsl:copy-of select="*[not(name()='head')]" />
-                                  </xsl:when>
-                                  <xsl:otherwise>
-                                    <xsl:call-template name="printNotLoggedIn" />
-                                  </xsl:otherwise>
-                                </xsl:choose>
+                                 class="col-md-12 col-lg-12">
+                              <div class="row">
+                                <div class="col-md-8 col-md-offset-2">
+                                  <xsl:call-template name="print.writeProtectionMessage" />
+                                  <xsl:choose>
+                                    <xsl:when test="$readAccess='true'">
+                                      <xsl:copy-of select="*[not(name()='head')]" />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                      <xsl:call-template name="printNotLoggedIn" />
+                                    </xsl:otherwise>
+                                  </xsl:choose>
+                                </div>
+                              </div>
                             </div>
-                            <div id="sidebar"
+                            <!-- div id="sidebar"
                                  class="hidden-xs hidden-sm col-md-4 col-lg-4">
                                 sidebar
-                            </div>
+                            </div -->
                         </div>
                     </div>
                 </div>

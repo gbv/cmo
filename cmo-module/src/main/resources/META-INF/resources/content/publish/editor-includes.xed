@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xed:template xmlns:xed="http://www.mycore.de/xeditor"
+              xmlns:cmo="http://cmo.gbv.de/cmo"
+              xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+
+  <xed:template id="in.out">
+    <xed:source uri="xslStyle:mycoreobject-editor,mcrobject:{$id}" />
+    <xed:cancel
+      url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}?XSL.Status.Message=cmo.editstatus.canceled&amp;XSL.Status.Style=danger" />
+    <xed:cancel url="{$cancelUrl}?XSL.Status.Message=cmo.editstatus.canceled&amp;XSL.Status.Style=danger" />
+    <xed:cancel url="../index.html?XSL.Status.Message=cmo.editstatus.canceled&amp;XSL.Status.Style=danger" />
+    <!-- xed:post-processor xsl="editor/xeditor2mods.xsl" / -->
+  </xed:template>
+
+  <xed:template id="mycore.common">
+    <xed:choose>
+      <xed:when test="string-length($origin) &gt; 0">
+        <xed:bind xpath="@ID" initially="{$origin}_mods_00000000" />
+      </xed:when>
+      <xed:when test="xed:call-java('org.mycore.common.xml.MCRXMLFunctions','getCurrentUserAttribute','origin')">
+        <xed:bind xpath="@ID" initially="{xed:call-java('org.mycore.common.xml.MCRXMLFunctions','getCurrentUserAttribute','origin')}_mods_00000000" />
+      </xed:when>
+      <xed:otherwise>
+        <xed:bind xpath="@ID" initially="{$MIR.projectid.default}_mods_00000000" />
+      </xed:otherwise>
+    </xed:choose>
+    <input type="hidden" name="XSL.Status.Message" value="cmo.editstatus.success" />
+    <input type="hidden" name="XSL.Status.Style" value="success" />
+  </xed:template>
+
+  <xed:template id="title">
+    <cmo:textfield xpath="mei:titleStmt/mei:title" label="cmo.title" help-text="{i18n:cmo.help.title}" class="required" required="true"
+      required-text="{i18n:cmo.validation.title}" />
+  </xed:template>
+
+
+</xed:template>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="all" title="New Source">
+
+    <xed:form xmlns:xed="http://www.mycore.de/xeditor" method="post" role="form" class="form-horizontal">
+      <xed:source uri="xslStyle:mycoreobject-editor,editor/mei2xeditor:mcrobject:{$id}" />
+      <xed:cancel url="../index.xml" />
+      <xed:bind xpath="/mycoreobject">
+        <xed:bind xpath="@ID" initially="cmo_source_00000000" />
+        <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML']/meiContainer/mei:source">
+          <fieldset>
+            <legend>
+              <xed:output i18n="editor.legend.source" />
+            </legend>
+
+
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:content/publish/editor-includes.xed" ref="title" />
+
+
+
+
+            <!-- Button (Double) -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="save"></label>
+              <div class="col-md-8">
+                <xed:choose>
+                  <xed:when test="contains(/mycoreobject/@ID, '_00000000')">
+                    <button id="save" class="btn btn-success createobject" type="submit" xed:target="servlet"
+                      xed:href="CreateObjectServlet">
+                      <xed:output i18n="common.button.save" />
+                    </button>
+                  </xed:when>
+                  <xed:otherwise>
+                    <button id="save" class="btn btn-success updateobject" type="submit" xed:target="servlet"
+                      xed:href="UpdateObjectServlet">
+                      <xed:output i18n="common.button.save" />
+                    </button>
+                  </xed:otherwise>
+                </xed:choose>
+                <xed:output value="'&#160;'" />
+                <button id="cancel" class="btn btn-danger" type="submit" xed:target="cancel">
+                  <xed:output i18n="common.button.cancel" />
+                </button>
+                <xed:output value="'&#160;'" />
+                <button id="debug" class="btn btn-info" type="submit" xed:target="debug">
+                  <xed:output i18n="common.button.debug" />
+                </button>
+              </div>
+            </div>
+          </fieldset>
+        </xed:bind>
+      </xed:bind>
+    </xed:form>
+
+  </section>
+</MyCoReWebPage>
