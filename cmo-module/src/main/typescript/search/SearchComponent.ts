@@ -15,10 +15,10 @@ export module SearchComponent {
             this.container.innerHTML =
                 `
 <div class="search">
-    <input type="search" class="form-control mainSearch">     
+    <input type="search" class="form-control mainSearch" name="q">
     <div class="extendedSearch closed">
-    
-    </div>           
+
+    </div>
 </div>
                 `;
 
@@ -57,11 +57,13 @@ export module SearchComponent {
         }
 
         public activate() {
-            this.view.openExtendedSearch(true);
+           // TODO: show only if extended search is selected
+           // this.view.openExtendedSearch(true);
         }
 
         public deactivate() {
-            this.view.openExtendedSearch(false);
+           // TODO: show only if extended search is selected
+           // this.view.openExtendedSearch(false);
         }
 
 

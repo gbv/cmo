@@ -72,14 +72,20 @@
                     <div id="suche"
                          class="col-xs-8 col-md-9 col-lg-10">
                         <div class="row">
+                          <form action="{$WebApplicationBaseURL}servlets/solr/select">
+                            <input type="hidden" name="fq" value="objectType:mods" />
                             <div id="e_suche"
                                  class="col-xs-6 col-md-8 col-lg-8">
                                 e-suche
                             </div>
+                          </form>
+                          <form action="{$WebApplicationBaseURL}servlets/solr/select">
+                            <input type="hidden" name="fq" value="-objectType:mods" />
                             <div id="k_suche"
                                  class="col-xs-6 col-md-4 col-lg-4">
                                 k-suche
                             </div>
+                          </form>
                         </div>
                     </div>
                 </div>
