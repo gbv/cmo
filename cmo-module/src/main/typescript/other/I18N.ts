@@ -29,8 +29,9 @@ export module I18N {
                     xhttp.onreadystatechange = () => {
                         if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200) {
                             console.log(xhttp.response);
-                            for (let key in xhttp.response) {
-                                I18N.keyObj[ key ] = xhttp.response[ key ];
+                            let jsonData = JSON.parse(xhttp.response);
+                            for (let key in jsonData) {
+                                I18N.keyObj[ key ] = jsonData[ key ];
                             }
 
                             for (let index in I18N.fetchKeyHandlerList[ fetchKey ]) {
