@@ -8,15 +8,11 @@
       <label xml:lang="en">Start</label>
     </item>
   </menu>
-  <menu id="brand" dir="/content/brand">
-    <label xml:lang="de">Über uns</label>
-    <label xml:lang="en">About</label>
+  <menu id="below" dir="/content/below">
     <item href="/content/brand/about.xml" type="intern">
       <label xml:lang="de">Über uns</label>
       <label xml:lang="en">About</label>
     </item>
-  </menu>
-  <menu id="below" dir="/content/below">
     <item href="/content/below/impressum.xml" type="intern">
       <label xml:lang="de">Impressum</label>
       <label xml:lang="en">Impressum</label>
@@ -24,6 +20,10 @@
     <item href="/content/below/contact.xml" type="intern">
       <label xml:lang="de">Kontakt</label>
       <label xml:lang="en">Contact</label>
+    </item>
+    <item href="/content/below/institutions.xml" type="intern">
+      <label xml:lang="de">Beteiligte Institutionen</label>
+      <label xml:lang="en">Institutions</label>
     </item>
   </menu>
   <menu id="edition" dir="/content/edition">

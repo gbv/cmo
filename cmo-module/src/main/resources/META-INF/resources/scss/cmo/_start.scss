@@ -1,15 +1,14 @@
 
 #cmo_start {
   h1 {
-    color: $brand-info;
-    font-weight: 600;
+    margin-bottom:0;
   }
-    h2 {
-  font-size: 14px;
+  h2 {
+    margin-top:0;
   }
   #cmo_pitch_set {
     width: 100%;
-    margin: 80px 0;
+    margin: 50px 0;
   }
 }
 
@@ -17,11 +16,11 @@
 #cmo_publish_catalogue {
   ul {
     list-style: none;
+    padding-left: 0px;
   }
   ul li img {
     vertical-align: bottom;
     margin-right: 10px;
-    width: 30%;
     padding-bottom: 5px;
   }
 }

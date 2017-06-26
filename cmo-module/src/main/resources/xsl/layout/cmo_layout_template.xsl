@@ -150,13 +150,15 @@
                 <div class="row">
                     <div id="side_menu_2"
                          class="hidden-xs hidden-sm col-md-3 col-lg-2">
-                        <ul class="internal_links">
-                          <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='below']/*" />
+                        <ul>
+                          <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='help']/*" />
                         </ul>
                     </div>
                     <div id="bottom_menu"
                          class="col-xs-12 col-md-6 col-lg-8 text-center">
-                         bottom menu
+                       <ul>
+                         <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='below']/*" />
+                       </ul>
                     </div>
                     <div id="bottom_side"
                          class="hidden-xs hidden-sm col-md-3 col-lg-2">
@@ -196,67 +198,6 @@
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap-sass/{$bootstrap.version}/javascripts/bootstrap.min.js"></script>
        </body>
     </html>
-  </xsl:template>
-
-
-  <!-- create navigation -->
-  <xsl:template name="navigation">
-
-    <div id="header_box" class="clearfix container">
-      <div id="options_nav_box">
-        <nav>
-          <ul class="nav navbar-nav pull-right">
-            <xsl:call-template name="loginMenu" />
-            <xsl:call-template name="languageMenu" />
-          </ul>
-        </nav>
-      </div>
-      <div style="font-size:200%;margin:6px" id="project_logo_box">
-        <a href="{concat($WebApplicationBaseURL,substring($loaded_navigation_xml/@hrefStartingPage,2),$HttpSession)}">
-          <img style="height:40px;margin-right:10px" alt="CMO" src="{$WebApplicationBaseURL}content/images/cmo_logo.jpg" />
-          Corpus Musicae Ottomanicae
-      </a>
-      </div>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="navbar navbar-default">
-      <div class="container">
-
-        <div class="navbar-header">
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".main-nav-entries">
-            <span class="sr-only"> Toggle navigation </span>
-            <span class="icon-bar">
-            </span>
-            <span class="icon-bar">
-            </span>
-            <span class="icon-bar">
-            </span>
-          </button>
-        </div>
-
-        <div class="searchfield_box">
-          <form action="{$WebApplicationBaseURL}servlets/solr/select?q={0}" class="navbar-form navbar-left pull-right" role="search">
-            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-            <div class="form-group">
-              <input name="q" placeholder="Suche" class="form-control search-query" id="searchInput" type="text" />
-            </div>
-          </form>
-        </div>
-
-        <nav class="collapse navbar-collapse main-nav-entries">
-          <ul class="nav navbar-nav pull-left">
-            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='brand']" />
-            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='edition']" />
-            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='catalogue']" />
-            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='help']" />
-            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='tutorial']" />
-            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='publish']" />
-          </ul>
-        </nav>
-
-      </div><!-- /container -->
-    </div>
   </xsl:template>
 
 </xsl:stylesheet>

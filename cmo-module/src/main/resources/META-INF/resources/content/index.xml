@@ -6,7 +6,7 @@
 
     <div id="cmo_start" class="text-center">
       <h1>CMO Edition and Catalogue</h1>
-      <h2>Online Catalogue for Metadata from CMO</h2>
+      <h2><small>Online Catalogue for Metadata from CMO</small></h2>
       <img id="cmo_pitch_set" src="images/pitch_set.png" />
       <p>
         Includes a short “welcome” text and logos of related institutions,

@@ -3,15 +3,23 @@
    http://getbootstrap.com/customize/#less-variables
 ----------------------------------------------------------------------------*/
 $gray-base:     #252626;
+$gray-dark:     lighten($gray-base, 20%);
 $brand-primary: #eeab2b;
 $brand-success: #008200;
 $brand-info:    #666689;
 $brand-warning: #7800cc;
 $brand-danger:  #cc1400;
 $body-bg:       #666689;
+$text-color:    $gray-dark;
 
 $font-family-sans-serif: "Open Sans", Helvetica, Arial, sans-serif;
 $font-size-base:         16px;
+
+$headings-small-color:  $text-color;
+$font-size-h1:          floor(($font-size-base * 2.25));
+$font-size-h2:          floor(($font-size-base * 1.75));
+$headings-font-weight:  600;
+$headings-color:        $brand-info;
 
 $pagination-color:       $brand-info;
 $pagination-hover-color: $brand-danger;
@@ -23,6 +31,6 @@ $pagination-hover-color: $brand-danger;
 ----------------------------------------------------------------------------*/
 $cmo_purple_separators: $brand-info;
 $cmo_purple_footerBack: #fbfafb;
-//$cmo_grey_fontColor:    $text-color;
+$cmo_grey_fontColor:    $text-color;
 $cmo_shadow:            #dadada;
 

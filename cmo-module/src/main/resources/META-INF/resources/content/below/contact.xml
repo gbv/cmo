@@ -2,15 +2,11 @@
 <!DOCTYPE MyCoReWebPage>
 <MyCoReWebPage>
   <section xml:lang="de" title="Contact">
-    <div class="row">
-      <div class="col-md-12">
-        <h1>Contact</h1>
-        <p>
-          includes contact information both for technical/web related issues and
-          general/content related inquiries
-        </p>
-      </div>
-    </div>
+    <h1>Contact</h1>
+    <p>
+      includes contact information both for technical/web related issues and
+      general/content related inquiries
+    </p>
   </section>
   <meta>
     <log date="2017-01-30" time="11:59" labelPath=" » Contact" lastEditor="Kathleen Neumann" />

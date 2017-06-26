@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="de" title="About">
+    <h1>About</h1>
+    <p>
+      Includes general information on the project, partner institutions, the
+      contents of the website, and a link to the <a
+      href="https://www.uni-muenster.de/CMO-Edition/">CMO homepage</a> on the
+      university website (available in three languages).
+    </p>
+  </section>
+  <meta>
+    <log date="2017-01-30" time="11:59" labelPath=" » About" lastEditor="Kathleen Neumann" />
+  </meta>
+</MyCoReWebPage>

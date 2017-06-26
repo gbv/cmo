@@ -9,31 +9,31 @@
       </p>
       <div class="row">
         <div class="col-md-3">
-          <h2>Basics</h2>
+          <h2><small>Basics</small></h2>
           <ul>
-            <li>Person</li>
-            <li>Bibliography</li>
+            <li><a href="person.xed"><img src="../images/publish_icons/person.png" alt="person symbol" />Person</a></li>
+            <li><a href="bibliography.xed"><img src="../images/publish_icons/bibliography.png" alt="bibliography symbol" />Bibliography</a></li>
           </ul>
         </div>
         <div class="col-md-3">
-          <h2>Sources</h2>
+          <h2><small>Sources</small></h2>
           <ul>
-            <li><a href="source.xed?type=print"><img src="../images/publish_icons/secret-book-icon.png" alt="secret book icon" />Print</a></li>
-            <li><a href="source.xed?type=manuscript">Manuscript</a></li>
-            <li>Source Component</li>
+            <li><a href="source.xed?type=print"><img src="../images/publish_icons/print.png" alt="print symbol" />Print</a></li>
+            <li><a href="source.xed?type=manuscript"><img src="../images/publish_icons/manuscript.png" alt="manuscript symbol" />Manuscript</a></li>
+            <li><a href="source.xed?type=source_component"><img src="../images/publish_icons/source_component.png" alt="source component symbol" />Source Component</a></li>
           </ul>
         </div>
         <div class="col-md-3">
-          <h2>Expressions</h2>
+          <h2><small>Expressions</small></h2>
           <ul>
             <li>Expression</li>
             <li>Expression Component</li>
           </ul>
         </div>
         <div class="col-md-3">
-          <h2>Works</h2>
+          <h2><small>Works</small></h2>
           <ul>
-            <li>Work</li>
+            <li><a href="work.xed"><img src="../images/publish_icons/work.png" alt="work symbol" />Work</a></li>
             <li>Work Component</li>
           </ul>
         </div>
