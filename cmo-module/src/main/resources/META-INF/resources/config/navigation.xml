@@ -9,7 +9,7 @@
     </item>
   </menu>
   <menu id="below" dir="/content/below">
-    <item href="/content/brand/about.xml" type="intern">
+    <item href="/content/below/about.xml" type="intern">
       <label xml:lang="de">Über uns</label>
       <label xml:lang="en">About</label>
     </item>
