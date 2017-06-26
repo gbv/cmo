@@ -15,7 +15,7 @@
             </legend>
 
 
-            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:content/publish/editor-includes.xed" ref="title" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="title" />
 
 
 

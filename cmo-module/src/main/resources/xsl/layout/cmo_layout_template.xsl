@@ -100,12 +100,11 @@
                          <div class="fullheightbox">
                             <nav class="collapse navbar-collapse main-nav-entries">
                               <ul class="nav navbar-nav">
-                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='brand']" />
+                                <!-- TODO: Add Homepage -->
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='edition']" />
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='catalogue']" />
-                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='help']" />
-                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='tutorial']" />
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='publish']" />
+                                <!-- TODO: Add Basket -->
                               </ul>
                             </nav>
                          </div>

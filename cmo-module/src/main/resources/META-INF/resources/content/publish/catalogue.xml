@@ -11,16 +11,16 @@
         <div class="col-md-3">
           <h2><small>Basics</small></h2>
           <ul>
-            <li><a href="person.xed"><img src="../images/publish_icons/person.png" alt="person symbol" />Person</a></li>
-            <li><a href="bibliography.xed"><img src="../images/publish_icons/bibliography.png" alt="bibliography symbol" />Bibliography</a></li>
+            <li><a href="../../editor/person.xed"><img src="../images/publish_icons/person.png" alt="person symbol" />Person</a></li>
+            <li><a href="../../editor/bibliography.xed"><img src="../images/publish_icons/bibliography.png" alt="bibliography symbol" />Bibliography</a></li>
           </ul>
         </div>
         <div class="col-md-3">
           <h2><small>Sources</small></h2>
           <ul>
-            <li><a href="source.xed?type=print"><img src="../images/publish_icons/print.png" alt="print symbol" />Print</a></li>
-            <li><a href="source.xed?type=manuscript"><img src="../images/publish_icons/manuscript.png" alt="manuscript symbol" />Manuscript</a></li>
-            <li><a href="source.xed?type=source_component"><img src="../images/publish_icons/source_component.png" alt="source component symbol" />Source Component</a></li>
+            <li><a href="../../editor/source.xed?type=print"><img src="../images/publish_icons/print.png" alt="print symbol" />Print</a></li>
+            <li><a href="../../editor/source.xed?type=manuscript"><img src="../images/publish_icons/manuscript.png" alt="manuscript symbol" />Manuscript</a></li>
+            <li><a href="../../editor/source.xed?type=source_component"><img src="../images/publish_icons/source_component.png" alt="source component symbol" />Source Component</a></li>
           </ul>
         </div>
         <div class="col-md-3">
@@ -33,7 +33,7 @@
         <div class="col-md-3">
           <h2><small>Works</small></h2>
           <ul>
-            <li><a href="work.xed"><img src="../images/publish_icons/work.png" alt="work symbol" />Work</a></li>
+            <li><a href="../../editor/work.xed"><img src="../images/publish_icons/work.png" alt="work symbol" />Work</a></li>
             <li>Work Component</li>
           </ul>
         </div>
@@ -41,6 +41,6 @@
     </div>
   </section>
   <meta>
-    <log date="2017-06-26" time="11:59" labelPath=" » About" lastEditor="Kathleen Neumann" />
+    <log date="2017-06-26" time="11:59" labelPath=" » Catalogue" lastEditor="Kathleen Neumann" />
   </meta>
 </MyCoReWebPage>
