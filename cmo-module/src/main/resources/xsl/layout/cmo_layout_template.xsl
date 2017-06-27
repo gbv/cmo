@@ -100,11 +100,12 @@
                          <div class="fullheightbox">
                             <nav class="collapse navbar-collapse main-nav-entries">
                               <ul class="nav navbar-nav">
-                                <!-- TODO: Add Homepage -->
-                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='edition']" />
-                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='catalogue']" />
-                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='publish']" />
+                                <li id="cmo_home"><a href="{$WebApplicationBaseURL}content/index.xml">Startseite</a></li>
+                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_edition']" />
+                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_catalogue']" />
+                                <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_publish']" />
                                 <!-- TODO: Add Basket -->
+                                <li id="cmo_basket"><a href="#">Merkliste</a></li>
                               </ul>
                             </nav>
                          </div>
@@ -119,9 +120,9 @@
                         </nav>
                         <div class="row">
                             <div id="main"
-                                 class="col-md-12 col-lg-12">
+                                 class="col-md-9 col-lg-9">
                               <div class="row">
-                                <div class="col-md-8 col-md-offset-2">
+                                <div class="col-md-10 col-md-offset-1">
                                   <xsl:call-template name="print.writeProtectionMessage" />
                                   <xsl:choose>
                                     <xsl:when test="$readAccess='true'">
@@ -134,10 +135,11 @@
                                 </div>
                               </div>
                             </div>
-                            <!-- div id="sidebar"
-                                 class="hidden-xs hidden-sm col-md-4 col-lg-4">
-                                sidebar
-                            </div -->
+                            <div id="sidebar"
+                                 class="hidden-xs hidden-sm col-md-3 col-lg-3">
+                                <!-- TODO: add sidebar content -->
+                                &#160;
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -149,18 +151,20 @@
                 <div class="row">
                     <div id="side_menu_2"
                          class="hidden-xs hidden-sm col-md-3 col-lg-2">
-                        <ul>
-                          <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='help']/*" />
+                      <nav>
+                        <ul class="nav">
+                          <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_help']/*" />
                         </ul>
+                      </nav>
                     </div>
                     <div id="bottom_menu"
-                         class="col-xs-12 col-md-6 col-lg-8 text-center">
+                         class="col-xs-12 col-md-6 col-lg-7 text-center">
                        <ul>
-                         <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='below']/*" />
+                         <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_below']/*" />
                        </ul>
                     </div>
                     <div id="bottom_side"
-                         class="hidden-xs hidden-sm col-md-3 col-lg-2">
+                         class="hidden-xs hidden-sm col-md-3 col-lg-3">
                         &#160;
                     </div>
                 </div>

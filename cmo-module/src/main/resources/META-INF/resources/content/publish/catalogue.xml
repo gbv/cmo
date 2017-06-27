@@ -26,15 +26,15 @@
         <div class="col-md-3">
           <h2><small>Expressions</small></h2>
           <ul>
-            <li>Expression</li>
-            <li>Expression Component</li>
+            <li><a href="../../editor/expression.xed"><img src="../images/publish_icons/expression.png" alt="expression symbol" />Expression</a></li>
+            <li><a href="../../editor/expression.xed?type=component"><img src="../images/publish_icons/expression_component.png" alt="expression component symbol" />Expression Component</a></li>
           </ul>
         </div>
         <div class="col-md-3">
           <h2><small>Works</small></h2>
           <ul>
             <li><a href="../../editor/work.xed"><img src="../images/publish_icons/work.png" alt="work symbol" />Work</a></li>
-            <li>Work Component</li>
+            <li><a href="../../editor/work.xed?type=component"><img src="../images/publish_icons/work_component.png" alt="work component symbol" />Work Component</a></li>
           </ul>
         </div>
       </div>

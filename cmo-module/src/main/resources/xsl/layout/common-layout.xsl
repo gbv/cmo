@@ -51,7 +51,7 @@
       </xsl:when>
       <xsl:otherwise>
         <li class="dropdown">
-          <xsl:if test="$loaded_navigation_xml/menu[@id='user']//item[@href = $browserAddress ]">
+          <xsl:if test="$loaded_navigation_xml/menu[@id='cmo_user']//item[@href = $browserAddress ]">
             <xsl:attribute name="class">
               <xsl:value-of select="'active'" />
             </xsl:attribute>
@@ -63,7 +63,7 @@
             <span class="caret" />
           </a>
           <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
-            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='user']/*" />
+            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_user']/*" />
           </ul>
         </li>
       </xsl:otherwise>
@@ -98,7 +98,7 @@
   <xsl:template match="/navigation//menu[@id and (group[item] or item)]">
     <xsl:param name="active" select="descendant-or-self::item[@href = $browserAddress ]" />
     <xsl:variable name="menuId" select="generate-id(.)" />
-    <li class="dropdown">
+    <li id="{@id}" class="dropdown">
       <xsl:if test="$active">
         <xsl:attribute name="class">
           <xsl:value-of select="'active'" />
@@ -145,6 +145,11 @@
     <xsl:choose>
       <xsl:when test="string-length($url ) &gt; 0">
         <li>
+          <xsl:if test="@id">
+            <xsl:attribute name="id">
+              <xsl:value-of select="@id" />
+            </xsl:attribute>
+          </xsl:if>
           <xsl:if test="$active">
             <xsl:attribute name="class">
               <xsl:value-of select="'active'" />

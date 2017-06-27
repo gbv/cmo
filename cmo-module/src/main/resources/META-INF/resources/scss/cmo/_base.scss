@@ -29,37 +29,52 @@ p {
     margin: 0 0 20px;
 }
 
+.dropdown-toggle .caret {
+    height: 22px;
+    padding-left: 10px;
+    border: none;
+    font-family:'FontAwesome';
+    color: black;
+}
+.dropdown-toggle .caret:before {
+    content: "\f105 ";
+}
+.dropdown.open .caret:before {
+    content: "\f107 ";
+}
+
 
 /* ---------------------------------------------------------------------------
    header
 ----------------------------------------------------------------------------*/
 header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    min-width: 540px;
-    height: 70px;
-    z-index: 500;
-    box-shadow: 10px 0px 8px $cmo_shadow;
-    background-color: white;
-}
-header #e_suche {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  min-width: 540px;
+  height: 70px;
+  z-index: 500;
+  box-shadow: 10px 0px 8px $cmo_shadow;
+  background-color: white;
+
+  #e_suche {
     height: 70px;
     border-right: 1px solid $cmo_purple_separators;
     border-left: 1px solid $cmo_purple_separators;
-}
-header #logo {
+  }
+  #logo {
     height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-header #logo img {
-  height: 80px !important;
-  padding: 18px 53px;
-}
-header #logo #slogan {
+  }
+  #logo img {
+    height: 80px !important;
+    padding: 18px 53px;
+  }
+  #logo #slogan {
     display: none;
+  }
 }
 
 
@@ -86,13 +101,71 @@ section #sidebar {
 /* ---------------------------------------------------------------------------
    side menu
 ----------------------------------------------------------------------------*/
-#side_menu_1 .nav {
-  float: none;
-  text-align: left;
-}
+#side_menu_1, #side_menu_2 {
+  padding: 0;
 
-#side_menu_1 .navbar-nav > li {
-  float: none;
+  ul.nav {
+    float: none;
+    text-align: left;
+    li {
+      float: none;
+    }
+  }
+
+
+  nav {
+    padding: 0;
+    a {
+      color: #57595a;
+    }
+    > ul > li {
+      border-bottom: 1px solid #ccc;
+    }
+    > ul > li > a {
+      background-repeat: no-repeat;
+      padding-left: 50px;
+      background-position: 15px 15px;
+      font-size: 17px;
+    }
+    > ul > li#cmo_edition > a {
+      background-image: url('../../../content/images/menu_icons/cmo_edition.png');
+    }
+    > ul > li#cmo_catalogue > a {
+      background-image: url('../../../content/images/menu_icons/cmo_catalogue.png');
+    }
+    > ul > li#cmo_home > a {
+      background-image: url('../../../content/images/menu_icons/cmo_home.png');
+    }
+    > ul > li#cmo_basket > a {
+      background-image: url('../../../content/images/menu_icons/cmo_basket.png');
+    }
+    > ul > li#cmo_userGuide > a {
+      background-image: url('../../../content/images/menu_icons/cmo_help.png');
+    }
+    > ul > li#cmo_tutorial > a {
+      background-image: url('../../../content/images/menu_icons/cmo_tutorial.png');
+    }
+
+    // level 2
+    > ul > li > ul.dropdown-menu {
+      position: static;
+      float: none;
+      border: none;
+      box-shadow: none;
+      margin: 0;
+      padding: 0 0 20px 0;
+      background-color: white;
+      border-radius: none;
+      font-size: 14px;
+    }
+    > ul > li > ul.dropdown-menu > li > a {
+      padding-left: 70px;
+    }
+    > ul > li > ul.dropdown-menu > li > a:hover {
+      color: white;
+      background-color: #666689;
+    }
+  }
 }
 
 
@@ -100,7 +173,20 @@ section #sidebar {
    bottom menu
 ----------------------------------------------------------------------------*/
 #bottom_menu, #bottom_side, #side_menu_2 {
-  height: 100px;
+  height: 91.5px;
+}
+
+#bottom_menu > ul {
+  margin-top: 35px;
+  padding-left: 0;
+  > li {
+    list-style: none;
+    display: inline;
+    padding: 0 17px;
+    a {
+      color: $text-color;
+    }
+  }
 }
 
 

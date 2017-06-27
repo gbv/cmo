@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <navigation dir="/content" href="navigation" hrefStartingPage="/content/index.xml" template="template_cmo">
-  <menu id="main">
+  <menu id="cmo_main">
     <label xml:lang="de">Menü</label>
     <label xml:lang="en">Menu</label>
     <item href="/content/index.xml" type="intern">
@@ -8,7 +8,7 @@
       <label xml:lang="en">Start</label>
     </item>
   </menu>
-  <menu id="below" dir="/content/below">
+  <menu id="cmo_below" dir="/content/below">
     <item href="/content/below/about.xml" type="intern">
       <label xml:lang="de">Über uns</label>
       <label xml:lang="en">About</label>
@@ -26,7 +26,7 @@
       <label xml:lang="en">Institutions</label>
     </item>
   </menu>
-  <menu id="edition" dir="/content/edition">
+  <menu id="cmo_edition" dir="/content/edition">
     <!-- CMO edition menu  -->
     <label xml:lang="de">Edition</label>
     <label xml:lang="en">Edition</label>
@@ -43,7 +43,7 @@
       <label xml:lang="en">Edition guidelines</label>
     </item>
   </menu>
-  <menu id="catalogue" dir="/content/catalogue">
+  <menu id="cmo_catalogue" dir="/content/catalogue">
     <!-- CMO catalogue menu  -->
     <label xml:lang="de">Katalog</label>
     <label xml:lang="en">Catalogue</label>
@@ -84,20 +84,20 @@
       <label xml:lang="en">Browse Poetic title</label>
     </item>
   </menu>
-  <menu id="help" dir="/content/help">
+  <menu id="cmo_help" dir="/content/help">
     <!-- CMO help menu  -->
     <label xml:lang="de">Hilfe</label>
     <label xml:lang="en">Help</label>
-    <item href="/content/help/user_guide.xml" type="intern">
+    <item id="cmo_userGuide" href="/content/help/user_guide.xml" type="intern">
       <label xml:lang="de">Nutzerhandbuch</label>
       <label xml:lang="en">User Guide</label>
     </item>
-    <item href="/content/help/tutorial.xml" type="intern">
+    <item id="cmo_tutorial" href="/content/help/tutorial.xml" type="intern">
       <label xml:lang="de">Tutorials</label>
       <label xml:lang="en">Tutorials</label>
     </item>
   </menu>
-  <menu id="publish" dir="/content/publish">
+  <menu id="cmo_publish" dir="/content/publish">
     <!-- work with content menu  -->
     <label xml:lang="de">Bearbeiter</label>
     <label xml:lang="en">Editor</label>
@@ -114,7 +114,7 @@
       <label xml:lang="en">expert search</label>
     </item>
   </menu>
-  <menu id="user">
+  <menu id="cmo_user">
     <label xml:lang="de">Nutzermenü</label>
     <label xml:lang="en">User menu</label>
     <group id="thisuser">
