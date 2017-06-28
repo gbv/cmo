@@ -3,38 +3,83 @@
 <MyCoReWebPage>
   <section xml:lang="de" title="Publish Catalogue">
     <div id="cmo_publish_catalogue">
-      <h1>About</h1>
+      <h1>CMO Content Generator</h1>
       <p>
         Choose type of catalogue entity to create:
       </p>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-lg-3">
           <h2><small>Basics</small></h2>
           <ul>
-            <li><a href="../../editor/person.xed"><img src="../images/publish_icons/person.png" alt="person symbol" />Person</a></li>
-            <li><a href="../../editor/bibliography.xed"><img src="../images/publish_icons/bibliography.png" alt="bibliography symbol" />Bibliography</a></li>
+            <li class="row">
+              <a href="../../editor/person.xed">
+                <span class="col-xs-2"><img src="../images/publish_icons/person.png" alt="person symbol" /></span>
+                <span class="col-xs-9">Person</span>
+              </a>
+            </li>
+            <li class="row">
+              <a href="../../editor/bibliography.xed">
+                <span class="col-xs-2"><img src="../images/publish_icons/bibliography.png" alt="bibliography symbol" /></span>
+                <span class="col-xs-9">Bibliography</span>
+              </a>
+            </li>
           </ul>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3">
           <h2><small>Sources</small></h2>
           <ul>
-            <li><a href="../../editor/source.xed?type=print"><img src="../images/publish_icons/print.png" alt="print symbol" />Print</a></li>
-            <li><a href="../../editor/source.xed?type=manuscript"><img src="../images/publish_icons/manuscript.png" alt="manuscript symbol" />Manuscript</a></li>
-            <li><a href="../../editor/source.xed?type=source_component"><img src="../images/publish_icons/source_component.png" alt="source component symbol" />Source Component</a></li>
+            <li class="row">
+              <a href="../../editor/source.xed?type=print">
+                <span class="col-xs-2"><img src="../images/publish_icons/print.png" alt="print symbol" /></span>
+                <span class="col-xs-9">Print</span>
+              </a>
+            </li>
+            <li class="row">
+              <a href="../../editor/source.xed?type=manuscript">
+                <span class="col-xs-2"><img src="../images/publish_icons/manuscript.png" alt="manuscript symbol" /></span>
+                <span class="col-xs-9">Manuscript</span>
+              </a>
+            </li>
+            <li class="row">
+              <a href="../../editor/source.xed?type=source_component">
+                <span class="col-xs-2"><img src="../images/publish_icons/source_component.png" alt="source component symbol" /></span>
+                <span class="col-xs-9">Source Component</span>
+              </a>
+            </li>
           </ul>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3">
           <h2><small>Expressions</small></h2>
           <ul>
-            <li><a href="../../editor/expression.xed"><img src="../images/publish_icons/expression.png" alt="expression symbol" />Expression</a></li>
-            <li><a href="../../editor/expression.xed?type=component"><img src="../images/publish_icons/expression_component.png" alt="expression component symbol" />Expression Component</a></li>
+            <li class="row">
+              <a href="../../editor/expression.xed">
+                <span class="col-xs-2"><img src="../images/publish_icons/expression.png" alt="expression symbol" /></span>
+                <span class="col-xs-9">Expression</span>
+              </a>
+            </li>
+            <li class="row">
+              <a href="../../editor/expression.xed?type=component">
+                <span class="col-xs-2"><img src="../images/publish_icons/expression_component.png" alt="expression component symbol" /></span>
+                <span class="col-xs-9">Expression Component</span>
+              </a>
+            </li>
           </ul>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3">
           <h2><small>Works</small></h2>
           <ul>
-            <li><a href="../../editor/work.xed"><img src="../images/publish_icons/work.png" alt="work symbol" />Work</a></li>
-            <li><a href="../../editor/work.xed?type=component"><img src="../images/publish_icons/work_component.png" alt="work component symbol" />Work Component</a></li>
+            <li class="row">
+              <a href="../../editor/work.xed">
+                <span class="col-xs-2"><img src="../images/publish_icons/work.png" alt="work symbol" /></span>
+                <span class="col-xs-9">Work</span>
+              </a>
+            </li>
+            <li class="row">
+              <a href="../../editor/work.xed?type=component">
+                <span class="col-xs-2"><img src="../images/publish_icons/work_component.png" alt="work component symbol" /></span>
+                <span class="col-xs-9">Work Component</span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
