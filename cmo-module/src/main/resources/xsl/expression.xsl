@@ -11,6 +11,9 @@
   <xsl:template match="/mycoreobject[contains(@ID,'_expression_')]">
     <xsl:call-template name="metadataPage">
       <xsl:with-param name="content">
+
+        <xsl:apply-templates select="//mei:identifier[@type='CMO']" mode="metadataHeader" />
+
         <!--Show metadata -->
         <xsl:call-template name="metadataSection">
           <xsl:with-param name="content">
@@ -30,6 +33,7 @@
                 <xsl:apply-templates select="//mei:langUsage" mode="metadataView" />
                 <xsl:apply-templates select="//mei:relationList" mode="metadataView" />
                 <xsl:apply-templates select="//mei:classification" mode="metadataView" />
+                <xsl:apply-templates select="//mei:notesStmt" mode="metadataView" />
                 <xsl:apply-templates select="//mei:tempo" mode="metadataView" />
                 <xsl:call-template name="printEdition">
                   <xsl:with-param name="id" select="@ID" />

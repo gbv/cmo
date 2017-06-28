@@ -32,15 +32,19 @@
   <xsl:template match="mei:notesStmt" mode="metadataView">
     <xsl:comment>mei/notesStmt.xsl > mei:notesStmt</xsl:comment>
     <xsl:if test="mei:annot">
-      <xsl:call-template name="metadataLabelContent">
-        <xsl:with-param name="label" select="'editor.label.annot'" />
-        <xsl:with-param name="content">
-          <xsl:for-each select="mei:annot">
+      <xsl:for-each select="mei:annot">
+        <xsl:call-template name="metadataTextContent">
+          <xsl:with-param name="text">
+            <xsl:value-of select="i18n:translate('editor.label.annot')" />
+            <xsl:if test="@type">
+              <xsl:value-of select="concat(' [', @type, ']')" />
+            </xsl:if>
+          </xsl:with-param>
+          <xsl:with-param name="content">
             <xsl:call-template name="printAnnot" />
-            <xsl:if test="position() != last()"><br /></xsl:if>
-          </xsl:for-each>
-        </xsl:with-param>
-      </xsl:call-template>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:for-each>
     </xsl:if>
   </xsl:template>
 

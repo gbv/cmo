@@ -161,7 +161,7 @@
       <xsl:with-param name="text">
         <xsl:value-of select="i18n:translate('editor.label.name')" />
         <xsl:if test="@type">
-          <xsl:value-of select="concat('[', @type, ']')" />
+          <xsl:value-of select="concat(' [', @type, ']')" />
         </xsl:if>
       </xsl:with-param>
       <xsl:with-param name="content">

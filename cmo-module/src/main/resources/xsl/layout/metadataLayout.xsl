@@ -35,10 +35,10 @@
     <xsl:param name="label" />
     <xsl:param name="content" />
     <tr>
-      <th>
+      <th class="col-md-4">
         <xsl:value-of select="i18n:translate($label)" />
       </th>
-      <td>
+      <td class="col-md-8">
         <xsl:variable name="rTree" select="exslt:node-set($content)" />
         <xsl:copy-of select="$rTree" />
       </td>
@@ -49,10 +49,10 @@
     <xsl:param name="text" />
     <xsl:param name="content" />
     <tr>
-      <th>
+      <th class="col-md-4">
         <xsl:value-of select="$text" />
       </th>
-      <td>
+      <td class="col-md-8">
         <xsl:variable name="rTree" select="exslt:node-set($content)" />
         <xsl:copy-of select="$rTree" />
       </td>
@@ -63,11 +63,11 @@
     <xsl:param name="content1" />
     <xsl:param name="content2" />
     <tr>
-      <th>
+      <th class="col-md-4">
         <xsl:variable name="rTree1" select="exslt:node-set($content1)" />
         <xsl:copy-of select="$rTree1" />
       </th>
-      <td>
+      <td class="col-md-8">
         <xsl:variable name="rTree2" select="exslt:node-set($content2)" />
         <xsl:copy-of select="$rTree2" />
       </td>
@@ -85,7 +85,7 @@
 
   <xsl:template name="metadataSection">
     <xsl:param name="content" />
-    <div class="row">
+    <div id="cmo_metadataSection">
       <xsl:variable name="rTree" select="exslt:node-set($content)" />
       <xsl:copy-of select="$rTree" />
     </div>
@@ -93,7 +93,7 @@
 
   <xsl:template name="derivateSection">
     <xsl:param name="content" />
-    <div class="row">
+    <div id="cmo_derivateSection">
       <xsl:variable name="rTree" select="exslt:node-set($content)" />
       <xsl:copy-of select="$rTree" />
     </div>
@@ -122,10 +122,19 @@
   </metadataPage>
   -->
 
+  <xsl:template match="*" mode="metadataHeader">
+    <h1>
+      <xsl:value-of select="." />
+    </h1>
+  </xsl:template>
+
+
   <xsl:template match="parent" mode="metadataView">
     <xsl:param name="type" select="'object'" />
     <h2>
-      Back to top <xsl:value-of select="$type" />
+      <xsl:text>Back to top </xsl:text>
+      <xsl:value-of select="$type" />
+      <xsl:text> </xsl:text>
       <xsl:call-template name="objectLink">
         <xsl:with-param select="@xlink:href" name="obj_id" />
       </xsl:call-template>

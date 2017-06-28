@@ -18,10 +18,6 @@
     <xsl:param name="accessedit" select="acl:checkPermission($id,'writedb')" />
     <xsl:param name="accessdelete" select="acl:checkPermission($id,'deletedb')" />
 
-    <head>
-      <link href="{$WebApplicationBaseURL}css/file.css" rel="stylesheet" />
-    </head>
-
     <xsl:if test="$accessedit or $accessdelete">
       <div class="dropdown pull-right">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">

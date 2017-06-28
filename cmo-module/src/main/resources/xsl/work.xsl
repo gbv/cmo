@@ -16,15 +16,19 @@
         <xsl:call-template name="metadataSection">
           <xsl:with-param name="content">
 
+            <xsl:apply-templates select="//mei:identifier" mode="metadataHeader" />
+
             <xsl:call-template name="objectActions">
               <xsl:with-param name="id" select="@ID" />
             </xsl:call-template>
 
             <xsl:call-template name="metadataContainer">
               <xsl:with-param name="content">
+
                 <xsl:call-template name="displayIdWithOldLink">
                   <xsl:with-param name="id" select="//mei:work/@xml:id" />
                 </xsl:call-template>
+
                 <xsl:apply-templates select="//mei:identifier" mode="metadataView" />
                 <xsl:apply-templates select="//mei:composer" mode="metadataView" />
                 <xsl:apply-templates select="//mei:lyricist" mode="metadataView" />

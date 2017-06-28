@@ -13,10 +13,12 @@
   <xsl:template match="/mycoreobject[contains(@ID,'_person_')]">
     <xsl:call-template name="metadataPage">
       <xsl:with-param name="content">
+
+        <xsl:apply-templates select="//mei:persName/mei:name[@type='CMO']" mode="metadataHeader" />
+
         <!--Show metadata -->
         <xsl:call-template name="metadataSection">
           <xsl:with-param name="content">
-
             <xsl:call-template name="objectActions">
               <xsl:with-param name="id" select="@ID" />
             </xsl:call-template>

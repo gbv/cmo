@@ -31,8 +31,14 @@
   <!-- TODO: display this -->
   <xsl:template match="mei:seriesStmt" mode="metadataView">
     <xsl:comment>mei/seriesStmt.xsl > mei:seriesStmt</xsl:comment>
-    <xsl:value-of select="text()" />
-    <br />
+
+    <xsl:call-template name="metadataLabelContent">
+      <xsl:with-param name="label" select="'editor.label.series'" />
+      <xsl:with-param name="content">
+        <xsl:text>Title: </xsl:text><xsl:apply-templates select="mei:title" mode="metadataView" />
+        <xsl:text>Volume: </xsl:text> <xsl:apply-templates select="mei:biblScope" mode="metadataView" />
+      </xsl:with-param>
+    </xsl:call-template>
   </xsl:template>
 
 

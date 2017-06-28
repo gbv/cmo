@@ -37,6 +37,7 @@
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
         <link href="{$WebApplicationBaseURL}css/fileupload.css" rel="stylesheet" />
+        <link href="{$WebApplicationBaseURL}css/file.css" rel="stylesheet" />
 
         <link href="{$WebApplicationBaseURL}rsc/sass/scss/bootstrap-cmo.css" rel="stylesheet" />
 

@@ -11,6 +11,9 @@
   <xsl:template match="/mycoreobject[contains(@ID,'_source_')]">
     <xsl:call-template name="metadataPage">
       <xsl:with-param name="content">
+
+        <xsl:apply-templates select="//mei:source/mei:identifier[@type='CMO']" mode="metadataHeader" />
+
         <!--Show metadata -->
         <xsl:call-template name="metadataSection">
           <xsl:with-param name="content">
@@ -40,6 +43,8 @@
                 <xsl:apply-templates select="//mei:physDesc" mode="metadataView" />
                 <xsl:apply-templates select="//mei:contents" mode="metadataView" />
 
+                <!-- TODO: replace 2.1.1/provenance/ with 3.0.0/history/ -->
+                <xsl:apply-templates select="//mei:physLoc/mei:provenance" mode="metadataView" />
                 <xsl:apply-templates select="//mei:langUsage" mode="metadataView" />
                 <xsl:apply-templates select="//mei:notesStmt" mode="metadataView" />
                 <xsl:apply-templates select="//mei:classification" mode="metadataView" />

@@ -39,7 +39,9 @@
       <xsl:with-param name="content2">
         <xsl:for-each select="mei:incipText">
           <xsl:value-of select="." disable-output-escaping="yes" />
-          <small> (<xsl:value-of select="@label" />)</small>
+          <xsl:if test="@label">
+            <small> (<xsl:value-of select="@label" />)</small>
+          </xsl:if>
           <xsl:if test="position() != last()"><br /></xsl:if>
         </xsl:for-each>
       </xsl:with-param>

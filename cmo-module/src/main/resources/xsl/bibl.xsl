@@ -10,45 +10,25 @@
 
   <xsl:template match="/mycoreobject[contains(@ID,'_bibl_')]">
 
-    <div class="row">
+    <xsl:call-template name="metadataPage">
+      <xsl:with-param name="content">
 
-      <xsl:call-template name="objectActions">
-        <xsl:with-param name="id" select="@ID" />
-      </xsl:call-template>
+        <xsl:apply-templates select="//meiContainer/tei:bibl/tei:idno[@type='CMO']" mode="metadataHeader" />
 
-      <header>
-         <h1>
-           <xsl:choose>
-             <xsl:when test="//meiContainer/tei:bibl/tei:title[@type='main']">
-               <xsl:value-of select="//meiContainer/tei:bibl/tei:title[@type='main']" />
-               <xsl:if test="//meiContainer/tei:bibl/tei:title[@type='main']/@xml:lang">
-                 <small> (<xsl:value-of select="//meiContainer/tei:bibl/tei:title[@type='main']/@xml:lang" />)</small>
-               </xsl:if>
-             </xsl:when>
-             <xsl:otherwise>
-               <xsl:value-of select="//meiContainer/tei:bibl/tei:title[not(@type)]" />
-             </xsl:otherwise>
-           </xsl:choose>
-         </h1>
-         <xsl:if test="//meiContainer/tei:bibl/tei:title[@type='sub']">
-           <p>
-             <xsl:value-of select="//meiContainer/tei:bibl/tei:title[@type='sub']" />
-             <xsl:if test="//meiContainer/tei:bibl/tei:title[@type='sub']/@xml:lang">
-               <small> (<xsl:value-of select="//meiContainer/tei:bibl/tei:title[@type='sub']/@xml:lang" />)</small>
-             </xsl:if>
-           </p>
-         </xsl:if>
-      </header>
+        <!--Show metadata -->
+        <xsl:call-template name="metadataSection">
+          <xsl:with-param name="content">
 
-      <table class="table">
-        <tr>
-          <th class="col-xs-3">
-            <xsl:value-of select="i18n:translate('docdetails.ID')" />
-          </th>
-          <td class="col-xs-9">
-            <a href="http://quellen-perspectivia.net/en/cmo/{//meiContainer/tei:bibl/@xml:id}"><xsl:value-of select="//meiContainer/tei:bibl/@xml:id" /></a>
-          </td>
-        </tr>
+            <xsl:call-template name="objectActions">
+              <xsl:with-param name="id" select="@ID" />
+            </xsl:call-template>
+
+            <xsl:call-template name="metadataContainer">
+              <xsl:with-param name="content">
+                <xsl:call-template name="displayIdWithOldLink">
+                  <xsl:with-param name="id" select="//tei:bibl/@xml:id" />
+                </xsl:call-template>
+
 
         <xsl:if test="//meiContainer/tei:bibl/tei:bibl[@type='in']">
           <tr>
@@ -196,19 +176,17 @@
             </td>
           </tr>
         </xsl:if>
-      </table>
-    </div>
 
-    <!-- show derivates if available and CurrentUser has read access -->
-    <xsl:if test="structure/derobjects/derobject[acl:checkPermission(@xlink:href,'read')]">
-      <div class="row">
-        <xsl:apply-templates select="structure/derobjects/derobject[acl:checkPermission(@xlink:href,'read')]">
-          <xsl:with-param name="objID" select="@ID" />
-        </xsl:apply-templates>
-      </div>
-    </xsl:if>
+              </xsl:with-param>
+            </xsl:call-template>
+          </xsl:with-param>
+        </xsl:call-template>
 
+        <xsl:call-template name="displayDerivateSection" />
+      </xsl:with-param>
+    </xsl:call-template>
   </xsl:template>
+
 
   <xsl:template priority="1" mode="resulttitle" match="mycoreobject[contains(@ID,'_bibl_')]">
     <xsl:value-of select="./metadata/def.meiContainer/meiContainer/tei:bibl/tei:title" />
