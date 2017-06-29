@@ -18,6 +18,7 @@
   <xsl:variable name="fontawesome.version" select="'4.7.0'" />
   <xsl:variable name="jquery.version" select="'3.1.1'" />
   <xsl:variable name="jquery.migrate.version" select="'1.4.1'" />
+  <xsl:variable name="datetimepicker.version" select="'4.17.47'" />
   <!-- End of various versions -->
   <xsl:variable name="PageTitle" select="/*/@title" />
 
@@ -34,6 +35,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <link href="{$WebApplicationBaseURL}webjars/font-awesome/{$fontawesome.version}/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="{$WebApplicationBaseURL}webjars/eonasdan-bootstrap-datetimepicker/{$datetimepicker.version}/build/css/eonasdan-bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
         <link href="{$WebApplicationBaseURL}css/fileupload.css" rel="stylesheet" />
@@ -45,6 +47,8 @@
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery/{$jquery.version}/jquery.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery-migrate/{$jquery.migrate.version}/jquery-migrate.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/systemjs/0.19.3/dist/system.js"></script>
+        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/moment/2.18.1/min/moment.min.js"></script>
+        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/eonasdan-bootstrap-datetimepicker/{$datetimepicker.version}/build/js/bootstrap-datetimepicker.min.js"></script>
         <script>
           window["mcrBaseURL" ]= '<xsl:value-of select="$WebApplicationBaseURL" />';
 
@@ -120,8 +124,13 @@
                           </ul>
                         </nav>
                         <div class="row">
-                            <div id="main"
-                                 class="col-md-9 col-lg-9">
+                            <div id="main">
+                              <xsl:attribute name="class">
+                                <xsl:choose>
+                                  <xsl:when test="contains($RequestURL, '/editor/')"><xsl:text>col-md-11 col-lg-11</xsl:text></xsl:when>
+                                  <xsl:otherwise><xsl:text>col-md-9 col-lg-9</xsl:text></xsl:otherwise>
+                                </xsl:choose>
+                              </xsl:attribute>
                               <div class="row">
                                 <div class="col-md-10 col-md-offset-1">
                                   <xsl:call-template name="print.writeProtectionMessage" />
@@ -136,11 +145,13 @@
                                 </div>
                               </div>
                             </div>
-                            <div id="sidebar"
+                            <xsl:if test="not (contains($RequestURL, '/editor/'))">
+                              <div id="sidebar"
                                  class="hidden-xs hidden-sm col-md-3 col-lg-3">
                                 <!-- TODO: add sidebar content -->
                                 &#160;
                             </div>
+                            </xsl:if>
                         </div>
                     </div>
                 </div>

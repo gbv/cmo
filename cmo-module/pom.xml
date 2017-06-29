@@ -216,5 +216,10 @@
       <artifactId>systemjs</artifactId>
       <version>0.19.3</version>
     </dependency>
+    <dependency>
+      <groupId>org.webjars.bower</groupId>
+      <artifactId>eonasdan-bootstrap-datetimepicker</artifactId>
+      <version>4.17.47</version>
+    </dependency>
   </dependencies>
 </project>
