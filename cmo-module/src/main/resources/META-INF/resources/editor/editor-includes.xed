@@ -2,6 +2,7 @@
 
 <xed:template xmlns:xed="http://www.mycore.de/xeditor"
               xmlns:cmo="http://cmo.gbv.de/cmo"
+              xmlns:mei="http://www.music-encoding.org/ns/mei"
               xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 
@@ -30,10 +31,59 @@
     <input type="hidden" name="XSL.Status.Style" value="success" />
   </xed:template>
 
-  <xed:template id="title">
-    <cmo:textfield xpath="mei:titleStmt/mei:title" label="cmo.title" help-text="{i18n:cmo.help.title}" class="required" required="true"
-      required-text="{i18n:cmo.validation.title}" />
+  <xed:template id="cmo_title">
+    <cmo:textfield xpath="mei:titleStmt/mei:title" label="editor.label.title" type="cmo_titleType" repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
   </xed:template>
 
+  <xed:template id="cmo_identifier">
+    <cmo:textfield xpath="mei:identifier[@type='CMO']" label="editor.label.identifier" help-text="{i18n:cmo.help.identifier}" class="required" required="true"
+      required-text="{i18n:cmo.validation.identifier}" />
+  </xed:template>
+
+  <xed:template id="cmo_publisher">
+    <cmo:textfield xpath="mei:pubStmt/mei:publisher" label="editor.label.publisher" help-text="{i18n:cmo.help.publisher}" />
+  </xed:template>
+
+  <xed:template id="cmo_pubPlace">
+    <cmo:textfield xpath="mei:pubStmt/mei:pubPlace/mei:geogName" label="editor.label.pubPlace" help-text="{i18n:cmo.help.pubPlace}" />
+  </xed:template>
+
+  <xed:template id="cmo_contents">
+    <cmo:textarea xpath="mei:contents/mei:p" label="editor.label.contents" help-text="{i18n:cmo.help.contents}" rows="5" />
+  </xed:template>
+
+  <xed:template id="cmo_language">
+    <cmo:selectClassification xpath="mei:langUsage/mei:language/@xml:id" label="editor.label.language" classification="rfc4646" help-text="{i18n:cmo.help.language}" />
+  </xed:template>
+
+  <xed:template id="cmo_sourceType">
+    <cmo:selectClassification xpath="mei:classification[mei:classCode/@authority='cmo_sourceType']/mei:termList/mei:term" label="editor.search.sourceType"
+      classification="cmo_sourceType" class="required" required="true" required-text="{i18n:cmo.validation.sourceType}" help-text="{i18n:cmo.help.sourceType}" />
+  </xed:template>
+
+  <!-- <date isodate="" from="" to="" notbefore="1997" notafter="1997" calendar="gregorian" label="">1997</date> -->
+  <xed:template id="cmo_isoApproxDate">
+    <cmo:isoApproxDate xpath="." label="editor.label.normDate" help-text="{i18n:cmo.help.normDate}" />
+  </xed:template>
+  <xed:template id="cmo_textDate">
+    <cmo:textfield xpath="." label="editor.label.textDate" placeholder="{i18n:cmo.placeholder.textDate}" help-text="{i18n:cmo.help.textDate}" />
+  </xed:template>
+  <xed:template id="cmo_calender">
+    <cmo:selectClassification xpath="./@calendar" label="editor.label.calender" classification="cmo_calender" help-text="{i18n:cmo.help.calender}" />
+  </xed:template>
+
+
+  <xed:template id="failed-validation-messages">
+    <xed:if test="$xed-validation-failed">
+      <div class="alert alert-danger">
+        <h3>
+          <xed:output i18n="cmo.validation.failed" />
+        </h3>
+        <ul class="cmo-validation-messages">
+          <xed:display-validation-messages />
+        </ul>
+      </div>
+    </xed:if>
+  </xed:template>
 
 </xed:template>

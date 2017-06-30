@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xed="http://www.mycore.de/xeditor"
-  xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation" xmlns:cmo="http://cmo.gbv.de/cmo"
+<xsl:stylesheet
+  version="1.0"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xed="http://www.mycore.de/xeditor"
+  xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
+  xmlns:cmo="http://cmo.gbv.de/cmo"
   exclude-result-prefixes="xsl cmo i18n">
 
   <xsl:include href="copynodes.xsl" />
@@ -121,35 +125,93 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="cmo:dateRange">
-    <div class="form-group">
-      <label class="col-md-3 control-label ">
+  <xsl:template match="cmo:selectClassification">
+    <xed:bind xpath="{@xpath}">
+      <xsl:variable name="xed-val-marker" > {$xed-validation-marker} </xsl:variable>
+      <div class="form-group {@class} {$xed-val-marker}">
+        <label class="col-md-3 control-label">
+          <xed:output i18n="{@label}" />
+        </label>
+        <div class="col-md-6">
+          <div class="controls">
+            <select class="form-control form-control-inline">
+              <option value="">
+                <xed:output i18n="editor.select" />
+              </option>
+              <xed:include uri="xslStyle:items2options:classification:editorComplete:1:children:{@classification}" />
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <xsl:if test="string-length(@help-text) &gt; 0">
+            <xsl:call-template name="cmo-helpbutton" />
+          </xsl:if>
+        </div>
+        <xsl:call-template name="cmo-required" />
+      </div>
+    </xed:bind>
+  </xsl:template>
+
+  <xsl:template match="cmo:isoApproxDate">
+    <xsl:variable name="xed-val-marker" > {$xed-validation-marker} </xsl:variable>
+    <div class="form-group {@class} {$xed-val-marker}">
+      <label class="col-md-3 control-label">
         <xed:output i18n="{@label}" />
       </label>
-      <div class="col-md-6 {@class}" data-type="{@type}">
-        <xsl:call-template name="cmo-dateRange"/>
+      <div class="col-md-6">
+        <div class="form-inline">
+          <xed:bind xpath="@isodate">
+            <input id="cmo_isodate" type="text" placeholder="YYYY-MM-DD" class="form-control datetimepicker date" />
+          </xed:bind>
+          <xed:bind xpath="@approx" initially="false">
+            <div class="checkbox">
+              <label>
+                <xed:choose>
+                  <xed:when test=".='true'">
+                     <input id="cmo_toggleDate" type="checkbox" checked="checked" />
+                  </xed:when>
+                  <xed:otherwise>
+                     <input id="cmo_toggleDate" type="checkbox" />
+                  </xed:otherwise>
+                </xed:choose>
+                <xed:output i18n="editor.label.approxDate" />
+              </label>
+            </div>
+          </xed:bind>
+          <div id="cmo_toggleDate_approx" style="display:none;">
+            <xed:bind xpath="@notbefore">
+              <input id="cmo_notbefore" type="text" placeholder="YYYY-MM-DD" class="form-control datetimepicker cmo_dateInput" />
+            </xed:bind>
+            <xsl:text> - </xsl:text>
+            <xed:bind xpath="@notafter">
+              <input id="cmo_notafter"  type="text" placeholder="YYYY-MM-DD" class="form-control datetimepicker cmo_dateInput" />
+            </xed:bind>
+          </div>
+        </div>
       </div>
       <div class="col-md-3">
         <xsl:if test="string-length(@help-text) &gt; 0">
           <xsl:call-template name="cmo-helpbutton" />
         </xsl:if>
       </div>
+      <xsl:call-template name="cmo-required" />
     </div>
   </xsl:template>
-
-  <xsl:template match="cmo:dateRangeInput">
-    <div class="{@class}" data-type="{@type}">
-      <xsl:call-template name="cmo-dateRange"/>
-    </div>
-  </xsl:template>
-
 
 
 
   <xsl:template name="cmo-textfield">
-    <label class="col-md-3 control-label ">
+    <label class="col-md-3 control-label form-inline">
       <xsl:if test="@label">
         <xed:output i18n="{@label}" />
+      </xsl:if>
+      <xsl:if test="@type">
+        <xsl:text>&#160;</xsl:text>
+        <xed:bind xpath="@type">
+          <select class="select form-control" id="select" name="select">
+            <xed:include uri="xslStyle:items2options:classification:editorComplete:1:children:{@type}" />
+          </select>
+        </xed:bind>
       </xsl:if>
     </label>
     <div class="col-md-6">
@@ -167,68 +229,6 @@
     </div>
   </xsl:template>
 
-  <xsl:template name="cmo-dateRange">
-    <xsl:variable name="apos">'</xsl:variable>
-    <xsl:variable name="xpathSimple" >
-      <xsl:value-of select="concat(@xpath,'[not(@point)]')"/>
-    </xsl:variable>
-    <xsl:variable name="xpathStart" >
-      <xsl:value-of select="concat(@xpath,'[@point=', $apos, 'start', $apos, ']')"/>
-    </xsl:variable>
-    <xsl:variable name="xpathEnd" >
-      <xsl:value-of select="concat(@xpath,'[@point=', $apos, 'end', $apos, ']')"/>
-    </xsl:variable>
-    <xsl:variable name="hiddenclasssimple" >
-      <xsl:if test="@onlyRange = 'true' ">hidden</xsl:if>
-    </xsl:variable>
-    <xsl:variable name="hiddenclassrange" >
-      <xsl:if test="not(@onlyRange = 'true')">hidden</xsl:if>
-    </xsl:variable>
-    <div class="date-format" data-format="simple">
-      <div class="date-simple {$hiddenclasssimple} input-group">
-        <xed:bind xpath="{$xpathSimple}">
-          <input type="text" class="form-control" autocomplete="off">
-            <xsl:copy-of select="@placeholder" />
-          </input>
-        </xed:bind>
-        <xsl:call-template name="date-selectFormat"/>
-      </div>
-      <div class="date-range input-group {$hiddenclassrange} input-daterange">
-        <xed:bind xpath="{$xpathStart}">
-          <input type="text" class="form-control startDate" data-point="start">
-            <xsl:copy-of select="@placeholder" />
-          </input>
-        </xed:bind>
-        <span class="glyphicon glyphicon-minus input-group-addon" aria-hidden="true"></span>
-        <xed:bind xpath="{$xpathEnd}">
-          <input type="text" class="form-control endDate" data-point="end">
-            <xsl:copy-of select="@placeholder" />
-          </input>
-        </xed:bind>
-        <xsl:if test="not(@onlyRange = 'true') ">
-          <xsl:call-template name="date-selectFormat"/>
-        </xsl:if>
-      </div>
-    </div>
-  </xsl:template>
-
-  <xsl:template name="date-selectFormat">
-    <div class="input-group-btn date-selectFormat">
-      <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
-      <ul class="dropdown-menu dropdown-menu-right" role="menu">
-        <li>
-          <a href="#" class="date-simpleOption">
-            <xsl:value-of select="i18n:translate('cmo.date.specification')" />
-          </a>
-        </li>
-        <li>
-          <a href="#" class="date-rangeOption">
-            <xsl:value-of select="i18n:translate('cmo.date.period')" />
-          </a>
-        </li>
-      </ul>
-    </div>
-  </xsl:template>
 
   <xsl:template name="cmo-required">
     <xsl:if test="@required='true'">

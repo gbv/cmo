@@ -47,8 +47,6 @@
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery/{$jquery.version}/jquery.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery-migrate/{$jquery.migrate.version}/jquery-migrate.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/systemjs/0.19.3/dist/system.js"></script>
-        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/moment/2.18.1/min/moment.min.js"></script>
-        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/eonasdan-bootstrap-datetimepicker/{$datetimepicker.version}/build/js/bootstrap-datetimepicker.min.js"></script>
         <script>
           window["mcrBaseURL" ]= '<xsl:value-of select="$WebApplicationBaseURL" />';
 

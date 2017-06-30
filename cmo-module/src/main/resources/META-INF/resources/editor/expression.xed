@@ -1,54 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE MyCoReWebPage>
 <MyCoReWebPage>
-  <section xml:lang="all" title="New Source">
+  <section xml:lang="all" title="New Expression">
 
-    <h1>Create new Source</h1>
+    <h1>Create new Expression</h1>
 
     <xed:form xmlns:xed="http://www.mycore.de/xeditor" xmlns:mei="http://www.music-encoding.org/ns/mei" method="post" role="form" class="form-horizontal">
       <xed:source uri="xslStyle:mycoreobject-editor,editor/mei2xeditor:mcrobject:{$id}" />
       <xed:cancel url="../index.xml" />
       <xed:bind xpath="/mycoreobject">
-        <xed:bind xpath="@ID" initially="cmo_source_00000000" />
+        <xed:bind xpath="@ID" initially="cmo_expression_00000000" />
         <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML']/meiContainer/mei:source">
-
-
-          <xed:include uri="webapp:editor/editor-includes.xed" ref="failed-validation-messages" />
-
           <fieldset>
             <legend>
-              <xed:choose>
-                <xed:when test="string-length($type) &gt; 0"><xed:output i18n="editor.legend.source.{$type}" /></xed:when>
-                <xed:otherwise><xed:output i18n="editor.legend.source" /></xed:otherwise>
-              </xed:choose>
+              <xed:output i18n="editor.legend.expression" />
             </legend>
 
-            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_identifier" />
-            <xed:choose>
-              <xed:when test="string-length($type) &gt; 0">
-                <xed:bind xpath="mei:classification[mei:classCode/@authority='cmo_sourceType']/mei:termList/mei:term" initially="{$type}"/>
-              </xed:when>
-              <xed:otherwise>
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_sourceType" />
-              </xed:otherwise>
-            </xed:choose>
-            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_title" />
-            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_publisher" />
-            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_pubPlace" />
-            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_contents" />
-            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_language" />
-
-            <fieldset>
-              <legend>
-                <span class="small"><xed:output i18n="editor.legend.pubDate" /></span>
-              </legend>
-              <xed:bind xpath="mei:pubStmt/mei:date">
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_isoApproxDate" />
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_textDate" />
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_calender" />
-              </xed:bind>
-            </fieldset>
-
+            <!-- TODO: add input fields here -->
 
             <!-- Button (Double) -->
             <div class="form-group">

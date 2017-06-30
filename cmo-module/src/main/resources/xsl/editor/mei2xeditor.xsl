@@ -8,4 +8,12 @@
   <xsl:include href="copynodes.xsl" />
   <xsl:include href="editor/mei-node-utils.xsl" />
 
+  <xsl:template match="mei:date[@notbefore|@notafter]">
+    <xsl:copy>
+      <xsl:attribute name="approx">true</xsl:attribute>
+      <xsl:apply-templates select="@*|node()" />
+    </xsl:copy>
+  </xsl:template>
+
+
 </xsl:stylesheet>
