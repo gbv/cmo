@@ -16,6 +16,10 @@
     margin-bottom:30px;
 }
 
+// TODO: min-height: abhängig von Monitor-Höhe
+// footer-Höhe: 50px
+
+
 
 /* ---------------------------------------------------------------------------
    base structure
@@ -122,28 +126,32 @@ section #sidebar {
       border-bottom: 1px solid #ccc;
     }
     > ul > li > a {
-      background-repeat: no-repeat;
+      font-size: 17px;
       padding-left: 50px;
       background-position: 15px 15px;
-      font-size: 17px;
+      background-repeat: no-repeat;
+      background-size: 20px;
     }
     > ul > li#cmo_edition > a {
-      background-image: url('../../../content/images/menu_icons/cmo_edition.png');
+      background-image: url('../../../content/images/menu_icons/cmo_edition.svg');
     }
     > ul > li#cmo_catalogue > a {
-      background-image: url('../../../content/images/menu_icons/cmo_catalogue.png');
+      background-image: url('../../../content/images/menu_icons/cmo_catalogue.svg');
     }
     > ul > li#cmo_home > a {
-      background-image: url('../../../content/images/menu_icons/cmo_home.png');
+      background-image: url('../../../content/images/menu_icons/cmo_home.svg');
     }
     > ul > li#cmo_basket > a {
-      background-image: url('../../../content/images/menu_icons/cmo_basket.png');
+      background-image: url('../../../content/images/menu_icons/cmo_basket.svg');
+    }
+    > ul > li#cmo_publish > a {
+      background-image: url('../../../content/images/menu_icons/cmo_buddy.svg');
     }
     > ul > li#cmo_userGuide > a {
-      background-image: url('../../../content/images/menu_icons/cmo_help.png');
+      background-image: url('../../../content/images/menu_icons/cmo_help.svg');
     }
     > ul > li#cmo_tutorial > a {
-      background-image: url('../../../content/images/menu_icons/cmo_tutorial.png');
+      background-image: url('../../../content/images/menu_icons/cmo_tutorial.svg');
     }
 
     // level 2
