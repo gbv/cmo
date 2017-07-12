@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_titleType">
+  <label xml:lang="en" text="Type of title" />
+  <label xml:lang="de" text="Titelformen" />
+  <categories>
+    <category ID="alt">
+      <label xml:lang="de" text="alt" />
+      <label xml:lang="en" text="alt" />
+    </category>
+    <category ID="main">
+      <label xml:lang="de" text="main" />
+      <label xml:lang="en" text="main" />
+    </category>
+    <category ID="short">
+      <label xml:lang="en" text="short" />
+      <label xml:lang="de" text="short" />
+    </category>
+    <category ID="sub">
+      <label xml:lang="en" text="sub" />
+      <label xml:lang="de" text="sub" />
+    </category>
+    <category ID="desc">
+      <label xml:lang="en" text="desc" />
+      <label xml:lang="de" text="desc" />
+    </category>
+  </categories>
+</mycoreclass>

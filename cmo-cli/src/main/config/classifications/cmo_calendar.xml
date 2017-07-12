@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_calendar">
+  <label xml:lang="de" text="Kalender (Datum)" />
+  <label xml:lang="en" text="Calendar (date)" />
+  <categories>
+    <category ID="hijiri">
+      <label xml:lang="de" text="hijiri" />
+      <label xml:lang="en" text="hijiri" />
+    </category>
+    <category ID="rumi">
+      <label xml:lang="en" text="rumi" />
+      <label xml:lang="de" text="rumi" />
+    </category>
+    <category ID="gregorian">
+      <label xml:lang="de" text="gregorianisch" />
+      <label xml:lang="en" text="gregorian" />
+    </category>
+  </categories>
+</mycoreclass>
