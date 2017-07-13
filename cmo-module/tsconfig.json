@@ -2,7 +2,7 @@
   "compilerOptions": {
     "sourceRoot": "src/main/typescript",
     "target": "es5",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
     "inlineSourceMap":true,
     "inlineSources":true,

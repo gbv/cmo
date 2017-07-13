@@ -453,6 +453,17 @@
   <field name="mei.expressionList" type="string" multiValued="true" />
   <field name="mei.biblList" type="string" multiValued="true" />
 
+  <!-- mei:incip -->
+  <field name="incip" type="text_tr" multiValued="true" />
+  <dynamicField name="incip.*" type="string" multiValued="true" />
+
+  <!-- mei:composer -->
+  <field name="composer" type="text_tr" multiValued="true" />
+  <field name="composer.ref" type="string" multiValued="true" />
+
+  <field name="identifier" type="string" multiValued="true" />
+
+  <field name="lyricist" type="text_tr" multiValued="true" />
 
   <!-- mycore-mods -->
     <field name="mods.type" type="string" />
@@ -487,11 +498,11 @@
     <!-- ******************************************** -->
     <!-- * SEARCH -->
     <!-- ******************************************** -->
-    <field name="title" type="text_general" multiValued="true" stored="false" />
-    <field name="title_de" type="text_de"  multiValued="true" stored="false" />
-    <field name="title_en" type="text_en"  multiValued="true" stored="false" />
-    <dynamicField name="title_*" type="text_general" multiValued="true" stored="false"/>
-    <copyField source="title_*" dest="title" />
+    <field name="title" type="text_general" multiValued="true" stored="true" />
+    <field name="title.lang.de" type="text_de"  multiValued="true" stored="true" />
+    <field name="title.lang.en" type="text_en"  multiValued="true" stored="true" />
+    <dynamicField name="title.*" type="text_general" multiValued="true" stored="true"/>
+
     <!-- identifier (gnd, pnd, etc.) -->
     <dynamicField name="id.*" type="string" />
 
@@ -502,6 +513,8 @@
 
     <dynamicField name="identifier.type.*" type="string" multiValued="true" />
     <field name="topic" type="string" multiValued="true" />
+    <field name="worldReadable" type="boolean" />
+    <field name="worldReadableComplete" type="boolean" />
 
     <!-- End: MyCoRe specific schema definition -->
 

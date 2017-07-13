@@ -26,6 +26,8 @@ import de.vzg.cmo.model.MEIUtils;
 import java.text.MessageFormat;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jdom2.Namespace;
 import org.mycore.datamodel.classifications2.MCRCategory;
 import org.mycore.datamodel.classifications2.MCRCategoryDAO;
@@ -39,6 +41,8 @@ import org.w3c.dom.NodeList;
 public class MCRMEIClassificationSupport {
 
     private static final MCRCategoryDAO DAO = MCRCategoryDAOFactory.getInstance();
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public static MCRMEIAuthorityInfo getAuthorityInfo(org.jdom2.Element classCodeElement) {
         String authority = classCodeElement.getAttributeValue("authority");

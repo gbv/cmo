@@ -48,8 +48,8 @@
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery-migrate/{$jquery.migrate.version}/jquery-migrate.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/systemjs/0.19.3/dist/system.js"></script>
         <script>
-          window["mcrBaseURL" ]= '<xsl:value-of select="$WebApplicationBaseURL" />';
-
+          window["mcrBaseURL" ] = '<xsl:value-of select="$WebApplicationBaseURL" />';
+          window["mcrLanguage" ] = '<xsl:value-of select="$CurrentLang" />';
           System.config({
           baseURL: '<xsl:value-of select="concat($WebApplicationBaseURL, 'js/')" />',
           defaultJSExtensions: true
@@ -75,20 +75,14 @@
                     <div id="suche"
                          class="col-xs-8 col-md-9 col-lg-10">
                         <div class="row">
-                          <form action="{$WebApplicationBaseURL}servlets/solr/select">
-                            <input type="hidden" name="fq" value="objectType:mods" />
                             <div id="e_suche"
                                  class="col-xs-6 col-md-8 col-lg-8">
                                 e-suche
                             </div>
-                          </form>
-                          <form action="{$WebApplicationBaseURL}servlets/solr/select">
-                            <input type="hidden" name="fq" value="-objectType:mods" />
                             <div id="k_suche"
                                  class="col-xs-6 col-md-4 col-lg-4">
                                 k-suche
                             </div>
-                          </form>
                         </div>
                     </div>
                 </div>
