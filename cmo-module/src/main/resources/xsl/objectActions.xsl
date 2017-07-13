@@ -25,11 +25,12 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-          <!-- li role="presentation">
-            <a role="menuitem" tabindex="-1" href="{$WebApplicationBaseURL}content/publish/simpledoc.xed?id={$id}">
+          <li role="presentation">
+            <xsl:variable name="type" select="substring-before(substring-after($id, '_'), '_')" />
+            <a role="menuitem" tabindex="-1" href="{$WebApplicationBaseURL}editor/{$type}.xed?id={$id}">
               <xsl:value-of select="i18n:translate('object.editObject')" />
             </a>
-          </li -->
+          </li>
           <li role="presentation">
             <a href="{$ServletsBaseURL}derivate/create{$HttpSession}?id={$id}" role="menuitem" tabindex="-1">
               <xsl:value-of select="i18n:translate('derivate.addDerivate')" />

@@ -208,7 +208,7 @@
       <xsl:if test="@type">
         <xsl:text>&#160;</xsl:text>
         <xed:bind xpath="@type">
-          <select class="select form-control" id="select" name="select">
+          <select class="form-control">
             <xed:include uri="xslStyle:items2options:classification:editorComplete:1:children:{@type}" />
           </select>
         </xed:bind>

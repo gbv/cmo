@@ -1,4 +1,11 @@
+/* ---------------------------------------------------------------------------
+   style xeditor forms
+----------------------------------------------------------------------------*/
 
 .form-inline .form-control.cmo_dateInput {
-  width: 150px;
+  width: 130px;
+}
+
+.required label::after {
+    content: " *";
 }

@@ -57,8 +57,18 @@
   </xed:template>
 
   <xed:template id="cmo_sourceType">
-    <cmo:selectClassification xpath="mei:classification[mei:classCode/@authority='cmo_sourceType']/mei:termList/mei:term" label="editor.search.sourceType"
+    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_sourceType']" label="editor.search.sourceType"
       classification="cmo_sourceType" class="required" required="true" required-text="{i18n:cmo.validation.sourceType}" help-text="{i18n:cmo.help.sourceType}" />
+  </xed:template>
+
+  <xed:template id="cmo_contentType">
+    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_contentType']" label="editor.search.contentType"
+      classification="cmo_contentType" help-text="{i18n:cmo.help.contentType}" />
+  </xed:template>
+
+  <xed:template id="cmo_notationType">
+    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_notationType']" label="editor.search.notationType"
+      classification="cmo_notationType" help-text="{i18n:cmo.help.notationType}" />
   </xed:template>
 
   <!-- <date isodate="" from="" to="" notbefore="1997" notafter="1997" calendar="gregorian" label="">1997</date> -->
@@ -68,8 +78,39 @@
   <xed:template id="cmo_textDate">
     <cmo:textfield xpath="." label="editor.label.textDate" placeholder="{i18n:cmo.placeholder.textDate}" help-text="{i18n:cmo.help.textDate}" />
   </xed:template>
-  <xed:template id="cmo_calender">
-    <cmo:selectClassification xpath="./@calendar" label="editor.label.calender" classification="cmo_calender" help-text="{i18n:cmo.help.calender}" />
+  <xed:template id="cmo_calendar">
+    <cmo:selectClassification xpath="./@calendar" label="editor.label.calendar" classification="cmo_calendar" help-text="{i18n:cmo.help.calendar}" />
+  </xed:template>
+
+  <xed:template id="cmo_saveCancelDebug">
+    <!-- Button (Double) -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="save"></label>
+      <div class="col-md-8">
+        <xed:choose>
+          <xed:when test="contains(/mycoreobject/@ID, '_00000000')">
+            <button id="save" class="btn btn-success createobject" type="submit" xed:target="servlet"
+              xed:href="CreateObjectServlet">
+              <xed:output i18n="common.button.save" />
+            </button>
+          </xed:when>
+          <xed:otherwise>
+            <button id="save" class="btn btn-success updateobject" type="submit" xed:target="servlet"
+              xed:href="UpdateObjectServlet">
+              <xed:output i18n="common.button.save" />
+            </button>
+          </xed:otherwise>
+        </xed:choose>
+        <xed:output value="'&#160;'" />
+        <button id="cancel" class="btn btn-danger" type="submit" xed:target="cancel">
+          <xed:output i18n="common.button.cancel" />
+        </button>
+        <xed:output value="'&#160;'" />
+        <button id="debug" class="btn btn-info" type="submit" xed:target="debug">
+          <xed:output i18n="common.button.debug" />
+        </button>
+      </div>
+    </div>
   </xed:template>
 
 
