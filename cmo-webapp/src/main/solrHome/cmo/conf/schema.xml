@@ -465,6 +465,11 @@
 
   <field name="lyricist" type="text_tr" multiValued="true" />
 
+  <!-- extra classification for faceting -->
+  <field name="cmo_usuler" type="string" multiValued="true" />
+  <field name="cmo_makamler" type="string" multiValued="true" />
+  <field name="cmo_musictype" type="string" multiValued="true" />
+
   <!-- mycore-mods -->
     <field name="mods.type" type="string" />
     <field name="mods.title" type="text_general" multiValued="true" />
@@ -501,7 +506,9 @@
     <field name="title" type="text_general" multiValued="true" stored="true" />
     <field name="title.lang.de" type="text_de"  multiValued="true" stored="true" />
     <field name="title.lang.en" type="text_en"  multiValued="true" stored="true" />
-    <dynamicField name="title.*" type="text_general" multiValued="true" stored="true"/>
+    <field name="title.lang.tr" type="text_tr"  multiValued="true" stored="true" />
+    <field name="title.lang.ota-arab" type="text_ar" multiValued="true" stored="true" />
+  <dynamicField name="title.*" type="text_general" multiValued="true" stored="true"/>
 
     <!-- identifier (gnd, pnd, etc.) -->
     <dynamicField name="id.*" type="string" />

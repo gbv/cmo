@@ -28,7 +28,10 @@ import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
+import org.jdom2.output.DOMOutputter;
+import org.mycore.common.config.MCRConfiguration;
 import org.mycore.datamodel.classifications2.MCRCategory;
 import org.mycore.datamodel.classifications2.MCRCategoryDAO;
 import org.mycore.datamodel.classifications2.MCRCategoryDAOFactory;
@@ -43,6 +46,8 @@ public class MCRMEIClassificationSupport {
     private static final MCRCategoryDAO DAO = MCRCategoryDAOFactory.getInstance();
 
     private static final Logger LOGGER = LogManager.getLogger();
+
+    private static final String MEICLASS_INDEX_IDS = "MEIClassIndex.ids";
 
     public static MCRMEIAuthorityInfo getAuthorityInfo(org.jdom2.Element classCodeElement) {
         String authority = classCodeElement.getAttributeValue("authority");
@@ -68,10 +73,10 @@ public class MCRMEIClassificationSupport {
         String authority = classCodeElement.getAttribute("authority");
         String authorityURI = classCodeElement
             .getAttribute("authorityURI");
-        if("".equals(authorityURI)){
+        if ("".equals(authorityURI)) {
             authorityURI = null;
         }
-        if("".equals(authority)){
+        if ("".equals(authority)) {
             authority = null;
         }
         String classCodeID = classCodeElement.getAttributeNS(Namespace.XML_NAMESPACE.getURI().toString(), "id");
@@ -140,7 +145,7 @@ public class MCRMEIClassificationSupport {
                         if (id.equals(classcode)) {
                             MCRMEIAuthorityInfo authorityInfo = getAuthorityInfo(classCodeElement);
                             MCRCategoryID categoryID = authorityInfo.getCategoryID(termNode.getTextContent());
-                            if(categoryID==null){
+                            if (categoryID == null) {
                                 return null;
                             }
                             return DAO
@@ -152,6 +157,19 @@ public class MCRMEIClassificationSupport {
         }
 
         return null;
+    }
+
+    /**
+     * @return returns all classifications which should be indexed in a extra solr-field
+     */
+    public static NodeList getIndexClassification() throws JDOMException {
+        org.jdom2.Element list = new org.jdom2.Element("list");
+        MCRConfiguration.instance().getStrings(MEICLASS_INDEX_IDS)
+            .stream()
+            .map(id-> new org.jdom2.Element("classification").setAttribute("id", id))
+            .forEach(list::addContent);
+
+        return new DOMOutputter().output(list).getElementsByTagName("classification");
     }
 
 }

@@ -5,7 +5,8 @@
   xmlns:mei="http://www.music-encoding.org/ns/mei"
   xmlns:mcrxml="xalan://org.mycore.common.xml.MCRXMLFunctions"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  exclude-result-prefixes="mods mei xlink">
+                xmlns:mcrmei="xalan://org.mycore.mei.classification.MCRMEIClassificationSupport"
+  exclude-result-prefixes="mods mei xlink mcrmei">
   <xsl:import href="xslImport:solr-document:solr/searchfields-solr.xsl" />
 
   <xsl:template match="mycoreobject">
@@ -19,7 +20,7 @@
   </xsl:template>
 
   <xsl:template match="mei:term">
-    <xsl:variable name="uri" xmlns:mcrmei="xalan://org.mycore.mei.classification.MCRMEIClassificationSupport" select="mcrmei:getClassificationLinkFromTerm(.)" />
+    <xsl:variable name="uri" select="mcrmei:getClassificationLinkFromTerm(.)" />
     <xsl:if test="string-length($uri) &gt; 0 and string-length(substring-after(substring-after($uri,'parents:'),':')) &gt; 0">
       <xsl:variable name="topField" select="true()" /> <!-- TODO: not(ancestor::mods:relatedItem) -->
       <xsl:variable name="classdoc" select="document($uri)" />
@@ -28,6 +29,18 @@
         <xsl:with-param name="classid" select="$classid" />
         <xsl:with-param name="withTopField" select="$topField" />
       </xsl:apply-templates>
+
+      <xsl:variable name="classes"
+                    select="mcrmei:getIndexClassification()" />
+      <xsl:message>
+        classes : <xsl:value-of select="count($classes)" />
+      </xsl:message>
+
+      <xsl:if test="count($classes[@id=$classid])&gt;0">
+        <field name="{$classid}">
+          <xsl:value-of select="$classdoc//category/@ID" />
+        </field>
+      </xsl:if>
     </xsl:if>
   </xsl:template>
 

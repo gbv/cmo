@@ -12,9 +12,10 @@ export class SearchGUI {
 
     private extenderIconUrl: string;
     private minusIconUrl: string;
+    private nameTypeMap: {} = {};
 
 
-    constructor(private container: Element, private placeHolderKey: string, private baseQuery: string) {
+    constructor(private container: HTMLElement, private placeHolderKey: string, private baseQuery: string) {
         this.initGUI();
     }
 
@@ -32,7 +33,7 @@ export class SearchGUI {
     private typeSelect: HTMLSelectElement;
     private typeMap = {};
     private currentType: string;
-    public _queryChangeHandlerList: Array<(newQuery: string) => void> = [];
+    public _queryChangeHandlerList: Array<() => void> = [];
     private lastQuery: string = null;
 
     private initGUI() {
@@ -112,10 +113,11 @@ export class SearchGUI {
         return this.extendedSearch.classList.contains("opened");
     }
 
-    public createType(name: string) {
+    public createType(name: string, type: string) {
         if (this.currentType == null) {
             this.currentType = name;
         }
+        this.nameTypeMap[ name ] = type;
         let extendOption = <HTMLOptionElement>document.createElement('option');
 
         let langKey = `editor.cmo.select.${name}`;
@@ -129,14 +131,14 @@ export class SearchGUI {
         this.typeSelect.appendChild(extendOption);
     }
 
-    public addExtendedField(type: string, field: SearchFieldInput) {
-        if (!(type in this.typeMap)) {
-            this.typeMap[ type ] = [];
+    public addExtendedField(name: string, field: SearchFieldInput) {
+        if (!(name in this.typeMap)) {
+            this.typeMap[ name ] = [];
         }
-        let arr = this.typeMap[ type ];
+        let arr = this.typeMap[ name ];
         arr.push(field);
 
-        if (this.currentType == type) {
+        if (this.currentType == name) {
             field.attach(<HTMLImageElement>this.extendedSearch);
             field.addChangeHandler(this.changed);
         }
@@ -167,7 +169,7 @@ export class SearchGUI {
         }
 
         if (this.isExtendedSearchOpen()) {
-            solrQueryParts.push(`objectType:${this.typeSelect.value}`);
+            solrQueryParts.push(`objectType:${this.nameTypeMap[ this.typeSelect.value ]}`);
             for (let inputIndex in this.typeMap[ this.currentType ]) {
                 let input = <SearchFieldInput>this.typeMap[ this.currentType ][ inputIndex ];
                 let solrQueryPart = input.getSolrQueryPart();
@@ -180,29 +182,25 @@ export class SearchGUI {
         return solrQueryParts.join(" AND ");
     }
 
-    private changed = () => {
-        let newQuery = this.getSolrQuery();
-        if (this.lastQuery !== newQuery) {
-            this.lastQuery = newQuery;
-            this._queryChangeHandlerList.forEach(handler => handler(newQuery));
-        }
+    changed = () => {
+        this._queryChangeHandlerList.forEach(handler => handler());
     }
 }
 
 export abstract class SearchFieldInput {
 
 
-    constructor(searchField: string, label: string) {
-        this._searchField = searchField;
+    constructor(searchFields: string[], label: string) {
+        this._searchFields = searchFields;
         this._label = label;
     }
 
     private changeHandlerList: Array<() => void> = [];
-    private _searchField: string;
+    private _searchFields: string[];
     private _label: string;
 
-    get searchField(): string {
-        return this._searchField;
+    get searchFields(): string[] {
+        return this._searchFields;
     }
 
     get label(): string {
@@ -240,8 +238,8 @@ export abstract class SearchFieldInput {
 export class TextSearchFieldInput extends SearchFieldInput {
 
 
-    constructor(searchField: string, label: string) {
-        super(searchField, label);
+    constructor(searchFields: string[], label: string) {
+        super(searchFields, label);
         this.init();
     }
 
@@ -254,7 +252,7 @@ export class TextSearchFieldInput extends SearchFieldInput {
     private init() {
         this._template = `
 <div class="form-group">
-    <label class="col-md-3 control-label form-inline">${this.searchField}</label>
+    <label class="col-md-3 control-label form-inline"></label>
     <div class="col-md-9">
         <input class="form-control" type="search">
     </div>
@@ -286,7 +284,15 @@ export class TextSearchFieldInput extends SearchFieldInput {
     }
 
     public getSolrQueryPart(): string {
-        return (this.input.value.trim().length > 0) ? `${this.searchField}:"${this.input.value}"` : null;
+        if (this.input.value.trim().length > 0) {
+            if (this.searchFields.length > 1) {
+                return `(${this.searchFields.map(sf => `${sf}:"${this.input.value}"`).join(" OR ")})`
+            } else {
+                return `${this.searchFields}:"${this.input.value}"`
+            }
+        } else {
+            return null;
+        }
     }
 }
 
@@ -294,7 +300,7 @@ export class TextSearchFieldInput extends SearchFieldInput {
 export class ClassificationSearchFieldInput extends SearchFieldInput {
 
     constructor(searchField: string, private className: string) {
-        super(searchField, "");
+        super([ searchField ], "");
         this.init();
     }
 
@@ -352,7 +358,7 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
     }
 
     public getSolrQueryPart(): string {
-        let field = `category.top:"${this.searchField}:${this.select.value}"`;
+        let field = `category.top:"${this.searchFields[ 0 ]}:${this.select.value}"`;
         return (this.select.value !== this.rootVal) ? field : null;
     }
 

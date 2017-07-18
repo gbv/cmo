@@ -19,6 +19,32 @@
   }
 }
 
+.facet {
+  padding: 0.5em;
+
+  li {
+    display: block;
+  }
+
+  ul {
+    margin-left: 0px;
+    padding-left: 0px;
+    margin-bottom: 0px;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 1em;
+  }
+
+  [data-facet-hidden] {
+    display: none;
+  }
+
+  [data-facet-show] {
+    cursor: pointer;
+  }
+}
+
 #e_suche, #k_suche {
   height: 70px;
   padding: 0px;
@@ -50,8 +76,7 @@
     height: 100%;
     border: none;
 
-
-    >input[type='search'] {
+    > input[type='search'] {
       &:focus {
         outline: 0px;
         box-shadow: none;

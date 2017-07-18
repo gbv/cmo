@@ -4,12 +4,34 @@ import {
 } from 'search/SearchComponent';
 import {Utils} from "../other/utils";
 import {SearchDisplay, SolrSearcher} from "./SearchDisplay";
+import {SearchFacetController} from "./SearchFacet";
 
-let eContainer = document.querySelector("#e_suche");
-let kContainer = document.querySelector("#k_suche");
+let eContainer = <HTMLElement>document.querySelector("#e_suche");
+let kContainer = <HTMLElement>document.querySelector("#k_suche");
+let sideBar = <HTMLElement>document.querySelector("#sidebar");
 
-let eSearch = new SearchController(eContainer, "cmo.edition.search", "objectType:mods");
-let kSearch = new SearchController(kContainer, "cmo.catalog.search", "-objectType:mods");
+let translationMap = {};
+
+let facet = new SearchFacetController(sideBar, translationMap,
+    {
+        field : "objectType",
+        type : "translate",
+        translate : "editor.cmo.select."
+    },
+    {
+        field : "cmo_makamler",
+        type : "class"
+    },
+    {
+        field : "cmo_usuler",
+        type : "class"
+    },
+    {
+        field : "cmo_musictype",
+        type : "class"
+    });
+let eSearch = new SearchController(eContainer, facet, "cmo.edition.search", "objectType:mods");
+let kSearch = new SearchController(kContainer, facet, "cmo.catalog.search", "-objectType:mods");
 
 /* enable/disable search on click */
 eContainer.addEventListener('click', () => {
@@ -39,53 +61,66 @@ kSearch.addEnabledHandler((enabled) => {
 
 // Katalog Search field definition
 kSearch.addExtended({
-    expression : [
-        new SearchField("title", "editor.label.title"),
-        new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
-        new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
-        new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
-        new SearchField("incip", "editor.label.incip")
-    ],
-    expression_complex : [
-        new SearchField("title", "editor.label.title"),
-        new SearchField("identifier",  "editor.label.identifier"),
-        new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
-        new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
-        new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
-        new SearchField("composer",  "editor.label.composer"),
-        new SearchField("lyricist",  "editor.label.lyricist"),
-        new SearchField("incip", "editor.label.incip")
-    ],
-    source : [
-        new SearchField("title", "editor.label.title"),
-        new SearchField("identifier","editor.label.identifier"),
-        new ClassificationSearchField("cmo_sourceType", "cmo_sourceType"),
-        new ClassificationSearchField("cmo_notationType", "cmo_notationType"),
-        new ClassificationSearchField("cmo_contentType", "cmo_contentType"),
-        new ClassificationSearchField("language", "rfc4646"),
-        new SearchField("publishingInformation","editor.label.publisher")
-    ],
-    bibliography : [
-        new SearchField("title", "editor.label.title"),
-        new SearchField("identifier", "editor.label.identifier"),
-        new SearchField("publishingInformation", "editor.label.publisher"),
-        new SearchField("series", "editor.label.series")
-    ],
-    person : [
-        new SearchField("identifier", "editor.label.identifier"),
-        new SearchField("name", "editor.label.name")
-    ],
-    lyrics : [
-        new SearchField("title", "editor.label.title"),
-        new SearchField("identifier", "editor.label.identifier"),
-        new SearchField("incip", "editor.label.incip"),
-        new ClassificationSearchField("language", "rfc4646"),
-        new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
-        new ClassificationSearchField("cmo_litform", "cmo_litform"),
-        new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
-        new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
-        new SearchField("lyricist",  "editor.label.lyricist")
-    ]
+    expression : {
+        type : "expression",
+        fields : [ new SearchField("editor.label.title", "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab"),
+            new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
+            new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
+            new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
+            new SearchField("editor.label.incip", "incip") ],
+    }
+    ,
+    expression_complex : {
+        type : "expression",
+        fields : [
+            new SearchField("editor.label.title", "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab"),
+            new SearchField("editor.label.identifier", "identifier"),
+            new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
+            new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
+            new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
+            new SearchField("editor.label.composer", "composer"),
+            new SearchField("editor.label.lyricist", "lyricist"),
+            new SearchField("editor.label.incip", "incip")
+        ],
+    },
+    source : {
+        type : "source",
+        fields : [
+            new SearchField("editor.label.title", "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab"),
+            new SearchField("editor.label.identifier", "identifier"),
+            new ClassificationSearchField("cmo_sourceType", "cmo_sourceType"),
+            new ClassificationSearchField("cmo_notationType", "cmo_notationType"),
+            new ClassificationSearchField("cmo_contentType", "cmo_contentType"),
+            new ClassificationSearchField("language", "rfc4646"),
+            new SearchField("editor.label.publisher", "publishingInformation") ]
+    },
+    bibliography : {
+        type : "bibl",
+        fields : [
+            new SearchField("editor.label.title", "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab"),
+            new SearchField("editor.label.identifier", "identifier"),
+            new SearchField("editor.label.publisher", "publishingInformation"),
+            new SearchField("editor.label.series", "series") ]
+    },
+    person : {
+        type : "person",
+        fields : [
+            new SearchField("editor.label.identifier", "identifier"),
+            new SearchField("editor.label.name", "name") ]
+    },
+    lyrics : {
+        type : "lyrics",
+        fields : [
+            new SearchField("editor.label.title", "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab"),
+            new SearchField("editor.label.identifier", "identifier"),
+            new SearchField("editor.label.incip", "incip"),
+            new ClassificationSearchField("language", "rfc4646"),
+            new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
+            new ClassificationSearchField("cmo_litform", "cmo_litform"),
+            new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
+            new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
+            new SearchField("editor.label.lyricist", "lyricist") ]
+    }
 })
 ; // çekemez
 
@@ -122,26 +157,39 @@ let searchDisplay = new SearchDisplay(<HTMLElement>searchDisplayContainer);
 let solrSearcher = new SolrSearcher();
 
 let currentTimeOut = null;
-let onQueryChanged = (query) => {
+let onQueryChanged = (searchController: SearchController) => {
     if (currentTimeOut !== null) {
         window.clearTimeout(currentTimeOut);
         currentTimeOut == null;
     }
 
     currentTimeOut = window.setTimeout(() => search(0), 500);
+
     let search = (start) => {
+        searchDisplay.save();
         searchDisplay.loading();
-        solrSearcher.search([ [ "q", query ], [ "start", start ] ], (result => {
-            console.log(result);
-            searchDisplay.displayResult(result, (start) => {
-                search(start);
-            });
-        }));
+
+        let queries = searchController.getSolrQuery();
+
+        let params = queries
+            .concat([ [ "facet.field" ].concat(facet.getFacetFields()) ])
+            .concat([ [ "start", start ] ])
+            .concat([ [ "facet", "true" ] ]);
+        solrSearcher.search(
+            params
+            , (result => {
+                searchDisplay.displayResult(result, (start) => {
+                    search(start);
+                    window.scrollTo(0, 0);
+                });
+                facet.displayFacet(result);
+            }));
     };
 
+
 };
-kSearch.addQueryChangedHandler(onQueryChanged);
-eSearch.addQueryChangedHandler(onQueryChanged);
+kSearch.addQueryChangedHandler(() => onQueryChanged(kSearch));
+eSearch.addQueryChangedHandler(() => onQueryChanged(eSearch));
 //kSearch.getSolrQuery()
 
 

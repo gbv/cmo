@@ -17,9 +17,7 @@ export class SearchDisplay {
     };
 
     public displayResult(result: SolrSearchResult, pageChangeHandler: (newPage: number) => void) {
-        let children: Array<HTMLElement> = [].slice.call(this._container.children);
-        children.forEach(val => this._container.removeChild(val));
-        this.preDisplayContent = children;
+        this.save();
 
         this._container.innerHTML = `
             <h2 data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></h2>
@@ -36,6 +34,12 @@ export class SearchDisplay {
 
         I18N.translateElements(this._container);
         ClassificationResolver.putLabels(this._container);
+    }
+
+    public save() {
+        let children: Array<HTMLElement> = [].slice.call(this._container.children);
+        children.forEach(val => this._container.removeChild(val));
+        this.preDisplayContent = children;
     }
 
     public loading() {
@@ -215,6 +219,14 @@ export class SolrSearcher {
 export interface SolrSearchResult {
     responseHeader: ResponseHeader;
     response: Response;
+    facet_counts: FacetHeader;
+}
+
+export interface FacetHeader {
+    /**
+     * Contains the type as key and as value a array [name1,count1, name2,count2]
+     */
+    facet_fields: any;
 }
 
 export interface ResponseHeader {
