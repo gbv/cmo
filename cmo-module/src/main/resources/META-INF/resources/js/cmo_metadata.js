@@ -6,6 +6,7 @@
     $('.cmo_titleStmt').each(function(i, obj) {
       if(isArabic.test($(obj).html())) {
             $(obj).addClass('cmo_isArabic');
+            $(obj).attr('dir', 'rtl');
           }
     });
 

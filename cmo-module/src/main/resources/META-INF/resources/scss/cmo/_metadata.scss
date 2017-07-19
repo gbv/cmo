@@ -1,10 +1,10 @@
 /* ---------------------------------------------------------------------------
    metadata stuff
 ----------------------------------------------------------------------------*/
-.cmo_isArabic {
-  direction: rtl;
+.cmo_titleStmt {
+  padding-right: 5px;
 }
 
-.cmo_titleStmt:after {
-  content: " ";
+.cmo_isArabic {
+  direction: rtl;
 }
