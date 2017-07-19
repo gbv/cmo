@@ -16,10 +16,6 @@
     margin-bottom:30px;
 }
 
-// TODO: min-height: abhängig von Monitor-Höhe
-// footer-Höhe: 50px
-
-
 
 /* ---------------------------------------------------------------------------
    base structure
@@ -87,7 +83,9 @@ section #side_menu_1 {
     color: $text-color;
 }
 section #content {
-    min-height: 500px;
+    // der mittlere Bereich hat die Höhe vom ViewPort - 70px Header - 40px padding vom mittleren Bereich - 100px Fussmenu - 50px Footer
+    // TODO: use variables therefor
+    min-height: calc(100vh - 70px - 40px - 100px - 50px);
     background-color: white;
     border-left: 1px solid #ccc;
     padding-bottom: 60px;

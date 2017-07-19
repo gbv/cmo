@@ -51,10 +51,5 @@
       </xed:bind>
     </xed:form>
 
-    <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/moment/2.18.1/min/moment.min.js"></script>
-    <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/eonasdan-bootstrap-datetimepicker/{$datetimepicker.version}/build/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript" src="../js/cmo_editor.js"></script>
-
-
   </section>
 </MyCoReWebPage>

@@ -20,9 +20,13 @@ export class SearchDisplay {
         this.save();
 
         this._container.innerHTML = `
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
             <h2 data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></h2>
              ${this.renderList(result.response.docs)}
              ${this.renderNav(result.response)}
+        </div>
+    </div>
             `;
 
         Array.prototype.slice.call(this._container.querySelectorAll("[data-switch-page]")).forEach((node) => {
@@ -95,11 +99,11 @@ export class SearchDisplay {
         return `
  <div class="text-center">
     <div class="btn-group" role="group">
-        <button type="button" class="btn btn-primary" ${previousPageAttribute}>&lt;</button>   
+        <button type="button" class="btn btn-primary" ${previousPageAttribute}>&lt;</button>
         ${pagesToRender.map(page => `
 <button type="button" class="btn ${(page == currentPage) ? 'btn-primary' : 'btn-secondary'}" data-switch-page="${page * rows}">${page + 1}</button>
 `).join("")}
-         <button type="button" class="btn btn-primary" ${nextPageAttribute}>&gt;</button>   
+         <button type="button" class="btn btn-primary" ${nextPageAttribute}>&gt;</button>
     </div>
 </div>
 `;
@@ -111,7 +115,7 @@ export class SearchDisplay {
             let displayValue = (value) => `<span class="value">${value}</span>`;
             return `
 <div class="metadata multi">
-    <label data-i18n="${this.fieldLabelMapping[ name ]}"> </label> 
+    <label data-i18n="${this.fieldLabelMapping[ name ]}"> </label>
     ${doc[ name ].map(fieldValue => displayValue(fieldValue)).join("")}
 </div>`
         }

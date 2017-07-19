@@ -18,7 +18,7 @@
   <xsl:variable name="fontawesome.version" select="'4.7.0'" />
   <xsl:variable name="jquery.version" select="'3.1.1'" />
   <xsl:variable name="jquery.migrate.version" select="'1.4.1'" />
-  <xsl:variable name="datetimepicker.version" select="'4.17.47'" />
+  <xsl:variable name="datetimepicker.version" select="'4.17.43'" />
   <!-- End of various versions -->
   <xsl:variable name="PageTitle" select="/*/@title" />
 
@@ -35,7 +35,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <link href="{$WebApplicationBaseURL}webjars/font-awesome/{$fontawesome.version}/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="{$WebApplicationBaseURL}webjars/eonasdan-bootstrap-datetimepicker/{$datetimepicker.version}/build/css/eonasdan-bootstrap-datetimepicker.min.css" rel="stylesheet" />
+        <link href="{$WebApplicationBaseURL}webjars/Eonasdan-bootstrap-datetimepicker/{$datetimepicker.version}/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
         <link href="{$WebApplicationBaseURL}css/fileupload.css" rel="stylesheet" />
@@ -203,6 +203,12 @@
         </footer>
 
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap-sass/{$bootstrap.version}/javascripts/bootstrap.min.js"></script>
+
+        <!-- TODO: include only for xed -->
+        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/momentjs/2.18.1/min/moment.min.js"></script>
+        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/Eonasdan-bootstrap-datetimepicker/{$datetimepicker.version}/js/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript" src="../js/cmo_editor.js"></script>
+
        </body>
     </html>
   </xsl:template>

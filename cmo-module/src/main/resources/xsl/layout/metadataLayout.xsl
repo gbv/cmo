@@ -103,6 +103,7 @@
     <xsl:param name="content" />
     <xsl:variable name="rTree" select="exslt:node-set($content)" />
     <xsl:copy-of select="$rTree" />
+    <script type="text/javascript" src="{$WebApplicationBaseURL}js/cmo_metadata.js"></script>
   </xsl:template>
 
   <!-- how a metadata page is build

@@ -50,8 +50,8 @@
 
   <xsl:template match="mei:title" mode="metadataView">
     <xsl:comment>mei/titleStmt.xsl > mei:title</xsl:comment>
-    <xsl:value-of select="text()" />
-    <small> (<xsl:value-of select="@type" />)</small>
+    <span class="cmo_titleStmt"><xsl:value-of select="text()" /> </span>
+    <small>(<xsl:value-of select="@type" />)</small>
     <br />
   </xsl:template>
 
