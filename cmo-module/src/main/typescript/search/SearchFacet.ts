@@ -34,6 +34,14 @@ export class SearchFacetController {
         }
     }
 
+    public save(){
+        this.view.save();
+    }
+
+    public reset(){
+        this.view.reset();
+    }
+
     public getQuery() {
         return this.view.getQuery();
     }
@@ -64,7 +72,7 @@ export class SearchFacetGUI {
 
     }
 
-    private preDisplayContent: Array<HTMLElement>;
+    private preDisplayContent: Array<HTMLElement> = null;
 
     public save() {
         let children: Array<HTMLElement> = [].slice.call(this._container.children);
@@ -73,11 +81,13 @@ export class SearchFacetGUI {
     }
 
     public reset() {
-        this._container.innerHTML = "";
-        this.preDisplayContent.forEach((content) => {
-            this._container.appendChild(content);
-        });
-        this.preDisplayContent = null;
+        if(this.preDisplayContent!=null){
+            this._container.innerHTML = "";
+            this.preDisplayContent.forEach((content) => {
+                this._container.appendChild(content);
+            });
+            this.preDisplayContent = null;
+        }
     }
 
     get facetContainer(): HTMLElement {

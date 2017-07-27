@@ -1,10 +1,11 @@
 import {
-    ClassificationSearchField, SearchController, SearchField,
+    ClassificationSearchField, DateSearchField, SearchController, SearchField,
 
 } from 'search/SearchComponent';
 import {Utils} from "../other/utils";
 import {SearchDisplay, SolrSearcher} from "./SearchDisplay";
 import {SearchFacetController} from "./SearchFacet";
+import {StateController} from "./StateController";
 
 let eContainer = <HTMLElement>document.querySelector("#e_suche");
 let kContainer = <HTMLElement>document.querySelector("#k_suche");
@@ -30,8 +31,12 @@ let facet = new SearchFacetController(sideBar, translationMap,
         field : "cmo_musictype",
         type : "class"
     });
-let eSearch = new SearchController(eContainer, facet, "cmo.edition.search", "objectType:mods");
-let kSearch = new SearchController(kContainer, facet, "cmo.catalog.search", "-objectType:mods");
+
+const eSearchBaseQuery = "objectType:mods";
+const kSearchBaseQuery = "-objectType:mods";
+
+let eSearch = new SearchController(eContainer, facet, "cmo.edition.search", eSearchBaseQuery);
+let kSearch = new SearchController(kContainer, facet, "cmo.catalog.search", kSearchBaseQuery);
 
 /* enable/disable search on click */
 eContainer.addEventListener('click', () => {
@@ -59,67 +64,82 @@ kSearch.addEnabledHandler((enabled) => {
     }
 });
 
+window.document.body.addEventListener("click", (evt: any) => {
+    if (eSearch.isExtendedSearchOpen() && evt.path.indexOf(eContainer) == -1) {
+        eSearch.openExtendedSearch(false);
+    }
+
+    if (kSearch.isExtendedSearchOpen() && evt.path.indexOf(kContainer) == -1) {
+        kSearch.openExtendedSearch(false);
+    }
+});
+
+
 // Katalog Search field definition
 kSearch.addExtended({
     expression : {
         type : "expression",
-        fields : [ new SearchField("editor.label.title", "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab"),
+        fields : [ new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
             new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
             new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
             new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
-            new SearchField("editor.label.incip", "incip") ],
+            new SearchField("editor.label.incip", [ "incip" ]) ],
     }
     ,
     expression_complex : {
         type : "expression",
         fields : [
-            new SearchField("editor.label.title", "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab"),
-            new SearchField("editor.label.identifier", "identifier"),
+            new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
+            new SearchField("editor.label.identifier", [ "identifier" ]),
             new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
             new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
             new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
-            new SearchField("editor.label.composer", "composer"),
-            new SearchField("editor.label.lyricist", "lyricist"),
-            new SearchField("editor.label.incip", "incip")
+            new SearchField("editor.label.composer", [ "composer" ]),
+            new SearchField("editor.label.lyricist", [ "lyricist" ]),
+            new SearchField("editor.label.incip", [ "incip" ])
         ],
     },
     source : {
         type : "source",
         fields : [
-            new SearchField("editor.label.title", "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab"),
-            new SearchField("editor.label.identifier", "identifier"),
+            new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
+            new SearchField("editor.label.identifier", [ "identifier" ]),
             new ClassificationSearchField("cmo_sourceType", "cmo_sourceType"),
             new ClassificationSearchField("cmo_notationType", "cmo_notationType"),
             new ClassificationSearchField("cmo_contentType", "cmo_contentType"),
             new ClassificationSearchField("language", "rfc4646"),
-            new SearchField("editor.label.publisher", "publishingInformation") ]
+            new DateSearchField("editor.label.publishingDate", [ "publish.date.range" ]),
+            new SearchField("editor.label.publisher", [ "publishingInformation" ]) ]
     },
     bibliography : {
         type : "bibl",
         fields : [
-            new SearchField("editor.label.title", "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab"),
-            new SearchField("editor.label.identifier", "identifier"),
-            new SearchField("editor.label.publisher", "publishingInformation"),
-            new SearchField("editor.label.series", "series") ]
+            new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
+            new SearchField("editor.label.identifier", [ "identifier" ]),
+            new SearchField("editor.label.publisher", [ "publishingInformation" ]),
+            new SearchField("editor.label.series", [ "series" ]) ]
     },
     person : {
         type : "person",
         fields : [
-            new SearchField("editor.label.identifier", "identifier"),
-            new SearchField("editor.label.name", "name") ]
+            new SearchField("editor.label.identifier", [ "identifier" ]),
+            new SearchField("editor.label.name", [ "name" ]),
+            new DateSearchField("editor.label.lifeData", [ "birth.date.range", "death.date.range" ]),
+        ],
+
     },
     lyrics : {
         type : "lyrics",
         fields : [
-            new SearchField("editor.label.title", "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab"),
-            new SearchField("editor.label.identifier", "identifier"),
-            new SearchField("editor.label.incip", "incip"),
+            new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
+            new SearchField("editor.label.identifier", [ "identifier" ]),
+            new SearchField("editor.label.incip", [ "incip" ]),
             new ClassificationSearchField("language", "rfc4646"),
             new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
             new ClassificationSearchField("cmo_litform", "cmo_litform"),
             new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
             new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
-            new SearchField("editor.label.lyricist", "lyricist") ]
+            new SearchField("editor.label.lyricist", [ "lyricist" ]) ]
     }
 })
 ; // çekemez
@@ -157,37 +177,66 @@ let searchDisplay = new SearchDisplay(<HTMLElement>searchDisplayContainer);
 let solrSearcher = new SolrSearcher();
 
 let currentTimeOut = null;
+let search;
+
 let onQueryChanged = (searchController: SearchController) => {
     if (currentTimeOut !== null) {
         window.clearTimeout(currentTimeOut);
         currentTimeOut == null;
     }
 
-    currentTimeOut = window.setTimeout(() => search(0), 500);
+    currentTimeOut = window.setTimeout(() => search(0, searchController), 500);
+};
 
-    let search = (start) => {
+search = (start, searchController) => {
+    let queries = searchController.getSolrQuery();
+
+    let params = queries
+        .concat([ [ "facet.field" ].concat(facet.getFacetFields()) ])
+        .concat([ [ "start", start ] ])
+        .concat([ [ "facet", "true" ] ]);
+
+    StateController.setState(params);
+};
+
+
+StateController.onStateChange((params, selfChange) => {
+    let ctrl: SearchController = null;
+    for (let param of params) {
+        let [ , v ] = param;
+
+        if (v.indexOf(kSearchBaseQuery) != -1) {
+            console.log("kSearch!");
+            ctrl = kSearch;
+        } else if (v.indexOf(eSearchBaseQuery) != -1) {
+            console.log("eSearch!");
+            ctrl = eSearch;
+        }
+    }
+
+
+    searchDisplay.reset();
+    facet.reset();
+    if (ctrl != null) {
+
+        if (!selfChange) {
+            ctrl.setSolrQuery(params);
+        }
+
         searchDisplay.save();
+        facet.save();
         searchDisplay.loading();
-
-        let queries = searchController.getSolrQuery();
-
-        let params = queries
-            .concat([ [ "facet.field" ].concat(facet.getFacetFields()) ])
-            .concat([ [ "start", start ] ])
-            .concat([ [ "facet", "true" ] ]);
         solrSearcher.search(
             params
             , (result => {
                 searchDisplay.displayResult(result, (start) => {
-                    search(start);
+                    search(start, ctrl);
                     window.scrollTo(0, 0);
                 });
                 facet.displayFacet(result);
             }));
-    };
-
-
-};
+    }
+});
 kSearch.addQueryChangedHandler(() => onQueryChanged(kSearch));
 eSearch.addQueryChangedHandler(() => onQueryChanged(eSearch));
 //kSearch.getSolrQuery()

@@ -13,12 +13,11 @@ export class SearchDisplay {
 
     private fieldLabelMapping = {
         title : "editor.label.title",
-        composer : "editor.label.composer"
+        composer : "editor.label.composer",
+        publisher : "editor.label.publisher"
     };
 
     public displayResult(result: SolrSearchResult, pageChangeHandler: (newPage: number) => void) {
-        this.save();
-
         this._container.innerHTML = `
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -51,11 +50,13 @@ export class SearchDisplay {
     }
 
     public reset() {
-        this._container.innerHTML = "";
-        this.preDisplayContent.forEach((content) => {
-            this._container.appendChild(content);
-        });
-        this.preDisplayContent = null;
+        if (this.preDisplayContent != null) {
+            this._container.innerHTML = "";
+            this.preDisplayContent.forEach((content) => {
+                this._container.appendChild(content);
+            });
+            this.preDisplayContent = null;
+        }
     }
 
     private renderList(docs: Array<CMOBaseDocument>): string {
@@ -137,6 +138,8 @@ export class SearchDisplay {
     private displaySource(doc: CMOBaseDocument) {
         return `
         ${this.displayHitTitle(doc)}
+        ${this.displayMultivalued("publisher", doc)}
+        
         `
     }
 
@@ -170,19 +173,18 @@ export class SearchDisplay {
         let rightCategoryField = this.findRightCategoryField(doc, clazz);
 
 
-        if (typeof rightCategoryField !== "undefined" && rightCategoryField != null) {
+        if (rightCategoryField.length > 0) {
             return `
 <div class="metadata">
-    <label data-clazz="${rightCategoryField.clazz}"></label>
-    <span data-clazz="${rightCategoryField.clazz}" data-category="${rightCategoryField.category}" class="value"></span>
-</div>
-`
+    <label data-clazz="${clazz}"></label>
+    ${rightCategoryField.map(field => `<span data-clazz="${clazz}" data-category="${field.category}" class="value"></span>`).join(", ")}
+</div>`;
         } else {
             return "";
         }
     }
 
-    private findRightCategoryField(doc: CMOBaseDocument, clazz: string) {
+    private findRightCategoryField(doc: CMOBaseDocument, clazz: string): Array<{ clazz: string; category: string }> {
         return ("category" in doc ) ? doc.category
             .map(cat => cat.split(":", 4))
             .filter(([ Clazz, category ]) => clazz == Clazz)
@@ -191,7 +193,7 @@ export class SearchDisplay {
                     clazz : Clazz,
                     category : category
                 }
-            })[ 0 ] : null;
+            }) : [];
     }
 }
 

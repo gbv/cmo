@@ -1,6 +1,6 @@
 import {I18N} from 'other/I18N'
 import {Classification, ClassificationResolver} from 'other/Classification'
-import {ClassificationSearchFieldInput, SearchGUI, TextSearchFieldInput} from "./SearchFormGUI";
+import {ClassificationSearchFieldInput, DateSearchFieldInput, SearchGUI, TextSearchFieldInput} from "./SearchFormGUI";
 import {Utils} from "../other/utils";
 import {SearchFacetController} from "./SearchFacet";
 
@@ -21,8 +21,8 @@ export class SearchController {
             this.setInputValue("");
         });
 
-        facetController.addChangeHandler(()=>{
-            if(this.enable){
+        facetController.addChangeHandler(() => {
+            if (this.enable) {
                 this.view.changed();
             }
         });
@@ -68,7 +68,7 @@ export class SearchController {
             if (this.view.isExtendedSearchOpen()) {
                 this.view.openExtendedSearch(false);
             }
-            this.view.getMainSearchInputElement().blur();
+            //this.view.getMainSearchInputElement().blur();
         }
 
         this._enabledHandlerList.forEach((handler) => handler(value));
@@ -84,18 +84,34 @@ export class SearchController {
         return allQueries;
     }
 
+    public setSolrQuery(queries: Array<Array<string>>): void {
+        for (let param of queries) {
+            let [ paramName ] = param;
+            if (paramName == "q") {
+                let values = param.slice(1);
+                for (let value of values) {
+                    this.view.setSolrQuery(value);
+                }
+            }
+        }
 
-    public focus() {
-        (<HTMLInputElement>this.view.getMainSearchInputElement()).blur();
     }
 
-    private processDescription(name: string, description: any) {
+
+    public focus() {
+        //(<HTMLInputElement>this.view.getMainSearchInputElement()).blur();
+    }
+
+    private    processDescription(name: string, description: any) {
         for (let index in description.fields) {
             let input = description.fields[ index ];
 
             if (input instanceof ClassificationSearchField) {
                 let classField = <ClassificationSearchField> input;
                 this.view.addExtendedField(name, new ClassificationSearchFieldInput(classField.solrSearchFields[ 0 ], classField.className));
+            } else if (input instanceof DateSearchField) {
+                let dateField = <DateSearchField> input;
+                this.view.addExtendedField(name, new DateSearchFieldInput(dateField.solrSearchFields, input.label))
             } else if (input instanceof SearchField) {
                 let textField = <SearchField> input;
                 this.view.addExtendedField(name, new TextSearchFieldInput(textField.solrSearchFields, input.label));
@@ -103,28 +119,36 @@ export class SearchController {
         }
     }
 
-    public getInputValue(): string {
+    public    getInputValue(): string {
         return (<HTMLInputElement>this.view.getMainSearchInputElement()).value;
     }
 
-    public setInputValue(value: string) {
+    public    setInputValue(value: string) {
         (<HTMLInputElement>this.view.getMainSearchInputElement()).value = value;
     }
 
-    public addExtended(extendedDescription: any) {
+    public    addExtended(extendedDescription: any) {
         for (let name in extendedDescription) {
             let description = extendedDescription[ name ];
             this.view.createType(name, description.type);
             this.processDescription(name, description);
         }
     }
+
+    public isExtendedSearchOpen() {
+        return this.view.isExtendedSearchOpen();
+    }
+
+    public openExtendedSearch(open: boolean) {
+        this.view.openExtendedSearch(open);
+    }
 }
 
 export class SearchField {
 
 
-    constructor(label: string, ...solrSearchField: string[]) {
-        this._solrSearchFields = solrSearchField;
+    constructor(label: string, solrSearchFields: string[]) {
+        this._solrSearchFields = solrSearchFields;
         this._label = label;
     }
 
@@ -142,10 +166,16 @@ export class SearchField {
 
 }
 
+export class DateSearchField extends SearchField {
+    constructor(label: string, solrSearchFields: string[]) {
+        super(label, solrSearchFields);
+    }
+}
+
 export class ClassificationSearchField extends SearchField {
 
     constructor(solrSearchField: string, className: string) {
-        super(className, solrSearchField);
+        super(className, [ solrSearchField ]);
         this._className = className;
     }
 

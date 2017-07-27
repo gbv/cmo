@@ -4,6 +4,7 @@
                 xmlns:mods="http://www.loc.gov/mods/v3"
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
                 xmlns:mcrxml="xalan://org.mycore.common.xml.MCRXMLFunctions"
+                xmlns:meiDate="xalan://org.mycore.mei.MCRMEIDateHelper"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 exclude-result-prefixes="mods mei xlink">
   <xsl:import href="xslImport:solr-document:solr/mei.xsl" />
@@ -83,7 +84,18 @@
     <field name="lyricist">
       <xsl:value-of select="." />
     </field>
+  </xsl:template>
 
+  <xsl:template match="mei:titleStmt/mei:author" mode="solrIndex">
+    <field name="author">
+      <xsl:value-of select="text()" />
+    </field>
+  </xsl:template>
+
+  <xsl:template match="mei:titleStmt/mei:author/mei:persName" mode="solrIndex">
+    <field name="author.ref">
+      <xsl:value-of select="concat(.,'|', @nymref)" />
+    </field>
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:title" mode="solrIndex">
@@ -104,6 +116,44 @@
     </xsl:if>
     <field name="title">
       <xsl:value-of select="." />
+    </field>
+  </xsl:template>
+
+  <xsl:template match="mei:pubStmt/mei:publisher" mode="solrIndex">
+    <field name="publisher">
+      <xsl:value-of select="text()" />
+    </field>
+  </xsl:template>
+
+  <xsl:template match="mei:pubStmt/mei:pubPlace/mei:geogName" mode="solrIndex">
+    <field name="publisher.place">
+      <xsl:value-of select="text()" />
+    </field>
+  </xsl:template>
+
+  <xsl:template match="mei:pubStmt/mei:date" mode="solrIndex">
+    <xsl:call-template name="date">
+      <xsl:with-param name="dateNode" select="." />
+      <xsl:with-param name="fieldName" select="'publish.date'" />
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template match="mei:persName/mei:date" mode="solrIndex">
+    <xsl:call-template name="date">
+      <xsl:with-param name="dateNode" select="." />
+      <xsl:with-param name="fieldName" select="concat(@type, '.date')"></xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template name="date">
+    <xsl:param name="dateNode" />
+    <xsl:param name="fieldName" />
+
+    <field name="{$fieldName}.range">
+      <xsl:value-of select="meiDate:getSolrDateFieldContent($dateNode)" />
+    </field>
+    <field name="{$fieldName}.content">
+      <xsl:value-of select="$dateNode/text()" />
     </field>
   </xsl:template>
 

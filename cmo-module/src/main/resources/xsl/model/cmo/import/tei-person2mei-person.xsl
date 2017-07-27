@@ -58,19 +58,39 @@
   </xsl:template>
 
   <xsl:template match="tei:persName">
-    <mei:name>
-      <xsl:if test="@type">
-        <xsl:attribute name="type">
-          <xsl:value-of select="translate(@type,'/','-')" />
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:if test="tei:ref/@target">
-        <xsl:attribute name="nymref">
-          <xsl:value-of select="tei:ref/@target" />
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:value-of select="text()" />
+    <xsl:choose>
+      <xsl:when test="tei:ref[@target]">
+        <xsl:for-each select="tei:ref[@target]">
+          <xsl:call-template name="perName">
+            <xsl:with-param name="persNameElement" select="../." />
+          </xsl:call-template>
+        </xsl:for-each>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="perName" >
+          <xsl:with-param name="persNameElement" select="." />
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
 
+
+  </xsl:template>
+
+  <xsl:template name="perName">
+    <xsl:param name="persNameElement" />
+    <mei:name>
+      <xsl:if test="$persNameElement/@type">
+        <xsl:attribute name="type">
+          <xsl:value-of select="translate($persNameElement/@type,'/','-')" />
+        </xsl:attribute>
+      </xsl:if>
+
+      <xsl:if test="$persNameElement/tei:ref/@nymref">
+        <xsl:attribute name="nymref">
+          <xsl:value-of select="$persNameElement/tei:ref/@target" />
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:value-of select="$persNameElement/text()" />
     </mei:name>
   </xsl:template>
 
@@ -90,26 +110,26 @@
           </xsl:attribute>
         </xsl:if>
         <xsl:if test="@from or @to or @when">
-            <xsl:choose>
-              <xsl:when test="@from and @to">
-                <xsl:attribute name="notbefore">
-                  <xsl:value-of select="@from" />
-                </xsl:attribute>
-                <xsl:attribute name="notafter">
-                  <xsl:value-of select="@to" />
-                </xsl:attribute>
-              </xsl:when>
-              <xsl:when test="@from">
-                <xsl:attribute name="isodate">
-                  <xsl:value-of select="@from" />
-                </xsl:attribute>
-              </xsl:when>
-              <xsl:when test="@to">
-                <xsl:attribute name="isodate">
-                  <xsl:value-of select="@to" />
-                </xsl:attribute>
-              </xsl:when>
-            </xsl:choose>
+          <xsl:choose>
+            <xsl:when test="@from and @to">
+              <xsl:attribute name="notbefore">
+                <xsl:value-of select="@from" />
+              </xsl:attribute>
+              <xsl:attribute name="notafter">
+                <xsl:value-of select="@to" />
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="@from">
+              <xsl:attribute name="isodate">
+                <xsl:value-of select="@from" />
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="@to">
+              <xsl:attribute name="isodate">
+                <xsl:value-of select="@to" />
+              </xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
         </xsl:if>
         <xsl:if test="tei:ref/@target">
           <xsl:attribute name="source">
