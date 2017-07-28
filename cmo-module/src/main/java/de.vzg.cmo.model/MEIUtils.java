@@ -47,16 +47,21 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Attribute;
+import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.jdom2.EntityRef;
 import org.jdom2.Namespace;
 import org.jdom2.Parent;
+import org.jdom2.ProcessingInstruction;
+import org.jdom2.Text;
 import org.jdom2.filter.Filters;
 import org.jdom2.output.XMLOutputter;
 import org.jdom2.xpath.XPathExpression;
@@ -315,6 +320,26 @@ public class MEIUtils {
 
     public static void orderElements(Element root) {
 
+    }
+    /**
+     * @param node
+     * @return true if the content is empty and can be removed
+     */
+    public static boolean removeEmptyNodes(Content node) {
+        if (node instanceof Element) {
+            Predicate<Content> removeNodes = MEIUtils::removeEmptyNodes;
+            List<Content> content = ((Element) node).getContent();
+            List<Content> elementsToRemove = content.stream().filter(removeNodes)
+                .collect(Collectors.toList());
+            elementsToRemove.forEach(((Element) node)::removeContent);
+            return content.size() == 0 && ((Element) node).getAttributes().size() == 0;
+        } else if (node instanceof Text) {
+            return ((Text) node).getTextTrim().equals("");
+        } else if (node instanceof ProcessingInstruction || node instanceof EntityRef) {
+            return false;
+        }
+
+        return true;
     }
 
 }

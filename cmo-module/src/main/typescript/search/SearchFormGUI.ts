@@ -34,6 +34,7 @@ export class SearchGUI {
     private typeMap = {};
     private currentType: string;
     public _queryChangeHandlerList: Array<() => void> = [];
+    private fieldSFIMap = {};
     private lastQuery: string = null;
 
     private initGUI() {
@@ -72,25 +73,29 @@ export class SearchGUI {
         I18N.translate("cmo.search.fields.type", translation => this.typeLabel.innerHTML = translation);
 
         this.typeSelect.addEventListener("change", () => {
-            let newType = this.typeSelect.value;
-
-            for (let inputIndex in this.typeMap[ this.currentType ]) {
-                let input = <SearchFieldInput>this.typeMap[ this.currentType ][ inputIndex ];
-                input.detach(this.extendedSearch);
-                input.removeChangeHandler(this.changed);
-            }
-
-            for (let inputIndex in this.typeMap[ newType ]) {
-                let input = <SearchFieldInput>this.typeMap[ newType ][ inputIndex ];
-                input.attach(this.extendedSearch);
-                input.addChangeHandler(this.changed);
-            }
-
-            this.currentType = newType;
-            this.changed();
+            this.typeChanged();
         });
 
         this.getMainSearchInputElement().addEventListener('keyup', this.changed);
+    }
+
+    private typeChanged() {
+        let newType = this.typeSelect.value;
+
+        for (let inputIndex in this.typeMap[ this.currentType ]) {
+            let input = <SearchFieldInput>this.typeMap[ this.currentType ][ inputIndex ];
+            input.detach(this.extendedSearch);
+            input.removeChangeHandler(this.changed);
+        }
+
+        for (let inputIndex in this.typeMap[ newType ]) {
+            let input = <SearchFieldInput>this.typeMap[ newType ][ inputIndex ];
+            input.attach(this.extendedSearch);
+            input.addChangeHandler(this.changed);
+        }
+
+        this.currentType = newType;
+        this.changed();
     }
 
     public getMainSearchInputElement() {
@@ -138,6 +143,13 @@ export class SearchGUI {
         let arr = this.typeMap[ name ];
         arr.push(field);
 
+        for (let searchField of field.searchFields) {
+            if (!(searchField in this.fieldSFIMap)) {
+                this.fieldSFIMap[ searchField ] = [];
+            }
+            this.fieldSFIMap[ searchField ].push(field);
+        }
+
         if (this.currentType == name) {
             field.attach(<HTMLImageElement>this.extendedSearch);
             field.addChangeHandler(this.changed);
@@ -180,6 +192,44 @@ export class SearchGUI {
         }
 
         return solrQueryParts.join(" AND ");
+    }
+
+    public setSolrQuery(query: string) {
+        let kvMap = {};
+
+
+        let process = (queryParts) => {
+            for (let queryPart of queryParts) {
+                if (queryPart.indexOf("(") != 0) {
+                    let [ field ] = queryPart.split(":", 1);
+                    let value = Utils.stripSurrounding(queryPart.substring(queryPart.indexOf(":") + 1, queryPart.length), '"');
+                    kvMap[ field ] = value;
+                } else {
+                    let clean = Utils.stripSurrounding(Utils.stripSurrounding(queryPart, "("), ")");
+                    process(clean.split(" OR "));
+                }
+            }
+        };
+        let queryParts = query.split(" AND ");
+        process(queryParts);
+
+        for (let key in kvMap) {
+            let value = kvMap[ key ];
+
+            if (key == "objectType" && value in this.typeMap) {
+                if (this.typeSelect.value !== value) {
+                    this.typeSelect.value = value;
+                    this.typeChanged();
+                }
+            }
+
+            if (key in this.fieldSFIMap) {
+                let searchFieldGUIs = this.fieldSFIMap[ key ];
+                for (let gui of searchFieldGUIs) {
+                    gui.setValue(value);
+                }
+            }
+        }
     }
 
     changed = () => {
@@ -233,6 +283,9 @@ export abstract class SearchFieldInput {
             this.changeHandlerList[ handlerIndex ]();
         }
     }
+
+    public abstract setValue(value: any);
+
 }
 
 export class TextSearchFieldInput extends SearchFieldInput {
@@ -243,21 +296,14 @@ export class TextSearchFieldInput extends SearchFieldInput {
         this.init();
     }
 
-    private root: HTMLElement;
-    private _template: string;
+    public root: HTMLElement;
+    public _template: string;
 
-    private labelElement: HTMLElement;
-    private input: HTMLInputElement;
+    public labelElement: HTMLElement;
+    public input: HTMLInputElement;
 
-    private init() {
-        this._template = `
-<div class="form-group">
-    <label class="col-md-3 control-label form-inline"></label>
-    <div class="col-md-9">
-        <input class="form-control" type="search">
-    </div>
-</div>
-`;
+    public init() {
+        this._template = this.getTemplate();
 
         this.root = <HTMLElement>document.createElement("div");
         this.root.classList.add("row");
@@ -272,6 +318,17 @@ export class TextSearchFieldInput extends SearchFieldInput {
         this.input.addEventListener("keyup", (event) => {
             this.changed();
         });
+    }
+
+    public getTemplate() {
+        return `
+<div class="form-group">
+    <label class="col-md-3 control-label form-inline"></label>
+    <div class="col-md-9">
+        <input class="form-control" type="search">
+    </div>
+</div>
+`;
     }
 
 
@@ -294,13 +351,17 @@ export class TextSearchFieldInput extends SearchFieldInput {
             return null;
         }
     }
+
+    setValue(value: any) {
+        this.input.value = value;
+    }
 }
 
 
 export class ClassificationSearchFieldInput extends SearchFieldInput {
 
     constructor(searchField: string, private className: string) {
-        super([ searchField ], "");
+        super([ "category.top" ], "");
         this.init();
     }
 
@@ -338,9 +399,14 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
             this.select.addEventListener("change", () => {
                 this.changed();
             });
+
+            if (this._resolveHanging != null) {
+                this._resolveHanging();
+            }
         });
     }
 
+    private _resolveHanging = null;
     private root: HTMLElement;
     private rootVal: string;
     private _template: string;
@@ -358,7 +424,7 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
     }
 
     public getSolrQueryPart(): string {
-        let field = `category.top:"${this.searchFields[ 0 ]}:${this.select.value}"`;
+        let field = `${this.searchFields[ 0 ]}:"${this.className}:${this.select.value}"`;
         return (this.select.value !== this.rootVal) ? field : null;
     }
 
@@ -373,5 +439,168 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
                     ${("categories" in clazz) ? clazz.categories.map(o => this.getOptionHTML(o, level)).join() : ''}`;
         level.pop();
         return html;
+    }
+
+    setValue(value: any) {
+        let realValue = value.split(":")[ 1 ];
+        if (this.select.querySelector("option[value='" + realValue + "']") != null) {
+            this.select.value = realValue;
+        } else {
+            this._resolveHanging = () => {
+                if (this.select.querySelector("option[value='" + realValue + "']") != null) {
+                    this.select.value = realValue;
+                }
+            }
+        }
+
+    }
+}
+
+
+export class DateSearchFieldInput extends TextSearchFieldInput {
+
+
+    public init() {
+        this._template = this.getTemplate();
+
+        this.root = <HTMLElement>document.createElement("div");
+        this.root.classList.add("row");
+        this.root.innerHTML = this._template;
+        this.labelElement = <HTMLElement>this.root.querySelector("label.date");
+        this.input = <HTMLInputElement>this.root.querySelector("input.noRange");
+        this.inputFrom = <HTMLInputElement>this.root.querySelector("input.from");
+        this.inputTo = <HTMLInputElement>this.root.querySelector("input.to");
+        this.inputRangeCheckbox = <HTMLInputElement>this.root.querySelector("input.checkbox");
+        this.rangeLabel = <HTMLLabelElement>this.root.querySelector("label.range");
+
+        this.rangeBox = <HTMLDivElement>this.root.querySelector("div.range");
+        this.noRangeBox = <HTMLDivElement>this.root.querySelector("div.noRange");
+
+        this.fromLabel = <HTMLLabelElement>this.rangeBox.querySelector("label.from");
+        this.toLabel = <HTMLLabelElement>this.rangeBox.querySelector("label.to");
+
+        I18N.translate(this.label, (translation) => {
+            this.labelElement.innerText = translation;
+        });
+
+        this.input.addEventListener("keyup", (event) => {
+            this.changed();
+        });
+
+        this.inputFrom.addEventListener("keyup", (event) => {
+            this.changed();
+        });
+
+        this.inputTo.addEventListener("keyup", (event) => {
+            this.changed();
+        });
+
+        this.inputRangeCheckbox.addEventListener("change", (event) => {
+            this.rangeCheckBoxChanged();
+            this.changed();
+        });
+
+        I18N.translate("cmo.search.range", (translation) => {
+            this.rangeLabel.innerText = translation;
+        });
+
+        I18N.translate("cmo.search.range.from", (translation) => {
+            this.fromLabel.innerText = translation;
+        });
+
+        I18N.translate("cmo.search.range.to", (translation) => {
+            this.toLabel.innerText = translation;
+        });
+    }
+
+    public inputFrom: HTMLInputElement;
+    public inputTo: HTMLInputElement;
+    public inputRangeCheckbox: HTMLInputElement;
+    public rangeLabel: HTMLLabelElement;
+    private rangeBox: HTMLDivElement;
+    private noRangeBox: HTMLDivElement;
+    private fromLabel: HTMLLabelElement;
+    private toLabel: HTMLLabelElement;
+
+    private rangeCheckBoxChanged() {
+        if (this.isRangeSelected()) {
+            this.noRangeBox.classList.add("hidden");
+            this.rangeBox.classList.remove("hidden");
+        } else {
+            this.rangeBox.classList.add("hidden");
+            this.noRangeBox.classList.remove("hidden");
+        }
+    }
+
+    private isRangeSelected() {
+        return this.inputRangeCheckbox.checked;
+    }
+
+    public getSolrQueryPart(): string {
+        if (this.isRangeSelected()) {
+            let val1 = this.inputFrom.value, val2 = this.inputTo.value;
+            if (val1.trim().length > 0 && val2.trim().length > 0) {
+                return this.getQueryForValue(`[${val1} TO ${val2}]`);
+            } else if (val1.trim().length > 0) {
+                return this.getQueryForValue(`[${val1} TO *]`);
+            } else if (val2.trim().length > 0) {
+                return this.getQueryForValue(`[* TO ${val2}]`);
+            } else {
+                return null;
+            }
+        } else {
+
+            if (this.input.value.trim().length > 0) {
+                return this.getQueryForValue(this.input.value);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    private getQueryForValue(value: any) {
+        return this.searchFields.length > 1 ? `(${this.searchFields.map(sf => `${sf}:"${value}"`).join(" OR ")})` : `${this.searchFields}:"${value}"`;
+    }
+
+    setValue(value: any) {
+        if (value.indexOf(" TO ") == -1) {
+            this.input.value = value;
+        } else {
+            this.inputRangeCheckbox.checked = true;
+            let fromToString = Utils.stripSurrounding(Utils.stripSurrounding(value, "["), "]");
+
+            let [ from, to ] = fromToString.split(" TO ", 2);
+            if (from !== "*") {
+                this.inputFrom.value = from;
+            }
+            if (to !== "*") {
+                this.inputTo.value = to;
+            }
+            this.rangeCheckBoxChanged();
+        }
+    }
+
+    public getTemplate() {
+        let checkBoxID = Math.random().toString();
+
+        return `
+<div class="form-group">
+    <label class="col-md-3 control-label form-inline date"></label>
+    <div class="col-md-9">
+        <div class="form-inline">
+            <input id="date_${checkBoxID}" class="checkbox inline" type="checkbox" />
+            <label for="#date_${checkBoxID}" class="range inline"> </label>
+        </div>
+        <div class="form-inline noRange">
+            <input class="form-control noRange inline" type="date" />
+        </div>
+        <div class="form-inline range hidden">
+            <label for="#date_1_${checkBoxID}" class="range inline from"> </label>
+            <input id="date_1_${checkBoxID}" class="form-control inline from" type="date" />
+            <label for="#date_2_${checkBoxID}" class="range inline to"> </label>
+            <input  id="date_2_${checkBoxID}" class="form-control inline to" type="date" />
+        </div>
+    </div>
+</div>`;
     }
 }

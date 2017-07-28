@@ -103,6 +103,52 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    private static final XPathExpression<Element> classificationXpath = XPathFactory.instance()
+        .compile(".//mei:classification", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
+
+    private static final XPathExpression<Element> MAKAM_XPATH = XPathFactory.instance()
+        .compile(".//cmo:makam", Filters.element(), null, MEIUtils.CMO_NAMESPACE);
+
+    private static final XPathExpression<Element> USUL_XPATH = XPathFactory.instance()
+        .compile(".//cmo:usul", Filters.element(), null, MEIUtils.CMO_NAMESPACE);
+
+    private static final XPathExpression<Element> DATE_SOURCE_XPATH = XPathFactory.instance()
+        .compile(".//mei:date[@source]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
+
+    private static final XPathExpression<Element> ANOT_SOURCE_XPATH = XPathFactory.instance()
+        .compile(".//mei:annot[@source]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
+
+    private static final XPathExpression<Element> NAME_NYMREF_XPATH = XPathFactory.instance()
+        .compile(".//mei:name[@nymref]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
+
+    private static final Map<String, String> cmo_mei_typeMapping = new HashMap<>();
+
+    private static final Map<String, String> TEI_DATE_MEI_DATE_ATTR_MAP = new HashMap<>();
+
+    private static XPathExpression<Element> DATE_ELEMENTS_ATTRS;
+
+    static {
+        cmo_mei_typeMapping.put("type of source", "cmo_sourceType");
+        cmo_mei_typeMapping.put("type of content", "cmo_contentType");
+        cmo_mei_typeMapping.put("notation", "cmo_notationType");
+        cmo_mei_typeMapping.put("genre", "cmo_musictype");
+        cmo_mei_typeMapping.put("music type", "cmo_musictype");
+        cmo_mei_typeMapping.put("notation type", "cmo_notationType");
+    }
+
+    static {
+        TEI_DATE_MEI_DATE_ATTR_MAP.put("from", "startdate");
+        TEI_DATE_MEI_DATE_ATTR_MAP.put("to", "enddate");
+        TEI_DATE_MEI_DATE_ATTR_MAP.put("notBefore", "notbefore");
+        TEI_DATE_MEI_DATE_ATTR_MAP.put("notAfter", "notafter");
+        TEI_DATE_MEI_DATE_ATTR_MAP.put("when", "isodate");
+
+        DATE_ELEMENTS_ATTRS = XPathFactory.instance()
+            .compile(".//*[" + TEI_DATE_MEI_DATE_ATTR_MAP.keySet().stream().map(attrName -> "@" + attrName).collect
+                (Collectors.joining(" or ")) + "]", Filters.element(), null, MEIUtils
+                .MEI_NAMESPACE, MEIUtils.TEI_NAMESPACE);
+    }
+
     // bibliography folder
     private ConcurrentHashMap<String, Document> bibliographicMap;
 
@@ -129,35 +175,6 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
     private ConcurrentHashMap<String, String> childParentMap;
 
     private Path root;
-
-    private static final XPathExpression<Element> classificationXpath = XPathFactory.instance()
-        .compile(".//mei:classification", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
-
-    private static final XPathExpression<Element> MAKAM_XPATH = XPathFactory.instance()
-        .compile(".//cmo:makam", Filters.element(), null, MEIUtils.CMO_NAMESPACE);
-
-    private static final XPathExpression<Element> USUL_XPATH = XPathFactory.instance()
-        .compile(".//cmo:usul", Filters.element(), null, MEIUtils.CMO_NAMESPACE);
-
-    private static final XPathExpression<Element> DATE_SOURCE_XPATH = XPathFactory.instance()
-        .compile(".//mei:date[@source]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
-
-    private static final XPathExpression<Element> ANOT_SOURCE_XPATH = XPathFactory.instance()
-        .compile(".//mei:annot[@source]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
-
-    private static final XPathExpression<Element> NAME_NYMREF_XPATH = XPathFactory.instance()
-        .compile(".//mei:name[@nymref]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
-
-    private static final Map<String, String> cmo_mei_typeMapping = new HashMap<>();
-
-    static {
-        cmo_mei_typeMapping.put("type of source", "cmo_sourceType");
-        cmo_mei_typeMapping.put("type of content", "cmo_contentType");
-        cmo_mei_typeMapping.put("notation", "cmo_notationType");
-        cmo_mei_typeMapping.put("genre", "cmo_musictype");
-        cmo_mei_typeMapping.put("music type", "cmo_musictype");
-        cmo_mei_typeMapping.put("notation type", "cmo_notationType");
-    }
 
     public MEIImporter() {
         bibliographicMap = new ConcurrentHashMap<>();
@@ -238,6 +255,17 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             metadata.setMetadataElement(defModsContainer);
 
             Element rootElement = v.detachRootElement();
+            if (!("bibl".equals(typeId))) {
+                DATE_ELEMENTS_ATTRS.evaluate(rootElement).forEach(element -> {
+                    TEI_DATE_MEI_DATE_ATTR_MAP.entrySet().forEach((entry) -> {
+                        String val;
+                        if ((val = element.getAttributeValue(entry.getKey())) != null) {
+                            element.setAttribute(entry.getValue(), val);
+                        }
+                    });
+                });
+            }
+
             MEIUtils.changeLinkTargets(rootElement,
                 (from) -> {
                     MCRObjectID id = this.idMCRObjectIDMap.get(from);
@@ -284,6 +312,8 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
                 wrapper.setClassification(classifications);
                 wrapper.orderTopLevelElement();
+            } else {
+                MEIUtils.removeEmptyNodes(rootElement);
             }
 
             MEIUtils.clearCircularDependency(rootElement);
