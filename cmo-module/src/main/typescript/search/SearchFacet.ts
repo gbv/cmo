@@ -34,11 +34,11 @@ export class SearchFacetController {
         }
     }
 
-    public save(){
+    public save() {
         this.view.save();
     }
 
-    public reset(){
+    public reset() {
         this.view.reset();
     }
 
@@ -81,7 +81,7 @@ export class SearchFacetGUI {
     }
 
     public reset() {
-        if(this.preDisplayContent!=null){
+        if (this.preDisplayContent != null) {
             this._container.innerHTML = "";
             this.preDisplayContent.forEach((content) => {
                 this._container.appendChild(content);
@@ -129,12 +129,34 @@ ${facetEntries.length > 5 ? `<a data-i18n="cmo.search.facet.showMore" data-facet
         Array.prototype.slice.call(this._container.querySelectorAll("[data-facet-show]")).forEach((el: Element) => {
             let facetField = el.getAttribute("data-facet-show");
 
-            el.addEventListener("click", () => {
-                el.remove();
-                Array.prototype.slice.call(this._container.querySelectorAll(`[data-facet-hidden=${facetField}]`)).forEach((el: Element) =>
-                    el.removeAttribute("data-facet-hidden")
-                )
-            });
+            let show = () => {
+                I18N.translate('cmo.search.facet.showLess', (translation)=>{
+                    el.innerHTML = translation;
+                });
+
+                Array.prototype.slice.call(this._container.querySelectorAll(`[data-facet-hidden=${facetField}]`)).forEach((el: Element) => {
+                    el.removeAttribute("data-facet-hidden");
+                    el.setAttribute("data-facet-was-hidden", facetField);
+                });
+
+                el.removeEventListener("click", show);
+                el.addEventListener("click", hide);
+            };
+
+            let hide = () => {
+                I18N.translate('cmo.search.facet.showMore', (translation)=>{
+                    el.innerHTML = translation;
+                });
+
+                Array.prototype.slice.call(this._container.querySelectorAll(`[data-facet-was-hidden=${facetField}]`)).forEach((el: Element) => {
+                    el.removeAttribute("data-facet-was-hidden");
+                    el.setAttribute("data-facet-hidden", facetField);
+                });
+                el.removeEventListener("click", hide);
+                el.addEventListener("click", show);
+            };
+
+            el.addEventListener("click", show);
 
         });
 

@@ -465,6 +465,9 @@
   <field name="author" type="text_tr" multiValued="true" />
   <field name="author.ref" type="string" multiValued="true" />
 
+  <field name="editor" type="text_tr" multiValued="true" />
+  <field name="editor.ref" type="string" multiValued="true" />
+
   <field name="identifier" type="string" multiValued="true" />
 
   <field name="lyricist" type="text_tr" multiValued="true" />

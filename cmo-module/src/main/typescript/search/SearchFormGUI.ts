@@ -216,6 +216,10 @@ export class SearchGUI {
         for (let key in kvMap) {
             let value = kvMap[ key ];
 
+            if (key == "allMeta") {
+                this.mainSearchInputElement.value = value;
+            }
+
             if (key == "objectType" && value in this.typeMap) {
                 if (this.typeSelect.value !== value) {
                     this.typeSelect.value = value;

@@ -98,6 +98,18 @@
     </field>
   </xsl:template>
 
+  <xsl:template match="mei:titleStmt/mei:editor" mode="solrIndex">
+    <field name="editor">
+      <xsl:value-of select="text()" />
+    </field>
+  </xsl:template>
+
+  <xsl:template match="mei:titleStmt/mei:editor/mei:persName" mode="solrIndex">
+    <field name="editor.ref">
+      <xsl:value-of select="concat(.,'|', @nymref)" />
+    </field>
+  </xsl:template>
+
   <xsl:template match="mei:titleStmt/mei:title" mode="solrIndex">
     <xsl:if test="@type">
       <field name="title.type.{@type}">

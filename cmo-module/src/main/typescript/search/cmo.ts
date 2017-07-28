@@ -212,6 +212,8 @@ StateController.onStateChange((params, selfChange) => {
             console.log("eSearch!");
             ctrl = eSearch;
         }
+
+        ctrl.enable = true;
     }
 
 

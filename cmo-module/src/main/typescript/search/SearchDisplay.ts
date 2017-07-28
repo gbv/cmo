@@ -13,8 +13,10 @@ export class SearchDisplay {
 
     private fieldLabelMapping = {
         title : "editor.label.title",
-        composer : "editor.label.composer",
-        publisher : "editor.label.publisher"
+        "composer.ref" : "editor.label.composer",
+        "author.ref":"editor.label.author",
+        publisher : "editor.label.publisher",
+        "publisher.place":"editor.label.place",
     };
 
     public displayResult(result: SolrSearchResult, pageChangeHandler: (newPage: number) => void) {
@@ -22,11 +24,10 @@ export class SearchDisplay {
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <h2 data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></h2>
-             ${this.renderList(result.response.docs)}
+             ${this.renderList(result)}
              ${this.renderNav(result.response)}
         </div>
-    </div>
-            `;
+    </div>`;
 
         Array.prototype.slice.call(this._container.querySelectorAll("[data-switch-page]")).forEach((node) => {
             let page = parseInt((<HTMLElement>node).getAttribute("data-switch-page"), 10);
@@ -59,25 +60,47 @@ export class SearchDisplay {
         }
     }
 
-    private renderList(docs: Array<CMOBaseDocument>): string {
-        return docs.map(doc => {
+    private renderList(result: SolrSearchResult): string {
+        let docs = result.response.docs;
+        return docs.map((doc, i) => {
+            let index = result.response.start + i;
             switch (doc.objectType) {
                 case "expression":
-                    return this.displayExpression(doc);
+                    return this.displayExpression(doc, index, result);
                 case "source":
-                    return this.displaySource(doc);
+                    return this.displaySource(doc, index, result);
                 case "bibl":
-                    return this.displayBibl(doc);
+                    return this.displayBibl(doc, index, result);
                 case "person":
-                    return this.displayPerson(doc);
+                    return this.displayPerson(doc, index, result);
                 case "work":
-                    return this.displayWork(doc);
+                    return this.displayWork(doc, index, result);
             }
         }).join("<hr/>");
     }
 
-    private displayHitTitle(doc: CMOBaseDocument) {
-        return ("identifier" in doc) ? ` <a href="${Utils.getBaseURL()}receive/${doc.id}"><h4>${doc.identifier.join(",")}</h4></a>` : "";
+    private displayHitTitle(doc: CMOBaseDocument, currentIndex: number, result: SolrSearchResult) {
+        let param = "";
+
+        for (let i in result.responseHeader.params) {
+            if (i == "wt" || i == "start" || i == "rows") {
+                continue;
+            }
+
+            if (result.responseHeader.params[ i ] instanceof Array) {
+                param += result.responseHeader.params[ i ].map(param => `${i}=${param}`).join("&") + "&";
+            } else {
+                param += `${i}=${ result.responseHeader.params[ i ]}&`;
+            }
+        }
+
+        if (param[ param.length - 1 ] == "&") {
+            param = param.substring(0, param.length - 1);
+        }
+
+        param += `&start=${currentIndex}&rows=1&origrows=${result.responseHeader.params[ "rows" ] || 10}&XSL.Style=browse`;
+
+        return ` <a href='${Utils.getBaseURL()}servlets/solr/select?${param}'><h4>${("identifier" in doc) ? doc.identifier.join(",") : doc.id}</h4></a>`;
 
     }
 
@@ -124,47 +147,52 @@ export class SearchDisplay {
         return "";
     }
 
-    private displayExpression(doc: CMOBaseDocument) {
+    private displayExpression(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
         return `
-        ${this.displayHitTitle(doc)}
+        ${this.displayHitTitle(doc, index, result)}
         ${this.displayMultivalued("title", doc)}
-        ${this.displayComposer(doc)}
+        ${this.displayRefField(doc, "composer.ref")}
         ${this.displayCategory(doc, "cmo_makamler")}
         ${this.displayCategory(doc, "cmo_usuler")}
         ${this.displayCategory(doc, "cmo_musictype")}
         `;
     }
 
-    private displaySource(doc: CMOBaseDocument) {
+    private displaySource(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
         return `
-        ${this.displayHitTitle(doc)}
+        ${this.displayHitTitle(doc, index, result)}
+        ${this.displayRefField(doc, "editor.ref")}
         ${this.displayMultivalued("publisher", doc)}
+        ${this.displayMultivalued("publisher.place", doc)}
+        ${this.displayCategory(doc, "cmo_sourceType")}
+        ${this.displayCategory(doc, "cmo_contentType")}
+        ${this.displayCategory(doc, "cmo_musictype")}
         
         `
     }
 
-    private displayBibl(doc: CMOBaseDocument) {
+    private displayBibl(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
         return `
-        ${this.displayHitTitle(doc)}
+        ${this.displayHitTitle(doc, index, result)}
         `
     }
 
-    private displayPerson(doc: CMOBaseDocument) {
+    private displayPerson(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
         return `
-        ${this.displayHitTitle(doc)}
+        ${this.displayHitTitle(doc, index, result)}
         `
     }
 
-    private displayWork(doc: CMOBaseDocument) {
+    private displayWork(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
         return `
-        ${this.displayHitTitle(doc)}
+        ${this.displayHitTitle(doc, index, result)}
         `
     }
 
-    private displayComposer(doc: CMOBaseDocument) {
-        return "composer.ref" in doc ? "<label data-i18n='" + this.fieldLabelMapping[ "composer" ] + "'></label><ul>" + doc[ "composer.ref" ]
+    private displayRefField(doc: CMOBaseDocument, field: string) {
+        return field in doc ? "<label data-i18n='" + this.fieldLabelMapping[ field ] + "'></label><ul>" + doc[ field ]
                 .map(composer => composer.split("|", 2))
-                .map(([ composer, ref ]) => `<li><a href="${Utils.getBaseURL()}receive/${ref}">${composer}</a></li>`)
+                .map(([ value, ref ]) => `<li><a href="${Utils.getBaseURL()}receive/${ref}">${value}</a></li>`)
                 .join("") + "</ul>" : "";
     }
 
