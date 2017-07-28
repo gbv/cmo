@@ -20,3 +20,8 @@ More information about MyCoRe are available at http://www.mycore.org
  - Install solr with the command: `mvn solr-runner:copyHome solr-runner:installSolrPlugins`
  - Run solr with the command `mvn solr-runner:start` (End with mvn solr-runner:stop)
  - Run Jetty with the command: `mvn jetty:run` (End with ctrl+c)
+
+
+## Update
+
+ - to update solr run `mvn solr-runner:stop solr-runner:copyHome solr-runner:start`
