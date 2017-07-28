@@ -178,6 +178,21 @@
               </label>
             </div>
           </xed:bind>
+          <xed:bind xpath="@range" initially="false">
+            <div class="checkbox">
+              <label>
+                <xed:choose>
+                  <xed:when test=".='true'">
+                     <input id="cmo_toggleRange" type="checkbox" checked="checked" />
+                  </xed:when>
+                  <xed:otherwise>
+                     <input id="cmo_toggleRange" type="checkbox" />
+                  </xed:otherwise>
+                </xed:choose>
+                <xed:output i18n="editor.label.rangeDate" />
+              </label>
+            </div>
+          </xed:bind>
           <div id="cmo_toggleDate_approx" style="display:none;">
             <xed:bind xpath="@notbefore">
               <input id="cmo_notbefore" type="text" placeholder="YYYY-MM-DD" class="form-control datetimepicker cmo_dateInput" />
@@ -185,6 +200,15 @@
             <xsl:text> - </xsl:text>
             <xed:bind xpath="@notafter">
               <input id="cmo_notafter"  type="text" placeholder="YYYY-MM-DD" class="form-control datetimepicker cmo_dateInput" />
+            </xed:bind>
+          </div>
+          <div id="cmo_toggleDate_range" style="display:none;">
+            <xed:bind xpath="@startdate">
+              <input id="cmo_startdate" type="text" placeholder="YYYY-MM-DD" class="form-control datetimepicker cmo_dateInput" />
+            </xed:bind>
+            <xsl:text> - </xsl:text>
+            <xed:bind xpath="@enddate">
+              <input id="cmo_enddate"  type="text" placeholder="YYYY-MM-DD" class="form-control datetimepicker cmo_dateInput" />
             </xed:bind>
           </div>
         </div>

@@ -15,6 +15,13 @@
     </xsl:copy>
   </xsl:template>
 
+  <xsl:template match="mei:date[@startdate|@enddate]">
+    <xsl:copy>
+      <xsl:attribute name="range">true</xsl:attribute>
+      <xsl:apply-templates select="@*|node()" />
+    </xsl:copy>
+  </xsl:template>
+
   <xsl:template match="@calendar">
     <xsl:attribute name="calendar">
       <xsl:value-of select="concat('cmo_calendar:', .)" />
