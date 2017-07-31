@@ -98,7 +98,7 @@
     <li id="{@id}" class="dropdown">
       <xsl:if test="$active">
         <xsl:attribute name="class">
-          <xsl:value-of select="'open'" />
+          <xsl:value-of select="'dropdown open'" />
         </xsl:attribute>
       </xsl:if>
       <a id="{$menuId}" class="dropdown-toggle" data-toggle="dropdown" href="#">
