@@ -96,6 +96,42 @@ section #sidebar {
 
 
 /* ---------------------------------------------------------------------------
+   login and languange menu
+----------------------------------------------------------------------------*/
+
+#cmo_side-menu {
+  margin-top: 20px;
+
+  #cmo_icon-profile {
+    margin: 0 0 0 0;
+    padding: 0 0 10px 0;
+  }
+
+  .cmo_language-menu {
+    list-style: none;
+    margin-top: 6px;
+    margin-right: 15px;
+
+    li {
+      display: inline;
+    }
+    li a {
+      color: #95989a;
+      font-size: 14px;
+    }
+    li.active a {
+      font-weight: bold;
+    }
+    li:not(:last-child):after {
+      content: ' | ';
+      color: #95989a;
+      font-size: 14px;
+    }
+  }
+}
+
+
+/* ---------------------------------------------------------------------------
    side menu
 ----------------------------------------------------------------------------*/
 #side_menu_1, #side_menu_2 {

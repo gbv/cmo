@@ -7,7 +7,9 @@
 
     <xed:form xmlns:xed="http://www.mycore.de/xeditor" xmlns:mei="http://www.music-encoding.org/ns/mei" method="post" role="form" class="form-horizontal">
       <xed:source uri="xslStyle:mycoreobject-editor,editor/mei2xeditor:mcrobject:{$id}" />
-      <xed:cancel url="../index.xml" />
+      <xed:cancel url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
+      <xed:cancel url="{$cancelUrl}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
+      <xed:cancel url="../content/index.html?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
       <xed:bind xpath="/mycoreobject">
         <xed:bind xpath="@ID" initially="cmo_bibl_00000000" />
         <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML']/meiContainer/mei:source">

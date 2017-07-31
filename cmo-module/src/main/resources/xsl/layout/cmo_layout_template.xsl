@@ -97,22 +97,21 @@
                          <div class="fullheightbox">
                             <nav class="collapse navbar-collapse main-nav-entries">
                               <ul class="nav navbar-nav">
-                                <li id="cmo_home"><a href="{$WebApplicationBaseURL}content/index.xml">Startseite</a></li>
+                                <li id="cmo_home"><a href="{$WebApplicationBaseURL}content/index.xml"><xsl:value-of select="i18n:translate('cmo.frontpage')" /></a></li>
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_edition']" />
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_catalogue']" />
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_publish']" />
                                 <!-- TODO: Add Basket -->
-                                <li id="cmo_basket"><a href="#">Merkliste</a></li>
+                                <li id="cmo_basket"><a href="#"><xsl:value-of select="i18n:translate('cmo.basket')" /></a></li>
                               </ul>
                             </nav>
                          </div>
                     </div>
-                    <div id="content"
-                         class="col-xs-12 col-md-9 col-lg-10">
-                        <nav>
+                    <div id="content" class="col-xs-12 col-md-9 col-lg-10">
+                        <nav id="cmo_side-menu">
                           <ul class="nav navbar-nav pull-right">
-                            <xsl:call-template name="loginMenu" />
                             <xsl:call-template name="languageMenu" />
+                            <xsl:call-template name="loginMenu" />
                           </ul>
                         </nav>
                         <div class="row">
@@ -207,7 +206,7 @@
         <!-- TODO: include only for xed -->
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/momentjs/2.18.1/min/moment.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/Eonasdan-bootstrap-datetimepicker/{$datetimepicker.version}/js/bootstrap-datetimepicker.min.js"></script>
-        <script type="text/javascript" src="../js/cmo_editor.js"></script>
+        <script type="text/javascript" src="{$WebApplicationBaseURL}js/cmo_editor.js"></script>
 
        </body>
     </html>

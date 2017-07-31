@@ -43,26 +43,23 @@
       select="concat( $ServletsBaseURL, 'MCRLoginServlet',$HttpSession,'?url=', encoder:encode( string( $RequestURL ) ) )" />
     <xsl:choose>
       <xsl:when test="mcrxsl:isCurrentUserGuestUser()">
-        <li>
-          <a id="loginURL" href="{$loginURL}">
-            <xsl:value-of select="i18n:translate('component.userlogin.button.login')" />
+        <li id="cmo_profile" class="pull-left">
+          <a id="cmo_icon-profile" href="{$loginURL}">
+            <img title="{i18n:translate('component.userlogin.button.login')}" src="{$WebApplicationBaseURL}content/images/menu_icons/logo_profile_grey.png" />
           </a>
         </li>
       </xsl:when>
       <xsl:otherwise>
-        <li class="dropdown">
+        <li id="cmo_profile" class="dropdown pull-left">
           <xsl:if test="$loaded_navigation_xml/menu[@id='cmo_user']//item[@href = $browserAddress ]">
             <xsl:attribute name="class">
               <xsl:value-of select="'active'" />
             </xsl:attribute>
           </xsl:if>
-          <a id="currentUser" class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <strong>
-              <xsl:value-of select="$CurrentUser" />
-            </strong>
-            <span class="caret" />
+          <a aria-expanded="true" id="cmo_icon-profile" href="" title="{$CurrentUser}" data-toggle="dropdown">
+            <img src="{$WebApplicationBaseURL}content/images/menu_icons/logo_profile.png" />
           </a>
-          <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
+          <ul role="menu" class="dropdown-menu dropdown-menu-right profile-menu">
             <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_user']/*" />
           </ul>
         </li>
@@ -101,7 +98,7 @@
     <li id="{@id}" class="dropdown">
       <xsl:if test="$active">
         <xsl:attribute name="class">
-          <xsl:value-of select="'active'" />
+          <xsl:value-of select="'open'" />
         </xsl:attribute>
       </xsl:if>
       <a id="{$menuId}" class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -180,12 +177,12 @@
   </xsl:template>
 
   <xsl:template name="languageMenu">
-    <li class="dropdown">
-      <a data-toggle="dropdown" title="{i18n:translate('language.change')}">
+    <li id="cmo_language" class="pull-left">
+      <!-- a data-toggle="dropdown" title="{i18n:translate('language.change')}">
         <xsl:value-of select="i18n:translate(concat('language.change.', $CurrentLang))" />
         <span class="caret" />
-      </a>
-      <ul class="dropdown-menu language-menu" role="menu">
+      </a -->
+      <ul class="cmo_language-menu" role="menu">
         <xsl:variable name="availableLanguages">
           <xsl:call-template name="Tokenizer"><!-- use split function from mycore-base/coreFunctions.xsl -->
             <xsl:with-param name="string" select="$MCR.Metadata.Languages" />
@@ -194,8 +191,11 @@
         </xsl:variable>
         <xsl:for-each select="exslt:node-set($availableLanguages)/token">
           <xsl:variable name="lang"><xsl:value-of select="mcrxsl:trim(.)" /></xsl:variable>
-          <xsl:if test="$lang!='' and $CurrentLang!=$lang">
+          <xsl:if test="$lang!=''">
             <li>
+              <xsl:if test="$CurrentLang=$lang">
+                <xsl:attribute name="class">active</xsl:attribute>
+              </xsl:if>
               <xsl:variable name="langURL">
                 <xsl:call-template name="languageLink">
                   <xsl:with-param name="lang" select="$lang" />

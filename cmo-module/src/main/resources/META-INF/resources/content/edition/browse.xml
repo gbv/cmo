@@ -4,21 +4,128 @@
   <section xml:lang="de" title="Browse edition">
     <div class="row">
       <div class="col-md-12">
-        <p>List of publications according to publication plan with options to view/download certain elements and connections to the CMO Catalogue (see Appendix V for details). </p>
-        <h1>CMO Publication Plan</h1>
-        <h2>Part I: Edition of the Manuscripts in Hampartsum Notation</h2>
-        <h3>Series 1: The Manuscript Sources from Istanbul University, Nadir Eserler Kütühanesi</h3>
+        <h1>Corpus Musicae Ottomanicae</h1>
+        <h2>Part 1: Edition of the Manuscripts in Hampartsum Notation</h2>
+        <h3>Series I: The Manuscript Sources from İstanbul Üniversitesi Nadir Eserler Kütüphanesi</h3>
         <ul>
-          <li>Volume 1: <a href="../../servlets/solr/select?q=Y.203-1%20AND%20objectType:mods">Manuscript Y.203-1</a></li>
+          <!-- li>Volume 1: <a href="../../servlets/solr/select?q=Y.203-1%20AND%20objectType:mods">Manuscript Y.203-1</a></li>
           <li>Volume 2: <a href="../../servlets/solr/select?q=Y.204-2%20AND%20objectType:mods">Manuscript Y.204-2</a></li>
-          <li>Volume 3: <a href="../../servlets/solr/select?q=Y.205-3%20AND%20objectType:mods">Manuscript Y.205-3</a></li>
-          <li>...</li>
+          <li>Volume 3: <a href="../../servlets/solr/select?q=Y.205-3%20AND%20objectType:mods">Manuscript Y.205-3</a></li -->
+          <li>Volume 1: Codex 203-1 (≙ CMO1-I/1)</li>
+            <ul>
+              <li>a. Notation</li>
+              <li>b. Commentary</li>
+            </ul>
+          <li>Volume 2: Codex 204-2 (≙ CMO1-I/2)</li>
+            <ul>
+              <li>a. Transcription</li>
+              <li>b. Commentary</li>
+              <li>c. Lyrics</li>
+            </ul>
+          <li>Volume 3: Codex 205-3</li>
+            <ul>
+              <li>Etc.</li>
+            </ul>
+          <li>Volume 4: Codex 206-4</li>
+          <li>Volume 5: Codex 207-5</li>
+          <li>Volume 6: Codex 208-6</li>
+          <li>Volume 7: Codex 209-7</li>
+          <li>Volume 8: Codex 210-8</li>
+          <li>Volume 9: Codex 211-9</li>
+          <li>Volume 10: Codex 213-11</li>
+          <li>Volume 11: Codex 214-12</li>
+          <li>Volume 12: Codex 215-13</li>
+          <li>Volume 13: Codex 216-14</li>
+          <li>Volume 14: Codex 217-15</li>
+        </ul>
+
+        <h3>Series II: The Manuscript Sources from İstanbul Üniversitesi Türkiyat Araştırmaları Enstitüsü Kütüphanesi</h3>
+        <ul>
+          <li>Volume 1: Codex 107</li>
+          <li>Volume 2: Codex 108</li>
+          <li>Volume 3: Codex 109</li>
+          <li>Volume 4: Codex 110</li>
+          <li>Volume 5: Collections of Loose Sheets</li>
+        </ul>
+
+        <h3>Series III: The Manuscript Sources from İstanbul Büyükşehir Belediyesi Atatürk Kitaplığı</h3>
+        <ul>
+          <li>Volume 1: Codex Bel_Yz_O.000086</li>
+          <li>Volume 2: Codex LKE_F000056</li>
+        </ul>
+
+        <h3>Series IV: The Manuscript Sources from Milli Kütüphane, Ankara</h3>
+        <ul>
+          <li>Volume 1: Codex Müteferrik 355</li>
+          <li>Volume 2: Codex Gedik Paşa 18317</li>
+          <li>Volume 2: Codex A4994</li>
+          <li>Volume 3: Codex A4994</li>
+          <li>Volume 4: Codex A4994</li>
+        </ul>
+
+        <h3>Series V: The Manuscript Sources from İslam Araştırmaları Merkezi (İSAM), Istanbul</h3>
+        <ul>
+          <li>Volume 1: Codex HMP_1</li>
+          <li>Volume 2: Codex HMP_2</li>
+          <li>Volume 3: Codex HMP_3</li>
+        </ul>
+
+        <h3>Series VI: Single Manuscript Sources from Various Collections</h3>
+        <ul>
+          <li>Volume 1: İstanbul Arkeoloji Müzesi Kütüphanesi, Codex 1537</li>
+        </ul>
+
+
+        <h2>Part 2: Edition of Manuscripts in Staff Notation</h2>
+        <h3>Series I: The Manuscript Sources from İstanbul Üniversitesi, Nadir Eserler Kütüphanesi</h3>
+        <ul>
+          <li>Volume 1: Manuscript Y.6</li>
+          <li>Volume 2: Manuscript Y.7</li>
+          <li>Volume 3: Manuscript Y.8</li>
+          <li>Volume 4: Manuscript Y.9</li>
+          <li>Volume 5: Manuscript Y.11</li>
+          <li>Volume 6: Manuscript Y.15</li>
+          <li>Volume 7: Manuscript Y.16</li>
+        </ul>
+
+        <h3>Series II: The Manuscript Sources from İstanbul Üniversitesi, Türkiyat Araştırmaları Enstitüsü, Arel Kütüphanesi</h3>
+        <ul>
+          <li>Volume 1: Collections of Loose Sheets, TÜRK 15, Dosya 6, 2539A-2552</li>
+          <li>Volume 2: Collections of Loose Sheets, TÜRK 18, 3319-3423</li>
+          <li>Volume 3: Collections of Loose Sheets, TÜRK 12, Dosya 1, 1672-1711</li>
+          <li>Volume 4: Collections of Loose Sheets, TÜRK 12, Dosya 2, 1712-1986</li>
+          <li>Volume 5: Collections of Loose Sheets, TÜRK 17, 2760-3110</li>
+        </ul>
+
+        <h3>Series III: The Manuscript Sources from Beyazit Devlet Kütüphanesi, İstanbul</h3>
+        <ul>
+          <li>Volume 1: Manuscript 106 767</li>
+          <li>Volume 2: Manuscript 106 769</li>
+          <li>Volume 3: Manuscript 106 770</li>
+          <li>Volume 4: Manuscript 106 772</li>
+        </ul>
+
+        <h3>Series IV: The Manuscript Sources from Milli Kütüphane, Ankara</h3>
+        <ul>
+          <li>Volume 1: Manuscript 06 Mil Yz A 8564/1</li>
+          <li>Volume 2: Manuscript 06 Mil Yz A 8564/2</li>
+          <li>Volume 3: Manuscript 06 Mil Yz A 8564/3</li>
+          <li>Volume 4: Manuscript 06 Mil Yz A 8564/4</li>
+          <li>Volume 5: Manuscript 06 Mil Yz A 8564/5</li>
+          <li>Volume 7: Manuscript 06 Mil Yz A 8564/7</li>
+          <li>Volume 8: Manuscript 06 Mil Yz A 8564/3</li>
+        </ul>
+
+        <h3>Series V: Single Manuscript Sources from Various Collections</h3>
+        <ul>
+          <li>Volume 1: Afyon Gedik Ahmet Paşa İl Halk Kütüphanesi, Manuscript 03 Gedik 18317</li>
+          <li>Volume 2: Divan Edebiyati Müzesi İstanbul, Manuscript 552</li>
         </ul>
       </div>
     </div>
   </section>
   <meta>
-    <log date="2017-05-08" time="13:59" labelPath=" » Browse edition"
+    <log date="2017-07-31" time="13:59" labelPath=" » Browse edition"
       lastEditor="Kathleen Neumann" />
   </meta>
 </MyCoReWebPage>

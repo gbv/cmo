@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="de" title="About Catalogue">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>About Catalogue</h1>
+        <p>
+          coming soon
+        </p>
+      </div>
+    </div>
+  </section>
+  <meta>
+    <log date="2017-07-31" time="11:59" labelPath=" » About Catalogue" lastEditor="Kathleen Neumann" />
+  </meta>
+</MyCoReWebPage>

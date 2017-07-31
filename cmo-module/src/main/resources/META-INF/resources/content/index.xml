@@ -9,6 +9,19 @@
       <h2><small>Online Catalogue for Metadata from CMO</small></h2>
       <img id="cmo_pitch_set" src="images/pitch_set.png" />
       <p>
+        german version is coming soon
+      </p>
+    </div>
+
+  </section>
+
+  <section title="Welcome to CMO Catalogue" xml:lang="en">
+
+    <div id="cmo_start" class="text-center">
+      <h1>CMO Edition and Catalogue</h1>
+      <h2><small>Online Catalogue for Metadata from CMO</small></h2>
+      <img id="cmo_pitch_set" src="images/pitch_set.png" />
+      <p>
         Includes a short “welcome” text and logos of related institutions,
         with an option to change the language (English, German and Turkish
         – only the main text will be translated).
@@ -26,7 +39,20 @@
     </div>
 
   </section>
+
+  <section title="Welcome to CMO Catalogue" xml:lang="tr">
+
+    <div id="cmo_start" class="text-center">
+      <h1>CMO Edition and Catalogue</h1>
+      <h2><small>Online Catalogue for Metadata from CMO</small></h2>
+      <img id="cmo_pitch_set" src="images/pitch_set.png" />
+      <p>
+        turkish version is coming soon
+      </p>
+    </div>
+
+  </section>
   <meta>
-    <log date="2017-06-26" time="16:53" labelPath=" » Start" lastEditor="Kathleen Neumann" />
+    <log date="2017-07-31" time="16:53" labelPath=" » Start" lastEditor="Kathleen Neumann" />
   </meta>
 </MyCoReWebPage>

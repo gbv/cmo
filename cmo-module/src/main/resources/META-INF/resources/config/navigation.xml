@@ -15,7 +15,7 @@
     </item>
     <item href="/content/below/impressum.xml" type="intern">
       <label xml:lang="de">Impressum</label>
-      <label xml:lang="en">Impressum</label>
+      <label xml:lang="en">Imprint</label>
     </item>
     <item href="/content/below/contact.xml" type="intern">
       <label xml:lang="de">Kontakt</label>
@@ -30,26 +30,30 @@
     <!-- CMO edition menu  -->
     <label xml:lang="de">Edition</label>
     <label xml:lang="en">Edition</label>
+    <item href="/content/edition/about.xml" type="intern">
+      <label xml:lang="de">Über</label>
+      <label xml:lang="en">About</label>
+    </item>
     <item href="/content/edition/browse.xml" type="intern">
       <label xml:lang="de">Blättern</label>
       <label xml:lang="en">Browse edition</label>
-    </item>
-    <item href="/content/edition/search.xed" type="intern">
-      <label xml:lang="de">Suchen</label>
-      <label xml:lang="en">Search Edition</label>
     </item>
     <item href="/content/edition/guidelines.xml" type="intern">
       <label xml:lang="de">Leitlinien</label>
       <label xml:lang="en">Edition guidelines</label>
     </item>
+    <item href="/content/edition/abbreviations.xml" type="intern">
+      <label xml:lang="de">Abkürzungsverzeichnis</label>
+      <label xml:lang="en">List of abbreviations</label>
+    </item>
   </menu>
   <menu id="cmo_catalogue" dir="/content/catalogue">
     <!-- CMO catalogue menu  -->
-    <label xml:lang="de">Katalog</label>
-    <label xml:lang="en">Catalogue</label>
-    <item href="/content/catalogue/search.xed" type="intern">
-      <label xml:lang="de">Suchen</label>
-      <label xml:lang="en">Search Edition</label>
+    <label xml:lang="de">Quellenkatalog</label>
+    <label xml:lang="en">Source Catalogue</label>
+    <item href="/content/catalogue/about.xml" type="intern">
+      <label xml:lang="de">Über</label>
+      <label xml:lang="en">About</label>
     </item>
     <item href="/content/catalogue/source.xml" type="intern">
       <label xml:lang="de">Art der Quelle</label>
