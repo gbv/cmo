@@ -25,7 +25,26 @@
           <xsl:value-of select="$id" />
         </field>
     </xsl:for-each>
+
+    <xsl:for-each select="structure/parents/parent">
+      <xsl:variable name="parent" select="document(concat('mcrobject:',@xlink:href))/mycoreobject" />
+      <field name="parentLinkText">
+        <xsl:apply-templates select="$parent" mode="resulttitle" />
+      </field>
+    </xsl:for-each>
   </xsl:template>
 
+
+  <xsl:template match="mycoreobject" mode="resulttitle">
+    <xsl:choose>
+      <xsl:when test="metadata/def.meiContainer/meiContainer/mei:source/mei:identifier">
+        <xsl:value-of select="metadata/def.meiContainer/meiContainer/mei:source/mei:identifier"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="@ID" />
+      </xsl:otherwise>
+    </xsl:choose>
+
+  </xsl:template>
 
 </xsl:stylesheet>

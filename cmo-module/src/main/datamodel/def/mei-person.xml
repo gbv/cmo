@@ -1,4 +1,4 @@
-<objecttype name="mods" isChild="true" isParent="true" hasDerivates="true" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<objecttype name="person" isChild="true" isParent="true" hasDerivates="true" xmlns:xs="http://www.w3.org/2001/XMLSchema"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:mei="http://www.music-encoding.org/ns/mei" xsi:noNamespaceSchemaLocation="datamodel.xsd">
   <xsd>

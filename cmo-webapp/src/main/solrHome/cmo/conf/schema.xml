@@ -484,6 +484,11 @@
   <field name="death.date.range" type="date_range" multiValued="true" />
   <field name="death.date.content" type="string" multiValued="true" />
 
+  <field name="series" type="text_tr" multiValued="true" />
+
+  <field name="name" type="text_tr" multiValued="true" />
+  <dynamicField name="name.*" type="text_tr" multiValued="true" />
+
   <!-- extra classification for faceting -->
   <field name="cmo_usuler" type="string" multiValued="true" />
   <field name="cmo_makamler" type="string" multiValued="true" />

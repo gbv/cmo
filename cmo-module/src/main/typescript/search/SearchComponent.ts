@@ -130,7 +130,7 @@ export class SearchController {
     public    addExtended(extendedDescription: any) {
         for (let name in extendedDescription) {
             let description = extendedDescription[ name ];
-            this.view.createType(name, description.type);
+            this.view.createType(name, description.type, description.baseQuery);
             this.processDescription(name, description);
         }
     }

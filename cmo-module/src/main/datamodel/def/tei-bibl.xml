@@ -1,13 +1,13 @@
-<objecttype name="mods" isChild="true" isParent="true" hasDerivates="true" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<objecttype name="work" isChild="true" isParent="true" hasDerivates="true" xmlns:xs="http://www.w3.org/2001/XMLSchema"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:tei="http://www.tei-c.org/ns/1.0" xsi:noNamespaceSchemaLocation="datamodel.xsd">
+            xmlns:mei="http://www.music-encoding.org/ns/mei" xsi:noNamespaceSchemaLocation="datamodel.xsd">
   <xsd>
-    <xs:import namespace="http://www.tei-c.org/ns/1.0" schemaLocation="schema/tei-all.xsd" />
+    <xs:import namespace="http://www.music-encoding.org/ns/mei" schemaLocation="schema/mei-all_anyStart.xsd" />
   </xsd>
   <metadata>
     <element name="meiContainer" type="xml" style="dontknow" notinherit="true" heritable="false">
       <xs:sequence>
-        <xs:element ref="tei:bibl" />
+        <xs:element ref="mei:bibl" />
       </xs:sequence>
     </element>
   </metadata>

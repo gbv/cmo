@@ -747,6 +747,11 @@
     <lst name="defaults">
       <str name="echoParams">explicit</str>
       <int name="rows">10</int>
+      <str name="facet.field">objectType</str>
+      <str name="facet.field">cmo_makamler</str>
+      <str name="facet.field">cmo_usuler</str>
+      <str name="facet.field">cmo_musictype</str>
+      <str name="facet">true</str>
       <!-- <str name="df">text</str> -->
     </lst>
     <!-- In addition to defaults, "appends" params can be specified

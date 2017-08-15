@@ -14,18 +14,28 @@ export class SearchDisplay {
     private fieldLabelMapping = {
         title : "editor.label.title",
         "composer.ref" : "editor.label.composer",
-        "author.ref":"editor.label.author",
+        "author.ref" : "editor.label.author",
         publisher : "editor.label.publisher",
-        "publisher.place":"editor.label.place",
+        "publisher.place" : "editor.label.pubPlace",
+        "birth.date.content" : "editor.label.lifeData.birth",
+        "death.date.content" : "editor.label.lifeData.death",
+        "name" : "editor.label.name",
+        "publish.date.content":"editor.label.date",
+        "series":"editor.label.series"
+
     };
 
     public displayResult(result: SolrSearchResult, pageChangeHandler: (newPage: number) => void) {
         this._container.innerHTML = `
-    <div class="row">
+    <div class="row searchResultList">
         <div class="col-md-10 col-md-offset-1">
-            <h2 data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></h2>
+                </div>
+            </div>
              ${this.renderList(result)}
-             ${this.renderNav(result.response)}
+             ${this.renderNav(result)}
         </div>
     </div>`;
 
@@ -76,7 +86,8 @@ export class SearchDisplay {
                 case "work":
                     return this.displayWork(doc, index, result);
             }
-        }).join("<hr/>");
+        }).map(innerHTML => `<div class="hit row">${innerHTML}</div>`)
+            .join("<hr/>");
     }
 
     private displayHitTitle(doc: CMOBaseDocument, currentIndex: number, result: SolrSearchResult) {
@@ -100,28 +111,34 @@ export class SearchDisplay {
 
         param += `&start=${currentIndex}&rows=1&origrows=${result.responseHeader.params[ "rows" ] || 10}&XSL.Style=browse`;
 
-        return ` <a href='${Utils.getBaseURL()}servlets/solr/select?${param}'><h4>${("identifier" in doc) ? doc.identifier.join(",") : doc.id}</h4></a>`;
+        let field = ("identifier.type.CMO" in doc) ? doc[ "identifier.type.CMO" ] : ("identifier" in doc) ? doc[ "identifier" ] : doc.id;
+
+        return `
+<div class="col-md-12">
+    <a class="hitTitle" href='${Utils.getBaseURL()}servlets/solr/select?${param}'><span>${field}</span></a>
+</div>`;
 
     }
 
-    private renderNav(response: Response) {
-        let rows = response.rows || 10;
-        let currentPage = Math.floor(response.start / rows);
-        let maxPages = Math.ceil(response.numFound / rows);
+    private renderNav(response: SolrSearchResult) {
+        let rowsParam = response.responseHeader.params["rows"] || 10;
+        let rows = Math.min(rowsParam, response.response.numFound);
+        let currentPage = Math.floor(response.response.start / rows);
+        let maxPages = Math.ceil(response.response.numFound / rows)-1;
 
         let firstBefore = Math.max(currentPage - 5, 0);
         let lastAfter = Math.min(currentPage + 6, maxPages);
         let pagesToRender = [];
 
-        for (let currentRendered = firstBefore; currentRendered < lastAfter; currentRendered++) {
+        for (let currentRendered = firstBefore; currentRendered <= lastAfter; currentRendered++) {
             pagesToRender.push(currentRendered);
         }
 
         let previousPageAttribute = currentPage !== firstBefore ? "data-switch-page='" + ((currentPage - 1) * rows) + "'" : '';
-        let nextPageAttribute = currentPage !== lastAfter ? "data-switch-page='" + ((currentPage + 1) * rows) + "'" : '';
+        let nextPageAttribute = currentPage >= lastAfter ? '' : "data-switch-page='" + ((currentPage + 1) * rows) + "'";
 
-        return `
- <div class="text-center">
+        return pagesToRender.length>0 ?`
+ <div class="row text-center pages"><div class="col-md-12">
     <div class="btn-group" role="group">
         <button type="button" class="btn btn-primary" ${previousPageAttribute}>&lt;</button>
         ${pagesToRender.map(page => `
@@ -129,19 +146,21 @@ export class SearchDisplay {
 `).join("")}
          <button type="button" class="btn btn-primary" ${nextPageAttribute}>&gt;</button>
     </div>
+    </div>
 </div>
-`;
+`:'';
     }
 
 
-    private displayMultivalued(name: string, doc: CMOBaseDocument) {
+    private display(name: string, doc: CMOBaseDocument) {
         if (name in doc) {
             let displayValue = (value) => `<span class="value">${value}</span>`;
             return `
 <div class="metadata multi">
-    <label data-i18n="${this.fieldLabelMapping[ name ]}"> </label>
+    <span class="col-md-4 key" data-i18n="${this.fieldLabelMapping[ name ]}"> </span>
+    <div class="col-md-8 values">
     ${doc[ name ].map(fieldValue => displayValue(fieldValue)).join("")}
-</div>`
+</div></div>`
         }
 
         return "";
@@ -150,7 +169,7 @@ export class SearchDisplay {
     private displayExpression(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
         return `
         ${this.displayHitTitle(doc, index, result)}
-        ${this.displayMultivalued("title", doc)}
+        ${this.display("title", doc)}
         ${this.displayRefField(doc, "composer.ref")}
         ${this.displayCategory(doc, "cmo_makamler")}
         ${this.displayCategory(doc, "cmo_usuler")}
@@ -161,13 +180,15 @@ export class SearchDisplay {
     private displaySource(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
         return `
         ${this.displayHitTitle(doc, index, result)}
+        ${this.display("title", doc)}
         ${this.displayRefField(doc, "editor.ref")}
-        ${this.displayMultivalued("publisher", doc)}
-        ${this.displayMultivalued("publisher.place", doc)}
+        ${this.display("publisher", doc)}
+        ${this.display("publisher.place", doc)}
+        ${this.display("publish.date.content", doc)}
+        ${this.display("series", doc)}
         ${this.displayCategory(doc, "cmo_sourceType")}
         ${this.displayCategory(doc, "cmo_contentType")}
         ${this.displayCategory(doc, "cmo_musictype")}
-        
         `
     }
 
@@ -180,6 +201,9 @@ export class SearchDisplay {
     private displayPerson(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
         return `
         ${this.displayHitTitle(doc, index, result)}
+        ${this.display("name", doc)}
+        ${this.display("birth.date.content", doc)}
+        ${this.display("death.date.content", doc)}
         `
     }
 
@@ -190,10 +214,11 @@ export class SearchDisplay {
     }
 
     private displayRefField(doc: CMOBaseDocument, field: string) {
-        return field in doc ? "<label data-i18n='" + this.fieldLabelMapping[ field ] + "'></label><ul>" + doc[ field ]
+        return field in doc ? "<div class='metadata'><span class='col-md-4 key' data-i18n='" + this.fieldLabelMapping[ field ] + "'></span>" +
+            "<div class='col-md-8 values'>" + doc[ field ]
                 .map(composer => composer.split("|", 2))
-                .map(([ value, ref ]) => `<li><a href="${Utils.getBaseURL()}receive/${ref}">${value}</a></li>`)
-                .join("") + "</ul>" : "";
+                .map(([ value, ref ]) => `<span><a href="${Utils.getBaseURL()}receive/${ref}">${value}</a></span>`)
+                .join("") + "</div></div>" : "";
     }
 
     // change this to class translate (i18n like)
@@ -204,8 +229,10 @@ export class SearchDisplay {
         if (rightCategoryField.length > 0) {
             return `
 <div class="metadata">
-    <label data-clazz="${clazz}"></label>
-    ${rightCategoryField.map(field => `<span data-clazz="${clazz}" data-category="${field.category}" class="value"></span>`).join(", ")}
+    <span class="col-md-4 key" data-clazz="${clazz}"></span>
+    <div class="col-md-8 values">
+     ${rightCategoryField.map(field => `<span data-clazz="${clazz}" data-category="${field.category}" class="value"></span>`).join("")}
+    </div>
 </div>`;
         } else {
             return "";
@@ -242,7 +269,7 @@ export class SolrSearcher {
 
         let paramPart = params.map((kv) => {
             let [ key ] = kv;
-            return kv.slice(1).map(v => `${key}=${v}`).join("&");
+            return kv.slice(1).map(v => `${key}=${encodeURIComponent(v)}`).join("&");
         }).join("&");
 
         xhttp.open('GET', baseUrl + "servlets/solr/select?" + paramPart + "&wt=json", true);

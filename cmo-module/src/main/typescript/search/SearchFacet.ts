@@ -1,6 +1,7 @@
 import {FacetHeader, SolrSearchResult} from "./SearchDisplay";
 import {I18N} from "../other/I18N";
 import {Classification, ClassificationResolver} from "../other/Classification";
+import {Utils} from "../other/utils";
 export class SearchFacetController {
 
     private view: SearchFacetGUI;
@@ -54,7 +55,12 @@ export class SearchFacetController {
                 fqs = [ fqs ];
             }
             for (let fq of fqs) {
-                let [ field, value ] = fq.split(":", 2);
+                let [ field, value, value2 ] = fq.split(":").map(s=>typeof s =="string" ? Utils.stripSurrounding(s.trim(), "\"") : null);
+
+                if(field == "category.top"){
+                    [ field, value ] = [value, value2];
+                }
+
                 if (this.facetFields.map(field => field.field).indexOf(field) !== -1) {
                     if (!(field in lockObject)) {
                         lockObject[ field ] = new Array();

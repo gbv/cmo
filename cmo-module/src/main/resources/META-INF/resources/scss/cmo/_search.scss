@@ -117,3 +117,29 @@
     }
   }
 }
+
+.searchResultList {
+  .hit {
+    .hitTitle {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .key {
+      font-weight: bold;
+    }
+  }
+
+  hr {
+    border-color: #cccccc;
+  }
+
+  .pages {
+    margin-top: 3em;
+  }
+
+  .value {
+    display: block;
+  }
+}

@@ -13,6 +13,7 @@ export class SearchGUI {
     private extenderIconUrl: string;
     private minusIconUrl: string;
     private nameTypeMap: {} = {};
+    private nameBaseQueryMap: any = {};
 
 
     constructor(private container: HTMLElement, private placeHolderKey: string, private baseQuery: string) {
@@ -118,11 +119,12 @@ export class SearchGUI {
         return this.extendedSearch.classList.contains("opened");
     }
 
-    public createType(name: string, type: string) {
+    public createType(name: string, type: string, baseQuery: Array<string>) {
         if (this.currentType == null) {
             this.currentType = name;
         }
         this.nameTypeMap[ name ] = type;
+        this.nameBaseQueryMap[ name ] = baseQuery;
         let extendOption = <HTMLOptionElement>document.createElement('option');
 
         let langKey = `editor.cmo.select.${name}`;
@@ -181,7 +183,8 @@ export class SearchGUI {
         }
 
         if (this.isExtendedSearchOpen()) {
-            solrQueryParts.push(`objectType:${this.nameTypeMap[ this.typeSelect.value ]}`);
+            this.nameBaseQueryMap[ this.typeSelect.value ].forEach(bq=>solrQueryParts.push(bq));
+
             for (let inputIndex in this.typeMap[ this.currentType ]) {
                 let input = <SearchFieldInput>this.typeMap[ this.currentType ][ inputIndex ];
                 let solrQueryPart = input.getSolrQueryPart();
@@ -196,6 +199,8 @@ export class SearchGUI {
 
     public setSolrQuery(query: string) {
         let kvMap = {};
+
+        let bqMap = this.nameBaseQueryMap;
 
 
         let process = (queryParts) => {
@@ -213,6 +218,47 @@ export class SearchGUI {
         let queryParts = query.split(" AND ");
         process(queryParts);
 
+        let sortedByComplexity = [];
+
+        for (let name in bqMap) {
+            if(!bqMap.hasOwnProperty(name)){
+                continue;
+            }
+            let baseQuery = bqMap[ name ];
+            sortedByComplexity.push([name, baseQuery]);
+        }
+
+        let kvSet = [];
+
+        for(let k in kvMap) {
+            if (!kvMap.hasOwnProperty(k)) {
+                continue;
+            }
+
+            let v = kvMap[k];
+            kvSet.push(`${k}:${v}`);
+        }
+        sortedByComplexity = sortedByComplexity.sort(([,bq1],[,bq2])=> bq2.length-bq1.length);
+
+        for(let entry of sortedByComplexity){
+            let [name, baseQuery] = entry;
+            let isMatching = true;
+            for (let bq of baseQuery) {
+                isMatching = isMatching && kvSet.indexOf(bq)!=-1;
+                if (!isMatching) {
+                    break;
+                }
+            }
+
+            if (isMatching) {
+                if (this.typeSelect.value !== name) {
+                    this.typeSelect.value = name;
+                    this.typeChanged();
+                }
+                break;
+            }
+        }
+
         for (let key in kvMap) {
             let value = kvMap[ key ];
 
@@ -220,6 +266,7 @@ export class SearchGUI {
                 this.mainSearchInputElement.value = value;
             }
 
+            // TODO: lol
             if (key == "objectType" && value in this.typeMap) {
                 if (this.typeSelect.value !== value) {
                     this.typeSelect.value = value;

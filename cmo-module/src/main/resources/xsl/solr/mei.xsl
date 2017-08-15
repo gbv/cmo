@@ -157,6 +157,24 @@
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="mei:persName/mei:name" mode="solrIndex">
+    <field name="name">
+      <xsl:value-of select="text()" />
+    </field>
+
+    <xsl:if test="@type">
+      <field name="name.{@type}">
+        <xsl:value-of select="text()" />
+      </field>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="mei:seriesStmt/mei:title" mode="solrIndex">
+    <field name="series">
+      <xsl:value-of select="text()" />
+    </field>
+  </xsl:template>
+
   <xsl:template name="date">
     <xsl:param name="dateNode" />
     <xsl:param name="fieldName" />

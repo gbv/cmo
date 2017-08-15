@@ -47,6 +47,8 @@ export class StateController {
         let [ , hash ] = newURL.split("#", 2);
 
         if (typeof hash !== "undefined") {
+            hash = decodeURIComponent(hash);
+
             let params = hash.split("&");
             let groupObj = {};
 

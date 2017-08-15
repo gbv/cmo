@@ -79,6 +79,7 @@ window.document.body.addEventListener("click", (evt: any) => {
 kSearch.addExtended({
     expression : {
         type : "expression",
+        baseQuery: ["objectType:expression"],
         fields : [ new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
             new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
             new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
@@ -88,6 +89,7 @@ kSearch.addExtended({
     ,
     expression_complex : {
         type : "expression",
+        baseQuery: ["objectType:expression"],
         fields : [
             new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
             new SearchField("editor.label.identifier", [ "identifier" ]),
@@ -101,6 +103,7 @@ kSearch.addExtended({
     },
     source : {
         type : "source",
+        baseQuery: ["objectType:source"],
         fields : [
             new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
             new SearchField("editor.label.identifier", [ "identifier" ]),
@@ -113,6 +116,7 @@ kSearch.addExtended({
     },
     bibliography : {
         type : "bibl",
+        baseQuery: ["objectType:bibl"],
         fields : [
             new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
             new SearchField("editor.label.identifier", [ "identifier" ]),
@@ -121,6 +125,7 @@ kSearch.addExtended({
     },
     person : {
         type : "person",
+        baseQuery: ["objectType:person"],
         fields : [
             new SearchField("editor.label.identifier", [ "identifier" ]),
             new SearchField("editor.label.name", [ "name" ]),
@@ -129,7 +134,8 @@ kSearch.addExtended({
 
     },
     lyrics : {
-        type : "lyrics",
+        type : "expression",
+        baseQuery: ["objectType:expression", "cmo_musictype:gn-66217054-X"],
         fields : [
             new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
             new SearchField("editor.label.identifier", [ "identifier" ]),
@@ -141,8 +147,7 @@ kSearch.addExtended({
             new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
             new SearchField("editor.label.lyricist", [ "lyricist" ]) ]
     }
-})
-; // çekemez
+});
 
 
 /* switch input  */
@@ -192,9 +197,7 @@ search = (start, searchController) => {
     let queries = searchController.getSolrQuery();
 
     let params = queries
-        .concat([ [ "facet.field" ].concat(facet.getFacetFields()) ])
-        .concat([ [ "start", start ] ])
-        .concat([ [ "facet", "true" ] ]);
+        .concat([ [ "start", start ] ]);
 
     StateController.setState(params);
 };
@@ -213,13 +216,14 @@ StateController.onStateChange((params, selfChange) => {
             ctrl = eSearch;
         }
 
-        ctrl.enable = true;
     }
-
 
     searchDisplay.reset();
     facet.reset();
+
     if (ctrl != null) {
+        ctrl.enable = true;
+
 
         if (!selfChange) {
             ctrl.setSolrQuery(params);

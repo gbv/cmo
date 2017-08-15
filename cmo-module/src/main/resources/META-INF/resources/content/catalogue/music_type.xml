@@ -13,7 +13,7 @@
                                  countresults="true"
                                    addclassid="true"
                                   emptyleaves="true"
-                                        style="bootstrap"
+                               style="bootstrap-cmo"
                                  addParameter="XSL.template=template_cmo"
         />
       </div>

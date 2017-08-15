@@ -211,6 +211,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
         convertPerson();
         convertSources();
+        convertBibl();
         combine();
 
         allCombinedMap.entrySet().stream().sequential().forEach((es) -> {
@@ -349,6 +350,8 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             .collect(Collectors.toList());
     }
 
+
+
     public Consumer<Element> getElementCorrector(String cmoID, String attrName) {
         return element -> {
             String oldID = element.getAttributeValue(attrName);
@@ -398,6 +401,20 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
         personMap = newPersonMap;
     }
 
+    private void convertBibl() {
+        ConcurrentHashMap<String, Document> newBiblMap = new ConcurrentHashMap<>();
+        bibliographicMap.forEach((cmoID, doc) -> {
+            MCRXSLTransformer transformer = new MCRXSLTransformer("xsl/model/cmo/import/tei-bibl2mods.xsl");
+            try {
+                Document document = transformer.transform(new MCRJDOMContent(doc)).asXML();
+                newBiblMap.put(cmoID, document);
+            } catch (JDOMException | IOException | SAXException e) {
+                LOGGER.error(e);
+            }
+        });
+        bibliographicMap = newBiblMap;
+    }
+
     public void extractChildren(Map<String, Document> newChildMap) {
         ConcurrentHashMap<String, Document> newWorkChildren = new ConcurrentHashMap<>();
         newChildMap.forEach((parentID, elementToExtractFrom) -> {
@@ -435,7 +452,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                 type = "source";
                 break;
             case "bb":
-                type = "bibl";
+                type = "mods";
                 break;
             case "pp":
                 type = "person";
