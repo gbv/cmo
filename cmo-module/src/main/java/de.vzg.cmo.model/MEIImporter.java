@@ -405,6 +405,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
         ConcurrentHashMap<String, Document> newBiblMap = new ConcurrentHashMap<>();
         bibliographicMap.forEach((cmoID, doc) -> {
             MCRXSLTransformer transformer = new MCRXSLTransformer("xsl/model/cmo/import/tei-bibl2mods.xsl");
+            transformer.setTransformerFactory("net.sf.saxon.TransformerFactoryImpl");
             try {
                 Document document = transformer.transform(new MCRJDOMContent(doc)).asXML();
                 newBiblMap.put(cmoID, document);

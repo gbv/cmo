@@ -196,6 +196,11 @@
       <artifactId>mycore-restapi</artifactId>
     </dependency>
     <dependency>
+      <groupId>net.sf.saxon</groupId>
+      <artifactId>Saxon-HE</artifactId>
+      <version>9.8.0-3</version>
+    </dependency>
+    <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>bootstrap-sass</artifactId>
       <version>3.3.7</version>
