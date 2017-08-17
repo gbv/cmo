@@ -32,10 +32,23 @@
     </xsl:attribute>
   </xsl:template>
 
-  <xsl:template match="mei:title/@type">
+  <!-- xsl:template match="mei:title/@type">
     <xsl:attribute name="type">
       <xsl:value-of select="substring-after(., 'cmo_titleType:')" />
     </xsl:attribute>
+  </xsl:template>
+
+  <xsl:template match="mei:title/@xml:lang">
+    <xsl:attribute name="xml:lang">
+      <xsl:value-of select="substring-after(., 'rfc4646:')" />
+    </xsl:attribute>
+  </xsl:template -->
+
+  <xsl:template match="mei:printer">
+    <mei:respStmt>
+      <mei:resp>Printer</mei:resp>
+      <mei:corpName><xsl:value-of select="." /></mei:corpName>
+    </mei:respStmt>
   </xsl:template>
 
   <xsl:template match="mei:language/@xml:id">

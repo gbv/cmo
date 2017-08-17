@@ -123,7 +123,13 @@
                                 </xsl:choose>
                               </xsl:attribute>
                               <div class="row">
-                                <div class="col-md-10 col-md-offset-1">
+                                <div>
+                                  <xsl:attribute name="class">
+                                    <xsl:choose>
+                                      <xsl:when test="contains($RequestURL, '/editor/')"><xsl:text>col-md-12</xsl:text></xsl:when>
+                                      <xsl:otherwise><xsl:text>col-md-10 col-md-offset-1</xsl:text></xsl:otherwise>
+                                    </xsl:choose>
+                                  </xsl:attribute>
                                   <xsl:call-template name="print.writeProtectionMessage" />
                                   <xsl:choose>
                                     <xsl:when test="$readAccess='true'">

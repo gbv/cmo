@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_annotType">
+  <label xml:lang="de" text="Kommentartypen" />
+  <label xml:lang="x-uri" text="http://cmo.gbv.de/classifications/cmo_annotType" />
+  <label xml:lang="en" text="Annotation Types" />
+  <categories>
+    <category ID="Fascicles">
+      <label xml:lang="de" text="Faszikel" />
+      <label xml:lang="en" text="Fascicles" />
+    </category>
+    <category ID="Script">
+      <label xml:lang="en" text="Script" />
+      <label xml:lang="de" text="Skript" />
+    </category>
+    <category ID="Publisher">
+      <label xml:lang="de" text="Herausgeber" />
+      <label xml:lang="en" text="Publisher" />
+    </category>
+    <category ID="Printer">
+      <label xml:lang="de" text="Drucker" />
+      <label xml:lang="en" text="Printer" />
+    </category>
+    <category ID="Editors">
+      <label xml:lang="de" text="Bearbeiter" />
+      <label xml:lang="en" text="Editors" />
+    </category>
+    <category ID="Series">
+      <label xml:lang="de" text="Serie" />
+      <label xml:lang="en" text="Series" />
+    </category>
+    <category ID="Volumes">
+      <label xml:lang="de" text="Volumes" />
+      <label xml:lang="en" text="Volumes" />
+    </category>
+    <category ID="Volume">
+      <label xml:lang="de" text="Volume" />
+      <label xml:lang="en" text="Volume" />
+    </category>
+    <category ID="Volumes_and_fascicles">
+      <label xml:lang="de" text="Volumes_and_fascicles" />
+      <label xml:lang="en" text="Volumes_and_fascicles" />
+    </category>
+    <category ID="Page_numbers">
+      <label xml:lang="de" text="Page_numbers" />
+      <label xml:lang="en" text="Page_numbers" />
+    </category>
+    <category ID="Sections">
+      <label xml:lang="de" text="Sections" />
+      <label xml:lang="en" text="Sections" />
+    </category>
+    <category ID="Fasıls">
+      <label xml:lang="de" text="Fasıls" />
+      <label xml:lang="en" text="Fasıls" />
+    </category>
+    <category ID="Publication_date">
+      <label xml:lang="de" text="Publication_date" />
+      <label xml:lang="en" text="Publication_date" />
+    </category>
+    <category ID="Publication_year">
+      <label xml:lang="de" text="Publication_year" />
+      <label xml:lang="en" text="Publication_year" />
+    </category>
+    <category ID="Publication_details">
+      <label xml:lang="de" text="Publication_details" />
+      <label xml:lang="en" text="Publication_details" />
+    </category>
+    <category ID="Transcriber">
+      <label xml:lang="de" text="Transcriber" />
+      <label xml:lang="en" text="Transcriber" />
+    </category>
+  </categories>
+</mycoreclass>

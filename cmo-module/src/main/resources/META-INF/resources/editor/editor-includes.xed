@@ -32,7 +32,35 @@
   </xed:template>
 
   <xed:template id="cmo_title">
-    <cmo:textfield xpath="mei:titleStmt/mei:title" label="editor.label.title" type="cmo_titleType" repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
+    <cmo:textfield xpath="mei:titleStmt/mei:title" label="editor.label.title" type="cmo_titleType" lang="rfc4646" repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
+  </xed:template>
+
+  <!--  editor>
+    [Irsoy], Zekâizade Ahmet
+    <persName nymref="cmo_person_00000434">Irsoy, Ahmed</persName>
+  </editor -->
+  <xed:template id="cmo_editor">
+    <cmo:nameLinkField xpath="mei:titleStmt/mei:editor" repeat="true" min="1" max="10" placeholder="last name, first name" label="editor.label.editor" help-text="{i18n:cmo.help.editor}" />
+  </xed:template>
+
+  <xed:template id="cmo_author">
+    <cmo:nameLinkField xpath="mei:titleStmt/mei:author" repeat="true" min="1" max="10" placeholder="last name, first name" label="editor.label.author" help-text="{i18n:cmo.help.author}" />
+  </xed:template>
+
+  <xed:template id="cmo_sponsor">
+    <cmo:nameLinkField xpath="mei:titleStmt/mei:sponsor" repeat="true" min="1" max="10" placeholder="last name, first name" label="editor.label.sponsor" help-text="{i18n:cmo.help.sponsor}" />
+  </xed:template>
+
+  <xed:template id="cmo_funder">
+    <cmo:nameLinkField xpath="mei:titleStmt/mei:funder" repeat="true" min="1" max="10" placeholder="last name, first name" label="editor.label.funder" help-text="{i18n:cmo.help.funder}" />
+  </xed:template>
+
+  <xed:template id="cmo_seriesTitle">
+    <cmo:textfield xpath="mei:seriesStmt/mei:title" label="editor.label.seriesTitle" type="cmo_titleType" lang="rfc4646" repeat="true" min="1" max="10" help-text="{i18n:cmo.help.seriesTitle}" />
+  </xed:template>
+  <!-- TODO: unit is selectable! Possible entries are volume, page or issue. -->
+  <xed:template id="cmo_seriesBiblScope">
+    <cmo:textfield xpath="mei:seriesStmt/mei:biblScope[@unit='vol']" label="editor.label.seriesBiblScope" help-text="{i18n:cmo.help.seriesBiblScope}" />
   </xed:template>
 
   <xed:template id="cmo_identifier">
@@ -48,12 +76,25 @@
     <cmo:textfield xpath="mei:pubStmt/mei:pubPlace/mei:geogName" label="editor.label.pubPlace" help-text="{i18n:cmo.help.pubPlace}" />
   </xed:template>
 
+  <xed:template id="cmo_printer">
+    <cmo:textfield xpath="mei:titleStmt/mei:printer" repeat="true" min="1" max="10" label="editor.label.printer" help-text="{i18n:cmo.help.printer}" />
+  </xed:template>
+
   <xed:template id="cmo_contents">
     <cmo:textarea xpath="mei:contents/mei:p" label="editor.label.contents" help-text="{i18n:cmo.help.contents}" rows="5" />
   </xed:template>
 
   <xed:template id="cmo_language">
-    <cmo:selectClassification xpath="mei:langUsage/mei:language/@xml:id" label="editor.label.language" classification="rfc4646" help-text="{i18n:cmo.help.language}" />
+    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='rfc4646']/@xml:id" repeat="true" min="1" max="10" label="editor.label.language" classification="rfc4646" help-text="{i18n:cmo.help.language}" />
+  </xed:template>
+
+  <xed:template id="cmo_scriptLanguage">
+    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='iso15924']/@xml:id" repeat="true" min="1" max="10" label="editor.label.scriptLanguage" classification="iso15924" help-text="{i18n:cmo.help.scriptLanguage}" />
+  </xed:template>
+
+
+  <xed:template id="cmo_annot">
+    <cmo:textarea xpath="mei:notesStmt/mei:annot" repeat="true" min="1" max="10" type="cmo_annotType" label="editor.label.annot" help-text="{i18n:cmo.help.annot}" rows="3" />
   </xed:template>
 
   <xed:template id="cmo_sourceType">

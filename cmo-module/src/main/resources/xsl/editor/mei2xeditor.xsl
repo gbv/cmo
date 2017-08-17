@@ -8,6 +8,10 @@
   <xsl:include href="copynodes.xsl" />
   <xsl:include href="editor/mei-node-utils.xsl" />
 
+  <xsl:variable name="defLang">
+    <xsl:value-of select="//mei:langUsage/mei:language[not(contains(@xml:id,'-'))]/@xml:id" />
+  </xsl:variable>
+
   <xsl:template match="mei:date[@notbefore|@notafter]">
     <xsl:copy>
       <xsl:attribute name="approx">true</xsl:attribute>
@@ -28,16 +32,56 @@
     </xsl:attribute>
   </xsl:template>
 
-  <xsl:template match="mei:title/@type">
+  <!-- xsl:template match="mei:title/@type">
     <xsl:attribute name="type">
       <xsl:value-of select="concat('cmo_titleType:', .)" />
     </xsl:attribute>
-  </xsl:template>
+  </xsl:template -->
 
-  <xsl:template match="mei:language/@xml:id">
-    <xsl:attribute name="xml:id">
+  <!-- xsl:template match="mei:title/@xml:lang">
+    <xsl:attribute name="xml:lang">
       <xsl:value-of select="concat('rfc4646:', .)" />
     </xsl:attribute>
+  </xsl:template -->
+
+  <xsl:template match="mei:title[not(@xml:lang)]">
+    <xsl:copy>
+      <xsl:attribute name="xml:lang">
+        <xsl:value-of select="$defLang" />
+      </xsl:attribute>
+      <xsl:apply-templates select="@*" />
+      <xsl:apply-templates />
+    </xsl:copy>
+  </xsl:template>
+
+  <xsl:template match="mei:respStmt[mei:resp/text()='Printer']">
+    <mei:printer>
+      <xsl:value-of select="mei:corpName" />
+    </mei:printer>
+  </xsl:template>
+
+  <xsl:template match="mei:language">
+    <xsl:copy>
+      <xsl:choose>
+        <xsl:when test="contains(@xml:id, '-')">
+          <xsl:attribute name="xml:id">
+            <xsl:value-of select="concat('iso15924:', @xml:id)" />
+          </xsl:attribute>
+          <xsl:attribute name="authority">
+            <xsl:value-of select="'iso15924'" />
+          </xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="xml:id">
+            <xsl:value-of select="concat('rfc4646:', @xml:id)" />
+          </xsl:attribute>
+          <xsl:attribute name="authority">
+            <xsl:value-of select="'rfc4646'" />
+          </xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" />
+    </xsl:copy>
   </xsl:template>
 
   <xsl:template match="mei:classification">

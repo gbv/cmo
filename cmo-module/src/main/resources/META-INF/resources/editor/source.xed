@@ -38,11 +38,24 @@
             </xed:choose>
 
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_title" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_editor" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_author" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_sponsor" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_funder" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_printer" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_publisher" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_pubPlace" />
+
+          <fieldset>
+            <legend><xed:output i18n="editor.legend.series" /></legend>
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_seriesTitle" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_seriesBiblScope" />
+          </fieldset>
+
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_contents" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_language" />
-
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_scriptLanguage" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_annot" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_contentType" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_notationType" />
 

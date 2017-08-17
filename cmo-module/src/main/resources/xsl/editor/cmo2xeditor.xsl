@@ -12,7 +12,7 @@
 
   <xsl:template match="cmo:textfield.nobind">
     <div class="form-group">
-      <label class="col-md-3 control-label">
+      <label class="col-md-4 control-label">
         <xed:output i18n="{@label}" />
       </label>
       <div class="col-md-6 {@divClass}">
@@ -21,7 +21,7 @@
           <xsl:copy-of select="@autocomplete" />
         </input>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-2">
         <xsl:if test="string-length(@help-text) &gt; 0">
           <xsl:call-template name="cmo-helpbutton" />
         </xsl:if>
@@ -67,33 +67,60 @@
       <xsl:when test="@repeat = 'true'">
         <xed:repeat xpath="{@xpath}" min="{@min}" max="{@max}">
           <div class="form-group {@class} {$xed-val-marker}">
-            <label class="col-md-3 control-label">
-              <xed:output i18n="{@label}" />
-            </label>
-            <div class="col-md-6">
             <xsl:choose>
               <xsl:when test="@bind" >
                 <xed:bind xpath="{@bind}" >
+                  <label class="col-md-4 control-label form-inline">
+                    <xed:output i18n="{@label}" />
+                    <xsl:if test="@type">
+                      <xsl:text>&#160;</xsl:text>
+                      <xed:bind xpath="@type">
+                        <select class="form-control">
+                          <xed:include uri="xslStyle:items2options:classification:editor:1:children:{@type}" />
+                        </select>
+                      </xed:bind>
+                    </xsl:if>
+                  </label>
+                  <div class="col-md-6">
+                    <textarea class="form-control">
+                      <xsl:copy-of select="@rows" />
+                      <xsl:copy-of select="@placeholder" />
+                    </textarea>
+                  </div>
+                  <div class="col-md-2">
+                    <xsl:if test="string-length(@help-text) &gt; 0">
+                      <xsl:call-template name="cmo-helpbutton" />
+                    </xsl:if>
+                    <xsl:call-template name="cmo-pmud" />
+                  </div>
+                </xed:bind>
+              </xsl:when>
+              <xsl:otherwise>
+                <label class="col-md-4 control-label form-inline">
+                  <xed:output i18n="{@label}" />
+                  <xsl:if test="@type">
+                    <xsl:text>&#160;</xsl:text>
+                    <xed:bind xpath="@type">
+                      <select class="form-control">
+                        <xed:include uri="xslStyle:items2options:classification:editor:1:children:{@type}" />
+                      </select>
+                    </xed:bind>
+                  </xsl:if>
+                </label>
+                <div class="col-md-6">
                   <textarea class="form-control">
                     <xsl:copy-of select="@rows" />
                     <xsl:copy-of select="@placeholder" />
                   </textarea>
-                </xed:bind>
-              </xsl:when>
-              <xsl:otherwise>
-                <textarea class="form-control">
-                  <xsl:copy-of select="@rows" />
-                  <xsl:copy-of select="@placeholder" />
-                </textarea>
+                </div>
+                <div class="col-md-2">
+                  <xsl:if test="string-length(@help-text) &gt; 0">
+                    <xsl:call-template name="cmo-helpbutton" />
+                  </xsl:if>
+                  <xsl:call-template name="cmo-pmud" />
+                </div>
               </xsl:otherwise>
             </xsl:choose>
-            </div>
-            <div class="col-md-3">
-              <xsl:if test="string-length(@help-text) &gt; 0">
-                <xsl:call-template name="cmo-helpbutton" />
-              </xsl:if>
-              <xsl:call-template name="cmo-pmud" />
-            </div>
           </div>
           <xsl:call-template name="cmo-required" />
         </xed:repeat>
@@ -101,8 +128,16 @@
       <xsl:otherwise>
         <xed:bind xpath="{@xpath}">
           <div class="form-group {@class} {$xed-val-marker}">
-            <label class="col-md-3 control-label">
+            <label class="col-md-4 control-label form-inline">
               <xed:output i18n="{@label}" />
+              <xsl:if test="@type">
+                <xsl:text>&#160;</xsl:text>
+                <xed:bind xpath="@type">
+                  <select class="form-control">
+                    <xed:include uri="xslStyle:items2options:classification:editor:1:children:{@type}" />
+                  </select>
+                </xed:bind>
+              </xsl:if>
             </label>
             <div class="col-md-6">
               <textarea class="form-control">
@@ -110,7 +145,7 @@
                 <xsl:copy-of select="@placeholder" />
               </textarea>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <xsl:if test="string-length(@help-text) &gt; 0">
                 <xsl:call-template name="cmo-helpbutton" />
               </xsl:if>
@@ -126,36 +161,140 @@
   </xsl:template>
 
   <xsl:template match="cmo:selectClassification">
-    <xed:bind xpath="{@xpath}">
-      <xsl:variable name="xed-val-marker" > {$xed-validation-marker} </xsl:variable>
-      <div class="form-group {@class} {$xed-val-marker}">
-        <label class="col-md-3 control-label">
-          <xed:output i18n="{@label}" />
-        </label>
-        <div class="col-md-6">
-          <div class="controls">
-            <select class="form-control form-control-inline">
-              <option value="">
-                <xed:output i18n="editor.select" />
-              </option>
-              <xed:include uri="xslStyle:items2options:classification:editorComplete:1:children:{@classification}" />
-            </select>
+    <xsl:choose>
+      <xsl:when test="@repeat = 'true'">
+        <xed:repeat xpath="{@xpath}" min="{@min}" max="{@max}">
+          <xsl:variable name="xed-val-marker" > {$xed-validation-marker} </xsl:variable>
+          <div class="form-group {@class} {$xed-val-marker}">
+            <label class="col-md-4 control-label">
+              <xed:output i18n="{@label}" />
+            </label>
+            <div class="col-md-6">
+              <div class="controls">
+              <xsl:choose>
+                <xsl:when test="@bind" >
+                  <xed:bind xpath="{@bind}" >
+                    <select class="form-control form-control-inline">
+                      <option value="">
+                        <xed:output i18n="editor.select" />
+                      </option>
+                      <xed:include uri="xslStyle:items2options:classification:editorComplete:1:children:{@classification}" />
+                    </select>
+                  </xed:bind>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <select class="form-control form-control-inline">
+                      <option value="">
+                        <xed:output i18n="editor.select" />
+                      </option>
+                      <xed:include uri="xslStyle:items2options:classification:editorComplete:1:children:{@classification}" />
+                    </select>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <xsl:if test="string-length(@help-text) &gt; 0">
+                <xsl:call-template name="cmo-helpbutton" />
+              </xsl:if>
+              <xsl:if test="@pmud = 'true'">
+                <xsl:call-template name="cmo-pmud" />
+              </xsl:if>
+            </div>
+            <xsl:call-template name="cmo-required" />
           </div>
-        </div>
-        <div class="col-md-3">
-          <xsl:if test="string-length(@help-text) &gt; 0">
-            <xsl:call-template name="cmo-helpbutton" />
-          </xsl:if>
-        </div>
-        <xsl:call-template name="cmo-required" />
-      </div>
-    </xed:bind>
+        </xed:repeat>
+      </xsl:when>
+      <xsl:otherwise>
+        <xed:bind xpath="{@xpath}">
+          <xsl:variable name="xed-val-marker" > {$xed-validation-marker} </xsl:variable>
+          <div class="form-group {@class} {$xed-val-marker}">
+            <label class="col-md-4 control-label">
+              <xed:output i18n="{@label}" />
+            </label>
+            <div class="col-md-6">
+              <div class="controls">
+                <select class="form-control form-control-inline">
+                  <option value="">
+                    <xed:output i18n="editor.select" />
+                  </option>
+                  <xed:include uri="xslStyle:items2options:classification:editorComplete:1:children:{@classification}" />
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <xsl:if test="string-length(@help-text) &gt; 0">
+                <xsl:call-template name="cmo-helpbutton" />
+              </xsl:if>
+            </div>
+            <xsl:call-template name="cmo-required" />
+          </div>
+        </xed:bind>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="cmo:nameLinkField">
+    <xsl:choose>
+      <xsl:when test="@repeat = 'true'">
+        <xed:repeat xpath="{@xpath}" min="{@min}" max="{@max}">
+          <xsl:variable name="xed-val-marker" > {$xed-validation-marker} </xsl:variable>
+          <div class="form-group {@class} {$xed-val-marker}">
+            <div class="row">
+              <xsl:call-template name="cmo-textfield" />
+            </div>
+            <div class="row">
+              <xed:bind xpath="mei:persName/@nymref">
+                <label class="col-md-4 control-label form-inline">
+                  <xed:output i18n="editor.label.nameLink" />
+                </label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" placeholder="cmo_person_00000434" />
+                </div>
+                <div class="col-md-2">
+                  <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover" data-placement="right" data-content="{i18n:translate('cmo.help.nameLink')}">
+                    <i class="fa fa-info"></i>
+                  </a>
+                </div>
+              </xed:bind>
+            </div>
+          </div>
+          <xsl:call-template name="cmo-required" />
+        </xed:repeat>
+      </xsl:when>
+      <xsl:otherwise>
+        <xed:bind xpath="{@xpath}">
+          <xsl:variable name="xed-val-marker" > {$xed-validation-marker} </xsl:variable>
+          <div class="form-group {@class} {$xed-val-marker}">
+            <div class="row">
+              <xsl:call-template name="cmo-textfield" />
+            </div>
+          </div>
+          <xed:bind xpath="mei:persName/@nymref">
+            <div class="row">
+              <label class="col-md-4 control-label form-inline">
+                <xed:output i18n="editor.label.nameLink" />
+              </label>
+              <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="cmo_person_00000434" />
+              </div>
+              <div class="col-md-2">
+                <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover" data-placement="right" data-content="{i18n:translate('cmo.help.nameLink')}">
+                  <i class="fa fa-info"></i>
+                </a>
+              </div>
+            </div>
+          </xed:bind>
+          <xsl:call-template name="cmo-required" />
+        </xed:bind>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="cmo:isoApproxDate">
     <xsl:variable name="xed-val-marker" > {$xed-validation-marker} </xsl:variable>
     <div class="form-group {@class} {$xed-val-marker}">
-      <label class="col-md-3 control-label">
+      <label class="col-md-4 control-label">
         <xed:output i18n="{@label}" />
       </label>
       <div class="col-md-6">
@@ -213,7 +352,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-2">
         <xsl:if test="string-length(@help-text) &gt; 0">
           <xsl:call-template name="cmo-helpbutton" />
         </xsl:if>
@@ -225,7 +364,7 @@
 
 
   <xsl:template name="cmo-textfield">
-    <label class="col-md-3 control-label form-inline">
+    <label class="col-md-4 control-label form-inline">
       <xsl:if test="@label">
         <xed:output i18n="{@label}" />
       </xsl:if>
@@ -233,7 +372,15 @@
         <xsl:text>&#160;</xsl:text>
         <xed:bind xpath="@type">
           <select class="form-control">
-            <xed:include uri="xslStyle:items2options:classification:editorComplete:1:children:{@type}" />
+            <xed:include uri="xslStyle:items2options:classification:editor:1:children:{@type}" />
+          </select>
+        </xed:bind>
+      </xsl:if>
+      <xsl:if test="@lang">
+        <xsl:text>&#160;</xsl:text>
+        <xed:bind xpath="@xml:lang">
+          <select class="form-control">
+            <xed:include uri="xslStyle:items2options:classification:editor:1:children:{@lang}" />
           </select>
         </xed:bind>
       </xsl:if>
@@ -243,7 +390,7 @@
         <xsl:copy-of select="@placeholder" />
       </input>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       <xsl:if test="string-length(@help-text) &gt; 0">
         <xsl:call-template name="cmo-helpbutton" />
       </xsl:if>
@@ -269,13 +416,13 @@
   </xsl:template>
 
   <xsl:template match="cmo:pmud">
-    <div class="col-md-3 {@class}">
+    <div class="col-md-2 {@class}">
       <xsl:call-template name="cmo-pmud" />
     </div>
   </xsl:template>
 
   <xsl:template match="cmo:help-pmud">
-    <div class="col-md-3 {@class}">
+    <div class="col-md-2 {@class}">
       <xsl:if test="string-length(@help-text) &gt; 0">
         <xsl:call-template name="cmo-helpbutton" />
       </xsl:if>
