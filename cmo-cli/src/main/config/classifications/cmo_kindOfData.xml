@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_kindOfData">
+  <label xml:lang="de" text="Art der Daten" />
+  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_kindOfData" />
+  <label xml:lang="en" text="Kind of Data" />
+  <categories>
+    <category ID="source">
+      <label xml:lang="de" text="Quellenkatalog" />
+      <label xml:lang="en" text="Source Catalogue" />
+    </category>
+    <category ID="edition">
+      <label xml:lang="en" text="Edition" />
+      <label xml:lang="de" text="Edition" />
+    </category>
+  </categories>
+</mycoreclass>
