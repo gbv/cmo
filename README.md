@@ -25,3 +25,16 @@ More information about MyCoRe are available at http://www.mycore.org
 ## Update
 
  - to update solr run `mvn solr-runner:stop solr-runner:copyHome solr-runner:start`
+
+
+## Clear data in database before reimport
+
+```sql
+DELETE FROM MCRLINKHREF WHERE 1=1;
+DELETE FROM MCRDETELEDITEMS WHERE 1=1;
+DELETE FROM MCRCATEGORYLINK WHERE OBJECTTYPE='expression'
+                                  or OBJECTTYPE='source'
+                                  or OBJECTTYPE='work'
+                                  or OBJECTTYPE='mods'
+                                  or OBJECTTYPE='person';
+```

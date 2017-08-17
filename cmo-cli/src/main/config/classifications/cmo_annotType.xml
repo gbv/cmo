@@ -68,5 +68,21 @@
       <label xml:lang="de" text="Transcriber" />
       <label xml:lang="en" text="Transcriber" />
     </category>
+    <category ID="Edition">
+      <label xml:lang="de" text="Edition" />
+      <label xml:lang="en" text="Edition" />
+    </category>
+        <category ID="Translation">
+      <label xml:lang="de" text="Translation" />
+      <label xml:lang="en" text="Translation" />
+    </category>
+    <category ID="Later_annotation">
+      <label xml:lang="de" text="Later_annotation" />
+      <label xml:lang="en" text="Later_annotation" />
+    </category>
+    <category ID="Alternative_catalogue_reference">
+      <label xml:lang="de" text="Alternative_catalogue_reference" />
+      <label xml:lang="en" text="Alternative_catalogue_reference" />
+    </category>
   </categories>
 </mycoreclass>
