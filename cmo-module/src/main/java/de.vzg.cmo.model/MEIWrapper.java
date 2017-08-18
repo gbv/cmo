@@ -30,6 +30,8 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import javax.naming.OperationNotSupportedException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Content;
@@ -150,7 +152,8 @@ public abstract class MEIWrapper {
         return classificationMap;
     }
 
-    public void setClassification(Map<MCRMEIAuthorityInfo, List<String>> classificationMap) {
+    public void setClassification(Map<MCRMEIAuthorityInfo, List<String>> classificationMap)
+        throws OperationNotSupportedException {
         deleteClassification();
         Element classificationElement = new Element("classification", MEIUtils.MEI_NAMESPACE);
         if (classificationMap.size() > 0) {
@@ -159,7 +162,7 @@ public abstract class MEIWrapper {
                 Element classCodeElement = new Element("classCode", MEIUtils.MEI_NAMESPACE);
                 String authorityURI = authorityInfo.getAuthorityURI();
                 if (authorityURI != null) {
-                    classCodeElement.setAttribute("authorityURI", authorityURI);
+                    classCodeElement.setAttribute("authURI", authorityURI);
                 }
                 String authority = authorityInfo.getAuthority();
                 if (authority != null) {

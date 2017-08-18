@@ -4,7 +4,7 @@
                 xmlns:mods="http://www.loc.gov/mods/v3"
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
                 xmlns:mcrxml="xalan://org.mycore.common.xml.MCRXMLFunctions"
-                xmlns:meiDate="xalan://org.mycore.mei.MCRMEIDateHelper"
+                xmlns:meiDate="xalan://org.mycore.mei.MCRDateHelper"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 exclude-result-prefixes="mods mei xlink">
   <xsl:import href="xslImport:solr-document:solr/mei.xsl" />
@@ -179,9 +179,11 @@
     <xsl:param name="dateNode" />
     <xsl:param name="fieldName" />
 
-    <field name="{$fieldName}.range">
-      <xsl:value-of select="meiDate:getSolrDateFieldContent($dateNode)" />
-    </field>
+    <xsl:if test="$dateNode/@startdate or $dateNode/@enddate or $dateNode/@notbefore or $dateNode/@notafter or $dateNode/@isodate">
+      <field name="{$fieldName}.range">
+        <xsl:value-of select="meiDate:getSolrDateFieldContent($dateNode)" />
+      </field>
+    </xsl:if>
     <field name="{$fieldName}.content">
       <xsl:value-of select="$dateNode/text()" />
     </field>

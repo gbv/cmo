@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><mycoreclass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_contentType">
 <label text="Content Type" xml:lang="en"/>
-<categories>
+  <label text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_contentType" xml:lang="x-uri" />
+  <categories>
 <category ID="ct-19052915-9">
 <label xml:lang="en" text="Vocal Music"/>
 </category>

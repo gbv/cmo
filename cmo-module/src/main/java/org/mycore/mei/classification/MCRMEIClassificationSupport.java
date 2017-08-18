@@ -51,7 +51,7 @@ public class MCRMEIClassificationSupport {
 
     public static MCRMEIAuthorityInfo getAuthorityInfo(org.jdom2.Element classCodeElement) {
         String authority = classCodeElement.getAttributeValue("authority");
-        String authorityURI = classCodeElement.getAttributeValue("authorityURI");
+        String authorityURI = classCodeElement.getAttributeValue("authURI");
         String classCodeID = classCodeElement.getAttributeValue("id", Namespace.XML_NAMESPACE);
 
         return buildAuthorityInfo(authority, authorityURI, classCodeID);
@@ -72,7 +72,7 @@ public class MCRMEIClassificationSupport {
     public static MCRMEIAuthorityInfo getAuthorityInfo(Element classCodeElement) {
         String authority = classCodeElement.getAttribute("authority");
         String authorityURI = classCodeElement
-            .getAttribute("authorityURI");
+            .getAttribute("authURI");
         if ("".equals(authorityURI)) {
             authorityURI = null;
         }

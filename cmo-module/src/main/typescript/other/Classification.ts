@@ -83,7 +83,9 @@ export class ClassificationResolver {
                         for (let catIndex in clazz.categories) {
                             let cat = findCategory(clazz.categories[ catIndex ], category);
                             if(cat!=null){
-                                let rightCategoryLabel = cat.labels.filter(clazzLabel => clazzLabel.lang = I18N.getCurrentLanguage());
+                                let rightCategoryLabel = cat.labels
+                                    .filter(clazzLabel=>clazzLabel.lang.indexOf("x-") != 0)
+                                    .filter(clazzLabel => clazzLabel.lang == I18N.getCurrentLanguage());
                                 if (rightCategoryLabel.length > 0) {
                                     htmlElement.innerText = rightCategoryLabel[ 0 ].text;
                                 } else {
@@ -93,11 +95,13 @@ export class ClassificationResolver {
                             }
                         }
                     } else {
-                        let rightLabel = clazz.label.filter(clazzLabel => clazzLabel.lang = I18N.getCurrentLanguage());
+                        let labels = clazz.label.filter(clazzLabel=>clazzLabel.lang.indexOf("x-") != 0);
+                        let rightLabel = labels
+                            .filter(clazzLabel => clazzLabel.lang == I18N.getCurrentLanguage());
                         if (rightLabel.length > 0) {
                             htmlElement.innerText = rightLabel[ 0 ].text;
                         } else {
-                            htmlElement.innerText = clazz.label[ 0 ].text;
+                            htmlElement.innerText = labels[ 0 ].text;
                         }
                     }
                 });

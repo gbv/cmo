@@ -79,8 +79,8 @@ export class SearchDisplay {
                     return this.displayExpression(doc, index, result);
                 case "source":
                     return this.displaySource(doc, index, result);
-                case "bibl":
-                    return this.displayBibl(doc, index, result);
+                case "mods":
+                    return this.displayMods(doc, index, result);
                 case "person":
                     return this.displayPerson(doc, index, result);
                 case "work":
@@ -90,7 +90,7 @@ export class SearchDisplay {
             .join("<hr/>");
     }
 
-    private displayHitTitle(doc: CMOBaseDocument, currentIndex: number, result: SolrSearchResult) {
+    private displayHitTitle(doc: CMOBaseDocument, currentIndex: number, result: SolrSearchResult, fieldResolver = (doc)=> ("identifier.type.CMO" in doc) ? doc[ "identifier.type.CMO" ] : ("identifier" in doc) ? doc[ "identifier" ] : doc.id) {
         let param = "";
 
         for (let i in result.responseHeader.params) {
@@ -111,7 +111,7 @@ export class SearchDisplay {
 
         param += `&start=${currentIndex}&rows=1&origrows=${result.responseHeader.params[ "rows" ] || 10}&XSL.Style=browse`;
 
-        let field = ("identifier.type.CMO" in doc) ? doc[ "identifier.type.CMO" ] : ("identifier" in doc) ? doc[ "identifier" ] : doc.id;
+        let field = fieldResolver(doc);
 
         return `
 <div class="col-md-12">
@@ -192,9 +192,9 @@ export class SearchDisplay {
         `
     }
 
-    private displayBibl(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
+    private displayMods(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
         return `
-        ${this.displayHitTitle(doc, index, result)}
+        ${this.displayHitTitle(doc, index, result, (doc)=> doc["mods.title"])}
         `
     }
 

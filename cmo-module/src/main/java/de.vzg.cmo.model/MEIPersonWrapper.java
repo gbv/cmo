@@ -22,15 +22,16 @@
 package de.vzg.cmo.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.naming.OperationNotSupportedException;
 
 import org.jdom2.Element;
+import org.mycore.mei.classification.MCRMEIAuthorityInfo;
 
 public class MEIPersonWrapper extends MEIWrapper {
-
-    public MEIPersonWrapper(Element root) {
-        super(root);
-    }
 
     private static final List<String> TOP_LEVEL_ELEMENT_ORDER = new ArrayList<>();
 
@@ -44,6 +45,10 @@ public class MEIPersonWrapper extends MEIWrapper {
         TOP_LEVEL_ELEMENT_ORDER.add("annot");
     }
 
+    public MEIPersonWrapper(Element root) {
+        super(root);
+    }
+
     @Override
     public String getWrappedElementName() {
         return "persName";
@@ -52,5 +57,14 @@ public class MEIPersonWrapper extends MEIWrapper {
     @Override
     protected int getRankOf(Element topLevelElement) {
         return TOP_LEVEL_ELEMENT_ORDER.indexOf(topLevelElement.getName());
+    }
+
+    @Override public HashMap<MCRMEIAuthorityInfo, List<String>> getClassification() {
+        return new HashMap<>();
+    }
+
+    @Override public void setClassification(Map<MCRMEIAuthorityInfo, List<String>> classificationMap)
+        throws OperationNotSupportedException {
+        throw new OperationNotSupportedException("A person can not have a classification!");
     }
 }

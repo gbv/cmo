@@ -11,19 +11,37 @@
   <xsl:template match="mycoreobject">
     <xsl:apply-imports />
 
-    <xsl:for-each select="metadata/def.modsContainer/modsContainer/mods:mods/mods:relatedItem">
-        <xsl:variable name="href" select="@xlink:href" />
-        <xsl:variable name="meiDoc" select="document(concat('mcrobject:', $href))" />
-        <xsl:variable name="id" select="$meiDoc/mycoreobject/@ID" />
-        <xsl:variable name="type" select="@type" />
+    <xsl:for-each select="metadata/def.modsContainer/modsContainer/mods:mods">
+      <xsl:if test="mods:originInfo">
+        <xsl:call-template name="printDateIssued">
+          <xsl:with-param name="originInfo" select="mods:originInfo" />
+        </xsl:call-template>
+      </xsl:if>
 
-        <field name="mods.relatedItem">
-          <xsl:value-of select="$id" />
-        </field>
 
-        <field name="mods.relatedItem.{$type}">
-          <xsl:value-of select="$id" />
-        </field>
+      <xsl:for-each select="mods:relatedItem">
+        <xsl:if test="@xlink:href">
+          <xsl:variable name="href" select="@xlink:href" />
+          <xsl:variable name="meiDoc" select="document(concat('mcrobject:', $href))" />
+          <xsl:variable name="id" select="$meiDoc/mycoreobject/@ID" />
+          <xsl:variable name="type" select="@type" />
+
+          <field name="mods.relatedItem">
+            <xsl:value-of select="$id" />
+          </field>
+
+          <field name="mods.relatedItem.{$type}">
+            <xsl:value-of select="$id" />
+          </field>
+        </xsl:if>
+
+        <xsl:if test="mods:originInfo">
+          <xsl:call-template name="printDateIssued">
+            <xsl:with-param name="fieldSuffix" select="'.host'" />
+            <xsl:with-param name="originInfo" select="mods:originInfo" />
+          </xsl:call-template>
+        </xsl:if>
+      </xsl:for-each>
     </xsl:for-each>
 
     <xsl:for-each select="structure/parents/parent">
@@ -38,12 +56,49 @@
   <xsl:template match="mycoreobject" mode="resulttitle">
     <xsl:choose>
       <xsl:when test="metadata/def.meiContainer/meiContainer/mei:source/mei:identifier">
-        <xsl:value-of select="metadata/def.meiContainer/meiContainer/mei:source/mei:identifier"/>
+        <xsl:value-of select="metadata/def.meiContainer/meiContainer/mei:source/mei:identifier" />
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="@ID" />
       </xsl:otherwise>
     </xsl:choose>
+
+  </xsl:template>
+
+
+  <xsl:template name="printDateIssued">
+    <xsl:param name="originInfo" />
+    <xsl:param name="fieldSuffix" select="''" />
+
+
+    <xsl:variable name="start"
+                  select="$originInfo/mods:dateIssued[@point='start']" />
+    <xsl:variable name="end"
+                  select="$originInfo/mods:dateIssued[@point='end']" />
+    <xsl:variable name="default"
+                  select="$originInfo/mods:dateIssued" />
+    <xsl:variable name="issueDateRange">
+      <xsl:choose>
+        <xsl:when test="$start and $end">
+          <xsl:value-of select="concat('[', $start, '-', $end,']')" />
+        </xsl:when>
+        <xsl:when test="$start">
+          <xsl:value-of select="concat('[', $start, '-*]')" />
+        </xsl:when>
+        <xsl:when test="$end">
+          <xsl:value-of select="concat('[*-', $end,']')" />
+        </xsl:when>
+        <xsl:when test="$default">
+          <xsl:value-of select="$default" />
+        </xsl:when>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:if test="string-length($issueDateRange)&gt;0">
+      <field name="{concat('mods.dateIssued',$fieldSuffix,'.range')}">
+        <xsl:value-of select="$issueDateRange" />
+      </field>
+    </xsl:if>
 
   </xsl:template>
 

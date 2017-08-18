@@ -26,6 +26,7 @@
                 xmlns:tei="http://www.tei-c.org/ns/1.0"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:mods="http://www.loc.gov/mods/v3"
+                exclude-result-prefixes="mods"
                 version="3.0">
 
   <xsl:output indent="yes" />
@@ -46,12 +47,14 @@
       <xsl:apply-templates select="@xml:id" />
       <xsl:apply-templates select="tei:idno" />
 
-      <mods:originInfo eventType="publication">
-        <xsl:apply-templates select="tei:edition" />
-        <xsl:apply-templates select="tei:publisher" />
-        <xsl:apply-templates select="tei:pubPlace" />
-        <xsl:apply-templates select="tei:date" />
-      </mods:originInfo>
+      <xsl:if test="tei:edition|tei:publisher|tei:pubPlace|tei:date">
+        <mods:originInfo eventType="publication">
+          <xsl:apply-templates select="tei:edition" />
+          <xsl:apply-templates select="tei:publisher" />
+          <xsl:apply-templates select="tei:pubPlace" />
+          <xsl:apply-templates select="tei:date" />
+        </mods:originInfo>
+      </xsl:if>
 
       <xsl:apply-templates select="tei:distributor" />
       <xsl:apply-templates select="tei:funder" />
@@ -97,9 +100,13 @@
   <xsl:template match="tei:title">
     <mods:titleInfo>
       <xsl:if test="@xml:lang">
-        <xsl:attribute name="xml:lang"><xsl:value-of select="@xml:lang" /></xsl:attribute>
+        <xsl:attribute name="xml:lang">
+          <xsl:value-of select="@xml:lang" />
+        </xsl:attribute>
       </xsl:if>
-      <mods:title><xsl:value-of select="." /></mods:title>
+      <mods:title>
+        <xsl:value-of select="." />
+      </mods:title>
     </mods:titleInfo>
   </xsl:template>
 
@@ -145,21 +152,41 @@
   </xsl:template>
 
   <xsl:template match="tei:edition">
-    <mods:edition><xsl:value-of select="." /></mods:edition>
+    <mods:edition>
+      <xsl:value-of select="." />
+    </mods:edition>
   </xsl:template>
 
   <xsl:template match="tei:publisher">
-    <mods:publisher><xsl:value-of select="." /></mods:publisher>
+    <mods:publisher>
+      <xsl:value-of select="." />
+    </mods:publisher>
   </xsl:template>
 
   <xsl:template match="tei:pubPlace">
-      <mods:place>
-        <mods:placeTerm type="text"><xsl:value-of select="." /></mods:placeTerm>
-      </mods:place>
+    <mods:place>
+      <mods:placeTerm type="text">
+        <xsl:value-of select="." />
+      </mods:placeTerm>
+    </mods:place>
   </xsl:template>
 
   <xsl:template match="tei:date">
-    <mods:dateIssued encoding="w3cdtf"><xsl:value-of select="." /></mods:dateIssued>
+    <xsl:choose>
+      <xsl:when test="(@notBefore != .) or (@notAfter != .)">
+        <mods:dateIssued qualifier="approximate">
+          <xsl:if test="@calendar and substring-after(@calendar, '#') != 'gregorian'">
+            <xsl:attribute name="transliteration"><xsl:value-of select="substring-after(@calendar, '#')" /></xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="." />
+        </mods:dateIssued>
+        <mods:dateIssued encoding="w3cdtf" point="start"><xsl:value-of select="@notBefore" /></mods:dateIssued>
+        <mods:dateIssued encoding="w3cdtf" point="end"><xsl:value-of select="@notAfter" /></mods:dateIssued>
+      </xsl:when>
+      <xsl:otherwise>
+        <mods:dateIssued encoding="w3cdtf"><xsl:value-of select="." /></mods:dateIssued>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="tei:funder">
@@ -172,7 +199,9 @@
 
   <xsl:template match="tei:extent">
     <mods:physicalDescription>
-      <mods:extent><xsl:value-of select="." /></mods:extent>
+      <mods:extent>
+        <xsl:value-of select="." />
+      </mods:extent>
     </mods:physicalDescription>
   </xsl:template>
 
@@ -180,9 +209,13 @@
     <mods:relatedItem type="series">
       <mods:titleInfo>
         <xsl:if test="@xml:lang">
-          <xsl:attribute name="xml:lang"><xsl:value-of select="@xml:lang" /></xsl:attribute>
+          <xsl:attribute name="xml:lang">
+            <xsl:value-of select="@xml:lang" />
+          </xsl:attribute>
         </xsl:if>
-        <mods:title><xsl:value-of select="." /></mods:title>
+        <mods:title>
+          <xsl:value-of select="." />
+        </mods:title>
       </mods:titleInfo>
     </mods:relatedItem>
   </xsl:template>
@@ -190,14 +223,18 @@
   <xsl:template match="tei:ref">
     <mods:location>
       <mods:url>
-        <xsl:attribute name="displayLabel"><xsl:value-of select="." /></xsl:attribute>
+        <xsl:attribute name="displayLabel">
+          <xsl:value-of select="." />
+        </xsl:attribute>
         <xsl:value-of select="@target" />
       </mods:url>
     </mods:location>
   </xsl:template>
 
   <xsl:template match="tei:note">
-    <mods:note><xsl:value-of select="." /></mods:note>
+    <mods:note>
+      <xsl:value-of select="." />
+    </mods:note>
   </xsl:template>
 
   <xsl:template match="tei:bibl[@type='in']">
@@ -210,7 +247,9 @@
           <mods:number>77 (2017)</mods:number>
         </mods:detail -->
         <mods:extent unit="pages">
-          <mods:list><xsl:value-of select="tei:biblScope" /></mods:list>
+          <mods:list>
+            <xsl:value-of select="tei:biblScope" />
+          </mods:list>
         </mods:extent>
       </mods:part>
 
@@ -219,12 +258,14 @@
       <xsl:apply-templates select="tei:editor" />
       <xsl:apply-templates select="tei:respStmt" />
 
-      <mods:originInfo eventType="publication">
-        <xsl:apply-templates select="tei:edition" />
-        <xsl:apply-templates select="tei:publisher" />
-        <xsl:apply-templates select="tei:pubPlace" />
-        <xsl:apply-templates select="tei:date" />
-      </mods:originInfo>
+      <xsl:if test="tei:edition|tei:publisher|tei:pubPlace|tei:date">
+        <mods:originInfo eventType="publication">
+          <xsl:apply-templates select="tei:edition" />
+          <xsl:apply-templates select="tei:publisher" />
+          <xsl:apply-templates select="tei:pubPlace" />
+          <xsl:apply-templates select="tei:date" />
+        </mods:originInfo>
+      </xsl:if>
 
       <xsl:apply-templates select="tei:distributor" />
       <xsl:apply-templates select="tei:funder" />
@@ -244,24 +285,36 @@
     <xsl:param name="co-author" select="false()"></xsl:param>
 
     <mods:name>
-      <xsl:attribute name="type"><xsl:value-of select="$type" /></xsl:attribute>
-      <mods:displayForm><xsl:value-of select="$displayName" /></mods:displayForm>
+      <xsl:attribute name="type">
+        <xsl:value-of select="$type" />
+      </xsl:attribute>
+      <mods:displayForm>
+        <xsl:value-of select="$displayName" />
+      </mods:displayForm>
       <mods:role>
-        <mods:roleTerm type="code" authority="marcrelator"><xsl:value-of select="$role" /></mods:roleTerm>
+        <mods:roleTerm type="code" authority="marcrelator">
+          <xsl:value-of select="$role" />
+        </mods:roleTerm>
         <xsl:if test="$co-author">
           <mods:roleTerm type="text">co-author</mods:roleTerm>
         </xsl:if>
       </mods:role>
       <!-- mods:nameIdentifier type="gnd">TODO: are there identifiers?</mods:nameIdentifier -->
       <xsl:if test="contains($displayName, ', ')">
-        <mods:namePart type="family"><xsl:value-of select="substring-before($displayName, ', ')" /></mods:namePart>
-        <mods:namePart type="given"><xsl:value-of select="substring-after($displayName, ', ')" /></mods:namePart>
+        <mods:namePart type="family">
+          <xsl:value-of select="substring-before($displayName, ', ')" />
+        </mods:namePart>
+        <mods:namePart type="given">
+          <xsl:value-of select="substring-after($displayName, ', ')" />
+        </mods:namePart>
       </xsl:if>
     </mods:name>
   </xsl:template>
 
   <xsl:template match="*">
-    <xsl:message terminate="yes">Not specific handled: <xsl:value-of select="name()" /></xsl:message>
+    <xsl:message terminate="yes">Not specific handled:
+      <xsl:value-of select="name()" />
+    </xsl:message>
   </xsl:template>
 
   <xsl:template match="@*">

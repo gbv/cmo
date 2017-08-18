@@ -55,12 +55,13 @@ public class MCRMEIAuthorityInfo {
         if (authorityURI != null) {
             Collection<MCRCategory> classificationByURI = DAO.getCategoriesByLabel(LABEL_LANG_URI, authorityURI);
             classificationID = classificationByURI.stream().findFirst().map(MCRCategory::getId).orElse(null);
-        } else {
-            classificationID = MCRCategoryID.rootID(authority);
+        } else if(authority != null) {
+            Collection<MCRCategory> classificationByURI = DAO.getCategoriesByLabel(LABEL_LANG_AUTH, authority);
+            classificationID = classificationByURI.stream().findFirst().map(MCRCategory::getId).orElse(MCRCategoryID.rootID(authority));
         }
 
         if (classificationID == null || !DAO.exist(classificationID)) {
-            throw new MCRException("Classification with authority '" + authority + "' or authority " + authorityURI
+            throw new MCRException("Classification with authority '" + authority + "' or authority uri " + authorityURI
                 + " could not be mapped!");
         }
 

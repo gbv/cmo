@@ -1,6 +1,7 @@
 import {Utils} from "../other/utils";
 import {I18N} from "../other/I18N";
 import {Classification, ClassificationCategory, ClassificationResolver} from "../other/Classification";
+
 export class SearchGUI {
     get extenderIcon(): HTMLImageElement {
         return this._extenderIcon;
@@ -183,7 +184,7 @@ export class SearchGUI {
         }
 
         if (this.isExtendedSearchOpen()) {
-            this.nameBaseQueryMap[ this.typeSelect.value ].forEach(bq=>solrQueryParts.push(bq));
+            this.nameBaseQueryMap[ this.typeSelect.value ].forEach(bq => solrQueryParts.push(bq));
 
             for (let inputIndex in this.typeMap[ this.currentType ]) {
                 let input = <SearchFieldInput>this.typeMap[ this.currentType ][ inputIndex ];
@@ -221,30 +222,30 @@ export class SearchGUI {
         let sortedByComplexity = [];
 
         for (let name in bqMap) {
-            if(!bqMap.hasOwnProperty(name)){
+            if (!bqMap.hasOwnProperty(name)) {
                 continue;
             }
             let baseQuery = bqMap[ name ];
-            sortedByComplexity.push([name, baseQuery]);
+            sortedByComplexity.push([ name, baseQuery ]);
         }
 
         let kvSet = [];
 
-        for(let k in kvMap) {
+        for (let k in kvMap) {
             if (!kvMap.hasOwnProperty(k)) {
                 continue;
             }
 
-            let v = kvMap[k];
+            let v = kvMap[ k ];
             kvSet.push(`${k}:${v}`);
         }
-        sortedByComplexity = sortedByComplexity.sort(([,bq1],[,bq2])=> bq2.length-bq1.length);
+        sortedByComplexity = sortedByComplexity.sort(([ , bq1 ], [ , bq2 ]) => bq2.length - bq1.length);
 
-        for(let entry of sortedByComplexity){
-            let [name, baseQuery] = entry;
+        for (let entry of sortedByComplexity) {
+            let [ name, baseQuery ] = entry;
             let isMatching = true;
             for (let bq of baseQuery) {
-                isMatching = isMatching && kvSet.indexOf(bq)!=-1;
+                isMatching = isMatching && kvSet.indexOf(bq) != -1;
                 if (!isMatching) {
                     break;
                 }
@@ -438,10 +439,13 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
         ClassificationResolver.resolve(this.className, (classification) => {
             this.rootVal = classification.ID;
 
-            let rightLabels = classification.label.filter(possibleLabel => possibleLabel.lang == I18N.getCurrentLanguage());
+            let labels = classification.label
+                .filter(clazzLabel => clazzLabel.lang.indexOf("x-") != 0);
+
+            let rightLabels = labels.filter(possibleLabel => possibleLabel.lang == I18N.getCurrentLanguage());
 
             if (rightLabels.length == 0) {
-                this.labelElement.innerHTML = classification.label[ 0 ].text;
+                this.labelElement.innerHTML = labels[0].text;
             } else {
                 this.labelElement.innerHTML = rightLabels[ 0 ].text;
             }
@@ -485,6 +489,7 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
 
         let labels = ("label" in clazz ?
             (<Classification>clazz).label : (<ClassificationCategory>clazz).labels);
+        labels = labels.filter(clazzLabel => clazzLabel.lang.indexOf("x-") != 0);
         let label = (labels.filter(label => label.lang == lang)[ 0 ] || labels[ 0 ]).text;
         let html = `<option ${level.length == 0 ? 'selected="selected" disabled="disabled"' : ''}  value="${clazz.ID}">${level.map(i => "&nbsp;&nbsp;").join("")}${label}</option> 
                     ${("categories" in clazz) ? clazz.categories.map(o => this.getOptionHTML(o, level)).join() : ''}`;

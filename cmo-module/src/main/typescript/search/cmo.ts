@@ -32,8 +32,8 @@ let facet = new SearchFacetController(sideBar, translationMap,
         type : "class"
     });
 
-const eSearchBaseQuery = "objectType:mods";
-const kSearchBaseQuery = "-objectType:mods";
+const eSearchBaseQuery = "category.top:\"cmo_kindOfData:edition\"";
+const kSearchBaseQuery = "(category.top:\"cmo_kindOfData:source\" OR objectType:person)";
 
 let eSearch = new SearchController(eContainer, facet, "cmo.edition.search", eSearchBaseQuery);
 let kSearch = new SearchController(kContainer, facet, "cmo.catalog.search", kSearchBaseQuery);
@@ -74,12 +74,37 @@ window.document.body.addEventListener("click", (evt: any) => {
     }
 });
 
+eSearch.addExtended({
+    mods : {
+        type : "mods",
+        baseQuery : [ "objectType:mods", "-complex:*" ],
+        fields : [
+            new ClassificationSearchField("mods.type", "diniPublType"),
+            new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
+            new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name"])
+
+        ]
+    },
+    mods_complex : {
+        type : "mods",
+        baseQuery : [ "objectType:mods" ],
+        fields : [
+            new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
+            new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name"]),
+            new SearchField("editor.label.identifier", ["mods.identifier"]),
+            new SearchField("editor.label.publisher", ["mods.publisher"]),
+            new ClassificationSearchField("mods.ddc", "DDC"),
+            new ClassificationSearchField("mods.type", "diniPublType"),
+            new DateSearchField("editor.legend.pubDate", [ "mods.dateIssued.range", "mods.dateIssued.host.range" ]),
+        ]
+    }
+});
 
 // Katalog Search field definition
 kSearch.addExtended({
     expression : {
         type : "expression",
-        baseQuery: ["objectType:expression"],
+        baseQuery : [ "objectType:expression", "-complex:*" ],
         fields : [ new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
             new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
             new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
@@ -89,7 +114,7 @@ kSearch.addExtended({
     ,
     expression_complex : {
         type : "expression",
-        baseQuery: ["objectType:expression"],
+        baseQuery : [ "objectType:expression" ],
         fields : [
             new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
             new SearchField("editor.label.identifier", [ "identifier" ]),
@@ -103,7 +128,7 @@ kSearch.addExtended({
     },
     source : {
         type : "source",
-        baseQuery: ["objectType:source"],
+        baseQuery : [ "objectType:source" ],
         fields : [
             new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
             new SearchField("editor.label.identifier", [ "identifier" ]),
@@ -114,18 +139,22 @@ kSearch.addExtended({
             new DateSearchField("editor.label.publishingDate", [ "publish.date.range" ]),
             new SearchField("editor.label.publisher", [ "publishingInformation" ]) ]
     },
-    bibliography : {
+    mods : {
         type : "bibl",
-        baseQuery: ["objectType:bibl"],
+        baseQuery : [ "objectType:mods" ],
         fields : [
-            new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
-            new SearchField("editor.label.identifier", [ "identifier" ]),
-            new SearchField("editor.label.publisher", [ "publishingInformation" ]),
-            new SearchField("editor.label.series", [ "series" ]) ]
+            new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
+            new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name"]),
+            new SearchField("editor.label.identifier", ["mods.identifier"]),
+            new SearchField("editor.label.publisher", ["mods.publisher"]),
+            new ClassificationSearchField("mods.ddc", "DDC"),
+            new ClassificationSearchField("mods.type", "diniPublType"),
+            new DateSearchField("editor.legend.pubDate", [ "mods.dateIssued.range", "mods.dateIssued.host.range" ])
+        ]
     },
     person : {
         type : "person",
-        baseQuery: ["objectType:person"],
+        baseQuery : [ "objectType:person" ],
         fields : [
             new SearchField("editor.label.identifier", [ "identifier" ]),
             new SearchField("editor.label.name", [ "name" ]),
@@ -135,7 +164,7 @@ kSearch.addExtended({
     },
     lyrics : {
         type : "expression",
-        baseQuery: ["objectType:expression", "cmo_musictype:gn-66217054-X"],
+        baseQuery : [ "objectType:expression", "cmo_musictype:gn-66217054-X" ],
         fields : [
             new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
             new SearchField("editor.label.identifier", [ "identifier" ]),

@@ -60,6 +60,9 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.naming.OperationNotSupportedException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -82,6 +85,7 @@ import org.mycore.datamodel.metadata.MCRObject;
 import org.mycore.datamodel.metadata.MCRObjectID;
 import org.mycore.datamodel.metadata.MCRObjectMetadata;
 import org.mycore.mei.classification.MCRMEIAuthorityInfo;
+import org.mycore.mods.MCRMODSWrapper;
 import org.mycore.tools.MCRObjectFactory;
 import org.xml.sax.SAXException;
 
@@ -128,12 +132,18 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
     private static XPathExpression<Element> DATE_ELEMENTS_ATTRS;
 
     static {
-        cmo_mei_typeMapping.put("type of source", "cmo_sourceType");
-        cmo_mei_typeMapping.put("type of content", "cmo_contentType");
-        cmo_mei_typeMapping.put("notation", "cmo_notationType");
-        cmo_mei_typeMapping.put("genre", "cmo_musictype");
-        cmo_mei_typeMapping.put("music type", "cmo_musictype");
-        cmo_mei_typeMapping.put("notation type", "cmo_notationType");
+        cmo_mei_typeMapping.put("type of source",
+            "http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_sourceType");
+        cmo_mei_typeMapping.put("type of content",
+            "http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_contentType");
+        cmo_mei_typeMapping
+            .put("notation", "http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_notationType");
+        cmo_mei_typeMapping
+            .put("genre", "http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_musictype");
+        cmo_mei_typeMapping
+            .put("music type", "http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_musictype");
+        cmo_mei_typeMapping.put("notation type",
+            "http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_notationType");
     }
 
     static {
@@ -210,6 +220,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
         extractChildren(expressionMap);
 
         convertPerson();
+        convertExpressions();
         convertSources();
         convertBibl();
         combine();
@@ -243,29 +254,20 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             MCRObjectMetadata metadata = mcrObject.getMetadata();
 
             String typeId = cmoID.getTypeId();
-            if ("bibl".equals(typeId)) {
-                mcrObject.setSchema("datamodel-tei-" + typeId + ".xsd");
+            if ("mods".equals(typeId)) {
+                mcrObject.setSchema("datamodel-mods.xsd");
             } else {
                 mcrObject.setSchema("datamodel-mei-" + typeId + ".xsd");
             }
 
-            MCRMetaXML meiContainer = new MCRMetaXML("meiContainer", null, 0);
-            List<MCRMetaXML> list = Collections.nCopies(1, meiContainer);
-            MCRMetaElement defModsContainer = new MCRMetaElement(MCRMetaXML.class, "def.meiContainer",
+            String tagName = "mods".equals(typeId) ? "modsContainer" : "meiContainer";
+            MCRMetaXML metadataContainer = new MCRMetaXML(tagName, null, 0);
+            List<MCRMetaXML> list = Collections.nCopies(1, metadataContainer);
+            MCRMetaElement defModsContainer = new MCRMetaElement(MCRMetaXML.class, "def." + tagName,
                 false, true, list);
             metadata.setMetadataElement(defModsContainer);
 
             Element rootElement = v.detachRootElement();
-            if (!("bibl".equals(typeId))) {
-                DATE_ELEMENTS_ATTRS.evaluate(rootElement).forEach(element -> {
-                    TEI_DATE_MEI_DATE_ATTR_MAP.entrySet().forEach((entry) -> {
-                        String val;
-                        if ((val = element.getAttributeValue(entry.getKey())) != null) {
-                            element.setAttribute(entry.getValue(), val);
-                        }
-                    });
-                });
-            }
 
             MEIUtils.changeLinkTargets(rootElement,
                 (from) -> {
@@ -292,7 +294,10 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                                 classLink = termElement.getTextTrim();
                             }
 
-                            MCRMEIAuthorityInfo authorityInfo = new MCRMEIAuthorityInfo(classification, null);
+                            MCRMEIAuthorityInfo authorityInfo =
+                                classification.startsWith("http") || classification.startsWith("https") ?
+                                    new MCRMEIAuthorityInfo(null, classification) :
+                                    new MCRMEIAuthorityInfo(classification, null);
                             List<String> enabledClassLinks;
                             if (!classifications.containsKey(authorityInfo)) {
                                 enabledClassLinks = new ArrayList<>();
@@ -308,10 +313,24 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                     }
                 }
 
-                addCustomClassifications("cmo_makamler", classifications, MAKAM_XPATH.evaluate(rootElement));
-                addCustomClassifications("cmo_usuler", classifications, USUL_XPATH.evaluate(rootElement));
+                addCustomClassifications(
+                    "http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_makamler", classifications,
+                    MAKAM_XPATH.evaluate(rootElement));
+                addCustomClassifications(
+                    "http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_usuler", classifications,
+                    USUL_XPATH.evaluate(rootElement));
 
-                wrapper.setClassification(classifications);
+                classifications.put(new MCRMEIAuthorityInfo(null,
+                        "http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_kindOfData"),
+                    Stream.of("source").collect(Collectors.toList()));
+
+                try {
+                    if(!(wrapper instanceof MEIPersonWrapper)){
+                        wrapper.setClassification(classifications);
+                    }
+                } catch (OperationNotSupportedException e) {
+                    throw new MCRException(e);
+                }
                 wrapper.orderTopLevelElement();
             } else {
                 MEIUtils.removeEmptyNodes(rootElement);
@@ -319,10 +338,21 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
             MEIUtils.clearCircularDependency(rootElement);
             MEIUtils.clear(rootElement);
-            meiContainer.addContent(rootElement);
+            metadataContainer.addContent(rootElement);
 
             if (childParentMap.containsKey(key)) {
                 mcrObject.getStructure().setParent(idMCRObjectIDMap.get(childParentMap.get(key)));
+            }
+
+            if (MCRMODSWrapper.isSupported(mcrObject)) {
+                MCRMODSWrapper mcrmodsWrapper = new MCRMODSWrapper(mcrObject);
+                Map<String, String> attrMap = new HashMap<>();
+                attrMap.put("authorityURI",
+                    "http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_kindOfData");
+                attrMap.put("displayLabel", "cmo_kindOfData");
+                attrMap.put("valueURI",
+                    "http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_kindOfData#source");
+                mcrmodsWrapper.setElement("classification", "", attrMap);
             }
 
             Document document = mcrObject.createXML();
@@ -350,8 +380,6 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             .collect(Collectors.toList());
     }
 
-
-
     public Consumer<Element> getElementCorrector(String cmoID, String attrName) {
         return element -> {
             String oldID = element.getAttributeValue(attrName);
@@ -363,13 +391,17 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
         };
     }
 
-    public void addCustomClassifications(String classificationName,
+    public void addCustomClassifications(String classificationNameOrURI,
         Map<MCRMEIAuthorityInfo, List<String>> classifications, List<Element> elementList) {
         if (elementList.size() > 0) {
             List<String> values = elementList.stream()
                 .map(element -> element.getAttributeValue("classLink", MEIUtils.CMO_NAMESPACE))
                 .collect(Collectors.toList());
-            classifications.put(new MCRMEIAuthorityInfo(classificationName, null), values);
+            MCRMEIAuthorityInfo classification =
+                classificationNameOrURI.startsWith("http") || classificationNameOrURI.startsWith("https") ?
+                    new MCRMEIAuthorityInfo(null, classificationNameOrURI) :
+                    new MCRMEIAuthorityInfo(classificationNameOrURI, null);
+            classifications.put(classification, values);
         }
     }
 
@@ -385,6 +417,20 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             }
         });
         sourceMap = newSourceMap;
+    }
+
+    public void convertExpressions() {
+        ConcurrentHashMap<String, Document> newExpressionMap = new ConcurrentHashMap<>();
+        expressionMap.forEach((cmoID, doc) -> {
+            MCRXSLTransformer transformer = new MCRXSLTransformer("xsl/model/cmo/import/expression-fix-titleStmt.xsl");
+            try {
+                Document document = transformer.transform(new MCRJDOMContent(doc)).asXML();
+                newExpressionMap.put(cmoID, document);
+            } catch (JDOMException | IOException | SAXException e) {
+                LOGGER.error(e);
+            }
+        });
+        expressionMap = newExpressionMap;
     }
 
     public void convertPerson() {
@@ -431,7 +477,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
         switch (type) {
             case "person":
                 return 1;
-            case "bibl":
+            case "mods":
                 return 2;
             case "source":
                 return 3;
@@ -505,6 +551,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             SAXBuilder saxBuilder = new SAXBuilder();
             Document document = saxBuilder.build(is);
             LOGGER.info("Read document: {}", meiFilePath.toString());
+            MEIUtils.removeEmptyNodes(document.getRootElement());
 
             final ConcurrentHashMap<String, Document> hashMap = chooseType(meiFilePath, document);
             if (hashMap == null) {

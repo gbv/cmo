@@ -8,7 +8,7 @@ import java.util.Locale;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public class MCRMEIDateHelper {
+public class MCRDateHelper {
 
     private static DateTimeFormatter MEI_FORMATTER = new DateTimeFormatterBuilder().parseCaseInsensitive()
         .appendValue(ChronoField.YEAR, 4)

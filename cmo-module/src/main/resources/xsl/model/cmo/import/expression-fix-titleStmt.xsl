@@ -28,49 +28,10 @@
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
                 version="1.0">
 
-  <xsl:output indent="yes" />
-
   <xsl:template match='@*|node()'>
     <xsl:copy>
       <xsl:apply-templates select='@*|node()' />
     </xsl:copy>
-  </xsl:template>
-
-  <xsl:template match='@*|node()' mode="copy">
-    <xsl:copy>
-      <xsl:apply-templates select='@*|node()' />
-    </xsl:copy>
-  </xsl:template>
-
-  <xsl:template match="mei:provenance">
-    <!-- -->
-  </xsl:template>
-
-  <xsl:template match="mei:physDesc">
-    <xsl:copy>
-      <xsl:apply-templates select="@*|node()"></xsl:apply-templates>
-    </xsl:copy>
-    <xsl:if test="mei:provenance and not(../mei:physLoc)">
-      <mei:physLoc>
-        <xsl:copy-of select="mei:provenance" />
-      </mei:physLoc>
-    </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="mei:physLoc">
-    <xsl:copy>
-      <xsl:apply-templates />
-      <xsl:if test="../mei:physDesc/mei:provenance">
-        <xsl:apply-templates select="../mei:physDesc/mei:provenance" mode="copy" />
-      </xsl:if>
-    </xsl:copy>
-
-  </xsl:template>
-
-  <xsl:template match="//mei:eventList/mei:event/mei:p">
-    <mei:desc>
-      <xsl:apply-templates select="node()" />
-    </mei:desc>
   </xsl:template>
 
   <xsl:template match="//mei:titleStmt[not(mei:title)]">

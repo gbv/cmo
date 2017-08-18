@@ -32,10 +32,6 @@
 
       <xsl:variable name="classes"
                     select="mcrmei:getIndexClassification()" />
-      <xsl:message>
-        classes : <xsl:value-of select="count($classes)" />
-      </xsl:message>
-
       <xsl:if test="count($classes[@id=$classid])&gt;0">
         <field name="{$classid}">
           <xsl:value-of select="$classdoc//category/@ID" />
