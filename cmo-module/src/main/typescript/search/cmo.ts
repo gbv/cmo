@@ -147,8 +147,8 @@ kSearch.addExtended({
             new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name"]),
             new SearchField("editor.label.identifier", ["mods.identifier"]),
             new SearchField("editor.label.publisher", ["mods.publisher"]),
-            new ClassificationSearchField("mods.ddc", "DDC"),
-            new ClassificationSearchField("mods.type", "diniPublType"),
+            /* new ClassificationSearchField("mods.ddc", "DDC"), */
+            /* new ClassificationSearchField("mods.type", "diniPublType"), */
             new DateSearchField("editor.legend.pubDate", [ "mods.dateIssued.range", "mods.dateIssued.host.range" ])
         ]
     },

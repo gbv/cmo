@@ -56,7 +56,7 @@ export class SearchGUI {
             <div class="form-group">
                 <label class="typeLabel col-md-3 control-label form-inline"></label>
                 <div class="controls col-md-9">
-                    <select class="type form-control form-control-inline"></select>            
+                    <select class="type form-control form-control-inline"></select>
                 </div>
             </div>
         </div>
@@ -128,7 +128,13 @@ export class SearchGUI {
         this.nameBaseQueryMap[ name ] = baseQuery;
         let extendOption = <HTMLOptionElement>document.createElement('option');
 
-        let langKey = `editor.cmo.select.${name}`;
+        let langKey;
+        if (name == 'mods' && type == 'bibl') {
+            langKey = `editor.cmo.select.bibliography`;
+        }
+        else {
+            langKey = `editor.cmo.select.${name}`;
+        }
         extendOption.text = `???${langKey}???`;
         extendOption.value = name;
 
@@ -423,7 +429,7 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
                   <label class="col-md-3 control-label form-inline"></label>
                   <div class="controls col-md-9">
                     <select class="form-control form-control-inline">
-                        
+
                     </select>
                   </div>
               </div>
@@ -491,7 +497,7 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
             (<Classification>clazz).label : (<ClassificationCategory>clazz).labels);
         labels = labels.filter(clazzLabel => clazzLabel.lang.indexOf("x-") != 0);
         let label = (labels.filter(label => label.lang == lang)[ 0 ] || labels[ 0 ]).text;
-        let html = `<option ${level.length == 0 ? 'selected="selected" disabled="disabled"' : ''}  value="${clazz.ID}">${level.map(i => "&nbsp;&nbsp;").join("")}${label}</option> 
+        let html = `<option ${level.length == 0 ? 'selected="selected" disabled="disabled"' : ''}  value="${clazz.ID}">${level.map(i => "&nbsp;&nbsp;").join("")}${label}</option>
                     ${("categories" in clazz) ? clazz.categories.map(o => this.getOptionHTML(o, level)).join() : ''}`;
         level.pop();
         return html;

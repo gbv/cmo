@@ -47,6 +47,15 @@
       <xsl:apply-templates select="@xml:id" />
       <xsl:apply-templates select="tei:idno" />
 
+      <xsl:choose>
+        <xsl:when test="tei:bibl[@type='in']">
+          <mods:genre valueURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres#article" authorityURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres" type="intern"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <mods:genre valueURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres#book" authorityURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres" type="intern"/>
+        </xsl:otherwise>
+      </xsl:choose>
+
       <xsl:if test="tei:edition|tei:publisher|tei:pubPlace|tei:date">
         <mods:originInfo eventType="publication">
           <xsl:apply-templates select="tei:edition" />
