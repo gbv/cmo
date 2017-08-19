@@ -3,15 +3,15 @@
   xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_genres">
   <label xml:lang="en" text="genre" description="A list of publication types" />
   <label xml:lang="de" text="Genre" description="Liste der Publikationsarten" />
-  <label xml:lang="x-uri" text="http://cmo.gbv.de/classifications/cmo_genres" />
+  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres" />
   <categories>
     <category ID="article">
       <label xml:lang="de" text="Artikel / Aufsatz" />
       <label xml:lang="en" text="Article / Chapter" />
     </category>
     <category ID="book">
-      <label xml:lang="de" text="Buch" />
-      <label xml:lang="en" text="Book" />
+      <label xml:lang="de" text="Buch, Monographie" />
+      <label xml:lang="en" text="Book, Monograph" />
     </category>
     <category ID="series">
       <label xml:lang="en" text="Series" />

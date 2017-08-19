@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_annotType">
   <label xml:lang="de" text="Kommentartypen" />
-  <label xml:lang="x-uri" text="http://cmo.gbv.de/classifications/cmo_annotType" />
+  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_annotType" />
   <label xml:lang="en" text="Annotation Types" />
   <categories>
     <category ID="Fascicles">

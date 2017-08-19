@@ -2,6 +2,7 @@
 <mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_calendar">
   <label xml:lang="de" text="Kalender (Datum)" />
   <label xml:lang="en" text="Calendar (date)" />
+  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_calendar" />
   <categories>
     <category ID="hijiri">
       <label xml:lang="de" text="hijiri" />

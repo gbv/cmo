@@ -4,7 +4,7 @@
   <label xml:lang="de" text="Schriftsystem" description="nach ISO 15924" />
   <label xml:lang="en" text="Script Code" description="as defined in ISO 15924" />
   <label xml:lang="x-auth" text="iso15924" />
-  <label xml:lang="x-uri" text="http://www.mycore.org/classifications/iso15924" />
+  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/iso15924" />
   <categories>
     <category ID="ota-arab">
       <label xml:lang="de" text="Osmanisch Türkisch in arabischer Schrift" />

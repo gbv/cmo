@@ -3,6 +3,7 @@
              xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_litform">
   <label text="Literary form" xml:lang="en" />
   <label text="Literarische Form" xml:lang="de" />
+  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_litform" />
   <categories>
     <category ID="lf-99333322-3">
       <label xml:lang="ar" text="Ġazel" />

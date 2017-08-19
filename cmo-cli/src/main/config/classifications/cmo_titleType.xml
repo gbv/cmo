@@ -2,6 +2,7 @@
 <mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_titleType">
   <label xml:lang="en" text="Type of title" />
   <label xml:lang="de" text="Titelformen" />
+  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_titleType" />
   <categories>
     <category ID="alt">
       <label xml:lang="de" text="alt" />
