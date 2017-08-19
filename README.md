@@ -31,7 +31,7 @@ More information about MyCoRe are available at http://www.mycore.org
 
 ```sql
 DELETE FROM MCRLINKHREF WHERE 1=1;
-DELETE FROM MCRDETELEDITEMS WHERE 1=1;
+DELETE FROM MCRMETAHISTORY WHERE 1=1;
 DELETE FROM MCRCATEGORYLINK WHERE OBJECTTYPE='expression'
                                   or OBJECTTYPE='source'
                                   or OBJECTTYPE='work'
