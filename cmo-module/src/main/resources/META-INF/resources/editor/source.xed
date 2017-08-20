@@ -14,7 +14,7 @@
 
       <xed:bind xpath="/mycoreobject">
         <xed:bind xpath="@ID" initially="cmo_source_00000000" />
-        <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML']/meiContainer/mei:source">
+        <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML'][@notinherit='true']/meiContainer/mei:source">
 
 
           <xed:include uri="webapp:editor/editor-includes.xed" ref="failed-validation-messages" />
