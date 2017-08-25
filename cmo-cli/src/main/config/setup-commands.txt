@@ -5,3 +5,5 @@ update classification from url http://mycore.de/classifications/mcr-roles.xml
 init superuser
 process ${app.home}/config/acl/defaultrules-commands.txt
 process ${app.home}/config/acl/webacl-commands.txt
+process ${app.home}/config/acl/restapi-commands.txt
+
