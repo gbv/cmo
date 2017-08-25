@@ -260,7 +260,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             if ("mods".equals(typeId)) {
                 mcrObject.setSchema("datamodel-mods.xsd");
             } else {
-                mcrObject.setSchema("datamodel-mei-" + typeId + ".xsd");
+                mcrObject.setSchema("datamodel-" + typeId + ".xsd");
             }
 
             String tagName = "mods".equals(typeId) ? "modsContainer" : "meiContainer";
