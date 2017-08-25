@@ -81,7 +81,7 @@ eSearch.addExtended({
         fields : [
             new ClassificationSearchField("mods.type", "diniPublType"),
             new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
-            new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name"])
+            new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name" ])
 
         ]
     },
@@ -90,9 +90,9 @@ eSearch.addExtended({
         baseQuery : [ "objectType:mods" ],
         fields : [
             new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
-            new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name"]),
-            new SearchField("editor.label.identifier", ["mods.identifier"]),
-            new SearchField("editor.label.publisher", ["mods.publisher"]),
+            new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name" ]),
+            new SearchField("editor.label.identifier", [ "mods.identifier" ]),
+            new SearchField("editor.label.publisher", [ "mods.publisher" ]),
             new ClassificationSearchField("mods.ddc", "DDC"),
             new ClassificationSearchField("mods.type", "diniPublType"),
             new DateSearchField("editor.legend.pubDate", [ "mods.dateIssued.range", "mods.dateIssued.host.range" ]),
@@ -144,9 +144,9 @@ kSearch.addExtended({
         baseQuery : [ "objectType:mods" ],
         fields : [
             new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
-            new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name"]),
-            new SearchField("editor.label.identifier", ["mods.identifier"]),
-            new SearchField("editor.label.publisher", ["mods.publisher"]),
+            new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name" ]),
+            new SearchField("editor.label.identifier", [ "mods.identifier" ]),
+            new SearchField("editor.label.publisher", [ "mods.publisher" ]),
             /* new ClassificationSearchField("mods.ddc", "DDC"), */
             /* new ClassificationSearchField("mods.type", "diniPublType"), */
             new DateSearchField("editor.legend.pubDate", [ "mods.dateIssued.range", "mods.dateIssued.host.range" ])
@@ -216,7 +216,7 @@ let search;
 let onQueryChanged = (searchController: SearchController) => {
     if (currentTimeOut !== null) {
         window.clearTimeout(currentTimeOut);
-        currentTimeOut == null;
+        currentTimeOut = null;
     }
 
     currentTimeOut = window.setTimeout(() => search(0, searchController), 500);
@@ -226,7 +226,8 @@ search = (start, searchController) => {
     let queries = searchController.getSolrQuery();
 
     let params = queries
-        .concat([ [ "start", start ] ]);
+        .concat([ [ "start", start ] ])
+        .concat([ [ "action", "search" ] ]);
 
     StateController.setState(params);
 };
@@ -234,42 +235,42 @@ search = (start, searchController) => {
 
 StateController.onStateChange((params, selfChange) => {
     let ctrl: SearchController = null;
-    for (let param of params) {
-        let [ , v ] = param;
+    if (params.filter(([ key, value ]) => key == "action" && (value == "search" || value =="subselect")).length > 0) {
+        for (let param of params) {
+            let [ , v ] = param;
 
-        if (v.indexOf(kSearchBaseQuery) != -1) {
-            console.log("kSearch!");
-            ctrl = kSearch;
-        } else if (v.indexOf(eSearchBaseQuery) != -1) {
-            console.log("eSearch!");
-            ctrl = eSearch;
+            if (v.indexOf(kSearchBaseQuery) != -1) {
+                ctrl = kSearch;
+            } else if (v.indexOf(eSearchBaseQuery) != -1) {
+                ctrl = eSearch;
+            }
+
         }
 
-    }
+        searchDisplay.reset();
+        facet.reset();
 
-    searchDisplay.reset();
-    facet.reset();
-
-    if (ctrl != null) {
-        ctrl.enable = true;
+        if (ctrl != null) {
+            ctrl.enable = true;
 
 
-        if (!selfChange) {
-            ctrl.setSolrQuery(params);
+            if (!selfChange) {
+                ctrl.setSolrQuery(params);
+            }
+
+            searchDisplay.save();
+            facet.save();
+            searchDisplay.loading();
+            solrSearcher.search(
+                params
+                , (result => {
+                    searchDisplay.displayResult(result, (start) => {
+                        search(start, ctrl);
+                        window.scrollTo(0, 0);
+                    });
+                    facet.displayFacet(result);
+                }));
         }
-
-        searchDisplay.save();
-        facet.save();
-        searchDisplay.loading();
-        solrSearcher.search(
-            params
-            , (result => {
-                searchDisplay.displayResult(result, (start) => {
-                    search(start, ctrl);
-                    window.scrollTo(0, 0);
-                });
-                facet.displayFacet(result);
-            }));
     }
 });
 kSearch.addQueryChangedHandler(() => onQueryChanged(kSearch));

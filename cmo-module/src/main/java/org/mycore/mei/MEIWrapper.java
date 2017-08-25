@@ -19,7 +19,7 @@
  *
  */
 
-package de.vzg.cmo.model;
+package org.mycore.mei;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -37,6 +37,8 @@ import org.apache.logging.log4j.Logger;
 import org.jdom2.Content;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
+import org.jdom2.filter.Filters;
+import org.jdom2.xpath.XPathFactory;
 import org.mycore.datamodel.metadata.MCRMetaElement;
 import org.mycore.datamodel.metadata.MCRMetaXML;
 import org.mycore.datamodel.metadata.MCRMetadataManager;
@@ -47,9 +49,9 @@ import org.mycore.mei.classification.MCRMEIClassificationSupport;
 
 public abstract class MEIWrapper {
 
-    private final Element root;
-
     private static final Logger LOGGER = LogManager.getLogger();
+
+    private final Element root;
 
     protected MEIWrapper(Element root) {
         String rootName = root.getName();
@@ -57,24 +59,6 @@ public abstract class MEIWrapper {
             throw new IllegalArgumentException(rootName + " is can not be wrapped by " + this.getClass().toString());
         }
         this.root = root;
-    }
-
-    public abstract String getWrappedElementName();
-
-    public Element getRoot() {
-        return root;
-    }
-
-    protected abstract int getRankOf(Element topLevelElement);
-
-    public void orderTopLevelElement() {
-        Consumer<Element> elementConsumer = (Consumer<Element>) this.root::removeContent;
-        Comparator<Element> sortFn = (e1, e2) -> getRankOf(e1) - getRankOf(e2);
-        new ArrayList<>(this.root.getChildren())
-            .stream()
-            .peek(elementConsumer)
-            .sorted(sortFn)
-            .forEach(this.root::addContent);
     }
 
     public static MEIWrapper getWrapper(Element rootElement) {
@@ -88,6 +72,11 @@ public abstract class MEIWrapper {
                 return new MEIPersonWrapper(rootElement);
             case "work":
                 return new MEIWorkWrapper(rootElement);
+            case "mycoreobject":
+                return getWrapper(
+                    XPathFactory.instance()
+                        .compile("metadata/def.meiContainer/meiContainer/*", Filters.element())
+                        .evaluateFirst(rootElement));
         }
         return null;
     }
@@ -111,12 +100,29 @@ public abstract class MEIWrapper {
         return null;
     }
 
-    public static MEIWrapper getWrapper(String objectIdString){
+    public static MEIWrapper getWrapper(String objectIdString) {
         MCRObjectID objectID = MCRObjectID.getInstance(objectIdString);
         MCRObject object = MCRMetadataManager.retrieveMCRObject(objectID);
         return getWrapper(object);
     }
 
+    public abstract String getWrappedElementName();
+
+    public Element getRoot() {
+        return root;
+    }
+
+    protected abstract int getRankOf(Element topLevelElement);
+
+    public void orderTopLevelElement() {
+        Consumer<Element> elementConsumer = (Consumer<Element>) this.root::removeContent;
+        Comparator<Element> sortFn = (e1, e2) -> getRankOf(e1) - getRankOf(e2);
+        new ArrayList<>(this.root.getChildren())
+            .stream()
+            .peek(elementConsumer)
+            .sorted(sortFn)
+            .forEach(this.root::addContent);
+    }
 
     public HashMap<MCRMEIAuthorityInfo, List<String>> getClassification() {
         Element classificationElement = this.root.getChild("classification", MEIUtils.MEI_NAMESPACE);
@@ -129,7 +135,6 @@ public abstract class MEIWrapper {
             for (Element classCodeElement : classCodes) {
                 // this is the value which is used to Link a term to class code
                 String classCodeID = classCodeElement.getAttributeValue("id", Namespace.XML_NAMESPACE);
-
 
                 MCRMEIAuthorityInfo authorityInfo = MCRMEIClassificationSupport.getAuthorityInfo(classCodeElement);
 
@@ -191,7 +196,6 @@ public abstract class MEIWrapper {
     public void deleteClassification() {
         this.root.getChildren("classification", MEIUtils.MEI_NAMESPACE).forEach(Element::detach);
     }
-
 
     /**
      * Removes all empty elements recursive

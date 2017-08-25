@@ -21,7 +21,8 @@
         <xed:bind xpath="@ID" initially="{$origin}_mods_00000000" />
       </xed:when>
       <xed:when test="xed:call-java('org.mycore.common.xml.MCRXMLFunctions','getCurrentUserAttribute','origin')">
-        <xed:bind xpath="@ID" initially="{xed:call-java('org.mycore.common.xml.MCRXMLFunctions','getCurrentUserAttribute','origin')}_mods_00000000" />
+        <xed:bind xpath="@ID"
+                  initially="{xed:call-java('org.mycore.common.xml.MCRXMLFunctions','getCurrentUserAttribute','origin')}_mods_00000000" />
       </xed:when>
       <xed:otherwise>
         <xed:bind xpath="@ID" initially="{$MIR.projectid.default}_mods_00000000" />
@@ -32,7 +33,8 @@
   </xed:template>
 
   <xed:template id="cmo_title">
-    <cmo:textfield xpath="mei:titleStmt/mei:title" label="editor.label.title" type="cmo_titleType" lang="rfc4646" repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
+    <cmo:textfield xpath="mei:titleStmt/mei:title" label="editor.label.title" type="cmo_titleType" lang="rfc4646"
+                   repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
   </xed:template>
 
   <!--  editor>
@@ -40,76 +42,100 @@
     <persName nymref="cmo_person_00000434">Irsoy, Ahmed</persName>
   </editor -->
   <xed:template id="cmo_editor">
-    <cmo:nameLinkField xpath="mei:titleStmt/mei:editor" repeat="true" min="1" max="10" placeholder="last name, first name" label="editor.label.editor" help-text="{i18n:cmo.help.editor}" />
+    <cmo:nameLinkField xpath="mei:titleStmt/mei:editor" repeat="true" min="1" max="10"
+                       placeholder="last name, first name" label="editor.label.editor"
+                       help-text="{i18n:cmo.help.editor}" />
   </xed:template>
 
   <xed:template id="cmo_author">
-    <cmo:nameLinkField xpath="mei:titleStmt/mei:author" repeat="true" min="1" max="10" placeholder="last name, first name" label="editor.label.author" help-text="{i18n:cmo.help.author}" />
+    <cmo:nameLinkField xpath="mei:titleStmt/mei:author" repeat="true" min="1" max="10"
+                       placeholder="last name, first name" label="editor.label.author"
+                       help-text="{i18n:cmo.help.author}" />
   </xed:template>
 
   <xed:template id="cmo_sponsor">
-    <cmo:nameLinkField xpath="mei:titleStmt/mei:sponsor" repeat="true" min="1" max="10" placeholder="last name, first name" label="editor.label.sponsor" help-text="{i18n:cmo.help.sponsor}" />
+    <cmo:nameLinkField xpath="mei:titleStmt/mei:sponsor" repeat="true" min="1" max="10"
+                       placeholder="last name, first name" label="editor.label.sponsor"
+                       help-text="{i18n:cmo.help.sponsor}" />
   </xed:template>
 
   <xed:template id="cmo_funder">
-    <cmo:nameLinkField xpath="mei:titleStmt/mei:funder" repeat="true" min="1" max="10" placeholder="last name, first name" label="editor.label.funder" help-text="{i18n:cmo.help.funder}" />
+    <cmo:nameLinkField xpath="mei:titleStmt/mei:funder" repeat="true" min="1" max="10"
+                       placeholder="last name, first name" label="editor.label.funder"
+                       help-text="{i18n:cmo.help.funder}" />
   </xed:template>
 
   <xed:template id="cmo_seriesTitle">
-    <cmo:textfield xpath="mei:seriesStmt/mei:title" label="editor.label.seriesTitle" type="cmo_titleType" lang="rfc4646" repeat="true" min="1" max="10" help-text="{i18n:cmo.help.seriesTitle}" />
+    <cmo:textfield xpath="mei:seriesStmt/mei:title" label="editor.label.seriesTitle" type="cmo_titleType" lang="rfc4646"
+                   repeat="true" min="1" max="10" help-text="{i18n:cmo.help.seriesTitle}" />
   </xed:template>
   <!-- TODO: unit is selectable! Possible entries are volume, page or issue. -->
   <xed:template id="cmo_seriesBiblScope">
-    <cmo:textfield xpath="mei:seriesStmt/mei:biblScope[@unit='vol']" label="editor.label.seriesBiblScope" help-text="{i18n:cmo.help.seriesBiblScope}" />
+    <cmo:textfield xpath="mei:seriesStmt/mei:biblScope[@unit='vol']" label="editor.label.seriesBiblScope"
+                   help-text="{i18n:cmo.help.seriesBiblScope}" />
   </xed:template>
 
   <xed:template id="cmo_identifier">
-    <cmo:textfield xpath="mei:identifier[@type='CMO']" label="editor.label.identifier" help-text="{i18n:cmo.help.identifier}" class="required" required="true"
-      required-text="{i18n:cmo.validation.identifier}" />
+    <cmo:textfield xpath="mei:identifier[@type='CMO']" label="editor.label.identifier"
+                   help-text="{i18n:cmo.help.identifier}" class="required" required="true"
+                   required-text="{i18n:cmo.validation.identifier}" />
   </xed:template>
 
   <xed:template id="cmo_publisher">
-    <cmo:textfield xpath="mei:pubStmt/mei:publisher" label="editor.label.publisher" help-text="{i18n:cmo.help.publisher}" />
+    <cmo:textfield xpath="mei:pubStmt/mei:publisher" label="editor.label.publisher"
+                   help-text="{i18n:cmo.help.publisher}" />
   </xed:template>
 
   <xed:template id="cmo_pubPlace">
-    <cmo:textfield xpath="mei:pubStmt/mei:pubPlace/mei:geogName" label="editor.label.pubPlace" help-text="{i18n:cmo.help.pubPlace}" />
+    <cmo:textfield xpath="mei:pubStmt/mei:pubPlace/mei:geogName" label="editor.label.pubPlace"
+                   help-text="{i18n:cmo.help.pubPlace}" />
   </xed:template>
 
   <xed:template id="cmo_printer">
-    <cmo:textfield xpath="mei:titleStmt/mei:printer" repeat="true" min="1" max="10" label="editor.label.printer" help-text="{i18n:cmo.help.printer}" />
+    <cmo:textfield xpath="mei:titleStmt/mei:printer" repeat="true" min="1" max="10" label="editor.label.printer"
+                   help-text="{i18n:cmo.help.printer}" />
   </xed:template>
 
   <xed:template id="cmo_contents">
-    <cmo:textarea xpath="mei:contents/mei:p" label="editor.label.contents" help-text="{i18n:cmo.help.contents}" rows="5" />
+    <cmo:textarea xpath="mei:contents/mei:p" label="editor.label.contents" help-text="{i18n:cmo.help.contents}"
+                  rows="5" />
   </xed:template>
 
   <xed:template id="cmo_language">
-    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='rfc4646']/@xml:id" repeat="true" min="1" max="10" label="editor.label.language" classification="rfc4646" help-text="{i18n:cmo.help.language}" />
+    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='rfc4646']/@xml:id" repeat="true" min="1"
+                              max="10" label="editor.label.language" classification="rfc4646"
+                              help-text="{i18n:cmo.help.language}" />
   </xed:template>
 
   <xed:template id="cmo_scriptLanguage">
-    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='iso15924']/@xml:id" repeat="true" min="1" max="10" label="editor.label.scriptLanguage" classification="iso15924" help-text="{i18n:cmo.help.scriptLanguage}" />
+    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='iso15924']/@xml:id" repeat="true" min="1"
+                              max="10" label="editor.label.scriptLanguage" classification="iso15924"
+                              help-text="{i18n:cmo.help.scriptLanguage}" />
   </xed:template>
 
 
   <xed:template id="cmo_annot">
-    <cmo:textarea xpath="mei:notesStmt/mei:annot" repeat="true" min="1" max="10" type="cmo_annotType" label="editor.label.annot" help-text="{i18n:cmo.help.annot}" rows="3" />
+    <cmo:textarea xpath="mei:notesStmt/mei:annot" repeat="true" min="1" max="10" type="cmo_annotType"
+                  label="editor.label.annot" help-text="{i18n:cmo.help.annot}" rows="3" />
   </xed:template>
 
   <xed:template id="cmo_sourceType">
-    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_sourceType']" label="editor.search.sourceType"
-      classification="cmo_sourceType" class="required" required="true" required-text="{i18n:cmo.validation.sourceType}" help-text="{i18n:cmo.help.sourceType}" />
+    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_sourceType']"
+                              label="editor.search.sourceType"
+                              classification="cmo_sourceType" class="required" required="true"
+                              required-text="{i18n:cmo.validation.sourceType}" help-text="{i18n:cmo.help.sourceType}" />
   </xed:template>
 
   <xed:template id="cmo_contentType">
-    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_contentType']" label="editor.search.contentType"
-      classification="cmo_contentType" help-text="{i18n:cmo.help.contentType}" />
+    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_contentType']"
+                              label="editor.search.contentType"
+                              classification="cmo_contentType" help-text="{i18n:cmo.help.contentType}" />
   </xed:template>
 
   <xed:template id="cmo_notationType">
-    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_notationType']" label="editor.search.notationType"
-      classification="cmo_notationType" help-text="{i18n:cmo.help.notationType}" />
+    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_notationType']"
+                              label="editor.search.notationType"
+                              classification="cmo_notationType" help-text="{i18n:cmo.help.notationType}" />
   </xed:template>
 
   <!-- <date isodate="" from="" to="" notbefore="1997" notafter="1997" calendar="gregorian" label="">1997</date> -->
@@ -117,10 +143,12 @@
     <cmo:isoApproxDate xpath="." label="editor.label.normDate" help-text="{i18n:cmo.help.normDate}" />
   </xed:template>
   <xed:template id="cmo_textDate">
-    <cmo:textfield xpath="." label="editor.label.textDate" placeholder="{i18n:cmo.placeholder.textDate}" help-text="{i18n:cmo.help.textDate}" />
+    <cmo:textfield xpath="." label="editor.label.textDate" placeholder="{i18n:cmo.placeholder.textDate}"
+                   help-text="{i18n:cmo.help.textDate}" />
   </xed:template>
   <xed:template id="cmo_calendar">
-    <cmo:selectClassification xpath="./@calendar" label="editor.label.calendar" classification="cmo_calendar" help-text="{i18n:cmo.help.calendar}" />
+    <cmo:selectClassification xpath="./@calendar" label="editor.label.calendar" classification="cmo_calendar"
+                              help-text="{i18n:cmo.help.calendar}" />
   </xed:template>
 
   <xed:template id="cmo_saveCancelDebug">
@@ -131,13 +159,13 @@
         <xed:choose>
           <xed:when test="contains(/mycoreobject/@ID, '_00000000')">
             <button id="save" class="btn btn-success createobject" type="submit" xed:target="servlet"
-              xed:href="CreateObjectServlet">
+                    xed:href="CreateObjectServlet">
               <xed:output i18n="common.button.save" />
             </button>
           </xed:when>
           <xed:otherwise>
             <button id="save" class="btn btn-success updateobject" type="submit" xed:target="servlet"
-              xed:href="UpdateObjectServlet">
+                    xed:href="UpdateObjectServlet">
               <xed:output i18n="common.button.save" />
             </button>
           </xed:otherwise>
@@ -166,6 +194,25 @@
         </ul>
       </div>
     </xed:if>
+  </xed:template>
+
+  <xed:template id="cleanup-rules">
+    <xed:cleanup-rule xpath="//mei:title" relevant-if="string-length(text())&gt;0" />
+    <xed:cleanup-rule xpath="//mei:biblScope" relevant-if="string(length)&gt;0" />
+    <xed:cleanup-rule xpath="//mei:seriesStmt" relevant-if="count(*)&gt;0" />
+
+    <xed:cleanup-rule xpath="//mei:language"
+                      relevant-if="string-length(@authority)&gt;0 and string-length(@xml:id)&gt;0" />
+    <xed:cleanup-rule xpath="//mei:langUsage" relevant-if="count(*)&gt;0" />
+
+    <xed:cleanup-rule xpath="//mei:annot" relevant-if="string-length(text())&gt;0" />
+    <xed:cleanup-rule xpath="//mei:notesStmt" relevant-if="count(*)&gt;0" />
+    
+    <xed:cleanup-rule xpath="//classEntry" relevant-if="string-length(text())&gt;0" />
+    <xed:cleanup-rule xpath="//mei:classification" relevant-if="count(*)&gt;0" />
+
+    <xed:cleanup-rule xpath="//mei:termList" relevant-if="string-length(mei:term/text())&gt;0" />
+
   </xed:template>
 
 </xed:template>

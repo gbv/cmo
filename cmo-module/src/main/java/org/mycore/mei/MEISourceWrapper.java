@@ -19,7 +19,7 @@
  *
  */
 
-package de.vzg.cmo.model;
+package org.mycore.mei;
 
 import java.util.ArrayList;
 import java.util.List;

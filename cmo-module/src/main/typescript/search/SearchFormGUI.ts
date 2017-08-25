@@ -81,7 +81,7 @@ export class SearchGUI {
         this.getMainSearchInputElement().addEventListener('keyup', this.changed);
     }
 
-    private typeChanged() {
+    private typeChanged(userCause=true) {
         let newType = this.typeSelect.value;
 
         for (let inputIndex in this.typeMap[ this.currentType ]) {
@@ -97,7 +97,9 @@ export class SearchGUI {
         }
 
         this.currentType = newType;
-        this.changed();
+        if(userCause){
+            this.changed();
+        }
     }
 
     public getMainSearchInputElement() {
@@ -260,7 +262,7 @@ export class SearchGUI {
             if (isMatching) {
                 if (this.typeSelect.value !== name) {
                     this.typeSelect.value = name;
-                    this.typeChanged();
+                    this.typeChanged(false);
                 }
                 break;
             }

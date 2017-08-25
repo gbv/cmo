@@ -42,8 +42,8 @@
 
 package de.vzg.maven.cmo.model;
 
-import de.vzg.cmo.model.MEISourceWrapper;
-import de.vzg.cmo.model.MEIUtils;
+import org.mycore.mei.MEISourceWrapper;
+import org.mycore.mei.MEIUtils;
 
 import java.io.IOException;
 import java.io.InputStream;

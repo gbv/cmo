@@ -26,7 +26,8 @@
   xmlns:acl="xalan://org.mycore.access.MCRAccessManager"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:mei="http://www.music-encoding.org/ns/mei"
-  exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
+  xmlns:classification="xalan://org.mycore.mei.classification.MCRMEIClassificationSupport"
+  exclude-result-prefixes="xalan xlink acl i18n mei classification" version="1.0">
 
   <xsl:template match="mei:langUsage" mode="metadataView">
     <xsl:comment>mei/langUsage.xsl > mei:langUsage</xsl:comment>
@@ -37,7 +38,15 @@
         <ul>
           <xsl:for-each select="mei:language">
             <li>
-              <xsl:value-of select="." />
+              <xsl:choose>
+                <xsl:when test="@authority and @xml:id">
+                  <xsl:value-of select="classification:getClassLabel(.)" />
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="." />
+                  <xsl:message>WARNING: OBJECT HAS MEI:LANGUAGE BUT NO AUTHORITY AND ID</xsl:message>
+                </xsl:otherwise>
+              </xsl:choose>
             </li>
           </xsl:for-each>
         </ul>

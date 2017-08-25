@@ -21,8 +21,6 @@
 
 package org.mycore.mei;
 
-import de.vzg.cmo.model.MEIWrapper;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mycore.common.events.MCREvent;

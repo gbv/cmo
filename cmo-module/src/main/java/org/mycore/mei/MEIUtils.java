@@ -40,7 +40,7 @@
  *
  */
 
-package de.vzg.cmo.model;
+package org.mycore.mei;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;

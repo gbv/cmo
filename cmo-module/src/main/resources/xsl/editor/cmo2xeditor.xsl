@@ -298,19 +298,19 @@
         <xed:output i18n="{@label}" />
       </label>
       <div class="col-md-6">
-        <div class="form-inline">
+        <div class="form-inline" data-toggleDate="true">
           <xed:bind xpath="@isodate">
-            <input id="cmo_isodate" type="text" placeholder="YYYY-MM-DD" class="form-control datetimepicker date" />
+            <input type="text" placeholder="YYYY-MM-DD" class="cmoIsodate form-control datetimepicker date" />
           </xed:bind>
           <xed:bind xpath="@approx" initially="false">
             <div class="checkbox">
               <label>
                 <xed:choose>
                   <xed:when test=".='true'">
-                     <input id="cmo_toggleDate" type="checkbox" checked="checked" />
+                     <input class="cmo_toggleApprox" type="checkbox" checked="checked" />
                   </xed:when>
                   <xed:otherwise>
-                     <input id="cmo_toggleDate" type="checkbox" />
+                     <input class="cmo_toggleApprox" type="checkbox" />
                   </xed:otherwise>
                 </xed:choose>
                 <xed:output i18n="editor.label.approxDate" />
@@ -322,32 +322,32 @@
               <label>
                 <xed:choose>
                   <xed:when test=".='true'">
-                     <input id="cmo_toggleRange" type="checkbox" checked="checked" />
+                     <input class="cmo_toggleRange" type="checkbox" checked="checked" />
                   </xed:when>
                   <xed:otherwise>
-                     <input id="cmo_toggleRange" type="checkbox" />
+                     <input class="cmo_toggleRange" type="checkbox" />
                   </xed:otherwise>
                 </xed:choose>
                 <xed:output i18n="editor.label.rangeDate" />
               </label>
             </div>
           </xed:bind>
-          <div id="cmo_toggleDate_approx" style="display:none;">
+          <div class="cmoApproxBox" style="display:none;">
             <xed:bind xpath="@notbefore">
-              <input id="cmo_notbefore" type="text" placeholder="YYYY-MM-DD" class="form-control datetimepicker cmo_dateInput" />
+              <input type="text" placeholder="YYYY-MM-DD" class="cmo_notbefore form-control datetimepicker cmo_dateInput" />
             </xed:bind>
             <xsl:text> - </xsl:text>
             <xed:bind xpath="@notafter">
-              <input id="cmo_notafter"  type="text" placeholder="YYYY-MM-DD" class="form-control datetimepicker cmo_dateInput" />
+              <input type="text" placeholder="YYYY-MM-DD" class="cmo_notafter form-control datetimepicker cmo_dateInput" />
             </xed:bind>
           </div>
-          <div id="cmo_toggleDate_range" style="display:none;">
+          <div class="cmoRangeBox" style="display:none;">
             <xed:bind xpath="@startdate">
-              <input id="cmo_startdate" type="text" placeholder="YYYY-MM-DD" class="form-control datetimepicker cmo_dateInput" />
+              <input type="text" placeholder="YYYY-MM-DD" class="cmo_startdate form-control datetimepicker cmo_dateInput" />
             </xed:bind>
             <xsl:text> - </xsl:text>
             <xed:bind xpath="@enddate">
-              <input id="cmo_enddate"  type="text" placeholder="YYYY-MM-DD" class="form-control datetimepicker cmo_dateInput" />
+              <input type="text" placeholder="YYYY-MM-DD" class="cmo_enddate form-control datetimepicker cmo_dateInput" />
             </xed:bind>
           </div>
         </div>

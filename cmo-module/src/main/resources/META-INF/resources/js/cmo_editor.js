@@ -37,34 +37,63 @@
   }); // end document ready
 
 
-  $("#cmo_toggleDate").click(function(e){
-    $("#cmo_toggleDate_approx").toggle();
-    if ($("#cmo_toggleDate_approx").css("display") != "none") {
-      $("#cmo_toggleDate_approx").css("display", "inline");
-    }
-    if ($("#cmo_toggleRange").prop("checked")) {
-      $("#cmo_toggleRange").prop("checked", false);
-      $("#cmo_toggleDate_range").toggle();
-      $("#cmo_toggleDate_range").css("display", "none");
-    }
-    else {
-      $("#cmo_isodate").toggle();
-    }
-  });
+    $("[data-toggleDate=true]").each(function (i,e) {
+        let element = jQuery(e);
 
-  $("#cmo_toggleRange").click(function(e){
-    $("#cmo_toggleDate_range").toggle();
-    if ($("#cmo_toggleDate_range").css("display") != "none") {
-      $("#cmo_toggleDate_range").css("display", "inline");
-    }
-    if ($("#cmo_toggleDate").prop("checked")) {
-      $("#cmo_toggleDate").prop("checked", false);
-      $("#cmo_toggleDate_approx").toggle();
-      $("#cmo_toggleDate_approx").css("display", "none");
-    }
-    else {
-      $("#cmo_isodate").toggle();
-    }
-  });
+        let toggleApproxInput = element.find(".cmo_toggleApprox");
+        let toggleRangeInput = element.find(".cmo_toggleRange");
+
+        let cmoIsoDateBox = element.find(".cmoIsodate");
+        let approxBox = element.find(".cmoApproxBox");
+        let rangeBox = element.find(".cmoRangeBox");
+
+
+
+        let showAsInline = function (element) {
+            if (element.css("display") !== "none") {
+                element.css("display", "inline");
+            }
+        };
+
+        if(toggleRangeInput.prop("checked")){
+            cmoIsoDateBox.toggle();
+            rangeBox.toggle();
+            showAsInline(rangeBox);
+        }
+
+        if(toggleApproxInput.prop("checked")){
+            cmoIsoDateBox.toggle();
+            approxBox.toggle();
+            showAsInline(approxBox);
+        }
+
+        toggleApproxInput.click(function () {
+            approxBox.toggle();
+            showAsInline(approxBox);
+
+            if (toggleRangeInput.prop("checked")) {
+                toggleRangeInput.prop("checked", false);
+                rangeBox.css("display", "none");
+            }
+            else {
+                cmoIsoDateBox.toggle();
+            }
+        });
+
+        toggleRangeInput.click(function (e) {
+            rangeBox.toggle();
+            showAsInline(rangeBox);
+
+            if (toggleApproxInput.prop("checked")) {
+                toggleApproxInput.prop("checked", false);
+                approxBox.toggle();
+                approxBox.css("display", "none");
+            }
+            else {
+                cmoIsoDateBox.toggle();
+            }
+        });
+
+    });
 
 })(jQuery);

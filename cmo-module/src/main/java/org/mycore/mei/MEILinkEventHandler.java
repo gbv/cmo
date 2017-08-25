@@ -23,9 +23,6 @@ package org.mycore.mei;
 
 import static org.mycore.datamodel.common.MCRLinkTableManager.ENTRY_TYPE_REFERENCE;
 
-import de.vzg.cmo.model.MEIUtils;
-import de.vzg.cmo.model.MEIWrapper;
-
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;

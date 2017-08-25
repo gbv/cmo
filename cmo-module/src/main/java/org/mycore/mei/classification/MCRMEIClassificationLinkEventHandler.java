@@ -21,7 +21,7 @@
 
 package org.mycore.mei.classification;
 
-import de.vzg.cmo.model.MEIWrapper;
+import org.mycore.mei.MEIWrapper;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

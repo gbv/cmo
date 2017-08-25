@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:xlink="http://www.w3.org/1999/xlink"
-  xmlns:mei="http://www.music-encoding.org/ns/mei"
-  xmlns:math="http://exslt.org/math"
-  exclude-result-prefixes="xlink mei math" version="1.0"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns:mei="http://www.music-encoding.org/ns/mei"
+                xmlns:math="http://exslt.org/math"
+                xmlns:classification="xalan://org.mycore.mei.classification.MCRMEIClassificationSupport"
+                exclude-result-prefixes="xlink mei math classification" version="1.0"
 >
 
   <xsl:include href="copynodes.xsl" />
@@ -47,14 +48,28 @@
   <xsl:template match="mei:printer">
     <mei:respStmt>
       <mei:resp>Printer</mei:resp>
-      <mei:corpName><xsl:value-of select="." /></mei:corpName>
+      <mei:corpName>
+        <xsl:value-of select="." />
+      </mei:corpName>
     </mei:respStmt>
   </xsl:template>
 
-  <xsl:template match="mei:language/@xml:id">
-    <xsl:attribute name="xml:id">
-      <xsl:value-of select="substring-after(., 'rfc4646:')" />
-    </xsl:attribute>
+  <xsl:template match="mei:language[@xml:id]">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+
+      <xsl:if test="starts-with(@xml:id , 'rfc4646:')">
+        <xsl:attribute name="xml:id">
+          <xsl:value-of select="substring-after(@xml:id, 'rfc4646:')" />
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="starts-with(@xml:id, 'iso15924:')">
+        <xsl:attribute name="xml:id">
+          <xsl:value-of select="substring-after(@xml:id, 'iso15924:')" />
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:value-of select="@xml:id" />
+    </xsl:copy>
   </xsl:template>
 
   <xsl:template match="classEntry">
@@ -63,7 +78,7 @@
       <xsl:value-of select="concat(generate-id(.),'-',(floor(math:random()*100000) mod 100000) + 1)" />
     </xsl:variable>
 
-    <mei:classCode authority="{@authority}" xml:id="{$classcode}"/>
+    <mei:classCode authority="{@authority}" xml:id="{$classcode}" />
     <mei:termList classcode="#{$classcode}">
       <mei:term>
         <xsl:value-of select="substring-after(., concat(@authority, ':'))" />

@@ -21,8 +21,6 @@
 
 package org.mycore.mei.classification;
 
-import de.vzg.cmo.model.MEIUtils;
-
 import java.text.MessageFormat;
 import java.util.Optional;
 
@@ -37,6 +35,7 @@ import org.mycore.datamodel.classifications2.MCRCategoryDAO;
 import org.mycore.datamodel.classifications2.MCRCategoryDAOFactory;
 import org.mycore.datamodel.classifications2.MCRCategoryID;
 import org.mycore.datamodel.classifications2.MCRLabel;
+import org.mycore.mei.MEIUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -85,7 +84,7 @@ public class MCRMEIClassificationSupport {
 
     }
 
-    public static String getClassLabel(NodeList classCodes) {
+    public static String getRootClassLabel(NodeList classCodes) {
         if (classCodes.getLength() == 0) {
             return null;
         }
@@ -101,8 +100,8 @@ public class MCRMEIClassificationSupport {
         }
     }
 
-    public static String getClassValue(NodeList terms) {
-        MCRCategory category = getClassificationFromTerm(terms);
+    public static String getClassLabel(NodeList terms) {
+        MCRCategory category = getClassificationFromElement(terms);
         if (category != null) {
             Optional<MCRLabel> currentLabel = category.getCurrentLabel();
 
@@ -115,26 +114,41 @@ public class MCRMEIClassificationSupport {
     }
 
     public static String getClassificationLinkFromTerm(NodeList terms) {
-        MCRCategory category = getClassificationFromTerm(terms);
+        MCRCategory category = getClassificationFromElement(terms);
         return MessageFormat
             .format("classification:metadata:0:parents:{0}:{1}", category.getId().getRootID(),
                 category.getId().getID());
     }
 
-    private static MCRCategory getClassificationFromTerm(NodeList terms) {
+    private static MCRCategory getClassificationFromElement(NodeList terms) {
         Node termNode = terms.item(0);
-        Node termList = termNode.getParentNode();
+        Node parentNode = termNode.getParentNode();
 
-        if (termList.getNodeType() == Node.ELEMENT_NODE) {
-            Element termListElement = (Element) termList;
+        // in this case is a element with authority and id e.g. mei:language
+        if (termNode.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) termNode;
+            MCRMEIAuthorityInfo authority = getAuthorityInfo(element);
 
-            String classcode = termListElement.getAttribute("classcode");
+            if (authority != null) {
+                MCRCategoryID categoryID = authority
+                    .getCategoryID(element.getAttributeNS(Namespace.XML_NAMESPACE.getURI().toString(), "id"));
+                return DAO.getCategory(categoryID, 0);
+            }
+        }
+
+
+        // in this case its a mei:term
+        if (parentNode.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) parentNode;
+
+            String classcode = element.getAttribute("classcode");
+
             if (classcode != null) {
                 if (classcode.startsWith("#")) {
                     classcode = classcode.substring(1);
                 }
 
-                Node classificationNode = termListElement.getParentNode();
+                Node classificationNode = element.getParentNode();
                 if (classificationNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element classificationElement = (Element) classificationNode;
                     NodeList classCodeElements = classificationElement
@@ -154,8 +168,8 @@ public class MCRMEIClassificationSupport {
                     }
                 }
             }
-        }
 
+        }
         return null;
     }
 
