@@ -96,6 +96,7 @@
           <solrHome>${solr.location}</solrHome>
           <solrPort>8983</solrPort>
           <solrHomeTemplate>${project.basedir}/src/main/solrHome</solrHomeTemplate>
+          <solrVersionString>6.6.0</solrVersionString>
           <pluginCoreMappings>
             <pluginCoreMapping>
               <core>cmo</core>
