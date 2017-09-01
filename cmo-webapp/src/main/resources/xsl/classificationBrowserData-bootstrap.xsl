@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<!--
-  XSL to transform XML output from MCRClassificationBrowser servlet to
-  HTML for client browser, which is loaded by AJAX. The browser sends
-  data of all child categories of the requested node.
--->
+  <!--
+    XSL to transform XML output from MCRClassificationBrowser servlet to
+    HTML for client browser, which is loaded by AJAX. The browser sends
+    data of all child categories of the requested node.
+  -->
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
-                xmlns:xalan="http://xml.apache.org/xalan" exclude-result-prefixes="xalan i18n">
+  xmlns:xalan="http://xml.apache.org/xalan" exclude-result-prefixes="xalan i18n">
   <xsl:param name="WebApplicationBaseURL" />
   <xsl:param name="ServletsBaseURL" />
   <xsl:param name="template" />
@@ -47,7 +47,7 @@
           <xsl:apply-templates select="@numLinks" mode="formatCount">
             <xsl:with-param name="maxCount" select="$maxLinks" />
           </xsl:apply-templates>
-          <a href='#f{@query}&amp;q=(category.top:"cmo_kindOfData:source" OR objectType:person)&amp;action=search'>
+          <a onclick="return startSearch('{$ServletsBaseURL}search?','{@query}','{../@webpage}','{../@parameters}');" href="{$ServletsBaseURL}SolrSelectProxy?{@query}&amp;mask={../@webpage}&amp;{../@parameters}">
             <xsl:value-of select="label" />
           </a>
           <xsl:if test="uri">
