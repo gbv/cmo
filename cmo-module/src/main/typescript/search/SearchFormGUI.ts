@@ -81,7 +81,7 @@ export class SearchGUI {
         this.getMainSearchInputElement().addEventListener('keyup', this.changed);
     }
 
-    private typeChanged(userCause=true) {
+    private typeChanged(userCause = true) {
         let newType = this.typeSelect.value;
 
         for (let inputIndex in this.typeMap[ this.currentType ]) {
@@ -97,7 +97,7 @@ export class SearchGUI {
         }
 
         this.currentType = newType;
-        if(userCause){
+        if (userCause) {
             this.changed();
         }
     }
@@ -272,6 +272,10 @@ export class SearchGUI {
             let value = kvMap[ key ];
 
             if (key == "allMeta") {
+                let valueListString = Utils.stripSurrounding(Utils.stripSurrounding(value, "]"), "[");
+
+                valueListString.split("")
+
                 this.mainSearchInputElement.value = value;
             }
 
@@ -455,7 +459,7 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
             let rightLabels = labels.filter(possibleLabel => possibleLabel.lang == I18N.getCurrentLanguage());
 
             if (rightLabels.length == 0) {
-                this.labelElement.innerHTML = labels[0].text;
+                this.labelElement.innerHTML = labels[ 0 ].text;
             } else {
                 this.labelElement.innerHTML = rightLabels[ 0 ].text;
             }
