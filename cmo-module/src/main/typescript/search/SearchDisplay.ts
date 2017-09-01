@@ -1,6 +1,7 @@
 import {Utils} from "../other/utils";
 import {I18N} from "../other/I18N";
 import {ClassificationResolver} from "../other/Classification";
+
 export class SearchDisplay {
     constructor(private _container: HTMLElement) {
 
@@ -20,12 +21,13 @@ export class SearchDisplay {
         "birth.date.content" : "editor.label.lifeData.birth",
         "death.date.content" : "editor.label.lifeData.death",
         "name" : "editor.label.name",
-        "publish.date.content":"editor.label.date",
-        "series":"editor.label.series"
+        "publish.date.content" : "editor.label.date",
+        "series" : "editor.label.series"
 
     };
 
-    public displayResult(result: SolrSearchResult, pageChangeHandler: (newPage: number) => void) {
+    public displayResult(result: SolrSearchResult, pageChangeHandler: (newPage: number) => void,
+                         onResultClickHandler: (doc: CMOBaseDocument, result: SolrSearchResult, hitOnPage) => void) {
         this._container.innerHTML = `
     <div class="row searchResultList">
         <div class="col-md-10 col-md-offset-1">
@@ -43,6 +45,14 @@ export class SearchDisplay {
             let page = parseInt((<HTMLElement>node).getAttribute("data-switch-page"), 10);
             node.addEventListener("click", () => {
                 pageChangeHandler(page);
+            });
+        });
+
+
+        Array.prototype.slice.call(this._container.querySelectorAll("[data-sd-onclick]")).forEach((node) => {
+            let index = parseInt((<HTMLElement>node).getAttribute("data-sd-onclick"), 10);
+            node.addEventListener("click", () => {
+                onResultClickHandler(result.response.docs[ index ], result, index);
             });
         });
 
@@ -90,41 +100,20 @@ export class SearchDisplay {
             .join("<hr/>");
     }
 
-    private displayHitTitle(doc: CMOBaseDocument, currentIndex: number, result: SolrSearchResult, fieldResolver = (doc)=> ("identifier.type.CMO" in doc) ? doc[ "identifier.type.CMO" ] : ("identifier" in doc) ? doc[ "identifier" ] : doc.id) {
-        let param = "";
-
-        for (let i in result.responseHeader.params) {
-            if (i == "wt" || i == "start" || i == "rows") {
-                continue;
-            }
-
-            if (result.responseHeader.params[ i ] instanceof Array) {
-                param += result.responseHeader.params[ i ].map(param => `${i}=${param}`).join("&") + "&";
-            } else {
-                param += `${i}=${ result.responseHeader.params[ i ]}&`;
-            }
-        }
-
-        if (param[ param.length - 1 ] == "&") {
-            param = param.substring(0, param.length - 1);
-        }
-
-        param += `&start=${currentIndex}&rows=1&origrows=${result.responseHeader.params[ "rows" ] || 10}&XSL.Style=browse`;
-
+    private displayHitTitle(doc: CMOBaseDocument, currentIndex: number, result: SolrSearchResult, fieldResolver = (doc) => ("identifier.type.CMO" in doc) ? doc[ "identifier.type.CMO" ] : ("identifier" in doc) ? doc[ "identifier" ] : doc.id) {
         let field = fieldResolver(doc);
-
         return `
 <div class="col-md-12">
-    <a class="hitTitle" href='${Utils.getBaseURL()}servlets/solr/select?${param}'><span>${field}</span></a>
+    <a class="hitTitle" data-sd-onclick="${currentIndex}"><span>${field}</span></a>
 </div>`;
 
     }
 
     private renderNav(response: SolrSearchResult) {
-        let rowsParam = response.responseHeader.params["rows"] || 10;
+        let rowsParam = response.responseHeader.params[ "rows" ] || 10;
         let rows = Math.min(rowsParam, response.response.numFound);
         let currentPage = Math.floor(response.response.start / rows);
-        let maxPages = Math.ceil(response.response.numFound / rows)-1;
+        let maxPages = Math.ceil(response.response.numFound / rows) - 1;
 
         let firstBefore = Math.max(currentPage - 5, 0);
         let lastAfter = Math.min(currentPage + 6, maxPages);
@@ -137,7 +126,7 @@ export class SearchDisplay {
         let previousPageAttribute = currentPage !== firstBefore ? "data-switch-page='" + ((currentPage - 1) * rows) + "'" : '';
         let nextPageAttribute = currentPage >= lastAfter ? '' : "data-switch-page='" + ((currentPage + 1) * rows) + "'";
 
-        return pagesToRender.length>0 ?`
+        return pagesToRender.length > 0 ? `
  <div class="row text-center pages"><div class="col-md-12">
     <div class="btn-group" role="group">
         <button type="button" class="btn btn-primary" ${previousPageAttribute}>&lt;</button>
@@ -148,7 +137,7 @@ export class SearchDisplay {
     </div>
     </div>
 </div>
-`:'';
+` : '';
     }
 
 
@@ -193,9 +182,7 @@ export class SearchDisplay {
     }
 
     private displayMods(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
-        return `
-        ${this.displayHitTitle(doc, index, result, (doc)=> doc["mods.title"])}
-        `
+        return `${this.displayHitTitle(doc, index, result, (doc) => doc[ "mods.title" ])} `
     }
 
     private displayPerson(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {

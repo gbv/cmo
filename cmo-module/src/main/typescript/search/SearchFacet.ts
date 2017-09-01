@@ -2,13 +2,19 @@ import {FacetHeader, SolrSearchResult} from "./SearchDisplay";
 import {I18N} from "../other/I18N";
 import {Classification, ClassificationResolver} from "../other/Classification";
 import {Utils} from "../other/utils";
+
 export class SearchFacetController {
 
     private view: SearchFacetGUI;
     private facetFields: FacetDescription[];
     private changedHandlerList: Array<() => void> = [];
+    private enabled = true;
 
     constructor(facetContainer: HTMLElement, private translationKeys: any, ...facetFields: FacetDescription[]) {
+        if (facetContainer == null || typeof facetContainer == "undefined") {
+            this.enabled = false;
+            return;
+        }
         this.view = new SearchFacetGUI(facetContainer, translationKeys, facetFields, () => {
             this.changedHandlerList.forEach((ch) => ch());
         });
@@ -16,8 +22,10 @@ export class SearchFacetController {
     }
 
     public displayFacet(searchResult: SolrSearchResult) {
-        this.view.save();
-        this.view.displayFacet(searchResult.facet_counts, this.getLocked(searchResult.responseHeader.params));
+        if (this.enabled) {
+            this.view.save();
+            this.view.displayFacet(searchResult.facet_counts, this.getLocked(searchResult.responseHeader.params));
+        }
     }
 
     public getFacetFields(): Array<string> {
@@ -36,15 +44,23 @@ export class SearchFacetController {
     }
 
     public save() {
-        this.view.save();
+        if (this.enabled) {
+            this.view.save();
+        }
     }
 
     public reset() {
-        this.view.reset();
+        if (this.enabled) {
+            this.view.reset();
+        }
     }
 
     public getQuery() {
-        return this.view.getQuery();
+        if (this.enabled) {
+            return this.view.getQuery();
+        } else {
+            return []
+        }
     }
 
     private getLocked(params: {}): {} {
@@ -55,10 +71,10 @@ export class SearchFacetController {
                 fqs = [ fqs ];
             }
             for (let fq of fqs) {
-                let [ field, value, value2 ] = fq.split(":").map(s=>typeof s =="string" ? Utils.stripSurrounding(s.trim(), "\"") : null);
+                let [ field, value, value2 ] = fq.split(":").map(s => typeof s == "string" ? Utils.stripSurrounding(s.trim(), "\"") : null);
 
-                if(field == "category.top"){
-                    [ field, value ] = [value, value2];
+                if (field == "category.top") {
+                    [ field, value ] = [ value, value2 ];
                 }
 
                 if (this.facetFields.map(field => field.field).indexOf(field) !== -1) {
@@ -136,7 +152,7 @@ ${facetEntries.length > 5 ? `<a data-i18n="cmo.search.facet.showMore" data-facet
             let facetField = el.getAttribute("data-facet-show");
 
             let show = () => {
-                I18N.translate('cmo.search.facet.showLess', (translation)=>{
+                I18N.translate('cmo.search.facet.showLess', (translation) => {
                     el.innerHTML = translation;
                 });
 
@@ -150,7 +166,7 @@ ${facetEntries.length > 5 ? `<a data-i18n="cmo.search.facet.showMore" data-facet
             };
 
             let hide = () => {
-                I18N.translate('cmo.search.facet.showMore', (translation)=>{
+                I18N.translate('cmo.search.facet.showMore', (translation) => {
                     el.innerHTML = translation;
                 });
 

@@ -42,6 +42,11 @@ export class StateController {
 
 
     static stateChanged(newURL:string){
+        let arrParams = this.getState(newURL);
+        StateController.stateHandlerList.forEach(handler => handler(arrParams, StateController.selfChange == window.location.hash.substring(1)));
+    }
+
+    public static getState(newURL: string = window.location.href) {
         let arrParams: Array<Array<string>> = [];
 
         let [ , hash ] = newURL.split("#", 2);
@@ -68,7 +73,6 @@ export class StateController {
 
 
         }
-        StateController.stateHandlerList.forEach(handler => handler(arrParams, StateController.selfChange == window.location.hash.substring(1)));
+        return arrParams;
     }
-
 }

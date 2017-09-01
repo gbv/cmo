@@ -295,6 +295,8 @@ export class SearchGUI {
     changed = () => {
         this._queryChangeHandlerList.forEach(handler => handler());
     }
+
+
 }
 
 export abstract class SearchFieldInput {

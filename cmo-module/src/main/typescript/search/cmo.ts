@@ -13,6 +13,8 @@ let sideBar = <HTMLElement>document.querySelector("#sidebar");
 
 let translationMap = {};
 
+let subselectTarget = null;
+
 let facet = new SearchFacetController(sideBar, translationMap,
     {
         field : "objectType",
@@ -219,23 +221,85 @@ let onQueryChanged = (searchController: SearchController) => {
         currentTimeOut = null;
     }
 
-    currentTimeOut = window.setTimeout(() => search(0, searchController), 500);
+    currentTimeOut = window.setTimeout(() => {
+        let [ , action ] = StateController.getState().filter(([ key, value ]) => key == "action")[ 0 ] || [ undefined, undefined ];
+
+        search(0, searchController, action)
+    }, 500);
 };
 
-search = (start, searchController) => {
+search = (start, searchController, action = "search") => {
     let queries = searchController.getSolrQuery();
 
     let params = queries
         .concat([ [ "start", start ] ])
-        .concat([ [ "action", "search" ] ]);
+        .concat([ [ "action", action ] ]);
 
     StateController.setState(params);
 };
 
 
+let getResultAction = (params) => {
+
+    let [ , action ] = params.filter(([ key, value ]) => key == "action")[ 0 ] || [ null, null ];
+
+    switch (action) {
+        case "search":
+            return (doc, result, hitOnPage) => {
+                let param = "";
+                for (let i in result.responseHeader.params) {
+                    if (i == "wt" || i == "start" || i == "rows") {
+                        continue;
+                    }
+                    if (result.responseHeader.params[ i ] instanceof Array) {
+                        param += result.responseHeader.params[ i ].map(param => `${i}=${param}`).join("&") + "&";
+                    } else {
+                        param += `${i}=${ result.responseHeader.params[ i ]}&`;
+                    }
+                }
+                if (param[ param.length - 1 ] == "&") {
+                    param = param.substring(0, param.length - 1);
+                }
+                param += `&start=${hitOnPage}&rows=1&origrows=${result.responseHeader.params[ "rows" ] || 10}&XSL.Style=browse`;
+                window.location.href = `${Utils.getBaseURL()}servlets/solr/select?${param}`;
+            };
+
+        case "subselect":
+            if (subselectTarget == null) {
+                throw "subselect without set subselectTarget!";
+            }
+
+
+            return (doc, result, hitOnPage) => {
+                searchDisplay.reset();
+                ctrl.setInputValue('');
+                ctrl.enable = false;
+
+                subselectTarget.forEach((sst) => {
+                    let field = sst.getAttribute("data-subselect-target");
+                    if ("value" in sst) {
+                        let fieldValue = doc[ field ];
+                        if(fieldValue instanceof Array){
+                            sst.value = fieldValue[0];
+                        } else {
+                            sst.value = fieldValue;
+                        }
+                    }
+                });
+                subselectTarget = null;
+                window.location.hash = '';
+            }
+    }
+};
+
+let ctrl: SearchController = null;
+
+
 StateController.onStateChange((params, selfChange) => {
-    let ctrl: SearchController = null;
-    if (params.filter(([ key, value ]) => key == "action" && (value == "search" || value =="subselect")).length > 0) {
+    let [ , action ] = params.filter(([ key, value ]) => key == "action")[ 0 ] || [ null, null ];
+
+    if (action == "search" || action == "subselect") {
+        ctrl = null;
         for (let param of params) {
             let [ , v ] = param;
 
@@ -243,8 +307,8 @@ StateController.onStateChange((params, selfChange) => {
                 ctrl = kSearch;
             } else if (v.indexOf(eSearchBaseQuery) != -1) {
                 ctrl = eSearch;
-            }
 
+            }
         }
 
         searchDisplay.reset();
@@ -265,9 +329,9 @@ StateController.onStateChange((params, selfChange) => {
                 params
                 , (result => {
                     searchDisplay.displayResult(result, (start) => {
-                        search(start, ctrl);
+                        search(start, ctrl, action);
                         window.scrollTo(0, 0);
-                    });
+                    }, getResultAction(params));
                     facet.displayFacet(result);
                 }));
         }
@@ -275,6 +339,28 @@ StateController.onStateChange((params, selfChange) => {
 });
 kSearch.addQueryChangedHandler(() => onQueryChanged(kSearch));
 eSearch.addQueryChangedHandler(() => onQueryChanged(eSearch));
+
+
+// The Parent Element have to look like this <div data-subselect="(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:person">
+// The input then just can be <input name='personID' data-subselect-target='id' /> <input name='personName' data-subselect-target='solrField2' />
+Array.prototype.slice.call(document.querySelectorAll("[data-subselect]")).forEach((node) => {
+    let element = <HTMLElement>node;
+    (<HTMLElement>element.querySelector("[data-subselect-trigger]")).onclick = () => {
+        let query = element.getAttribute("data-subselect");
+        subselectTarget = Array.prototype.slice.call(element.querySelectorAll("[data-subselect-target]"));
+
+
+        window.location.hash = `q=${query}&start=0&action=subselect`;
+        window.setTimeout(() => {
+            if (ctrl !== null) {
+                ctrl.openExtendedSearch(true);
+                ctrl.focus()
+            }
+        }, 1000);
+
+
+    };
+});
 //kSearch.getSolrQuery()
 
 

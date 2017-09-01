@@ -99,7 +99,7 @@ export class SearchController {
 
 
     public focus() {
-        //(<HTMLInputElement>this.view.getMainSearchInputElement()).blur();
+        (<HTMLInputElement>this.view.getMainSearchInputElement()).focus();
     }
 
     private    processDescription(name: string, description: any) {
