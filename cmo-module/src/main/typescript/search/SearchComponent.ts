@@ -19,6 +19,7 @@ export class SearchController {
 
         this.view.searchIcon.addEventListener("click", () => {
             this.setInputValue("");
+            this.view.reset();
         });
 
         facetController.addChangeHandler(() => {
@@ -102,7 +103,7 @@ export class SearchController {
         (<HTMLInputElement>this.view.getMainSearchInputElement()).focus();
     }
 
-    private    processDescription(name: string, description: any) {
+    private processDescription(name: string, description: any) {
         for (let index in description.fields) {
             let input = description.fields[ index ];
 
@@ -119,15 +120,15 @@ export class SearchController {
         }
     }
 
-    public    getInputValue(): string {
+    public getInputValue(): string {
         return (<HTMLInputElement>this.view.getMainSearchInputElement()).value;
     }
 
-    public    setInputValue(value: string) {
+    public setInputValue(value: string) {
         (<HTMLInputElement>this.view.getMainSearchInputElement()).value = value;
     }
 
-    public    addExtended(extendedDescription: any) {
+    public addExtended(extendedDescription: any) {
         for (let name in extendedDescription) {
             let description = extendedDescription[ name ];
             this.view.createType(name, description.type, description.baseQuery);

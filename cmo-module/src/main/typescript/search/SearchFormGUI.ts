@@ -83,6 +83,21 @@ export class SearchGUI {
         this.getMainSearchInputElement().addEventListener('keyup', this.changed);
     }
 
+    public reset(){
+        this._wasExtendedSearchOpen = false;
+        this.openExtendedSearch(false);
+        for(let formsIndex in this.typeMap){
+            if(this.typeMap.hasOwnProperty(formsIndex)){
+                let forms = this.typeMap[formsIndex];
+                for(let form of forms){
+                    form.reset();
+                }
+            }
+
+        }
+        this.changed()
+    }
+
     private typeChanged(userCause = true) {
         let newType = this.typeSelect.value;
 
@@ -307,7 +322,7 @@ export class SearchGUI {
     }
 
 
-    private wasExtendedSearchOpen() {
+    public wasExtendedSearchOpen() {
         return this._wasExtendedSearchOpen;
     }
 }
@@ -361,9 +376,12 @@ export abstract class SearchFieldInput {
 
     public abstract setValue(value: any);
 
+    public abstract reset();
+
 }
 
 export class TextSearchFieldInput extends SearchFieldInput {
+
 
 
     constructor(searchFields: string[], label: string) {
@@ -430,6 +448,10 @@ export class TextSearchFieldInput extends SearchFieldInput {
     setValue(value: any) {
         this.input.value = value;
     }
+
+    reset() {
+        this.setValue("");
+    }
 }
 
 
@@ -492,6 +514,9 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
 
     private labelElement: HTMLElement;
 
+    public reset(){
+        this.select.values = this.select.options.item(0).innerText;
+    }
 
     public attach(to: HTMLElement) {
         to.appendChild(this.root);
