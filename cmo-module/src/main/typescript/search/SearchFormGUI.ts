@@ -38,6 +38,8 @@ export class SearchGUI {
     public _queryChangeHandlerList: Array<() => void> = [];
     private fieldSFIMap = {};
     private lastQuery: string = null;
+    private _wasExtendedSearchOpen: boolean = false;
+
 
     private initGUI() {
         let baseURL = Utils.getBaseURL();
@@ -108,6 +110,7 @@ export class SearchGUI {
 
     public openExtendedSearch(open: boolean) {
         if (open) {
+            this._wasExtendedSearchOpen=true;
             this.extendedSearch.classList.remove("closed");
             this.extendedSearch.classList.add("opened");
             this.extenderIcon.src = this.minusIconUrl;
@@ -188,10 +191,15 @@ export class SearchGUI {
         let solrQueryParts = [ this.baseQuery ];
 
         if (this.mainSearchInputElement.value.trim().length > 0) {
-            solrQueryParts.push(`allMeta:"${this.mainSearchInputElement.value}"`);
+            this.mainSearchInputElement.value
+                .split(" ")
+                .map(searchWord=>searchWord.trim())
+                .filter(searchWord=>searchWord.length>0)
+                .map(searchWord=> `allMeta:"${searchWord.replace("\"", "\\\"")}"`)
+                .forEach(qp => solrQueryParts.push(qp));
         }
 
-        if (this.isExtendedSearchOpen()) {
+        if (this.isExtendedSearchOpen() ||this.wasExtendedSearchOpen()) {
             this.nameBaseQueryMap[ this.typeSelect.value ].forEach(bq => solrQueryParts.push(bq));
 
             for (let inputIndex in this.typeMap[ this.currentType ]) {
@@ -268,15 +276,13 @@ export class SearchGUI {
             }
         }
 
+        this.mainSearchInputElement.value ="";
         for (let key in kvMap) {
             let value = kvMap[ key ];
 
             if (key == "allMeta") {
-                let valueListString = Utils.stripSurrounding(Utils.stripSurrounding(value, "]"), "[");
-
-                valueListString.split("")
-
-                this.mainSearchInputElement.value = value;
+                value =Utils.stripSurrounding(value, "\"")
+                this.mainSearchInputElement.value += value + " ";
             }
 
             // TODO: lol
@@ -301,6 +307,9 @@ export class SearchGUI {
     }
 
 
+    private wasExtendedSearchOpen() {
+        return this._wasExtendedSearchOpen;
+    }
 }
 
 export abstract class SearchFieldInput {

@@ -115,8 +115,8 @@ public abstract class MEIWrapper {
     protected abstract int getRankOf(Element topLevelElement);
 
     public void orderTopLevelElement() {
-        Consumer<Element> elementConsumer = (Consumer<Element>) this.root::removeContent;
-        Comparator<Element> sortFn = (e1, e2) -> getRankOf(e1) - getRankOf(e2);
+        Consumer<Element> elementConsumer = this.root::removeContent;
+        Comparator<Element> sortFn = Comparator.comparingInt(this::getRankOf);
         new ArrayList<>(this.root.getChildren())
             .stream()
             .peek(elementConsumer)

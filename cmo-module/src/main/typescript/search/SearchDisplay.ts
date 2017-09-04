@@ -8,7 +8,7 @@ export class SearchDisplay {
     }
 
     private preDisplayContent: Array<HTMLElement> = null;
-    private static SEARCH_LABEL_KEY = "cmo.search";
+    private static SEARCH_LABEL_KEY = "cmo.search.heading";
 
     private searchLabel: string = null;
 
@@ -33,7 +33,7 @@ export class SearchDisplay {
         <div class="col-md-10 col-md-offset-1">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></h2>
+                    <h2>${result.response.numFound} <span data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></span></h2>
                 </div>
             </div>
              ${this.renderList(result)}
