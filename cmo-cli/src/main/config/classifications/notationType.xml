@@ -22,5 +22,11 @@
     <category ID="nt-27527748-7">
       <label xml:lang="en" text="Letter-based notation" />
     </category>
+    <category ID="nt-72034937-3">
+      <label xml:lang="en" text="Early Hampartsum notation" />
+    </category>
+    <category ID="nt-74905847-3">
+      <label xml:lang="en" text="Chrysanthine notation" />
+    </category>
   </categories>
 </mycoreclass>
