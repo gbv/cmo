@@ -382,11 +382,14 @@
   <fieldType name="text_tr" class="solr.TextField" positionIncrementGap="100">
     <analyzer>
       <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.ApostropheFilterFactory"/>
       <filter class="solr.TurkishLowerCaseFilterFactory"/>
       <filter class="solr.StopFilterFactory" words="lang/stopwords_tr.txt" ignoreCase="false"/>
       <filter class="solr.SnowballPorterFilterFactory" language="Turkish"/>
+      <filter class="solr.ASCIIFoldingFilterFactory"/>
     </analyzer>
   </fieldType>
+
   <fieldType name="text_ws" class="solr.TextField" positionIncrementGap="100">
     <analyzer>
       <tokenizer class="solr.WhitespaceTokenizerFactory"/>
@@ -446,7 +449,7 @@
     <field name="content" type="text_general" stored="false" />
 
     <!-- default search fields -->
-    <field name="allMeta" type="text_general" multiValued="true" stored="false" />
+  <field name="allMeta" type="text_tr" multiValued="true" stored="false" />
     <field name="search_result_link_text" type="text_de" indexed="false"/>
 
 
@@ -490,6 +493,7 @@
   <field name="series" type="text_tr" multiValued="true" />
 
   <field name="name" type="text_tr" multiValued="true" />
+  <field name="name.general" type="text_general" multiValued="true" />
   <dynamicField name="name.*" type="text_tr" multiValued="true" />
 
   <!-- extra classification for faceting -->
@@ -540,7 +544,7 @@
     <field name="title" type="text_general" multiValued="true" stored="true" />
     <field name="title.lang.de" type="text_de"  multiValued="true" stored="true" />
     <field name="title.lang.en" type="text_en"  multiValued="true" stored="true" />
-    <field name="title.lang.tr" type="text_tr"  multiValued="true" stored="true" />
+  <field name="title.lang.tr" type="text_tr" multiValued="true" stored="true" />
     <field name="title.lang.ota-arab" type="text_ar" multiValued="true" stored="true" />
   <dynamicField name="title.*" type="text_general" multiValued="true" stored="true"/>
 

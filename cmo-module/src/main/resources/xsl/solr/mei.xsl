@@ -162,6 +162,10 @@
       <xsl:value-of select="text()" />
     </field>
 
+    <field name="name.general">
+      <xsl:value-of select="text()" />
+    </field>
+
     <xsl:if test="@type">
       <field name="name.{@type}">
         <xsl:value-of select="text()" />
@@ -179,7 +183,8 @@
     <xsl:param name="dateNode" />
     <xsl:param name="fieldName" />
 
-    <xsl:if test="$dateNode/@startdate or $dateNode/@enddate or $dateNode/@notbefore or $dateNode/@notafter or $dateNode/@isodate">
+    <xsl:if
+      test="$dateNode/@startdate or $dateNode/@enddate or $dateNode/@notbefore or $dateNode/@notafter or $dateNode/@isodate">
       <field name="{$fieldName}.range">
         <xsl:value-of select="meiDate:getSolrDateFieldContent($dateNode)" />
       </field>

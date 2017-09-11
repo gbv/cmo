@@ -159,7 +159,7 @@ kSearch.addExtended({
         baseQuery : [ "objectType:person" ],
         fields : [
             new SearchField("editor.label.identifier", [ "identifier" ]),
-            new SearchField("editor.label.name", [ "name" ]),
+            new SearchField("editor.label.name", [ "name", "name.general" ]),
             new DateSearchField("editor.label.lifeData", [ "birth.date.range", "death.date.range" ]),
         ],
 

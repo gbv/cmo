@@ -210,7 +210,10 @@ export class SearchGUI {
                 .split(" ")
                 .map(searchWord=>searchWord.trim())
                 .filter(searchWord=>searchWord.length>0)
-                .map(searchWord=> `allMeta:"${searchWord.replace("\"", "\\\"")}"`)
+                .map(searchWord => `allMeta:${
+                    searchWord.trim().charAt(0) == "\"" && searchWord.trim().charAt(searchWord.trim().length) == "\"" ?
+                        searchWord : searchWord.replace("\"", "\\\"")
+                    }`)
                 .forEach(qp => solrQueryParts.push(qp));
         }
 
