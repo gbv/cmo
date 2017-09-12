@@ -16,6 +16,7 @@
   </xed:template>
 
   <xed:template id="mycore.common">
+    <!-- This should be only relevant if the object should copied
     <xed:choose>
       <xed:when test="string-length($origin) &gt; 0">
         <xed:bind xpath="@ID" initially="{$origin}_mods_00000000" />
@@ -27,9 +28,14 @@
       <xed:otherwise>
         <xed:bind xpath="@ID" initially="{$MIR.projectid.default}_mods_00000000" />
       </xed:otherwise>
-    </xed:choose>
+    </xed:choose>-->
     <input type="hidden" name="XSL.Status.Message" value="cmo.editstatus.success" />
     <input type="hidden" name="XSL.Status.Style" value="success" />
+    <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/momentjs/2.18.1/min/moment.min.js"></script>
+    <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/Eonasdan-bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="{$WebApplicationBaseURL}js/cmo_editor.js"></script>
+    <link href="{$WebApplicationBaseURL}webjars/Eonasdan-bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
   </xed:template>
 
   <xed:template id="cmo_title">

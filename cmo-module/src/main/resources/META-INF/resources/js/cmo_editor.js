@@ -20,80 +20,82 @@
 
     $('[data-toggle="popover"]').popover();
 
-    $('.datetimepicker').datetimepicker({
-      format: 'YYYY-MM-DD',
-      icons: {
-        time: 'fa fa-time',
-        date: 'fa fa-calendar',
-        up: 'fa fa-chevron-up',
-        down: 'fa fa-chevron-down',
-        previous: 'fa fa-chevron-left',
-        next: 'fa fa-chevron-right',
-        today: 'fa fa-screenshot',
-        clear: 'fa fa-trash',
-        close: 'fa fa-remove'
+      let $datetimepicker = $('.datetimepicker');
+      if($datetimepicker.length>0){
+          $datetimepicker.datetimepicker({
+              format: 'YYYY-MM-DD',
+              icons: {
+                  time: 'fa fa-time',
+                  date: 'fa fa-calendar',
+                  up: 'fa fa-chevron-up',
+                  down: 'fa fa-chevron-down',
+                  previous: 'fa fa-chevron-left',
+                  next: 'fa fa-chevron-right',
+                  today: 'fa fa-screenshot',
+                  clear: 'fa fa-trash',
+                  close: 'fa fa-remove'
+              }
+          });
       }
-    });
+
+      $("[data-toggleDate=true]").each(function (i,e) {
+          let element = jQuery(e);
+
+          let toggleApproxInput = element.find(".cmo_toggleApprox");
+          let toggleRangeInput = element.find(".cmo_toggleRange");
+
+          let cmoIsoDateBox = element.find(".cmoIsodate");
+          let approxBox = element.find(".cmoApproxBox");
+          let rangeBox = element.find(".cmoRangeBox");
+
+
+
+          let showAsInline = function (element) {
+              if (element.css("display") !== "none") {
+                  element.css("display", "inline");
+              }
+          };
+
+          if(toggleRangeInput.prop("checked")){
+              cmoIsoDateBox.toggle();
+              rangeBox.toggle();
+              showAsInline(rangeBox);
+          }
+
+          if(toggleApproxInput.prop("checked")){
+              cmoIsoDateBox.toggle();
+              approxBox.toggle();
+              showAsInline(approxBox);
+          }
+
+          toggleApproxInput.click(function () {
+              approxBox.toggle();
+              showAsInline(approxBox);
+
+              if (toggleRangeInput.prop("checked")) {
+                  toggleRangeInput.prop("checked", false);
+                  rangeBox.css("display", "none");
+              }
+              else {
+                  cmoIsoDateBox.toggle();
+              }
+          });
+
+          toggleRangeInput.click(function (e) {
+              rangeBox.toggle();
+              showAsInline(rangeBox);
+
+              if (toggleApproxInput.prop("checked")) {
+                  toggleApproxInput.prop("checked", false);
+                  approxBox.toggle();
+                  approxBox.css("display", "none");
+              }
+              else {
+                  cmoIsoDateBox.toggle();
+              }
+          });
+
+      });
   }); // end document ready
-
-
-    $("[data-toggleDate=true]").each(function (i,e) {
-        let element = jQuery(e);
-
-        let toggleApproxInput = element.find(".cmo_toggleApprox");
-        let toggleRangeInput = element.find(".cmo_toggleRange");
-
-        let cmoIsoDateBox = element.find(".cmoIsodate");
-        let approxBox = element.find(".cmoApproxBox");
-        let rangeBox = element.find(".cmoRangeBox");
-
-
-
-        let showAsInline = function (element) {
-            if (element.css("display") !== "none") {
-                element.css("display", "inline");
-            }
-        };
-
-        if(toggleRangeInput.prop("checked")){
-            cmoIsoDateBox.toggle();
-            rangeBox.toggle();
-            showAsInline(rangeBox);
-        }
-
-        if(toggleApproxInput.prop("checked")){
-            cmoIsoDateBox.toggle();
-            approxBox.toggle();
-            showAsInline(approxBox);
-        }
-
-        toggleApproxInput.click(function () {
-            approxBox.toggle();
-            showAsInline(approxBox);
-
-            if (toggleRangeInput.prop("checked")) {
-                toggleRangeInput.prop("checked", false);
-                rangeBox.css("display", "none");
-            }
-            else {
-                cmoIsoDateBox.toggle();
-            }
-        });
-
-        toggleRangeInput.click(function (e) {
-            rangeBox.toggle();
-            showAsInline(rangeBox);
-
-            if (toggleApproxInput.prop("checked")) {
-                toggleApproxInput.prop("checked", false);
-                approxBox.toggle();
-                approxBox.css("display", "none");
-            }
-            else {
-                cmoIsoDateBox.toggle();
-            }
-        });
-
-    });
 
 })(jQuery);
