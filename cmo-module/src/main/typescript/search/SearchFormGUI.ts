@@ -210,10 +210,13 @@ export class SearchGUI {
                 .split(" ")
                 .map(searchWord=>searchWord.trim())
                 .filter(searchWord=>searchWord.length>0)
-                .map(searchWord => `allMeta:${
-                    searchWord.trim().charAt(0) == "\"" && searchWord.trim().charAt(searchWord.trim().length) == "\"" ?
-                        searchWord : searchWord.replace("\"", "\\\"")
-                    }`)
+                .map(searchWord => {
+                    let trimSearchWord = searchWord.trim();
+                    return `allMeta:${
+                     trimSearchWord.charAt(0) == "\"" && trimSearchWord.charAt(trimSearchWord.length-1) == "\"" ?
+                         trimSearchWord : trimSearchWord.replace("\"", "\\\"")
+                     }`
+                })
                 .forEach(qp => solrQueryParts.push(qp));
         }
 
@@ -299,11 +302,9 @@ export class SearchGUI {
             let value = kvMap[ key ];
 
             if (key == "allMeta") {
-                value =Utils.stripSurrounding(value, "\"")
                 this.mainSearchInputElement.value += value + " ";
             }
 
-            // TODO: lol
             if (key == "objectType" && value in this.typeMap) {
                 if (this.typeSelect.value !== value) {
                     this.typeSelect.value = value;
