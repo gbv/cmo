@@ -372,28 +372,28 @@
               </div>
             </xed:bind>
             <xed:bind xpath="@isodate">
-              <input type="text" placeholder="YYYY-MM-DD" class="cmoIsodate form-control datetimepicker date" />
+              <input type="text" placeholder="YYYY-MM-DD" class="cmoIsodate form-control datepicker date" />
             </xed:bind>
-            <div class="cmoApproxBox" style="display:none;">
+            <div class="cmoApproxBox input-group form-inline input-daterange" style="display:none;">
               <xed:bind xpath="@notbefore">
                 <input type="text" placeholder="YYYY-MM-DD"
-                       class="cmo_notbefore form-control datetimepicker cmo_dateInput" />
+                       class="cmo_notbefore form-control datepicker cmo_dateInput" />
               </xed:bind>
-              <xsl:text> - </xsl:text>
+              <label class="input-group-addon"><xsl:text> - </xsl:text></label>
               <xed:bind xpath="@notafter">
                 <input type="text" placeholder="YYYY-MM-DD"
-                       class="cmo_notafter form-control datetimepicker cmo_dateInput" />
+                       class="cmo_notafter form-control datepicker cmo_dateInput" />
               </xed:bind>
             </div>
-            <div class="cmoRangeBox" style="display:none;">
+            <div class="cmoRangeBox input-group form-inline input-daterange" style="display:none;">
               <xed:bind xpath="@startdate">
                 <input type="text" placeholder="YYYY-MM-DD"
-                       class="cmo_startdate form-control datetimepicker cmo_dateInput" />
+                       class="cmo_startdate form-control datepicker cmo_dateInput" />
               </xed:bind>
-              <xsl:text> - </xsl:text>
+              <label class="input-group-addon"><xsl:text> - </xsl:text></label>
               <xed:bind xpath="@enddate">
                 <input type="text" placeholder="YYYY-MM-DD"
-                       class="cmo_enddate form-control datetimepicker cmo_dateInput" />
+                       class="cmo_enddate form-control datepicker cmo_dateInput" />
               </xed:bind>
             </div>
           </div>

@@ -31,10 +31,7 @@
     </xed:choose>-->
     <input type="hidden" name="XSL.Status.Message" value="cmo.editstatus.success" />
     <input type="hidden" name="XSL.Status.Style" value="success" />
-    <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/momentjs/2.18.1/min/moment.min.js"></script>
-    <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/Eonasdan-bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" src="{$WebApplicationBaseURL}js/cmo_editor.js"></script>
-    <link href="{$WebApplicationBaseURL}webjars/Eonasdan-bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
   </xed:template>
 

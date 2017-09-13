@@ -18,6 +18,7 @@
   <xsl:variable name="fontawesome.version" select="'4.7.0'" />
   <xsl:variable name="jquery.version" select="'3.1.1'" />
   <xsl:variable name="jquery.migrate.version" select="'1.4.1'" />
+  <xsl:variable name="datetimepicker.version" select="'1.7.1'" />
   <!-- End of various versions -->
   <xsl:variable name="PageTitle" select="/*/@title" />
 
@@ -34,6 +35,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <link href="{$WebApplicationBaseURL}webjars/font-awesome/{$fontawesome.version}/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="{$WebApplicationBaseURL}webjars/bootstrap-datepicker/{$datetimepicker.version}/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
         <link href="{$WebApplicationBaseURL}css/fileupload.css" rel="stylesheet" />
@@ -207,7 +209,8 @@
 
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap-sass/{$bootstrap.version}/javascripts/bootstrap.min.js"></script>
 
-
+        <!-- TODO: include only for xed -->
+        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap-datepicker/{$datetimepicker.version}/js/bootstrap-datepicker.min.js"></script>
 
        </body>
     </html>

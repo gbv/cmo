@@ -83,13 +83,13 @@ export class SearchGUI {
         this.getMainSearchInputElement().addEventListener('keyup', this.changed);
     }
 
-    public reset(){
+    public reset() {
         this._wasExtendedSearchOpen = false;
         this.openExtendedSearch(false);
-        for(let formsIndex in this.typeMap){
-            if(this.typeMap.hasOwnProperty(formsIndex)){
-                let forms = this.typeMap[formsIndex];
-                for(let form of forms){
+        for (let formsIndex in this.typeMap) {
+            if (this.typeMap.hasOwnProperty(formsIndex)) {
+                let forms = this.typeMap[ formsIndex ];
+                for (let form of forms) {
                     form.reset();
                 }
             }
@@ -125,7 +125,7 @@ export class SearchGUI {
 
     public openExtendedSearch(open: boolean) {
         if (open) {
-            this._wasExtendedSearchOpen=true;
+            this._wasExtendedSearchOpen = true;
             this.extendedSearch.classList.remove("closed");
             this.extendedSearch.classList.add("opened");
             this.extenderIcon.src = this.minusIconUrl;
@@ -208,19 +208,19 @@ export class SearchGUI {
         if (this.mainSearchInputElement.value.trim().length > 0) {
             this.mainSearchInputElement.value
                 .split(" ")
-                .map(searchWord=>searchWord.trim())
-                .filter(searchWord=>searchWord.length>0)
+                .map(searchWord => searchWord.trim())
+                .filter(searchWord => searchWord.length > 0)
                 .map(searchWord => {
                     let trimSearchWord = searchWord.trim();
                     return `allMeta:${
-                     trimSearchWord.charAt(0) == "\"" && trimSearchWord.charAt(trimSearchWord.length-1) == "\"" ?
-                         trimSearchWord : trimSearchWord.replace("\"", "\\\"")
-                     }`
+                        trimSearchWord.charAt(0) == "\"" && trimSearchWord.charAt(trimSearchWord.length - 1) == "\"" ?
+                            trimSearchWord : trimSearchWord.replace("\"", "\\\"")
+                        }`
                 })
                 .forEach(qp => solrQueryParts.push(qp));
         }
 
-        if (this.isExtendedSearchOpen() ||this.wasExtendedSearchOpen()) {
+        if (this.isExtendedSearchOpen() || this.wasExtendedSearchOpen()) {
             this.nameBaseQueryMap[ this.typeSelect.value ].forEach(bq => solrQueryParts.push(bq));
 
             for (let inputIndex in this.typeMap[ this.currentType ]) {
@@ -297,7 +297,7 @@ export class SearchGUI {
             }
         }
 
-        this.mainSearchInputElement.value ="";
+        this.mainSearchInputElement.value = "";
         for (let key in kvMap) {
             let value = kvMap[ key ];
 
@@ -385,7 +385,6 @@ export abstract class SearchFieldInput {
 }
 
 export class TextSearchFieldInput extends SearchFieldInput {
-
 
 
     constructor(searchFields: string[], label: string) {
@@ -518,7 +517,7 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
 
     private labelElement: HTMLElement;
 
-    public reset(){
+    public reset() {
         this.select.values = this.select.options.item(0).innerText;
     }
 
@@ -644,6 +643,28 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
         return this.inputRangeCheckbox.checked;
     }
 
+    attach(to: HTMLElement) {
+        super.attach(to);
+        let $ = window[ "$" ];
+        let datepicker = $('.datepicker');
+        let change = (e) => {
+            this.changed();
+        };
+        if (datepicker.length > 0) {
+            datepicker.datepicker({
+                format : 'yyyy-mm-dd',
+                immediateUpdates : true,
+                minViewMode : 0,
+                maxViewMode : 4,
+                startView : 4
+            }).on('changeDate', change)
+                .on('changeDecade', change)
+                .on('changeYear', change)
+                .on('changeMonth', change)
+                .on('changeCentury', change);
+        }
+    }
+
     public getSolrQueryPart(): string {
         if (this.isRangeSelected()) {
             let val1 = this.inputFrom.value, val2 = this.inputTo.value;
@@ -671,18 +692,23 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
     }
 
     setValue(value: any) {
+        let $ = window[ "$" ];
+
         if (value.indexOf(" TO ") == -1) {
-            this.input.value = value;
+            this.input.setAttribute("value", value);
+            $(this.input).datepicker('update', value);
         } else {
             this.inputRangeCheckbox.checked = true;
             let fromToString = Utils.stripSurrounding(Utils.stripSurrounding(value, "["), "]");
 
             let [ from, to ] = fromToString.split(" TO ", 2);
             if (from !== "*") {
-                this.inputFrom.value = from;
+                this.inputFrom.setAttribute("value", from);
+                $(this.inputFrom).datepicker('update', from);
             }
             if (to !== "*") {
-                this.inputTo.value = to;
+                this.inputTo.setAttribute("value", to);
+                $(this.inputTo).datepicker('update', to);
             }
             this.rangeCheckBoxChanged();
         }
@@ -700,13 +726,13 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
             <label for="#date_${checkBoxID}" class="range inline"> </label>
         </div>
         <div class="form-inline noRange">
-            <input class="form-control noRange inline" type="date" />
+            <input class="form-control noRange inline datepicker" type="text" />
         </div>
-        <div class="form-inline range hidden">
-            <label for="#date_1_${checkBoxID}" class="range inline from"> </label>
-            <input id="date_1_${checkBoxID}" class="form-control inline from" type="date" />
-            <label for="#date_2_${checkBoxID}" class="range inline to"> </label>
-            <input  id="date_2_${checkBoxID}" class="form-control inline to" type="date" />
+        <div class="form-inline range hidden input-group input-daterange">
+            <label for="#date_1_${checkBoxID}" class="range inline from input-group-addon"> </label>
+            <input id="date_1_${checkBoxID}" class="form-control inline from datepicker" type="text" />
+            <label for="#date_2_${checkBoxID}" class="range inline to input-group-addon"> </label>
+            <input  id="date_2_${checkBoxID}" class="form-control inline to datepicker" type="text" />
         </div>
     </div>
 </div>`;

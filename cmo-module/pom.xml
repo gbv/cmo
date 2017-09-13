@@ -240,8 +240,8 @@
     </dependency>
     <dependency>
       <groupId>org.webjars</groupId>
-      <artifactId>Eonasdan-bootstrap-datetimepicker</artifactId>
-      <version>4.17.43</version>
+      <artifactId>bootstrap-datepicker</artifactId>
+      <version>1.7.1</version>
     </dependency>
   </dependencies>
 </project>
