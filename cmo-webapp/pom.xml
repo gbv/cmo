@@ -15,6 +15,8 @@
   <properties>
     <MCR.AppName>cmo</MCR.AppName>
     <solr.location>${user.home}/.mycore/dev-cmo/data/solr</solr.location>
+    <solr-runner.solrMirrorURL>http://mirror.23media.de/apache/lucene/solr/</solr-runner.solrMirrorURL>
+    <solr-runner.solrVersionString>6.6.1</solr-runner.solrVersionString>
   </properties>
   <build>
     <finalName>cmo-${project.version}</finalName>
@@ -96,7 +98,8 @@
           <solrHome>${solr.location}</solrHome>
           <solrPort>8983</solrPort>
           <solrHomeTemplate>${project.basedir}/src/main/solrHome</solrHomeTemplate>
-          <solrVersionString>6.6.0</solrVersionString>
+          <solrMirrorURL>${solr-runner.solrMirrorURL}</solrMirrorURL>
+          <solrVersionString>${solr-runner.solrVersionString}</solrVersionString>
           <pluginCoreMappings>
             <pluginCoreMapping>
               <core>cmo</core>
