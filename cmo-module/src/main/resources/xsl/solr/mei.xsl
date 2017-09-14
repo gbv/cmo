@@ -44,6 +44,77 @@
     </field>
   </xsl:template>
 
+  <xsl:template match="mei:respStmt" mode="solrIndex">
+    <field name="resp">
+      <xsl:value-of select="mei:resp" />
+    </field>
+
+    <field name="resp.{mei:resp/text()}">
+      <xsl:value-of select="mei:corpName" />
+    </field>
+  </xsl:template>
+
+  <xsl:template match="mei:physDesc/mei:handList/mei:hand" mode="solrIndex">
+    <xsl:if test="@resp">
+      <xsl:variable name="person" select="document(concat('mcrobject:', @resp))" />
+      <xsl:for-each select="$person/.//mei:persName/mei:name">
+        <field name="hand.name">
+          <xsl:value-of select="text()" />
+        </field>
+      </xsl:for-each>
+      <xsl:for-each select="$person/.//mei:persName/mei:identifier">
+        <field name="hand.name">
+          <xsl:value-of select="text()" />
+        </field>
+      </xsl:for-each>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="mei:physLoc/mei:repository" mode="solrIndex">
+    <xsl:for-each select="mei:corpName">
+      <field name="repo.corpName">
+        <xsl:value-of select="text()" />
+      </field>
+      <xsl:if test="@type">
+        <field name="repo.corpName.{@type}">
+          <xsl:value-of select="text()" />
+        </field>
+      </xsl:if>
+    </xsl:for-each>
+
+    <xsl:for-each select="mei:identifier">
+      <field name="repo.identifier">
+        <xsl:value-of select="text()" />
+      </field>
+      <xsl:if test="@type">
+        <field name="repo.identifier.{@type}">
+          <xsl:value-of select="text()" />
+        </field>
+      </xsl:if>
+    </xsl:for-each>
+
+    <xsl:if test="mei:geogName">
+      <field name="repo.geogName">
+        <xsl:for-each select="mei:geogName/mei:geogName">
+          <xsl:if test="position()&gt;0">
+            <xsl:text> </xsl:text>
+          </xsl:if>
+          <xsl:value-of select="text()" />
+        </xsl:for-each>
+      </field>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="mei:physLoc/mei:provenance/mei:eventList" mode="solrIndex">
+    <xsl:for-each select="mei:event">
+      <xsl:if test="mei:geogName">
+        <field name="provenance.event.eventGeogName">
+          <xsl:value-of select="mei:geogName/text()" />
+        </field>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+
   <xsl:template match="mei:incip" mode="solrIndex">
     <xsl:for-each select="mei:incipText">
       <field name="incip">

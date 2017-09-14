@@ -93,7 +93,6 @@ eSearch.addExtended({
         fields : [
             new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
             new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name" ]),
-            new SearchField("editor.label.identifier", [ "mods.identifier" ]),
             new SearchField("editor.label.publisher", [ "mods.publisher" ]),
             new ClassificationSearchField("mods.ddc", "DDC"),
             new ClassificationSearchField("mods.type", "diniPublType"),
@@ -119,7 +118,6 @@ kSearch.addExtended({
         baseQuery : [ "objectType:expression" ],
         fields : [
             new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
-            new SearchField("editor.label.identifier", [ "identifier" ]),
             new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
             new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
             new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
@@ -133,13 +131,14 @@ kSearch.addExtended({
         baseQuery : [ "objectType:source" ],
         fields : [
             new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
-            new SearchField("editor.label.identifier", [ "identifier" ]),
             new ClassificationSearchField("cmo_sourceType", "cmo_sourceType"),
             new ClassificationSearchField("cmo_notationType", "cmo_notationType"),
             new ClassificationSearchField("cmo_contentType", "cmo_contentType"),
             new ClassificationSearchField("language", "rfc4646"),
             new DateSearchField("editor.label.publishingDate", [ "publish.date.range" ]),
-            new SearchField("editor.label.publisher", [ "publishingInformation" ]) ]
+            new SearchField("editor.label.contributer", [ "editor", "author", "respStmt", "hand.name" ]),
+            new SearchField("editor.label.publishingInformation", [ "publisher", "publisher.place", "series",
+                "repo.corpName", "repo.identifier", "repo.geogName", "provenance.event.eventGeogName" ]) ]
     },
     mods : {
         type : "bibl",
@@ -147,7 +146,6 @@ kSearch.addExtended({
         fields : [
             new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
             new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name" ]),
-            new SearchField("editor.label.identifier", [ "mods.identifier" ]),
             new SearchField("editor.label.publisher", [ "mods.publisher" ]),
             /* new ClassificationSearchField("mods.ddc", "DDC"), */
             /* new ClassificationSearchField("mods.type", "diniPublType"), */
@@ -158,7 +156,6 @@ kSearch.addExtended({
         type : "person",
         baseQuery : [ "objectType:person" ],
         fields : [
-            new SearchField("editor.label.identifier", [ "identifier" ]),
             new SearchField("editor.label.name", [ "name", "name.general" ]),
             new DateSearchField("editor.label.lifeData", [ "birth.date.range", "death.date.range" ]),
         ],
@@ -279,8 +276,8 @@ let getResultAction = (params) => {
                     let field = sst.getAttribute("data-subselect-target");
                     if ("value" in sst) {
                         let fieldValue = doc[ field ];
-                        if(fieldValue instanceof Array){
-                            sst.value = fieldValue[0];
+                        if (fieldValue instanceof Array) {
+                            sst.value = fieldValue[ 0 ];
                         } else {
                             sst.value = fieldValue;
                         }

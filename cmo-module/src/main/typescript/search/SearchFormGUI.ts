@@ -56,8 +56,8 @@ export class SearchGUI {
     <div class="extendedSearch closed container">
         <div class="row">
             <div class="form-group">
-                <label class="typeLabel col-md-3 control-label form-inline"></label>
-                <div class="controls col-md-9">
+                <label class="typeLabel col-md-4 control-label form-inline"></label>
+                <div class="controls col-md-8">
                     <select class="type form-control form-control-inline"></select>
                 </div>
             </div>
@@ -419,8 +419,8 @@ export class TextSearchFieldInput extends SearchFieldInput {
     public getTemplate() {
         return `
 <div class="form-group">
-    <label class="col-md-3 control-label form-inline"></label>
-    <div class="col-md-9">
+    <label class="col-md-4 control-label form-inline"></label>
+    <div class="col-md-8">
         <input class="form-control" type="search">
     </div>
 </div>
@@ -468,8 +468,8 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
     public init() {
         this._template = `
               <div class="form-group">
-                  <label class="col-md-3 control-label form-inline"></label>
-                  <div class="controls col-md-9">
+                  <label class="col-md-4 control-label form-inline"></label>
+                  <div class="controls col-md-8">
                     <select class="form-control form-control-inline">
 
                     </select>
@@ -719,8 +719,8 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
 
         return `
 <div class="form-group">
-    <label class="col-md-3 control-label form-inline date"></label>
-    <div class="col-md-9">
+    <label class="col-md-4 control-label form-inline date"></label>
+    <div class="col-md-8">
         <div class="form-inline">
             <input id="date_${checkBoxID}" class="checkbox inline" type="checkbox" />
             <label for="#date_${checkBoxID}" class="range inline"> </label>

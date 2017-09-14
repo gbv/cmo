@@ -478,6 +478,21 @@
 
   <field name="lyricist" type="text_tr" multiValued="true" />
 
+  <field name="respStmt" type="text_tr" multiValued="true" />
+  <dynamicField name="respStmt.*" type="text_tr" multiValued="true" />
+
+  <field name="repo.corpName" type="text_tr" multiValued="true" />
+  <dynamicField name="repo.corpName.*" type="text_tr" multiValued="true" />
+
+  <field name="repo.identifier" type="text_tr" multiValued="true" />
+  <dynamicField name="repo.identifier.*" type="text_tr" multiValued="true" />
+
+  <field name="repo.geogName" type="text_tr" multiValued="true" />
+
+  <field name="provenance.event.eventGeogName" type="text_tr" multiValued="true" />
+
+  <field name="hand.name" type="text_tr" multiValued="true" />
+
   <field name="publisher" type="text_tr" multiValued="true" />
   <field name="publisher.place" type="text_tr" multiValued="true" />
 
