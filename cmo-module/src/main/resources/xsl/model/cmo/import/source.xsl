@@ -42,42 +42,38 @@
     </xsl:copy>
   </xsl:template>
 
+
   <xsl:template match="mei:provenance">
-    <!-- -->
   </xsl:template>
 
-  <xsl:template match="mei:physDesc">
-    <xsl:copy>
-      <xsl:apply-templates select="@*|node()"></xsl:apply-templates>
-    </xsl:copy>
-    <xsl:if test="mei:provenance and not(../mei:physLoc)">
-      <mei:physLoc>
-        <xsl:copy-of select="mei:provenance" />
-      </mei:physLoc>
-    </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="mei:physLoc">
-    <xsl:copy>
-      <xsl:apply-templates />
-      <xsl:if test="../mei:physDesc/mei:provenance">
-        <xsl:apply-templates select="../mei:physDesc/mei:provenance" mode="copy" />
-      </xsl:if>
-    </xsl:copy>
-
-  </xsl:template>
-
-  <xsl:template match="//mei:eventList/mei:event/mei:p">
+  <xsl:template match="mei:eventList/mei:event/mei:p">
     <mei:desc>
-      <xsl:apply-templates select="node()" />
+      <xsl:apply-templates select='@*|node()' />
     </mei:desc>
   </xsl:template>
+
+  <xsl:template match="mei:source">
+    <mei:source>
+      <xsl:if test="mei:physDesc/mei:provenance">
+        <mei:history>
+          <xsl:apply-templates select="mei:physDesc/mei:provenance/mei:eventList" mode="copy"/>
+        </mei:history>
+      </xsl:if>
+
+      <xsl:apply-templates select='@*|node()' />
+    </mei:source>
+  </xsl:template>
+
+
+
 
   <xsl:template match="//mei:titleStmt[not(mei:title)]">
     <xsl:copy>
       <xsl:choose>
         <xsl:when test="../mei:identifier">
-          <mei:title><xsl:value-of select="../mei:identifier" /></mei:title>
+          <mei:title>
+            <xsl:value-of select="../mei:identifier" />
+          </mei:title>
         </xsl:when>
         <xsl:otherwise>
           <xsl:message terminate="yes">Could not find a title to insert!</xsl:message>

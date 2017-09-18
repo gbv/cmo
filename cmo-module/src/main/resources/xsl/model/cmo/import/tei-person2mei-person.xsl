@@ -58,40 +58,27 @@
   </xsl:template>
 
   <xsl:template match="tei:persName">
-    <xsl:choose>
-      <xsl:when test="tei:ref[@target]">
-        <xsl:for-each select="tei:ref[@target]">
-          <xsl:call-template name="perName">
-            <xsl:with-param name="persNameElement" select="../." />
-          </xsl:call-template>
-        </xsl:for-each>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:call-template name="perName" >
-          <xsl:with-param name="persNameElement" select="." />
-        </xsl:call-template>
-      </xsl:otherwise>
-    </xsl:choose>
-
-
-  </xsl:template>
-
-  <xsl:template name="perName">
-    <xsl:param name="persNameElement" />
-    <mei:name>
-      <xsl:if test="$persNameElement/@type">
-        <xsl:attribute name="type">
-          <xsl:value-of select="translate($persNameElement/@type,'/','-')" />
+    <xsl:for-each select="tei:ref">
+      <mei:name>
+        <xsl:if test="../@type">
+          <xsl:attribute name="type">
+            <xsl:value-of select="translate(../@type,'/','-')" />
+          </xsl:attribute>
+        </xsl:if>
+        <xsl:attribute name="source">
+            <xsl:value-of select="@target" />
         </xsl:attribute>
-      </xsl:if>
-
-      <xsl:if test="$persNameElement/tei:ref/@nymref">
-        <xsl:attribute name="nymref">
-          <xsl:value-of select="$persNameElement/tei:ref/@target" />
+        <xsl:attribute name="label">
+          <xsl:value-of select="text()" />
         </xsl:attribute>
-      </xsl:if>
-      <xsl:value-of select="$persNameElement/text()" />
-    </mei:name>
+        <xsl:value-of select="../text()" />
+      </mei:name>
+    </xsl:for-each>
+    <xsl:if test="count(tei:ref)&lt;1">
+      <mei:name>
+        <xsl:value-of select="text()" />
+      </mei:name>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="tei:death|tei:birth">

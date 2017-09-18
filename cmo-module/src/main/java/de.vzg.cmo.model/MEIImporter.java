@@ -125,8 +125,8 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
     private static final XPathExpression<Element> ANOT_SOURCE_XPATH = XPathFactory.instance()
         .compile(".//mei:annot[@source]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
 
-    private static final XPathExpression<Element> NAME_NYMREF_XPATH = XPathFactory.instance()
-        .compile(".//mei:name[@nymref]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
+    private static final XPathExpression<Element> NAME_SOURCE_XPATH = XPathFactory.instance()
+        .compile(".//mei:name[@source]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
 
     private static final Map<String, String> cmo_mei_typeMapping = new HashMap<>();
 
@@ -161,6 +161,8 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                 (Collectors.joining(" or ")) + "]", Filters.element(), null, MEIUtils
                 .MEI_NAMESPACE, MEIUtils.TEI_NAMESPACE);
     }
+
+    private Map<String, Set<String>> classificationLabelValues = new HashMap<>();
 
     // bibliography folder
     private ConcurrentHashMap<String, Document> bibliographicMap;
@@ -242,9 +244,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             Element rootElement = document.getRootElement();
             DATE_SOURCE_XPATH.evaluate(rootElement).forEach(sourceCorrector);
             ANOT_SOURCE_XPATH.evaluate(rootElement).forEach(sourceCorrector);
-
-            Consumer<Element> nymrefCorrector = getElementCorrector(cmoID, "nymref");
-            NAME_NYMREF_XPATH.evaluate(rootElement).forEach(nymrefCorrector);
+            NAME_SOURCE_XPATH.evaluate(rootElement).forEach(sourceCorrector);
         });
 
         XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
@@ -328,7 +328,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                     Stream.of("source").collect(Collectors.toList()));
 
                 try {
-                    if(!(wrapper instanceof MEIPersonWrapper)){
+                    if (!(wrapper instanceof MEIPersonWrapper)) {
                         wrapper.setClassification(classifications);
                     }
                 } catch (OperationNotSupportedException e) {
@@ -374,6 +374,11 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                 LOGGER.error("Error while exporting file " + cmoID.toString() + " (" + key + ")", e);
             }
         });
+
+        this.classificationLabelValues.forEach((k, v) -> {
+            LOGGER.info("{} has {} different labels", k,v.size());
+        });
+
         return typeSet.stream()
             .sorted((p1, p2) -> {
                 return getOrder(p1) - getOrder(p2);
@@ -385,19 +390,30 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
     public Consumer<Element> getElementCorrector(String cmoID, String attrName) {
         return element -> {
-            String oldID = element.getAttributeValue(attrName);
-            if (this.idMCRObjectIDMap.containsKey(oldID)) {
-                element.setAttribute(attrName, this.idMCRObjectIDMap.get(oldID).toString());
-            } else {
-                LOGGER.warn("Could not replace id: \"{}\" of person \"{}\"", oldID, cmoID);
-            }
+            String[] ids = element.getAttributeValue(attrName).split(" ");
+            String newSource = Stream.of(ids)
+                .filter(id -> {
+                    if (this.idMCRObjectIDMap.containsKey(id)) {
+                        return true;
+                    } else {
+                        LOGGER.warn("Could not replace id: \"{}\" of person \"{}\"", id, cmoID);
+                        return false;
+                    }
+                }).map(this.idMCRObjectIDMap::get)
+                .map(MCRObjectID::toString)
+                .collect(Collectors.joining(" "));
+            element.setAttribute(attrName, newSource);
         };
     }
 
     public void addCustomClassifications(String classificationNameOrURI,
         Map<MCRMEIAuthorityInfo, List<String>> classifications, List<Element> elementList) {
+        Set<String> labels = classificationLabelValues
+            .computeIfAbsent(classificationNameOrURI, (a) -> new HashSet<>());
+
         if (elementList.size() > 0) {
             List<String> values = elementList.stream()
+                .peek(e -> labels.add(e.getTextTrim()))
                 .map(element -> element.getAttributeValue("classLink", MEIUtils.CMO_NAMESPACE))
                 .collect(Collectors.toList());
             MCRMEIAuthorityInfo classification =
@@ -411,7 +427,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
     public void convertSources() {
         ConcurrentHashMap<String, Document> newSourceMap = new ConcurrentHashMap<>();
         sourceMap.forEach((cmoID, doc) -> {
-            MCRXSLTransformer transformer = new MCRXSLTransformer("xsl/model/cmo/import/source-fix-physLocation.xsl");
+            MCRXSLTransformer transformer = new MCRXSLTransformer("xsl/model/cmo/import/source.xsl");
             try {
                 Document document = transformer.transform(new MCRJDOMContent(doc)).asXML();
                 newSourceMap.put(cmoID, document);
@@ -425,7 +441,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
     public void convertExpressions() {
         ConcurrentHashMap<String, Document> newExpressionMap = new ConcurrentHashMap<>();
         expressionMap.forEach((cmoID, doc) -> {
-            MCRXSLTransformer transformer = new MCRXSLTransformer("xsl/model/cmo/import/expression-fix-titleStmt.xsl");
+            MCRXSLTransformer transformer = new MCRXSLTransformer("xsl/model/cmo/import/expression.xsl");
             try {
                 Document document = transformer.transform(new MCRJDOMContent(doc)).asXML();
                 newExpressionMap.put(cmoID, document);
