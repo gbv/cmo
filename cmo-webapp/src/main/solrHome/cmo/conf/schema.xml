@@ -405,10 +405,23 @@
   <field name="_text_" type="text_general" multiValued="true" indexed="true" stored="false"/>
   <field name="_version_" type="long" indexed="false" stored="false"/>
 
+
+    <!-- Start: MyCoRe specific schema definition -->
+
+    <!-- Name field, see https://dzone.com/articles/tips-name-search-solr -->
+    <fieldType name="namesType" class="solr.TextField"  positionIncrementGap="100">
+      <analyzer>
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <charFilter class="solr.MappingCharFilterFactory" mapping="mapping.txt"/>
+        <filter class="solr.ASCIIFoldingFilterFactory" />
+        <filter class="solr.LowerCaseFilterFactory" />
+      </analyzer>
+    </fieldType>
+
    <!-- kind of mcrobjectid, mcrderivateid, fileid -->
    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
 
-    <!-- Start: MyCoRe specific schema definition -->
+
     <field name="objectKind" type="string" />
     <field name="objectType" type="string" />
     <field name="objectProject" type="string" />
@@ -440,7 +453,7 @@
     <field name="fileCategory" type="string" multiValued="true"/>
     <field name="maindoc" type="string" />
     <field name="iviewFile" type="string" />
-	<field name="hasFiles" type="boolean" />
+  <field name="hasFiles" type="boolean" />
 
     <!-- MCRFile related fields -->
     <field name="derivateID" type="string" />
@@ -526,10 +539,10 @@
 
     <field name="mods.nameIdentifier" type="string" multiValued="true" />
     <field name="mods.nameIdentifier.top" type="string" multiValued="true" />
-    <field name="mods.name" type="string" multiValued="true" />
-    <field name="mods.name.top" type="string" multiValued="true" />
-    <field name="mods.author" type="string" multiValued="true" />
-    <field name="mods.mainAuthor" type="text_general" indexed="true" stored="false" />
+    <field name="mods.name" type="namesType" multiValued="true" />
+    <field name="mods.name.top" type="namesType" multiValued="true" />
+    <field name="mods.author" type="namesType" multiValued="true" />
+    <field name="mods.mainAuthor" type="namesType" indexed="true" stored="false" />
     <field name="mods.genre" type="string" multiValued="true" />
     <field name="mods.identifier" type="string" multiValued="true" />
     <field name="mods.identifier.host" type="string" multiValued="true" />
