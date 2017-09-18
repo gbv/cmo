@@ -1,607 +1,606 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mycoreclass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0"
              xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_makamler">
-  <label text="makamler" xml:lang="ar" />
-  <label text="Makam" xml:lang="de" />
+  <label text="Makam" xml:lang="en" />
   <label text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_makamler" xml:lang="x-uri" />
   <categories>
     <category ID="mk-24574777-9">
-      <label xml:lang="ar" text="Acem" />
+      <label xml:lang="tr" text="Acem" />
     </category>
     <category ID="mk-75917949-9">
-      <label xml:lang="ar" description="Acem-aşîrân, Acemaşîrân" text="Acem aşîrân" />
+      <label xml:lang="tr" description="Acem-aşîrân, Acemaşîrân" text="Acem aşîrân" />
     </category>
     <category ID="mk-27261120-2">
-      <label xml:lang="ar" description="Acem-bûselik" text="Acem bûselik" />
+      <label xml:lang="tr" description="Acem-bûselik" text="Acem bûselik" />
     </category>
     <category ID="mk-78604292-X">
-      <label xml:lang="ar" description="Acem-dilfirîb" text="Acem dilfirîb" />
+      <label xml:lang="tr" description="Acem-dilfirîb" text="Acem dilfirîb" />
     </category>
     <category ID="mk-29947463-5">
-      <label xml:lang="ar" description="Acem-kürdî" text="Acem kürdî" />
+      <label xml:lang="tr" description="Acem-kürdî" text="Acem kürdî" />
     </category>
     <category ID="mk-81290635-9">
-      <label xml:lang="ar" description="Acem-murassâ" text="Acem murassâ" />
+      <label xml:lang="tr" description="Acem-murassâ" text="Acem murassâ" />
     </category>
     <category ID="mk-32633806-0">
-      <label xml:lang="ar" description="Acem-tarab" text="Acem tarab" />
+      <label xml:lang="tr" description="Acem-tarab" text="Acem tarab" />
     </category>
     <category ID="mk-83976978-1">
-      <label xml:lang="ar" description="Âhengi tarab" text="Âheng-i tarab" />
+      <label xml:lang="tr" description="Âhengi tarab" text="Âheng-i tarab" />
     </category>
     <category ID="mk-35320149-3">
-      <label xml:lang="ar" description="Anber efşân" text="Anber-efşân" />
+      <label xml:lang="tr" description="Anber efşân" text="Anber-efşân" />
     </category>
     <category ID="mk-86663321-5">
-      <label xml:lang="ar" text="Arabân" />
+      <label xml:lang="tr" text="Arabân" />
     </category>
     <category ID="mk-38006492-5">
-      <label xml:lang="ar" description="Arabân-kürdî" text="Arabân kürdî" />
+      <label xml:lang="tr" description="Arabân-kürdî" text="Arabân kürdî" />
     </category>
     <category ID="mk-89349664-9">
-      <label xml:lang="ar" description="Arabân-uşşâk" text="Arabân uşşâk" />
+      <label xml:lang="tr" description="Arabân-uşşâk" text="Arabân uşşâk" />
     </category>
     <category ID="mk-40692835-3">
-      <label xml:lang="ar" text="Arazbâr" />
+      <label xml:lang="tr" text="Arazbâr" />
     </category>
     <category ID="mk-92036007-1">
-      <label xml:lang="ar" description="Arazbâr-bûselik, Arazbâr pûselik,Arazbâr-pûselik" text="Arazbâr bûselik" />
+      <label xml:lang="tr" description="Arazbâr-bûselik, Arazbâr pûselik,Arazbâr-pûselik" text="Arazbâr bûselik" />
     </category>
     <category ID="mk-43379178-4">
-      <label xml:lang="ar" description="Aşkefzâ" text="Aşk-efzâ" />
+      <label xml:lang="tr" description="Aşkefzâ" text="Aşk-efzâ" />
     </category>
     <category ID="mk-94722350-4">
-      <label xml:lang="ar" text="Baba Tâhir" />
+      <label xml:lang="tr" text="Baba Tâhir" />
     </category>
     <category ID="mk-46065522-1">
-      <label xml:lang="ar" description="Bahri nâzik, Bahrinâzik" text="Bahr-i nâzik" />
+      <label xml:lang="tr" description="Bahri nâzik, Bahrinâzik" text="Bahr-i nâzik" />
     </category>
     <category ID="mk-97408693-8">
-      <label xml:lang="ar" description="Beyati" text="Bayâtî" />
+      <label xml:lang="tr" description="Beyati" text="Bayâtî" />
     </category>
     <category ID="mk-48751865-6">
-      <label xml:lang="ar" description="Beyâtî arabân, Beyâtî-arabân, Bayâtî-arabân" text="Bayâtî arabân" />
+      <label xml:lang="tr" description="Beyâtî arabân, Beyâtî-arabân, Bayâtî-arabân" text="Bayâtî arabân" />
     </category>
     <category ID="mk-00095036-7">
-      <label xml:lang="ar"
+      <label xml:lang="tr"
              description="Beyâtî arabân bûselik, Beyâtî-arabân-bûselik, Bayâtî-arabân-bûselik, Bayâtî arabân&#10;            pûselik, Beyâtî arabân pûselik, Beyâtî-arabân-pûselik, Bayâtî-arabân-pûselik"
              text="Bayâtî arabân bûselik" />
     </category>
     <category ID="mk-51438208-7">
-      <label xml:lang="ar"
+      <label xml:lang="tr"
              description="Beyâtî bûselik, Beyâtî-bûselik, Bayâtî-bûselik, Bayâtî pûselik, Beyâtî pûselik,&#10;            Beyâtî-pûselik, Bayâtî-pûselik"
              text="Bayâtî bûselik" />
     </category>
     <category ID="mk-02781379-1">
-      <label xml:lang="ar" description="Bendi Hisâr" text="Bend-i Hisâr" />
+      <label xml:lang="tr" description="Bendi Hisâr" text="Bend-i Hisâr" />
     </category>
     <category ID="mk-54124551-0">
-      <label xml:lang="ar" description="Beste-Isfahân" text="Beste Isfahân" />
+      <label xml:lang="tr" description="Beste-Isfahân" text="Beste Isfahân" />
     </category>
     <category ID="mk-05467722-6">
-      <label xml:lang="ar" description="Beste nigâr" text="Bestenigâr" />
+      <label xml:lang="tr" description="Beste nigâr" text="Bestenigâr" />
     </category>
     <category ID="mk-56810894-5">
-      <label xml:lang="ar" description="Puselik" text="Bûselik" />
+      <label xml:lang="tr" description="Puselik" text="Bûselik" />
     </category>
     <category ID="mk-08154065-9">
-      <label xml:lang="ar" description="Bûselik-aşîrân, Pûselik aşîrân, Pûselik-aşîrân" text="Bûselik aşîrân" />
+      <label xml:lang="tr" description="Bûselik-aşîrân, Pûselik aşîrân, Pûselik-aşîrân" text="Bûselik aşîrân" />
     </category>
     <category ID="mk-59497237-2">
-      <label xml:lang="ar" description="Bülbülî-uşşâk" text="Bülbülî uşşâk" />
+      <label xml:lang="tr" description="Bülbülî-uşşâk" text="Bülbülî uşşâk" />
     </category>
     <category ID="mk-10840408-3">
-      <label xml:lang="ar" description="Büzürk" text="Büzürg" />
+      <label xml:lang="tr" description="Büzürk" text="Büzürg" />
     </category>
     <category ID="mk-62183580-3">
-      <label xml:lang="ar" text="Cânfezâ" />
+      <label xml:lang="tr" text="Cânfezâ" />
     </category>
     <category ID="mk-13526751-5">
-      <label xml:lang="ar" text="Çârgâh" />
+      <label xml:lang="tr" text="Çârgâh" />
     </category>
     <category ID="mk-64869923-9">
-      <label xml:lang="ar" description="Çehâr âgâzîn, Cihar Ağâzin, Cihar-Ağâzin, Çehâr-Âgaazîn, Çehâr Âgaazîn"
+      <label xml:lang="tr" description="Çehâr âgâzîn, Cihar Ağâzin, Cihar-Ağâzin, Çehâr-Âgaazîn, Çehâr Âgaazîn"
              text="Çehâr-âgâzîn" />
     </category>
     <category ID="mk-16213094-8">
-      <label xml:lang="ar" text="Dertli uşşâk" />
+      <label xml:lang="tr" text="Dertli uşşâk" />
     </category>
     <category ID="mk-67556266-1">
-      <label xml:lang="ar" description="Dilkeş-hâverân, Dilkeşhâverân" text="Dilkeş hâverân" />
+      <label xml:lang="tr" description="Dilkeş-hâverân, Dilkeşhâverân" text="Dilkeş hâverân" />
     </category>
     <category ID="mk-18899437-7">
-      <label xml:lang="ar" description="Dilkeş-hâverân-sabâ, Dilkeşhâverân sabâ, Dilkeşhâverân-sabâ"
+      <label xml:lang="tr" description="Dilkeş-hâverân-sabâ, Dilkeşhâverân sabâ, Dilkeşhâverân-sabâ"
              text="Dilkeş hâverân sabâ" />
     </category>
     <category ID="mk-70242609-7">
-      <label xml:lang="ar" description="Dil-keşîde" text="Dilkeşîde" />
+      <label xml:lang="tr" description="Dil-keşîde" text="Dilkeşîde" />
     </category>
     <category ID="mk-21585780-8">
-      <label xml:lang="ar" text="Dîvân" />
+      <label xml:lang="tr" text="Dîvân" />
     </category>
     <category ID="mk-72928952-8">
-      <label xml:lang="ar" text="Dügâh" />
+      <label xml:lang="tr" text="Dügâh" />
     </category>
     <category ID="mk-24272123-3">
-      <label xml:lang="ar" description="Dügâh-bûselik, Dügâh pûselik, Dügâh-pûselik" text="Dügâh bûselik" />
+      <label xml:lang="tr" description="Dügâh-bûselik, Dügâh pûselik, Dügâh-pûselik" text="Dügâh bûselik" />
     </category>
     <category ID="mk-75615295-0">
-      <label xml:lang="ar" description="Dügâh-dilküşâ, Dügâh dil küşâ, Dügâh-dil-küşâ" text="Dügâh dilküşâ" />
+      <label xml:lang="tr" description="Dügâh-dilküşâ, Dügâh dil küşâ, Dügâh-dil-küşâ" text="Dügâh dilküşâ" />
     </category>
     <category ID="mk-26958466-6">
-      <label xml:lang="ar" description="Evic" text="Evc" />
+      <label xml:lang="tr" description="Evic" text="Evc" />
     </category>
     <category ID="mk-78301638-9">
-      <label xml:lang="ar" description="Evc-ârâ, Evicârâ" text="Evcârâ" />
+      <label xml:lang="tr" description="Evc-ârâ, Evicârâ" text="Evcârâ" />
     </category>
     <category ID="mk-29644809-4">
-      <label xml:lang="ar"
+      <label xml:lang="tr"
              description="Evc-bûselik, Evic bûselik, Evic-bûselik, Evc pûselik, Evc-pûselik, Evic pûselik,&#10;            Evic-pûselik"
              text="Evc bûselik" />
     </category>
     <category ID="mk-80987981-0">
-      <label xml:lang="ar" description="Evc-hûzî, Evic hûzî, Evic-hûzî" text="Evc hûzî" />
+      <label xml:lang="tr" description="Evc-hûzî, Evic hûzî, Evic-hûzî" text="Evc hûzî" />
     </category>
     <category ID="mk-32331152-2">
-      <label xml:lang="ar" text="Ferahfezâ" />
+      <label xml:lang="tr" text="Ferahfezâ" />
     </category>
     <category ID="mk-83674324-6">
-      <label xml:lang="ar" text="Ferahnâk" />
+      <label xml:lang="tr" text="Ferahnâk" />
     </category>
     <category ID="mk-35017495-6">
-      <label xml:lang="ar" text="Ferahnümâ" />
+      <label xml:lang="tr" text="Ferahnümâ" />
     </category>
     <category ID="mk-86360667-1">
-      <label xml:lang="ar" description="Gerdâniyye" text="Gerdâniye" />
+      <label xml:lang="tr" description="Gerdâniyye" text="Gerdâniye" />
     </category>
     <category ID="mk-37703838-3">
-      <label xml:lang="ar" description="Gerdâniye-aşîrân, Gerdâniyye-aşîrân, Gerdâniyye aşîrân"
+      <label xml:lang="tr" description="Gerdâniye-aşîrân, Gerdâniyye-aşîrân, Gerdâniyye aşîrân"
              text="Gerdâniye aşîrân" />
     </category>
     <category ID="mk-89047010-3">
-      <label xml:lang="ar"
+      <label xml:lang="tr"
              description="Gerdâniye-bûselik, Gerdâniyye-bûselik, Gerdâniyye bûselik, Gerdâniye pûselik,&#10;            Gerdâniye-pûselik, Gerdâniyye-pûselik, Gerdâniyye pûselik"
              text="Gerdâniye bûselik" />
     </category>
     <category ID="mk-40390181-5">
-      <label xml:lang="ar" description="Gerdâniye-kürdî, Gerdâniyye-kürdî, Gerdâniyye kürdî" text="Gerdâniye kürdî" />
+      <label xml:lang="tr" description="Gerdâniye-kürdî, Gerdâniyye-kürdî, Gerdâniyye kürdî" text="Gerdâniye kürdî" />
     </category>
     <category ID="mk-91733353-5">
-      <label xml:lang="ar" description="Gonca-i ranâ" text="Gonca-i ra’nâ" />
+      <label xml:lang="tr" description="Gonca-i ranâ" text="Gonca-i ra’nâ" />
     </category>
     <category ID="mk-43076524-1">
-      <label xml:lang="ar" text="Güldeste" />
+      <label xml:lang="tr" text="Güldeste" />
     </category>
     <category ID="mk-69190464-3">
-      <label xml:lang="ar" text="Gülşen-i Vefâ" />
+      <label xml:lang="tr" text="Gülşen-i Vefâ" />
     </category>
     <category ID="mk-94419696-9">
-      <label xml:lang="ar" description="Gülizâr, Gül'izâr, Gül-izâr" text="Gülzâr" />
+      <label xml:lang="tr" description="Gülizâr, Gül'izâr, Gül-izâr" text="Gülzâr" />
     </category>
     <category ID="mk-45762867-6">
-      <label xml:lang="ar" text="Heftgâh" />
+      <label xml:lang="tr" text="Heftgâh" />
     </category>
     <category ID="mk-97106039-4">
-      <label xml:lang="ar" text="Hicâz" />
+      <label xml:lang="tr" text="Hicâz" />
     </category>
     <category ID="mk-48449210-8">
-      <label xml:lang="ar" description="Hicâz acem, Hicâz-acem, Hicâz acemî" text="Hicâz-ı acem" />
+      <label xml:lang="tr" description="Hicâz acem, Hicâz-acem, Hicâz acemî" text="Hicâz-ı acem" />
     </category>
     <category ID="mk-99792382-0">
-      <label xml:lang="ar" description="Hicâz-aşîrân" text="Hicâz aşîrân" />
+      <label xml:lang="tr" description="Hicâz-aşîrân" text="Hicâz aşîrân" />
     </category>
     <category ID="mk-51135553-0">
-      <label xml:lang="ar" description="Hicâz-bûselik, Hicâz pûselik, Hicâz-pûselik" text="Hicâz bûselik" />
+      <label xml:lang="tr" description="Hicâz-bûselik, Hicâz pûselik, Hicâz-pûselik" text="Hicâz bûselik" />
     </category>
     <category ID="mk-02478725-7">
-      <label xml:lang="ar" description="Hicâz hümâyûn, Hicâzı hümâyûn, Hicâz-hümâyûn" text="Hicâz-ı hümâyûn" />
+      <label xml:lang="tr" description="Hicâz hümâyûn, Hicâzı hümâyûn, Hicâz-hümâyûn" text="Hicâz-ı hümâyûn" />
     </category>
     <category ID="mk-53821896-5">
-      <label xml:lang="ar" description="Hicâz-ırâk, Hicâz arâk, Hicâz-arâk" text="Hicâz ırâk" />
+      <label xml:lang="tr" description="Hicâz-ırâk, Hicâz arâk, Hicâz-arâk" text="Hicâz ırâk" />
     </category>
     <category ID="mk-05165068-X">
-      <label xml:lang="ar" description="Hicâzı Rûmî, Hicâz Rûmî, Hicâz-Rûmî" text="Hicâz-ı Rûmî" />
+      <label xml:lang="tr" description="Hicâzı Rûmî, Hicâz Rûmî, Hicâz-Rûmî" text="Hicâz-ı Rûmî" />
     </category>
     <category ID="mk-56508239-9">
-      <label xml:lang="ar" description="Hicâz-sebzezâr" text="Hicâz sebzezâr" />
+      <label xml:lang="tr" description="Hicâz-sebzezâr" text="Hicâz sebzezâr" />
     </category>
     <category ID="mk-07851411-5">
-      <label xml:lang="ar" description="Hicâz-şehsüvâr" text="Hicâz şehsüvâr" />
+      <label xml:lang="tr" description="Hicâz-şehsüvâr" text="Hicâz şehsüvâr" />
     </category>
     <category ID="mk-59194582-6">
-      <label xml:lang="ar" text="Hicâzî uşşâk" />
+      <label xml:lang="tr" text="Hicâzî uşşâk" />
     </category>
     <category ID="mk-10537754-6">
-      <label xml:lang="ar" description="Hicâz-zengûle, Hicâz zîrgüle, Hicâz-zîrgüle, Zengûleli hicâz, Zingûleli hicâz"
+      <label xml:lang="tr" description="Hicâz-zengûle, Hicâz zîrgüle, Hicâz-zîrgüle, Zengûleli hicâz, Zingûleli hicâz"
              text="Hicâz zengûle" />
     </category>
     <category ID="mk-61880925-0">
-      <label xml:lang="ar" text="Hicâzkâr" />
+      <label xml:lang="tr" text="Hicâzkâr" />
     </category>
     <category ID="mk-13224097-9">
-      <label xml:lang="ar" description="Hicâzkârı kadîm" text="Hicâzkâr-ı kadîm" />
+      <label xml:lang="tr" description="Hicâzkârı kadîm" text="Hicâzkâr-ı kadîm" />
     </category>
     <category ID="mk-64567268-1">
-      <label xml:lang="ar" description="Hicâzkâr-kürdî, Hicâzkârkürdî" text="Hicâzkâr kürdî" />
+      <label xml:lang="tr" description="Hicâzkâr-kürdî, Hicâzkârkürdî" text="Hicâzkâr kürdî" />
     </category>
     <category ID="mk-15910440-4">
-      <label xml:lang="ar" text="Hisâr" />
+      <label xml:lang="tr" text="Hisâr" />
     </category>
     <category ID="mk-67253611-8">
-      <label xml:lang="ar" description="Hisâr-aşîrân" text="Hisâr aşîrân" />
+      <label xml:lang="tr" description="Hisâr-aşîrân" text="Hisâr aşîrân" />
     </category>
     <category ID="mk-18596783-1">
-      <label xml:lang="ar" description="Hisâr-bûselik, Hisâr pûselik, Hisâr-pûselik" text="Hisâr bûselik" />
+      <label xml:lang="tr" description="Hisâr-bûselik, Hisâr pûselik, Hisâr-pûselik" text="Hisâr bûselik" />
     </category>
     <category ID="mk-69939954-0">
-      <label xml:lang="ar" description="Hisâr vech-i şahnâz, Hisâr-ı vech-i şahnâz, Hisâr-ı vech-i şehnâz"
+      <label xml:lang="tr" description="Hisâr vech-i şahnâz, Hisâr-ı vech-i şahnâz, Hisâr-ı vech-i şehnâz"
              text="Hisâr vech-i şehnâz" />
     </category>
     <category ID="mk-21283126-4">
-      <label xml:lang="ar" text="Hümâyûn" />
+      <label xml:lang="tr" text="Hümâyûn" />
     </category>
     <category ID="mk-72626298-1">
-      <label xml:lang="ar" description="Hümâyûn rûy-i arâk" text="Hümâyûn rûy-i ırâk" />
+      <label xml:lang="tr" description="Hümâyûn rûy-i arâk" text="Hümâyûn rûy-i ırâk" />
     </category>
     <category ID="mk-23969469-7">
-      <label xml:lang="ar" text="Hüseynî" />
+      <label xml:lang="tr" text="Hüseynî" />
     </category>
     <category ID="mk-75312641-8">
-      <label xml:lang="ar" description="Hüseynî-aşîrân" text="Hüseynî aşîrân" />
+      <label xml:lang="tr" description="Hüseynî-aşîrân" text="Hüseynî aşîrân" />
     </category>
     <category ID="mk-26655812-3">
-      <label xml:lang="ar" description="Hüseynî-bûselik, Hüseynî pûselik, Hüseynî-pûselik" text="Hüseynî bûselik" />
+      <label xml:lang="tr" description="Hüseynî-bûselik, Hüseynî pûselik, Hüseynî-pûselik" text="Hüseynî bûselik" />
     </category>
     <category ID="mk-77998984-4">
-      <label xml:lang="ar" description="Hüseynî-gülzâr" text="Hüseynî gülzâr" />
+      <label xml:lang="tr" description="Hüseynî-gülzâr" text="Hüseynî gülzâr" />
     </category>
     <category ID="mk-29342155-6">
-      <label xml:lang="ar" description="Hüseynî-kürdî" text="Hüseynî kürdî" />
+      <label xml:lang="tr" description="Hüseynî-kürdî" text="Hüseynî kürdî" />
     </category>
     <category ID="mk-80685327-7">
-      <label xml:lang="ar" description="Hüseynî-zemzeme" text="Hüseynî zemzeme" />
+      <label xml:lang="tr" description="Hüseynî-zemzeme" text="Hüseynî zemzeme" />
     </category>
     <category ID="mk-32028498-7">
-      <label xml:lang="ar" text="Hüzzâm" />
+      <label xml:lang="tr" text="Hüzzâm" />
     </category>
     <category ID="mk-83371670-0">
-      <label xml:lang="ar" text="Hûzî" />
+      <label xml:lang="tr" text="Hûzî" />
     </category>
     <category ID="mk-34714841-2">
-      <label xml:lang="ar" description="Arâk" text="Irâk" />
+      <label xml:lang="tr" description="Arâk" text="Irâk" />
     </category>
     <category ID="mk-86058013-4">
-      <label xml:lang="ar" description="Irâk-aşîrân, Arâk aşîrân, Arâk-aşîrân" text="Irâk aşîrân" />
+      <label xml:lang="tr" description="Irâk-aşîrân, Arâk aşîrân, Arâk-aşîrân" text="Irâk aşîrân" />
     </category>
     <category ID="mk-37401184-5">
-      <label xml:lang="ar" text="Isfahân" />
+      <label xml:lang="tr" text="Isfahân" />
     </category>
     <category ID="mk-88744356-9">
-      <label xml:lang="ar" text="Isfahânek" />
+      <label xml:lang="tr" text="Isfahânek" />
     </category>
     <category ID="mk-40087527-2">
-      <label xml:lang="ar" text="Kara dügâh" />
+      <label xml:lang="tr" text="Kara dügâh" />
     </category>
     <category ID="mk-91430699-1">
-      <label xml:lang="ar" text="Karcıgâr" />
+      <label xml:lang="tr" text="Karcıgâr" />
     </category>
     <category ID="mk-42773870-5">
-      <label xml:lang="ar" description="Karcıgâr-dügâh" text="Karcıgâr dügâh" />
+      <label xml:lang="tr" description="Karcıgâr-dügâh" text="Karcıgâr dügâh" />
     </category>
     <category ID="mk-94117042-3">
-      <label xml:lang="ar" text="Kûçek" />
+      <label xml:lang="tr" text="Kûçek" />
     </category>
     <category ID="mk-45460213-0">
-      <label xml:lang="ar" text="Kürdî" />
+      <label xml:lang="tr" text="Kürdî" />
     </category>
     <category ID="mk-96803385-8">
-      <label xml:lang="ar" description="Kürdî'li hicâzkâr, Kürdîlihicâzkâr" text="Kürdîli hicâzkâr" />
+      <label xml:lang="tr" description="Kürdî'li hicâzkâr, Kürdîlihicâzkâr" text="Kürdîli hicâzkâr" />
     </category>
     <category ID="mk-48146556-4">
-      <label xml:lang="ar" text="Mâhûr" />
+      <label xml:lang="tr" text="Mâhûr" />
     </category>
     <category ID="mk-99489728-8">
-      <label xml:lang="ar" description="Mâhûr-bûselik, Mâhûr pûselik, Mâhûr-pûselik" text="Mâhûr bûselik" />
+      <label xml:lang="tr" description="Mâhûr-bûselik, Mâhûr pûselik, Mâhûr-pûselik" text="Mâhûr bûselik" />
     </category>
     <category ID="mk-50832899-6">
-      <label xml:lang="ar" description="Mâverâünnehir" text="Mâverâünnehr" />
+      <label xml:lang="tr" description="Mâverâünnehir" text="Mâverâünnehr" />
     </category>
     <category ID="mk-02176071-9">
-      <label xml:lang="ar" description="Maya" text="Mâye" />
+      <label xml:lang="tr" description="Maya" text="Mâye" />
     </category>
     <category ID="mk-53519242-8">
-      <label xml:lang="ar" description="Mâye-aşîrân, Mâya aşîrân, Mâya-aşîrân" text="Mâye aşîrân" />
+      <label xml:lang="tr" description="Mâye-aşîrân, Mâya aşîrân, Mâya-aşîrân" text="Mâye aşîrân" />
     </category>
     <category ID="mk-04862414-6">
-      <label xml:lang="ar" description="Mâye-segâh, Mâya segâh, Mâya-segâh" text="Mâye segâh" />
+      <label xml:lang="tr" description="Mâye-segâh, Mâya segâh, Mâya-segâh" text="Mâye segâh" />
     </category>
     <category ID="mk-56205585-3">
-      <label xml:lang="ar" description="Muhâlifi uşşâk" text="Muhâlif-i uşşâk" />
+      <label xml:lang="tr" description="Muhâlifi uşşâk" text="Muhâlif-i uşşâk" />
     </category>
     <category ID="mk-07548757-X">
-      <label xml:lang="ar" text="Muhayyer" />
+      <label xml:lang="tr" text="Muhayyer" />
     </category>
     <category ID="mk-58891928-4">
-      <label xml:lang="ar" description="Muhayyer-bûselik, Muhayyer pûselik, Muhayyer-pûselik" text="Muhayyer bûselik" />
+      <label xml:lang="tr" description="Muhayyer-bûselik, Muhayyer pûselik, Muhayyer-pûselik" text="Muhayyer bûselik" />
     </category>
     <category ID="mk-10235100-0">
-      <label xml:lang="ar" description="Muhayyer-kürdî" text="Muhayyer kürdî" />
+      <label xml:lang="tr" description="Muhayyer-kürdî" text="Muhayyer kürdî" />
     </category>
     <category ID="mk-61578271-0">
-      <label xml:lang="ar" description="Muhayyer-sünbüle" text="Muhayyer sünbüle" />
+      <label xml:lang="tr" description="Muhayyer-sünbüle" text="Muhayyer sünbüle" />
     </category>
     <category ID="mk-12921443-5">
-      <label xml:lang="ar" description="Muhayyer-zengûle" text="Muhayyer zengûle" />
+      <label xml:lang="tr" description="Muhayyer-zengûle" text="Muhayyer zengûle" />
     </category>
     <category ID="mk-64264614-9">
-      <label xml:lang="ar" description="Müberka" text="Müberka’" />
+      <label xml:lang="tr" description="Müberka" text="Müberka’" />
     </category>
     <category ID="mk-15607786-9">
-      <label xml:lang="ar" text="Müsteâr" />
+      <label xml:lang="tr" text="Müsteâr" />
     </category>
     <category ID="mk-66950957-3">
-      <label xml:lang="ar" text="Nârefte" />
+      <label xml:lang="tr" text="Nârefte" />
     </category>
     <category ID="mk-18294129-8">
-      <label xml:lang="ar" description="Necdi hüseynî, Necdi-hüseynî, Necid hüseynî, Necid-hüseynî"
+      <label xml:lang="tr" description="Necdi hüseynî, Necdi-hüseynî, Necid hüseynî, Necid-hüseynî"
              text="Necd-i hüseynî" />
     </category>
     <category ID="mk-69637300-5">
-      <label xml:lang="ar" text="Nevâ" />
+      <label xml:lang="tr" text="Nevâ" />
     </category>
     <category ID="mk-20980472-8">
-      <label xml:lang="ar" description="Nevâ-bûselik, Nevâ pûselik, Nevâ-pûselik" text="Nevâ bûselik" />
+      <label xml:lang="tr" description="Nevâ-bûselik, Nevâ pûselik, Nevâ-pûselik" text="Nevâ bûselik" />
     </category>
     <category ID="mk-72323643-8">
-      <label xml:lang="ar" description="Nevâ-kürdî" text="Nevâ kürdî" />
+      <label xml:lang="tr" description="Nevâ-kürdî" text="Nevâ kürdî" />
     </category>
     <category ID="mk-23666815-4">
-      <label xml:lang="ar" description="Nev-eser, Nev eser" text="Neveser" />
+      <label xml:lang="tr" description="Nev-eser, Nev eser" text="Neveser" />
     </category>
     <category ID="mk-75009986-1">
-      <label xml:lang="ar" text="Nevrûz" />
+      <label xml:lang="tr" text="Nevrûz" />
     </category>
     <category ID="mk-26353158-7">
-      <label xml:lang="ar" text="Nigâr" />
+      <label xml:lang="tr" text="Nigâr" />
     </category>
     <category ID="mk-77696329-X">
-      <label xml:lang="ar" text="Nihâvend" />
+      <label xml:lang="tr" text="Nihâvend" />
     </category>
     <category ID="mk-29039501-1">
-      <label xml:lang="ar" description="Nihâvendi kebîr" text="Nihâvend-i kebîr" />
+      <label xml:lang="tr" description="Nihâvendi kebîr" text="Nihâvend-i kebîr" />
     </category>
     <category ID="mk-80382672-0">
-      <label xml:lang="ar" description="Nihâvendi Rûmî" text="Nihâvend-i Rûmî" />
+      <label xml:lang="tr" description="Nihâvendi Rûmî" text="Nihâvend-i Rûmî" />
     </category>
     <category ID="mk-31725844-3">
-      <label xml:lang="ar" text="Nikrîz" />
+      <label xml:lang="tr" text="Nikrîz" />
     </category>
     <category ID="mk-83069015-4">
-      <label xml:lang="ar" text="Nîşâbûr" />
+      <label xml:lang="tr" text="Nîşâbûr" />
     </category>
     <category ID="mk-34412187-6">
-      <label xml:lang="ar" text="Nişâbûrek" />
+      <label xml:lang="tr" text="Nişâbûrek" />
     </category>
     <category ID="mk-85755358-9">
-      <label xml:lang="ar" text="Nühüft" />
+      <label xml:lang="tr" text="Nühüft" />
     </category>
     <category ID="mk-37098530-4">
-      <label xml:lang="ar" text="Ömer Horâsânî Bayâtî" />
+      <label xml:lang="tr" text="Ömer Horâsânî Bayâtî" />
     </category>
     <category ID="mk-88441701-5">
-      <label xml:lang="ar" description="Pencügâh" text="Pençgâh" />
+      <label xml:lang="tr" description="Pencügâh" text="Pençgâh" />
     </category>
     <category ID="mk-39784873-9">
-      <label xml:lang="ar" description="Pençgâh asil, Pencügâh asil" text="Pençgâh-ı asl" />
+      <label xml:lang="tr" description="Pençgâh asil, Pencügâh asil" text="Pençgâh-ı asl" />
     </category>
     <category ID="mk-91128044-3">
-      <label xml:lang="ar" text="Pesendîde" />
+      <label xml:lang="tr" text="Pesendîde" />
     </category>
     <category ID="mk-42471216-1">
-      <label xml:lang="ar" description="Râhat fezâ, Râhatfezâ" text="Râhat-fezâ" />
+      <label xml:lang="tr" description="Râhat fezâ, Râhatfezâ" text="Râhat-fezâ" />
     </category>
     <category ID="mk-93814387-8">
-      <label xml:lang="ar" description="Râhatü'l ervâh, Râhatü'lervâh, Râhatül-ervâh, Râhatül ervâh, Râhatülervâh"
+      <label xml:lang="tr" description="Râhatü'l ervâh, Râhatü'lervâh, Râhatül-ervâh, Râhatül ervâh, Râhatülervâh"
              text="Râhatü’l-ervâh" />
     </category>
     <category ID="mk-45157559-5">
-      <label xml:lang="ar" text="Râst" />
+      <label xml:lang="tr" text="Râst" />
     </category>
     <category ID="mk-96500730-4">
-      <label xml:lang="ar" description="Râst-aşîrân" text="Râst aşîrân" />
+      <label xml:lang="tr" description="Râst-aşîrân" text="Râst aşîrân" />
     </category>
     <category ID="mk-47843902-0">
-      <label xml:lang="ar" description="Râst-hâverân" text="Râst hâverân" />
+      <label xml:lang="tr" description="Râst-hâverân" text="Râst hâverân" />
     </category>
     <category ID="mk-99187073-9">
-      <label xml:lang="ar" description="Râstı cedîd" text="Râst-ı cedîd" />
+      <label xml:lang="tr" description="Râstı cedîd" text="Râst-ı cedîd" />
     </category>
     <category ID="mk-50530245-0">
-      <label xml:lang="ar" description="Râst-mâye, Râst mâya, Râst-mâya" text="Râst mâye" />
+      <label xml:lang="tr" description="Râst-mâye, Râst mâya, Râst-mâya" text="Râst mâye" />
     </category>
     <category ID="mk-01873417-7">
-      <label xml:lang="ar" text="Rehâvî" />
+      <label xml:lang="tr" text="Rehâvî" />
     </category>
     <category ID="mk-53216588-4">
-      <label xml:lang="ar" description="Rengi dil, Rengidil" text="Reng-i dil" />
+      <label xml:lang="tr" description="Rengi dil, Rengidil" text="Reng-i dil" />
     </category>
     <category ID="mk-04559760-9">
-      <label xml:lang="ar" description="Revnak nümâ, Revnak-nümâ" text="Revnaknümâ" />
+      <label xml:lang="tr" description="Revnak nümâ, Revnak-nümâ" text="Revnaknümâ" />
     </category>
     <category ID="mk-55902931-X">
-      <label xml:lang="ar" text="Rûhnüvâz" />
+      <label xml:lang="tr" text="Rûhnüvâz" />
     </category>
     <category ID="mk-07246103-4">
-      <label xml:lang="ar" description="Rûy-ı arâk" text="Rûy-ı ırâk" />
+      <label xml:lang="tr" description="Rûy-ı arâk" text="Rûy-ı ırâk" />
     </category>
     <category ID="mk-58589274-4">
-      <label xml:lang="ar" text="Sabâ" />
+      <label xml:lang="tr" text="Sabâ" />
     </category>
     <category ID="mk-09932446-9">
-      <label xml:lang="ar" description="Sabâ-aşîrân" text="Sabâ aşîrân" />
+      <label xml:lang="tr" description="Sabâ-aşîrân" text="Sabâ aşîrân" />
     </category>
     <category ID="mk-61275617-X">
-      <label xml:lang="ar" description="Sabâ-bûselik, Sabâ pûselik, Sabâ-pûselik" text="Sabâ bûselik" />
+      <label xml:lang="tr" description="Sabâ-bûselik, Sabâ pûselik, Sabâ-pûselik" text="Sabâ bûselik" />
     </category>
     <category ID="mk-12618789-X">
-      <label xml:lang="ar" description="Sabâ-perîşan, Sabâperîşan" text="Sabâ perîşan" />
+      <label xml:lang="tr" description="Sabâ-perîşan, Sabâperîşan" text="Sabâ perîşan" />
     </category>
     <category ID="mk-63961960-2">
-      <label xml:lang="ar" description="Sabâ-zemzeme, Sabâzemzeme" text="Sabâ zemzeme" />
+      <label xml:lang="tr" description="Sabâ-zemzeme, Sabâzemzeme" text="Sabâ zemzeme" />
     </category>
     <category ID="mk-15305132-3">
-      <label xml:lang="ar" text="Sâzkâr" />
+      <label xml:lang="tr" text="Sâzkâr" />
     </category>
     <category ID="mk-66648303-6">
-      <label xml:lang="ar" description="Sâzkâr-mâye, Sâzkâr mâya, Sâzkâr-mâya" text="Sâzkâr mâye" />
+      <label xml:lang="tr" description="Sâzkâr-mâye, Sâzkâr mâya, Sâzkâr-mâya" text="Sâzkâr mâye" />
     </category>
     <category ID="mk-17991475-1">
-      <label xml:lang="ar" text="Segâh" />
+      <label xml:lang="tr" text="Segâh" />
     </category>
     <category ID="mk-69334646-1">
-      <label xml:lang="ar" description="Segâh-arabân" text="Segâh arabân" />
+      <label xml:lang="tr" description="Segâh-arabân" text="Segâh arabân" />
     </category>
     <category ID="mk-20677818-5">
-      <label xml:lang="ar" text="Selmek" />
+      <label xml:lang="tr" text="Selmek" />
     </category>
     <category ID="mk-72020989-4">
-      <label xml:lang="ar" description="Siphir" text="Sipihr" />
+      <label xml:lang="tr" description="Siphir" text="Sipihr" />
     </category>
     <category ID="mk-23364161-6">
-      <label xml:lang="ar" description="Sultânî-evc" text="Sultânî evc" />
+      <label xml:lang="tr" description="Sultânî-evc" text="Sultânî evc" />
     </category>
     <category ID="mk-74707332-5">
-      <label xml:lang="ar" description="Sultânî-hicâz" text="Sultânî hicâz" />
+      <label xml:lang="tr" description="Sultânî-hicâz" text="Sultânî hicâz" />
     </category>
     <category ID="mk-26050504-4">
-      <label xml:lang="ar" description="Sultânî-ırâk, Sultânî arâk, Sultânî-arâk" text="Sultânî ırâk" />
+      <label xml:lang="tr" description="Sultânî-ırâk, Sultânî arâk, Sultânî-arâk" text="Sultânî ırâk" />
     </category>
     <category ID="mk-77393675-4">
-      <label xml:lang="ar" description="Sultânî-segâh" text="Sultânî segâh" />
+      <label xml:lang="tr" description="Sultânî-segâh" text="Sultânî segâh" />
     </category>
     <category ID="mk-28736847-7">
-      <label xml:lang="ar" description="Sultânî-yegâh" text="Sultânî yegâh" />
+      <label xml:lang="tr" description="Sultânî-yegâh" text="Sultânî yegâh" />
     </category>
     <category ID="mk-80080018-7">
-      <label xml:lang="ar" description="Sûzidil" text="Sûz-ı dil" />
+      <label xml:lang="tr" description="Sûzidil" text="Sûz-ı dil" />
     </category>
     <category ID="mk-31423190-5">
-      <label xml:lang="ar" description="Sûzidilârâ" text="Sûz-ı dilârâ" />
+      <label xml:lang="tr" description="Sûzidilârâ" text="Sûz-ı dilârâ" />
     </category>
     <category ID="mk-82766361-8">
-      <label xml:lang="ar" description="Sûzinâk" text="Sûznâk" />
+      <label xml:lang="tr" description="Sûzinâk" text="Sûznâk" />
     </category>
     <category ID="mk-34109533-1">
-      <label xml:lang="ar" description="Şed-i arabân, Şedarabân" text="Şedd-i arabân" />
+      <label xml:lang="tr" description="Şed-i arabân, Şedarabân" text="Şedd-i arabân" />
     </category>
     <category ID="mk-85452704-6">
-      <label xml:lang="ar" description="Şahnâz" text="Şehnâz" />
+      <label xml:lang="tr" description="Şahnâz" text="Şehnâz" />
     </category>
     <category ID="mk-36795876-X">
-      <label xml:lang="ar"
+      <label xml:lang="tr"
              description="Şehnâz-bûselik, Şahnâz bûselik, Şahnâz-bûselik, Şehnâz pûselik, Şehnâz-pûselik,&#10;            Şahnâz pûselik, Şahnâz-pûselik"
              text="Şehnâz bûselik" />
     </category>
     <category ID="mk-88139047-7">
-      <label xml:lang="ar" description="Şehnâz-hâverân, Şahnâz hâverân, Şahnâz-hâverân" text="Şehnâz hâverân" />
+      <label xml:lang="tr" description="Şehnâz-hâverân, Şahnâz hâverân, Şahnâz-hâverân" text="Şehnâz hâverân" />
     </category>
     <category ID="mk-39482219-5">
-      <label xml:lang="ar" description="Şeref Hâmidî" text="Şeref-i Hâmidî" />
+      <label xml:lang="tr" description="Şeref Hâmidî" text="Şeref-i Hâmidî" />
     </category>
     <category ID="mk-90825390-7">
-      <label xml:lang="ar" description="Şeref nümâ, Şeref-nümâ" text="Şerefnümâ" />
+      <label xml:lang="tr" description="Şeref nümâ, Şeref-nümâ" text="Şerefnümâ" />
     </category>
     <category ID="mk-42168562-4">
-      <label xml:lang="ar" description="Şevk âver, Şevk-âver" text="Şevkâver" />
+      <label xml:lang="tr" description="Şevk âver, Şevk-âver" text="Şevkâver" />
     </category>
     <category ID="mk-93511733-5">
-      <label xml:lang="ar" description="Şevk-efzâ, Şevk efzâ" text="Şevkefzâ" />
+      <label xml:lang="tr" description="Şevk-efzâ, Şevk efzâ" text="Şevkefzâ" />
     </category>
     <category ID="mk-44854905-1">
-      <label xml:lang="ar" description="Şevki dil" text="Şevk-ı dil" />
+      <label xml:lang="tr" description="Şevki dil" text="Şevk-ı dil" />
     </category>
     <category ID="mk-96198076-X">
-      <label xml:lang="ar" description="Şevki serâb" text="Şevk-ı serâb" />
+      <label xml:lang="tr" description="Şevki serâb" text="Şevk-ı serâb" />
     </category>
     <category ID="mk-47541248-4">
-      <label xml:lang="ar" description="Şevk-i tarab, Şevkitarab, Şevk u tarap, Şevk-i tarap, Şevkitarap"
+      <label xml:lang="tr" description="Şevk-i tarab, Şevkitarab, Şevk u tarap, Şevk-i tarap, Şevkitarap"
              text="Şevk u tarab" />
     </category>
     <category ID="mk-98884419-7">
-      <label xml:lang="ar" description="Şîve nümâ, Şîve-nümâ" text="Şîvenümâ" />
+      <label xml:lang="tr" description="Şîve nümâ, Şîve-nümâ" text="Şîvenümâ" />
     </category>
     <category ID="mk-50227591-3">
-      <label xml:lang="ar" text="Tâhir" />
+      <label xml:lang="tr" text="Tâhir" />
     </category>
     <category ID="mk-01570762-0">
-      <label xml:lang="ar" description="Tâhir-bûselik, Tâhir pûselik, Tâhir-pûselik" text="Tâhir bûselik" />
+      <label xml:lang="tr" description="Tâhir-bûselik, Tâhir pûselik, Tâhir-pûselik" text="Tâhir bûselik" />
     </category>
     <category ID="mk-52913934-0">
-      <label xml:lang="ar" description="Tâhir-gerdâniye, Tâhir gerdâniyye, Tâhir-gerdâniyye" text="Tâhir gerdâniye" />
+      <label xml:lang="tr" description="Tâhir-gerdâniye, Tâhir gerdâniyye, Tâhir-gerdâniyye" text="Tâhir gerdâniye" />
     </category>
     <category ID="mk-04257105-4">
-      <label xml:lang="ar" description="Tâhir-karcıgâr" text="Tâhir karcıgâr" />
+      <label xml:lang="tr" description="Tâhir-karcıgâr" text="Tâhir karcıgâr" />
     </category>
     <category ID="mk-55600277-3">
-      <label xml:lang="ar" description="Tarzı nevîn, Tarzınevîn" text="Tarz-ı nevîn" />
+      <label xml:lang="tr" description="Tarzı nevîn, Tarzınevîn" text="Tarz-ı nevîn" />
     </category>
     <category ID="mk-06943448-9">
-      <label xml:lang="ar" description="Tarzı cedîd, Tarzıcedîd, Tarz-ı cedît, Tarzı cedît, Tarzıcedît"
+      <label xml:lang="tr" description="Tarzı cedîd, Tarzıcedîd, Tarz-ı cedît, Tarzı cedît, Tarzıcedît"
              text="Tarz-ı cedîd" />
     </category>
     <category ID="mk-58286620-1">
-      <label xml:lang="ar" text="Tavr-ı mâhûr" />
+      <label xml:lang="tr" text="Tavr-ı mâhûr" />
     </category>
     <category ID="mk-09629791-0">
-      <label xml:lang="ar" text="Tebrîz" />
+      <label xml:lang="tr" text="Tebrîz" />
     </category>
     <category ID="mk-60972963-3">
-      <label xml:lang="ar" description="Tebrîz-hâverân" text="Tebrîz hâverân" />
+      <label xml:lang="tr" description="Tebrîz-hâverân" text="Tebrîz hâverân" />
     </category>
     <category ID="mk-12316134-3">
-      <label xml:lang="ar" text="Uşşâk" />
+      <label xml:lang="tr" text="Uşşâk" />
     </category>
     <category ID="mk-63659306-7">
-      <label xml:lang="ar" description="Uşşâk renk gerdâniyye" text="Uşşâk renk gerdâniye" />
+      <label xml:lang="tr" description="Uşşâk renk gerdâniyye" text="Uşşâk renk gerdâniye" />
     </category>
     <category ID="mk-15002477-9">
-      <label xml:lang="ar" text="Uzzâl" />
+      <label xml:lang="tr" text="Uzzâl" />
     </category>
     <category ID="mk-66345649-2">
-      <label xml:lang="ar" description="Vechi dügâh, Vechidügâh" text="Vech-i dügâh" />
+      <label xml:lang="tr" description="Vechi dügâh, Vechidügâh" text="Vech-i dügâh" />
     </category>
     <category ID="mk-17688820-6">
-      <label xml:lang="ar" description="Vechi arazbâr, Vechiarazbâr" text="Vech-i arazbâr" />
+      <label xml:lang="tr" description="Vechi arazbâr, Vechiarazbâr" text="Vech-i arazbâr" />
     </category>
     <category ID="mk-69031992-6">
-      <label xml:lang="ar" description="Vechi hüseynî, Vechihüseynî" text="Vech-i hüseynî" />
+      <label xml:lang="tr" description="Vechi hüseynî, Vechihüseynî" text="Vech-i hüseynî" />
     </category>
     <category ID="mk-20375163-6">
-      <label xml:lang="ar" description="Vechi şehnâz, Vechişehnâz, Vech-i şahnâz, Vechi şahnâz, Vechişahnâz"
+      <label xml:lang="tr" description="Vechi şehnâz, Vechişehnâz, Vech-i şahnâz, Vechi şahnâz, Vechişahnâz"
              text="Vech-i şehnâz" />
     </category>
     <category ID="mk-71718335-6">
-      <label xml:lang="ar" text="Yegâh" />
+      <label xml:lang="tr" text="Yegâh" />
     </category>
     <category ID="mk-23061506-4">
-      <label xml:lang="ar" text="Zâvil" />
+      <label xml:lang="tr" text="Zâvil" />
     </category>
     <category ID="mk-74404678-1">
-      <label xml:lang="ar" description="Zirgûle" text="Zengûle" />
+      <label xml:lang="tr" description="Zirgûle" text="Zengûle" />
     </category>
     <category ID="mk-25747849-7">
-      <label xml:lang="ar" description="Zengûle hicâz, Zengûle-hicâz, Zirgûleli hicâz, Zirgûle hicâz, Zirgûle-hicâz"
+      <label xml:lang="tr" description="Zengûle hicâz, Zengûle-hicâz, Zirgûleli hicâz, Zirgûle hicâz, Zirgûle-hicâz"
              text="Zengûleli hicâz" />
     </category>
     <category ID="mk-77091021-9">
-      <label xml:lang="ar" description="Zirgûleli sûznâk, Zengûleli sûzinâk, Zirgûleli sûzinâk"
+      <label xml:lang="tr" description="Zirgûleli sûznâk, Zengûleli sûzinâk, Zirgûleli sûzinâk"
              text="Zengûleli sûznâk" />
     </category>
     <category ID="mk-28434193-9">
-      <label xml:lang="ar" description="Zîrefken" text="Zîrefkend" />
+      <label xml:lang="tr" description="Zîrefken" text="Zîrefkend" />
     </category>
     <category ID="mk-79777364-1">
-      <label xml:lang="ar" text="Zîrkeşîde" />
+      <label xml:lang="tr" text="Zîrkeşîde" />
     </category>
   </categories>
 </mycoreclass>
