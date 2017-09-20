@@ -108,8 +108,8 @@ kSearch.addExtended({
         baseQuery : [ "objectType:expression", "-complex:*" ],
         fields : [ new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
             new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
-            new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
-            new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
+            new ClassificationSearchField("cmo_makamler", "cmo_makamler", 1),
+            new ClassificationSearchField("cmo_usuler", "cmo_usuler", 1),
             new SearchField("editor.label.incip", [ "incip" ]) ],
     }
     ,
@@ -119,8 +119,8 @@ kSearch.addExtended({
         fields : [
             new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
             new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
-            new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
-            new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
+            new ClassificationSearchField("cmo_makamler", "cmo_makamler", 1),
+            new ClassificationSearchField("cmo_usuler", "cmo_usuler", 1),
             new SearchField("editor.label.composer", [ "composer" ]),
             new SearchField("editor.label.lyricist", [ "lyricist" ]),
             new SearchField("editor.label.incip", [ "incip" ])
@@ -146,7 +146,7 @@ kSearch.addExtended({
         fields : [
             new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
             new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name" ]),
-            new SearchField("editor.label.publisher", [ "mods.publisher" ]),
+            new SearchField("editor.label.publishingInformation", [ "mods.publisher", "mods.place", "" ]),
             /* new ClassificationSearchField("mods.ddc", "DDC"), */
             /* new ClassificationSearchField("mods.type", "diniPublType"), */
             new DateSearchField("editor.legend.pubDate", [ "mods.dateIssued.range", "mods.dateIssued.host.range" ])
@@ -171,8 +171,8 @@ kSearch.addExtended({
             new ClassificationSearchField("language", "rfc4646"),
             new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
             new ClassificationSearchField("cmo_litform", "cmo_litform"),
-            new ClassificationSearchField("cmo_makamler", "cmo_makamler"),
-            new ClassificationSearchField("cmo_usuler", "cmo_usuler"),
+            new ClassificationSearchField("cmo_makamler", "cmo_makamler", 1),
+            new ClassificationSearchField("cmo_usuler", "cmo_usuler", 1),
             new SearchField("editor.label.lyricist", [ "lyricist" ]) ]
     }
 });

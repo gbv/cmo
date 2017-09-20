@@ -56,6 +56,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -79,6 +80,12 @@ import org.jdom2.xpath.XPathFactory;
 import org.mycore.common.MCRException;
 import org.mycore.common.content.MCRJDOMContent;
 import org.mycore.common.content.transformer.MCRXSLTransformer;
+import org.mycore.datamodel.classifications2.MCRCategory;
+import org.mycore.datamodel.classifications2.MCRCategoryDAO;
+import org.mycore.datamodel.classifications2.MCRCategoryDAOFactory;
+import org.mycore.datamodel.classifications2.MCRCategoryID;
+import org.mycore.datamodel.classifications2.MCRLabel;
+import org.mycore.datamodel.classifications2.impl.MCRCategoryImpl;
 import org.mycore.datamodel.metadata.MCRMetaElement;
 import org.mycore.datamodel.metadata.MCRMetaXML;
 import org.mycore.datamodel.metadata.MCRObject;
@@ -88,6 +95,7 @@ import org.mycore.mei.MEIPersonWrapper;
 import org.mycore.mei.MEIUtils;
 import org.mycore.mei.MEIWrapper;
 import org.mycore.mei.classification.MCRMEIAuthorityInfo;
+import org.mycore.mei.classification.MCRMEIClassificationSupport;
 import org.mycore.mods.MCRMODSWrapper;
 import org.mycore.tools.MCRObjectFactory;
 import org.xml.sax.SAXException;
@@ -132,6 +140,8 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
     private static final Map<String, String> TEI_DATE_MEI_DATE_ATTR_MAP = new HashMap<>();
 
+    private static final MCRCategoryDAO DAO = MCRCategoryDAOFactory.getInstance();
+
     private static XPathExpression<Element> DATE_ELEMENTS_ATTRS;
 
     static {
@@ -162,7 +172,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                 .MEI_NAMESPACE, MEIUtils.TEI_NAMESPACE);
     }
 
-    private Map<String, Set<String>> classificationLabelValues = new HashMap<>();
+    private Map<String, HashMap<String, String>> classificationLabelValues = new HashMap<>();
 
     // bibliography folder
     private ConcurrentHashMap<String, Document> bibliographicMap;
@@ -376,7 +386,27 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
         });
 
         this.classificationLabelValues.forEach((k, v) -> {
-            LOGGER.info("{} has {} different labels", k,v.size());
+            LOGGER.info("Need to enhance classification : {}", k);
+            MCRMEIAuthorityInfo classification = new MCRMEIAuthorityInfo(null, k);
+
+            v.forEach((k1, v1) -> {
+                MCRCategoryID parentID = classification.getCategoryID(v1);
+                MCRCategory category = DAO.getCategory(parentID, 1);
+
+                String newID = v1 + "-" + MCRMEIClassificationSupport.buildIDForLabel(k1);
+                boolean exist = category.getChildren().stream().anyMatch(cat -> cat.getId().getID().equals(newID));
+                if (exist) {
+                    LOGGER.info("Category already present: {}", newID);
+                } else {
+                    LOGGER.info("Create new child {} for {} !", k1, v1);
+                    MCRCategoryImpl child = new MCRCategoryImpl();
+                    child.setId(new MCRCategoryID(parentID.getRootID(), newID));
+                    //child.setChildren(Collections.emptyList());
+                    child.setLabels(Stream.of(new MCRLabel("tr", k1, "")).collect(Collectors.toSet()));
+                    DAO.addCategory(parentID, child);
+                }
+            });
+
         });
 
         return typeSet.stream()
@@ -408,19 +438,28 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
     public void addCustomClassifications(String classificationNameOrURI,
         Map<MCRMEIAuthorityInfo, List<String>> classifications, List<Element> elementList) {
-        Set<String> labels = classificationLabelValues
-            .computeIfAbsent(classificationNameOrURI, (a) -> new HashSet<>());
+        HashMap<String, String> labels = classificationLabelValues
+            .computeIfAbsent(classificationNameOrURI, (a) -> new HashMap<>());
 
         if (elementList.size() > 0) {
-            List<String> values = elementList.stream()
-                .peek(e -> labels.add(e.getTextTrim()))
-                .map(element -> element.getAttributeValue("classLink", MEIUtils.CMO_NAMESPACE))
-                .collect(Collectors.toList());
+
             MCRMEIAuthorityInfo classification =
                 classificationNameOrURI.startsWith("http") || classificationNameOrURI.startsWith("https") ?
                     new MCRMEIAuthorityInfo(null, classificationNameOrURI) :
                     new MCRMEIAuthorityInfo(classificationNameOrURI, null);
+
+            List<String> values = elementList.stream().map(element -> {
+                String parent = element.getAttributeValue("classLink", MEIUtils.CMO_NAMESPACE);
+                String newChild = element.getTextTrim();
+                if (parent != null && !newChild.isEmpty()) {
+                    labels.put(newChild, parent);
+                    return parent + "-" + MCRMEIClassificationSupport.buildIDForLabel(newChild);
+                }
+                return null;
+            }).filter(Objects::nonNull)
+                .collect(Collectors.toList());
             classifications.put(classification, values);
+
         }
     }
 

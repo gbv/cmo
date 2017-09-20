@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:mods="http://www.loc.gov/mods/v3"
-  xmlns:mei="http://www.music-encoding.org/ns/mei"
-  xmlns:mcrxml="xalan://org.mycore.common.xml.MCRXMLFunctions"
-  xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:mods="http://www.loc.gov/mods/v3"
+                xmlns:mei="http://www.music-encoding.org/ns/mei"
+                xmlns:mcrxml="xalan://org.mycore.common.xml.MCRXMLFunctions"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:mcrmei="xalan://org.mycore.mei.classification.MCRMEIClassificationSupport"
-  exclude-result-prefixes="mods mei xlink mcrmei">
+                exclude-result-prefixes="mods mei xlink mcrmei">
   <xsl:import href="xslImport:solr-document:solr/searchfields-solr.xsl" />
 
   <xsl:template match="mycoreobject">
@@ -21,7 +21,8 @@
 
   <xsl:template match="mei:term">
     <xsl:variable name="uri" select="mcrmei:getClassificationLinkFromTerm(.)" />
-    <xsl:if test="string-length($uri) &gt; 0 and string-length(substring-after(substring-after($uri,'parents:'),':')) &gt; 0">
+    <xsl:if
+      test="string-length($uri) &gt; 0 and string-length(substring-after(substring-after($uri,'parents:'),':')) &gt; 0">
       <xsl:variable name="topField" select="true()" /> <!-- TODO: not(ancestor::mods:relatedItem) -->
       <xsl:variable name="classdoc" select="document($uri)" />
       <xsl:variable name="classid" select="$classdoc/mycoreclass/@ID" />

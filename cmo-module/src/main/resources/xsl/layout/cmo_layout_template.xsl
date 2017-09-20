@@ -209,7 +209,6 @@
 
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap-sass/{$bootstrap.version}/javascripts/bootstrap.min.js"></script>
 
-        <!-- TODO: include only for xed -->
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap-datepicker/{$datetimepicker.version}/js/bootstrap-datepicker.min.js"></script>
 
        </body>

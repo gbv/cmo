@@ -460,7 +460,7 @@ export class TextSearchFieldInput extends SearchFieldInput {
 
 export class ClassificationSearchFieldInput extends SearchFieldInput {
 
-    constructor(searchField: string, private className: string) {
+    constructor(searchField: string, private className: string, private level) {
         super([ "category.top" ], "");
         this.init();
     }
@@ -543,7 +543,8 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
         labels = labels.filter(clazzLabel => clazzLabel.lang.indexOf("x-") != 0);
         let label = (labels.filter(label => label.lang == lang)[ 0 ] || labels[ 0 ]).text;
         let html = `<option ${level.length == 0 ? 'selected="selected" disabled="disabled"' : ''}  value="${clazz.ID}">${level.map(i => "&nbsp;&nbsp;").join("")}${label}</option>
-                    ${("categories" in clazz) ? clazz.categories.map(o => this.getOptionHTML(o, level)).join() : ''}`;
+                    ${("categories" in clazz && (this.level<0 || this.level >= (level.length-1))) ?
+            clazz.categories.map(o => this.getOptionHTML(o, level)).join() : ''}`;
         level.pop();
         return html;
     }

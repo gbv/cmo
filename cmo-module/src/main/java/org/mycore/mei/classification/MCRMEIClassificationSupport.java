@@ -186,4 +186,8 @@ public class MCRMEIClassificationSupport {
         return new DOMOutputter().output(list).getElementsByTagName("classification");
     }
 
+
+    public static String buildIDForLabel(String label){
+        return Integer.toString(label.hashCode(), 16);
+    }
 }

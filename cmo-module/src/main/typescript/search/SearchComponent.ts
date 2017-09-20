@@ -109,7 +109,7 @@ export class SearchController {
 
             if (input instanceof ClassificationSearchField) {
                 let classField = <ClassificationSearchField> input;
-                this.view.addExtendedField(name, new ClassificationSearchFieldInput(classField.solrSearchFields[ 0 ], classField.className));
+                this.view.addExtendedField(name, new ClassificationSearchFieldInput(classField.solrSearchFields[ 0 ], classField.className, classField.level));
             } else if (input instanceof DateSearchField) {
                 let dateField = <DateSearchField> input;
                 this.view.addExtendedField(name, new DateSearchFieldInput(dateField.solrSearchFields, input.label))
@@ -174,13 +174,18 @@ export class DateSearchField extends SearchField {
 }
 
 export class ClassificationSearchField extends SearchField {
+    get level(): number {
+        return this._level;
+    }
 
-    constructor(solrSearchField: string, className: string) {
+    constructor(solrSearchField: string, className: string, level: number = -1) {
         super(className, [ solrSearchField ]);
         this._className = className;
+        this._level = level;
     }
 
     private _className: string;
+    private _level: number;
 
 
     get className(): string {
