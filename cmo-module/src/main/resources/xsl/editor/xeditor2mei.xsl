@@ -78,7 +78,7 @@
       <xsl:value-of select="concat(generate-id(.),'-',(floor(math:random()*100000) mod 100000) + 1)" />
     </xsl:variable>
 
-    <mei:classCode authority="{@authority}" xml:id="{$classcode}" />
+    <mei:classCode authURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/{@authority}" xml:id="{$classcode}" />
     <mei:termList classcode="#{$classcode}">
       <mei:term>
         <xsl:value-of select="substring-after(., concat(@authority, ':'))" />

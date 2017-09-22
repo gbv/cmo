@@ -89,11 +89,12 @@
       <xsl:apply-templates select="@*" />
       <xsl:for-each select="mei:classCode">
         <xsl:variable name="classID" select="concat('#', @xml:id)" />
+        <xsl:variable name="authority" select="substring-after(@authURI, 'classifications/')" />
         <classEntry>
           <xsl:attribute name="authority">
-            <xsl:value-of select="@authority" />
+            <xsl:value-of select="$authority" />
           </xsl:attribute>
-          <xsl:value-of select="@authority" />
+          <xsl:value-of select="$authority" />
           <xsl:text>:</xsl:text>
           <xsl:value-of select="../mei:termList[@classcode=$classID]/mei:term" />
         </classEntry>

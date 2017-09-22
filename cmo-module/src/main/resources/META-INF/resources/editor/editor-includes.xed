@@ -106,13 +106,13 @@
 
   <xed:template id="cmo_language">
     <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='rfc4646']/@xml:id" repeat="true" min="1"
-                              max="10" label="editor.label.language" classification="rfc4646"
+                              max="10" pmud="true" label="editor.label.language" classification="rfc4646"
                               help-text="{i18n:cmo.help.language}" />
   </xed:template>
 
   <xed:template id="cmo_scriptLanguage">
     <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='iso15924']/@xml:id" repeat="true" min="1"
-                              max="10" label="editor.label.scriptLanguage" classification="iso15924"
+                              max="10" pmud="true" label="editor.label.scriptLanguage" classification="iso15924"
                               help-text="{i18n:cmo.help.scriptLanguage}" />
   </xed:template>
 
@@ -210,7 +210,7 @@
 
     <xed:cleanup-rule xpath="//mei:annot" relevant-if="string-length(text())&gt;0" />
     <xed:cleanup-rule xpath="//mei:notesStmt" relevant-if="count(*)&gt;0" />
-    
+
     <xed:cleanup-rule xpath="//classEntry" relevant-if="string-length(text())&gt;0" />
     <xed:cleanup-rule xpath="//mei:classification" relevant-if="count(*)&gt;0" />
 
