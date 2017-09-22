@@ -207,9 +207,7 @@
                 <xsl:if test="string-length(@help-text) &gt; 0">
                   <xsl:call-template name="cmo-helpbutton" />
                 </xsl:if>
-                <xsl:if test="@pmud = 'true'">
-                  <xsl:call-template name="cmo-pmud" />
-                </xsl:if>
+                <xsl:call-template name="cmo-pmud" />
               </div>
               <xsl:call-template name="cmo-required" />
             </div>
@@ -271,9 +269,7 @@
                 <xsl:if test="string-length(@help-text) &gt; 0">
                   <xsl:call-template name="cmo-helpbutton" />
                 </xsl:if>
-                <xsl:if test="@repeat = 'true'">
-                  <xsl:call-template name="cmo-pmud" />
-                </xsl:if>
+                <xsl:call-template name="cmo-pmud" />
               </div>
               <!-- end -->
             </div>
