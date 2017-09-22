@@ -105,13 +105,13 @@
   </xed:template>
 
   <xed:template id="cmo_language">
-    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='rfc4646']/@xml:id" repeat="true" min="1"
+    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='rfc4646']" bind="@xml:id" repeat="true" min="1"
                               max="10" label="editor.label.language" classification="rfc4646"
                               help-text="{i18n:cmo.help.language}" />
   </xed:template>
 
   <xed:template id="cmo_scriptLanguage">
-    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='iso15924']/@xml:id" repeat="true" min="1"
+    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='iso15924']" bind="@xml:id" repeat="true" min="1"
                               max="10" label="editor.label.scriptLanguage" classification="iso15924"
                               help-text="{i18n:cmo.help.scriptLanguage}" />
   </xed:template>
