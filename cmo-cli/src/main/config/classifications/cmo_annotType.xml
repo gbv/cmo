@@ -4,6 +4,10 @@
   <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_annotType" />
   <label xml:lang="en" text="Annotation Types" />
   <categories>
+    <category ID="Editors">
+      <label xml:lang="de" text="Bearbeiter" />
+      <label xml:lang="en" text="Editors" />
+    </category>
     <category ID="Fascicles">
       <label xml:lang="de" text="Faszikel" />
       <label xml:lang="en" text="Fascicles" />
@@ -20,10 +24,6 @@
       <label xml:lang="de" text="Drucker" />
       <label xml:lang="en" text="Printer" />
     </category>
-    <category ID="Editors">
-      <label xml:lang="de" text="Bearbeiter" />
-      <label xml:lang="en" text="Editors" />
-    </category>
     <category ID="Series">
       <label xml:lang="de" text="Serie" />
       <label xml:lang="en" text="Series" />
@@ -32,37 +32,13 @@
       <label xml:lang="de" text="Volumes" />
       <label xml:lang="en" text="Volumes" />
     </category>
-    <category ID="Volume">
-      <label xml:lang="de" text="Volume" />
-      <label xml:lang="en" text="Volume" />
-    </category>
-    <category ID="Volumes_and_fascicles">
-      <label xml:lang="de" text="Volumes_and_fascicles" />
-      <label xml:lang="en" text="Volumes_and_fascicles" />
-    </category>
-    <category ID="Page_numbers">
-      <label xml:lang="de" text="Page_numbers" />
-      <label xml:lang="en" text="Page_numbers" />
-    </category>
     <category ID="Sections">
       <label xml:lang="de" text="Sections" />
       <label xml:lang="en" text="Sections" />
     </category>
-    <category ID="Fasıls">
-      <label xml:lang="de" text="Fasıls" />
-      <label xml:lang="en" text="Fasıls" />
-    </category>
-    <category ID="Publication_date">
-      <label xml:lang="de" text="Publication_date" />
-      <label xml:lang="en" text="Publication_date" />
-    </category>
-    <category ID="Publication_year">
-      <label xml:lang="de" text="Publication_year" />
-      <label xml:lang="en" text="Publication_year" />
-    </category>
-    <category ID="Publication_details">
-      <label xml:lang="de" text="Publication_details" />
-      <label xml:lang="en" text="Publication_details" />
+    <category ID="Date">
+      <label xml:lang="de" text="Datum" />
+      <label xml:lang="en" text="Date" />
     </category>
     <category ID="Transcriber">
       <label xml:lang="de" text="Transcriber" />
@@ -80,9 +56,9 @@
       <label xml:lang="de" text="Later_annotation" />
       <label xml:lang="en" text="Later_annotation" />
     </category>
-    <category ID="Alternative_catalogue_reference">
-      <label xml:lang="de" text="Alternative_catalogue_reference" />
-      <label xml:lang="en" text="Alternative_catalogue_reference" />
+    <category ID="Identifier">
+      <label xml:lang="de" text="Identifikator" />
+      <label xml:lang="en" text="Identifier" />
     </category>
   </categories>
 </mycoreclass>

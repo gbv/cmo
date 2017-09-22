@@ -1,224 +1,625 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mycoreclass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0"
-             xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_usuler">
-  <label text="Usul" xml:lang="en" />
-  <label text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_usuler" xml:lang="x-uri" />
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_usuler">
+  <label xml:lang="en" text="Usul"/>
+  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_usuler"/>
   <categories>
     <category ID="us-81480666-4">
-      <label xml:lang="tr" text="Aksak" />
+      <label xml:lang="tr" text="Aksak"/>
+      <category ID="us-81480666-4-3c65753">
+        <label xml:lang="tr" text="Aksak"/>
+      </category>
     </category>
     <category ID="us-30852288-X">
-      <label xml:lang="tr" text="Aksak semâî" />
+      <label xml:lang="tr" text="Aksak semâî"/>
+      <category ID="us-30852288-X-4b292b07">
+        <label xml:lang="tr" text="sengīn (H4)"/>
+      </category>
+      <category ID="us-30852288-X-1e500b2f">
+        <label xml:lang="tr" text="aḳṣaḳ semāʿī"/>
+      </category>
+      <category ID="us-30852288-X-392d8eda">
+        <label xml:lang="tr" text="Aksak semâî"/>
+      </category>
     </category>
     <category ID="us-05538099-3">
-      <label xml:lang="tr" description="Aksak semâî evfer" text="Aksak semâî evferi" />
+      <label xml:lang="tr" text="Aksak semâî evferi" description="Aksak semâî evfer"/>
+      <category ID="us-05538099-3-36a6836d">
+        <label xml:lang="tr" text="Aksak semâî evferi"/>
+      </category>
     </category>
     <category ID="us-80223909-8">
-      <label xml:lang="tr" text="Artık aksak" />
+      <label xml:lang="tr" text="Artık aksak"/>
+      <category ID="us-80223909-8--1e925b90">
+        <label xml:lang="tr" text="Artık aksak"/>
+      </category>
     </category>
     <category ID="us-54909720-9">
-      <label xml:lang="tr" text="Aydın aksak" />
+      <label xml:lang="tr" text="Aydın aksak"/>
+      <category ID="us-54909720-9--16248204">
+        <label xml:lang="tr" text="Aydın aksak"/>
+      </category>
     </category>
     <category ID="us-29595531-8">
-      <label xml:lang="tr" description="Bektâşî rakış" text="Bektâşî raksı" />
+      <label xml:lang="tr" text="Bektâşî raksı" description="Bektâşî rakış"/>
+      <category ID="us-29595531-8-30fcc39f">
+        <label xml:lang="tr" text="Bektâşî raksı"/>
+      </category>
     </category>
     <category ID="us-78967153-0">
-      <label xml:lang="tr" text="Berefşân" />
+      <label xml:lang="tr" text="Berefşân"/>
+      <category ID="us-78967153-0-5fd7dad9">
+        <label xml:lang="tr" text="bērewşan"/>
+      </category>
+      <category ID="us-78967153-0-74ef19fa">
+        <label xml:lang="tr" text="berēvşan"/>
+      </category>
+      <category ID="us-78967153-0-6f2e4e1b">
+        <label xml:lang="tr" text="Berefşân"/>
+      </category>
+      <category ID="us-78967153-0-696b6028">
+        <label xml:lang="tr" text="bērēvşan"/>
+      </category>
+      <category ID="us-78967153-0-6b53edbc">
+        <label xml:lang="tr" text="berefşān"/>
+      </category>
     </category>
     <category ID="us-53652964-6">
-      <label xml:lang="tr" text="Bulgar darbı" />
+      <label xml:lang="tr" text="Bulgar darbı"/>
+      <category ID="us-53652964-6--1a06d21d">
+        <label xml:lang="tr" text="Bulgar darbı"/>
+      </category>
     </category>
     <category ID="us-28338775-X">
-      <label xml:lang="tr" text="Curcuna" />
+      <label xml:lang="tr" text="Curcuna"/>
+      <category ID="us-28338775-X--59a2403b">
+        <label xml:lang="tr" text="Curcuna"/>
+      </category>
     </category>
     <category ID="us-03024586-2">
-      <label xml:lang="tr" description="Çember" text="Çenber" />
+      <label xml:lang="tr" text="Çenber" description="Çember"/>
+      <category ID="us-03024586-2--700dc541">
+        <label xml:lang="tr" text="çenber"/>
+      </category>
+      <category ID="us-03024586-2--700e248e">
+        <label xml:lang="tr" text="çembēr"/>
+      </category>
+      <category ID="us-03024586-2-595726df">
+        <label xml:lang="tr" text="Çenber"/>
+      </category>
+      <category ID="us-03024586-2--667a2ae0">
+        <label xml:lang="tr" text="çēmbēr"/>
+      </category>
     </category>
     <category ID="us-77710396-3">
-      <label xml:lang="tr" description="Çengi harbi" text="Çeng-i harbî" />
+      <label xml:lang="tr" text="Çeng-i harbî" description="Çengi harbi"/>
+      <category ID="us-77710396-3--76110668">
+        <label xml:lang="tr" text="Çeng-i harbî"/>
+      </category>
     </category>
     <category ID="us-52396207-0">
-      <label xml:lang="tr" text="Çifte düyek" />
+      <label xml:lang="tr" text="Çifte düyek"/>
+      <category ID="us-52396207-0--32d0bb64">
+        <label xml:lang="tr" text="çifte düyek"/>
+      </category>
+      <category ID="us-52396207-0-3098ec7c">
+        <label xml:lang="tr" text="Çifte düyek"/>
+      </category>
     </category>
     <category ID="us-27082018-6">
-      <label xml:lang="tr" text="Çifte sofyân" />
+      <label xml:lang="tr" text="Çifte sofyân"/>
+      <category ID="us-27082018-6--bade6da">
+        <label xml:lang="tr" text="Çifte sofyân"/>
+      </category>
     </category>
     <category ID="us-01767829-9">
-      <label xml:lang="tr" description="Darp, Zarb, Zarp" text="Darb" />
+      <label xml:lang="tr" text="Darb" description="Darp, Zarb, Zarp"/>
+      <category ID="us-01767829-9-20638d">
+        <label xml:lang="tr" text="Darb"/>
+      </category>
     </category>
     <category ID="us-76453640-X">
-      <label xml:lang="tr" description="Darbeyin, Zarbeyn, Zarbeyin" text="Darbeyn" />
+      <label xml:lang="tr" text="Darbeyn" description="Darbeyin, Zarbeyn, Zarbeyin"/>
+      <category ID="us-76453640-X-3f913d2">
+        <label xml:lang="tr" text="böyüg zarbēyin"/>
+      </category>
+      <category ID="us-76453640-X-54f82182">
+        <label xml:lang="tr" text="zarbēyin"/>
+      </category>
+      <category ID="us-76453640-X-31ba96c5">
+        <label xml:lang="tr" text="żarbeyn"/>
+      </category>
+      <category ID="us-76453640-X--46dda073">
+        <label xml:lang="tr" text="Darbeyn"/>
+      </category>
     </category>
     <category ID="us-51139451-0">
-      <label xml:lang="tr" description="Darbı fetih, Zarbı fetih" text="Darb-ı fetih" />
+      <label xml:lang="tr" text="Darb-ı fetih" description="Darbı fetih, Zarbı fetih"/>
+      <category ID="us-51139451-0--2f870001">
+        <label xml:lang="tr" text="zarbi fēt‘"/>
+      </category>
+      <category ID="us-51139451-0--79f7e27b">
+        <label xml:lang="tr" text="Darb-ı fetih"/>
+      </category>
+      <category ID="us-51139451-0-40aa6f03">
+        <label xml:lang="tr" text="zarbifēt‘"/>
+      </category>
+      <category ID="us-51139451-0--4b24bbc9">
+        <label xml:lang="tr" text="żarb-ı fetḥ"/>
+      </category>
     </category>
     <category ID="us-25825262-5">
-      <label xml:lang="tr"
-             description="Zarb-ı Türki , Darbı Türki, Zarbı Türki, Türkî darp, Türk darbı, Türkî zarp, Türk zarbı"
-             text="Darb-ı Türkî" />
+      <label xml:lang="tr" text="Darb-ı Türkî" description="Zarb-ı Türki , Darbı Türki, Zarbı Türki, Türkî darp, Türk darbı, Türkî zarp, Türk zarbı"/>
+      <category ID="us-25825262-5--7ab0ec42">
+        <label xml:lang="tr" text="Darb-ı Türkî"/>
+      </category>
     </category>
     <category ID="us-51078557-3">
-      <label xml:lang="tr" text="Darb-ı Kürdî" />
+      <label xml:lang="tr" text="Darb-ı Kürdî"/>
     </category>
     <category ID="us-00511072-7">
-      <label xml:lang="tr" description="Devri Hindi" text="Devr-i Hindî" />
+      <label xml:lang="tr" text="Devr-i Hindî" description="Devri Hindi"/>
+      <category ID="us-00511072-7--6e8417b3">
+        <label xml:lang="tr" text="devr-i hindī"/>
+      </category>
+      <category ID="us-00511072-7--667bb3f0">
+        <label xml:lang="tr" text="Devr-i Hindî"/>
+      </category>
     </category>
     <category ID="us-75196883-4">
-      <label xml:lang="tr" description="Devri kebir" text="Devr-i kebîr" />
+      <label xml:lang="tr" text="Devr-i kebîr" description="Devri kebir"/>
+      <category ID="us-75196883-4--64906b9b">
+        <label xml:lang="tr" text="Devr-i kebîr"/>
+      </category>
+      <category ID="us-75196883-4--6e5bb858">
+        <label xml:lang="tr" text="devr-i kebīr"/>
+      </category>
+      <category ID="us-75196883-4-318c2b">
+        <label xml:lang="tr" text="dēvr"/>
+      </category>
+      <category ID="us-75196883-4--23ec54db">
+        <label xml:lang="tr" text="dēvrikēbir"/>
+      </category>
+      <category ID="us-75196883-4--7b92bdd6">
+        <label xml:lang="tr" text="dē[v]ri"/>
+      </category>
+      <category ID="us-75196883-4-5fff890">
+        <label xml:lang="tr" text="dēvir"/>
+      </category>
+      <category ID="us-75196883-4-1d773101">
+        <label xml:lang="tr" text="dēvri kēbir"/>
+      </category>
+      <category ID="us-75196883-4-2efefd">
+        <label xml:lang="tr" text="devr"/>
+      </category>
     </category>
     <category ID="us-49882694-9">
-      <label xml:lang="tr" description="Devr-i rivan, Devri revan, Devri rivan" text="Devr-i revân" />
+      <label xml:lang="tr" text="Devr-i revân" description="Devr-i rivan, Devri revan, Devri rivan"/>
+      <category ID="us-49882694-9--642d7d78">
+        <label xml:lang="tr" text="Devr-i revân"/>
+      </category>
     </category>
     <category ID="us-24568505-2">
-      <label xml:lang="tr" description="Devri Turan" text="Devr-i Tûrân" />
+      <label xml:lang="tr" text="Devr-i Tûrân" description="Devri Turan"/>
+      <category ID="us-24568505-2--65cd07aa">
+        <label xml:lang="tr" text="Devr-i Turân"/>
+      </category>
+      <category ID="us-24568505-2--65901df0">
+        <label xml:lang="tr" text="Devr-i Tûrân"/>
+      </category>
     </category>
     <category ID="us-99254316-5">
-      <label xml:lang="tr" text="Dolap" />
+      <label xml:lang="tr" text="Dolap"/>
+      <category ID="us-99254316-5-3f25510">
+        <label xml:lang="tr" text="Dolap"/>
+      </category>
     </category>
     <category ID="us-73940127-7">
-      <label xml:lang="tr" description="Durak evfer" text="Durak evferi" />
+      <label xml:lang="tr" text="Durak evferi" description="Durak evfer"/>
+      <category ID="us-73940127-7--36ba94a4">
+        <label xml:lang="tr" text="Durak evferi"/>
+      </category>
     </category>
     <category ID="us-48625938-3">
-      <label xml:lang="tr" text="Düyek" />
+      <label xml:lang="tr" text="Düyek"/>
+      <category ID="us-48625938-3-5f5a3d9">
+        <label xml:lang="tr" text="düyēk"/>
+      </category>
+      <category ID="us-48625938-3-5f58ec7">
+        <label xml:lang="tr" text="düyek"/>
+      </category>
+      <category ID="us-48625938-3-5f58ec3">
+        <label xml:lang="tr" text="düyeg"/>
+      </category>
+      <category ID="us-48625938-3--7a6ce137">
+        <label xml:lang="tr" text="Velveleli düyek"/>
+      </category>
+      <category ID="us-48625938-3--7c2fd157">
+        <label xml:lang="tr" text="Velveleli Düyek"/>
+      </category>
+      <category ID="us-48625938-3-4329ea7">
+        <label xml:lang="tr" text="Düyek"/>
+      </category>
+      <category ID="us-48625938-3--2d554ad0">
+        <label xml:lang="tr" text="Velveli Düyek"/>
+      </category>
+      <category ID="us-48625938-3-5f55a39">
+        <label xml:lang="tr" text="dükek"/>
+      </category>
     </category>
     <category ID="us-23311749-6">
-      <label xml:lang="tr" text="Evfer" />
+      <label xml:lang="tr" text="Evfer"/>
+      <category ID="us-23311749-6-4038522">
+        <label xml:lang="tr" text="Evfer"/>
+      </category>
     </category>
     <category ID="us-97997559-9">
-      <label xml:lang="tr" text="Evsat" />
+      <label xml:lang="tr" text="Evsat"/>
+      <category ID="us-97997559-9-f5a9f33">
+        <label xml:lang="tr" text="ēvsad"/>
+      </category>
+      <category ID="us-97997559-9-403b575">
+        <label xml:lang="tr" text="Evsat"/>
+      </category>
+      <category ID="us-97997559-9--240696cb">
+        <label xml:lang="tr" text="ēvsat‘"/>
+      </category>
     </category>
     <category ID="us-72683370-X">
-      <label xml:lang="tr" text="Fâhte" />
+      <label xml:lang="tr" text="Fâhte"/>
+      <category ID="us-72683370-X-6837ea1">
+        <label xml:lang="tr" text="fāḫte"/>
+      </category>
+      <category ID="us-72683370-X-5cb0aec">
+        <label xml:lang="tr" text="fahtē"/>
+      </category>
+      <category ID="us-72683370-X-5cb08fc">
+        <label xml:lang="tr" text="fahdē"/>
+      </category>
+      <category ID="us-72683370-X-5cecfb9">
+        <label xml:lang="tr" text="fatḥe"/>
+      </category>
+      <category ID="us-72683370-X-63ac341">
+        <label xml:lang="tr" text="faḫte"/>
+      </category>
+      <category ID="us-72683370-X-683681b">
+        <label xml:lang="tr" text="fāḥte"/>
+      </category>
+      <category ID="us-72683370-X-442bdfd">
+        <label xml:lang="tr" text="Fâhte"/>
+      </category>
+      <category ID="us-72683370-X--4c65eabe">
+        <label xml:lang="tr" text="faht‘ē"/>
+      </category>
     </category>
     <category ID="us-47369181-3">
-      <label xml:lang="tr" description="Fer" text="Fer’" />
+      <label xml:lang="tr" text="Fer’" description="Fer"/>
+      <category ID="us-47369181-3-215b14">
+        <label xml:lang="tr" text="Fer'"/>
+      </category>
     </category>
     <category ID="us-22054992-9">
-      <label xml:lang="tr" description="Firengi fer', Frengi fer, Firengi fer, Frengifer, Firengifer"
-             text="Frengî fer’" />
+      <label xml:lang="tr" text="Frengî fer’" description="Firengi fer', Frengi fer, Firengi fer, Frengifer, Firengifer"/>
+      <category ID="us-22054992-9--7e4b9a28">
+        <label xml:lang="tr" text="Frengî fer'"/>
+      </category>
     </category>
     <category ID="us-96740803-3">
-      <label xml:lang="tr" description="Firenkcin" text="Frenkçîn" />
+      <label xml:lang="tr" text="Frenkçîn" description="Firenkcin"/>
+      <category ID="us-96740803-3--574ba3cf">
+        <label xml:lang="tr" text="Frenkçîn"/>
+      </category>
+      <category ID="us-96740803-3-3f4171b2">
+        <label xml:lang="tr" text="Frençîn"/>
+      </category>
     </category>
     <category ID="us-71426614-4">
-      <label xml:lang="tr" description="Frenkcinikar, Firenkcini kar, Firenkcinikar" text="Frenkçinî kâr" />
+      <label xml:lang="tr" text="Frenkçinî kâr" description="Frenkcinikar, Firenkcini kar, Firenkcinikar"/>
+      <category ID="us-71426614-4--75301b0d">
+        <label xml:lang="tr" text="Frenkçinî kâr"/>
+      </category>
     </category>
     <category ID="us-46112425-X">
-      <label xml:lang="tr" text="Hafîf" />
+      <label xml:lang="tr" text="Hafîf"/>
+      <category ID="us-46112425-X-4245065">
+        <label xml:lang="tr" text="Hafîf"/>
+      </category>
+      <category ID="us-46112425-X-5e7306a">
+        <label xml:lang="tr" text="hafif"/>
+      </category>
+      <category ID="us-46112425-X--5707c0db">
+        <label xml:lang="tr" text="ḥafīf"/>
+      </category>
     </category>
     <category ID="us-20798235-2">
-      <label xml:lang="tr" text="Hâvî" />
+      <label xml:lang="tr" text="Hâvî"/>
+      <category ID="us-20798235-2-30c22e">
+        <label xml:lang="tr" text="havī"/>
+      </category>
+      <category ID="us-20798235-2-db7c7f1">
+        <label xml:lang="tr" text="ḥāvī"/>
+      </category>
+      <category ID="us-20798235-2-241a52">
+        <label xml:lang="tr" text="Hâvî"/>
+      </category>
+      <category ID="us-20798235-2-331ace">
+        <label xml:lang="tr" text="hāvī"/>
+      </category>
     </category>
     <category ID="us-95484046-5">
-      <label xml:lang="tr" text="Hezec" />
+      <label xml:lang="tr" text="Hezec"/>
+      <category ID="us-95484046-5-4265c5b">
+        <label xml:lang="tr" text="Hezec"/>
+      </category>
     </category>
     <category ID="us-70169857-9">
-      <label xml:lang="tr" text="Karadeniz" />
+      <label xml:lang="tr" text="Karadeniz"/>
+      <category ID="us-70169857-9-61bbef9">
+        <label xml:lang="tr" text="Karadeniz"/>
+      </category>
     </category>
     <category ID="us-44855668-3">
-      <label xml:lang="tr" description="Katikofti" text="Katakofti" />
+      <label xml:lang="tr" text="Katakofti" description="Katikofti"/>
+      <category ID="us-44855668-3-704f48f4">
+        <label xml:lang="tr" text="Katakofti"/>
+      </category>
     </category>
     <category ID="us-19541479-9">
-      <label xml:lang="tr" description="Lenkfahte" text="Lenk fâhte" />
+      <label xml:lang="tr" text="Lenk fâhte" description="Lenkfahte"/>
+      <category ID="us-19541479-9--75e9dd09">
+        <label xml:lang="tr" text="lenk fāḫte"/>
+      </category>
+      <category ID="us-19541479-9-6a2e93">
+        <label xml:lang="tr" text="Lenk fâhte"/>
+      </category>
     </category>
     <category ID="us-94227290-5">
-      <label xml:lang="tr" description="Mandıra" text="Mandra" />
+      <label xml:lang="tr" text="Mandra" description="Mandıra"/>
+      <category ID="us-94227290-5--771069e7">
+        <label xml:lang="tr" text="Mandra"/>
+      </category>
     </category>
     <category ID="us-68913101-2">
-      <label xml:lang="tr" description="Mevlevi devri revanı" text="Mevlevî devr-i revânı" />
+      <label xml:lang="tr" text="Mevlevî devr-i revânı" description="Mevlevi devri revanı"/>
+      <category ID="us-68913101-2-27c55698">
+        <label xml:lang="tr" text="Mevlevî devr-i revânı"/>
+      </category>
     </category>
     <category ID="us-43598912-X">
-      <label xml:lang="tr" text="Muhammes" />
+      <label xml:lang="tr" text="Muhammes"/>
+      <category ID="us-43598912-X-22f5ae8f">
+        <label xml:lang="tr" text="Muhammes"/>
+      </category>
+      <category ID="us-43598912-X-1f1b5f88">
+        <label xml:lang="tr" text="muhammēz"/>
+      </category>
+      <category ID="us-43598912-X--1799b174">
+        <label xml:lang="tr" text="muḫammes"/>
+      </category>
+      <category ID="us-43598912-X--21d6c52e">
+        <label xml:lang="tr" text="muḥammes"/>
+      </category>
     </category>
     <category ID="us-18284722-4">
-      <label xml:lang="tr" description="Muzaaf devri kebir" text="Muzâaf devr-i kebîr" />
+      <label xml:lang="tr" text="Muzâaf devr-i kebîr" description="Muzaaf devri kebir"/>
+      <category ID="us-18284722-4--4cd3ed10">
+        <label xml:lang="tr" text="Muzâaf devr-i kebîr"/>
+      </category>
     </category>
     <category ID="us-92970533-3">
-      <label xml:lang="tr" text="Müsemmen" />
+      <label xml:lang="tr" text="Müsemmen"/>
+      <category ID="us-92970533-3-1b5c9aaa">
+        <label xml:lang="tr" text="Müsemmen"/>
+      </category>
     </category>
     <category ID="us-67656344-7">
-      <label xml:lang="tr" description="Nazlı devri Hindi" text="Nâzlı devr-i Hindî" />
+      <label xml:lang="tr" text="Nâzlı devr-i Hindî" description="Nazlı devri Hindi"/>
+      <category ID="us-67656344-7--42b8f7b">
+        <label xml:lang="tr" text="Nâzlı devr-i Hindî"/>
+      </category>
     </category>
     <category ID="us-42342155-X">
-      <label xml:lang="tr" text="Nâzlı düyek" />
+      <label xml:lang="tr" text="Nâzlı düyek"/>
+      <category ID="us-42342155-X--3b029c2e">
+        <label xml:lang="tr" text="Nâzlı düyek"/>
+      </category>
     </category>
     <category ID="us-17027966-6">
-      <label xml:lang="tr" description="Nîmberefşân" text="Nîm berefşân" />
+      <label xml:lang="tr" text="Nîm berefşân" description="Nîmberefşân"/>
+      <category ID="us-17027966-6--441a7952">
+        <label xml:lang="tr" text="Nîm berefşân"/>
+      </category>
     </category>
     <category ID="us-91713777-5">
-      <label xml:lang="tr" description="Nîmdevir" text="Nîm devir" />
+      <label xml:lang="tr" text="Nîm devir" description="Nîmdevir"/>
+      <category ID="us-91713777-5-13656102">
+        <label xml:lang="tr" text="nim dēvir"/>
+      </category>
+      <category ID="us-91713777-5--7d7b47d5">
+        <label xml:lang="tr" text="Nîm devir"/>
+      </category>
     </category>
     <category ID="us-66399588-2">
-      <label xml:lang="tr" description="Nîmevsat" text="Nîm evsat" />
+      <label xml:lang="tr" text="Nîm evsat" description="Nîmevsat"/>
+      <category ID="us-66399588-2--7d65823e">
+        <label xml:lang="tr" text="Nîm evsat"/>
+      </category>
     </category>
     <category ID="us-41085398-4">
-      <label xml:lang="tr" description="Nîmhafîf" text="Nîm hafîf" />
+      <label xml:lang="tr" text="Nîm hafîf" description="Nîmhafîf"/>
+      <category ID="us-41085398-4--7d44e74e">
+        <label xml:lang="tr" text="Nîm hafîf"/>
+      </category>
     </category>
     <category ID="us-15771209-1">
-      <label xml:lang="tr" description="Nîmsakîl, Nîm sakıyl, Nîmsakıyl" text="Nîm sakîl" />
+      <label xml:lang="tr" text="Nîm sakîl" description="Nîmsakîl, Nîm sakıyl, Nîmsakıyl"/>
+      <category ID="us-15771209-1--13084f3f">
+        <label xml:lang="tr" text="nīm s̱aḳīl"/>
+      </category>
+      <category ID="us-15771209-1--7ca9d1f8">
+        <label xml:lang="tr" text="Nîm sakîl"/>
+      </category>
     </category>
     <category ID="us-90457020-8">
-      <label xml:lang="tr" description="Nîmsofyân" text="Nîm sofyân" />
+      <label xml:lang="tr" text="Nîm sofyân" description="Nîmsofyân"/>
+      <category ID="us-90457020-8--17cf1252">
+        <label xml:lang="tr" text="Nîm sofyân"/>
+      </category>
     </category>
     <category ID="us-65142831-6">
-      <label xml:lang="tr" text="Orta aksak" />
+      <label xml:lang="tr" text="Orta aksak"/>
+      <category ID="us-65142831-6--3d7384fd">
+        <label xml:lang="tr" text="Orta aksak"/>
+      </category>
     </category>
     <category ID="us-39828642-9">
-      <label xml:lang="tr" text="Oynak" />
+      <label xml:lang="tr" text="Oynak"/>
+      <category ID="us-39828642-9-491eace">
+        <label xml:lang="tr" text="Oynak"/>
+      </category>
     </category>
     <category ID="us-14514453-1">
-      <label xml:lang="tr" text="Raks" />
+      <label xml:lang="tr" text="Raks"/>
+      <category ID="us-14514453-1-26bff7">
+        <label xml:lang="tr" text="Raks"/>
+      </category>
     </category>
     <category ID="us-89200264-4">
-      <label xml:lang="tr" description="Raks aksak" text="Raks aksağı" />
+      <label xml:lang="tr" text="Raks aksağı" description="Raks aksak"/>
+      <category ID="us-89200264-4-2c3dd233">
+        <label xml:lang="tr" text="Raks aksağı"/>
+      </category>
+      <category ID="us-89200264-4--27dcf9f6">
+        <label xml:lang="tr" text="Raks aksak"/>
+      </category>
     </category>
     <category ID="us-63886075-8">
-      <label xml:lang="tr" text="Raksân" />
+      <label xml:lang="tr" text="Raksân"/>
+      <category ID="us-63886075-8--6e8945fd">
+        <label xml:lang="tr" text="Raksân"/>
+      </category>
     </category>
     <category ID="us-38571885-5">
-      <label xml:lang="tr" text="Remel" />
+      <label xml:lang="tr" text="Remel"/>
+      <category ID="us-38571885-5-4b316a1">
+        <label xml:lang="tr" text="Remel"/>
+      </category>
+      <category ID="us-38571885-5-6c53465">
+        <label xml:lang="tr" text="rēmēl"/>
+      </category>
+      <category ID="us-38571885-5-67606c1">
+        <label xml:lang="tr" text="remel"/>
+      </category>
     </category>
     <category ID="us-13257696-6">
-      <label xml:lang="tr" description="Sakıyl" text="Sakîl" />
+      <label xml:lang="tr" text="Sakîl" description="Sakıyl"/>
+      <category ID="us-13257696-6-4bf65bb">
+        <label xml:lang="tr" text="Sakîl"/>
+      </category>
+      <category ID="us-13257696-6-68245c0">
+        <label xml:lang="tr" text="sakil"/>
+      </category>
+      <category ID="us-13257696-6--e2c13cf">
+        <label xml:lang="tr" text="s̱aḳīl"/>
+      </category>
+      <category ID="us-13257696-6-48a99a58">
+        <label xml:lang="tr" text="s̱aḳīli"/>
+      </category>
     </category>
     <category ID="us-87943507-0">
-      <label xml:lang="tr" text="Semâî" />
+      <label xml:lang="tr" text="Semâî"/>
+      <category ID="us-87943507-0-4c13dc7">
+        <label xml:lang="tr" text="Semâî"/>
+      </category>
     </category>
     <category ID="us-62629318-1">
-      <label xml:lang="tr" description="Zengin semai" text="Sengîn semâî" />
+      <label xml:lang="tr" text="Sengîn semâî" description="Zengin semai"/>
+      <category ID="us-62629318-1--6c9addd5">
+        <label xml:lang="tr" text="Sengîn"/>
+      </category>
+      <category ID="us-62629318-1--35ffc292">
+        <label xml:lang="tr" text="sengīn"/>
+      </category>
+      <category ID="us-62629318-1--4c3f4784">
+        <label xml:lang="tr" text="semāʿī sengīn"/>
+      </category>
+      <category ID="us-62629318-1--58c3f03c">
+        <label xml:lang="tr" text="sengīn semāʿī"/>
+      </category>
+      <category ID="us-62629318-1-674ed7b2">
+        <label xml:lang="tr" text="Sengîn semâî"/>
+      </category>
     </category>
     <category ID="us-37315129-7">
-      <label xml:lang="tr" text="Sofyân" />
+      <label xml:lang="tr" text="Sofyân"/>
+      <category ID="us-37315129-7--6c1153a5">
+        <label xml:lang="tr" text="Sofyân"/>
+      </category>
     </category>
     <category ID="us-12000940-0">
-      <label xml:lang="tr" description="Şarkı devri revanı" text="Şarkı devr-i revânı" />
+      <label xml:lang="tr" text="Şarkı devr-i revânı" description="Şarkı devri revanı"/>
+      <category ID="us-12000940-0--2929a8a2">
+        <label xml:lang="tr" text="Şarkı devr-i revânı"/>
+      </category>
     </category>
     <category ID="us-86686751-4">
-      <label xml:lang="tr" text="Türk aksağı" />
+      <label xml:lang="tr" text="Türk aksağı"/>
+      <category ID="us-86686751-4-d545789">
+        <label xml:lang="tr" text="Türk aksağı"/>
+      </category>
     </category>
     <category ID="us-61372561-6">
-      <label xml:lang="tr" text="Türk aksak semâîsi" />
+      <label xml:lang="tr" text="Türk aksak semâîsi"/>
     </category>
     <category ID="us-36058372-X">
-      <label xml:lang="tr" text="Usûlsüz" />
+      <label xml:lang="tr" text="Usûlsüz"/>
+      <category ID="us-36058372-X-62b2ee42">
+        <label xml:lang="tr" text="Usûlsüz"/>
+      </category>
     </category>
     <category ID="us-10744183-1">
-      <label xml:lang="tr" text="[Various]" />
+      <label xml:lang="tr" text="[Various]"/>
+      <category ID="us-10744183-1-6db9514d">
+        <label xml:lang="tr" text="[Various]"/>
+      </category>
     </category>
     <category ID="us-85429994-5">
-      <label xml:lang="tr" text="Yürük aksak semâî" />
+      <label xml:lang="tr" text="Yürük aksak semâî"/>
+      <category ID="us-85429994-5--129755e8">
+        <label xml:lang="tr" text="Yürük aksak semâî"/>
+      </category>
     </category>
     <category ID="us-60115805-0">
-      <label xml:lang="tr" text="Yürük düyek" />
+      <label xml:lang="tr" text="Yürük düyek"/>
     </category>
     <category ID="us-34801616-5">
-      <label xml:lang="tr" text="Yürük semâî" />
+      <label xml:lang="tr" text="Yürük semâî"/>
+      <category ID="us-34801616-5-55a843e">
+        <label xml:lang="tr" text="Yürük"/>
+      </category>
+      <category ID="us-34801616-5--3defd52c">
+        <label xml:lang="tr" text="yürük semāʿī"/>
+      </category>
+      <category ID="us-34801616-5--22b6e07b">
+        <label xml:lang="tr" text="Yürük semâî"/>
+      </category>
     </category>
     <category ID="us-09487427-2">
-      <label xml:lang="tr" text="Yürük sofyân" />
+      <label xml:lang="tr" text="Yürük sofyân"/>
+      <category ID="us-09487427-2--339cfda3">
+        <label xml:lang="tr" text="Yürük sofyân"/>
+      </category>
     </category>
     <category ID="us-84173238-2">
-      <label xml:lang="tr" description="Zincir" text="Zencîr" />
+      <label xml:lang="tr" text="Zencîr" description="Zincir"/>
+      <category ID="us-84173238-2--2a0de539">
+        <label xml:lang="tr" text="zencīr"/>
+      </category>
+      <category ID="us-84173238-2--207a0309">
+        <label xml:lang="tr" text="zēncir"/>
+      </category>
+      <category ID="us-84173238-2--60a9007c">
+        <label xml:lang="tr" text="Zencîr"/>
+      </category>
     </category>
   </categories>
 </mycoreclass>
