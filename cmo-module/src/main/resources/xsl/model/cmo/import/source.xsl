@@ -19,9 +19,7 @@
   ~  59 Temple Place - Suite 330, Boston, MA  02111-1307 USA
   ~
   -->
-<!--
- This Stylesheets moves the mei:provenance from mei:physDesc to mei:physLoc
--->
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:tei="http://www.tei-c.org/ns/1.0"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -43,29 +41,11 @@
   </xsl:template>
 
 
-  <xsl:template match="mei:provenance">
-  </xsl:template>
-
   <xsl:template match="mei:eventList/mei:event/mei:p">
     <mei:desc>
       <xsl:apply-templates select='@*|node()' />
     </mei:desc>
   </xsl:template>
-
-  <xsl:template match="mei:source">
-    <mei:source>
-      <xsl:if test="mei:physDesc/mei:provenance">
-        <mei:history>
-          <xsl:apply-templates select="mei:physDesc/mei:provenance/mei:eventList" mode="copy"/>
-        </mei:history>
-      </xsl:if>
-
-      <xsl:apply-templates select='@*|node()' />
-    </mei:source>
-  </xsl:template>
-
-
-
 
   <xsl:template match="//mei:titleStmt[not(mei:title)]">
     <xsl:copy>

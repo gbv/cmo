@@ -29,7 +29,7 @@
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
   <!--
-    <provenance>
+    <mei:history>
       <eventList>
         <event>
           <head>Creation</head>
@@ -40,29 +40,29 @@
             Arabic script, followed by the initials ‘AR’ in Latin script (in the same hand).</p>
         </event>
       </eventList>
-    </provenance>
+    </mei:history>
    -->
 
 
-  <!-- TODO: deprecated - replace 2.1.1/provenance/ with 3.0.0/history/ -->
-  <xsl:template match="mei:physLoc/mei:provenance" mode="metadataView">
-    <xsl:comment>mei/provenance.xsl > mei:provenance</xsl:comment>
+  <xsl:template match="mei:history" mode="metadataView">
+    <xsl:comment>mei/history.xsl > mei:history</xsl:comment>
     <xsl:if test="mei:eventList/mei:event">
       <xsl:call-template name="metadataLabelContent">
-        <xsl:with-param name="label" select="'editor.label.provenance'" />
+        <xsl:with-param name="label" select="'editor.label.history'" />
         <xsl:with-param name="content">
 
           <dl>
             <xsl:for-each select="mei:eventList/mei:event">
-              <xsl:comment>mei/provenance.xsl > mei:event</xsl:comment>
+              <xsl:comment>mei/history.xsl > mei:event</xsl:comment>
               <dt>
                 <xsl:value-of select="mei:head" />
               </dt>
               <dd>
                 <ul>
-                  <xsl:if test="string-length(mei:persName) &gt; 0"><li><xsl:apply-templates select="mei:persName" mode="metadataViewProvenance" /></li></xsl:if>
-                  <xsl:if test="string-length(mei:geogName) &gt; 0"><li><xsl:apply-templates select="mei:geogName" mode="metadataViewProvenance" /></li></xsl:if>
-                  <xsl:if test="string-length(mei:date) &gt; 0"><li><xsl:apply-templates select="mei:date" mode="metadataViewProvenance" /></li></xsl:if>
+                  <!-- TODO: mode "metadataViewHistory" does'nt exist atm -->
+                  <xsl:if test="string-length(mei:persName) &gt; 0"><li><xsl:apply-templates select="mei:persName" mode="metadataViewHistory" /></li></xsl:if>
+                  <xsl:if test="string-length(mei:geogName) &gt; 0"><li><xsl:apply-templates select="mei:geogName" mode="metadataViewHistory" /></li></xsl:if>
+                  <xsl:if test="string-length(mei:date) &gt; 0"><li><xsl:apply-templates select="mei:date" mode="metadataViewHistory" /></li></xsl:if>
                 </ul>
                 <xsl:if test="string-length(mei:p) &gt; 0">
                   <p>

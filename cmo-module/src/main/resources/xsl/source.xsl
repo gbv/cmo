@@ -43,8 +43,7 @@
                 <xsl:apply-templates select="//mei:physDesc" mode="metadataView" />
                 <xsl:apply-templates select="//mei:contents" mode="metadataView" />
 
-                <!-- TODO: replace 2.1.1/provenance/ with 3.0.0/history/ -->
-                <xsl:apply-templates select="//mei:physLoc/mei:provenance" mode="metadataView" />
+                <xsl:apply-templates select="//mei:history" mode="metadataView" />
                 <xsl:apply-templates select="//mei:langUsage" mode="metadataView" />
                 <xsl:apply-templates select="//mei:notesStmt" mode="metadataView" />
                 <xsl:apply-templates select="//mei:classification" mode="metadataView" />
