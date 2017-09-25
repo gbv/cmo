@@ -34,14 +34,9 @@
 
   <xsl:template match="//mei:titleStmt[not(mei:title)]">
     <xsl:copy>
-      <xsl:choose>
-        <xsl:when test="../mei:identifier">
-          <mei:title><xsl:value-of select="../mei:identifier" /></mei:title>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:message terminate="yes">Could not find a title to insert!</xsl:message>
-        </xsl:otherwise>
-      </xsl:choose>
+      <mei:title type="placeholder">
+        <xsl:value-of select="'N/A'" />
+      </mei:title>
       <xsl:apply-templates select="@*|node()" />
     </xsl:copy>
   </xsl:template>
