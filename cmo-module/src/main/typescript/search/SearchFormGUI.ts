@@ -323,7 +323,7 @@ export class SearchGUI {
 
     changed = () => {
         this._queryChangeHandlerList.forEach(handler => handler());
-    }
+    };
 
 
     public wasExtendedSearchOpen() {
@@ -543,7 +543,7 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
         labels = labels.filter(clazzLabel => clazzLabel.lang.indexOf("x-") != 0);
         let label = (labels.filter(label => label.lang == lang)[ 0 ] || labels[ 0 ]).text;
         let html = `<option ${level.length == 0 ? 'selected="selected" disabled="disabled"' : ''}  value="${clazz.ID}">${level.map(i => "&nbsp;&nbsp;").join("")}${label}</option>
-                    ${("categories" in clazz && (this.level<0 || this.level >= (level.length-1))) ?
+                    ${("categories" in clazz && (this.level < 0 || this.level >= (level.length - 1))) ?
             clazz.categories.map(o => this.getOptionHTML(o, level)).join() : ''}`;
         level.pop();
         return html;
@@ -646,23 +646,11 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
 
     attach(to: HTMLElement) {
         super.attach(to);
-        let $ = window[ "$" ];
-        let datepicker = $('.datepicker');
-        let change = (e) => {
-            this.changed();
-        };
-        if (datepicker.length > 0) {
-            datepicker.datepicker({
-                format : 'yyyy-mm-dd',
-                immediateUpdates : true,
-                minViewMode : 0,
-                maxViewMode : 4,
-                startView : 4
-            }).on('changeDate', change)
-                .on('changeDecade', change)
-                .on('changeYear', change)
-                .on('changeMonth', change)
-                .on('changeCentury', change);
+    }
+
+    public changed() {
+        if (this.validate()) {
+            super.changed();
         }
     }
 
@@ -693,11 +681,9 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
     }
 
     setValue(value: any) {
-        let $ = window[ "$" ];
 
         if (value.indexOf(" TO ") == -1) {
             this.input.setAttribute("value", value);
-            $(this.input).datepicker('update', value);
         } else {
             this.inputRangeCheckbox.checked = true;
             let fromToString = Utils.stripSurrounding(Utils.stripSurrounding(value, "["), "]");
@@ -705,11 +691,9 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
             let [ from, to ] = fromToString.split(" TO ", 2);
             if (from !== "*") {
                 this.inputFrom.setAttribute("value", from);
-                $(this.inputFrom).datepicker('update', from);
             }
             if (to !== "*") {
                 this.inputTo.setAttribute("value", to);
-                $(this.inputTo).datepicker('update', to);
             }
             this.rangeCheckBoxChanged();
         }
@@ -727,15 +711,88 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
             <label for="#date_${checkBoxID}" class="range inline"> </label>
         </div>
         <div class="form-inline noRange">
-            <input class="form-control noRange inline datepicker" type="text" />
+            <input class="form-control noRange inline datepicker" type="text" placeholder="1788-03-28" />
         </div>
         <div class="form-inline range hidden input-group input-daterange">
             <label for="#date_1_${checkBoxID}" class="range inline from input-group-addon"> </label>
-            <input id="date_1_${checkBoxID}" class="form-control inline from datepicker" type="text" />
+            <input id="date_1_${checkBoxID}" class="form-control inline from datepicker" type="text" placeholder="1788-03-28" />
             <label for="#date_2_${checkBoxID}" class="range inline to input-group-addon"> </label>
-            <input  id="date_2_${checkBoxID}" class="form-control inline to datepicker" type="text" />
+            <input  id="date_2_${checkBoxID}" class="form-control inline to datepicker" type="text" placeholder="1840" />
         </div>
     </div>
 </div>`;
+    }
+
+    private validate() {
+
+        let markForm = (form: HTMLElement, valid) => {
+            let invalidClass = "has-error";
+
+            if (valid) {
+                form.classList.remove(invalidClass);
+            } else {
+                form.classList.add(invalidClass);
+            }
+        };
+
+        let getDate = (date) => {
+            let regExp = /^([0-9][0-9]?[0-9]?[0-9]?)(-[0-1][0-9])?(-[0-3][0-9])?$/;
+
+            if (!regExp.test(date)) {
+                return null;
+            }
+
+            let [ , yearString, monthMatch, dayMatch ] = regExp.exec(date);
+
+            let year = parseInt(yearString, 10);
+            if (isNaN(year)) {
+                return null;
+            }
+
+            let valDate = new Date();
+            valDate.setFullYear(year);
+
+
+            if (monthMatch != undefined) {
+                let monthString = monthMatch.substring(1);
+                let month = parseInt(monthString, 10);
+                if (!(month >= 1 && month <= 12)) {
+                    return null;
+                }
+
+                valDate.setMonth(month);
+
+                if (dayMatch != undefined) {
+                    let dayString = dayMatch.substring(1);
+                    let day = parseInt(dayString, 10);
+                    if (!(day >= 1 && day <= 31)) {
+                        return null;
+                    }
+
+                    valDate.setDate(day);
+                }
+            } else if (dayMatch != undefined) {
+                console.log("edge case!");
+                return null;
+            }
+
+            return valDate.getTime();
+        };
+
+        let inputValues: Array<string>;
+        let formToMark;
+        let rangeSelected = this.isRangeSelected();
+        if (rangeSelected) {
+            inputValues = [ this.inputFrom.value.trim(), this.inputTo.value.trim() ];
+            formToMark = this.rangeBox;
+        } else {
+            inputValues = [ this.input.value.trim() ];
+            formToMark = this.noRangeBox;
+        }
+
+        let result = inputValues.filter(s => s.length > 0).map(getDate);
+        let isValid = result.indexOf(null) == -1 && (!rangeSelected || (result[ 0 ] < result[ 1 ] ));
+        markForm(formToMark, isValid);
+        return isValid;
     }
 }
