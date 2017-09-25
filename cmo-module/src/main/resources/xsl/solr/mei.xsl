@@ -105,10 +105,10 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="mei:physLoc/mei:provenance/mei:eventList" mode="solrIndex">
+  <xsl:template match="mei:history/mei:eventList" mode="solrIndex">
     <xsl:for-each select="mei:event">
       <xsl:if test="mei:geogName">
-        <field name="provenance.event.eventGeogName">
+        <field name="history.event.eventGeogName">
           <xsl:value-of select="mei:geogName/text()" />
         </field>
       </xsl:if>

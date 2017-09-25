@@ -502,7 +502,7 @@
 
   <field name="repo.geogName" type="text_tr" multiValued="true" />
 
-  <field name="provenance.event.eventGeogName" type="text_tr" multiValued="true" />
+  <field name="history.event.eventGeogName" type="text_tr" multiValued="true" />
 
   <field name="hand.name" type="text_tr" multiValued="true" />
 
