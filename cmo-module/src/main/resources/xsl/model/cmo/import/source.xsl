@@ -40,11 +40,24 @@
     </xsl:copy>
   </xsl:template>
 
+  <xsl:template match="mei:provenance">
+  </xsl:template>
 
   <xsl:template match="mei:eventList/mei:event/mei:p">
     <mei:desc>
       <xsl:apply-templates select='@*|node()' />
     </mei:desc>
+  </xsl:template>
+
+  <xsl:template match="mei:source">
+    <mei:source>
+      <xsl:if test="mei:physDesc/mei:provenance">
+        <mei:history>
+          <xsl:apply-templates select="mei:physDesc/mei:provenance/mei:eventList" mode="copy"/>
+        </mei:history>
+      </xsl:if>
+      <xsl:apply-templates select='@*|node()' />
+    </mei:source>
   </xsl:template>
 
   <xsl:template match="//mei:titleStmt[not(mei:title)]">
