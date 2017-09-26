@@ -172,7 +172,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                 .MEI_NAMESPACE, MEIUtils.TEI_NAMESPACE);
     }
 
-    private Map<String, HashMap<String, String>> classificationLabelValues = new HashMap<>();
+    private Map<String, HashMap<String, List<String>>> classificationLabelValues = new HashMap<>();
 
     // bibliography folder
     private ConcurrentHashMap<String, Document> bibliographicMap;
@@ -389,22 +389,27 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             LOGGER.info("Need to enhance classification : {}", k);
             MCRMEIAuthorityInfo classification = new MCRMEIAuthorityInfo(null, k);
 
-            v.forEach((k1, v1) -> {
-                MCRCategoryID parentID = classification.getCategoryID(v1);
+            v.forEach((parentIDString, labels) -> {
+                MCRCategoryID parentID = classification.getCategoryID(parentIDString);
                 MCRCategory category = DAO.getCategory(parentID, 1);
 
-                String newID = v1 + "-" + MCRMEIClassificationSupport.buildIDForLabel(k1);
-                boolean exist = category.getChildren().stream().anyMatch(cat -> cat.getId().getID().equals(newID));
-                if (exist) {
-                    LOGGER.info("Category already present: {}", newID);
-                } else {
-                    LOGGER.info("Create new child {} for {} !", k1, v1);
-                    MCRCategoryImpl child = new MCRCategoryImpl();
-                    child.setId(new MCRCategoryID(parentID.getRootID(), newID));
-                    //child.setChildren(Collections.emptyList());
-                    child.setLabels(Stream.of(new MCRLabel("tr", k1, "")).collect(Collectors.toSet()));
-                    DAO.addCategory(parentID, child);
-                }
+                labels.stream().distinct().forEach(label->{
+                    String val = MCRMEIClassificationSupport.buildIDForLabel(label);
+                    String id = parentID.getID() + "-" + val;
+
+                    boolean exist = category.getChildren().stream().anyMatch(cat -> cat.getId().getID().equals(id));
+                    if (exist) {
+                        LOGGER.info("Category already present: {} label:{} parentIDString:{}", label, label, parentIDString);
+                    } else {
+                        LOGGER.info("Create new child {} for {} !", label, parentIDString);
+                           MCRCategoryImpl child = new MCRCategoryImpl();
+                        child.setId(new MCRCategoryID(parentID.getRootID(), id));
+                        //child.setChildren(Collections.emptyList());
+                        child.setLabels(Stream.of(new MCRLabel("tr", label, "")).collect(Collectors.toSet()));
+                        DAO.addCategory(parentID, child);
+                    }
+                });
+
             });
 
         });
@@ -438,7 +443,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
     public void addCustomClassifications(String classificationNameOrURI,
         Map<MCRMEIAuthorityInfo, List<String>> classifications, List<Element> elementList) {
-        HashMap<String, String> labels = classificationLabelValues
+        HashMap<String, List<String>> classificationLabelsMap = classificationLabelValues
             .computeIfAbsent(classificationNameOrURI, (a) -> new HashMap<>());
 
         if (elementList.size() > 0) {
@@ -450,10 +455,13 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
             List<String> values = elementList.stream().map(element -> {
                 String parent = element.getAttributeValue("classLink", MEIUtils.CMO_NAMESPACE);
-                String newChild = element.getTextTrim();
-                if (parent != null && !newChild.isEmpty()) {
-                    labels.put(newChild, parent);
-                    return parent + "-" + MCRMEIClassificationSupport.buildIDForLabel(newChild);
+                String label = element.getTextTrim();
+                if (parent != null && !label.isEmpty()) {
+                    String value = MCRMEIClassificationSupport.buildIDForLabel(label);
+                    String combined = parent + "-" + value;
+                    List<String> labels = classificationLabelsMap.computeIfAbsent(parent, p -> new ArrayList<String>());
+                    labels.add(label);
+                    return combined;
                 }
                 return null;
             }).filter(Objects::nonNull)
