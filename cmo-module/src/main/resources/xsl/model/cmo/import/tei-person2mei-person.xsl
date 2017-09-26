@@ -76,7 +76,7 @@
     </xsl:for-each>
     <xsl:if test="count(tei:ref)&lt;1">
       <mei:name>
-        <xsl:if test="../@type">
+        <xsl:if test="@type">
           <xsl:attribute name="type">
             <xsl:value-of select="translate(@type,'/','-')" />
           </xsl:attribute>
