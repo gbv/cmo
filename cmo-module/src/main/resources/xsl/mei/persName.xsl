@@ -28,11 +28,40 @@
   xmlns:mei="http://www.music-encoding.org/ns/mei"
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
+  <xsl:key name="persNames" match="mei:name" use="."/>
 
   <xsl:template match="mei:persName[@nymref]" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:persName[@nymref]</xsl:comment>
     <xsl:call-template name="objectLink">
       <xsl:with-param name="obj_id" select="@nymref" />
+    </xsl:call-template>
+  </xsl:template>
+  
+  <xsl:template match="mei:persName[mei:name]" mode="metadataView">
+    <xsl:comment>mei/persName.xsl > mei:persName/mei:name</xsl:comment>
+    <xsl:call-template name="metadataTextContent">
+      <xsl:with-param name="text">
+        <xsl:value-of select="i18n:translate('editor.label.nameVariants')" />
+      </xsl:with-param>
+      <xsl:with-param name="content">
+        <xsl:for-each select="mei:name[generate-id()=generate-id(key('persNames',text())[1])]">
+        <xsl:value-of select="text()"/>
+          <xsl:for-each select="key('persNames',text())">
+            <xsl:choose>
+              <xsl:when test="@source and @label">
+                <small> [<a href="{$WebApplicationBaseURL}receive/{@source}"><xsl:value-of select="@label" /></a>]</small>
+              </xsl:when>
+              <xsl:when test="@source">
+                <small> [<xsl:call-template name="objectLink"><xsl:with-param select="@source" name="obj_id" /></xsl:call-template>]</small>
+              </xsl:when>
+              <xsl:when test="@type">
+                <small><xsl:value-of select="concat(' [', @type, ']')"></xsl:value-of></small>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:for-each>
+          <br />
+        </xsl:for-each>
+      </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
@@ -153,7 +182,6 @@
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
-
 
   <xsl:template match="mei:name" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:name</xsl:comment>

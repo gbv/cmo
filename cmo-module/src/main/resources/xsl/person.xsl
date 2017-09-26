@@ -28,7 +28,7 @@
                 <xsl:call-template name="displayIdWithOldLink">
                   <xsl:with-param name="id" select="//mei:identifier[@type='cmo_intern']/text()" />
                 </xsl:call-template>
-                <xsl:apply-templates select="//mei:persName/mei:name" mode="metadataView" />
+                <xsl:apply-templates select="//mei:persName[mei:name]" mode="metadataView" />
                 <xsl:apply-templates select="//mei:persName/mei:identifier[not(@type='cmo_intern')]" mode="metadataView" />
                 <xsl:call-template name="showPersonDates" />
                 <xsl:apply-templates select="//mei:persName/mei:annot" mode="metadataView" />
@@ -43,9 +43,9 @@
   </xsl:template>
 
   <xsl:template priority="1" mode="resulttitle" match="mycoreobject[contains(@ID,'_person_')]">
-    <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMAS-main'] |
+    <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='CMO'] |
+    ./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMAS-main'] |
     ./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMAS-other'] |
-    ./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMKii'] |
     ./metadata/def.meiContainer/meiContainer/mei:persName/mei:identifier[@type='CMO']" />
   </xsl:template>
 
