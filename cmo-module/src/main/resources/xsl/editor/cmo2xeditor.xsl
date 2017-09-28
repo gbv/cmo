@@ -337,32 +337,18 @@
         </label>
         <div class="col-md-6">
           <div class="form-inline" data-toggleDate="true">
-            <xed:bind xpath="@range" initially="false">
+            <xed:bind xpath="@range" initially="false" default="false">
               <div class="checkbox">
                 <label>
-                  <xed:choose>
-                    <xed:when test=".='true'">
-                      <input class="cmo_toggleRange" type="checkbox" checked="checked" />
-                    </xed:when>
-                    <xed:otherwise>
-                      <input class="cmo_toggleRange" type="checkbox" />
-                    </xed:otherwise>
-                  </xed:choose>
+                  <input class="cmo_toggleRange" type="checkbox" value="true" />
                   <xed:output i18n="editor.label.rangeDate" />
                 </label>
               </div>
             </xed:bind>
-            <xed:bind xpath="@approx" initially="false">
+            <xed:bind xpath="@approx" initially="false" default="false">
               <div class="checkbox">
                 <label>
-                  <xed:choose>
-                    <xed:when test=".='true'">
-                      <input class="cmo_toggleApprox" type="checkbox" checked="checked" />
-                    </xed:when>
-                    <xed:otherwise>
-                      <input class="cmo_toggleApprox" type="checkbox" />
-                    </xed:otherwise>
-                  </xed:choose>
+                  <input class="cmo_toggleApprox" type="checkbox" value="true" />
                   <xed:output i18n="editor.label.approxDate" />
                 </label>
               </div>
