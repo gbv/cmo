@@ -20,12 +20,22 @@
 
         $('[data-toggle="popover"]').popover();
 
-        let datepicker = $('.datepicker');
-        if (datepicker.length > 0) {
-            datepicker.datepicker({
-                format: 'yyyy-mm-dd',
-            });
-        }
+        $("body").on("click", ".expand-item", function () {
+            if($(this).attr("data-target")){
+                $(this).closest(".form-group").next($(this).attr("data-target")).toggleClass("hidden");
+            }
+            else {
+                $(this).closest("legend").toggleClass("hiddenDetail").next().toggleClass("hidden");
+            }
+            if($(this).hasClass("glyphicon-chevron-down")) {
+                $(this).removeClass("glyphicon-chevron-down");
+                $(this).addClass("glyphicon-chevron-up");
+            }
+            else {
+                $(this).removeClass("glyphicon-chevron-up");
+                $(this).addClass("glyphicon-chevron-down");
+            }
+        });
 
         $("[data-toggleDate=true]").each(function (i, e) {
             let element = jQuery(e);
@@ -84,6 +94,13 @@
             });
 
         });
+
+        $("body").on("focusout", ".personExtended-container input[name*='mods:nameIdentifier']:first", function() {
+            if($(this).val() == "") {
+                $(this).parents(".personExtended_box").find(".search-person .input-group > a").remove();
+            }
+        });
+
     }); // end document ready
 
 })(jQuery);

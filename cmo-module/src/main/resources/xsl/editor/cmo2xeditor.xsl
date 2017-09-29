@@ -390,6 +390,47 @@
     </div>
   </xsl:template>
 
+  <xsl:template match="cmo:mods-name">
+    <xsl:variable name="xed-val-marker" > {$xed-validation-marker} </xsl:variable>
+    <xed:repeat xpath="mods:name[@type='personal'  or not(@type) or (@type='corporate')]" min="1" max="100">
+      <xed:bind xpath="@type" initially="personal"/>
+      <fieldset class="personExtended_box">
+        <legend class="cmo-fieldset-legend hiddenDetail">
+          <xed:bind xpath="mods:displayForm"> <!-- Move down to get the "required" validation right -->
+            <div class="form-group {@class} {$xed-val-marker}">
+              <xed:bind xpath=".."> <!-- Move up again after validation marker is set -->
+                <div class="col-md-3" style="text-align:right; font-weight:bold;">
+                  <xed:bind xpath="mods:role/mods:roleTerm[@authority='marcrelator'][@type='code']" initially="aut">
+                    <select class="form-control form-control-inline">
+                      <xsl:apply-templates select="*" />
+                    </select>
+                  </xed:bind>
+                </div>
+                <div class="col-md-6 center-vertical">
+                  <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="person.fields.noHidden" />
+                  <span class="fa fa-chevron-down expand-item" title="{i18n:translate('cmo.mods.help.expand')}" aria-hidden="true"></span>
+                </div>
+                <div class="col-md-3">
+                  <xsl:if test="string-length(@help-text) &gt; 0">
+                    <xsl:call-template name="cmo-helpbutton" />
+                  </xsl:if>
+                  <xsl:call-template name="cmo-pmud" />
+                </div>
+                <xsl:call-template name="cmo-required" />
+              </xed:bind>
+            </div>
+         </xed:bind>
+        </legend>
+        <div class="cmo-fieldset-content personExtended-container hidden">
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="nameType" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="namePart.repeated" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="person.affiliation" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="nameIdentifier.repeated" />
+        </div>
+      </fieldset>
+    </xed:repeat>
+  </xsl:template>
+
 
   <xsl:template name="cmo-textfield">
     <div class="row">

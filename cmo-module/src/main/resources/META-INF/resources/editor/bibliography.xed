@@ -10,17 +10,28 @@
       <xed:cancel url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
       <xed:cancel url="{$cancelUrl}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
       <xed:cancel url="../content/index.html?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
-      <xed:post-processor class="org.mycore.mei.MEIPostProcessor" />
+      <!-- xed:post-processor class="org.mycore.mei.MEIPostProcessor" / -->
 
       <xed:bind xpath="/mycoreobject">
-        <xed:bind xpath="@ID" initially="cmo_bibl_00000000" />
-        <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML']/meiContainer/mei:source">
+        <xed:bind xpath="@ID" initially="cmo_mods_00000000" />
+        <xed:bind xpath="metadata/def.modsContainer[@class='MCRMetaXML']/modsContainer/mods:mods">
+
+          <xed:include uri="webapp:editor/editor-includes.xed" ref="mycore.common" />
+          <xed:include uri="webapp:editor/editor-includes.xed" ref="failed-validation-messages" />
+
+          <xed:bind xpath="mods:classification[@displayLabel='cmo_kindOfData']">
+            <xed:bind xpath="@authorityURI" initially="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_kindOfData"/>
+            <xed:bind xpath="@valueURI" initially="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_kindOfData#source"/>
+          </xed:bind>
+          <xed:bind xpath="mods:typeOfResource" initially="text"/>
+
           <fieldset>
             <legend>
               <xed:output i18n="editor.legend.bibliography" />
             </legend>
 
-            <!-- TODO: add input fields here -->
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsTitle" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsName" />
 
             <!-- Button (Double) -->
             <div class="form-group">

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xed:template xmlns:xed="http://www.mycore.de/xeditor"
+              xmlns:cmo="http://cmo.gbv.de/cmo"
+              xmlns:mei="http://www.music-encoding.org/ns/mei"
+              xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+
+  <xed:template id="cmo_modsTitle">
+    <fieldset>
+      <legend class="cmo-fieldset-legend">
+        <xed:output i18n="cmo.mods.title.type" />
+      </legend>
+      <xed:repeat xpath="mods:titleInfo" min="1" max="6">
+        <div class="cmo-fieldset-content">
+          <div class="form-group">
+            <label class="col-md-3 control-label">
+              <xed:output i18n="cmo.mods.title.nonSort" />
+            </label>
+            <div class="col-md-6">
+              <div class="form-inline controls">
+                <xed:bind xpath="mods:nonSort">
+                  <input type="text" size="9" class="form-control form-control-inline" placeholder="{i18n:cmo.placeholder.mods.title.nonSort}" />
+                </xed:bind>
+                <xed:bind xpath="@xml:lang" initially="en">
+                  <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="lang.list" />
+                </xed:bind>
+                <xed:bind xpath="@type">
+                  <select class="form-control form-control-inline">
+                    <option value="">
+                      <xed:output i18n="cmo.mods.title.type.main" />
+                    </option>
+                    <option value="translated">
+                      <xed:output i18n="cmo.mods.title.type.translated" />
+                    </option>
+                    <option value="alternative">
+                      <xed:output i18n="cmo.mods.title.type.alternative" />
+                    </option>
+                  </select>
+                </xed:bind>
+              </div>
+            </div>
+            <cmo:help-pmud help-text="{i18n:cmo.help.mods.title.complex}" pmud="true" />
+          </div>
+          <cmo:textarea xpath="mods:title" rows="2" label="cmo.mods.title" help-text="{i18n:cmo.help.mods.title}" class="required" />
+          <cmo:textarea xpath="mods:subTitle" rows="2" label="cmo.mods.title.subTitle" help-text="{i18n:cmo.help.mods.title.subTitle}" />
+        </div>
+      </xed:repeat>
+    </fieldset>
+  </xed:template>
+
+
+  <xed:template id="cmo_modsName">
+    <cmo:mods-name help-text="{i18n:cmo.mods.help.name.repeated}">
+      <xed:include uri="xslStyle:items2options:classification:editor:-1:children:marcrelator" />
+    </cmo:mods-name>
+  </xed:template>
+
+  <xed:template id="person.fields.noHidden">
+    <div class="search-person">
+      <xed:bind xpath="mods:displayForm">
+        <input type="text" size="26" class="form-control form-control-inline" data-search="searchEntity" data-search-type="select"
+               data-search-entity-type="both" data-search-output=".nameIdentifier" data-search-output-type=".nameIdentifierType" data-search-output-name-type=".nameType" data-search-button="{i18n:button.search}"
+               data-search-button-loading="{i18n:button.loading}" data-search-result-empty="{i18n:cmo.mods.searchIdentifier.noResult}" data-target=".personExtended_box"
+               placeholder="{i18n:cmo.placeholder.mods.name.family}, {i18n:cmo.placeholder.mods.name.given}" />
+      </xed:bind>
+    </div>
+  </xed:template>
+
+  <xed:template id="nameType">
+    <xed:bind xpath="@type" initially="personal">
+      <div class="form-group">
+        <label class="col-md-3 control-label">
+          <xed:output i18n="cmo.mods.nameType" />
+        </label>
+        <div class="col-md-6">
+          <div class="controls">
+            <select class="form-control form-control-inline nameType">
+              <option value="personal">
+                <xed:output i18n="cmo.mods.nameType.personal" />
+              </option>
+              <option value="corporate">
+                <xed:output i18n="cmo.mods.nameType.corporate" />
+              </option>
+            </select>
+          </div>
+        </div>
+        <cmo:help-pmud help-text="{i18n:cmo.help.mods.nameType}" />
+      </div>
+    </xed:bind>
+  </xed:template>
+
+  <xed:template id="namePart.repeated">
+    <xed:repeat xpath="mods:namePart" min="1" max="100">
+      <div class="form-group">
+        <xed:bind xpath="@type" name="type" initially="termsOfAddress">
+          <div class="col-md-3">
+            <select class="form-control" style="text-align:right; font-weight:bold;">
+              <option value="family">
+                <xed:output i18n="cmo.mods.namePart.family" />
+              </option>
+              <option value="given">
+                <xed:output i18n="cmo.mods.namePart.given" />
+              </option>
+              <option value="date">
+                <xed:output i18n="cmo.mods.namePart.date" />
+              </option>
+              <option value="termsOfAddress">
+                <xed:output i18n="cmo.mods.namePart.termsOfAddress" />
+              </option>
+              <option value="other">
+                <xed:output i18n="cmo.mods.namePart.other" />
+              </option>
+            </select>
+          </div>
+        </xed:bind>
+        <div class="col-md-6">
+          <input type="text" size="20" class="form-control form-control-inline" />
+        </div>
+        <cmo:help-pmud help-text="{i18n:cmo.help.mods.namePart}" pmud="true" />
+      </div>
+    </xed:repeat>
+  </xed:template>
+
+  <xed:template id="person.affiliation">
+    <cmo:textfield xpath="mods:affiliation" help-text="{i18n:cmo.help.mods.affiliation}" label="cmo.mods.affiliation" />
+  </xed:template>
+
+  <xed:template id="nameIdentifier.repeated">
+    <xed:repeat xpath="mods:nameIdentifier" min="1" max="100">
+      <div class="form-group">
+        <xed:bind xpath="@type" name="type">
+          <div class="col-md-3">
+            <select class="form-control nameIdentifierType" style="text-align:right; font-weight:bold;">
+              <xed:include uri="xslStyle:items2options:classification:editor:-1:children:nameIdentifier" />
+              <xed:load-resource name="identifier" uri="classification:metadata:-1:children:nameIdentifier" />
+              <xed:if test="not($identifier//category[@ID=$type]) and not($type='')">
+                <option value="{$type}" selected="">
+                  <xed:output value="$type" i18n="cmo.mods.identifier.other" />
+                </option>
+              </xed:if>
+            </select>
+          </div>
+        </xed:bind>
+        <div class="col-md-6">
+          <input type="text" size="20" class="form-control form-control-inline {$xed-validation-marker} nameIdentifier" />
+        </div>
+        <cmo:help-pmud help-text="{i18n:cmo.help.mods.nameIdentifier}" pmud="true" />
+      </div>
+    </xed:repeat>
+  </xed:template>
+
+</xed:template>

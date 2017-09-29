@@ -32,7 +32,13 @@
     <input type="hidden" name="XSL.Status.Message" value="cmo.editstatus.success" />
     <input type="hidden" name="XSL.Status.Style" value="success" />
     <script type="text/javascript" src="{$WebApplicationBaseURL}js/cmo_editor.js"></script>
+    <script type="text/javascript" src="{$WebApplicationBaseURL}js/jquery.search-entity.js"></script>
+  </xed:template>
 
+  <xed:template id="lang.list">
+    <select class="form-control form-control-inline">
+      <xed:include uri="xslStyle:items2options:classification:editor:-1:children:rfc4646" />
+    </select>
   </xed:template>
 
   <xed:template id="cmo_title">
@@ -40,10 +46,6 @@
                    repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
   </xed:template>
 
-  <!--  editor>
-    [Irsoy], Zekâizade Ahmet
-    <persName nymref="cmo_person_00000434">Irsoy, Ahmed</persName>
-  </editor -->
   <xed:template id="cmo_editor">
     <cmo:nameLinkField xpath="mei:titleStmt/mei:editor" repeat="true" min="1" max="10"
                        placeholder="last name, first name" label="editor.label.editor"
