@@ -8,14 +8,27 @@
 }*/
 
 .required label::after {
-    content: " *";
+  content: " *";
 }
 
 .form-control::-moz-placeholder {
-    color: #c0c0c0;
-    opacity: 1;
+  color: #c0c0c0;
+  opacity: 1;
+}
+
+.form-group {
+  padding-left: 15px;
+}
+
+.cmo-form-select {
+  text-align:right;
+  font-weight:bold;
 }
 
 fieldset {
-    margin: 40px 0px 60px 0;
+  margin: 40px 0px 60px 0;
+}
+
+feedback {
+  font-size: 60%;
 }
