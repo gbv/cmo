@@ -395,7 +395,7 @@
     <xed:repeat xpath="mods:name[@type='personal'  or not(@type) or (@type='corporate')]" min="1" max="100">
       <xed:bind xpath="@type" initially="personal"/>
       <fieldset class="personExtended_box">
-        <legend class="cmo-fieldset-legend hiddenDetail">
+        <div class="cmo-fieldset-modsName hiddenDetail">
           <xed:bind xpath="mods:displayForm"> <!-- Move down to get the "required" validation right -->
             <div class="form-group {@class} {$xed-val-marker}">
               <div class="row">
@@ -422,7 +422,7 @@
               </div>
             </div>
          </xed:bind>
-        </legend>
+        </div>
         <div class="cmo-fieldset-content personExtended-container hidden">
           <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="nameType" />
           <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="namePart.repeated" />

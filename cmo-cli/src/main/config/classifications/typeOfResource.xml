@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="typeOfResource">
+  <label xml:lang="en" text="typeOfResource" />
+  <label xml:lang="it" text="Tipologia" />
+  <label xml:lang="de" text="typeOfResource" />
+  <label xml:lang="x-uri" text="http://www.mycore.org/classifications/typeOfResource" />
+  <categories>
+    <category ID="text">
+      <label xml:lang="it" text="Testo" />
+      <label xml:lang="de" text="Text" />
+      <label xml:lang="en" text="Text" description="Resources that are basically textual in nature. " />
+    </category>
+    <category ID="cartographic">
+      <label xml:lang="de" text="Kartenmaterial" />
+      <label xml:lang="it" text="Materiale cartaceo" />
+      <label xml:lang="en" text="Cartographic" description="Includes maps, atlases, globes, digital maps, and other cartographic items." />
+    </category>
+    <category ID="notated_music">
+      <label xml:lang="it" text="Musica annotata" />
+      <label xml:lang="en" text="notated music" description="Graphic, non-realized representations of musical works, both in printed and digitized manifestations that represent the four components of musical sound: pitch, duration, timbre, and loudness. " />
+      <label xml:lang="de" text="Notierte Musik" />
+    </category>
+    <category ID="sound_recording">
+      <label xml:lang="en" text="Sound recording" description="Used when a mixture of musical and nonmusical sound recordings occurs in a resource or when a user does not want to or cannot make a distinction between musical and nonmusical. " />
+      <label xml:lang="it" text="Registrazione audio" />
+      <label xml:lang="de" text="Tonaufnahme" />
+    </category>
+    <category ID="sound_recording-musical">
+      <label xml:lang="it" text="Registrazione audio (musica)" />
+      <label xml:lang="en" text="Sound recording-musical" description="Used when a resource is predominately a musical sound recording. " />
+      <label xml:lang="de" text="Tonaufnahme (Musik)" />
+    </category>
+    <category ID="sound_recording-nonmusical">
+      <label xml:lang="de" text="Tonaufnahme (keine Musik)" />
+      <label xml:lang="en" text="Sound recording-nonmusical" description="Used when the sound recording is nonmusical in nature. " />
+      <label xml:lang="it" text="Registrazione audio (non musica)" />
+    </category>
+    <category ID="still_image">
+      <label xml:lang="de" text="Bild (Standbild)" />
+      <label xml:lang="it" text="Immagine (immagine immobile)" />
+      <label xml:lang="en" text="Still image" description="Includes two-dimensional images and slides and transparencies. " />
+    </category>
+    <category ID="moving_image">
+      <label xml:lang="de" text="Film (Bewegtbild)" />
+      <label xml:lang="it" text="Fil (immagine mobile)" />
+      <label xml:lang="en" text="moving image" description="Includes motion pictures and videorecordings, as well as television programs, digital video, and animated computer graphics—but not slides, transparencies (&quot;still image&quot;) and moving images that are primarily computer programs (&quot;software, multimedia&quot;)." />
+    </category>
+    <category ID="three_dimensional_object">
+      <label xml:lang="it" text="Immagine tridimensionale" />
+      <label xml:lang="de" text="Dreidimensionales Objekt" />
+      <label xml:lang="en" text="Three dimensional object" description="Includes man-made objects such as models, sculptures, clothing, and toys, as well as naturally occurring objects such as specimens mounted for viewing." />
+    </category>
+    <category ID="software,_multimedia">
+      <label xml:lang="en" text="Software, multimedia" description="It includes: software, numeric data, computer-oriented multimedia, and online systems and services. " />
+      <label xml:lang="de" text="Software, Multimedia" />
+      <label xml:lang="it" text="Software, multimedia" />
+    </category>
+    <category ID="mixed_material">
+      <label xml:lang="it" text="Materiale misto" />
+      <label xml:lang="en" text="mixed material" description="Indicates that there are significant materials in two or more forms that are usually related by virtue of their having been accumulated by or about a person or body. Mixed material includes archival fonds ..." />
+      <label xml:lang="de" text="Gemischtes Material" />
+    </category>
+  </categories>
+</mycoreclass>

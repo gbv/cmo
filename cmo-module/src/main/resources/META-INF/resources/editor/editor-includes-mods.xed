@@ -53,6 +53,48 @@
     </fieldset>
   </xed:template>
 
+  <xed:template id="cmo_modsIdentifier">
+    <cmo:textfield xpath="mods:identifier[@type='CMO']" help-text="{i18n:cmo.help.mods.identifier}" label="cmo.mods.identifier" />
+  </xed:template>
+  
+  <xed:template id="cmo_modsPublisher">
+    <cmo:textfield xpath="mods:originInfo[@eventType='publication']/mods:publisher" help-text="{i18n:cmo.help.mods.publisher}" label="cmo.mods.publisher" />
+  </xed:template>
+  
+  <xed:template id="cmo_modsPlace">
+    <cmo:textfield xpath="mods:originInfo[@eventType='publication']/mods:place/mods:placeTerm[@type='text']" help-text="{i18n:cmo.help.mods.place}" label="cmo.mods.place" />
+  </xed:template>
+  
+  <xed:template id="cmo_modsDateIssued">
+    <cmo:textfield xpath="mods:originInfo[@eventType='publication']/mods:dateIssued[@encoding='w3cdtf']" help-text="{i18n:cmo.help.mods.dateIssued}" label="cmo.mods.dateIssued" />
+  </xed:template>
+  
+  <xed:template id="cmo_modsExtent">
+    <cmo:textfield xpath="mods:physicalDescription/mods:extent" help-text="{i18n:cmo.help.mods.extent}" label="cmo.mods.extent" />
+  </xed:template>
+  
+  <xed:template id="cmo_modsSeriesTitle">
+    <cmo:textfield xpath="mods:relatedItem[@type='series']/mods:titleInfo/mods:title" help-text="{i18n:cmo.help.mods.seriesTitle}" label="cmo.mods.seriesTitle" />
+  </xed:template>
+  
+  <xed:template id="cmo_modsHostTitle">
+    <cmo:textfield xpath="mods:relatedItem[@type='host']/mods:titleInfo/mods:title" help-text="{i18n:cmo.help.mods.hostTitle}" label="cmo.mods.hostTitle" />
+  </xed:template>
+  
+  <!--  TODO: fix pages -->
+  <xed:template id="cmo_modsHostPages">
+    <cmo:textfield xpath="mods:relatedItem[@type='host']/mods:part/mods:extent[@unit='pages']/mods:list" help-text="{i18n:cmo.help.mods.hostPages}" label="cmo.mods.hostPages" />
+  </xed:template>
+  
+  <xed:template id="cmo_modsNote">
+    <cmo:textfield xpath="mods:note" help-text="{i18n:cmo.help.mods.note}" label="cmo.mods.note" />
+  </xed:template>
+
+  <xed:template id="cmo_modsGenre">
+    <cmo:selectClassification xpath="mods:genre[@authorityURI='http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres']" bind="@valueURIxEditor" repeat="true" min="1"
+                              max="10" label="editor.label.mods.genre" classification="cmo_genres"
+                              help-text="{i18n:cmo.help.mods.genre}" />
+  </xed:template>
 
   <xed:template id="cmo_modsName">
     <cmo:mods-name help-text="{i18n:cmo.help.mods.name.repeated}">
@@ -158,6 +200,44 @@
         </div>
       </div>
     </xed:repeat>
+  </xed:template>
+
+  <xed:template id="validation-rules">
+    <xed:load-resource name="cmo_genres" uri="classification:metadata:-1:children:cmo_genres" />
+    <xed:validate xpath="//mods:mods/mods:titleInfo/mods:title" required="true" i18n="cmo.validation.title" display="global" />
+    <xed:validate xpath="//mods:mods/mods:genre[@authorityURI=$cmo_genres/label[@xml:lang='x-uri']/@text]/@valueURIxEditor" required="true"
+      i18n="cmo.validation.genre" display="global" />
+
+    <xed:validate xpath="//mods:mods/mods:identifier[@type='isbn']|//mods:relatedItem[contains(@xlink:href,'mods_00000000')]/mods:identifier[@type='isbn']" matches="^((978|979)-?)?([\d -]{12}|\d{9})(\d|X)$" i18n="cmo.validation.isbn" display="global" />
+    <xed:validate xpath="//mods:mods/mods:identifier[@type='issn']|//mods:relatedItem[contains(@xlink:href,'mods_00000000')]/mods:identifier[@type='issn']" matches="[\dX]{4}\-[\dX]{4}" i18n="cmo.validation.issn" display="global" />
+    <xed:validate xpath="//mods:mods/mods:identifier[@type='doi']" matches="10\.\d+.*" i18n="cmo.validation.doi" display="global" />
+    <xed:validate xpath="//mods:mods/mods:identifier[@type='hdl']" matches="\S+/\S+" i18n="cmo.validation.handle" display="global" />
+    <xed:validate xpath="//mods:mods/mods:identifier[@type='urn']" matches="urn:nbn:[a-z]{2}:\S*" i18n="cmo.validation.urn" display="global" />
+    <xed:validate xpath="//mods:url|//mods:abstract/@xlink:href" matches="(ftp|http|https)://[\w\d.]+\S*" i18n="cmo.validation.url" display="global" />
+    <xed:validate xpath="//mods:*[@encoding='w3cdtf']|//mods:mods/mods:accessCondition[@type='embargo']" matches="\d{4}(\-\d{2}(\-\d{2})?)?" type="datetime" format="yyyy;yyyy-MM;yyyy-MM-dd" i18n="cmo.validation.date"
+      display="global" />
+    <xed:validate xpath="//mods:part/@order" type="integer" display="global" i18n="cmo.validation.order" />
+  </xed:template>
+
+
+  <xed:template id="cmo_mods_cleanup-rules">
+    <xed:cleanup-rule xpath="//mods:*"
+      relevant-if="(string-length(normalize-space(text())) &gt; 0) or mods:* or cmd:* or (string-length(@xlink:href) &gt; 0) or (string-length(@valueURIxEditor) &gt; 0) or (string-length(@mcr:categId) &gt; 0) or (string-length(@order) &gt; 0)" />
+    <xed:cleanup-rule xpath="//mods:name" relevant-if="(mods:namePart|mods:displayForm) or (string-length(@valueURI) &gt; 0) or (string-length(@valueURIxEditor) &gt; 0)" />
+    <xed:cleanup-rule xpath="//mods:name/@authorityURI" relevant-if="(string-length(../@valueURI) &gt; 0) or (string-length(../@valueURIxEditor) &gt; 0)" />
+    <xed:cleanup-rule xpath="//mods:topic/@authorityURI" relevant-if="(string-length(../@valueURI) &gt; 0) or (string-length(../@valueURIxEditor) &gt; 0)" />
+    <xed:cleanup-rule xpath="//mods:topic/@authority" relevant-if="(string-length(../@valueURI) &gt; 0) or (string-length(../@valueURIxEditor) &gt; 0)" />
+    <xed:cleanup-rule xpath="//mods:geographic/@authorityURI" relevant-if="(string-length(../@valueURI) &gt; 0) or (string-length(../@valueURIxEditor) &gt; 0)" />
+    <xed:cleanup-rule xpath="//mods:geographic/@authority" relevant-if="(string-length(../@valueURI) &gt; 0) or (string-length(../@valueURIxEditor) &gt; 0)" />
+    <xed:cleanup-rule xpath="//mods:name/mods:namePart" relevant-if="string-length(text()) &gt; 0" />
+    <xed:cleanup-rule xpath="//mods:name/mods:namePart/@type" relevant-if="../@type!='other'" />
+    <xed:cleanup-rule xpath="//mods:*/@xlink:type" relevant-if="text()!='simple'" />
+    <xed:cleanup-rule xpath="//mods:detail" relevant-if="mods:number|mods:caption|mods:title" />
+    <xed:cleanup-rule xpath="//mods:accessCondition[@type='copyrightMD']" relevant-if="string-length(cmd:copyright/cmd:rights.holder/cmd:name/text()) &gt; 0" />
+    <xed:cleanup-rule xpath="//mods:accessCondition[@type='restriction on access']" relevant-if="string-length(text()) &gt; 0" />
+    <xed:cleanup-rule xpath="//mods:accessCondition[@type='use and reproduction']" relevant-if="string-length(text()) &gt; 0" />
+    <xed:cleanup-rule xpath="//mods:extension[@displayLabel='characteristics']" relevant-if="(string-length(chars/@year) &gt; 0) or (string-length(chars/@refereed) &gt; 0)" />
+    <xed:cleanup-rule xpath="//structure/parents" relevant-if="false()" />
   </xed:template>
 
 </xed:template>

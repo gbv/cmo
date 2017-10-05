@@ -25,7 +25,7 @@
                 $(this).closest(".form-group").next($(this).attr("data-target")).toggleClass("hidden");
             }
             else {
-                $(this).closest("legend").toggleClass("hiddenDetail").next().toggleClass("hidden");
+                $(this).closest(".cmo-fieldset-modsName").toggleClass("hiddenDetail").next().toggleClass("hidden");
             }
             if($(this).hasClass("fa-chevron-down")) {
                 $(this).removeClass("fa-chevron-down");

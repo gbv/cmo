@@ -5,16 +5,16 @@
 
     <h1>Create new Bibliography</h1>
 
-    <xed:form xmlns:xed="http://www.mycore.de/xeditor" xmlns:mei="http://www.music-encoding.org/ns/mei" method="post" role="form" class="form-horizontal">
-      <xed:source uri="xslStyle:mycoreobject-editor,editor/mei2xeditor:mcrobject:{$id}" />
+    <xed:form xmlns:xed="http://www.mycore.de/xeditor" xmlns:mods="http://www.loc.gov/mods/v3" method="post" role="form" class="form-horizontal">
+      <xed:source uri="xslStyle:mycoreobject-editor,editor/mods2xeditor:mcrobject:{$id}" />
       <xed:cancel url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
       <xed:cancel url="{$cancelUrl}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
       <xed:cancel url="../content/index.html?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
-      <!-- xed:post-processor class="org.mycore.mei.MEIPostProcessor" / -->
+      <xed:post-processor xsl="editor/xeditor2mods.xsl" />
 
       <xed:bind xpath="/mycoreobject">
         <xed:bind xpath="@ID" initially="cmo_mods_00000000" />
-        <xed:bind xpath="metadata/def.modsContainer[@class='MCRMetaXML']/modsContainer/mods:mods">
+        <xed:bind xpath="metadata/def.modsContainer[@class='MCRMetaXML'][@notinherit='true']/modsContainer/mods:mods">
 
           <xed:include uri="webapp:editor/editor-includes.xed" ref="mycore.common" />
           <xed:include uri="webapp:editor/editor-includes.xed" ref="failed-validation-messages" />
@@ -25,43 +25,42 @@
           </xed:bind>
           <xed:bind xpath="mods:typeOfResource" initially="text"/>
 
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsTitle" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsName" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsIdentifier" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsGenre" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsPublisher" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsPlace" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsDateIssued" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsExtent" />
+          
           <fieldset>
-            <legend>
-              <xed:output i18n="editor.legend.bibliography" />
+            <legend class="cmo-fieldset-legend">
+              <xed:output i18n="editor.label.bibl.in" />
             </legend>
-
-            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsTitle" />
-            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsName" />
-
-            <!-- Button (Double) -->
-            <div class="form-group">
-              <label class="col-md-4 control-label" for="save"></label>
-              <div class="col-md-8">
-                <xed:choose>
-                  <xed:when test="contains(/mycoreobject/@ID, '_00000000')">
-                    <button id="save" class="btn btn-success createobject" type="submit" xed:target="servlet"
-                      xed:href="CreateObjectServlet">
-                      <xed:output i18n="common.button.save" />
-                    </button>
-                  </xed:when>
-                  <xed:otherwise>
-                    <button id="save" class="btn btn-success updateobject" type="submit" xed:target="servlet"
-                      xed:href="UpdateObjectServlet">
-                      <xed:output i18n="common.button.save" />
-                    </button>
-                  </xed:otherwise>
-                </xed:choose>
-                <xed:output value="'&#160;'" />
-                <button id="cancel" class="btn btn-danger" type="submit" xed:target="cancel">
-                  <xed:output i18n="common.button.cancel" />
-                </button>
-                <xed:output value="'&#160;'" />
-                <button id="debug" class="btn btn-info" type="submit" xed:target="debug">
-                  <xed:output i18n="common.button.debug" />
-                </button>
-              </div>
-            </div>
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsHostTitle" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsHostPages" />
+            <xed:bind xpath="mods:relatedItem[@type='host']">
+              <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsName" />
+              <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsPublisher" />
+              <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsPlace" />
+              <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsDateIssued" />
+            </xed:bind>
           </fieldset>
+
+          <fieldset>
+            <legend class="cmo-fieldset-legend">
+              <xed:output i18n="editor.legend.series" />
+            </legend>
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsSeriesTitle" />
+          </fieldset>
+          
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsNote" />
+
+          
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_saveCancelDebug" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="validation-rules" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_mods_cleanup-rules" />
         </xed:bind>
       </xed:bind>
     </xed:form>
