@@ -157,8 +157,7 @@ export class SearchDisplay {
 
     private displayExpression(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
         return `
-        ${this.displayHitTitle(doc, index, result)}
-        ${this.display("title", doc)}
+        ${this.displayHitTitle(doc, index, result, (doc)=> doc["title"])}
         ${this.displayRefField(doc, "composer.ref")}
         ${this.displayCategory(doc, "cmo_makamler")}
         ${this.displayCategory(doc, "cmo_usuler")}

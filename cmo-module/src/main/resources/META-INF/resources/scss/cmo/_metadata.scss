@@ -8,3 +8,13 @@
 .cmo_isArabic {
   direction: rtl;
 }
+
+#cmo_metadataSection {
+  td>ol {
+    padding-left: 0;
+  }
+
+  ol li {
+    list-style-type: none;
+  }
+}

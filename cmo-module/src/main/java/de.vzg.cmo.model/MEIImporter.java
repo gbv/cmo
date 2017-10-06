@@ -60,6 +60,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -136,11 +138,17 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
     private static final XPathExpression<Element> NAME_SOURCE_XPATH = XPathFactory.instance()
         .compile(".//mei:name[@source]", Filters.element(), null, MEIUtils.MEI_NAMESPACE);
 
+    private static final XPathExpression<Element> RELATION_IN_SOURCE_XPATH = XPathFactory.instance()
+        .compile("mei:relationList/mei:relation[@rel='isEmbodimentOf']", Filters.element(), null,
+            MEIUtils.MEI_NAMESPACE);
+
     private static final Map<String, String> cmo_mei_typeMapping = new HashMap<>();
 
     private static final Map<String, String> TEI_DATE_MEI_DATE_ATTR_MAP = new HashMap<>();
 
     private static final MCRCategoryDAO DAO = MCRCategoryDAOFactory.getInstance();
+
+    private static final Pattern N_PATTERN = Pattern.compile("([pPno]+\\. [0-9/\\-ab]+)$");
 
     private static XPathExpression<Element> DATE_ELEMENTS_ATTRS;
 
@@ -230,7 +238,6 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
         Files.walkFileTree(root, this);
         ConcurrentHashMap<String, Document> newSourceChilds = new ConcurrentHashMap<>();
 
-        extractChildren(sourceMap);
         extractChildren(workMap);
         extractChildren(expressionMap);
 
@@ -242,11 +249,11 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
         allCombinedMap.entrySet().stream().sequential().forEach((es) -> {
             Document v = es.getValue();
-            String k = es.getKey();
+            String cmoID = es.getKey();
 
-            MCRObjectID cmoID = createMyCoReID(k);
-            idMCRObjectIDMap.put(k, cmoID);
-            LOGGER.info("{} new id will be {}", k, cmoID.toString());
+            MCRObjectID mcrObjectID = createMyCoReID(cmoID);
+            idMCRObjectIDMap.put(cmoID, mcrObjectID);
+            LOGGER.info("{} new id will be {}", cmoID, mcrObjectID.toString());
         });
 
         personMap.forEach((cmoID, document) -> {
@@ -257,16 +264,20 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             NAME_SOURCE_XPATH.evaluate(rootElement).forEach(sourceCorrector);
         });
 
+        sourceMap.forEach((cmoID, document) -> {
+            convertSource(document.getRootElement());
+        });
+
         XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
 
         allCombinedMap.forEach((key, v) -> {
-            MCRObjectID cmoID = idMCRObjectIDMap.get(key);
-            Document sampleObject = MCRObjectFactory.getSampleObject(cmoID);
+            MCRObjectID mcrObjectID = idMCRObjectIDMap.get(key);
+            Document sampleObject = MCRObjectFactory.getSampleObject(mcrObjectID);
             MCRObject mcrObject = new MCRObject(sampleObject);
 
             MCRObjectMetadata metadata = mcrObject.getMetadata();
 
-            String typeId = cmoID.getTypeId();
+            String typeId = mcrObjectID.getTypeId();
             if ("mods".equals(typeId)) {
                 mcrObject.setSchema("datamodel-mods.xsd");
             } else {
@@ -376,12 +387,12 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
             try {
                 Files.createDirectories(targetFolder);
-                Path exportFile = targetFolder.resolve(cmoID + ".xml");
+                Path exportFile = targetFolder.resolve(mcrObjectID + ".xml");
                 try (OutputStream os = Files.newOutputStream(exportFile)) {
                     xmlOutputter.output(document, os);
                 }
             } catch (IOException e) {
-                LOGGER.error("Error while exporting file " + cmoID.toString() + " (" + key + ")", e);
+                LOGGER.error("Error while exporting file " + mcrObjectID.toString() + " (" + key + ")", e);
             }
         });
 
@@ -393,16 +404,17 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                 MCRCategoryID parentID = classification.getCategoryID(parentIDString);
                 MCRCategory category = DAO.getCategory(parentID, 1);
 
-                labels.stream().distinct().forEach(label->{
+                labels.stream().distinct().forEach(label -> {
                     String val = MCRMEIClassificationSupport.buildIDForLabel(label);
                     String id = parentID.getID() + "-" + val;
 
                     boolean exist = category.getChildren().stream().anyMatch(cat -> cat.getId().getID().equals(id));
                     if (exist) {
-                        LOGGER.info("Category already present: {} label:{} parentIDString:{}", label, label, parentIDString);
+                        LOGGER.info("Category already present: {} label:{} parentIDString:{}", label, label,
+                            parentIDString);
                     } else {
                         LOGGER.info("Create new child {} for {} !", label, parentIDString);
-                           MCRCategoryImpl child = new MCRCategoryImpl();
+                        MCRCategoryImpl child = new MCRCategoryImpl();
                         child.setId(new MCRCategoryID(parentID.getRootID(), id));
                         //child.setChildren(Collections.emptyList());
                         child.setLabels(Stream.of(new MCRLabel("tr", label, "")).collect(Collectors.toSet()));
@@ -421,6 +433,52 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             .map(type -> temp.resolve(type).toString())
             .map(pathToFolder -> "load all objects in topological order from directory " + pathToFolder)
             .collect(Collectors.toList());
+    }
+
+    public boolean convertSource(Element sourceElement) {
+        RELATION_IN_SOURCE_XPATH.evaluate(sourceElement).stream()
+            .forEach(relationElement -> {
+                String label = relationElement.getAttributeValue("label");
+                Matcher labelMatcher = N_PATTERN.matcher(label);
+                if (labelMatcher.find() && labelMatcher.groupCount() == 1) {
+                    String page = labelMatcher.group(1);
+                    relationElement.setAttribute("n", page);
+                    relationElement.removeAttribute("label");
+                } else {
+                    LOGGER.warn("No match for page in with label: {}", label);
+                }
+            });
+
+        Element componentGrp = sourceElement.getChild("componentGrp", MEIUtils.MEI_NAMESPACE);
+        if (componentGrp != null) {
+            List<Element> children = componentGrp.getChildren();
+            boolean componentGrpHasChildren = children.size() > 0;
+            Element relationList = sourceElement.getChild("relationList", MEIUtils.MEI_NAMESPACE);
+            if (componentGrpHasChildren) {
+                if (relationList == null) {
+                    relationList = new Element("relationList", MEIUtils.MEI_NAMESPACE);
+                    sourceElement.addContent(relationList);
+                }
+                final Element finalRelationList = relationList;
+                List<Element> toDelete = children.stream().filter(child -> {
+                    boolean childHasCG = this.convertSource(child);
+                    if (!childHasCG) {
+                        Element childGrp = child.getChild("relationList", MEIUtils.MEI_NAMESPACE);
+                        if (childGrp != null) {
+                            childGrp.getChildren()
+                                .stream()
+                                .map(Element::detach)
+                                .forEach(finalRelationList::addContent);
+                        }
+                        return true;
+                    }
+                    return false;
+                }).collect(Collectors.toList());
+                toDelete.forEach(Element::detach);
+            }
+            return componentGrpHasChildren;
+        }
+        return false;
     }
 
     public Consumer<Element> getElementCorrector(String cmoID, String attrName) {

@@ -75,6 +75,17 @@
   </xsl:template>
 
 
+  <xsl:template name="metadataSoloContent">
+    <xsl:param name="content" />
+
+    <tr>
+      <td colspan="2" class="col-md-12">
+        <xsl:variable name="rTree" select="exslt:node-set($content)" />
+        <xsl:copy-of select="$rTree" />
+      </td>
+    </tr>
+  </xsl:template>
+
   <xsl:template name="metadataContainer">
     <xsl:param name="content" />
     <table class="table">
@@ -156,7 +167,7 @@
                 </xsl:call-template>
 
                 <xsl:variable name="grandChildren"
-                  select="document(concat('solr:q=parent:', @xlink:href, '&amp;rows=1000&amp;fl=id'))/response/result" />
+                              select="document(concat('solr:q=parent:', @xlink:href, '&amp;rows=1000&amp;fl=id'))/response/result" />
                 <xsl:if test="$grandChildren/@numFound &gt; 0">
                   <ul>
                     <xsl:for-each select="$grandChildren/doc">
@@ -192,11 +203,13 @@
   <xsl:template name="printEdition">
     <xsl:param name="id" />
 
-    <xsl:variable name="query" select="concat('mods.relatedItem.references:', $id)"/>
+    <xsl:variable name="query" select="concat('mods.relatedItem.references:', $id)" />
     <xsl:variable name="hits" xmlns:encoder="xalan://java.net.URLEncoder"
                   select="document(concat('solr:q=',encoder:encode($query), '&amp;rows=1000'))" />
 
-    <xsl:comment>Edition Query: <xsl:value-of select="$query" /></xsl:comment>
+    <xsl:comment>Edition Query:
+      <xsl:value-of select="$query" />
+    </xsl:comment>
     <xsl:if test="$hits//result[@name='response']/@numFound &gt; 0">
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="label" select="'editor.label.edition'" />
