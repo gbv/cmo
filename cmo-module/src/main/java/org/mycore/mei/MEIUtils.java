@@ -63,7 +63,6 @@ import org.jdom2.Parent;
 import org.jdom2.ProcessingInstruction;
 import org.jdom2.Text;
 import org.jdom2.filter.Filters;
-import org.jdom2.output.XMLOutputter;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 
@@ -132,13 +131,10 @@ public class MEIUtils {
 
     public static void clearCircularDependency(Element root) {
         PERSON_ANALOG_XPATH.evaluate(root).forEach(attribute -> {
-            LOGGER.info(() -> "Remove(attribute @analog) to clear circular dependencys: " + new XMLOutputter()
-                .outputString(attribute.getParent()));
             attribute.getParent().removeAttribute(attribute);
         });
 
         EMBODIMENT_RELATION.evaluate(root).forEach(element -> {
-            LOGGER.info(() -> "Remove to clear circular dependencys: " + new XMLOutputter().outputString(element));
             element.getParent().removeContent(element);
         });
     }

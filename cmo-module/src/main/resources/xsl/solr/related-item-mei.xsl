@@ -5,6 +5,7 @@
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
                 xmlns:mcrxml="xalan://org.mycore.common.xml.MCRXMLFunctions"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns:meiDate="xalan://org.mycore.mei.MCRDateHelper"
                 exclude-result-prefixes="mods mei xlink">
   <xsl:import href="xslImport:solr-document:solr/related-item-mei.xsl" />
 
@@ -70,28 +71,8 @@
     <xsl:param name="originInfo" />
     <xsl:param name="fieldSuffix" select="''" />
 
-
-    <xsl:variable name="start"
-                  select="$originInfo/mods:dateIssued[@point='start']" />
-    <xsl:variable name="end"
-                  select="$originInfo/mods:dateIssued[@point='end']" />
-    <xsl:variable name="default"
-                  select="$originInfo/mods:dateIssued" />
     <xsl:variable name="issueDateRange">
-      <xsl:choose>
-        <xsl:when test="$start and $end">
-          <xsl:value-of select="concat('[', $start, '-', $end,']')" />
-        </xsl:when>
-        <xsl:when test="$start">
-          <xsl:value-of select="concat('[', $start, '-*]')" />
-        </xsl:when>
-        <xsl:when test="$end">
-          <xsl:value-of select="concat('[*-', $end,']')" />
-        </xsl:when>
-        <xsl:when test="$default">
-          <xsl:value-of select="$default" />
-        </xsl:when>
-      </xsl:choose>
+      <xsl:value-of select="meiDate:getSolrDateFieldContent($originInfo/mods:dateIssued)" />
     </xsl:variable>
 
     <xsl:if test="string-length($issueDateRange)&gt;0">

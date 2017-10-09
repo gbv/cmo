@@ -41,8 +41,27 @@ public class MCRDateHelper {
         dr.setHighBound(dateNode.getAttribute("enddate"));
         dr.setLowBound(dateNode.getAttribute("notbefore"));
         dr.setHighBound(dateNode.getAttribute("notafter"));
+        dr.setLowBound(dateNode.getAttribute("start"));
+        dr.setHighBound(dateNode.getAttribute("end"));
 
-        return dr.getSOLRString();
+        String solrString = dr.getSOLRString();
+        if (solrString != null) {
+            return solrString;
+        } else {
+            String textContent = dateNode.getTextContent();
+            textContent = textContent.replace('\u2013', '-');
+            if (textContent.contains("-")) {
+                String[] dates = textContent.split("-");
+                if (dates.length > 0) {
+                    dr.setLowBound(dates[0]);
+                }
+                if (dates.length > 1) {
+                    dr.setHighBound(dates[1]);
+                }
+                return dr.getSOLRString();
+            }
+            return null;
+        }
     }
 
     private static class DateRange {
@@ -129,10 +148,12 @@ public class MCRDateHelper {
                 } else {
                     return "[" + lb + " TO " + hb + "]";
                 }
-            } else if (hb == null) {
+            } else if (lb != null) {
                 return "[" + lb + " TO *]";
-            } else {
+            } else if (hb != null) {
                 return "[* TO " + hb + "]";
+            } else {
+                return null;
             }
 
         }

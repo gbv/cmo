@@ -26,8 +26,11 @@
                 xmlns:tei="http://www.tei-c.org/ns/1.0"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:mods="http://www.loc.gov/mods/v3"
-                exclude-result-prefixes="mods"
-                version="3.0">
+                xmlns:xalan="http://xml.apache.org/xalan"
+                xmlns:pageHelper="xalan://org.mycore.mods.MCRMODSPagesHelper"
+                xmlns:exslt="http://exslt.org/common"
+                exclude-result-prefixes="mods xalan pageHelper"
+                version="1.0">
 
   <xsl:output indent="yes" />
 
@@ -40,7 +43,7 @@
   <xsl:template match="/tei:bibl">
     <mods:mods>
 
-      <xsl:apply-templates select="tei:title" />
+      <xsl:apply-templates select="tei:title[not(@type='sub')]" />
       <xsl:apply-templates select="tei:author" />
       <xsl:apply-templates select="tei:editor" />
       <xsl:apply-templates select="tei:respStmt" />
@@ -49,10 +52,14 @@
 
       <xsl:choose>
         <xsl:when test="tei:bibl[@type='in']">
-          <mods:genre valueURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres#article" authorityURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres" type="intern"/>
+          <mods:genre valueURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres#article"
+                      authorityURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres"
+                      type="intern" />
         </xsl:when>
         <xsl:otherwise>
-          <mods:genre valueURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres#book" authorityURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres" type="intern"/>
+          <mods:genre valueURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres#book"
+                      authorityURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres"
+                      type="intern" />
         </xsl:otherwise>
       </xsl:choose>
 
@@ -73,9 +80,9 @@
       <xsl:apply-templates select="tei:ref" />
       <xsl:apply-templates select="tei:note" />
       <xsl:apply-templates select="tei:bibl[@type='in']" />
+      <mods:typeOfResource>text</mods:typeOfResource>
     </mods:mods>
   </xsl:template>
-
 
   <xsl:template match="@xml:id">
     <mods:identifier type="cmo_intern">
@@ -92,7 +99,13 @@
   <xsl:template match="tei:author">
     <xsl:choose>
       <xsl:when test="contains(., ';')">
-        <xsl:for-each select="tokenize(., ';')">
+        <xsl:variable name="tags">
+          <xsl:call-template name="tokenize">
+            <xsl:with-param name="pText" select="." />
+            <xsl:with-param name="seperator" select="';'" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:for-each select="exslt:node-set($tags)/tag">
           <xsl:call-template name="printName">
             <xsl:with-param name="displayName" select="normalize-space(.)" />
           </xsl:call-template>
@@ -110,13 +123,41 @@
     <mods:titleInfo>
       <xsl:if test="@xml:lang">
         <xsl:attribute name="xml:lang">
-          <xsl:value-of select="@xml:lang" />
+          <xsl:call-template name="convertLanguage">
+            <xsl:with-param name="lang" select="@xml:lang" />
+          </xsl:call-template>
         </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@type='alt'">
+        <xsl:attribute name="type">
+          <xsl:value-of select="'alternative'" />
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@type='main'">
+        <xsl:for-each select="../tei:title[@type='sub']">
+          <mods:subTitle>
+            <xsl:value-of select="text()" />
+          </mods:subTitle>
+        </xsl:for-each>
       </xsl:if>
       <mods:title>
         <xsl:value-of select="." />
       </mods:title>
     </mods:titleInfo>
+  </xsl:template>
+
+  <xsl:template name="tokenize">
+    <xsl:param name="pText" />
+    <xsl:param name="seperator" />
+    <xsl:if test="string-length($pText)&gt;0">
+      <tag>
+        <xsl:value-of select="substring-before($pText, $seperator)" />
+      </tag>
+      <xsl:call-template name="tokenize">
+        <xsl:with-param name="pText" select="substring-after($pText, $seperator)" />
+        <xsl:with-param name="seperator" select="$seperator" />
+      </xsl:call-template>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="tei:respStmt">
@@ -185,15 +226,23 @@
       <xsl:when test="(@notBefore != .) or (@notAfter != .)">
         <mods:dateIssued qualifier="approximate">
           <xsl:if test="@calendar and substring-after(@calendar, '#') != 'gregorian'">
-            <xsl:attribute name="transliteration"><xsl:value-of select="substring-after(@calendar, '#')" /></xsl:attribute>
+            <xsl:attribute name="transliteration">
+              <xsl:value-of select="substring-after(@calendar, '#')" />
+            </xsl:attribute>
           </xsl:if>
           <xsl:value-of select="." />
         </mods:dateIssued>
-        <mods:dateIssued encoding="w3cdtf" point="start"><xsl:value-of select="@notBefore" /></mods:dateIssued>
-        <mods:dateIssued encoding="w3cdtf" point="end"><xsl:value-of select="@notAfter" /></mods:dateIssued>
+        <mods:dateIssued encoding="w3cdtf" point="start">
+          <xsl:value-of select="@notBefore" />
+        </mods:dateIssued>
+        <mods:dateIssued encoding="w3cdtf" point="end">
+          <xsl:value-of select="@notAfter" />
+        </mods:dateIssued>
       </xsl:when>
       <xsl:otherwise>
-        <mods:dateIssued encoding="w3cdtf"><xsl:value-of select="." /></mods:dateIssued>
+        <mods:dateIssued encoding="w3cdtf">
+          <xsl:value-of select="." />
+        </mods:dateIssued>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -219,7 +268,9 @@
       <mods:titleInfo>
         <xsl:if test="@xml:lang">
           <xsl:attribute name="xml:lang">
-            <xsl:value-of select="@xml:lang" />
+            <xsl:call-template name="convertLanguage">
+              <xsl:with-param name="lang" select="@xml:lang" />
+            </xsl:call-template>
           </xsl:attribute>
         </xsl:if>
         <mods:title>
@@ -246,6 +297,36 @@
     </mods:note>
   </xsl:template>
 
+  <xsl:template name="convertLanguage">
+    <xsl:param name="lang" />
+    <xsl:choose>
+      <xsl:when test="$lang='tur'">
+        <xsl:text>tr</xsl:text>
+      </xsl:when>
+      <xsl:when test="$lang='ara'">
+        <xsl:text>ar</xsl:text>
+      </xsl:when>
+      <xsl:when test="$lang='fra'">
+        <xsl:text>fr</xsl:text>
+      </xsl:when>
+      <xsl:when test="$lang='ell'">
+        <xsl:text>el</xsl:text>
+      </xsl:when>
+      <xsl:when test="$lang='eng'">
+        <xsl:text>en</xsl:text>
+      </xsl:when>
+      <xsl:when test="$lang='fas'">
+        <xsl:text>fa</xsl:text>
+      </xsl:when>
+      <xsl:when test="$lang='hye'">
+        <xsl:text>hy</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$lang" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template match="tei:bibl[@type='in']">
     <mods:relatedItem type="host">
       <mods:part>
@@ -255,14 +336,12 @@
         <mods:detail type="volume">
           <mods:number>77 (2017)</mods:number>
         </mods:detail -->
-        <mods:extent unit="pages">
-          <mods:list>
-            <xsl:value-of select="tei:biblScope" />
-          </mods:list>
-        </mods:extent>
+        <xsl:if test="string-length(tei:biblScope/text()) &gt; 0">
+          <xsl:copy-of select="pageHelper:buildExtentPagesNodeSet(tei:biblScope/text())" />
+        </xsl:if>
       </mods:part>
 
-      <xsl:apply-templates select="tei:title" />
+      <xsl:apply-templates select="tei:title[not(@type='sub')]" />
       <xsl:apply-templates select="tei:author" />
       <xsl:apply-templates select="tei:editor" />
       <xsl:apply-templates select="tei:respStmt" />

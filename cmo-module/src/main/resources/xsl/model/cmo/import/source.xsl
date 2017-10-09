@@ -51,17 +51,18 @@
 
   <xsl:template match="mei:source">
     <mei:source>
+      <xsl:apply-templates select='@*|node()' />
       <xsl:if test="mei:physDesc/mei:provenance">
         <mei:history>
           <xsl:apply-templates select="mei:physDesc/mei:provenance/mei:eventList" mode="copy"/>
         </mei:history>
       </xsl:if>
-      <xsl:apply-templates select='@*|node()' />
     </mei:source>
   </xsl:template>
 
   <xsl:template match="//mei:titleStmt[not(mei:title)]">
     <xsl:copy>
+      <xsl:apply-templates select="@*|node()" />
       <xsl:choose>
         <xsl:when test="../mei:identifier">
           <mei:title>
@@ -72,7 +73,6 @@
           <xsl:message terminate="yes">Could not find a title to insert!</xsl:message>
         </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|node()" />
     </xsl:copy>
   </xsl:template>
 
