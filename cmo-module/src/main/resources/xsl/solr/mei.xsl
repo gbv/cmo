@@ -32,18 +32,6 @@
 
   </xsl:template>
 
-  <xsl:template match="mei:persName" mode="solrIndex">
-    <xsl:apply-templates select="@*|*" mode="solrIndex" />
-
-    <xsl:if test="../../../../@ID">
-      <xsl:variable name="roles" select="meiIndexUtils:getRolesOfPerson(../../../../@ID)" />
-      <xsl:for-each select="$roles">
-        <field name="mei.role.{@name}">
-          <xsl:value-of select="@in" />
-        </field>
-      </xsl:for-each>
-    </xsl:if>
-  </xsl:template>
 
   <xsl:template match="*|@*" mode="solrIndex">
     <xsl:comment>Process:
@@ -162,13 +150,25 @@
       <field name="composer.ref">
         <xsl:value-of select="concat(.,'|',@nymref)" />
       </field>
+      <field name="composer.ref.pure">
+        <xsl:value-of select="@nymref" />
+      </field>
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="mei:titleStmt/mei:lyricist" mode="solrIndex">
+  <xsl:template match="mei:titleStmt/mei:lyricist/mei:persName" mode="solrIndex">
     <field name="lyricist">
       <xsl:value-of select="." />
     </field>
+
+    <xsl:if test="@nymref">
+      <field name="lyricist.ref">
+        <xsl:value-of select="concat(.,'|',@nymref)" />
+      </field>
+      <field name="lyricist.ref.pure">
+        <xsl:value-of select="@nymref" />
+      </field>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:author" mode="solrIndex">

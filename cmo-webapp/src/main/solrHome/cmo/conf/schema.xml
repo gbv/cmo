@@ -482,6 +482,7 @@
   <!-- mei:composer -->
   <field name="composer" type="text_tr" multiValued="true" />
   <field name="composer.ref" type="string" multiValued="true" />
+  <field name="composer.ref.pure" type="string" multiValued="true" />
 
   <field name="author" type="text_tr" multiValued="true" />
   <field name="author.ref" type="string" multiValued="true" />
@@ -492,6 +493,8 @@
   <field name="identifier" type="string" multiValued="true" />
 
   <field name="lyricist" type="text_tr" multiValued="true" />
+  <field name="lyricist.ref" type="string" multiValued="true" />
+  <field name="lyricist.ref.pure" type="string" multiValued="true" />
 
   <field name="respStmt" type="text_tr" multiValued="true" />
   <dynamicField name="respStmt.*" type="text_tr" multiValued="true" />

@@ -71,10 +71,24 @@
     <xsl:param name="originInfo" />
     <xsl:param name="fieldSuffix" select="''" />
 
-    <xsl:variable name="issueDateRange">
-      <xsl:value-of select="meiDate:getSolrDateFieldContent($originInfo/mods:dateIssued)" />
-    </xsl:variable>
 
+    <xsl:variable name="start"
+                  select="$originInfo/mods:dateIssued[@point='start']" />
+    <xsl:variable name="end"
+                  select="$originInfo/mods:dateIssued[@point='end']" />
+    <xsl:variable name="issueDateRange">
+      <xsl:choose>
+        <xsl:when test="$start and $end">
+          <xsl:value-of select="concat('[', $start, '-', $end,']')" />
+        </xsl:when>
+        <xsl:when test="$start">
+          <xsl:value-of select="concat('[', $start, '-*]')" />
+        </xsl:when>
+        <xsl:when test="$end">
+          <xsl:value-of select="concat('[*-', $end,']')" />
+        </xsl:when>
+      </xsl:choose>
+    </xsl:variable>
     <xsl:if test="string-length($issueDateRange)&gt;0">
       <field name="{concat('mods.dateIssued',$fieldSuffix,'.range')}">
         <xsl:value-of select="$issueDateRange" />

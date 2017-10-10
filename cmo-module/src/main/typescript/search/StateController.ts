@@ -3,7 +3,7 @@ export class StateController {
     static setState(state: Array<Array<string>>) {
         let paramPart = state.map((kv) => {
             let [ key ] = kv;
-            return kv.slice(1).map(v => `${key}=${v}`).join("&");
+            return kv.slice(1).map(v => `${key}=${encodeURIComponent(v)}`).join("&");
         }).join("&");
 
         //window.history.pushState({}, document.title, window.document.location.toString().split("#")[ 0 ] + "#" +
@@ -52,7 +52,6 @@ export class StateController {
         let [ , hash ] = newURL.split("#", 2);
 
         if (typeof hash !== "undefined") {
-            hash = decodeURIComponent(hash);
 
             let params = hash.split("&");
             let groupObj = {};
@@ -63,7 +62,7 @@ export class StateController {
                     if (!(key in groupObj)) {
                         groupObj[ key ] = [];
                     }
-                    groupObj[ key ].push(value);
+                    groupObj[ key ].push(decodeURIComponent(value));
                 }
             });
 

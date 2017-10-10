@@ -159,8 +159,8 @@ kSearch.addExtended({
         fields : [
             new SearchField("editor.label.name", [ "name", "name.general" ]),
             new DateSearchField("editor.label.lifeData", [ "birth.date.range", "death.date.range" ]),
-            new CheckboxSearchField("editor.label.composer", "mei.role.composer", "*"),
-            new CheckboxSearchField("editor.label.lyricist", "mei.role.lyricist", "*")
+            new CheckboxSearchField("editor.label.composer", "{!join from=composer.ref.pure to=id}composer.ref.pure", "*"),
+            new CheckboxSearchField("editor.label.lyricist", "{!join from=lyricist.ref.pure to=id}lyricist.ref.pure", "*")
         ],
 
     },
