@@ -1,4 +1,4 @@
-import {Utils} from "../other/utils";
+import {UserInputParser, Utils} from "../other/utils";
 import {I18N} from "../other/I18N";
 import {Classification, ClassificationCategory, ClassificationResolver} from "../other/Classification";
 
@@ -206,18 +206,11 @@ export class SearchGUI {
         let solrQueryParts = [ this.baseQuery ];
 
         if (this.mainSearchInputElement.value.trim().length > 0) {
-            this.mainSearchInputElement.value
-                .split(" ")
-                .map(searchWord => searchWord.trim())
-                .filter(searchWord => searchWord.length > 0)
-                .map(searchWord => {
-                    let trimSearchWord = searchWord.trim();
-                    return `allMeta:${
-                        trimSearchWord.charAt(0) == "\"" && trimSearchWord.charAt(trimSearchWord.length - 1) == "\"" ?
-                            trimSearchWord : trimSearchWord.replace("\"", "\\\"")
-                        }`
-                })
-                .forEach(qp => solrQueryParts.push(qp));
+            let iter = UserInputParser.parseUserInput(this.mainSearchInputElement.value);
+            let next: IteratorResult<string>;
+            while (!(next = iter.next()).done) {
+                solrQueryParts.push(`allMeta:${next.value}`);
+            }
         }
 
         if (this.isExtendedSearchOpen() || this.wasExtendedSearchOpen()) {
@@ -439,7 +432,7 @@ export class TextSearchFieldInput extends SearchFieldInput {
     public getSolrQueryPart(): string {
         if (this.input.value.trim().length > 0) {
             if (this.searchFields.length > 1) {
-                return `(${this.searchFields.map(sf => `${sf}:"${this.input.value}"`).join(" OR ")})`
+                return `(${this.searchFields.map(sf => `${sf}:"${UserInputParser.escapeSpecialCharacters(this.input.value)}"`).join(" OR ")})`
             } else {
                 return `${this.searchFields}:"${this.input.value}"`
             }
@@ -457,6 +450,69 @@ export class TextSearchFieldInput extends SearchFieldInput {
     }
 }
 
+export class CheckboxSearchFieldInput extends SearchFieldInput {
+    constructor(searchfields: string[], label: string, private value: string) {
+        super(searchfields, label);
+        this.init();
+    }
+
+    private root: HTMLElement;
+    private labelElement: HTMLElement;
+    private _template: string;
+    private input: HTMLInputElement;
+
+    public init() {
+        this._template = `
+              <div class="form-group">
+                  <div class="col-md-4 control-label form-inline"></div>
+                  <div class="controls col-md-8">
+                      <div class="checkbox">
+                        <label>
+                            <input type="checkbox"/>
+                            <span class="slabel"></span>
+                        </label>
+                      </div>
+                  </div>
+              </div>
+            `;
+        this.root = <HTMLElement>document.createElement("div");
+        this.root.classList.add("row");
+        this.root.innerHTML = this._template;
+        this.labelElement = <HTMLElement>this.root.querySelector(".slabel");
+        this.input = <HTMLInputElement>this.root.querySelector("input");
+
+        this.input.addEventListener("change", () => {
+            this.changed()
+        });
+
+        I18N.translate(this.label, (translation) => {
+            this.labelElement.innerText = translation;
+        });
+    }
+
+    public attach(to: HTMLElement) {
+        to.appendChild(this.root);
+    }
+
+    public detach(from: HTMLElement) {
+        from.removeChild(this.root);
+    }
+
+    getSolrQueryPart(): string {
+        return this.input.checked ? this.searchFields[ 0 ] + ":" + this.value : null;
+    }
+
+    setValue(value: any) {
+        if (value == this.value) {
+            this.input.checked = true;
+        }
+    }
+
+    reset() {
+
+    }
+
+}
 
 export class ClassificationSearchFieldInput extends SearchFieldInput {
 
@@ -656,7 +712,7 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
 
     public getSolrQueryPart(): string {
         if (this.isRangeSelected()) {
-            let val1 = this.inputFrom.value, val2 = this.inputTo.value;
+            let val1 = this.inputFrom.value, val2 = UserInputParser.escapeSpecialCharacters(this.inputTo.value);
             if (val1.trim().length > 0 && val2.trim().length > 0) {
                 return this.getQueryForValue(`[${val1} TO ${val2}]`);
             } else if (val1.trim().length > 0) {

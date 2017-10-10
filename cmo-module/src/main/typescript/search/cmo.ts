@@ -1,4 +1,5 @@
 import {
+    CheckboxSearchField,
     ClassificationSearchField, DateSearchField, SearchController, SearchField,
 
 } from 'search/SearchComponent';
@@ -158,6 +159,8 @@ kSearch.addExtended({
         fields : [
             new SearchField("editor.label.name", [ "name", "name.general" ]),
             new DateSearchField("editor.label.lifeData", [ "birth.date.range", "death.date.range" ]),
+            new CheckboxSearchField("editor.label.composer", "mei.role.composer", "*"),
+            new CheckboxSearchField("editor.label.lyricist", "mei.role.lyricist", "*")
         ],
 
     },

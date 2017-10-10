@@ -38,5 +38,50 @@ export class CombinedCallback<T> {
 }
 
 
+export class UserInputParser {
 
+    public static * parseUserInput(input: string) {
+        let state = {
+            quotePos : -1,
+            spacePos : -1,
+            lastCompleteFieldPos : 0
+        };
+
+        for (let i = 0; i < input.length; i++) {
+            let currentChar = input[ i ];
+            switch (currentChar) {
+                case '"':
+                    if (state.quotePos !== -1) {
+                        let qp = state.quotePos;
+                        state.quotePos = -1;
+                        state.lastCompleteFieldPos = i + 1;
+                        yield input.substring(qp, i + 1);
+                    } else {
+                        state.quotePos = i;
+                    }
+                    break;
+                case ' ':
+                    if (state.quotePos == -1) {
+                        let lcp = state.lastCompleteFieldPos;
+                        state.lastCompleteFieldPos = i + 1;
+                        yield UserInputParser.escapeSpecialCharacters(input.substring(lcp, i));
+                    }
+                    break;
+            }
+        }
+        if (state.lastCompleteFieldPos < input.length) {
+            let lcp = state.lastCompleteFieldPos;
+            state.lastCompleteFieldPos = input.length;
+            yield UserInputParser.escapeSpecialCharacters(input.substring(lcp, input.length));
+        }
+    }
+
+    public static escapeSpecialCharacters(str: string): string {
+        let searchValue = /[\+\-\!\(\)\{\}\[\]\^\"\~\*\?\:\\\/\&\|]/g;
+        return str.replace(searchValue, (char) => {
+            return "\\" + char;
+        });
+    }
+
+}
 

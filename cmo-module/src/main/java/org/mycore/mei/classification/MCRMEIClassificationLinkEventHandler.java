@@ -46,6 +46,7 @@ public class MCRMEIClassificationLinkEventHandler extends MCREventHandlerBase {
                 valueList.forEach(categValue -> {
                     MCRCategoryID categoryID = classification.getCategoryID(categValue);
                     if (categoryID == null) {
+
                         LOGGER.warn("Could not find unknown classification: {} -> {},{}", obj.getId().toString(),
                             classification.toString(), categValue.toString());
                     }

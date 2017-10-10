@@ -5,6 +5,7 @@
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
                 xmlns:mcrxml="xalan://org.mycore.common.xml.MCRXMLFunctions"
                 xmlns:meiDate="xalan://org.mycore.mei.MCRDateHelper"
+                xmlns:meiIndexUtils="xalan://org.mycore.mei.indexing.MEIIndexUtils"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 exclude-result-prefixes="mods mei xlink">
   <xsl:import href="xslImport:solr-document:solr/mei.xsl" />
@@ -29,6 +30,19 @@
 
     <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/*" mode="solrIndex" />
 
+  </xsl:template>
+
+  <xsl:template match="mei:persName" mode="solrIndex">
+    <xsl:apply-templates select="@*|*" mode="solrIndex" />
+
+    <xsl:if test="../../../../@ID">
+      <xsl:variable name="roles" select="meiIndexUtils:getRolesOfPerson(../../../../@ID)" />
+      <xsl:for-each select="$roles">
+        <field name="mei.role.{@name}">
+          <xsl:value-of select="@in" />
+        </field>
+      </xsl:for-each>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="*|@*" mode="solrIndex">

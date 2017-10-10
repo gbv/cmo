@@ -1,6 +1,9 @@
 import {I18N} from 'other/I18N'
 import {Classification, ClassificationResolver} from 'other/Classification'
-import {ClassificationSearchFieldInput, DateSearchFieldInput, SearchGUI, TextSearchFieldInput} from "./SearchFormGUI";
+import {
+    CheckboxSearchFieldInput, ClassificationSearchFieldInput, DateSearchFieldInput, SearchGUI,
+    TextSearchFieldInput
+} from "./SearchFormGUI";
 import {Utils} from "../other/utils";
 import {SearchFacetController} from "./SearchFacet";
 
@@ -113,6 +116,9 @@ export class SearchController {
             } else if (input instanceof DateSearchField) {
                 let dateField = <DateSearchField> input;
                 this.view.addExtendedField(name, new DateSearchFieldInput(dateField.solrSearchFields, input.label))
+            } else if (input instanceof CheckboxSearchField) {
+                let osf = <CheckboxSearchField>input;
+                this.view.addExtendedField(name, new CheckboxSearchFieldInput(osf.solrSearchFields, input.label, osf.value))
             } else if (input instanceof SearchField) {
                 let textField = <SearchField> input;
                 this.view.addExtendedField(name, new TextSearchFieldInput(textField.solrSearchFields, input.label));
@@ -191,6 +197,19 @@ export class ClassificationSearchField extends SearchField {
     get className(): string {
         return this._className;
     }
+}
+
+
+export class CheckboxSearchField extends SearchField {
+    constructor(label: string, searchfield: string, private _value: string) {
+        super(label, [ searchfield ]);
+    }
+
+
+    get value(): string {
+        return this._value;
+    }
+
 }
 
 
