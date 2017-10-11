@@ -17,10 +17,30 @@
     </field>
 
     <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/*/mei:classification/mei:termList/mei:term" />
+    <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/*/mei:langUsage/mei:language" />
+
   </xsl:template>
 
   <xsl:template match="mei:term">
     <xsl:variable name="uri" select="mcrmei:getClassificationLinkFromTerm(.)" />
+    <xsl:call-template name="indexClass">
+      <xsl:with-param name="uri" select="$uri" />
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template match="mei:*[@authority and @xml:id]">
+    <xsl:variable name="uri" select="mcrmei:getClassificationLinkFromTerm(.)" />
+    <xsl:call-template name="indexClass">
+      <xsl:with-param name="uri" select="$uri" />
+    </xsl:call-template>
+
+    <xsl:if test="name()='mei:langUsage'">
+      <field name="langugage.{@authority}"><xsl:value-of select="@xml:id" /></field>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="indexClass">
+    <xsl:param name="uri" />
     <xsl:if
       test="string-length($uri) &gt; 0 and string-length(substring-after(substring-after($uri,'parents:'),':')) &gt; 0">
       <xsl:variable name="topField" select="true()" /> <!-- TODO: not(ancestor::mods:relatedItem) -->
@@ -40,6 +60,7 @@
       </xsl:if>
     </xsl:if>
   </xsl:template>
+
 
 
 </xsl:stylesheet>

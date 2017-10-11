@@ -27,6 +27,7 @@
                 version="1.0">
 
   <xsl:output indent="yes" />
+  <xsl:include href="import-util.xsl" />
 
   <xsl:template match='@*|node()'>
     <xsl:copy>
@@ -75,5 +76,23 @@
       </xsl:choose>
     </xsl:copy>
   </xsl:template>
+
+  <xsl:template match="mei:language">
+    <xsl:copy>
+      <xsl:attribute name="authority">
+        <xsl:call-template name="detectClassification">
+          <xsl:with-param name="lang" select="@xml:id" />
+        </xsl:call-template>
+      </xsl:attribute>
+      <xsl:attribute name="xml:id">
+        <xsl:call-template name="convertLanguage">
+          <xsl:with-param name="lang" select="@xml:id" />
+        </xsl:call-template>
+      </xsl:attribute>
+      <xsl:apply-templates select="@*[not(name()='xml:id')]|node()" />
+    </xsl:copy>
+  </xsl:template>
+
+
 
 </xsl:stylesheet>

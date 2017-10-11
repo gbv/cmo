@@ -33,6 +33,7 @@
                 version="1.0">
 
   <xsl:output indent="yes" />
+  <xsl:include href="import-util.xsl" />
 
   <xsl:variable name="ID" select="/tei:bibl/@xml:id" />
 
@@ -297,35 +298,7 @@
     </mods:note>
   </xsl:template>
 
-  <xsl:template name="convertLanguage">
-    <xsl:param name="lang" />
-    <xsl:choose>
-      <xsl:when test="$lang='tur'">
-        <xsl:text>tr</xsl:text>
-      </xsl:when>
-      <xsl:when test="$lang='ara'">
-        <xsl:text>ar</xsl:text>
-      </xsl:when>
-      <xsl:when test="$lang='fra'">
-        <xsl:text>fr</xsl:text>
-      </xsl:when>
-      <xsl:when test="$lang='ell'">
-        <xsl:text>el</xsl:text>
-      </xsl:when>
-      <xsl:when test="$lang='eng'">
-        <xsl:text>en</xsl:text>
-      </xsl:when>
-      <xsl:when test="$lang='fas'">
-        <xsl:text>fa</xsl:text>
-      </xsl:when>
-      <xsl:when test="$lang='hye'">
-        <xsl:text>hy</xsl:text>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$lang" />
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
+
 
   <xsl:template match="tei:bibl[@type='in']">
     <mods:relatedItem type="host">

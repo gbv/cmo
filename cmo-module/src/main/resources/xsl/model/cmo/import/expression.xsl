@@ -26,6 +26,9 @@
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
                 version="1.0">
 
+
+  <xsl:include href="import-util.xsl" />
+
   <xsl:template match='@*|node()'>
     <xsl:copy>
       <xsl:apply-templates select='@*|node()' />
@@ -40,5 +43,22 @@
       <xsl:apply-templates select="@*|node()" />
     </xsl:copy>
   </xsl:template>
+
+  <xsl:template match="mei:language[@xml:id]">
+    <xsl:copy>
+      <xsl:attribute name="authority">
+        <xsl:call-template name="detectClassification">
+          <xsl:with-param name="lang" select="@xml:id" />
+        </xsl:call-template>
+      </xsl:attribute>
+      <xsl:attribute name="xml:id">
+        <xsl:call-template name="convertLanguage">
+          <xsl:with-param name="lang" select="@xml:id" />
+        </xsl:call-template>
+      </xsl:attribute>
+      <xsl:apply-templates select="@*[not(name()='xml:id')]|node()" />
+    </xsl:copy>
+  </xsl:template>
+
 
 </xsl:stylesheet>
