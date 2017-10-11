@@ -107,13 +107,27 @@
     </analyzer>
   </fieldType>
   <fieldType name="text_de" class="solr.TextField" positionIncrementGap="100">
-    <analyzer>
-      <tokenizer class="solr.StandardTokenizerFactory"/>
-      <filter class="solr.LowerCaseFilterFactory"/>
-      <filter class="solr.StopFilterFactory" format="snowball" words="lang/stopwords_de.txt" ignoreCase="true"/>
-      <filter class="solr.GermanNormalizationFilterFactory"/>
-      <filter class="solr.GermanLightStemFilterFactory"/>
+    <analyzer type="index">
+      <tokenizer class="solr.ICUTokenizerFactory" />
+      <filter class="solr.WordDelimiterGraphFilterFactory" />
+      <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+      <filter class="solr.ICUFoldingFilterFactory" />
+      <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt" />
+      <filter class="solr.SnowballPorterFilterFactory" language="German2" />
+      <filter class="solr.RemoveDuplicatesTokenFilterFactory" />
+      <filter class="solr.LengthFilterFactory" min="3" max="30" />
     </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.ICUTokenizerFactory" />
+      <filter class="solr.WordDelimiterGraphFilterFactory" />
+      <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+      <filter class="solr.ICUFoldingFilterFactory" />
+      <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt" />
+      <filter class="solr.SnowballPorterFilterFactory" language="German2" />
+      <filter class="solr.RemoveDuplicatesTokenFilterFactory" />
+      <filter class="solr.LengthFilterFactory" min="3" max="30" />
+    </analyzer>
+    <similarity class="solr.BM25SimilarityFactory"/>
   </fieldType>
   <fieldType name="text_el" class="solr.TextField" positionIncrementGap="100">
     <analyzer>
@@ -580,6 +594,15 @@
   <field name="title.lang.tr" type="text_tr" multiValued="true" stored="true" />
     <field name="title.lang.ota-arab" type="text_ar" multiValued="true" stored="true" />
   <dynamicField name="title.*" type="text_general" multiValued="true" stored="true"/>
+
+  <!-- optimize mods title -->
+  <copyField source="mods.title.*" dest="mods.title.de.*" />
+  <copyField source="mods.title.*" dest="mods.title.en.*" />
+  <copyField source="mods.title.*" dest="mods.title.tr.*" />
+
+  <dynamicField name="mods.title.de.*" type="text_de" multiValued="true" stored="true" />
+  <dynamicField name="mods.title.en.*" type="text_en" multiValued="true" stored="true" />
+  <dynamicField name="mods.title.tr.*" type="text_tr" multiValued="true" stored="true" />
 
     <!-- identifier (gnd, pnd, etc.) -->
     <dynamicField name="id.*" type="string" />
