@@ -18,6 +18,12 @@
     <category ID="ct-53694626-6">
       <label xml:lang="en" text="Theoretical Works"/>
     </category>
+        <category ID="ct-07080996-2">
+      <label xml:lang="en" text="Biography"/>
+    </category>
+    <category ID="ct-19937114-0">
+      <label xml:lang="en" text="History"/>
+    </category>
     <category ID="ct-80622968-4">
       <label xml:lang="en" text="Fasıl"/>
     </category>
