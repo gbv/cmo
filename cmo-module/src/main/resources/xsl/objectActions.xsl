@@ -8,10 +8,8 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:encoder="xalan://java.net.URLEncoder"
   xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions"
-  xmlns:mcrurn="xalan://org.mycore.urn.MCRXMLFunctions"
-  exclude-result-prefixes="xalan xlink mcr i18n acl mcrxsl mcrurn encoder" version="1.0">
+  exclude-result-prefixes="xalan xlink mcr i18n acl mcrxsl encoder" version="1.0">
   <xsl:param name="MCR.Users.Superuser.UserName" />
-  <xsl:param name="MCR.URN.Resolver.MasterURL" select="''" />
 
   <xsl:template name="objectActions">
     <xsl:param name="id" select="./@ID" />
@@ -55,7 +53,6 @@
     <xsl:param name="objID" />
     <xsl:variable name="derId" select="@xlink:href" />
     <xsl:variable name="derivateXML" select="document(concat('mcrobject:',$derId))" />
-    <xsl:variable name="derivateWithURN" select="mcrurn:hasURNDefined($derId)" />
 
     <div id="files{@xlink:href}" class="file_box">
       <div class="row header">
@@ -81,15 +78,6 @@
                 </xsl:if>
                 <span class="caret"></span>
               </a>
-
-              <xsl:if test="$derivateWithURN=true()">
-                <xsl:variable name="derivateURN" select="$derivateXML/mycorederivate/derivate/fileset/@urn" />
-                <sup class="file_urn">
-                  <a href="{$MCR.URN.Resolver.MasterURL}{$derivateURN}" title="{$derivateURN}">
-                    URN
-                  </a>
-                </sup>
-              </xsl:if>
             </div>
             <xsl:apply-templates select="." mode="derivateActions">
               <xsl:with-param name="deriv" select="@xlink:href" />
@@ -108,13 +96,10 @@
 
         <xsl:for-each select="$ifsDirectory/mcr_directory/children/child">
           <xsl:variable name="fileNameExt" select="concat($path,./name)" />
-          <xsl:variable name="urn" select="$derivateXML/mycorederivate/derivate/fileset/file[@name=$fileNameExt]/urn" />
           <xsl:apply-templates select="." >
             <xsl:with-param name="derId"><xsl:value-of select="$derId" /></xsl:with-param>
             <xsl:with-param name="objID"><xsl:value-of select="$objID" /></xsl:with-param>
-            <xsl:with-param name="derivateWithURN"><xsl:value-of select="$derivateWithURN" /></xsl:with-param>
             <xsl:with-param name="maindoc"><xsl:value-of select="$maindoc" /></xsl:with-param>
-            <xsl:with-param name="urn"><xsl:value-of select="$urn" /></xsl:with-param>
           </xsl:apply-templates>
         </xsl:for-each>
       </div>
@@ -126,16 +111,12 @@
   <xsl:template match="child[@type='directory']" >
     <xsl:param name="derId" />
     <xsl:param name="objID" />
-    <xsl:param name="derivateWithURN" />
     <xsl:param name="maindoc" />
-    <xsl:param name="urn" />
 
     <xsl:apply-templates select="." mode="childWriter">
       <xsl:with-param name="derId"><xsl:value-of select="$derId" /></xsl:with-param>
       <xsl:with-param name="objID"><xsl:value-of select="$objID" /></xsl:with-param>
-      <xsl:with-param name="derivateWithURN"><xsl:value-of select="$derivateWithURN" /></xsl:with-param>
       <xsl:with-param name="maindoc"><xsl:value-of select="$maindoc" /></xsl:with-param>
-      <xsl:with-param name="urn"><xsl:value-of select="$urn" /></xsl:with-param>
     </xsl:apply-templates>
 
     <xsl:variable name="dirName" select="./name" />
@@ -144,9 +125,7 @@
       <xsl:apply-templates select="." mode="childWriter">
         <xsl:with-param name="derId"><xsl:value-of select="$derId" /></xsl:with-param>
         <xsl:with-param name="objID"><xsl:value-of select="$objID" /></xsl:with-param>
-        <xsl:with-param name="derivateWithURN"><xsl:value-of select="$derivateWithURN" /></xsl:with-param>
         <xsl:with-param name="maindoc"><xsl:value-of select="$maindoc" /></xsl:with-param>
-        <xsl:with-param name="urn"><xsl:value-of select="$urn" /></xsl:with-param>
       </xsl:apply-templates>
     </xsl:for-each>
   </xsl:template>
@@ -154,25 +133,19 @@
   <xsl:template match="child[@type='file']">
     <xsl:param name="derId" />
     <xsl:param name="objID" />
-    <xsl:param name="derivateWithURN" />
     <xsl:param name="maindoc" />
-    <xsl:param name="urn" />
 
     <xsl:apply-templates select="." mode="childWriter">
       <xsl:with-param name="derId"><xsl:value-of select="$derId" /></xsl:with-param>
       <xsl:with-param name="objID"><xsl:value-of select="$objID" /></xsl:with-param>
-      <xsl:with-param name="derivateWithURN"><xsl:value-of select="$derivateWithURN" /></xsl:with-param>
       <xsl:with-param name="maindoc"><xsl:value-of select="$maindoc" /></xsl:with-param>
-      <xsl:with-param name="urn"><xsl:value-of select="$urn" /></xsl:with-param>
     </xsl:apply-templates>
   </xsl:template>
 
   <xsl:template match="child" mode="childWriter">
     <xsl:param name="derId" />
     <xsl:param name="objID" />
-    <xsl:param name="derivateWithURN" />
     <xsl:param name="maindoc" />
-    <xsl:param name="urn" />
 
     <xsl:variable name="path" select="../../path" />
     <xsl:variable name="fileName" >
@@ -198,7 +171,7 @@
     </xsl:variable>
     <div class="col-xs-12">
       <div class="file_set {$fileCss}">
-        <xsl:if test="(acl:checkPermission($derId,'writedb') or acl:checkPermission($derId,'deletedb')) and $derivateWithURN='false'">
+        <xsl:if test="(acl:checkPermission($derId,'writedb') or acl:checkPermission($derId,'deletedb'))">
           <div class="options pull-right">
             <div class="btn-group">
               <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -282,13 +255,6 @@
             </xsl:otherwise>
           </xsl:choose>
         </span>
-        <xsl:if test="string-length($urn)>0">
-          <sup class="file_urn">
-            <a href="{$MCR.URN.Resolver.MasterURL}{$urn}" title="{$urn}">
-              URN
-            </a>
-          </sup>
-        </xsl:if>
       </div>
     </div>
   </xsl:template>
@@ -301,7 +267,6 @@
     <xsl:if test="acl:checkPermission($deriv,'writedb')">
       <xsl:variable select="concat('mcrobject:',$deriv)" name="derivlink" />
       <xsl:variable select="document($derivlink)" name="derivate" />
-      <xsl:variable name="derivateWithURN" select="mcrurn:hasURNDefined($deriv)" />
 
 
       <div class="options pull-right">
@@ -318,36 +283,12 @@
                 Beschriftung bearbeiten
               </a>
             </li>
-            <xsl:choose>
-              <xsl:when test="$derivateWithURN=false()">
-                <li>
-                  <a href="{$ServletsBaseURL}derivate/update{$HttpSession}?objectid={../../../@ID}&amp;id={$deriv}{$suffix}" class="option">
-                    <xsl:value-of select="i18n:translate('component.swf.derivate.addFile')" />
-                  </a>
-                </li>
-              </xsl:when>
-              <xsl:otherwise>
-                <li><!-- xsl:value-of select="i18n:translate('component.swf.derivate.addFile')" /-->
-                  Bearbeitung wg. URN gesperrt
-                </li>
-              </xsl:otherwise>
-            </xsl:choose>
-            <xsl:if test="$derivateWithURN=false() and mcrxsl:isAllowedObjectForURNAssignment($parentObjID) and acl:checkPermission($deriv,'addurn')">
-              <xsl:variable name="apos">
-                <xsl:text>'</xsl:text>
-              </xsl:variable>
-              <li>
-                <xsl:if test="not(acl:checkPermission($deriv,'deletedb'))">
-                  <xsl:attribute name="class">last</xsl:attribute>
-                </xsl:if>
-                <a href="{$ServletsBaseURL}MCRAddURNToObjectServlet{$HttpSession}?object={$deriv}&amp;target=derivate" onclick="{concat('return confirm(',$apos, i18n:translate('component.mods.metaData.options.urn.confirm'), $apos, ');')}"
-                  class="option"
-                >
-                  <xsl:value-of select="i18n:translate('component.mods.metaData.options.urn')" />
-                </a>
-              </li>
-            </xsl:if>
-            <xsl:if test="acl:checkPermission($deriv,'deletedb') and $derivateWithURN=false()">
+            <li>
+              <a href="{$ServletsBaseURL}derivate/update{$HttpSession}?objectid={../../../@ID}&amp;id={$deriv}{$suffix}" class="option">
+                <xsl:value-of select="i18n:translate('component.swf.derivate.addFile')" />
+              </a>
+            </li>
+            <xsl:if test="acl:checkPermission($deriv,'deletedb')">
               <li class="last">
                 <a href="{$ServletsBaseURL}derivate/delete{$HttpSession}?id={$deriv}" class="confirm_deletion option" data-text="{i18n:translate('confirm.derivate.text')}">
                   <xsl:value-of select="i18n:translate('component.swf.derivate.delDerivate')" />

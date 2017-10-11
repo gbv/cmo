@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalan="http://xml.apache.org/xalan"
   xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation" xmlns:acl="xalan://org.mycore.access.MCRAccessManager" xmlns:mcr="http://www.mycore.org/"
   xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:encoder="xalan://java.net.URLEncoder"
-  xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions" xmlns:mcrurn="xalan://org.mycore.urn.MCRXMLFunctions" exclude-result-prefixes="xalan xlink mcr i18n acl mods mcrxsl mcrurn encoder" version="1.0">
+  xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions" exclude-result-prefixes="xalan xlink mcr i18n acl mods mcrxsl encoder" version="1.0">
   <xsl:param select="'local'" name="objectHost" />
   <xsl:param name="MCR.Users.Superuser.UserName" />
   <xsl:include href="mods-utils.xsl" />
@@ -318,15 +318,8 @@
               <div class="derivateBox">
                 <xsl:variable select="concat('mcrobject:',$deriv)" name="derivlink" />
                 <xsl:variable select="document($derivlink)" name="derivate" />
-                <xsl:variable name="derivateWithURN" select="mcrurn:hasURNDefined($deriv)" />
 
                 <xsl:apply-templates select="$derivate/mycorederivate/derivate/internals" />
-                <xsl:if test="$derivateWithURN">
-                  <xsl:variable name="derivateURN" select="$derivate/mycorederivate/derivate/fileset/@urn" />
-                  <a href="{concat('http://nbn-resolving.de/urn/resolver.pl?urn=',$derivateURN)}">
-                    <xsl:value-of select="$derivateURN" />
-                  </a>
-                </xsl:if>
                 <xsl:apply-templates select="$derivate/mycorederivate/derivate/externals" />
 
                 <!-- MCR-IView ..start -->
@@ -342,35 +335,18 @@
                          alt="show derivate options" title="{i18n:translate('component.mods.metaData.options')}" />
                     <div class="options">
                       <ul>
-                        <xsl:if test="$derivateWithURN=false()">
                           <li>
                             <a href="{$ServletsBaseURL}derivate/update{$HttpSession}?objectid={../../../@ID}&amp;id={@xlink:href}{$suffix}">
                               <xsl:value-of select="i18n:translate('component.mods.derivate.addFile')" />
                             </a>
                           </li>
-                        </xsl:if>
                         <li>
-                          <xsl:if test="not($derivateWithURN=false() and mcrxsl:isAllowedObjectForURNAssignment($parentObjID))">
-                            <xsl:attribute name="class">last</xsl:attribute>
-                          </xsl:if>
+                          <xsl:attribute name="class">last</xsl:attribute>
                           <a href="{$ServletsBaseURL}derivate/update{$HttpSession}?id={@xlink:href}{$suffix}">
                             <xsl:value-of select="i18n:translate('component.mods.derivate.editDerivate')" />
                           </a>
                         </li>
-                        <xsl:if test="$derivateWithURN=false() and mcrxsl:isAllowedObjectForURNAssignment($parentObjID)">
-                          <xsl:variable name="apos">
-                            <xsl:text>'</xsl:text>
-                          </xsl:variable>
-                          <li>
-                            <xsl:if test="not(acl:checkPermission(./@xlink:href,'deletedb'))">
-                              <xsl:attribute name="class">last</xsl:attribute>
-                            </xsl:if>
-                            <a href="{$ServletsBaseURL}MCRAddURNToObjectServlet{$HttpSession}?object={@xlink:href}" onclick="{concat('return confirm(',$apos, i18n:translate('component.mods.metaData.options.urn.confirm'), $apos, ');')}">
-                              <xsl:value-of select="i18n:translate('component.mods.metaData.options.urn')" />
-                            </a>
-                          </li>
-                        </xsl:if>
-                        <xsl:if test="acl:checkPermission(./@xlink:href,'deletedb') and $derivateWithURN=false()">
+                        <xsl:if test="acl:checkPermission(./@xlink:href,'deletedb')">
                           <li class="last">
                             <a href="{$ServletsBaseURL}derivate/delete{$HttpSession}?id={@xlink:href}" class="confirm_derivate_deletion">
                               <xsl:value-of select="i18n:translate('component.mods.derivate.delDerivate')" />
@@ -414,13 +390,6 @@
         <xsl:with-param name="layout" select="'all'" />
       </xsl:call-template>
     </xsl:variable>
-    <xsl:variable name="hasDerivateWithURN">
-      <xsl:for-each select="./structure/derobjects/derobject">
-        <xsl:if test="mcrurn:hasURNDefined(@xlink:href)">
-          <xsl:value-of select="true()" />
-        </xsl:if>
-      </xsl:for-each>
-    </xsl:variable>
 
     <xsl:if test="$objectHost = 'local'">
       <xsl:choose>
@@ -453,7 +422,7 @@
                   <li>
                     <xsl:if test="not($CurrentUser=$MCR.Users.Superuser.UserName) and
                                   $displayAddDerivate!='true' and
-                                  $accessdelete and $hasDerivateWithURN and
+                                  $accessdelete and
                                   string-length($child-layout)=0 and not($accesscreate)">
                       <xsl:attribute name="class">last</xsl:attribute>
                     </xsl:if>
@@ -474,7 +443,7 @@
                   <xsl:if test="$displayAddDerivate='true'">
                     <li>
                       <xsl:if test="not($CurrentUser=$MCR.Users.Superuser.UserName) and
-                                    $accessdelete and $hasDerivateWithURN and
+                                    $accessdelete and
                                     string-length($child-layout)=0 and not(acl:checkPermission(./@ID,'writedb'))">
                         <xsl:attribute name="class">last</xsl:attribute>
                       </xsl:if>
@@ -484,7 +453,7 @@
                     </li>
                   </xsl:if>
                 </xsl:if>
-                <xsl:if test="$accessdelete and string-length($hasDerivateWithURN)=0">
+                <xsl:if test="$accessdelete">
                   <li>
                     <xsl:if test="not($CurrentUser=$MCR.Users.Superuser.UserName) and string-length($child-layout)=0 and not(acl:checkPermission(./@ID,'writedb'))">
                       <xsl:attribute name="class">last</xsl:attribute>

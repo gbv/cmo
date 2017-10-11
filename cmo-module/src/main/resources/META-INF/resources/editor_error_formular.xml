@@ -8,6 +8,7 @@
       <tr align="center">
         <td>
           <font color="red">
+            <!-- Bei der Pr\u00FCfung des Eingabeformulars traten die oben genannten Fehler auf. -->
             <i18n key="component.swf.page.error.formular.text"/>
           </font>
         </td>
@@ -17,6 +18,7 @@
           <br/>
           <br/>
           <a href="javascript:window.back()">
+            <!-- Bearbeiten des fehlerhaften Datensatzes >> -->
             <i18n key="component.swf.page.error.formular.hint"/>
           </a>
         </td>
