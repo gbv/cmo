@@ -136,7 +136,6 @@ public class MCRMEIClassificationSupport {
             }
         }
 
-
         // in this case its a mei:term
         if (parentNode.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) parentNode;
@@ -160,6 +159,7 @@ public class MCRMEIClassificationSupport {
                             MCRMEIAuthorityInfo authorityInfo = getAuthorityInfo(classCodeElement);
                             MCRCategoryID categoryID = authorityInfo.getCategoryID(termNode.getTextContent());
                             if (categoryID == null) {
+                                LOGGER.warn("Can not resolve classification of: " + MEIUtils.getNodeString(getRoot(termNode)));
                                 return null;
                             }
                             return DAO
@@ -173,6 +173,14 @@ public class MCRMEIClassificationSupport {
         return null;
     }
 
+    private static Node getRoot(Node x) {
+        Node parent = x.getParentNode();
+        if (parent != null) {
+            return getRoot(parent);
+        }
+        return x;
+    }
+
     /**
      * @return returns all classifications which should be indexed in a extra solr-field
      */
@@ -180,14 +188,13 @@ public class MCRMEIClassificationSupport {
         org.jdom2.Element list = new org.jdom2.Element("list");
         MCRConfiguration.instance().getStrings(MEICLASS_INDEX_IDS)
             .stream()
-            .map(id-> new org.jdom2.Element("classification").setAttribute("id", id))
+            .map(id -> new org.jdom2.Element("classification").setAttribute("id", id))
             .forEach(list::addContent);
 
         return new DOMOutputter().output(list).getElementsByTagName("classification");
     }
 
-
-    public static String buildIDForLabel(String label){
+    public static String buildIDForLabel(String label) {
         return Integer.toString(label.hashCode(), 16);
     }
 }

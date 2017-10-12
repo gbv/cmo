@@ -42,6 +42,7 @@
 
 package org.mycore.mei;
 
+import java.io.StringWriter;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
@@ -50,6 +51,12 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -65,6 +72,7 @@ import org.jdom2.Text;
 import org.jdom2.filter.Filters;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
+import org.w3c.dom.Node;
 
 public class MEIUtils {
 
@@ -336,6 +344,19 @@ public class MEIUtils {
         }
 
         return true;
+    }
+
+    public static String getNodeString(Node node) {
+        try {
+            StringWriter writer = new StringWriter();
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.transform(new DOMSource(node), new StreamResult(writer));
+            String output = writer.toString();
+            return output.substring(output.indexOf("?>") + 2);//remove <?xml version="1.0" encoding="UTF-8"?>
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
+        return node.getTextContent();
     }
 
 }
