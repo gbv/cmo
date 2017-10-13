@@ -75,11 +75,18 @@ export class UserInputParser {
             yield UserInputParser.escapeSpecialCharacters(input.substring(lcp, input.length));
         }
     }
+    static escapeSearchValue = /[\+\-\!\(\)\{\}\[\]\^\"\~\*\?\:\\\/\&\|]/g;
+    static unescapeSearchValue = /[\\][\+\-\!\(\)\{\}\[\]\^\"\~\*\?\:\\\/\&\|]/g;
 
     public static escapeSpecialCharacters(str: string): string {
-        let searchValue = /[\+\-\!\(\)\{\}\[\]\^\"\~\*\?\:\\\/\&\|]/g;
-        return str.replace(searchValue, (char) => {
+        return str.replace(UserInputParser.escapeSearchValue, (char) => {
             return "\\" + char;
+        });
+    }
+
+    public static unescapeSpecialCharacters(str: string): string{
+        return str.replace(UserInputParser.unescapeSearchValue, (char) => {
+            return char.substring(1);
         });
     }
 

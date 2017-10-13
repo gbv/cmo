@@ -238,8 +238,10 @@ export class SearchGUI {
             for (let queryPart of queryParts) {
                 if (queryPart.indexOf("(") != 0) {
                     let [ field ] = queryPart.split(":", 1);
-                    let value = Utils.stripSurrounding(queryPart.substring(queryPart.indexOf(":") + 1, queryPart.length), '"');
-                    kvMap[ field ] = value;
+                    let value = field != "allMeta" ?
+                        Utils.stripSurrounding(queryPart.substring(queryPart.indexOf(":") + 1, queryPart.length), '"')
+                        : queryPart.substring(queryPart.indexOf(":") + 1, queryPart.length);
+                    kvMap[ field ] = UserInputParser.unescapeSpecialCharacters(value);
                 } else {
                     let clean = Utils.stripSurrounding(Utils.stripSurrounding(queryPart, "("), ")");
                     process(clean.split(" OR "));
