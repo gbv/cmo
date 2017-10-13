@@ -260,9 +260,9 @@ let getResultAction = (params) => {
                         continue;
                     }
                     if (result.responseHeader.params[ i ] instanceof Array) {
-                        param += result.responseHeader.params[ i ].map(param => `${i}=${param}`).join("&") + "&";
+                        param += result.responseHeader.params[ i ].map(param => `${i}=${encodeURIComponent(param)}`).join("&") + "&";
                     } else {
-                        param += `${i}=${ result.responseHeader.params[ i ]}&`;
+                        param += `${i}=${ encodeURIComponent(result.responseHeader.params[ i ])}&`;
                     }
                 }
                 if (param[ param.length - 1 ] == "&") {
