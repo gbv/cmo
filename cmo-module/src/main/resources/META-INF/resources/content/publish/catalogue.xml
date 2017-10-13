@@ -40,12 +40,6 @@
                 <span class="col-xs-9">Manuscript</span>
               </a>
             </li>
-            <li class="row">
-              <a href="../../editor/source.xed?type=source_component">
-                <span class="col-xs-2"><img src="../images/publish_icons/source_component.png" alt="source component symbol" /></span>
-                <span class="col-xs-9">Source Component</span>
-              </a>
-            </li>
           </ul>
         </div>
         <div class="col-lg-3">

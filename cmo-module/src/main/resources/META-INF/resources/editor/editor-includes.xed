@@ -85,6 +85,12 @@
                    help-text="{i18n:cmo.help.identifier}" class="required" required="true"
                    required-text="{i18n:cmo.validation.identifier}" />
   </xed:template>
+  
+  <xed:template id="cmo_identifierSimple">
+    <cmo:textfield xpath="mei:identifier" label="editor.label.identifierSimple"
+                   help-text="{i18n:cmo.help.identifierSimple}"
+                   required-text="{i18n:cmo.validation.identifierSimple}" />
+  </xed:template>
 
   <xed:template id="cmo_publisher">
     <cmo:textfield xpath="mei:pubStmt/mei:publisher" label="editor.label.publisher"
@@ -142,6 +148,59 @@
                               label="editor.search.notationType"
                               classification="cmo_notationType" help-text="{i18n:cmo.help.notationType}" />
   </xed:template>
+  
+  <xed:template id="cmo_relationList">
+    <fieldset>
+      <legend class="cmo-fieldset-legend">
+        <div class="col-md-10">
+          <xed:output i18n="cmo.relationList" />
+        </div>
+      </legend>
+      <xed:repeat xpath="mei:relationList/mei:relation[@rel='isEmbodimentOf']" min="1" max="100">
+        <div class="cmo-fieldset-content">
+          <div class="form-group">
+            <div class="row">
+              <label class="col-md-4 control-label">
+                <xed:output i18n="cmo.relation" />
+              </label>
+              <div class="col-md-6 ">
+                <div class="form-inline">
+                  <xed:bind xpath="@target">
+                    <input type="text" placeholder="z.B. cmo_expression_00002186" style="width: 70%;" class="form-control form-control-inline" />
+                  </xed:bind>
+                  <!-- TODO: add javascript here -->
+                  <a class="btn btn-default info-button" role="button" tabindex="0" title="{i18n:cmo.help.relationSearch}"><i class="fa fa-search"></i></a>
+                  <xed:bind xpath="@n">
+                    <input type="text" placeholder="eg. p. 388" style="width: 20%;margin-left: 10px;" class="form-control form-control-inline" />
+                  </xed:bind>
+                </div>
+              </div>
+              <cmo:help-pmud help-text="{i18n:cmo.help.relationList}" pmud="true" />
+            </div>
+          </div>
+        </div>
+      </xed:repeat>
+    </fieldset>
+  </xed:template>
+  
+  <xed:template id="cmo_componentGrp">
+    <xed:bind xpath="mei:componentGrp">
+      <xed:repeat xpath="mei:source" min="1" max="100">
+        <fieldset class="cmo-fieldset-componentGrp">
+          <legend class="cmo-fieldset-legend">
+            <div class="col-md-10">
+              <xed:output i18n="cmo.componentGrp" />
+            </div>
+            <cmo:help-pmud help-text="{i18n:cmo.help.relationList}" pmud="true" />
+          </legend>
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_identifierSimple" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_title" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_relationList" />
+        </fieldset>
+      </xed:repeat>
+    </xed:bind>
+  </xed:template>
+  
 
   <!-- <date isodate="" from="" to="" notbefore="1997" notafter="1997" calendar="gregorian" label="">1997</date> -->
   <xed:template id="cmo_isoApproxDate">
@@ -217,6 +276,7 @@
     <xed:cleanup-rule xpath="//mei:classification" relevant-if="count(*)&gt;0" />
 
     <xed:cleanup-rule xpath="//mei:termList" relevant-if="string-length(mei:term/text())&gt;0" />
+    <xed:cleanup-rule xpath="//mei:relationList" relevant-if="string-length(mei:relation/@target)&gt;0" />
 
   </xed:template>
 

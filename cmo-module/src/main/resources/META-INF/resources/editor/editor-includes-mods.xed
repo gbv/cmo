@@ -9,7 +9,9 @@
   <xed:template id="cmo_modsTitle">
     <fieldset>
       <legend class="cmo-fieldset-legend">
-        <xed:output i18n="cmo.mods.title.type" />
+        <div class="col-md-10">
+          <xed:output i18n="cmo.mods.title.type" />
+        </div>
       </legend>
       <xed:repeat xpath="mods:titleInfo" min="1" max="6">
         <div class="cmo-fieldset-content">

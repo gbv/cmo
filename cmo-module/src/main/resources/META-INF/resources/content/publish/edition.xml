@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="de" title="Publish Edition">
+    <div id="cmo_publish_edition">
+      <h1>CMO-Edition</h1>
+      <ul>
+        <li>
+          <a href="../../editor/edition.xed">
+            Edition
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <meta>
+    <log date="2017-10-12" time="14:47" labelPath=" » Catalogue" lastEditor="Kathleen Neumann" />
+  </meta>
+</MyCoReWebPage>
