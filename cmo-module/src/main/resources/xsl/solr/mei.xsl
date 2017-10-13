@@ -242,6 +242,12 @@
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="mei:relationList/mei:relation" mode="solrIndex">
+    <field name="reference">
+      <xsl:value-of select="@target" />
+    </field>
+  </xsl:template>
+
   <xsl:template match="mei:persName/mei:name" mode="solrIndex">
     <field name="name">
       <xsl:value-of select="text()" />

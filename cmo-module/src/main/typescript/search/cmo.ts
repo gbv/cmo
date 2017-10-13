@@ -58,6 +58,7 @@ eSearch.addEnabledHandler((enabled) => {
 kContainer.addEventListener('click', () => {
     kSearch.enable = true;
     eSearch.enable = false;
+
 });
 
 kSearch.addEnabledHandler((enabled) => {
@@ -82,7 +83,7 @@ eSearch.addExtended({
         type : "mods",
         baseQuery : [ "objectType:mods", "-complex:*" ],
         fields : [
-            new ClassificationSearchField("mods.type", "diniPublType"),
+            new ClassificationSearchField("category.top", "diniPublType"),
             new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
             new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name" ])
 
@@ -95,8 +96,8 @@ eSearch.addExtended({
             new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
             new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name" ]),
             new SearchField("editor.label.publisher", [ "mods.publisher" ]),
-            new ClassificationSearchField("mods.ddc", "DDC"),
-            new ClassificationSearchField("mods.type", "diniPublType"),
+            new ClassificationSearchField("category.top", "DDC"),
+            new ClassificationSearchField("category.top", "diniPublType"),
             new DateSearchField("editor.legend.pubDate", [ "mods.dateIssued.range", "mods.dateIssued.host.range" ]),
         ]
     }
@@ -108,11 +109,11 @@ kSearch.addExtended({
         type : "expression",
         baseQuery : [ "objectType:expression", "-complex:*" ],
         fields : [ new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
-            new ClassificationSearchField("langugage.iso15924", "iso15924"),
-            new ClassificationSearchField("langugage.rfc4646", "rfc4646"),
-            new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
-            new ClassificationSearchField("cmo_makamler", "cmo_makamler", 1),
-            new ClassificationSearchField("cmo_usuler", "cmo_usuler", 1),
+            new ClassificationSearchField("category.top", "iso15924"),
+            new ClassificationSearchField("category.top", "rfc4646"),
+            new ClassificationSearchField("category.top", "cmo_musictype"),
+            new ClassificationSearchField("category.top", "cmo_makamler", 1),
+            new ClassificationSearchField("category.top", "cmo_usuler", 1),
             new SearchField("editor.label.incip", [ "incip" ]) ],
     }
     ,
@@ -121,14 +122,21 @@ kSearch.addExtended({
         baseQuery : [ "objectType:expression" ],
         fields : [
             new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
-            new ClassificationSearchField("langugage.iso15924", "iso15924"),
-            new ClassificationSearchField("langugage.rfc4646", "rfc4646"),
-            new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
-            new ClassificationSearchField("cmo_makamler", "cmo_makamler", 1),
-            new ClassificationSearchField("cmo_usuler", "cmo_usuler", 1),
-            new SearchField("editor.label.composer", [ "composer" ]),
-            new SearchField("editor.label.lyricist", [ "lyricist" ]),
-            new SearchField("editor.label.incip", [ "incip" ])
+            new ClassificationSearchField("category.top", "iso15924"),
+            new ClassificationSearchField("category.top", "rfc4646"),
+            new ClassificationSearchField("category.top", "cmo_musictype"),
+            new ClassificationSearchField("category.top", "cmo_makamler", 1),
+            new ClassificationSearchField("category.top", "cmo_usuler", 1),
+            new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_sourceType"),
+            new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_notationType"),
+            new DateSearchField("editor.label.publishingDate", [ "{!join from=reference to=id}publish.date.range" ]),
+            new SearchField("editor.label.composer", [ "composer", "{!join from=id to=composer.ref.pure}name" ]),
+            new DateSearchField("editor.label.lifeData", [ "{!join from=id to=composer.ref.pure}birth.date.range" ]),
+            new SearchField("editor.label.lyricist", [ "lyricist", "{!join from=id to=lyricist.ref.pure}name" ]),
+            new DateSearchField("editor.label.lifeData", [ "{!join from=id to=lyricist.ref.pure}death.date.range" ]),
+            new SearchField("editor.label.incip", [ "incip" ]),
+            new CheckboxSearchField("cmo.hasFiles", "{!join from=reference to=id}hasFiles", "true"),
+            new CheckboxSearchField("cmo.hasReference", "{!join from=mods.relatedItem to=id}*", "*"),
         ],
     },
     source : {
@@ -136,11 +144,11 @@ kSearch.addExtended({
         baseQuery : [ "objectType:source" ],
         fields : [
             new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
-            new ClassificationSearchField("cmo_sourceType", "cmo_sourceType"),
-            new ClassificationSearchField("cmo_notationType", "cmo_notationType"),
-            new ClassificationSearchField("cmo_contentType", "cmo_contentType"),
-            new ClassificationSearchField("langugage.iso15924", "iso15924"),
-            new ClassificationSearchField("langugage.rfc4646", "rfc4646"),
+            new ClassificationSearchField("category.top", "cmo_sourceType"),
+            new ClassificationSearchField("category.top", "cmo_notationType"),
+            new ClassificationSearchField("category.top", "cmo_contentType"),
+            new ClassificationSearchField("category.top", "iso15924"),
+            new ClassificationSearchField("category.top", "rfc4646"),
             new DateSearchField("editor.label.publishingDate", [ "publish.date.range" ]),
             new SearchField("editor.label.contributer", [ "editor", "author", "respStmt", "hand.name" ]),
             new SearchField("editor.label.publishingInformation", [ "publisher", "publisher.place", "series",
@@ -178,12 +186,12 @@ kSearch.addExtended({
             new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
             new SearchField("editor.label.identifier", [ "identifier" ]),
             new SearchField("editor.label.incip", [ "incip" ]),
-            new ClassificationSearchField("langugage.iso15924", "iso15924"),
-            new ClassificationSearchField("langugage.rfc4646", "rfc4646"),
-            new ClassificationSearchField("cmo_musictype", "cmo_musictype"),
-            new ClassificationSearchField("cmo_litform", "cmo_litform"),
-            new ClassificationSearchField("cmo_makamler", "cmo_makamler", 1),
-            new ClassificationSearchField("cmo_usuler", "cmo_usuler", 1),
+            new ClassificationSearchField("category.top", "iso15924"),
+            new ClassificationSearchField("category.top", "rfc4646"),
+            new ClassificationSearchField("category.top", "cmo_musictype"),
+            new ClassificationSearchField("category.top", "cmo_litform"),
+            new ClassificationSearchField("category.top", "cmo_makamler", 1),
+            new ClassificationSearchField("category.top", "cmo_usuler", 1),
             new SearchField("editor.label.lyricist", [ "lyricist" ]) ]
     }
 });
@@ -238,6 +246,7 @@ let onQueryChanged = (searchController: SearchController) => {
 
 search = (start, searchController, action = "search") => {
     let queries = searchController.getSolrQuery();
+
 
     let params = queries
         .concat([ [ "start", start ] ])

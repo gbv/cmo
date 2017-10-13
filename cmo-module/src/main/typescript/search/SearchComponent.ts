@@ -80,8 +80,18 @@ export class SearchController {
 
     public getSolrQuery(): Array<Array<string>> {
         let fqs = this.facetController.getQuery();
-        let queries = [ "q", this.view.getSolrQuery() ];
+        let qps = this.view.getSolrQuery();
         let filterQueries = [ "fq" ];
+
+        qps = qps.filter(qp => {
+           if(qp.indexOf("{!join")!==-1){
+               filterQueries.push(qp);
+               return false;
+           }
+           return true;
+        });
+
+        let queries = [ "q", qps.join(" AND ") ];
         fqs.map(fq => `${fq.field}:${fq.value}`).forEach(fq => filterQueries.push(fq));
         let allQueries = [ queries, filterQueries ];
 
@@ -89,16 +99,17 @@ export class SearchController {
     }
 
     public setSolrQuery(queries: Array<Array<string>>): void {
+        let qps = [];
         for (let param of queries) {
             let [ paramName ] = param;
-            if (paramName == "q") {
+            if (paramName == "q" || paramName == "fq") {
                 let values = param.slice(1);
                 for (let value of values) {
-                    this.view.setSolrQuery(value);
+                    qps.push(value);
                 }
             }
         }
-
+        this.view.setSolrQuery(qps);
     }
 
 

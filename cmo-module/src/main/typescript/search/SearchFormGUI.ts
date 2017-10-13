@@ -129,6 +129,7 @@ export class SearchGUI {
             this.extendedSearch.classList.remove("closed");
             this.extendedSearch.classList.add("opened");
             this.extenderIcon.src = this.minusIconUrl;
+            this.extendedSearch.style.maxHeight = (window.innerHeight - this.mainSearchInputElement.clientHeight) + "px";
         } else {
             this.extendedSearch.classList.add("closed");
             this.extendedSearch.classList.remove("opened");
@@ -202,7 +203,7 @@ export class SearchGUI {
     }
 
 
-    public getSolrQuery() {
+    public getSolrQuery():string[] {
         let solrQueryParts = [ this.baseQuery ];
 
         if (this.mainSearchInputElement.value.trim().length > 0) {
@@ -225,10 +226,11 @@ export class SearchGUI {
             }
         }
 
-        return solrQueryParts.join(" AND ");
+
+        return solrQueryParts;
     }
 
-    public setSolrQuery(query: string) {
+    public setSolrQuery(query: string[]) {
         let kvMap = {};
 
         let bqMap = this.nameBaseQueryMap;
@@ -241,16 +243,14 @@ export class SearchGUI {
                     let value = field != "allMeta" ?
                         Utils.stripSurrounding(queryPart.substring(queryPart.indexOf(":") + 1, queryPart.length), '"')
                         : queryPart.substring(queryPart.indexOf(":") + 1, queryPart.length);
-                    kvMap[ field ] = UserInputParser.unescapeSpecialCharacters(value);
+                    kvMap[ field ] = value;
                 } else {
                     let clean = Utils.stripSurrounding(Utils.stripSurrounding(queryPart, "("), ")");
                     process(clean.split(" OR "));
                 }
             }
         };
-        let queryParts = query.split(" AND ");
-        process(queryParts);
-
+        query.map(s=>s.split(" AND ")).forEach(process);
         let sortedByComplexity = [];
 
         for (let name in bqMap) {
@@ -444,7 +444,7 @@ export class TextSearchFieldInput extends SearchFieldInput {
     }
 
     setValue(value: any) {
-        this.input.value = value;
+        this.input.value = UserInputParser.unescapeSpecialCharacters(value);
     }
 
     reset() {
@@ -519,7 +519,7 @@ export class CheckboxSearchFieldInput extends SearchFieldInput {
 export class ClassificationSearchFieldInput extends SearchFieldInput {
 
     constructor(searchField: string, private className: string, private level) {
-        super([ "category.top" ], "");
+        super([ searchField ], "");
         this.init();
     }
 
@@ -714,7 +714,7 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
 
     public getSolrQueryPart(): string {
         if (this.isRangeSelected()) {
-            let val1 = this.inputFrom.value, val2 = UserInputParser.escapeSpecialCharacters(this.inputTo.value);
+            let val1 = UserInputParser.escapeSpecialCharacters(this.inputFrom.value), val2 = UserInputParser.escapeSpecialCharacters(this.inputTo.value);
             if (val1.trim().length > 0 && val2.trim().length > 0) {
                 return this.getQueryForValue(`[${val1} TO ${val2}]`);
             } else if (val1.trim().length > 0) {
@@ -727,7 +727,7 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
         } else {
 
             if (this.input.value.trim().length > 0) {
-                return this.getQueryForValue(this.input.value);
+                return this.getQueryForValue(UserInputParser.escapeSpecialCharacters(this.input.value));
             } else {
                 return null;
             }
@@ -735,7 +735,7 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
     }
 
     private getQueryForValue(value: any) {
-        return this.searchFields.length > 1 ? `(${this.searchFields.map(sf => `${sf}:"${value}"`).join(" OR ")})` : `${this.searchFields}:"${value}"`;
+        return this.searchFields.length > 1 ? `(${this.searchFields.map(sf => `${sf}:${value}`).join(" OR ")})` : `${this.searchFields}:${value}`;
     }
 
     setValue(value: any) {
@@ -748,10 +748,10 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
 
             let [ from, to ] = fromToString.split(" TO ", 2);
             if (from !== "*") {
-                this.inputFrom.setAttribute("value", from);
+                this.inputFrom.setAttribute("value", UserInputParser.unescapeSpecialCharacters(from));
             }
             if (to !== "*") {
-                this.inputTo.setAttribute("value", to);
+                this.inputTo.setAttribute("value", UserInputParser.unescapeSpecialCharacters(to));
             }
             this.rangeCheckBoxChanged();
         }

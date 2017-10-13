@@ -95,9 +95,7 @@
     }
 
     .extendedSearch {
-      transition-property: height;
-      transition-duration: 1s;
-      transition-timing-function: linear;
+      overflow-y: scroll;
 
       &.opened {
         width: 100%;
