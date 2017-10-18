@@ -156,13 +156,17 @@ ${facetEntries.length > 5 ? `<a data-i18n="cmo.search.facet.showMore" data-facet
                     el.innerHTML = translation;
                 });
 
-                Array.prototype.slice.call(this._container.querySelectorAll(`[data-facet-hidden=${facetField}]`)).forEach((el: Element) => {
-                    el.removeAttribute("data-facet-hidden");
-                    el.setAttribute("data-facet-was-hidden", facetField);
-                });
+                Array.prototype.slice.call(this._container.querySelectorAll(`[data-facet-hidden=${facetField}]`))
+                    .sort((el1: Element, el2: Element) => el1.textContent.localeCompare(el2.textContent))
+                    .forEach((el: Element) => {
+                        el.removeAttribute("data-facet-hidden");
+                        el.setAttribute("data-facet-was-hidden", facetField);
+
+                    });
 
                 el.removeEventListener("click", show);
                 el.addEventListener("click", hide);
+                sort();
             };
 
             let hide = () => {
@@ -176,6 +180,16 @@ ${facetEntries.length > 5 ? `<a data-i18n="cmo.search.facet.showMore" data-facet
                 });
                 el.removeEventListener("click", hide);
                 el.addEventListener("click", show);
+            };
+
+            let sort = () => {
+                Array.prototype.slice.call(this._container.querySelectorAll(`[data-facet-entry=${facetField}]`))
+                    .sort((el1: Element, el2: Element) => el1.textContent.localeCompare(el2.textContent))
+                    .forEach((el) => {
+                        let parentElement = el.parentElement;
+                        el.remove();
+                        parentElement.appendChild(el);
+                    })
             };
 
             el.addEventListener("click", show);
@@ -203,7 +217,7 @@ ${facetEntries.length > 5 ? `<a data-i18n="cmo.search.facet.showMore" data-facet
 
 
     public displayEntry(field: FacetDescription, key, map, lock, index) {
-        let entry = `<li ${index > 5 ? `data-facet-hidden='${field.field}'` : ""}>`;
+        let entry = `<li data-facet-entry="${field.field}" ${index > 5 ? `data-facet-hidden='${field.field}'` : ""}>`;
         entry += ` <input id="facet_${field.field}${key}" type="checkbox" data-field="${field.field}" data-value="${key}" ${lock ? "checked='checked'" : ""}>`;
         entry += `<label for="#facet_${field.field}${key}"> <span`;
         switch (field.type) {

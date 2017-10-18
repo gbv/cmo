@@ -18,7 +18,7 @@ let subselectTarget = null;
 
 let facet = new SearchFacetController(sideBar, translationMap,
     {
-        field : "objectType",
+        field : "cmoType",
         type : "translate",
         translate : "editor.cmo.select."
     },
@@ -130,9 +130,9 @@ kSearch.addExtended({
             new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_sourceType"),
             new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_notationType"),
             new DateSearchField("editor.label.publishingDate", [ "{!join from=reference to=id}publish.date.range" ]),
-            new SearchField("editor.label.composer", [ "composer", "{!join from=id to=composer.ref.pure}name" ]),
+            new SearchField("editor.label.composer", [ "{!join from=id to=composer.ref.pure}name" ]),
             new DateSearchField("editor.label.lifeData", [ "{!join from=id to=composer.ref.pure}birth.date.range" ]),
-            new SearchField("editor.label.lyricist", [ "lyricist", "{!join from=id to=lyricist.ref.pure}name" ]),
+            new SearchField("editor.label.lyricist", [ "{!join from=id to=lyricist.ref.pure}name" ]),
             new DateSearchField("editor.label.lifeData", [ "{!join from=id to=lyricist.ref.pure}death.date.range" ]),
             new SearchField("editor.label.incip", [ "incip" ]),
             new CheckboxSearchField("cmo.hasFiles", "{!join from=reference to=id}hasFiles", "true"),

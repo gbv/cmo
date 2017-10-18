@@ -157,7 +157,20 @@ export class SearchDisplay {
 
     private displayExpression(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
         return `
-        ${this.displayHitTitle(doc, index, result, (doc)=> doc["title"])}
+        ${this.displayHitTitle(doc, index, result, (doc)=> {
+            let title = (doc["title"]||["N/A"])[0];
+            
+            if(title === "N/A"){
+                let filterMusicType = ["gn-66217054-X", "gn-71287086-3", "gn-33375630-5"];
+                let makam = this.findRightCategoryField(doc, "cmo_makamler");
+                let musicType = this.findRightCategoryField(doc, "cmo_musictype");
+                title = [makam.map(field => `<span data-clazz="cmo_makamler" data-category="${field.category}"></span>`)[0],
+                         musicType.filter(field=>filterMusicType.indexOf(field.category)==-1).map(field => `<span data-clazz="cmo_musictype" data-category="${field.category}"></span>`)[0]].join(" ")
+
+            }
+            
+            return title;
+        })}
         ${this.displayRefField(doc, "composer.ref")}
         ${this.displayCategory(doc, "cmo_makamler")}
         ${this.displayCategory(doc, "cmo_usuler")}

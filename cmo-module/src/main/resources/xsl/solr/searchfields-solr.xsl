@@ -12,6 +12,27 @@
   <xsl:template match="mycoreobject">
     <xsl:apply-imports />
 
+    <field name="cmoType">
+      <xsl:variable name="objectType">
+        <xsl:value-of select="substring-before(substring-after(@ID,'_'),'_')" />
+      </xsl:variable>
+      <xsl:choose>
+        <xsl:when test="$objectType='mods'">
+          <xsl:choose>
+            <xsl:when test="mcrxml:isInCategory(@ID, 'cmo_kindOfData:source')">
+              <xsl:text>source-mods</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:text>edition-mods</xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$objectType" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </field>
+
     <field name="hasFiles">
       <xsl:value-of select="count(structure/derobjects/derobject)&gt;0" />
     </field>
@@ -35,7 +56,9 @@
     </xsl:call-template>
 
     <xsl:if test="name()='mei:langUsage'">
-      <field name="langugage.{@authority}"><xsl:value-of select="@xml:id" /></field>
+      <field name="langugage.{@authority}">
+        <xsl:value-of select="@xml:id" />
+      </field>
     </xsl:if>
   </xsl:template>
 
@@ -60,7 +83,6 @@
       </xsl:if>
     </xsl:if>
   </xsl:template>
-
 
 
 </xsl:stylesheet>

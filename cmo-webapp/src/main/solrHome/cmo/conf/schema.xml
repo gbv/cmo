@@ -479,6 +479,7 @@
   <field name="allMeta" type="text_tr" multiValued="true" stored="false" />
     <field name="search_result_link_text" type="text_de" indexed="false"/>
 
+  <field name="cmoType" type="string" stored="true" indexed="true" />
 
   <!-- mei:work -->
   <field name="mei.expressionList" type="string" multiValued="true" />
