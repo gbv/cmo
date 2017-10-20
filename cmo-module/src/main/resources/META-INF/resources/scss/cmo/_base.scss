@@ -105,6 +105,11 @@ section #sidebar {
   #cmo_icon-profile {
     margin: 0 0 0 0;
     padding: 0 0 10px 0;
+    color: $text-color;
+    font-size: 14px;
+    img {
+      margin-bottom: 5px;
+    }
   }
 
   .cmo_language-menu {
@@ -116,7 +121,7 @@ section #sidebar {
       display: inline;
     }
     li a {
-      color: #95989a;
+      color: $text-color;
       font-size: 14px;
     }
     li.active a {
@@ -124,7 +129,7 @@ section #sidebar {
     }
     li:not(:last-child):after {
       content: ' | ';
-      color: #95989a;
+      color: $text-color;
       font-size: 14px;
     }
   }
@@ -213,19 +218,6 @@ section #sidebar {
   height: 91.5px;
 }
 
-#bottom_menu > ul {
-  margin-top: 35px;
-  padding-left: 0;
-  > li {
-    list-style: none;
-    display: inline;
-    padding: 0 17px;
-    a {
-      color: $text-color;
-    }
-  }
-}
-
 
 /* ---------------------------------------------------------------------------
    footer
@@ -257,6 +249,9 @@ footer #powered {
 
 footer #powered #contact {
     margin-top: 15px;
+    a {
+      color: white;
+    }
 }
 
 footer #powered #logo {
@@ -266,4 +261,17 @@ footer #powered #logo {
 }
 
 footer #powered #copyright {
+}
+
+footer #nav_below > ul {
+  margin-top: 15px;
+  padding-left: 0;
+  > li {
+    list-style: none;
+    display: inline;
+    padding: 0 40px;
+    a {
+      color: white;
+    }
+  }
 }

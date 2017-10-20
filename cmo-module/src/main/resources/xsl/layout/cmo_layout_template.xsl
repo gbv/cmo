@@ -166,14 +166,39 @@
                       </nav>
                     </div>
                     <div id="bottom_menu"
-                         class="col-xs-12 col-md-6 col-lg-7 text-center">
-                       <ul>
-                         <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_below']/*" />
-                       </ul>
-                    </div>
-                    <div id="bottom_side"
-                         class="hidden-xs hidden-sm col-md-3 col-lg-3">
-                        &#160;
+                         class="col-xs-12 col-md-6 col-lg-10">
+                       <div class="row">
+                         <div class="col-lg-2">
+                           <a href="http://www.maxweberstiftung.de/institute/institute-oi-istanbul.html">
+                             <img src="{$WebApplicationBaseURL}content/images/logos/orient_institut_istanbul.png" title="Link to Orient Institute Istanbul" alt="Logo Orient Institute Istanbul" style="margin-top:20px;" />
+                           </a>
+                         </div>
+                         <div class="col-lg-2">
+                           <a href="https://www.uni-muenster.de/ArabistikIslam/">
+                             <img src="{$WebApplicationBaseURL}content/images/logos/institut_arabistik.png" title="Link to Institute for Arabistik and Islam" alt="Logo Institute for Arabistik and Islam" style="margin-top:20px;" />
+                           </a>
+                         </div>
+                         <div class="col-lg-2">
+                           <a href="https://www.uni-muenster.de/Musikwissenschaft/">
+                             <img src="{$WebApplicationBaseURL}content/images/logos/muwi_muenster.png" title="Link to Musikwissenschaft Münster" alt="Logo Musikwissenschaft Münster" style="margin-top:20px;" />
+                           </a>
+                         </div>
+                         <div class="col-lg-2">
+                           <a href="http://www.maxweberstiftung.de/startseite.html">
+                             <img src="{$WebApplicationBaseURL}content/images/logos/max_weber_stiftung.png" title="Link to Max Weber Stiftung" alt="Logo Max Weber Stiftung" style="margin-top:5px;" />
+                           </a>
+                         </div>
+                         <div class="col-lg-2">
+                           <a href="http://dfg.de/">
+                             <img src="{$WebApplicationBaseURL}content/images/logos/dfg.png" title="Link to DFG" alt="DFG logo" style="margin-top:30px;" />
+                           </a>
+                         </div>
+                         <div class="col-lg-2">
+                           <a href="https://www.gbv.de/">
+                             <img src="{$WebApplicationBaseURL}content/images/logos/vzg.png" title="Libk to VZG" alt="VZG logo" style="margin-top:30px;" />
+                           </a>
+                         </div>
+                       </div>
                     </div>
                 </div>
             </div>
@@ -181,25 +206,29 @@
             <div id="powered">
                 <div class="container-fluid">
                     <div class="row">
-                        <div id="contact"
-                             class="col-xs-12 col-sm-6 col-md-5 col-lg-4 col-lg-offset-1">
-                            Tel: +49-(0)251-83241-11 • cmo@uni-muenster.de
+                        <div id="copyright" class="col-xs-12 col-sm-6 col-md-5 col-lg-3">
+                            © 2017 Corpus Musicae Ottomanicae (CMO)
                         </div>
-                        <div id="logo"
-                             class="hidden-xs hidden-sm col-md-2 col-lg-2">
+                        <div id="contact" class="col-xs-12 col-sm-6 col-md-5 col-lg-2">
+                          <a href="mailto:cmo@uni-muenster.de">cmo@uni-muenster.de</a>
+                        </div>
+                        
+                        <div id="logo" class="hidden-xs hidden-sm col-md-2 col-lg-2">
                             <a href="http://www.mycore.de/">
                                 <img src="{$WebApplicationBaseURL}content/images/mycore_logo_small_invert.png" title="{$mcr_version}" alt="powered by MyCoRe" />
                             </a>
-                        </div>
-                        <div id="copyright"
-                             class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
-                            © 2017 Corpus Musicae Ottomanicae (CMO)
                         </div>
                         <div id="logo"
                              class="col-xs-12 col-sm-12 hidden-md hidden-lg">
                             <a href="http://www.mycore.de/">
                                 <img src="{$WebApplicationBaseURL}content/images/mycore_logo_small_invert.png" title="{$mcr_version}" alt="powered by MyCoRe" />
                             </a>
+                        </div>
+                        
+                        <div id="nav_below" class="col-xs-12 col-sm-12 col-md-10 col-lg-5 text-center">
+                          <ul>
+                            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_below']/*" />
+                          </ul>
                         </div>
                     </div>
                 </div>

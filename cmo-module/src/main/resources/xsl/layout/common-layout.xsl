@@ -43,14 +43,16 @@
       select="concat( $ServletsBaseURL, 'MCRLoginServlet',$HttpSession,'?url=', encoder:encode( string( $RequestURL ) ) )" />
     <xsl:choose>
       <xsl:when test="mcrxsl:isCurrentUserGuestUser()">
-        <li id="cmo_profile" class="pull-left">
+        <li id="cmo_profile" class="pull-left text-center">
           <a id="cmo_icon-profile" href="{$loginURL}">
             <img title="{i18n:translate('component.userlogin.button.login')}" src="{$WebApplicationBaseURL}content/images/menu_icons/logo_profile_grey.png" />
+            <br />
+            <xsl:value-of select="i18n:translate('component.userlogin.button.login')" />
           </a>
         </li>
       </xsl:when>
       <xsl:otherwise>
-        <li id="cmo_profile" class="dropdown pull-left">
+        <li id="cmo_profile" class="dropdown pull-left text-center">
           <xsl:if test="$loaded_navigation_xml/menu[@id='cmo_user']//item[@href = $browserAddress ]">
             <xsl:attribute name="class">
               <xsl:value-of select="'active'" />
@@ -58,6 +60,8 @@
           </xsl:if>
           <a aria-expanded="true" id="cmo_icon-profile" href="" title="{$CurrentUser}" data-toggle="dropdown">
             <img src="{$WebApplicationBaseURL}content/images/menu_icons/logo_profile.png" />
+            <br />
+            <xsl:value-of select="$CurrentUser" />
           </a>
           <ul role="menu" class="dropdown-menu dropdown-menu-right profile-menu">
             <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_user']/*" />
