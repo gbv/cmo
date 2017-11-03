@@ -150,7 +150,11 @@
 .searchResultList {
   .header {
     padding-bottom: 15px;
-    padding-top: 21px;
+    padding-top: 47px;
+  }
+
+  .ascdesc {
+    cursor: pointer;
   }
 
   .hit {

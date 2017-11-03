@@ -9,7 +9,7 @@ export class SearchDisplay {
 
     private preDisplayContent: Array<HTMLElement> = null;
     private static SEARCH_LABEL_KEY = "cmo.search.heading";
-    private static SORT_LABEL_KEY = "cmo.search.sort";
+    private static SORT_LABEL_KEY = "editor.search.sort";
 
     private searchLabel: string = null;
 
