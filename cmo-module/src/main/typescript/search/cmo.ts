@@ -244,13 +244,14 @@ let onQueryChanged = (searchController: SearchController) => {
     }, 500);
 };
 
-search = (start, searchController, action = "search") => {
+search = (start, searchController, action = "search", sortField: string = "score", asc: boolean = false) => {
     let queries = searchController.getSolrQuery();
 
 
     let params = queries
         .concat([ [ "start", start ] ])
-        .concat([ [ "action", action ] ]);
+        .concat([ [ "action", action ] ])
+        .concat([ [ "sort", sortField + " " + (asc ? "asc" : "desc") ] ]);
 
     StateController.setState(params);
 };
@@ -348,7 +349,9 @@ StateController.onStateChange((params, selfChange) => {
                     searchDisplay.displayResult(result, (start) => {
                         search(start, ctrl, action);
                         window.scrollTo(0, 0);
-                    }, getResultAction(params));
+                    }, getResultAction(params), (sortField, asc) => {
+                        search(0, ctrl, action, sortField, asc);
+                    });
                     facet.displayFacet(result);
                 }));
         }

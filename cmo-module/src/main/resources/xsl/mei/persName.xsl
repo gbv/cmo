@@ -116,7 +116,7 @@
           <xsl:for-each select="//mei:date[count(. | key('dateByType', @type)[1]) = 1]">
             <xsl:sort select="@type" />
             <dt>
-              <xsl:value-of select="i18n:translate(concat('editor.label.lifeData.',@type))" />
+              <xsl:value-of select="concat(i18n:translate(concat('editor.label.lifeData.',@type)), ':')" />
             </dt>
             <dd>
               <ul>

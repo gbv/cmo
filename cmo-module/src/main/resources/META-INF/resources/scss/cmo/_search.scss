@@ -91,6 +91,8 @@
       right: 0px;
       position: absolute;
       box-shadow: none;
+      color: #666689;
+      font-size: 13pt;
 
     }
 
@@ -116,17 +118,59 @@
   }
 }
 
+.searchFacet{
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  padding: 20px;
+  margin-bottom: 20px;
+  margin-top: 16px;
+
+  .facetHeader {
+    border-bottom: 1px solid #cccccc;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 15px 15px 25px 20px;
+  }
+
+  .facetHeader, h4 {
+    font-size: 13pt;
+    font-weight: bold;
+    color: #57595a;
+  }
+
+  .facet {
+    [type=checkbox]{
+      margin-right: 0.5em;
+    }
+
+    font-size: 10pt;
+  }
+}
+
 .searchResultList {
+  .header {
+    padding-bottom: 15px;
+    padding-top: 21px;
+  }
+
   .hit {
+
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    padding: 20px;
+    margin-bottom: 20px;
+
     .hitTitle {
       display: block;
       font-weight: bold;
       margin-bottom: 8px;
       cursor: pointer;
+      color: #57595a;
+      font-size: 18pt;
     }
 
-    .key {
-      font-weight: bold;
+    .key:after {
+      content: ':';
     }
   }
 

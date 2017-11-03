@@ -117,7 +117,9 @@ export class SearchFacetGUI {
     }
 
     public displayFacet(header: FacetHeader, lockedList: {}) {
-        this._container.innerHTML = this.facetFields
+        this._container.innerHTML =
+            `<div class="searchFacet"><div data-i18n="cmo.search.facet.filter" class="facetHeader"></div>` +
+            this.facetFields
             .map(field => {
                 return [ field, header.facet_fields[ field.field ] ];
             })
@@ -143,7 +145,8 @@ ${field.type == "class" ? `data-clazz="${field.field}"` : ""} >${field.field}</h
 ${facetEntries.length > 5 ? `<a data-i18n="cmo.search.facet.showMore" data-facet-show="${field.field}"></a>` : ""}
 </div>
 ` : "";
-            }).join("");
+            }).join("")
+        + `</div>`;
 
 
         I18N.translateElements(this._container);
@@ -228,7 +231,7 @@ ${facetEntries.length > 5 ? `<a data-i18n="cmo.search.facet.showMore" data-facet
                 entry += ` data-clazz="${field.field}" data-category="${key}"`;
                 break;
         }
-        entry += `></span> (${map[ key ]})</label>`;
+        entry += `></span> [${map[ key ]}]</label>`;
         entry += "</li>";
         return entry;
     }

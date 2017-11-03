@@ -9,6 +9,7 @@ export class SearchDisplay {
 
     private preDisplayContent: Array<HTMLElement> = null;
     private static SEARCH_LABEL_KEY = "cmo.search.heading";
+    private static SORT_LABEL_KEY = "cmo.search.sort";
 
     private searchLabel: string = null;
 
@@ -16,6 +17,8 @@ export class SearchDisplay {
         title : "editor.label.title",
         "composer.ref" : "editor.label.composer",
         "author.ref" : "editor.label.author",
+        "editor" : "editor.label.editor",
+        "editor.ref" : "editor.label.editor",
         publisher : "editor.label.publisher",
         "publisher.place" : "editor.label.pubPlace",
         "birth.date.content" : "editor.label.lifeData.birth",
@@ -26,14 +29,38 @@ export class SearchDisplay {
 
     };
 
+    private sortOptions = {
+        "editor.search.sort.relevance" : "score",
+        /* "editor.search.sort.title" : "displayTitle" */
+    };
+
     public displayResult(result: SolrSearchResult, pageChangeHandler: (newPage: number) => void,
-                         onResultClickHandler: (doc: CMOBaseDocument, result: SolrSearchResult, hitOnPage) => void) {
+                         onResultClickHandler: (doc: CMOBaseDocument, result: SolrSearchResult, hitOnPage) => void,
+                         onSortChangeHandler: (field: string, asc: boolean) => void) {
+
+        let getSort = (result: SolrSearchResult) => {
+            if ("sort" in result.responseHeader.params) {
+                return result.responseHeader.params[ "sort" ].split(" ");
+            }
+            return [ "score", "asc" ];
+        };
+        let sort = getSort(result);
+
         this._container.innerHTML = `
     <div class="row searchResultList">
         <div class="col-md-10 col-md-offset-1">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>${result.response.numFound} <span data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></span></h2>
+            <div class="row header">
+                <div class="col-md-6">
+                    <span>${result.response.numFound} <span data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></span></span>
+                </div>
+                <div class="col-md-6">
+                    <span data-i18n="${SearchDisplay.SORT_LABEL_KEY}"></span>
+                    <select data-sort-select="">
+                        ${this.getSortOptions(sort[ 0 ])}
+                    </select>
+                    <span class="ascdesc">
+                           ${sort[ 1 ] == "desc" ? "&darr;" : "&uarr;"}             
+                    </span>
                 </div>
             </div>
              ${this.renderList(result)}
@@ -54,6 +81,22 @@ export class SearchDisplay {
             node.addEventListener("click", () => {
                 onResultClickHandler(result.response.docs[ index ], result, index);
             });
+        });
+
+        let select = <HTMLSelectElement>this._container.querySelector("[data-sort-select]");
+        let ascdesc = <HTMLSpanElement>this._container.querySelector(".ascdesc");
+
+        let sortChange = () => {
+            onSortChangeHandler(select.value, ascdesc.innerHTML.trim() !== "↓")
+        };
+        select.addEventListener("change", sortChange);
+        ascdesc.addEventListener("click", () => {
+            if (ascdesc.innerHTML.trim() == "↓") {
+                ascdesc.innerHTML = "&uarr;";
+            } else {
+                ascdesc.innerHTML = "&darr;";
+            }
+            sortChange();
         });
 
         I18N.translateElements(this._container);
@@ -97,7 +140,7 @@ export class SearchDisplay {
                     return this.displayWork(doc, index, result);
             }
         }).map(innerHTML => `<div class="hit row">${innerHTML}</div>`)
-            .join("<hr/>");
+            .join("\n");
     }
 
     private displayHitTitle(doc: CMOBaseDocument, currentIndex: number, result: SolrSearchResult, fieldResolver = (doc) => ("identifier.type.CMO" in doc) ? doc[ "identifier.type.CMO" ] : ("identifier" in doc) ? doc[ "identifier" ] : doc.id) {
@@ -182,7 +225,7 @@ export class SearchDisplay {
         return `
         ${this.displayHitTitle(doc, index, result)}
         ${this.display("title", doc)}
-        ${this.displayRefField(doc, "editor.ref")}
+        ${"editor.ref" in doc ? this.displayRefField(doc, "editor.ref") : this.display("editor", doc)}
         ${this.display("publisher", doc)}
         ${this.display("publisher.place", doc)}
         ${this.display("publish.date.content", doc)}
@@ -190,6 +233,7 @@ export class SearchDisplay {
         ${this.displayCategory(doc, "cmo_sourceType")}
         ${this.displayCategory(doc, "cmo_contentType")}
         ${this.displayCategory(doc, "cmo_musictype")}
+        ${this.displayCategory(doc, "cmo_notationType")}
         `
     }
 
@@ -248,6 +292,15 @@ export class SearchDisplay {
                     category : category
                 }
             }) : [];
+    }
+
+    private getSortOptions(sort: string) {
+        let options = [];
+        for (let i18n in this.sortOptions) {
+            let field = this.sortOptions[ i18n ];
+            options.push(`<option ${field == sort ? "default" : ""} data-i18n="${i18n}" value="${field}">${i18n}</option>`);
+        }
+        return options.join();
     }
 }
 
