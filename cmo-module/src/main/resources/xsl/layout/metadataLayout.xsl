@@ -200,10 +200,37 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template name="printEdition">
-    <xsl:param name="id" />
+  <!-- show related source -->
+  <xsl:template name="sourceLink">
+    <xsl:param name="objectId" />
+    
+    <xsl:variable name="query" select="concat('reference:', $objectId)" />
+    <xsl:variable name="hits" xmlns:encoder="xalan://java.net.URLEncoder"
+                  select="document(concat('solr:q=',encoder:encode($query), '&amp;fl=id'))/response/result[@name='response']" />
 
-    <xsl:variable name="query" select="concat('mods.relatedItem.references:', $id)" />
+    <xsl:comment>Source link query:
+      <xsl:value-of select="$query" />
+    </xsl:comment>
+    <xsl:if test="$hits/@numFound &gt; 0">
+      <xsl:call-template name="metadataLabelContent">
+        <xsl:with-param name="label" select="'editor.label.sourceLink'" />
+        <xsl:with-param name="content">
+        
+          <xsl:for-each select="$hits/doc">
+            <xsl:call-template name="objectLink">
+              <xsl:with-param select="str[@name='id']" name="obj_id" />
+            </xsl:call-template>
+            <br />
+          </xsl:for-each>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="printEdition">
+    <xsl:param name="objectId" />
+
+    <xsl:variable name="query" select="concat('mods.relatedItem.references:', $objectId)" />
     <xsl:variable name="hits" xmlns:encoder="xalan://java.net.URLEncoder"
                   select="document(concat('solr:q=',encoder:encode($query), '&amp;rows=1000'))" />
 

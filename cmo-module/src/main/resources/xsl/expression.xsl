@@ -35,8 +35,11 @@
                 <xsl:apply-templates select="//mei:classification" mode="metadataView" />
                 <xsl:apply-templates select="//mei:notesStmt" mode="metadataView" />
                 <xsl:apply-templates select="//mei:tempo" mode="metadataView" />
+                <xsl:call-template name="sourceLink">
+                  <xsl:with-param name="objectId" select="@ID" />
+                </xsl:call-template>
                 <xsl:call-template name="printEdition">
-                  <xsl:with-param name="id" select="@ID" />
+                  <xsl:with-param name="objectId" select="@ID" />
                 </xsl:call-template>
                 <xsl:apply-templates select="structure/children" mode="metadataView" />
               </xsl:with-param>
