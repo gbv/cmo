@@ -4,13 +4,13 @@
   <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_editionTypes" />
   <label xml:lang="en" text="Edition types" />
   <categories>
-    <category ID="vocal_music">
-      <label xml:lang="de" text="Vokalmusik" />
-      <label xml:lang="en" text="Vocal Music" />
+    <category ID="music">
+      <label xml:lang="de" text="Noten-Edition" />
+      <label xml:lang="en" text="Music Edition" />
     </category>
     <category ID="text">
-      <label xml:lang="en" text="Text" />
-      <label xml:lang="de" text="Text" />
+      <label xml:lang="de" text="Text-Edition" />
+      <label xml:lang="en" text="Text Edition" />
     </category>
     <category ID="critical_commentary">
       <label xml:lang="de" text="Kritischer Kommentar" />

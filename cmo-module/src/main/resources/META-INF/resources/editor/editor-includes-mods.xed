@@ -88,6 +88,11 @@
     <cmo:textfield xpath="mods:relatedItem[@type='host']/mods:part/mods:extent[@unit='pages']/mods:list" help-text="{i18n:cmo.help.mods.hostPages}" label="cmo.mods.hostPages" />
   </xed:template>
   
+  <!-- TODO: make this field searchable -->
+  <xed:template id="cmo_modsOriginalLink">
+    <cmo:textfield xpath="mods:relatedItem[@type='original']/@xlink:href" placeholder="cmo_expression_00000836" help-text="{i18n:cmo.help.mods.originalLink}" label="cmo.mods.originalLink" />
+  </xed:template>
+  
   <xed:template id="cmo_modsNote">
     <cmo:textfield xpath="mods:note" help-text="{i18n:cmo.help.mods.note}" label="cmo.mods.note" />
   </xed:template>

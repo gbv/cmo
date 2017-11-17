@@ -28,6 +28,7 @@
           <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsIdentifier" />
           <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsGenre" />
           <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsEditionType" />
+          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsOriginalLink" />
           <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsPublisher" />
           <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsPlace" />
           <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_modsDateIssued" />

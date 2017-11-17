@@ -99,6 +99,7 @@
     <xsl:param name="viewerType" />
     <xsl:param name="derId" />
 
+    <!-- TODO: added .mycoreViewer and some styles, but embedded viewer still does not work -->
     <div data-viewer="{$viewerId}" class="viewer {$viewerType} mycoreViewer" style="height: 550px;position: relative;margin-bottom: 30px;overflow: hidden;">
     </div>
 

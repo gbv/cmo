@@ -5,10 +5,11 @@
   xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
   xmlns:acl="xalan://org.mycore.access.MCRAccessManager"
   xmlns:mcr="http://www.mycore.org/"
+  xmlns:mods="http://www.loc.gov/mods/v3"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:encoder="xalan://java.net.URLEncoder"
   xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions"
-  exclude-result-prefixes="xalan xlink mcr i18n acl mcrxsl encoder" version="1.0">
+  exclude-result-prefixes="xalan xlink mcr i18n acl mcrxsl mods encoder" version="1.0">
   <xsl:param name="MCR.Users.Superuser.UserName" />
 
   <xsl:template name="objectActions">
@@ -24,7 +25,16 @@
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
           <li role="presentation">
-            <xsl:variable name="type" select="substring-before(substring-after($id, '_'), '_')" />
+            <xsl:variable name="type">
+              <xsl:choose>
+                <xsl:when test="substring-before(substring-after($id, '_'), '_') = 'mods'">
+                  <xsl:value-of select="substring-after(//mods:mods/mods:classification/@valueURI, 'cmo_kindOfData#')" />
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="substring-before(substring-after($id, '_'), '_')" />
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
             <a role="menuitem" tabindex="-1" href="{$WebApplicationBaseURL}editor/{$type}.xed?id={$id}">
               <xsl:value-of select="i18n:translate('object.editObject')" />
             </a>

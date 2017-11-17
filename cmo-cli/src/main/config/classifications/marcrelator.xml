@@ -72,6 +72,11 @@
       <label xml:lang="de" text="Beitragende(r)"
         description="Eine Person oder Institution dessen Arbeit zu einem größeren Werk beiträgt, z. B. eine Anthologie, Serienpublikation oder andere Zusammenstellung individueller Werke. Nicht zu verwenden, wenn spezifischere Rollenangabe möglich ist. " />
       <label xml:lang="x-miless" text="contributor" />
+      <category ID="trc">
+        <label xml:lang="en" text="Transcriber"
+          description="A person, family, or organization contributing to a resource by changing it from one system of notation to another. For a work transcribed for a different instrument or performing group, see Arranger [arr]. For makers of pen-facsimiles, use Facsimilist [fac]." />
+        <label xml:lang="de" text="Transkriptionist(in)" />
+      </category>
       <category ID="ths">
         <label xml:lang="en" text="Thesis advisor"
           description="Use for a person under whose supervision a degree candidate develops and presents a thesis, mémoire, or text of a dissertation. " />
