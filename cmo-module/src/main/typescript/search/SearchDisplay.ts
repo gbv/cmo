@@ -1,6 +1,8 @@
-import {Utils} from "../other/utils";
+import {Utils} from "../other/Utils";
 import {I18N} from "../other/I18N";
 import {ClassificationResolver} from "../other/Classification";
+import {CMOBaseDocument, SolrSearchResult} from "../other/Solr";
+import {BasketUtil} from "./BasketUtil";
 
 export class SearchDisplay {
     constructor(private _container: HTMLElement) {
@@ -100,6 +102,7 @@ export class SearchDisplay {
         });
 
         I18N.translateElements(this._container);
+        BasketUtil.activateLinks(this._container);
         ClassificationResolver.putLabels(this._container);
     }
 
@@ -143,7 +146,15 @@ export class SearchDisplay {
             .join("\n");
     }
 
-    private displayHitTitle(doc: CMOBaseDocument, currentIndex: number, result: SolrSearchResult, fieldResolver = (doc) => ("identifier.type.CMO" in doc) ? doc[ "identifier.type.CMO" ] : ("identifier" in doc) ? doc[ "identifier" ] : doc.id) {
+    private displayHitTitle(doc: CMOBaseDocument, currentIndex: number, result: SolrSearchResult, fieldResolver = (doc) => {
+        let field = ("identifier.type.CMO" in doc) ? doc[ "identifier.type.CMO" ] : ("identifier" in doc) ? doc[ "identifier" ] : doc.id;
+
+        if(field instanceof Array){
+            return field.join(",")
+        } else {
+            return field;
+        }
+    }) {
         let field = fieldResolver(doc);
         return `
 <div class="col-md-12">
@@ -186,7 +197,7 @@ export class SearchDisplay {
 
     private display(name: string, doc: CMOBaseDocument) {
         if (name in doc) {
-            let displayValue = (value) => `<span class="value">${value}</span>`;
+            let displayValue = (value) => `<span class="value">${Utils.encodeHtmlEntities(value)}</span>`;
             return `
 <div class="metadata multi">
     <span class="col-md-4 key" data-i18n="${this.fieldLabelMapping[ name ]}"> </span>
@@ -218,7 +229,12 @@ export class SearchDisplay {
         ${this.displayCategory(doc, "cmo_makamler")}
         ${this.displayCategory(doc, "cmo_usuler")}
         ${this.displayCategory(doc, "cmo_musictype")}
+        ${this.displayBasketButton(doc)}
         `;
+    }
+
+    private displayBasketButton(doc: CMOBaseDocument){
+        return `<a data-basket="${doc.id}"></a>`;
     }
 
     private displaySource(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
@@ -234,11 +250,14 @@ export class SearchDisplay {
         ${this.displayCategory(doc, "cmo_contentType")}
         ${this.displayCategory(doc, "cmo_musictype")}
         ${this.displayCategory(doc, "cmo_notationType")}
+        ${this.displayBasketButton(doc)}
         `
     }
 
     private displayMods(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
-        return `${this.displayHitTitle(doc, index, result, (doc) => doc[ "mods.title" ])} `
+        return `${this.displayHitTitle(doc, index, result, (doc) => doc[ "mods.title" ])}         
+                 ${this.displayBasketButton(doc)}
+`
     }
 
     private displayPerson(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
@@ -247,12 +266,14 @@ export class SearchDisplay {
         ${this.display("name", doc)}
         ${this.display("birth.date.content", doc)}
         ${this.display("death.date.content", doc)}
+        ${this.displayBasketButton(doc)}
         `
     }
 
     private displayWork(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
         return `
         ${this.displayHitTitle(doc, index, result)}
+        ${this.displayBasketButton(doc)}
         `
     }
 
@@ -260,7 +281,7 @@ export class SearchDisplay {
         return field in doc ? "<div class='metadata'><span class='col-md-4 key' data-i18n='" + this.fieldLabelMapping[ field ] + "'></span>" +
             "<div class='col-md-8 values'>" + doc[ field ]
                 .map(composer => composer.split("|", 2))
-                .map(([ value, ref ]) => `<span><a href="${Utils.getBaseURL()}receive/${ref}">${value}</a></span>`)
+                .map(([ value, ref ]) => `<span><a href="${Utils.getBaseURL()}receive/${ref}">${Utils.encodeHtmlEntities(value)}</a></span>`)
                 .join("") + "</div></div>" : "";
     }
 
@@ -304,71 +325,3 @@ export class SearchDisplay {
     }
 }
 
-export class SolrSearcher {
-    constructor() {
-
-    }
-
-    public search(params: Array<Array<string>>, callback: (result: SolrSearchResult) => void) {
-        let baseUrl: string = Utils.getBaseURL();
-        let xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = () => {
-            if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200) {
-                let jsonData = JSON.parse(xhttp.response);
-                callback(jsonData);
-            }
-        };
-
-        let paramPart = params.map((kv) => {
-            let [ key ] = kv;
-            return kv.slice(1).map(v => `${key}=${encodeURIComponent(v)}`).join("&");
-        }).join("&");
-
-        xhttp.open('GET', baseUrl + "servlets/solr/select?" + paramPart + "&wt=json", true);
-        xhttp.send();
-    }
-}
-
-export interface SolrSearchResult {
-    responseHeader: ResponseHeader;
-    response: Response;
-    facet_counts: FacetHeader;
-}
-
-export interface FacetHeader {
-    /**
-     * Contains the type as key and as value a array [name1,count1, name2,count2]
-     */
-    facet_fields: any;
-}
-
-export interface ResponseHeader {
-    status: number;
-    QTime: number;
-    params: {};
-}
-
-export interface Response {
-    rows?: number;
-    numFound: number;
-    start: number;
-    docs: Array<CMOBaseDocument>;
-}
-
-export interface CMOBaseDocument {
-    objectKind: "mycoreobject";
-    id: string;
-    returnId?: string;
-    objectProject: string;
-    objectType: string
-    modified: string;
-    created: string;
-    parent?: string;
-    derCount: number;
-    hasFiles: boolean;
-    identifier?: Array<string>;
-    "composer.ref"?: Array<string>;
-    lyricist: Array<string>;
-    incip: Array<string>;
-    category: Array<string>;
-}

@@ -4,7 +4,7 @@ import {
     CheckboxSearchFieldInput, ClassificationSearchFieldInput, DateSearchFieldInput, SearchGUI,
     TextSearchFieldInput
 } from "./SearchFormGUI";
-import {Utils} from "../other/utils";
+import {Utils} from "../other/Utils";
 import {SearchFacetController} from "./SearchFacet";
 
 

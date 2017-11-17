@@ -122,6 +122,9 @@ public class MCRMEIClassificationSupport {
 
     private static MCRCategory getClassificationFromElement(NodeList terms) {
         Node termNode = terms.item(0);
+        if(termNode==null){
+            return null;
+        }
         Node parentNode = termNode.getParentNode();
 
         // in this case is a element with authority and id e.g. mei:language
@@ -174,6 +177,9 @@ public class MCRMEIClassificationSupport {
     }
 
     private static Node getRoot(Node x) {
+        if(x.getLocalName().equals("mycoreobject")){
+            return x;
+        }
         Node parent = x.getParentNode();
         if (parent != null) {
             return getRoot(parent);

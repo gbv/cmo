@@ -1,4 +1,4 @@
-import {Utils} from "./utils";
+import {Utils} from "./Utils";
 export class I18N {
     private static DEFAULT_FETCH_LEVEL = 1;
 

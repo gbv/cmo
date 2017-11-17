@@ -101,7 +101,12 @@
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_catalogue']" />
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_publish']" />
                                 <!-- TODO: Add Basket -->
-                                <li id="cmo_basket"><a href="#"><xsl:value-of select="i18n:translate('cmo.basket')" /></a></li>
+                                <li id="cmo_basket">
+                                  <a href="#action=basket">
+                                    <sup id="basked_badge">0</sup>
+                                    <xsl:value-of select="i18n:translate('cmo.basket')" />
+                                  </a>
+                                </li>
                               </ul>
                             </nav>
                          </div>

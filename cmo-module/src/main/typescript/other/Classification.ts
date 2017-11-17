@@ -1,4 +1,4 @@
-import {Utils} from "./utils";
+import {Utils} from "./Utils";
 import {I18N} from "./I18N";
 export interface Classification {
     ID: string,

@@ -3,14 +3,19 @@ import {
     ClassificationSearchField, DateSearchField, SearchController, SearchField,
 
 } from 'search/SearchComponent';
-import {Utils} from "../other/utils";
-import {SearchDisplay, SolrSearcher} from "./SearchDisplay";
+import {Utils} from "../other/Utils";
+import {SearchDisplay} from "./SearchDisplay";
 import {SearchFacetController} from "./SearchFacet";
 import {StateController} from "./StateController";
+import {SolrSearcher} from "../other/Solr";
+import {BasketDisplay} from "./BasketDisplay";
+import {BasketStore} from "./BasketStore";
 
 let eContainer = <HTMLElement>document.querySelector("#e_suche");
 let kContainer = <HTMLElement>document.querySelector("#k_suche");
 let sideBar = <HTMLElement>document.querySelector("#sidebar");
+
+
 
 let translationMap = {};
 
@@ -173,7 +178,7 @@ kSearch.addExtended({
         baseQuery : [ "objectType:person" ],
         fields : [
             new SearchField("editor.label.name", [ "name", "name.general" ]),
-            new DateSearchField("editor.label.lifeData", [ "birth.date.range", "death.date.range" ]),
+            new DateSearchField("editor.label.lifeData", [ "date.range" ]),
             new CheckboxSearchField("editor.label.composer", "{!join from=composer.ref.pure to=id}composer.ref.pure", "*"),
             new CheckboxSearchField("editor.label.lyricist", "{!join from=lyricist.ref.pure to=id}lyricist.ref.pure", "*")
         ],
@@ -224,9 +229,16 @@ switcher.addEventListener('click', (event: MouseEvent) => {
 
 
 /* Search Display*/
-let searchDisplayContainer = document.querySelector("#main");
-let searchDisplay = new SearchDisplay(<HTMLElement>searchDisplayContainer);
+let mainContainer = document.querySelector("#main");
+let searchDisplay = new SearchDisplay(<HTMLElement>mainContainer);
+let baskedDisplay = new BasketDisplay(<HTMLElement>mainContainer);
 let solrSearcher = new SolrSearcher();
+
+let resetJS= ()=>{
+    baskedDisplay.reset();
+    facet.reset();
+    searchDisplay.reset();
+};
 
 let currentTimeOut = null;
 let search;
@@ -237,8 +249,12 @@ let onQueryChanged = (searchController: SearchController) => {
         currentTimeOut = null;
     }
 
+
     currentTimeOut = window.setTimeout(() => {
         let [ , action ] = StateController.getState().filter(([ key, value ]) => key == "action")[ 0 ] || [ undefined, undefined ];
+        if (action != "search" && action != "subselect") {
+            action = "search";
+        }
 
         search(0, searchController, action)
     }, 500);
@@ -289,7 +305,7 @@ let getResultAction = (params) => {
 
 
             return (doc, result, hitOnPage) => {
-                searchDisplay.reset();
+                resetJS();
                 ctrl.setInputValue('');
                 ctrl.enable = false;
 
@@ -316,50 +332,70 @@ let ctrl: SearchController = null;
 StateController.onStateChange((params, selfChange) => {
     let [ , action ] = params.filter(([ key, value ]) => key == "action")[ 0 ] || [ null, null ];
 
-    if (action == "search" || action == "subselect") {
-        ctrl = null;
-        for (let param of params) {
-            let [ , v ] = param;
+    switch (action) {
+        case "search":
+        case "subselect":
+            ctrl = null;
+            for (let param of params) {
+                let [ , v ] = param;
 
-            if (v.indexOf(kSearchBaseQuery) != -1) {
-                ctrl = kSearch;
-            } else if (v.indexOf(eSearchBaseQuery) != -1) {
-                ctrl = eSearch;
+                if (v.indexOf(kSearchBaseQuery) != -1) {
+                    ctrl = kSearch;
+                } else if (v.indexOf(eSearchBaseQuery) != -1) {
+                    ctrl = eSearch;
 
-            }
-        }
-
-        searchDisplay.reset();
-        facet.reset();
-
-        if (ctrl != null) {
-            ctrl.enable = true;
-
-
-            if (!selfChange) {
-                ctrl.setSolrQuery(params);
+                }
             }
 
-            searchDisplay.save();
-            facet.save();
-            searchDisplay.loading();
-            solrSearcher.search(
-                params
-                , (result => {
-                    searchDisplay.displayResult(result, (start) => {
-                        search(start, ctrl, action);
-                        window.scrollTo(0, 0);
-                    }, getResultAction(params), (sortField, asc) => {
-                        search(0, ctrl, action, sortField, asc);
-                    });
-                    facet.displayFacet(result);
-                }));
-        }
+            resetJS();
+
+            if (ctrl != null) {
+                ctrl.enable = true;
+
+
+                if (!selfChange) {
+                    ctrl.setSolrQuery(params);
+                }
+
+                searchDisplay.save();
+                facet.save();
+                searchDisplay.loading();
+                solrSearcher.search(
+                    params
+                    , (result => {
+                        searchDisplay.displayResult(result, (start) => {
+                            search(start, ctrl, action);
+                            window.scrollTo(0, 0);
+                        }, getResultAction(params), (sortField, asc) => {
+                            search(0, ctrl, action, sortField, asc);
+                        });
+                        facet.displayFacet(result);
+                    }));
+            }
+            break;
+        case "basket":
+            resetJS();
+            baskedDisplay.save();
+            baskedDisplay.display();
+            break;
+
+        default:
+            resetJS();
     }
 });
 kSearch.addQueryChangedHandler(() => onQueryChanged(kSearch));
 eSearch.addQueryChangedHandler(() => onQueryChanged(eSearch));
 
+
+let basketBadge = document.querySelector("#basked_badge");
+let basket = BasketStore.getInstance();
+
+let refreshBaskedBadge = () => {
+    basketBadge.innerHTML = (basket.count()) + "";
+};
+
+basket.addListener(refreshBaskedBadge);
+refreshBaskedBadge();
 
 // The Parent Element have to look like this <div data-subselect="(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:person">
 // The input then just can be <input name='personID' data-subselect-target='id' /> <input name='personName' data-subselect-target='solrField2' />

@@ -142,6 +142,13 @@ section #sidebar {
 #side_menu_1, #side_menu_2 {
   padding: 0;
 
+  #basked_badge {
+    left: -12px;
+    top: -14px;
+    font-size: 60%;
+    color: #ca1914;
+  }
+
   ul.nav {
     float: none;
     text-align: left;

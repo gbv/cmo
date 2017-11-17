@@ -10,6 +10,8 @@
                 exclude-result-prefixes="mods mei xlink">
   <xsl:import href="xslImport:solr-document:solr/mei.xsl" />
 
+  <xsl:include href="mei-utils.xsl" />
+
   <xsl:template match="mycoreobject">
     <xsl:apply-imports />
 
@@ -32,11 +34,21 @@
 
   </xsl:template>
 
+  <xsl:template match="mei:expression" mode="solrIndex">
+    <field name="displayTitle">
+      <xsl:choose>
+        <xsl:when test="mei:titleStmt/mei:title[not(text()='N/A')]">
+          <xsl:value-of select="mei:titleStmt/mei:title" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:call-template name="printStandardizedHitListTitle" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </field>
+    <xsl:apply-templates mode="solrIndex" />
+  </xsl:template>
 
   <xsl:template match="*|@*" mode="solrIndex">
-    <xsl:comment>Process:
-      <xsl:value-of select="name()" />
-    </xsl:comment>
     <xsl:apply-templates mode="solrIndex" />
   </xsl:template>
 
@@ -235,11 +247,15 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template match="mei:persName/mei:date" mode="solrIndex">
-    <xsl:call-template name="date">
-      <xsl:with-param name="dateNode" select="." />
-      <xsl:with-param name="fieldName" select="concat(@type, '.date')"></xsl:with-param>
+  <xsl:template match="mei:persName[mei:date]" mode="solrIndex">
+    <xsl:call-template name="birthDate">
+      <xsl:with-param name="dateNodes" select="mei:date" />
     </xsl:call-template>
+    <xsl:apply-templates select="@*|*" mode="solrIndex" />
+  </xsl:template>
+
+  <xsl:template match="mei:persName/mei:date" mode="solrIndex">
+
   </xsl:template>
 
   <xsl:template match="mei:relationList/mei:relation" mode="solrIndex">
@@ -283,6 +299,47 @@
     <field name="{$fieldName}.content">
       <xsl:value-of select="$dateNode/text()" />
     </field>
+  </xsl:template>
+
+  <xsl:template name="birthDate">
+    <xsl:param name="dateNodes" />
+
+    <field name="date.range">
+      <xsl:value-of select="meiDate:getSolrDateFieldContentBirth($dateNodes)" />
+    </field>
+
+    <xsl:for-each select="$dateNodes">
+      <field name="{@type}.date.content">
+        <xsl:choose>
+          <xsl:when test="string-length(text()) &gt; 0">
+            <xsl:value-of select="text()" />
+          </xsl:when>
+          <xsl:when test="@startdate and @enddate and @startdate!=@enddate">
+            <xsl:value-of select="concat(@startdate, '-', @enddate)" />
+          </xsl:when>
+          <xsl:when test="@notbefore and @notafter and @notbefore!=@notafter">
+            <xsl:value-of select="concat(@notbefore, '-', @notafter)" />
+          </xsl:when>
+          <xsl:when test="@isodate">
+            <xsl:value-of select="@isodate" />
+          </xsl:when>
+          <xsl:when test="@startdate">
+            <xsl:value-of select="@startdate" />
+          </xsl:when>
+          <xsl:when test="@enddate">
+            <xsl:value-of select="@enddate" />
+          </xsl:when>
+          <xsl:when test="@notbefore">
+            <xsl:value-of select="@notbefore" />
+          </xsl:when>
+          <xsl:when test="@notafter">
+            <xsl:value-of select="@notafter" />
+          </xsl:when>
+        </xsl:choose>
+
+      </field>
+    </xsl:for-each>
+
   </xsl:template>
 
 </xsl:stylesheet>

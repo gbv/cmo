@@ -1,7 +1,7 @@
-import {FacetHeader, SolrSearchResult} from "./SearchDisplay";
+import {FacetHeader, SolrSearchResult} from "../other/Solr";
 import {I18N} from "../other/I18N";
 import {Classification, ClassificationResolver} from "../other/Classification";
-import {Utils} from "../other/utils";
+import {Utils} from "../other/Utils";
 
 export class SearchFacetController {
 

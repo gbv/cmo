@@ -1,4 +1,4 @@
-import {UserInputParser, Utils} from "../other/utils";
+import {UserInputParser, Utils} from "../other/Utils";
 import {I18N} from "../other/I18N";
 import {Classification, ClassificationCategory, ClassificationResolver} from "../other/Classification";
 
@@ -297,7 +297,7 @@ export class SearchGUI {
             let value = kvMap[ key ];
 
             if (key == "allMeta") {
-                this.mainSearchInputElement.value += value + " ";
+                this.mainSearchInputElement.value += value;
             }
 
             if (key == "objectType" && value in this.typeMap) {

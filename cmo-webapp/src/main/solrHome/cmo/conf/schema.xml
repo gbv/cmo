@@ -531,6 +531,8 @@
   <field name="publisher" type="text_tr" multiValued="true" />
   <field name="publisher.place" type="text_tr" multiValued="true" />
 
+  <field name="date.range" type="date_range" multiValued="true" />
+
   <field name="publish.date.range" type="date_range" multiValued="true" />
   <field name="publish.date.content" type="string" multiValued="true" />
 
@@ -597,6 +599,7 @@
   <field name="title.lang.tr" type="text_tr" multiValued="true" stored="true" />
     <field name="title.lang.ota-arab" type="text_ar" multiValued="true" stored="true" />
   <dynamicField name="title.*" type="text_general" multiValued="true" stored="true"/>
+  <field name="displayTitle" type="string" indexed="false" stored="true" />
 
   <!-- optimize mods title -->
   <copyField source="mods.title.*" dest="mods.title.de.*" />
