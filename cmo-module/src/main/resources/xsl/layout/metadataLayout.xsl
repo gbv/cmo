@@ -230,7 +230,7 @@
   <xsl:template name="printEdition">
     <xsl:param name="objectId" />
 
-    <xsl:variable name="query" select="concat('mods.relatedItem.references:', $objectId)" />
+    <xsl:variable name="query" select="concat('mods.relatedItem.original:', $objectId)" />
     <xsl:variable name="hits" xmlns:encoder="xalan://java.net.URLEncoder"
                   select="document(concat('solr:q=',encoder:encode($query), '&amp;rows=1000'))" />
 
