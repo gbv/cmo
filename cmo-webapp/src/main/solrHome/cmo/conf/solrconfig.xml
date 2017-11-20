@@ -755,6 +755,7 @@
       <str name="facet.field">cmo_usuler</str>
       <str name="facet.field">cmo_musictype</str>
       <str name="facet">true</str>
+      <str name="wt">xml</str>
       <!-- <str name="df">text</str> -->
     </lst>
     <!-- In addition to defaults, "appends" params can be specified
@@ -815,7 +816,7 @@
   <requestHandler name="/query" class="solr.SearchHandler">
     <lst name="defaults">
       <str name="echoParams">explicit</str>
-      <str name="wt">json</str>
+      <str name="wt">xml</str>
       <str name="indent">true</str>
     </lst>
   </requestHandler>
@@ -833,6 +834,7 @@
   <requestHandler name="/browse" class="solr.SearchHandler" useParams="query,facets,velocity,browse">
     <lst name="defaults">
       <str name="echoParams">explicit</str>
+      <str name="wt">xml</str>
     </lst>
   </requestHandler>
 
