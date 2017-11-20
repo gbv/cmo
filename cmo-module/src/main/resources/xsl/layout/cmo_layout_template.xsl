@@ -175,17 +175,17 @@
                        <div class="row">
                          <div class="col-lg-2">
                            <a href="http://www.maxweberstiftung.de/institute/institute-oi-istanbul.html">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/orient_institut_istanbul.png" title="Link to Orient Institute Istanbul" alt="Logo Orient Institute Istanbul" style="margin-top:20px;" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/orient_institut_istanbul.svg" title="Link to Orient Institute Istanbul" alt="Logo Orient Institute Istanbul" style="width:150px;margin-top:30px;" />
                            </a>
                          </div>
                          <div class="col-lg-2">
                            <a href="https://www.uni-muenster.de/ArabistikIslam/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/institut_arabistik.png" title="Link to Institute for Arabistik and Islam" alt="Logo Institute for Arabistik and Islam" style="margin-top:20px;" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/institut_arabistik.svg" title="Link to Institute for Arabistik and Islam" alt="Logo Institute for Arabistik and Islam" style="width:150px;margin-top:10px;" />
                            </a>
                          </div>
                          <div class="col-lg-2">
                            <a href="https://www.uni-muenster.de/Musikwissenschaft/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/muwi_muenster.png" title="Link to Musikwissenschaft Münster" alt="Logo Musikwissenschaft Münster" style="margin-top:20px;" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/muwi_muenster.png" title="Link to Musikwissenschaft Münster" alt="Logo Musikwissenschaft Münster" style="margin-top:10px;" />
                            </a>
                          </div>
                          <div class="col-lg-2">
@@ -195,12 +195,12 @@
                          </div>
                          <div class="col-lg-2">
                            <a href="http://dfg.de/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/dfg.png" title="Link to DFG" alt="DFG logo" style="margin-top:30px;" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/dfg.svg" title="Link to DFG" alt="DFG logo" style="width:170px;margin-top:35px;" />
                            </a>
                          </div>
                          <div class="col-lg-2">
                            <a href="https://www.gbv.de/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/vzg.png" title="Libk to VZG" alt="VZG logo" style="margin-top:30px;" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/vzg.png" title="Link to VZG" alt="VZG logo" style="margin-top:30px;" />
                            </a>
                          </div>
                        </div>
