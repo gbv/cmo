@@ -25,11 +25,14 @@
       <category ID="gn-74276083-2">
         <label xml:lang="en" text="Aksak semâî" />
       </category>
+      <category ID="gn-47589715-1">
+        <label xml:lang="en" text="Bahâriyye" />
+      </category>
       <category ID="gn-25619255-5">
         <label xml:lang="en" text="Beste" />
       </category>
       <category ID="gn-76962426-X">
-        <label xml:lang="en" text="Çifte telli" />
+        <label xml:lang="en" text="Çiftetelli" description="Çifte telli"/>
       </category>
       <category ID="gn-28305598-0">
         <label xml:lang="en" text="Destân" />
@@ -65,13 +68,13 @@
         <label xml:lang="en" text="Marş" />
       </category>
       <category ID="gn-02804076-4">
-        <label xml:lang="en" text="Methal" />
+        <label xml:lang="en" text="Medhal" description="Methal" />
       </category>
       <category ID="gn-93080484-2">
         <label xml:lang="en" text="Mersiye" />
       </category>
       <category ID="gn-44423656-5">
-        <label xml:lang="en" text="Mîrâciyye, Mî'râciye, Mîrâciye" />
+        <label xml:lang="en" text="Mî’râciyye" description="Mîrâciyye, Mî'râciye, Mîrâciye" />
       </category>
       <category ID="gn-95766827-8">
         <label xml:lang="en" text="Murabbâ" />
@@ -80,28 +83,28 @@
         <label xml:lang="en" text="Münâcât" />
       </category>
       <category ID="gn-98453170-9">
-        <label xml:lang="en" text="Müstezât" />
+        <label xml:lang="en" text="Müstezâd" description="Müstezât" />
       </category>
       <category ID="gn-49796342-5">
-        <label xml:lang="en" text="Nakş" />
+        <label xml:lang="en" text="Nakış" description="Nakş" />
       </category>
       <category ID="gn-75803196-5">
-        <label xml:lang="en" text="Nakş ağır semâî" />
+        <label xml:lang="en" text="Nakış ağır semâî" description="Nakş ağır semâî" />
       </category>
       <category ID="gn-69312561-2">
-        <label xml:lang="en" text="Nakş aksak semâî" />
+        <label xml:lang="en" text="Nakış aksak semâî" description="Nakş aksak semâî" />
       </category>
       <category ID="gn-43998372-6">
-        <label xml:lang="en" text="Nakş beste" />
+        <label xml:lang="en" text="Nakış beste" description="Nakş beste" />
       </category>
       <category ID="gn-57471526-0">
-        <label xml:lang="en" text="Nakş yürük semâî" />
+        <label xml:lang="en" text="Nakış yürük semâî" description="Nakş yürük semâî" />
       </category>
       <category ID="gn-45244802-X">
         <label xml:lang="en" text="Nakış hava" />
       </category>
       <category ID="gn-01139513-5">
-        <label xml:lang="en" text="Nat" />
+        <label xml:lang="en" text="Na’t" description="Nat" />
       </category>
       <category ID="gn-52482685-8">
         <label xml:lang="en" text="Nefes" />
@@ -113,19 +116,19 @@
         <label xml:lang="en" text="Salât" />
       </category>
       <category ID="gn-06512199-2">
-        <label xml:lang="en" text="Savft" />
+        <label xml:lang="en" text="Savt" description="Savft" />
       </category>
       <category ID="gn-57855371-4">
         <label xml:lang="en" text="Semâî" />
       </category>
       <category ID="gn-09198542-0">
-        <label xml:lang="en" text="Zengîn semâî" />
+        <label xml:lang="en" text="Sengîn semâî" description="Zengîn semâî" />
       </category>
       <category ID="gn-60541714-X">
         <label xml:lang="en" text="Şarkı" />
       </category>
       <category ID="gn-11884885-2">
-        <label xml:lang="en" text="Şuul, Şuğul" />
+        <label xml:lang="en" text="Şugl" description="Şuul, Şuğul" />
       </category>
       <category ID="gn-63228057-0">
         <label xml:lang="en" text="Tekbîr" />
@@ -137,6 +140,9 @@
         <label xml:lang="en" text="Terennüm" />
       </category>
       <category ID="gn-17257571-X">
+        <label xml:lang="en" text="Tesbîh" />
+      </category>
+      <category ID="gn-76646478-6">
         <label xml:lang="en" text="Tevşîh" />
       </category>
       <category ID="gn-68600743-1">
@@ -148,6 +154,9 @@
     </category>
     <category ID="gn-71287086-3">
       <label xml:lang="en" text="Instrumental music" />
+      <category ID="gn-22275526-4">
+        <label xml:lang="en" text="Karabatak" />
+      </category>
       <category ID="gn-22630258-8">
         <label xml:lang="en" text="Longa" />
       </category>
