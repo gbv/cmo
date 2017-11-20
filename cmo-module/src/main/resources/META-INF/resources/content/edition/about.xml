@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE MyCoReWebPage>
 <MyCoReWebPage>
-  <section xml:lang="de" title="About Edition">
+  <section xml:lang="all" title="Edition">
     <div class="row">
       <div class="col-md-12">
-        <h1>About Edition</h1>
+        <h1>Edition</h1>
         <p>
-          coming soon
+          The CMO edition aims to provide, firstly, historically and textually accurate transcriptions of the
+          available repertoire of Ottoman music as it was documented during the nineteenth century. These
+          transcriptions, which reflect the original sources as closely as possible, will be made freely
+          available to scholars as well as to musicians interested in historical performance practice.
+          Secondly, the CMO project will publish critically edited texts from the corpus of Ottoman vocal
+          music, following as faithfully as possible the original arrangement and orthography of the music
+          manuscript sources, thus provide unique documentation of Ottoman poetry in its performative aspect.
+        </p>
+        <p>
+          Musical transcriptions will be fully digitized, taking into account the special notational
+          requirements of the musics of the Middle East and eastern Mediterranean. The data of both music
+          and text editions will be stored in a variety of formats in order to provide access to the edition
+          in both graphic (human readable) and semantic (machine readable) forms. Additionally, metadata for
+          the manuscripts will be entered into the CMO source catalogue. Printed editions of single
+          manuscripts will also be available as book-on-demand publications.
+        </p>
+        <p>
+          Users can explore the edition according to the publication plan through the <u>browsing function</u>,
+          or use the search field above to search for specific editions. The <u>guidelines</u> explain the
+          methods of transcription and provide the necessary information to comprehend editorial decisions.
+          See also the <u>list of abbreviations</u> for a better understanding of the transcriptions and critical
+          commentaries. <u>User guide</u> gives detailed information on how to use the different functions on this
+          web platform.
         </p>
       </div>
     </div>

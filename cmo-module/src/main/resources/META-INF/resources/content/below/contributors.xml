@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="all" title="Contributors">
+    <h1>Contributors</h1>
+    <h2>Institutions</h2>
+    <dl>
+      <dt>Sponsor</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li><a href="http://www.dfg.de/en/index.jsp">DFG – German Research Foundation</a></li>
+        </ul>
+      </dd>
+      
+      <dt>Management</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li><a href="http://www.uni-muenster.de/Musikwissenschaft/">WWU Institute for Musicology</a></li>
+        </ul>
+      </dd>
+      
+      <dt>Project partners</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li><a href="https://www.uni-muenster.de/ArabistikIslam/">WWU Institute for Arabic and Islamic Studies</a></li>
+          <li><a href="http://www.maxweberstiftung.de/en/startseite.html">Max Weber Foundation</a></li>
+          <li><a href="https://www.oiist.org/">Oriental Institute Istanbul</a></li>
+          <li><a href="https://www.gbv.de/Verbundzentrale-en?set_language=en">GBV | VZG – Verbundzentrale des gemeinsamen Bibliothekverbunds</a></li>
+        </ul>
+      </dd>
+      
+      <dt>Cooperation partners</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li><a href="http://turkiyat.istanbul.edu.tr/en/">Istanbul University Research Institute of Turcology</a></li>
+          <li><a href="http://www.tmdk.itu.edu.tr/en/main/index">Istanbul Technical University Turkish Music Conservatory</a></li>
+          <li><a href="http://web2.bilkent.edu.tr/turkedeb/">Bilkent University Department of Turkish Literature</a></li>
+          <li><a href="http://www.uni-muenster.de/MAMO/index.html">MAMO – Archive for Oriental Music - Münster</a></li>
+          <li><a href="https://www.bsb-muenchen.de/">Bavarian State Library, Munich</a></li>
+        </ul>
+      </dd>
+    </dl>
+    
+    <h2>Contributors</h2>
+    <dl>
+      <dt>Project Management:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Prof. Dr. Ralf Martin Jäger</li>
+          <li>Prof. Dr. Thomas Bauer</li>
+          <li>Prof. Dr. Raoul Motika</li>
+        </ul>
+      </dd>
+      
+      <dt>Academic Advisory Board:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Prof. Rûhî Ayangil</li>
+          <li>Prof. Dr. Thomas Bauer</li>
+          <li>Prof. Ş. Şehvar Beşiroĝlu (†)</li>
+          <li>Prof. Dr. Nilgün Doğrusöz-Dişiaçık</li>
+          <li>Prof. Dr. Walter Feldman</li>
+          <li>Dr. habil. Martin Greve</li>
+          <li>Dr. Michael Kaiser</li>
+          <li>Prof. Dr. Mehmet Kalpaklı</li>
+          <li>Prof. Songül Karahasanoğlu</li>
+        </ul>
+      </dd>
+      
+      <dt>External contributors with advisory functions:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Prof. Dr. Fikret Turan</li>
+          <li>Assoc. Prof. Dr. Cenk Güray</li>
+        </ul>
+      </dd>
+      
+      <dt>WWU Münster:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Dr. Malek Sharif</li>
+          <li>Dr. Salah Eddin Maraqa</li>
+          <li>Dr. Jacob Olley</li>
+          <li>Ersin Mıhçı</li>
+          <li>Zeynep Helvacı</li>
+          <li>Monika Zimmermann</li>
+          <li>Marco Dimitriou</li>
+          <li>Benjamin Sturm</li>
+        </ul>
+      </dd>
+      
+      <dt>Oriental Institute Istanbul:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Assoc. Prof. Dr. Elif Damla Yavuz (2015-2017)</li>
+          <li>PD. Dr. Judith I. Haug (since 2016)</li>
+        </ul>
+      </dd>
+      
+      <dt>Max Weber Foundation:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Dr. Michael Kaiser</li>
+          <li>Fabian Cremer</li>
+          <li>Anna Plaksin (2015-2017)</li>
+        </ul>
+      </dd>
+      
+      <dt>GBV | VZG</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Frank Dührkohp</li>
+          <li>Kathleen Neumann</li>
+          <li>Thomas Konradi</li>
+          <li>Sebastian Hofmann</li>
+        </ul>
+      </dd>
+    </dl>
+  </section>
+  <meta>
+    <log date="2017-06-26" time="11:59" labelPath=" » Contact" lastEditor="Kathleen Neumann" />
+  </meta>
+</MyCoReWebPage>

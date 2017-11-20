@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE MyCoReWebPage>
 <MyCoReWebPage>
-  <section xml:lang="de" title="About Catalogue">
+  <section xml:lang="all" title="Source Catalogue">
     <div class="row">
       <div class="col-md-12">
-        <h1>About Catalogue</h1>
+        <h1>Source Catalogue</h1>
         <p>
-          coming soon
+          The online database CMO Source Catalogue is based on the sources used for the critical edition
+          of the music pieces and song texts to find concordances, which serve as a reference and basis
+          to compare different versions of a work. It provides access to the metadata of numerous printed,
+          manuscript and online sources, works included in these sources, as well as basic biographical
+          information on their composers and lyricists. Additionally, it contains metadata of bibliographical
+          sources used as references for the edition and the catalogue itself. The metadata of CMO editions
+          incorporated into the catalogue enables the user to access critical editions through the original
+          sources they are based on. 
+        </p>
+        <p>
+          Users can browse the contents of the catalogue through various indexes on the left side pane, or
+          use the search field above to search for specific contents. Detailed information on how to use
+          the different functions are provided in the <u>user guide</u>.
         </p>
       </div>
     </div>
   </section>
   <meta>
-    <log date="2017-07-31" time="11:59" labelPath=" » About Catalogue" lastEditor="Kathleen Neumann" />
+    <log date="2017-07-31" time="11:59" labelPath=" » Source Catalogue" lastEditor="Kathleen Neumann" />
   </meta>
 </MyCoReWebPage>
