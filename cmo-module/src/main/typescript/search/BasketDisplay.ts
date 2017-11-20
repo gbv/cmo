@@ -86,7 +86,7 @@ export class BasketDisplay {
     }
 
     public display(type?: string) {
-        this.basket.getDocumentsGrouped("objectType", (objects) => {
+        this.basket.getDocumentsGrouped("cmoType", (objects) => {
             if (type !== undefined) {
                 this._container.innerHTML = "<div id='basket'>" + this.displayObjects(type, objects[ type ]) + "</div>";
             } else {
@@ -153,7 +153,7 @@ export class BasketDisplay {
                     </tbody>
                     `;
 
-        return `<h2>${type}</h2><div class='table-responsive'><table class="table table-condensed table-bordered table-hover">${header}${body}</table></div>`;
+        return `<h2 data-i18n="editor.cmo.select.${type}"></h2><div class='table-responsive'><table class="table table-condensed table-bordered table-hover">${header}${body}</table></div>`;
     }
 
 
