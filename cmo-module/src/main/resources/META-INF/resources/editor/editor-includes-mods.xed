@@ -79,18 +79,9 @@
     <cmo:textfield xpath="mods:relatedItem[@type='series']/mods:titleInfo/mods:title" help-text="{i18n:cmo.help.mods.seriesTitle}" label="cmo.mods.seriesTitle" />
   </xed:template>
   
-  <xed:template id="cmo_modsHostTitle">
-    <cmo:textfield xpath="mods:relatedItem[@type='host']/mods:titleInfo/mods:title" help-text="{i18n:cmo.help.mods.hostTitle}" label="cmo.mods.hostTitle" />
-  </xed:template>
-  
   <!--  TODO: fix pages -->
   <xed:template id="cmo_modsHostPages">
     <cmo:textfield xpath="mods:relatedItem[@type='host']/mods:part/mods:extent[@unit='pages']/mods:list" help-text="{i18n:cmo.help.mods.hostPages}" label="cmo.mods.hostPages" />
-  </xed:template>
-  
-  <!-- TODO: make this field searchable -->
-  <xed:template id="cmo_modsOriginalLink">
-    <cmo:textfield xpath="mods:relatedItem[@type='original']/@xlink:href" placeholder="cmo_expression_00000836" help-text="{i18n:cmo.help.mods.originalLink}" label="cmo.mods.originalLink" />
   </xed:template>
   
   <xed:template id="cmo_modsNote">
@@ -213,6 +204,51 @@
         </div>
       </div>
     </xed:repeat>
+  </xed:template>
+  
+  <xed:template id="cmo_modsHostTitle">
+    <xed:bind xpath="mods:relatedItem[@type='host']/mods:titleInfo/mods:title">
+      <div data-subselect='category.top:"cmo_kindOfData:edition"' class="form-group">
+        <div class="row">
+          <label class="col-md-4 control-label">
+            <xed:output i18n="cmo.mods.hostTitle" />
+          </label>
+          <div class="col-md-6">
+            <div class="form-inline">
+              <input type="text" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline {$xed-validation-marker}" />
+              <a tabindex="0" class="btn btn-default info-button" role="button"
+                 title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
+                <i class="fa fa-search"></i>
+              </a>
+            </div>
+          </div>
+          <cmo:help-pmud help-text="{i18n:cmo.help.mods.hostTitle}" />
+        </div>
+      </div>
+    </xed:bind>
+  </xed:template>
+  
+  <!-- TODO: use templates here -->
+  <xed:template id="cmo_modsOriginalLink">
+    <xed:bind xpath="mods:relatedItem[@type='original']/@xlink:href">
+      <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:expression' class="form-group">
+        <div class="row">
+          <label class="col-md-4 control-label">
+            <xed:output i18n="cmo.mods.originalLink" />
+          </label>
+          <div class="col-md-6">
+            <div class="form-inline">
+              <input type="text" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline {$xed-validation-marker}" />
+              <a tabindex="0" class="btn btn-default info-button" role="button"
+                 title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
+                <i class="fa fa-search"></i>
+              </a>
+            </div>
+          </div>
+          <cmo:help-pmud help-text="{i18n:cmo.help.mods.originalLink}" />
+        </div>
+      </div>
+    </xed:bind>
   </xed:template>
 
   <xed:template id="validation-rules">

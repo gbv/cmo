@@ -158,7 +158,7 @@
       </legend>
       <xed:repeat xpath="mei:relationList/mei:relation[@rel='isEmbodimentOf']" min="1" max="100">
         <div class="cmo-fieldset-content">
-          <div class="form-group">
+          <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:expression' class="form-group">
             <div class="row">
               <label class="col-md-4 control-label">
                 <xed:output i18n="cmo.relation" />
@@ -166,10 +166,12 @@
               <div class="col-md-6 ">
                 <div class="form-inline">
                   <xed:bind xpath="@target">
-                    <input type="text" placeholder="z.B. cmo_expression_00002186" style="width: 70%;" class="form-control form-control-inline" />
+                    <input type="text" placeholder="z.B. cmo_expression_00002186" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
-                  <!-- TODO: add javascript here -->
-                  <a class="btn btn-default info-button" role="button" tabindex="0" title="{i18n:cmo.help.relationSearch}"><i class="fa fa-search"></i></a>
+                  <a tabindex="0" class="btn btn-default info-button" role="button"
+                     title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
+                    <i class="fa fa-search"></i>
+                  </a>
                   <xed:bind xpath="@n">
                     <input type="text" placeholder="eg. p. 388" style="width: 20%;margin-left: 10px;" class="form-control form-control-inline" />
                   </xed:bind>
