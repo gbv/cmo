@@ -188,7 +188,7 @@
                              <img src="{$WebApplicationBaseURL}content/images/logos/muwi_muenster.png" title="Link to Musikwissenschaft Münster" alt="Logo Musikwissenschaft Münster" style="margin-top:10px;" />
                            </a>
                          </div>
-                         <div class="col-lg-2">
+                         <div class="col-lg-2" style="text-align: center;">
                            <a href="http://www.maxweberstiftung.de/startseite.html">
                              <img src="{$WebApplicationBaseURL}content/images/logos/max_weber_stiftung.png" title="Link to Max Weber Stiftung" alt="Logo Max Weber Stiftung" style="margin-top:5px;" />
                            </a>
