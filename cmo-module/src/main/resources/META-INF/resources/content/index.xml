@@ -2,14 +2,25 @@
 <!DOCTYPE MyCoReWebPage>
 <MyCoReWebPage>
 
-  <section title="Welcome to CMO Catalogue" xml:lang="de">
+  <section title="Willkommen beim CMO-Katalog" xml:lang="de">
 
     <div id="cmo_start" class="text-center">
-      <h1>CMO Edition and Catalogue</h1>
-      <h2><small>Online Catalogue for Metadata from CMO</small></h2>
+      <h1>CMO Editionen und Quellen-Katalog</h1>
+      <h2><small>Willkommen auf der Online-Publikationsplattform von Corpus Musicae Ottomanicae (CMO)</small></h2>
       <img id="cmo_pitch_set" src="images/pitch_set.png" />
       <p>
-        german version is coming soon
+        CMO ist ein Langzeitprojekt für die kritische Edition von Musikhandschriften aus dem Nahen Osten, die sich
+        auf Manuskripte osmanischer Musik konzentrieren, welche während des 19. Jahrhunderts in Hampartsum und
+        Notensätzen geschrieben wurden. Zu den Veröffentlichungen des CMO gehört auch eine Parallelausgabe von
+        Liedtexten, die in den Manuskripten zu finden sind.
+      </p>
+      <p>
+        Diese Plattform bietet Zugriff auf die Online-Versionen von Musik- und Texteditionen sowie auf den Quellkatalog,
+        der eine umfassende Datenbank mit Drucken, Manuskripten und Online-Quellen ist.
+      </p>
+      <p>
+        Ausführliche Informationen zum Projekt und aktuelle Neuigkeiten finden Sie auf der <a
+        href="https://www.uni-muenster.de/CMO-Edition/de/index.html">CMO-Homepage</a>.
       </p>
     </div>
 
@@ -19,22 +30,22 @@
 
     <div id="cmo_start" class="text-center">
       <h1>CMO Edition and Catalogue</h1>
-      <h2><small>Online Catalogue for Metadata from CMO</small></h2>
+      <h2><small>Welcome to the online publication platform of Corpus Musicae Ottomanicae (CMO)</small></h2>
       <img id="cmo_pitch_set" src="images/pitch_set.png" />
       <p>
-        Includes a short “welcome” text and logos of related institutions,
-        with an option to change the language (English, German and Turkish
-        – only the main text will be translated).
+        CMO is a long-term project for the critical edition of Near Eastern music manuscripts,
+        focusing on manuscripts of Ottoman music written in Hampartsum and staff notations
+        during the nineteenth century. CMO publications also include a parallel edition of
+        song texts found in the manuscripts.
       </p>
       <p>
-        On the start page, there should be a search field for “Simple search”
-        function within the catalogue. Next to/above/below the search field,
-        there are two links/tabs directing the user to “Detailed search” and
-        “Search lyrics” sections of the CMO Catalogue (similar to search
-        fields of e.g. <a href="https://www.bach-digital.de/">Bach Digital</a>,
-        <a href="https://www.vifamusik.de/">ViFa Musik</a> or
-        <a href="https://kenom.gbv.de/fundkomplexe/">Fundmünzkatalog</a>). Details
-        of some of the search pages are explained in appendixes V to IX.
+        This platform provides access to the online versions of both music and text editions,
+        as well as the source catalogue, which is a comprehensive database of printed, manuscript
+        and online sources.
+      </p>
+      <p>
+        For detailed information on the project and current news, please visit the <a
+        href="https://www.uni-muenster.de/CMO-Edition/en/index.html">CMO homepage</a>.
       </p>
     </div>
 
@@ -53,6 +64,6 @@
 
   </section>
   <meta>
-    <log date="2017-07-31" time="16:53" labelPath=" » Start" lastEditor="Kathleen Neumann" />
+    <log date="2017-11-17" time="16:53" labelPath=" » Start" lastEditor="Kathleen Neumann" />
   </meta>
 </MyCoReWebPage>

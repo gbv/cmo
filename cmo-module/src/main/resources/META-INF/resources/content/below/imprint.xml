@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="all" title="Imprint">
+    <h1>Imprint</h1>
+    <h2>Legal note</h2>
+    <p>
+      Corpus Musicae Ottomanicae (CMO) is a joint project by the Institute for Musicology of
+      Westfälischen Wilhelms-University Münster (WWU), WWU Institute for Arabic and Islamic
+      Studies, Max Weber Foundation and Oriental Institute Istanbul, funded by the German
+      Research Foundation (DFG).
+    </p>
+    
+    <h2>Host</h2>
+    <p>
+      Max Weber Foundation <br />
+      Max Weber Stiftung – Deutsche Geisteswissenschaftliche Institute im Ausland <br />
+      Geschäftsstelle <br />
+      Rheinallee 6 <br />
+      53173 Bonn <br />
+      Tel. +49-(0)228-37786-0 <br />
+      Fax:+49-(0)228-37786-19 <br />
+      Email: <span class="madress">info [at] maxweberstiftung.de</span>
+    </p>
+    <p>
+      Max Weber Foundation is a federal, public law foundation with legal capacity based in
+      Bonn and is represented by the Executive Director Dr. Harald Rosenbach.
+    </p>
+    
+    <h2>Editor</h2>
+    <p>
+      Prof. Dr. Ralf Martin Jäger <br />
+      Westfälische Wilhelms-Universität Münster <br />
+      Fachbereich 8: Musikwissenschaft <br />
+      Professur für Ethnomusikologie/Europäische Musikgeschichte <br />
+      Philippistr. 2b <br />
+      48149 Münster <br />
+      Tel.: +49-(0)251-83-24444 <br />
+      Fax: +49-(0)251-83-24450 <br />
+      Email: <span class="madress">musik [at] uni-muenster.de</span>
+    </p>
+
+    <h2>Design and development</h2>
+    <p>
+      Head Office of the Union Library Network (GBV) <br />
+      Platz der Göttinger Sieben 1 <br />
+      37073 Göttingen <br />
+      Germany <br />
+      Tel.: +49(0)551/39-5207 <br />
+      Fax: +49(0)551/39-13980 <br />
+      Internet: <a href="http://www.gbv.de">http://www.gbv.de</a>
+    </p>
+    
+    <h2>Disclaimer</h2>
+    <p>
+      We assume no guarantee for the timeliness, accuracy or completeness of the information
+      displayed on this website. This also applies to all other websites to which reference
+      is made by means of hyperlinks or URLs. WWU Institute for Musicology, WWU Institute for
+      Arabic and Islamic Studies, Max Weber Foundation and the Oriental Institute are not
+      responsible for their content, and we have neither selected nor altered the content of
+      linked websites. The information on this website does not constitute legal or factual
+      representations. CMO reserves the right to amend or supplement the information and data
+      provided as required. CMO is not liable for any direct or indirect injury or damage
+      arising from the use of the information or data contained on this website. There exist
+      no rights or obligations between CMO and website users or third parties.
+    </p>
+    
+    <h2>License</h2>
+    <p>
+      Unless otherwise stated, all content on www.corpus-musicae-ottomanicae.de is
+      under Creative Commons ... 4.0 International License.
+    </p>
+    <p>
+      The database is under Public Domain Dedication and License v1.0. 
+    </p>
+    <p>
+      MyCoRe (used software) is available under GNU General Public License v3.0 . 
+    </p>
+
+  </section>
+  <meta>
+    <log date="2017-01-30" time="11:59" labelPath=" » Imprint" lastEditor="Kathleen Neumann" />
+  </meta>
+</MyCoReWebPage>

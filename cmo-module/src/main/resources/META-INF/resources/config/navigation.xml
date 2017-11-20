@@ -13,7 +13,7 @@
       <label xml:lang="de">Über uns</label>
       <label xml:lang="en">About</label>
     </item>
-    <item href="/content/below/impressum.xml" type="intern">
+    <item href="/content/below/imprint.xml" type="intern">
       <label xml:lang="de">Impressum</label>
       <label xml:lang="en">Imprint</label>
     </item>
@@ -21,9 +21,9 @@
       <label xml:lang="de">Kontakt</label>
       <label xml:lang="en">Contact</label>
     </item>
-    <item href="/content/below/institutions.xml" type="intern">
-      <label xml:lang="de">Beteiligte Institutionen</label>
-      <label xml:lang="en">Institutions</label>
+    <item href="/content/below/contributors.xml" type="intern">
+      <label xml:lang="de">Beteiligte</label>
+      <label xml:lang="en">Contributors</label>
     </item>
   </menu>
   <menu id="cmo_edition" dir="/content/edition">
