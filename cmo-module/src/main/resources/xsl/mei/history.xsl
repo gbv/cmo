@@ -58,7 +58,7 @@
                 <xsl:value-of select="mei:head" />
               </dt>
               <dd>
-                <ul>
+                <ul class="list-unstyled">
                   <!-- TODO: mode "metadataViewHistory" does'nt exist atm -->
                   <xsl:if test="string-length(mei:persName) &gt; 0"><li><xsl:apply-templates select="mei:persName" mode="metadataViewHistory" /></li></xsl:if>
                   <xsl:if test="string-length(mei:geogName) &gt; 0"><li><xsl:apply-templates select="mei:geogName" mode="metadataViewHistory" /></li></xsl:if>

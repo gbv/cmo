@@ -50,7 +50,7 @@
           <xsl:if test="mei:physMedium">
             <dt>Used materials:</dt>
             <dd>
-              <ul>
+              <ul class="list-unstyled">
                 <xsl:for-each select="mei:physMedium">
                   <li><xsl:value-of select="concat(., ' (', @label, ')')" /></li>
                 </xsl:for-each>
@@ -71,7 +71,7 @@
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="label" select="'editor.label.handList'" />
         <xsl:with-param name="content">
-          <ul>
+          <ul class="list-unstyled">
             <xsl:for-each select="mei:handList/mei:hand">
               <li>
                 <xsl:value-of select="concat(@medium, ': ', .)" />

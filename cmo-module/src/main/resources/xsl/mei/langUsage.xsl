@@ -35,7 +35,7 @@
     <xsl:call-template name="metadataLabelContent">
       <xsl:with-param name="label" select="'editor.label.language'" />
       <xsl:with-param name="content">
-        <ul>
+        <ul class="list-unstyled">
           <xsl:for-each select="mei:language">
             <li>
               <xsl:choose>

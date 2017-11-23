@@ -27,8 +27,6 @@
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
                 exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
-  <xsl:include href="mei-utils.xsl" />
-
   <xsl:template match="mei:titleStmt" mode="metadataView">
     <xsl:comment>mei/titleStmt.xsl > mei:titleStmt</xsl:comment>
     <xsl:if test="mei:title">

@@ -8,11 +8,26 @@
   xmlns:mei="http://www.music-encoding.org/ns/mei"
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
+  <xsl:include href="mei-utils.xsl" />
+
   <xsl:template match="/mycoreobject[contains(@ID,'_expression_')]">
     <xsl:call-template name="metadataPage">
       <xsl:with-param name="content">
-
-        <xsl:apply-templates select="//mei:identifier[@type='CMO']" mode="metadataHeader" />
+        
+        <h1>
+          <xsl:choose>
+            <xsl:when test="//mei:titleStmt/mei:title[@type='main']">
+              <xsl:value-of select="//mei:titleStmt/mei:title[@type='main']" />
+              <xsl:if test="//mei:titleStmt/mei:title[@type='sub']">
+                <xsl:text> : </xsl:text>
+                <xsl:value-of select="//mei:titleStmt/mei:title[@type='sub']" />
+              </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:call-template name="printStandardizedTerm" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </h1>
 
         <!--Show metadata -->
         <xsl:call-template name="metadataSection">

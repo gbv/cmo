@@ -119,7 +119,7 @@
               <xsl:value-of select="concat(i18n:translate(concat('editor.label.lifeData.',@type)), ':')" />
             </dt>
             <dd>
-              <ul>
+              <ul class="list-unstyled">
                 <xsl:for-each select="key('dateByType', @type)">
                   <li>
                     <xsl:variable name="displayDate">

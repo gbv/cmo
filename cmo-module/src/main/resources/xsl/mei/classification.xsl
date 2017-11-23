@@ -49,12 +49,12 @@
   <xsl:template match="mei:classification" mode="metadataView">
     <xsl:comment>mei/classification.xsl > mei:classification</xsl:comment>
     <xsl:if test="mei:termList/mei:term">
-      <xsl:for-each select="mei:classCode">
+      <xsl:for-each select="mei:classCode[not(contains(@authURI, 'cmo_kindOfData'))]">
         <xsl:variable name="classCodeID" select="@xml:id" />
         <xsl:call-template name="metadataTextContent">
           <xsl:with-param name="text" select="classification:getRootClassLabel(.)" />
           <xsl:with-param name="content">
-            <ul>
+            <ul class="list-unstyled">
               <xsl:for-each
                 select="../mei:termList[@classcode=concat('#', $classCodeID)]/mei:term">
                 <li>

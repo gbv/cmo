@@ -13,7 +13,7 @@
   <xsl:template name="printStandardizedTerm">
     <xsl:comment>mei-utils.xsl > printStandardizedTerm </xsl:comment>
     <xsl:if test="//mei:classification[mei:classCode[contains(@authURI,'cmo_makamler')]]">
-      <xsl:call-template name="printClassLabel">
+      <xsl:call-template name="printParentClassLabel">
         <xsl:with-param name="classId" select="'cmo_makamler'" />
       </xsl:call-template>
       <xsl:text> </xsl:text>
@@ -31,7 +31,7 @@
   <xsl:template name="printStandardizedHitListTitle">
     <xsl:comment>mei-utils.xsl > printStandardizedHitListTitle </xsl:comment>
     <xsl:if test="//mei:classification[mei:classCode[contains(@authURI,'cmo_makamler')]]">
-      <xsl:call-template name="printClassLabel">
+      <xsl:call-template name="printParentClassLabel">
         <xsl:with-param name="classId" select="'cmo_makamler'" />
       </xsl:call-template>
       <xsl:text> </xsl:text>
@@ -43,7 +43,7 @@
       <xsl:text> </xsl:text>
     </xsl:if>
     <xsl:if test="//mei:classification[mei:classCode[contains(@authURI,'cmo_usuler')]]">
-      <xsl:call-template name="printClassLabel">
+      <xsl:call-template name="printParentClassLabel">
         <xsl:with-param name="classId" select="'cmo_usuler'" />
       </xsl:call-template>
     </xsl:if>
@@ -55,6 +55,27 @@
     <xsl:param name="classId" />
     <xsl:variable name="classCodeId" select="//mei:classification/mei:classCode[contains(@authURI, $classId)]/@xml:id" />
     <xsl:value-of select="classification:getClassLabel(//mei:classification/mei:termList[@classcode=concat('#', $classCodeId)]/mei:term)" />
+  </xsl:template>
+  
+  <xsl:template name="printParentClassLabel">
+    <xsl:param name="classId" />
+    <xsl:variable name="classCodeId" select="//mei:classification/mei:classCode[contains(@authURI, $classId)]/@xml:id" />
+    <xsl:variable name="categId" select="//mei:classification/mei:termList[@classcode=concat('#', $classCodeId)]/mei:term" />
+    <xsl:variable name="classURI" select="concat('classification:metadata:0:parents:', $classId, ':', $categId)" />
+    <xsl:variable name="parentCateg" select="document($classURI)//category[@ID=$categId]/parent::category" />
+    <xsl:choose>
+      <xsl:when test="string-length($parentCateg/@ID) &gt; 0">
+        <!-- TODO: check this, throws NPE atm -->
+        <!-- xsl:value-of select="classification:getClassLabel($parentCateg/@ID)" / -->
+        <xsl:value-of select="$parentCateg/label/@text" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:comment>
+          no parentCateg found for: <xsl:value-of select="$classURI" />
+        </xsl:comment>
+        <xsl:value-of select="classification:getClassLabel($categId)" />
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
 </xsl:stylesheet>

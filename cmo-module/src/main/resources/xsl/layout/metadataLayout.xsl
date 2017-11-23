@@ -158,7 +158,7 @@
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="label" select="'editor.label.contents'" />
         <xsl:with-param name="content">
-          <ul>
+          <ul class="list-unstyled">
             <xsl:for-each select="child">
               <xsl:sort select="@xlink:title" />
               <li>
@@ -169,7 +169,7 @@
                 <xsl:variable name="grandChildren"
                               select="document(concat('solr:q=parent:', @xlink:href, '&amp;rows=1000&amp;fl=id'))/response/result" />
                 <xsl:if test="$grandChildren/@numFound &gt; 0">
-                  <ul>
+                  <ul class="list-unstyled">
                     <xsl:for-each select="$grandChildren/doc">
                       <li>
                         <xsl:call-template name="objectLink">
@@ -241,7 +241,7 @@
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="label" select="'editor.label.edition'" />
         <xsl:with-param name="content">
-          <ul>
+          <ul class="list-unstyled">
             <xsl:for-each select="$hits//result[@name='response']/doc">
               <li>
                 <xsl:call-template name="objectLink">
