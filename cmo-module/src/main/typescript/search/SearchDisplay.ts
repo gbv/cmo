@@ -3,6 +3,7 @@ import {I18N} from "../other/I18N";
 import {ClassificationResolver} from "../other/Classification";
 import {CMOBaseDocument, SolrSearchResult} from "../other/Solr";
 import {BasketUtil} from "./BasketUtil";
+import {SolrDocumentHelper} from "./SolrDocumentHelper";
 
 export class SearchDisplay {
     constructor(private _container: HTMLElement) {
@@ -210,62 +211,172 @@ export class SearchDisplay {
     }
 
     private displayExpression(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
-        return `
-        ${this.displayHitTitle(doc, index, result, (doc)=> {
-            let title = (doc["title"]||["N/A"])[0];
-            
-            if(title === "N/A"){
-                let filterMusicType = ["gn-66217054-X", "gn-71287086-3", "gn-33375630-5"];
-                let makam = this.findRightCategoryField(doc, "cmo_makamler");
-                let musicType = this.findRightCategoryField(doc, "cmo_musictype");
-                title = [makam.map(field => `<span data-clazz="cmo_makamler" data-category="${field.category}"></span>`)[0],
-                         musicType.filter(field=>filterMusicType.indexOf(field.category)==-1).map(field => `<span data-clazz="cmo_musictype" data-category="${field.category}"></span>`)[0]].join(" ")
+        let solrDocumentHelper = new SolrDocumentHelper(doc);
 
-            }
-            
-            return title;
+        let badges = `
+        <span class="col-md-12">
+            ${this.displayCategoryBadge(doc, "cmo_makamler", 0, 1)}
+            ${this.displayCategoryBadge(doc, "cmo_usuler", 0, 1)}
+            ${this.displayCategoryBadge(doc, "cmo_musictype", 1)}
+            ${this.displayCategoryBadge(doc, "cmo_litform")}
+        </span>
+        `;
+
+
+        return `
+        ${badges}
+        ${this.displayHitTitle(doc, index, result, (doc)=> {
+            return doc[ "displayTitle" ];
         })}
-        ${this.displayRefField(doc, "composer.ref")}
-        ${this.displayCategory(doc, "cmo_makamler")}
-        ${this.displayCategory(doc, "cmo_usuler")}
-        ${this.displayCategory(doc, "cmo_musictype")}
-        ${this.displayBasketButton(doc)}
+        <span class="col-md-12">${this.displayCombinedField(doc, 'lyricist')} 
+        ${this.displayCombinedField(doc, 'composer')}</span>
+        ${solrDocumentHelper.getMultiValue("incip")
+            .map(incip => `<span class="col-md-12">${incip.join(", ")}</span>`)
+            .orElse("")}
         `;
     }
 
     private displayBasketButton(doc: CMOBaseDocument){
-        return `<a data-basket="${doc.id}"></a>`;
+        return `<span class="col-md-12"><a data-basket="${doc.id}"></a></span>`;
+    }
+
+    private displayCombinedField(doc: CMOBaseDocument, field: string) {
+        let alreadyInRef = [];
+
+        let refEntries = (doc[ `${field}.ref` ] || [])
+            .map(composer => composer.split("|", 2))
+            .map(([ value, ref ]) => {
+                alreadyInRef.push(value);
+                return `<span><a href="${Utils.getBaseURL()}receive/${ref}">${Utils.encodeHtmlEntities(value)}</a></span>`
+            })
+            .concat((doc[ field ] || [])
+                .filter((field) => alreadyInRef.indexOf(field) === -1)
+                .map(field => `<span>${Utils.encodeHtmlEntities(field)}</span>`))
+            .join(", ");
+
+
+        return refEntries;
+
     }
 
     private displaySource(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
-        return `
-        ${this.displayHitTitle(doc, index, result)}
-        ${this.display("title", doc)}
-        ${"editor.ref" in doc ? this.displayRefField(doc, "editor.ref") : this.display("editor", doc)}
-        ${this.display("publisher", doc)}
-        ${this.display("publisher.place", doc)}
-        ${this.display("publish.date.content", doc)}
-        ${this.display("series", doc)}
-        ${this.displayCategory(doc, "cmo_sourceType")}
-        ${this.displayCategory(doc, "cmo_contentType")}
-        ${this.displayCategory(doc, "cmo_musictype")}
-        ${this.displayCategory(doc, "cmo_notationType")}
-        ${this.displayBasketButton(doc)}
-        `
+        let print = doc[ "category.top" ].indexOf("cmo_sourceType:st-96023048-4") === 0;
+        let _ = (arr) => arr || [];
+        let solrDocumentHelper = new SolrDocumentHelper(doc);
+
+        let badges = `
+        <span class="col-md-12">
+            ${this.displayCategoryBadge(doc, "cmo_sourceType")}
+            ${this.displayCategoryBadge(doc, "cmo_contentType")}
+            ${this.displayCategoryBadge(doc, "cmo_notationType")}
+        </span>
+        `;
+
+        if (print) {
+            let line1 = this.displayCombinedField(doc, 'editor');
+            let line2 = solrDocumentHelper.getMultiValue("series", "title.type.sub", "biblScope").map(vals => {
+                return vals.join(", ");
+            }).orElse("");
+            let line31 = solrDocumentHelper.getMultiValue("publisher.place").map(vals => vals.join(", ") + ": ").orElse("");
+            let line32 = solrDocumentHelper.getMultiValue("publisher").map(vals => vals.join(", ") + ", ").orElse("");
+            let line33 = solrDocumentHelper.getMultiValue("publish.date.content").map(vals => vals.join(", ")).orElse("");
+
+            return `
+        ${badges}
+        ${this.displayHitTitle(doc, index, result, (doc) => doc[ "title.type.main" ])}
+        <span class="col-md-12">${line1}</span>
+        <span class="col-md-12">${line2}</span>
+        <span class="col-md-12">
+            ${line31 + line32 + line33}
+        </span>
+        ${this.displayBasketButton(doc)}`;
+        } else {
+            let line = `<div class="col-md-12">${solrDocumentHelper
+                .getSingleValues("history.Creation.persName", "history.Creation.geogName", "history.Creation.date.content")
+                .join(", ")}</div>`;
+
+
+            let line2 = solrDocumentHelper.getSingleValue("identifier.type.CMO")
+                .map(id => `CMO: ${id}`)
+                .or(() => solrDocumentHelper.getSingleValue("identifier.type.RISM")
+                    .map(id => `RISM: ${id}`))
+                .map(id => `<span class="col-md-12">${id}</span>`)
+                .orElse("");
+
+            let line3 = solrDocumentHelper.getSingleValues("repo.corpName", "repo.identifier.shelfmark").join(", ");
+
+            return `${badges}
+                ${this.displayHitTitle(doc, index, result, (doc) => doc[ "title.type.main" ] || doc[ "identifier.type.CMO" ])}
+                ${line}
+                ${line2}
+                <span class="col-md-12">${line3}</span>
+                ${this.displayBasketButton(doc)}
+            `;
+        }
     }
 
     private displayMods(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
-        return `${this.displayHitTitle(doc, index, result, (doc) => doc[ "mods.title" ])}         
-                 ${this.displayBasketButton(doc)}
-`
+        let solrDocumentHelper = new SolrDocumentHelper(doc);
+        let fieldsLine2 = solrDocumentHelper.getSingleValues("mods.author", "mods.editor.this");
+
+        let first = p => p[ 0 ];
+        let publisher = solrDocumentHelper.getSingleValue("mods.publisher.this");
+        let place = solrDocumentHelper.getSingleValue("mods.place.this");
+        let date = solrDocumentHelper.getSingleValue("mods.dateIssued");
+
+        let leftPart = place.and(publisher, (place, publisher) => place + ": " + publisher)
+            .or(place)
+            .or(publisher);
+
+        leftPart.and(date, (leftPart, date) => leftPart + ", " + date)
+            .or(date, leftPart)
+            .ifPresent((complete) => {
+                fieldsLine2.push(complete);
+            });
+
+        let fieldsLine3 = [];
+
+        let leftPart2 = solrDocumentHelper
+            .getSingleValues("mods.title.host", "mods.name.host", "mods.place.host").join(", ");
+
+        if (leftPart2.length > 0) {
+            fieldsLine3.push(leftPart2);
+        }
+
+        let rightPart2 = solrDocumentHelper
+            .getSingleValues("mods.publisher.host", "mods.dateIssued.host", "mods.extent.host").join(", ");
+        if (rightPart2.length > 0) {
+            fieldsLine3.push(rightPart2);
+        }
+
+
+        return `${this.displayHitTitle(doc, index, result, (doc) => doc[ "mods.title" ])}   
+                  ${fieldsLine2.length > 0 ? `<span class="col-md-12">${fieldsLine2.join(" | ")}</span>` : ""}
+                  ${fieldsLine3.length > 0 ? `<span class="col-md-12">${fieldsLine3.join(" : ")}</span>` : ""}
+                 ${this.displayBasketButton(doc)}`;
     }
 
     private displayPerson(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
+        let solrDocumentHelper = new SolrDocumentHelper(doc);
+        let cmoName = doc[ "name.CMO" ];
+        let birth = solrDocumentHelper.getSingleValue("birth.date.content").map(b => "*" + b);
+        let death = solrDocumentHelper.getSingleValue("death.date.content").map(d => "†" + d);
+
         return `
-        ${this.displayHitTitle(doc, index, result)}
-        ${this.display("name", doc)}
-        ${this.display("birth.date.content", doc)}
-        ${this.display("death.date.content", doc)}
+        ${this.displayHitTitle(doc, index, result, (doc) => cmoName)}
+        ${solrDocumentHelper.getMultiValue("name")
+            .filter(name => name != cmoName)
+            .map(arr => `<span class="col-md-12">${arr.join(", ")}
+            </span>`)
+            .orElse("")}</span>
+        <span class="col-md-12">
+            ${
+            birth
+                .and(death, (b, d) => `${b} | ${d}`)
+                .or(() => birth, () => death)
+                .orElse("")
+            } 
+        </span>
         ${this.displayBasketButton(doc)}
         `
     }
@@ -298,6 +409,26 @@ export class SearchDisplay {
      ${rightCategoryField.map(field => `<span data-clazz="${clazz}" data-category="${field.category}" class="value"></span>`).join("")}
     </div>
 </div>`;
+        } else {
+            return "";
+        }
+    }
+
+
+    // change this to class translate (i18n like)
+    private displayCategoryBadge(doc: CMOBaseDocument, clazz: string, start = 0, endMinus = 0) {
+        let rightCategoryField = this.findRightCategoryField(doc, clazz);
+
+
+        if (rightCategoryField.length > 0) {
+            let realStart = Math.min(start, rightCategoryField.length);
+            let realEnd = Math.max(realStart, rightCategoryField.length - endMinus);
+
+
+            return rightCategoryField
+                .slice(realStart, realEnd)
+                .map(field => `<span data-clazz="${clazz}" data-category="${field.category}" class="badge badge-pill"></span>`).join("");
+
         } else {
             return "";
         }

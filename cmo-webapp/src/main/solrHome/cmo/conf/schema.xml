@@ -542,7 +542,13 @@
   <field name="death.date.range" type="date_range" multiValued="true" />
   <field name="death.date.content" type="string" multiValued="true" />
 
+  <dynamicField name="*.date.range" type="date_range" multiValued="false" />
+  <dynamicField name="*.date.content" type="string" multiValued="false" />
+  <dynamicField name="*.geogName" type="text_tr" multiValued="false" />
+  <dynamicField name="*.persName" type="text_tr" multiValued="false" />
+
   <field name="series" type="text_tr" multiValued="true" />
+  <field name="biblScope" type="text_tr" multiValued="true" />
 
   <field name="name" type="text_tr" multiValued="true" />
   <field name="name.general" type="text_general" multiValued="true" />
@@ -564,8 +570,11 @@
     <field name="mods.nameIdentifier" type="string" multiValued="true" />
     <field name="mods.nameIdentifier.top" type="string" multiValued="true" />
     <field name="mods.name" type="namesType" multiValued="true" />
+    <field name="mods.name.host" type="namesType" multiValued="true" />
     <field name="mods.name.top" type="namesType" multiValued="true" />
     <field name="mods.author" type="namesType" multiValued="true" />
+    <field name="mods.author.this" type="namesType" multiValued="true" />
+    <field name="mods.author.host" type="namesType" multiValued="true" />
     <field name="mods.mainAuthor" type="namesType" indexed="true" stored="false" />
     <field name="mods.genre" type="string" multiValued="true" />
     <field name="mods.identifier" type="string" multiValued="true" />
@@ -576,10 +585,17 @@
     <field name="mods.dateIssued.host" type="string"/>
     <field name="mods.dateIssued.range" type="date_range" />
     <field name="mods.dateIssued.host.range" type="date_range" />
-    <field name="mods.yearIssued" type="int"/>
-    <field name="mods.yearIssued.host" type="int"/>
-    <field name="mods.publisher" type="text_de" multiValued="true"/>
-    <field name="mods.place" type="text_de" multiValued="true"/>
+    <field name="mods.editor" type="text_tr" multiValued="true" />
+    <field name="mods.editor.host" type="text_tr" multiValued="true" />
+    <field name="mods.yearIssued" type="string" />
+    <field name="mods.yearIssued.host" type="string" />
+    <field name="mods.publisher" type="text_en" multiValued="true" />
+    <field name="mods.publisher.this" type="text_en" multiValued="true" />
+    <field name="mods.publisher.host" type="text_en" multiValued="true" />
+    <field name="mods.place" type="text_en" multiValued="true" />
+    <field name="mods.place.this" type="text_en" multiValued="true" />
+    <field name="mods.place.host" type="text_en" multiValued="true" />
+    <field name="mods.extent.host" type="string" multiValued="true" />
     <field name="mods.pindexname" type="string" multiValued="true" />
     <field name="mods.pindexname.published" type="string" multiValued="true" />
     <field name="mods.embargo" type="string" />

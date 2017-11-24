@@ -52,7 +52,8 @@ export class BasketDisplay {
             "cmo.notationType" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_notationType")
         },
         "mods" : {
-            "editor.label.identifier" : (doc) => (doc[ "mods.identifier" ] || []).join("<br/>"),
+            "editor.label.identifier" : (doc) => (doc[ "mods.identifier" ] || [])
+                .map(identifier=> `<a href="${Utils.getBaseURL()}receive/${doc["id"]}">${identifier}</a>`).join("<br/>"),
             "editor.label.title" : (doc: CMOBaseDocument) =>
                 `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities(doc[ "mods.title.main" ] + "")}</a>`,
             "editor.label.pubPlace": (doc: CMOBaseDocument) => doc[ "mods.place" ] || "",
@@ -60,7 +61,7 @@ export class BasketDisplay {
 
         },
         "work": {
-            "editor.label.identifier" : (doc: CMOBaseDocument) => doc[ "identifier.type.CMO" ][ 0 ],
+            "editor.label.identifier" : (doc: CMOBaseDocument) => `<a href="${Utils.getBaseURL()}receive/${doc["id"]}">${doc[ "identifier.type.CMO" ][ 0 ]}</a>`,
             "cmo.genre" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_musictype"),
             "cmo.kindOfData" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_kindOfData")
         }

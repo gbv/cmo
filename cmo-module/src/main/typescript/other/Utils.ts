@@ -1,3 +1,5 @@
+import get = Reflect.get;
+
 export class Utils {
     constructor() {
 
@@ -81,6 +83,7 @@ export class UserInputParser {
             yield UserInputParser.escapeSpecialCharacters(input.substring(lcp, input.length));
         }
     }
+
     static escapeSearchValue = /[\+\-\!\(\)\{\}\[\]\^\"\~\*\?\:\\\/\&\|]/g;
     static unescapeSearchValue = /[\\][\+\-\!\(\)\{\}\[\]\^\"\~\*\?\:\\\/\&\|]/g;
 
@@ -95,6 +98,137 @@ export class UserInputParser {
             return char.substring(1);
         });
     }
+
+}
+
+export class JSOptionalImpl<T> implements Optional<T> {
+
+
+    public static of<T>(value: T): Optional<T> {
+        if (value === null || value === undefined) {
+            throw "value is undefined!";
+        }
+
+        return new JSOptionalImpl(value);
+    }
+
+    public static ofNullable<T>(value: T): Optional<T> {
+        return new JSOptionalImpl(value);
+    }
+
+    public static EMPTY: Optional<any> = JSOptionalImpl.ofNullable(null);
+
+    private constructor(private value: T) {
+    }
+
+    isPresent(): boolean {
+        return this.value !== null && this.value !== undefined;
+    }
+
+    get(): T {
+        if (!this.isPresent()) {
+            throw "value is undefined!";
+        }
+        return this.value;
+    }
+
+    ifPresent(consumer: (value: T) => void): void {
+        if (this.isPresent()) {
+            consumer(this.get());
+        }
+    }
+
+    filter(predicate: (value: T) => boolean): Optional<T> {
+        if (this.isPresent()) {
+            let val = this.get();
+            if (predicate(val)) {
+                return this;
+            } else {
+                return JSOptionalImpl.EMPTY;
+            }
+        } else {
+            return this;
+        }
+    }
+
+    orElse(other: T): T {
+        if (this.isPresent()) {
+            return this.get();
+        }
+        return other;
+    }
+
+    orElseGet(supplier: () => T) {
+        if (this.isPresent()) {
+            return this.get();
+        }
+
+        return supplier();
+    }
+
+    orElseThrow(exceptionSupplier: () => any) {
+        if (this.isPresent()) {
+            return this.get();
+        }
+
+        throw exceptionSupplier();
+    }
+
+    map<RESULT_TYPE>(mapper: (input: T) => RESULT_TYPE): Optional<RESULT_TYPE> {
+        if (this.isPresent()) {
+            return JSOptionalImpl.ofNullable(mapper(this.get()));
+        } else {
+            return JSOptionalImpl.EMPTY;
+        }
+
+    }
+
+    or(...providers: Array<() => Optional<T>| Optional<T>>): Optional<T> {
+        if (this.isPresent()) {
+            return this;
+        } else {
+            for (let provider of providers) {
+                let other = provider instanceof Function ? provider(): provider;
+                if (other.isPresent()) {
+                    return other;
+                }
+            }
+        }
+
+        return JSOptionalImpl.EMPTY;
+    }
+
+    and<Y, Z>(other: Optional<Y>, combinator: (T, Y) => Z) {
+        if (this.isPresent() && other.isPresent()) {
+            return JSOptionalImpl.ofNullable(combinator(this.get(), other.get()));
+        }
+        return JSOptionalImpl.EMPTY;
+    }
+}
+
+export interface Optional<T> {
+    isPresent(): boolean;
+
+    get(): T;
+
+    ifPresent(consumer: (value: T) => void): void;
+
+    isPresent(): boolean;
+
+    filter(predicate: (value: T) => boolean): Optional<T>;
+
+    orElse(other: T): T;
+
+    orElseGet(supplier: () => T);
+
+    orElseThrow(exceptionSupplier: () => any);
+
+    map<RESULT_TYPE>(mapper: (input: T) => RESULT_TYPE): Optional<RESULT_TYPE>;
+
+    or(...provider: any[]): Optional<T>;
+
+    and<Y, Z>(other: Optional<Y>, combinator: (x1: T, x2: Y) => Z): Optional<Z>;
+
 
 }
 

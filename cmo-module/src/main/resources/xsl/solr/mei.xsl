@@ -37,8 +37,11 @@
   <xsl:template match="mei:expression" mode="solrIndex">
     <field name="displayTitle">
       <xsl:choose>
-        <xsl:when test="mei:titleStmt/mei:title[not(text()='N/A')]">
-          <xsl:value-of select="mei:titleStmt/mei:title" />
+        <xsl:when test="mei:titleStmt/mei:title[@type='main']">
+          <xsl:value-of select="mei:titleStmt/mei:title[@type='main']" />
+        </xsl:when>
+        <xsl:when test="mei:titleStmt/mei:title[@type='alt']">
+          <xsl:value-of select="mei:titleStmt/mei:title[@type='alt']" />
         </xsl:when>
         <xsl:otherwise>
           <xsl:call-template name="printStandardizedHitListTitle" />
@@ -125,6 +128,20 @@
         <field name="history.event.eventGeogName">
           <xsl:value-of select="mei:geogName/text()" />
         </field>
+        <field name="history.{mei:head/text()}.geogName">
+          <xsl:value-of select="mei:geogName/text()" />
+        </field>
+      </xsl:if>
+      <xsl:if test="mei:persName">
+        <field name="history.{mei:head/text()}.persName">
+          <xsl:value-of select="mei:persName/text()" />
+        </field>
+      </xsl:if>
+      <xsl:if test="mei:date">
+        <xsl:call-template name="date">
+          <xsl:with-param name="dateNode" select="mei:date" />
+          <xsl:with-param name="fieldName" select="concat('history.', mei:head/text(), '.date')" />
+        </xsl:call-template>
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
@@ -184,9 +201,12 @@
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:author" mode="solrIndex">
-    <field name="author">
-      <xsl:value-of select="text()" />
-    </field>
+    <xsl:if test="not(mei:persName)">
+      <field name="author">
+        <xsl:value-of select="text()" />
+      </field>
+    </xsl:if>
+    <xsl:apply-templates mode="solrIndex" />
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:author/mei:persName" mode="solrIndex">
@@ -196,9 +216,12 @@
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:editor" mode="solrIndex">
-    <field name="editor">
-      <xsl:value-of select="text()" />
-    </field>
+    <xsl:if test="not(mei:persName)">
+      <field name="editor">
+        <xsl:value-of select="text()" />
+      </field>
+    </xsl:if>
+    <xsl:apply-templates mode="solrIndex" />
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:editor/mei:persName" mode="solrIndex">
@@ -286,6 +309,12 @@
     </field>
   </xsl:template>
 
+  <xsl:template match="mei:seriesStmt/mei:biblScope" mode="solrIndex">
+    <field name="biblScope">
+      <xsl:value-of select="text()" />
+    </field>
+  </xsl:template>
+
   <xsl:template name="date">
     <xsl:param name="dateNode" />
     <xsl:param name="fieldName" />
@@ -300,6 +329,7 @@
       <xsl:value-of select="$dateNode/text()" />
     </field>
   </xsl:template>
+
 
   <xsl:template name="birthDate">
     <xsl:param name="dateNodes" />

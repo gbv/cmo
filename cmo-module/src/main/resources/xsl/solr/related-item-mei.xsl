@@ -21,11 +21,12 @@
 
 
       <xsl:for-each select="mods:relatedItem">
+        <xsl:variable name="type" select="@type" />
+
         <xsl:if test="@xlink:href">
           <xsl:variable name="href" select="@xlink:href" />
           <xsl:variable name="meiDoc" select="document(concat('mcrobject:', $href))" />
           <xsl:variable name="id" select="$meiDoc/mycoreobject/@ID" />
-          <xsl:variable name="type" select="@type" />
 
           <field name="mods.relatedItem">
             <xsl:value-of select="$id" />
@@ -42,7 +43,89 @@
             <xsl:with-param name="originInfo" select="mods:originInfo" />
           </xsl:call-template>
         </xsl:if>
+
+        <xsl:for-each
+          select="mods:originInfo[not(@eventType) or @eventType='publication']/mods:place/mods:placeTerm[not(@type='code')]">
+          <field name="mods.place.{$type}">
+            <xsl:value-of select="." />
+          </field>
+        </xsl:for-each>
+
+        <xsl:for-each
+          select="mods:originInfo[not(@eventType) or @eventType='publication']/mods:publisher">
+          <field name="mods.publisher.{$type}">
+            <xsl:call-template name="printModsName" />
+          </field>
+        </xsl:for-each>
+
+        <xsl:for-each
+          select="mods:name[mods:role/mods:roleTerm[@authority='marcrelator' and (@type='code' and text()='edt')]]">
+          <field name="mods.editor.{$type}">
+            <xsl:call-template name="printModsName" />
+          </field>
+        </xsl:for-each>
+
+        <xsl:for-each
+          select="mods:name[mods:role/mods:roleTerm[@authority='marcrelator' and (@type='text' and text()='author') or (@type='code' and text()='aut')]]">
+          <field name="mods.author.{$type}">
+            <xsl:call-template name="printModsName" />
+          </field>
+        </xsl:for-each>
+
+        <xsl:for-each select="mods:name">
+          <field name="mods.name.{$type}">
+            <xsl:call-template name="printModsName" />
+          </field>
+        </xsl:for-each>
+
+        <xsl:for-each select="mods:part/mods:extent[@unit='pages']">
+          <field name="mods.extent.{$type}">
+            <xsl:choose>
+              <xsl:when test="string-length(mods:start/text())&gt;0 and string-length(mods:end/text())&gt;0">
+                <xsl:value-of select="concat(mods:start/text(), '-', mods:end/text())" />
+              </xsl:when>
+              <xsl:when test="string-length(mods:start/text())&gt;0">
+                <xsl:value-of select="concat(mods:start/text(), '- ?')" />
+              </xsl:when>
+              <xsl:when test="string-length(mods:end/text())&gt;0">
+                <xsl:value-of select="concat('?-',mods:end/text())" />
+              </xsl:when>
+              <xsl:when test="string-length(text()) &gt;0">
+                <xsl:value-of select="text()" />
+              </xsl:when>
+            </xsl:choose>
+          </field>
+        </xsl:for-each>
       </xsl:for-each>
+
+      <xsl:for-each
+        select="mods:originInfo[not(@eventType) or @eventType='publication']/mods:place/mods:placeTerm[not(@type='code')]">
+        <field name="mods.place.this">
+          <xsl:value-of select="." />
+        </field>
+      </xsl:for-each>
+
+      <xsl:for-each
+        select="mods:originInfo[not(@eventType) or @eventType='publication']/mods:publisher">
+        <field name="mods.publisher.this">
+          <xsl:call-template name="printModsName" />
+        </field>
+      </xsl:for-each>
+
+      <xsl:for-each
+        select="mods:name[mods:role/mods:roleTerm[@authority='marcrelator' and (@type='code' and text()='edt')]]">
+        <field name="mods.editor.this">
+          <xsl:call-template name="printModsName" />
+        </field>
+      </xsl:for-each>
+
+      <xsl:for-each
+        select="mods:name[mods:role/mods:roleTerm[@authority='marcrelator' and (@type='text' and text()='author') or (@type='code' and text()='aut')]]">
+        <field name="mods.author.this">
+          <xsl:call-template name="printModsName" />
+        </field>
+      </xsl:for-each>
+
     </xsl:for-each>
 
     <xsl:for-each select="structure/parents/parent">
@@ -79,13 +162,13 @@
     <xsl:variable name="issueDateRange">
       <xsl:choose>
         <xsl:when test="$start and $end">
-          <xsl:value-of select="concat('[', $start, '-', $end,']')" />
+          <xsl:value-of select="concat('[', $start, ' TO ', $end,']')" />
         </xsl:when>
         <xsl:when test="$start">
-          <xsl:value-of select="concat('[', $start, '-*]')" />
+          <xsl:value-of select="concat('[', $start, ' TO *]')" />
         </xsl:when>
         <xsl:when test="$end">
-          <xsl:value-of select="concat('[*-', $end,']')" />
+          <xsl:value-of select="concat('[* TO ', $end,']')" />
         </xsl:when>
       </xsl:choose>
     </xsl:variable>
