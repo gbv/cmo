@@ -231,54 +231,78 @@ section #sidebar {
 ----------------------------------------------------------------------------*/
 footer {
     font-size: 12px;
-}
-footer #subnav #side_menu_2 {
+
+  #subnav #side_menu_2 {
     color: $text-color;
     background-color: white;
     border-top: 1px solid #ccc;
-}
+  }
 
-footer #subnav #bottom_menu,
-footer #subnav #bottom_side {
+  #subnav #bottom_menu,
+  #subnav #bottom_side {
     color: $text-color;
     background-color: $cmo_purple_footerBack;
     border-top: 1px solid #ccc;
-}
+  }
 
-footer #subnav #bottom_menu {
+  #subnav #bottom_menu {
     border-left: 1px solid #ccc;
-}
+  }
 
-footer #powered {
+  #powered {
     color: white;
     background-color: $cmo_purple_separators;
-}
+  }
 
-footer #powered #contact {
+  #powered #contact {
     margin-top: 15px;
     a {
       color: white;
     }
-}
+  }
 
-footer #powered #logo {
+  #powered #logo {
     text-align: center;
     margin-top: 15px;
     margin-bottom: 15px;
-}
+  }
 
-footer #powered #copyright {
-}
+  #logo_oi {
+    width:150px;
+    margin-top:30px;
+  }
 
-footer #nav_below > ul {
-  margin-top: 15px;
-  padding-left: 0;
-  > li {
-    list-style: none;
-    display: inline;
-    padding: 0 30px;
-    a {
-      color: white;
+  #logo_arab {
+    width:150px;
+    margin-top:10px;
+  }
+
+  #logo_dfg {
+    width:170px;
+  }
+  #dfg_founded {
+    font-size: xx-small;
+    color: $text-color;
+  }
+
+  #logo_vzg {
+    width:150px;
+    margin-top:30px;
+  }
+
+background-size: cover;
+
+
+  #nav_below > ul {
+    margin-top: 15px;
+    padding-left: 0;
+    > li {
+      list-style: none;
+      display: inline;
+      padding: 0 30px;
+      a {
+        color: white;
+      }
     }
   }
 }
