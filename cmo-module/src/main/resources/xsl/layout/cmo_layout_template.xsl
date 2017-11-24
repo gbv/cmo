@@ -36,7 +36,7 @@
 
         <link href="{$WebApplicationBaseURL}webjars/font-awesome/{$fontawesome.version}/css/font-awesome.min.css" rel="stylesheet" />
 
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet" />
         <link href="{$WebApplicationBaseURL}css/fileupload.css" rel="stylesheet" />
         <link href="{$WebApplicationBaseURL}css/file.css" rel="stylesheet" />
 
@@ -175,32 +175,33 @@
                        <div class="row">
                          <div class="col-lg-2">
                            <a href="http://www.maxweberstiftung.de/institute/institute-oi-istanbul.html">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/orient_institut_istanbul.svg" title="Link to Orient Institute Istanbul" alt="Logo Orient Institute Istanbul" style="width:150px;margin-top:30px;" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/orient_institut_istanbul.svg" title="Link to Orient Institute Istanbul" alt="Logo Orient Institute Istanbul" id="logo_oi" />
                            </a>
                          </div>
                          <div class="col-lg-2">
                            <a href="https://www.uni-muenster.de/ArabistikIslam/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/institut_arabistik.svg" title="Link to Institute for Arabistik and Islam" alt="Logo Institute for Arabistik and Islam" style="width:150px;margin-top:10px;" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/institut_arabistik.svg" title="Link to Institute for Arabistik and Islam" alt="Logo Institute for Arabistik and Islam" id="logo_arab" />
                            </a>
                          </div>
                          <div class="col-lg-2">
                            <a href="https://www.uni-muenster.de/Musikwissenschaft/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/muwi_muenster.png" title="Link to Musikwissenschaft Münster" alt="Logo Musikwissenschaft Münster" style="margin-top:10px;" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/muwi_muenster.png" width="175" title="Link to Musikwissenschaft Münster" alt="Logo Musikwissenschaft Münster" style="margin-top:10px;" />
                            </a>
                          </div>
                          <div class="col-lg-2" style="text-align: center;">
                            <a href="http://www.maxweberstiftung.de/startseite.html">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/max_weber_stiftung.png" title="Link to Max Weber Stiftung" alt="Logo Max Weber Stiftung" style="margin-top:5px;" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/max_weber_stiftung.png" width="106" title="Link to Max Weber Stiftung" alt="Logo Max Weber Stiftung" style="margin-top:5px;" />
                            </a>
                          </div>
-                         <div class="col-lg-2">
+                         <div class="col-lg-2" style="margin-top: 15px;">
                            <a href="http://dfg.de/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/dfg.svg" title="Link to DFG" alt="DFG logo" style="width:170px;margin-top:35px;" />
+                             <span id="dfg_founded">gefördert durch:</span>
+                             <img src="{$WebApplicationBaseURL}content/images/logos/dfg.svg" title="Link to DFG" alt="DFG logo" id="logo_dfg" />
                            </a>
                          </div>
                          <div class="col-lg-2">
                            <a href="https://www.gbv.de/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/vzg.png" title="Link to VZG" alt="VZG logo" style="margin-top:30px;" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/vzg.svg" title="Link to VZG" alt="VZG logo" id="logo_vzg" />
                            </a>
                          </div>
                        </div>
