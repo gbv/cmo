@@ -20,6 +20,7 @@ let sideBar = <HTMLElement>document.querySelector("#sidebar");
 let translationMap = {};
 
 let subselectTarget = null;
+let aditionalQuery = [];
 
 let facet = new SearchFacetController(sideBar, translationMap,
     {
@@ -67,11 +68,32 @@ kContainer.addEventListener('click', () => {
 });
 
 kSearch.addEnabledHandler((enabled) => {
+
     if (enabled) {
         kContainer.setAttribute("class", "col-xs-8 col-md-8 col-lg-8");
         eContainer.setAttribute("class", "col-xs-4 col-md-4 col-lg-4");
     }
+
+
 });
+
+let updateMainContainerSize = ()=>{
+    let normalClass = [ "col-md-9", "col-lg-9" ];
+    let largeClass = [ "col-md-12", "col-lg-12" ];
+
+    if(kSearch.enable){
+        largeClass.forEach(token=>mainContainer.classList.remove(token));
+        normalClass.forEach(token=>mainContainer.classList.add(token));
+        sideBar.style.display='block';
+    }
+
+    if(eSearch.enable){
+        normalClass.forEach(token=>mainContainer.classList.remove(token));
+        largeClass.forEach(token=>mainContainer.classList.add(token));
+        sideBar.style.display='none';
+    }
+
+};
 
 window.document.body.addEventListener("click", (evt: any) => {
     if (eSearch.isExtendedSearchOpen() && evt.path.indexOf(eContainer) == -1) {
@@ -269,6 +291,10 @@ search = (start, searchController, action = "search", sortField: string = "score
         .concat([ [ "action", action ] ])
         .concat([ [ "sort", sortField + " " + (asc ? "asc" : "desc") ] ]);
 
+    if (aditionalQuery.length > 0) {
+        params = params.concat(aditionalQuery);
+    }
+
     StateController.setState(params);
 };
 
@@ -332,7 +358,11 @@ let ctrl: SearchController = null;
 StateController.onStateChange((params, selfChange) => {
     let [ , action ] = params.filter(([ key, value ]) => key == "action")[ 0 ] || [ null, null ];
 
+    updateMainContainerSize();
+
     switch (action) {
+        case "init_search":
+            aditionalQuery = params.filter(([ key ]) => key !== 'q' && key !== 'action' && key !== "sort");
         case "search":
         case "subselect":
             ctrl = null;

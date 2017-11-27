@@ -43,7 +43,8 @@ export class SearchDisplay {
 
         let getSort = (result: SolrSearchResult) => {
             if ("sort" in result.responseHeader.params) {
-                return result.responseHeader.params[ "sort" ].split(" ");
+                let sortParams = result.responseHeader.params[ "sort" ];
+                return (Array.isArray(sortParams) ? sortParams[ 0 ] : sortParams).split(" ");
             }
             return [ "score", "asc" ];
         };
