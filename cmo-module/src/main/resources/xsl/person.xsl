@@ -14,6 +14,8 @@
     <xsl:call-template name="metadataPage">
       <xsl:with-param name="content">
 
+        <xsl:apply-templates select="response" />
+
         <xsl:apply-templates select="//mei:persName/mei:name[@type='CMO']" mode="metadataHeader" />
 
         <!--Show metadata -->

@@ -10,13 +10,14 @@
   exclude-result-prefixes="xalan xlink acl i18n mods" version="1.0">
   
   <xsl:include href="mods-utils.xsl" />
-  <xsl:include href="layout/viewer.xsl" />
 
   <xsl:key use="@id" name="rights" match="/mycoreobject/rights/right" />
 
   <xsl:template match="/mycoreobject[contains(@ID,'_mods_')]">
   <xsl:call-template name="metadataPage">
       <xsl:with-param name="content">
+
+        <xsl:apply-templates select="response" />
 
         <h1>
           <xsl:apply-templates select="//mods:mods" mode="mods.title">

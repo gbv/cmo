@@ -16,6 +16,8 @@
         <xsl:call-template name="metadataSection">
           <xsl:with-param name="content">
 
+            <xsl:apply-templates select="response" />
+
             <xsl:apply-templates select="//mei:identifier" mode="metadataHeader" />
 
             <xsl:call-template name="objectActions">

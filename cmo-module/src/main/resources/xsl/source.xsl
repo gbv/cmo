@@ -13,6 +13,8 @@
     <xsl:call-template name="metadataPage">
       <xsl:with-param name="content">
 
+        <xsl:apply-templates select="response" />
+
         <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:source/mei:identifier[@type='CMO']"
                              mode="metadataHeader" />
 

@@ -14,6 +14,8 @@
     <xsl:call-template name="metadataPage">
       <xsl:with-param name="content">
         
+        <xsl:apply-templates select="response" />
+        
         <h1>
           <xsl:choose>
             <xsl:when test="//mei:titleStmt/mei:title[@type='main']">
