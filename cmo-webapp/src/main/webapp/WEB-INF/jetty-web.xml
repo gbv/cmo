@@ -3,12 +3,12 @@
     "-//Mort Bay Consulting//DTD Configure//EN"
     "http://www.eclipse.org/jetty/configure_9_0.dtd">
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
-<!--
+
   <Call name="setAttribute">
     <Arg>org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern</Arg>
     <Arg>.*/mycore[^/]*\.jar$|.*/cmo[^/]*\.jar$|.*/mir[^/]*\.jar$|.*/classes/.*</Arg>
   </Call>
--->
+
   <!-- Configure Restricted realm (servlet authentication), else jetty will not start  -->
   <Get name="securityHandler">
     <Set name="loginService">
