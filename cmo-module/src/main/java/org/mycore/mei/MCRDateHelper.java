@@ -128,7 +128,7 @@ public class MCRDateHelper {
             if (d1.length() == 7) {
                 ld1 = ld1.with(TemporalAdjusters.firstDayOfMonth());
             }
-            LocalDate ld2 = LocalDate.parse(d1, MEI_FORMATTER);
+            LocalDate ld2 = LocalDate.parse(d2, MEI_FORMATTER);
             if (d2.length() == 4) {
                 ld2 = ld2.with(TemporalAdjusters.firstDayOfYear());
             }
@@ -186,10 +186,6 @@ public class MCRDateHelper {
         }
 
         public String getSOLRString() {
-
-
-
-
             String lb = this.getLowBound();
             String hb = this.getHighBound();
 

@@ -32,6 +32,8 @@
 
     <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/*" mode="solrIndex" />
 
+    <field name="allMeta"><xsl:value-of select="@ID" /></field>
+
   </xsl:template>
 
   <xsl:template match="mei:expression" mode="solrIndex">
