@@ -21,6 +21,8 @@
 
 package org.mycore.mei;
 
+import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -38,6 +40,7 @@ import org.jdom2.Content;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
 import org.jdom2.filter.Filters;
+import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 import org.mycore.datamodel.metadata.MCRMetaElement;
 import org.mycore.datamodel.metadata.MCRMetaXML;
@@ -48,6 +51,9 @@ import org.mycore.mei.classification.MCRMEIAuthorityInfo;
 import org.mycore.mei.classification.MCRMEIClassificationSupport;
 
 public abstract class MEIWrapper {
+
+    private static final XPathExpression<Element> DATE_XPATH = XPathFactory.instance()
+        .compile(".//mei:date", Filters.element(), null, MEI_NAMESPACE);
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -124,13 +130,48 @@ public abstract class MEIWrapper {
             .forEach(this.root::addContent);
     }
 
+    public void normalize() {
+        List<Element> dates = DATE_XPATH.evaluate(this.root);
+
+        dates.forEach(dateElement -> {
+            String notBefore = dateElement.getAttributeValue("notbefore");
+            String notAfter = dateElement.getAttributeValue("notafter");
+            String startDate = dateElement.getAttributeValue("startdate");
+            String endDate = dateElement.getAttributeValue("enddate");
+
+            if (notBefore != null && notBefore.equals(notAfter)) {
+                LOGGER.info("clean up notbefore:{} and notafter:{} (same)", notBefore, notAfter);
+                dateElement.removeAttribute("notebefore");
+                dateElement.removeAttribute("notafter");
+
+                if (dateElement.getAttribute("isodate") == null) {
+                    dateElement.setAttribute("isodate", notBefore);
+                } else {
+                    LOGGER.warn("ISO date is already set. Not sure what to do now!");
+                }
+            }
+
+            if (startDate != null && startDate.equals(endDate)) {
+                LOGGER.info("clean up startdate:{} and enddate:{} (same)", startDate, endDate);
+                dateElement.removeAttribute("startdate");
+                dateElement.removeAttribute("enddate");
+
+                if (dateElement.getAttribute("isodate") == null) {
+                    dateElement.setAttribute("isodate", startDate);
+                } else {
+                    LOGGER.warn("ISO date is already set. Not sure what to do now!");
+                }
+            }
+        });
+    }
+
     public HashMap<MCRMEIAuthorityInfo, List<String>> getClassification() {
-        Element classificationElement = this.root.getChild("classification", MEIUtils.MEI_NAMESPACE);
+        Element classificationElement = this.root.getChild("classification", MEI_NAMESPACE);
         HashMap<MCRMEIAuthorityInfo, List<String>> classificationMap = new HashMap<>();
 
         if (classificationElement != null) {
-            List<Element> classCodes = classificationElement.getChildren("classCode", MEIUtils.MEI_NAMESPACE);
-            List<Element> terMListElements = classificationElement.getChildren("termList", MEIUtils.MEI_NAMESPACE);
+            List<Element> classCodes = classificationElement.getChildren("classCode", MEI_NAMESPACE);
+            List<Element> terMListElements = classificationElement.getChildren("termList", MEI_NAMESPACE);
 
             for (Element classCodeElement : classCodes) {
                 // this is the value which is used to Link a term to class code
@@ -148,7 +189,7 @@ public abstract class MEIWrapper {
                 }
 
                 Element matchingList = matchingListOptional.get();
-                List<Element> terms = matchingList.getChildren("term", MEIUtils.MEI_NAMESPACE);
+                List<Element> terms = matchingList.getChildren("term", MEI_NAMESPACE);
                 List<String> termStringList = terms.stream().map(e -> e.getTextTrim()).collect(Collectors.toList());
                 classificationMap.put(authorityInfo, termStringList);
             }
@@ -160,11 +201,11 @@ public abstract class MEIWrapper {
     public void setClassification(Map<MCRMEIAuthorityInfo, List<String>> classificationMap)
         throws OperationNotSupportedException {
         deleteClassification();
-        Element classificationElement = new Element("classification", MEIUtils.MEI_NAMESPACE);
+        Element classificationElement = new Element("classification", MEI_NAMESPACE);
         if (classificationMap.size() > 0) {
             this.root.addContent(classificationElement);
             classificationMap.forEach((authorityInfo, valueList) -> {
-                Element classCodeElement = new Element("classCode", MEIUtils.MEI_NAMESPACE);
+                Element classCodeElement = new Element("classCode", MEI_NAMESPACE);
                 String authorityURI = authorityInfo.getAuthorityURI();
                 if (authorityURI != null) {
                     classCodeElement.setAttribute("authURI", authorityURI);
@@ -178,14 +219,14 @@ public abstract class MEIWrapper {
                 classCodeElement.setAttribute("id", uniqID, Namespace.XML_NAMESPACE);
                 classificationElement.addContent(classCodeElement);
 
-                Element termList = new Element("termList", MEIUtils.MEI_NAMESPACE);
+                Element termList = new Element("termList", MEI_NAMESPACE);
                 termList.setAttribute("classcode", "#" + uniqID);
                 classificationElement.addContent(termList);
 
                 valueList
                     .stream()
                     .map(v -> {
-                        Element term = new Element("term", MEIUtils.MEI_NAMESPACE);
+                        Element term = new Element("term", MEI_NAMESPACE);
                         term.setText(v);
                         return term;
                     }).forEach(termList::addContent);
@@ -194,7 +235,7 @@ public abstract class MEIWrapper {
     }
 
     public void deleteClassification() {
-        this.root.getChildren("classification", MEIUtils.MEI_NAMESPACE).forEach(Element::detach);
+        this.root.getChildren("classification", MEI_NAMESPACE).forEach(Element::detach);
     }
 
     /**

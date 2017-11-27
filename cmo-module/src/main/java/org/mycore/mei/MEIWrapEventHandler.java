@@ -48,6 +48,7 @@ public class MEIWrapEventHandler extends MCREventHandlerBase {
             LOGGER.info("{} is a MEI Object. Order elements and remove empty elements..", obj.getId());
             wrapper.orderTopLevelElement();
             wrapper.removeEmptyElements();
+            wrapper.normalize();
         }
     }
 
