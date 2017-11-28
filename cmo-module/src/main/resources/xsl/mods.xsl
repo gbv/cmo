@@ -12,6 +12,7 @@
   <xsl:include href="mods-utils.xsl" />
 
   <xsl:key use="@id" name="rights" match="/mycoreobject/rights/right" />
+  <xsl:key use="mods:role/mods:roleTerm" name="name-by-role" match="mods:mods/mods:name" />
 
   <xsl:template match="/mycoreobject[contains(@ID,'_mods_')]">
   <xsl:call-template name="metadataPage">
@@ -27,7 +28,6 @@
         </h1>
 
         <!--Show metadata -->
-        <!-- TODO: exclude template calls and make complete -->
         <xsl:call-template name="metadataSection">
           <xsl:with-param name="content">
             <xsl:call-template name="objectActions">
@@ -36,48 +36,22 @@
 
             <xsl:call-template name="metadataContainer">
               <xsl:with-param name="content">
-              
-                <xsl:call-template name="metadataLabelContent">
-                  <xsl:with-param name="label" select="'editor.label.identifier.CMO'" />
-                  <xsl:with-param name="content">
-                    <xsl:value-of select="//mods:mods/mods:identifier[@type='CMO']" />
-                  </xsl:with-param>
-                </xsl:call-template>
-                
-                <xsl:if test="//mods:mods/mods:name[mods:role/mods:roleTerm/text()='trc']">
-                  <xsl:call-template name="metadataLabelContent">
-                    <xsl:with-param name="label" select="'editor.label.transcriber'" />
-                    <xsl:with-param name="content">
-                        <xsl:for-each select="//mods:mods/mods:name[mods:role/mods:roleTerm/text()='trc']">
-                          <xsl:if test="position()!=1">
-                            <xsl:value-of select="'; '" />
-                          </xsl:if>
-                          <xsl:apply-templates select="." mode="nameLink" />
-                          <xsl:if test="mods:etal">
-                            <em>et.al.</em>
-                          </xsl:if>
-                        </xsl:for-each>
-                    </xsl:with-param>
-                  </xsl:call-template>
-                </xsl:if>
-                
-                <xsl:call-template name="metadataLabelContent">
-                  <xsl:with-param name="label" select="'editor.label.originalLink'" />
-                  <xsl:with-param name="content">
-                    <xsl:call-template name="objectLink">
-                      <xsl:with-param select="//mods:mods/mods:relatedItem[@type='original']/@xlink:href" name="obj_id" />
-                    </xsl:call-template>
-                  </xsl:with-param>
-                </xsl:call-template>
-                
+                <xsl:apply-templates select="//mods:mods/mods:identifier[@type='CMO']" mode="metadataView" />
+                <xsl:apply-templates select="//mods:mods" mode="metadataViewName" />
+                <xsl:apply-templates select="//mods:mods/mods:genre" mode="metadataView" />
+                <xsl:apply-templates select="//mods:mods/mods:originInfo[@eventType='publication']/mods:publisher" mode="metadataView" />
+                <xsl:apply-templates select="//mods:mods/mods:originInfo[@eventType='publication']/mods:dateIssued" mode="metadataView" />
+                <xsl:apply-templates select="//mods:mods/mods:originInfo[@eventType='publication']/mods:place/mods:placeTerm" mode="metadataView" />
+                <xsl:apply-templates select="//mods:mods/mods:physicalDescription/mods:extent" mode="metadataView" />
+                <xsl:apply-templates select="//mods:mods/mods:relatedItem[@type='series']" mode="metadataView" />
+                <xsl:apply-templates select="//mods:mods/mods:note" mode="metadataView" />
+                <xsl:apply-templates select="//mods:mods/mods:relatedItem[@type='original']" mode="metadataView" />
               </xsl:with-param>
             </xsl:call-template>
           </xsl:with-param>
         </xsl:call-template>
 
         <xsl:apply-templates select="structure" mode="showViewer" />
-
-
         <xsl:call-template name="displayDerivateSection" />
       </xsl:with-param>
     </xsl:call-template>
