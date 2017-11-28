@@ -166,6 +166,9 @@ section #sidebar {
     > ul > li {
       border-bottom: 1px solid #ccc;
     }
+    > ul > li#cmo_tutorial {
+      border-bottom: 0px;
+    }
     > ul > li > a {
       font-size: 17px;
       padding-left: 50px;
