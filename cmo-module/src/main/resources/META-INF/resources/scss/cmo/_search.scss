@@ -159,10 +159,17 @@
 
   .hit {
 
-    border: 1px solid #cccccc;
-    border-radius: 2px;
+    border-bottom: 1px solid #cccccc;
     padding: 20px;
     margin-bottom: 20px;
+    font-size: 14px;
+
+    .badge {
+      background-color: #338e34;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-weight: normal;
+    }
 
     .hitTitle {
       display: block;
@@ -170,7 +177,7 @@
       margin-bottom: 8px;
       cursor: pointer;
       color: #57595a;
-      font-size: 18pt;
+      font-size: 16pt;
     }
 
     .key:after {

@@ -238,7 +238,7 @@ export class SearchDisplay {
     }
 
     private displayBasketButton(doc: CMOBaseDocument){
-        return `<span class="col-md-12"><a data-basket="${doc.id}"></a></span>`;
+        return `<span class="col-md-12 text-right"><a data-basket="${doc.id}"></a></span>`;
     }
 
     private displayCombinedField(doc: CMOBaseDocument, field: string) {
