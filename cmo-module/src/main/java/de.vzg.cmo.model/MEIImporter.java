@@ -50,16 +50,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -73,6 +77,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
+import org.jdom2.Parent;
 import org.jdom2.filter.Filters;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
@@ -148,7 +153,9 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
     private static final MCRCategoryDAO DAO = MCRCategoryDAOFactory.getInstance();
 
-    private static final Pattern N_PATTERN = Pattern.compile("([pPno]+\\. [0-9/\\-ab]+)$");
+    private static final Pattern N_PATTERN = Pattern.compile("([pPno]+\\. [0-9/\\-ab]+)[ ]*$");
+
+    private static final Pattern N_SORT_PATTERN = Pattern.compile("(no\\.|p.) ([0-9]+)[/-]?([0-9ab])?");
 
     private static XPathExpression<Element> DATE_ELEMENTS_ATTRS;
 
@@ -435,8 +442,61 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             .collect(Collectors.toList());
     }
 
-    public boolean convertSource(Element sourceElement) {
-        RELATION_IN_SOURCE_XPATH.evaluate(sourceElement).stream()
+    private void sortRelations(List<Element> relations) {
+        Comparator<Element> relationSorter = (el1, el2) -> {
+            Optional<String> label1 = Optional.ofNullable(el1.getAttributeValue("n"));
+            Optional<String> label2 = Optional.ofNullable(el2.getAttributeValue("n"));
+
+            if (label1.isPresent() && label2.isPresent()) {
+                Function<String, Double> nToDouble = n -> {
+                    Matcher matcher = N_SORT_PATTERN.matcher(n);
+                    if (matcher.find() && matcher.groupCount() >= 2) {
+                        try {
+                            Double page = Double.parseDouble(matcher.group(2));
+
+                            if (matcher.groupCount() == 3) {
+                                String group = matcher.group(3);
+                                Double subPage;
+                                try {
+                                    subPage = Double.parseDouble(group);
+                                } catch (NullPointerException e){
+                                    subPage = 0.0;
+                                } catch (NumberFormatException e) {
+                                    subPage = (double) group.codePointAt(0);
+                                }
+                                page = page + (subPage / 1000);
+                            }
+
+                            return page;
+                        } catch (NumberFormatException e) {
+                            return 0.0;
+                        }
+                    } else {
+                        return 0.0;
+                    }
+                };
+                return Double.compare(label1.map(nToDouble).get(), label2.map(nToDouble).get());
+            } else if (label1.isPresent()) {
+                return -1;
+            } else {
+                return 1;
+            }
+        };
+
+        List<Element> relations1 = new ArrayList<>(relations);
+        List<AbstractMap.SimpleEntry<Parent, Element>> list = relations1.stream().map(r -> {
+            Parent parent = r.getParent();
+            parent.removeContent(r);
+            return new AbstractMap.SimpleEntry<>(parent, r);
+        }).collect(Collectors.toList());
+        list.stream().sorted((e1, e2) -> relationSorter.compare(e1.getValue(), e2.getValue()))
+            .forEachOrdered(e -> e.getKey().addContent(e.getValue()));
+
+    }
+
+    private boolean convertSource(Element sourceElement) {
+        List<Element> elements = RELATION_IN_SOURCE_XPATH.evaluate(sourceElement);
+        elements
             .forEach(relationElement -> {
                 String label = relationElement.getAttributeValue("label");
                 Matcher labelMatcher = N_PATTERN.matcher(label);
@@ -448,6 +508,9 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                     LOGGER.warn("No match for page in with label: {}", label);
                 }
             });
+
+        sortRelations(elements);
+
 
         Element componentGrp = sourceElement.getChild("componentGrp", MEIUtils.MEI_NAMESPACE);
         if (componentGrp != null) {
@@ -476,6 +539,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                 }).collect(Collectors.toList());
                 toDelete.forEach(Element::detach);
             }
+            sortRelations(relationList.getChildren());
             return componentGrpHasChildren;
         }
         return false;

@@ -179,7 +179,7 @@ public class MEIUtils {
         switch (linkElement.getName()) {
             case "hand":
                 // cannot set title
-                /**
+                /*
                  * <hand xml:lang="ota-arab" medium="Pencil" resp="cmo_person_00000061">
                  * 2nd hand (Refik Fersan); headings by 1st hand are transcribed into Ottoman Turkish in Arabic script; may also have added lines separating columns.
                  * </hand>
