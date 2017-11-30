@@ -30,7 +30,6 @@ export class BasketDisplay {
             "cmo.usul" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_usuler")
         },
         "person" : {
-            "editor.label.identifier" : (doc: CMOBaseDocument) => doc[ "identifier.type.CMO" ][ 0 ],
             "editor.label.name" : (doc: CMOBaseDocument) => doc[ "name" ].map((name) => `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${name}`).join("<br/>"),
             "editor.label.lifeData.birth" : (doc: CMOBaseDocument) => (doc[ "birth.date.content" ] || [ "" ])[ 0 ] || "",
             "editor.label.lifeData.death" : (doc: CMOBaseDocument) => (doc[ "death.date.content" ] || [ "" ])[ 0 ] || ""
@@ -51,7 +50,16 @@ export class BasketDisplay {
             "cmo.contentType" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_contentType"),
             "cmo.notationType" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_notationType")
         },
-        "mods" : {
+        "source-mods" : {
+            "editor.label.identifier" : (doc) => (doc[ "mods.identifier" ] || [])
+                .map(identifier=> `<a href="${Utils.getBaseURL()}receive/${doc["id"]}">${identifier}</a>`).join("<br/>"),
+            "editor.label.title" : (doc: CMOBaseDocument) =>
+                `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities(doc[ "mods.title.main" ] + "")}</a>`,
+            "editor.label.pubPlace": (doc: CMOBaseDocument) => doc[ "mods.place" ] || "",
+            "editor.label.publishingDate": (doc: CMOBaseDocument) => doc[ "mods.yearIssued" ] || "",
+
+        },
+        "edition-mods" : {
             "editor.label.identifier" : (doc) => (doc[ "mods.identifier" ] || [])
                 .map(identifier=> `<a href="${Utils.getBaseURL()}receive/${doc["id"]}">${identifier}</a>`).join("<br/>"),
             "editor.label.title" : (doc: CMOBaseDocument) =>

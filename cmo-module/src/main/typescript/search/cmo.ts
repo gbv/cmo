@@ -219,7 +219,12 @@ kSearch.addExtended({
             new ClassificationSearchField("category.top", "cmo_litform"),
             new ClassificationSearchField("category.top", "cmo_makamler", 1),
             new ClassificationSearchField("category.top", "cmo_usuler", 1),
-            new SearchField("editor.label.lyricist", [ "lyricist" ]) ]
+            new SearchField("editor.label.lyricist", [ "{!join from=id to=lyricist.ref.pure}name" ]),
+            new DateSearchField("editor.label.lifeData", [ "{!join from=id to=lyricist.ref.pure}date.range" ]),
+            new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_sourceType"),
+            new CheckboxSearchField("cmo.hasFiles", "{!join from=reference to=id}hasFiles", "true"),
+            new CheckboxSearchField("cmo.hasReference", "{!join from=mods.relatedItem to=id}*", "*")
+        ]
     }
 });
 
@@ -282,6 +287,7 @@ let onQueryChanged = (searchController: SearchController) => {
     }, 500);
 };
 
+let rowsSave = 10;
 search = (start, searchController, action = "search", sortField: string = "score", asc: boolean = false) => {
     let queries = searchController.getSolrQuery();
 
@@ -289,7 +295,8 @@ search = (start, searchController, action = "search", sortField: string = "score
     let params = queries
         .concat([ [ "start", start ] ])
         .concat([ [ "action", action ] ])
-        .concat([ [ "sort", sortField + " " + (asc ? "asc" : "desc") ] ]);
+        .concat([ [ "sort", sortField + " " + (asc ? "asc" : "desc") ] ])
+        .concat([ [ "rows", rowsSave ] ]);
 
     if (aditionalQuery.length > 0) {
         params = params.concat(aditionalQuery);
@@ -396,8 +403,9 @@ StateController.onStateChange((params, selfChange) => {
                         searchDisplay.displayResult(result, (start) => {
                             search(start, ctrl, action);
                             window.scrollTo(0, 0);
-                        }, getResultAction(params), (sortField, asc) => {
-                            search(0, ctrl, action, sortField, asc);
+                        }, getResultAction(params), (sortField, asc, rows) => {
+                            rowsSave = rows;
+                            search(0, ctrl, action, sortField, asc, rowsSave);
                         });
                         facet.displayFacet(result);
                     }));

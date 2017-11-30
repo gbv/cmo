@@ -13,6 +13,7 @@ export class SearchDisplay {
     private preDisplayContent: Array<HTMLElement> = null;
     private static SEARCH_LABEL_KEY = "cmo.search.heading";
     private static SORT_LABEL_KEY = "editor.search.sort";
+    private static  ROWS_LABEL_KEY = "cmo.search.rows";
 
     private searchLabel: string = null;
 
@@ -39,7 +40,7 @@ export class SearchDisplay {
 
     public displayResult(result: SolrSearchResult, pageChangeHandler: (newPage: number) => void,
                          onResultClickHandler: (doc: CMOBaseDocument, result: SolrSearchResult, hitOnPage) => void,
-                         onSortChangeHandler: (field: string, asc: boolean) => void) {
+                         onParamsChangeHandler: (field: string, asc: boolean, rows: number) => void) {
 
         let getSort = (result: SolrSearchResult) => {
             if ("sort" in result.responseHeader.params) {
@@ -54,10 +55,10 @@ export class SearchDisplay {
     <div class="row searchResultList">
         <div class="col-md-10 col-md-offset-1">
             <div class="row header">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <span>${result.response.numFound} <span data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></span></span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <span data-i18n="${SearchDisplay.SORT_LABEL_KEY}"></span>
                     <select data-sort-select="">
                         ${this.getSortOptions(sort[ 0 ])}
@@ -65,6 +66,15 @@ export class SearchDisplay {
                     <span class="ascdesc">
                            ${sort[ 1 ] == "desc" ? "&darr;" : "&uarr;"}             
                     </span>
+                </div>
+                <div class="col-md-4">
+                    <span data-i18n="${SearchDisplay.ROWS_LABEL_KEY}"></span>
+                    <select data-rows-select="">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
                 </div>
             </div>
              ${this.renderList(result)}
@@ -87,13 +97,13 @@ export class SearchDisplay {
             });
         });
 
-        let select = <HTMLSelectElement>this._container.querySelector("[data-sort-select]");
+        let sortSelect = <HTMLSelectElement>this._container.querySelector("[data-sort-select]");
         let ascdesc = <HTMLSpanElement>this._container.querySelector(".ascdesc");
 
         let sortChange = () => {
-            onSortChangeHandler(select.value, ascdesc.innerHTML.trim() !== "↓")
+            onParamsChangeHandler(sortSelect.value, ascdesc.innerHTML.trim() !== "↓", parseInt(rowsSelect.value));
         };
-        select.addEventListener("change", sortChange);
+        sortSelect.addEventListener("change", sortChange);
         ascdesc.addEventListener("click", () => {
             if (ascdesc.innerHTML.trim() == "↓") {
                 ascdesc.innerHTML = "&uarr;";
@@ -101,6 +111,12 @@ export class SearchDisplay {
                 ascdesc.innerHTML = "&darr;";
             }
             sortChange();
+        });
+
+        let rowsSelect = <HTMLSelectElement>this._container.querySelector("[data-rows-select]");
+        rowsSelect.value = (result.responseHeader.params["rows"]||10)+"";
+        rowsSelect.addEventListener("change", ()=>{
+            onParamsChangeHandler(sortSelect.value, ascdesc.innerHTML.trim() !== "↓", parseInt(rowsSelect.value));
         });
 
         I18N.translateElements(this._container);
