@@ -250,6 +250,7 @@ export class SearchDisplay {
         ${solrDocumentHelper.getMultiValue("incip")
             .map(incip => `<span class="col-md-12">${incip.join(", ")}</span>`)
             .orElse("")}
+        ${this.displayBasketButton(doc)}
         `;
     }
 
