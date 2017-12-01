@@ -63,7 +63,7 @@
 "\u00C3" => "A"
 
 # Ä  [LATIN CAPITAL LETTER A WITH DIAERESIS]
-"\u00C4" => "A"
+"\u00C4" => "AE"
 
 # Å  [LATIN CAPITAL LETTER A WITH RING ABOVE]
 "\u00C5" => "A"
@@ -165,7 +165,7 @@
 "\u00E3" => "a"
 
 # ä  [LATIN SMALL LETTER A WITH DIAERESIS]
-"\u00E4" => "a"
+"\u00E4" => "ae"
 
 # å  [LATIN SMALL LETTER A WITH RING ABOVE]
 "\u00E5" => "a"
@@ -1716,7 +1716,7 @@
 "\u00D5" => "O"
 
 # Ö  [LATIN CAPITAL LETTER O WITH DIAERESIS]
-"\u00D6" => "O"
+"\u00D6" => "OE"
 
 # Ø  [LATIN CAPITAL LETTER O WITH STROKE]
 "\u00D8" => "O"
@@ -1848,7 +1848,7 @@
 "\u00F5" => "o"
 
 # ö  [LATIN SMALL LETTER O WITH DIAERESIS]
-"\u00F6" => "o"
+"\u00F6" => "oe"
 
 # ø  [LATIN SMALL LETTER O WITH STROKE]
 "\u00F8" => "o"
@@ -2496,7 +2496,7 @@
 "\u00DB" => "U"
 
 # Ü  [LATIN CAPITAL LETTER U WITH DIAERESIS]
-"\u00DC" => "U"
+"\u00DC" => "UE"
 
 # Ũ  [LATIN CAPITAL LETTER U WITH TILDE]
 "\u0168" => "U"
@@ -2601,7 +2601,7 @@
 "\u00FB" => "u"
 
 # ü  [LATIN SMALL LETTER U WITH DIAERESIS]
-"\u00FC" => "u"
+"\u00FC" => "ue"
 
 # ũ  [LATIN SMALL LETTER U WITH TILDE]
 "\u0169" => "u"

@@ -8,6 +8,7 @@
                 xmlns:mcrmei="xalan://org.mycore.mei.classification.MCRMEIClassificationSupport"
                 exclude-result-prefixes="mods mei xlink mcrmei">
   <xsl:import href="xslImport:solr-document:solr/searchfields-solr.xsl" />
+  <xsl:include href="coreFunctions.xsl" />
 
   <xsl:template match="mycoreobject">
     <xsl:apply-imports />
