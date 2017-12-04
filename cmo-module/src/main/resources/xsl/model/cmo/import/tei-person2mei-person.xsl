@@ -51,11 +51,12 @@
     </mei:identifier>
   </xsl:template>
 
-  <xsl:template match="tei:idno[@type='cmo']">
-    <!--
-    <mei:identifier type="{@type}">
-      <xsl:value-of select="." />
-    </mei:identifier>-->
+  <xsl:template match="tei:idno">
+    <xsl:if test="not(@type='CMO')">
+      <mei:identifier type="{@type}">
+        <xsl:value-of select="." />
+      </mei:identifier>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="tei:persName">
