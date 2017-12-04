@@ -287,7 +287,7 @@ let onQueryChanged = (searchController: SearchController) => {
     }, 500);
 };
 
-search = (start, searchController, action, sortField: string, asc: boolean = false, rows) => {
+search = (start, searchController, action, sortField: string, asc: boolean = false, rows = 10) => {
     let queries = searchController.getSolrQuery();
 
     let params = queries
