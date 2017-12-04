@@ -51,19 +51,21 @@
     <xsl:if test="mei:termList/mei:term">
       <xsl:for-each select="mei:classCode[not(contains(@authURI, 'cmo_kindOfData'))]">
         <xsl:variable name="classCodeID" select="@xml:id" />
-        <xsl:call-template name="metadataTextContent">
-          <xsl:with-param name="text" select="classification:getRootClassLabel(.)" />
-          <xsl:with-param name="content">
-            <ul class="list-unstyled">
-              <xsl:for-each
-                select="../mei:termList[@classcode=concat('#', $classCodeID)]/mei:term">
-                <li>
-                  <xsl:value-of select="classification:getClassLabel(.)" />
-                </li>
-              </xsl:for-each>
-            </ul>
-          </xsl:with-param>
-        </xsl:call-template>
+          <xsl:if test="../mei:termList[@classcode=concat('#', $classCodeID)]/mei:term">
+            <xsl:call-template name="metadataTextContent">
+              <xsl:with-param name="text" select="classification:getRootClassLabel(.)" />
+              <xsl:with-param name="content">
+                <ul class="list-unstyled">
+                  <xsl:for-each
+                    select="../mei:termList[@classcode=concat('#', $classCodeID)]/mei:term">
+                    <li>
+                      <xsl:value-of select="classification:getClassLabel(.)" />
+                    </li>
+                  </xsl:for-each>
+                </ul>
+              </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
       </xsl:for-each>
     </xsl:if>
   </xsl:template>
