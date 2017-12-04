@@ -35,13 +35,11 @@ export class SearchDisplay {
 
     private sortOptions = {
         "editor.search.sort.relevance" : "score",
-        /* "editor.search.sort.title" : "displayTitle" */
+        "editor.search.sort.title" : "displayTitle",
     };
 
-    public displayResult(result: SolrSearchResult, pageChangeHandler: (newPage: number) => void,
-                         onResultClickHandler: (doc: CMOBaseDocument, result: SolrSearchResult, hitOnPage) => void,
-                         onParamsChangeHandler: (field: string, asc: boolean, rows: number) => void) {
-
+    public displayResult(result: SolrSearchResult, pageChangeHandler: (newPage: number, field: string, asc: boolean, rows: number) => void,
+                         onResultClickHandler: (doc: CMOBaseDocument, result: SolrSearchResult, hitOnPage) => void) {
         let getSort = (result: SolrSearchResult) => {
             if ("sort" in result.responseHeader.params) {
                 let sortParams = result.responseHeader.params[ "sort" ];
@@ -82,10 +80,14 @@ export class SearchDisplay {
         </div>
     </div>`;
 
+        (<HTMLSelectElement>this._container.querySelector("[data-sort-select]")).value = sort[ 0 ];
+        let sortSelect = <HTMLSelectElement>this._container.querySelector("[data-sort-select]");
+        let ascdesc = <HTMLSpanElement>this._container.querySelector(".ascdesc");
+
         Array.prototype.slice.call(this._container.querySelectorAll("[data-switch-page]")).forEach((node) => {
             let page = parseInt((<HTMLElement>node).getAttribute("data-switch-page"), 10);
             node.addEventListener("click", () => {
-                pageChangeHandler(page);
+                pageChangeHandler(page,sortSelect.value, ascdesc.innerHTML.trim() !== "↓", parseInt(rowsSelect.value));
             });
         });
 
@@ -97,11 +99,9 @@ export class SearchDisplay {
             });
         });
 
-        let sortSelect = <HTMLSelectElement>this._container.querySelector("[data-sort-select]");
-        let ascdesc = <HTMLSpanElement>this._container.querySelector(".ascdesc");
 
         let sortChange = () => {
-            onParamsChangeHandler(sortSelect.value, ascdesc.innerHTML.trim() !== "↓", parseInt(rowsSelect.value));
+            pageChangeHandler(0,sortSelect.value, ascdesc.innerHTML.trim() !== "↓", parseInt(rowsSelect.value));
         };
         sortSelect.addEventListener("change", sortChange);
         ascdesc.addEventListener("click", () => {
@@ -116,7 +116,7 @@ export class SearchDisplay {
         let rowsSelect = <HTMLSelectElement>this._container.querySelector("[data-rows-select]");
         rowsSelect.value = (result.responseHeader.params["rows"]||10)+"";
         rowsSelect.addEventListener("change", ()=>{
-            onParamsChangeHandler(sortSelect.value, ascdesc.innerHTML.trim() !== "↓", parseInt(rowsSelect.value));
+            pageChangeHandler(0,sortSelect.value, ascdesc.innerHTML.trim() !== "↓", parseInt(rowsSelect.value));
         });
 
         I18N.translateElements(this._container);
@@ -324,7 +324,7 @@ export class SearchDisplay {
             let line3 = solrDocumentHelper.getSingleValues("repo.corpName", "repo.identifier.shelfmark").join(", ");
 
             return `${badges}
-                ${this.displayHitTitle(doc, index, result, (doc) => doc[ "title.type.main" ] || doc[ "identifier.type.CMO" ])}
+                ${this.displayHitTitle(doc, index, result, (doc) => doc[ "displayTitle" ])}
                 ${line}
                 ${line2}
                 <span class="col-md-12">${line3}</span>
@@ -368,7 +368,7 @@ export class SearchDisplay {
         }
 
 
-        return `${this.displayHitTitle(doc, index, result, (doc) => doc[ "mods.title" ])}   
+        return `${this.displayHitTitle(doc, index, result, (doc) => doc[ "displayTitle" ])}   
                   ${fieldsLine2.length > 0 ? `<span class="col-md-12">${fieldsLine2.join(" | ")}</span>` : ""}
                   ${fieldsLine3.length > 0 ? `<span class="col-md-12">${fieldsLine3.join(" : ")}</span>` : ""}
                  ${this.displayBasketButton(doc)}`;
@@ -376,7 +376,7 @@ export class SearchDisplay {
 
     private displayPerson(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
         let solrDocumentHelper = new SolrDocumentHelper(doc);
-        let cmoName = doc[ "name.CMO" ];
+        let cmoName = doc[ "displayTitle" ];
         let birth = solrDocumentHelper.getSingleValue("birth.date.content").map(b => "*" + b);
         let death = solrDocumentHelper.getSingleValue("death.date.content").map(d => "†" + d);
 
@@ -468,7 +468,7 @@ export class SearchDisplay {
         let options = [];
         for (let i18n in this.sortOptions) {
             let field = this.sortOptions[ i18n ];
-            options.push(`<option ${field == sort ? "default" : ""} data-i18n="${i18n}" value="${field}">${i18n}</option>`);
+            options.push(`<option data-i18n="${i18n}" value="${field}">${i18n}</option>`);
         }
         return options.join();
     }

@@ -615,7 +615,7 @@
   <field name="title.lang.tr" type="text_tr" multiValued="true" stored="true" />
     <field name="title.lang.ota-arab" type="text_ar" multiValued="true" stored="true" />
   <dynamicField name="title.*" type="text_general" multiValued="true" stored="true"/>
-  <field name="displayTitle" type="string" indexed="false" stored="true" />
+  <field name="displayTitle" type="text_tr" indexed="true" stored="true" multiValued="false" />
 
   <!-- optimize mods title -->
   <copyField source="mods.title.*" dest="mods.title.de.*" />

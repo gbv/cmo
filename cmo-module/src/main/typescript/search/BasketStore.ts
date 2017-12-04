@@ -63,13 +63,14 @@ export class BasketStore {
         }
     }
 
-    public getDocumentsGrouped(groupBy: string, callback: (docs: any) => void): void {
+    public getDocumentsGrouped(groupBy: string, callback: (docs: any, sort:string) => void, sortBy:string= "displayTitle asc"): void {
         let updateSearcher = new SolrSearcher();
         if (this.count() > 0) {
             updateSearcher.search([
                 [ "q", "id:(" + this._store.join(" ") + ")" ],
                 [ "start", "0" ],
                 [ "rows", "99999" ],
+                [ "sort", sortBy],
                 [ "group", "true" ],
                 [ "group.limit", "9999" ],
                 [ "group.field", groupBy ] ], (result) => {
@@ -82,7 +83,7 @@ export class BasketStore {
                     }
                 }
 
-                callback(groupMap);
+                callback(groupMap, sortBy);
             });
         }
     }

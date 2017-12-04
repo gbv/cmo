@@ -287,16 +287,14 @@ let onQueryChanged = (searchController: SearchController) => {
     }, 500);
 };
 
-let rowsSave = 10;
-search = (start, searchController, action = "search", sortField: string = "score", asc: boolean = false) => {
+search = (start, searchController, action, sortField: string, asc: boolean = false, rows) => {
     let queries = searchController.getSolrQuery();
-
 
     let params = queries
         .concat([ [ "start", start ] ])
         .concat([ [ "action", action ] ])
-        .concat([ [ "sort", sortField + " " + (asc ? "asc" : "desc") ] ])
-        .concat([ [ "rows", rowsSave ] ]);
+        .concat([ [ "sort", (sortField || "score") + " " + (asc ? "asc" : "desc") ] ])
+        .concat([ [ "rows", rows ] ]);
 
     if (aditionalQuery.length > 0) {
         params = params.concat(aditionalQuery);
@@ -400,13 +398,10 @@ StateController.onStateChange((params, selfChange) => {
                 solrSearcher.search(
                     params
                     , (result => {
-                        searchDisplay.displayResult(result, (start) => {
-                            search(start, ctrl, action);
+                        searchDisplay.displayResult(result, (start, sortField, asc, rows) => {
                             window.scrollTo(0, 0);
-                        }, getResultAction(params), (sortField, asc, rows) => {
-                            rowsSave = rows;
-                            search(0, ctrl, action, sortField, asc, rowsSave);
-                        });
+                            search(start, ctrl, action, sortField, asc, rows);
+                        }, getResultAction(params),);
                         facet.displayFacet(result);
                     }));
             }

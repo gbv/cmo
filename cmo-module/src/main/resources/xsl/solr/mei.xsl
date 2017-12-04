@@ -53,6 +53,34 @@
     <xsl:apply-templates mode="solrIndex" />
   </xsl:template>
 
+  <xsl:template match="meiContainer/mei:persName" mode="solrIndex">
+    <field name="displayTitle">
+      <xsl:value-of select="mei:name[@type='CMO']" />
+    </field>
+    <xsl:apply-templates mode="solrIndex" />
+
+    <xsl:if test="mei:date">
+      <xsl:call-template name="birthDate">
+        <xsl:with-param name="dateNodes" select="mei:date" />
+      </xsl:call-template>
+    </xsl:if>
+    <xsl:apply-templates select="@*|*" mode="solrIndex" />
+  </xsl:template>
+
+  <xsl:template match="meiContainer/mei:source">
+    <field name="displayTitle">
+      <xsl:choose>
+        <xsl:when test="mei:titleStmt/mei:title[@type='main']">
+          <xsl:value-of select="mei:titleStmt/mei:title[@type='main']" />
+        </xsl:when>
+        <xsl:when test="mei:identifier[@type='CMO']">
+          <xsl:value-of select="mei:identifier[@type='CMO']" />
+        </xsl:when>
+      </xsl:choose>
+    </field>
+    <xsl:apply-templates select="@*|*" mode="solrIndex" />
+  </xsl:template>
+
   <xsl:template match="*|@*" mode="solrIndex">
     <xsl:apply-templates mode="solrIndex" />
   </xsl:template>
@@ -272,12 +300,6 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template match="mei:persName[mei:date]" mode="solrIndex">
-    <xsl:call-template name="birthDate">
-      <xsl:with-param name="dateNodes" select="mei:date" />
-    </xsl:call-template>
-    <xsl:apply-templates select="@*|*" mode="solrIndex" />
-  </xsl:template>
 
   <xsl:template match="mei:persName/mei:date" mode="solrIndex">
 

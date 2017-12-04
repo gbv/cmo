@@ -13,6 +13,14 @@ export class BasketDisplay {
     private basket = BasketStore.getInstance();
     private preDisplayContent: Array<HTMLElement> = null;
 
+    private static TABLE_SORT = {
+        "expression-editor.label.title" : "displayTitle",
+        "source-editor.label.title" : "displayTitle",
+        "source-mods-editor.label.title" : "displayTitle",
+        "edition-mods-editor.label.title" : "displayTitle",
+        "edition-mods-editor.label.publishingDate":"mods.yearIssued",
+        "source-mods-editor.label.publishingDate":"mods.yearIssued",
+    };
 
     private static TABLE = {
         "expression" : {
@@ -39,7 +47,7 @@ export class BasketDisplay {
             "editor.label.identifier.shelfmark" : (doc)=> doc[ "repo.identifier.shelfmark" ] || "",
             "editor.label.corpName": (doc)=> doc["repo.corpName.library"] || "",
             "editor.label.title" : (doc: CMOBaseDocument) =>
-                `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities((doc[ "title.type.main" ] || "") + "")}</a>`,
+                `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities((doc[ "o" ] || "") + "")}</a>`,
 
             "editor.label.publisher" : (doc: CMOBaseDocument) => doc[ "publisher" ] || "",
             "editor.label.editor" : (doc: CMOBaseDocument) => (doc[ "editor" ] || []).join("; "),
@@ -54,7 +62,7 @@ export class BasketDisplay {
             "editor.label.identifier" : (doc) => (doc[ "mods.identifier" ] || [])
                 .map(identifier=> `<a href="${Utils.getBaseURL()}receive/${doc["id"]}">${identifier}</a>`).join("<br/>"),
             "editor.label.title" : (doc: CMOBaseDocument) =>
-                `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities(doc[ "mods.title.main" ] + "")}</a>`,
+                `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities(doc[ "displayTitle" ] + "")}</a>`,
             "editor.label.pubPlace": (doc: CMOBaseDocument) => doc[ "mods.place" ] || "",
             "editor.label.publishingDate": (doc: CMOBaseDocument) => doc[ "mods.yearIssued" ] || "",
 
@@ -63,7 +71,7 @@ export class BasketDisplay {
             "editor.label.identifier" : (doc) => (doc[ "mods.identifier" ] || [])
                 .map(identifier=> `<a href="${Utils.getBaseURL()}receive/${doc["id"]}">${identifier}</a>`).join("<br/>"),
             "editor.label.title" : (doc: CMOBaseDocument) =>
-                `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities(doc[ "mods.title.main" ] + "")}</a>`,
+                `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities(doc[ "displayTitle" ] + "")}</a>`,
             "editor.label.pubPlace": (doc: CMOBaseDocument) => doc[ "mods.place" ] || "",
             "editor.label.publishingDate": (doc: CMOBaseDocument) => doc[ "mods.yearIssued" ] || "",
 
@@ -95,9 +103,10 @@ export class BasketDisplay {
     }
 
     public display(type?: string) {
-        this.basket.getDocumentsGrouped("cmoType", (objects) => {
+        let basketDisplay = this;
+        let callback = (objects, sort) => {
             if (type !== undefined) {
-                this._container.innerHTML = "<div id='basket'>" + this.displayObjects(type, objects[ type ]) + "</div>";
+                this._container.innerHTML = "<div id='basket'>" + this.displayObjects(type, objects[ type ], sort) + "</div>";
             } else {
                 let objectTypes = [];
                 for (let type in objects) {
@@ -106,13 +115,14 @@ export class BasketDisplay {
                     }
                 }
 
-                let content = objectTypes.map(t => {
-                    let table = this.displayObjects(t, objects[ t ]);
+                let content = objectTypes.sort().map(t => {
+                    let table = basketDisplay.displayObjects(t, objects[ t ], sort);
                     return table;
                 });
 
                 this._container.innerHTML = "<div id='basket'>" + content.join(" ") + "</div>";
             }
+
 
             I18N.translateElements(this._container);
             ClassificationResolver.putLabels(this._container);
@@ -124,12 +134,21 @@ export class BasketDisplay {
                     });
                 });
             this._container.style.width = "100%";
-        });
 
+            Array.prototype.slice.call(document.querySelectorAll("[data-sort]"))
+                .forEach(function (el) {
+                    el.addEventListener("click", () => {
+                        let sortFor = el.getAttribute("data-sort");
+                        let dir = el.classList.contains("sort-asc") ? "desc" : "asc";
+                        basketDisplay.basket.getDocumentsGrouped("cmoType", callback, sortFor + " " + dir);
+                    });
+                });
+        };
 
+        basketDisplay.basket.getDocumentsGrouped("cmoType", callback);
     }
 
-    public displayObjects(type: string, objs: Array<CMOBaseDocument>) {
+    public displayObjects(type: string, objs: Array<CMOBaseDocument>, sort: string) {
         let table = BasketDisplay.TABLE[ type ];
 
         let cols = [];
@@ -140,12 +159,16 @@ export class BasketDisplay {
             }
         }
 
+        let [ field, direction ] = sort.split(" ");
 
         let header = `
                       <thead>
                         <tr>
-                            ${cols.map((col) => `<th data-i18n="${col}">${col}</th>`).join("")}
-                            <th></th>
+        ${cols.map((col) => {
+            let sortField = BasketDisplay.TABLE_SORT[ type + "-" + col ];
+            return `<th ${typeof sortField !== "undefined" && sortField != null ? " data-sort='" + sortField + "' " : ""}${sortField == field && direction == "asc" ? " class='sort-asc' " : ""} data-i18n="${col}">${col}</th>`
+        }).join("")}
+        <th></th>
                         </tr>
                       </thead>
                       `;
