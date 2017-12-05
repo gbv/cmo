@@ -98,7 +98,7 @@ export class BasketDisplay {
         let basketDisplay = this;
         let callback = (objects, sort) => {
             if (type !== undefined) {
-                this._container.innerHTML = "<div id='basket'>" + this.displayObjects(type, objects[ type ], sort) + "</div>";
+                this._container.innerHTML = "<div id='basket'>" + this.displayControls() + this.displayObjects(type, objects[ type ], sort) + "</div>";
             } else {
                 let objectTypes = [];
                 for (let type in objects) {
@@ -112,7 +112,7 @@ export class BasketDisplay {
                     return table;
                 });
 
-                this._container.innerHTML = "<div id='basket'>" + content.join(" ") + "</div>";
+                this._container.innerHTML = "<div id='basket'>" + this.displayControls() + content.join(" ") + "</div>";
             }
             I18N.translateElements(this._container);
             ClassificationResolver.putLabels(this._container);
@@ -127,6 +127,10 @@ export class BasketDisplay {
 
             let jQuery = window["jQuery"];
             jQuery(this._container).find("table").tablesorter();
+            this._container.querySelector("[data-basket-empty]").addEventListener("click", ()=>{
+               this.basket.removeAll();
+               this.display(type);
+            });
         };
 
         basketDisplay.basket.getDocumentsGrouped("cmoType", callback);
@@ -188,5 +192,12 @@ export class BasketDisplay {
         let children: Array<HTMLElement> = [].slice.call(this._container.children);
         children.forEach(val => this._container.removeChild(val));
         this.preDisplayContent = children;
+    }
+
+    private displayControls() {
+        return `<div class="row">
+<div class="col-md-12"><button class="button button-default" data-basket-empty data-i18n="cmo.basket.remove.all"></button> </div>
+
+</div>`;
     }
 }

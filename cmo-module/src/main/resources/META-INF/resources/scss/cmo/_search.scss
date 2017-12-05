@@ -202,17 +202,10 @@
   cursor: pointer;
 }
 
+[data-basket-add-all]{
+  cursor: pointer;
+}
+
 #basket{
   font-size: 14px;
-
-  [data-sort] {
-    cursor: pointer;
-  }
-
-  [data-sort]:after {
-    content: '↓';
-  }
-  [data-sort].sort-asc:after {
-    content: '↑';
-  }
 }

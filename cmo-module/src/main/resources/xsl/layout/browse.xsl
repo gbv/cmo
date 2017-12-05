@@ -139,7 +139,7 @@
               </xsl:variable>
               <xsl:value-of select="concat('#', substring-after($tmp, '&amp;'))" />
             </xsl:variable>
-            <xsl:value-of select="concat($proxyBaseURL, $HttpSession, $params, '&amp;start=', $newStart)" />
+            <xsl:value-of select="concat($params, '&amp;start=', $newStart)" />
           </xsl:attribute>
           <span class="fa fa-chevron-up" />
         </a>

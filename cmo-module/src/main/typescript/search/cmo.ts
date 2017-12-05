@@ -336,6 +336,8 @@ let getResultAction = (params) => {
 
 
             return (doc, result, hitOnPage) => {
+                aditionalQuery = null;
+
                 resetJS();
                 ctrl.setInputValue('');
                 ctrl.enable = false;
@@ -353,6 +355,12 @@ let getResultAction = (params) => {
                 });
                 subselectTarget = null;
                 window.location.hash = '';
+                sideBar.classList.add("hidden");
+                mainContainer.classList.add("col-md-11");
+                mainContainer.classList.add("col-lg-11");
+                mainContainer.classList.remove("col-md-9");
+                mainContainer.classList.remove("col-lg-9");
+
             }
     }
 };
@@ -366,10 +374,15 @@ StateController.onStateChange((params, selfChange) => {
     updateMainContainerSize();
 
     switch (action) {
+        case "subselect":
+            sideBar.classList.remove("hidden");
+            mainContainer.classList.remove("col-md-11");
+            mainContainer.classList.remove("col-lg-11");
+            mainContainer.classList.add("col-md-9");
+            mainContainer.classList.add("col-lg-9");
         case "init_search":
             aditionalQuery = params.filter(([ key ]) => key !== 'q' && key !== 'action' && key !== "sort");
         case "search":
-        case "subselect":
             ctrl = null;
             for (let param of params) {
                 let [ , v ] = param;

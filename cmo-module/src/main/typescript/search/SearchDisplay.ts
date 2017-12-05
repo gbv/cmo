@@ -1,9 +1,10 @@
 import {Utils} from "../other/Utils";
 import {I18N} from "../other/I18N";
 import {ClassificationResolver} from "../other/Classification";
-import {CMOBaseDocument, SolrSearchResult} from "../other/Solr";
+import {CMOBaseDocument, SolrSearcher, SolrSearchResult} from "../other/Solr";
 import {BasketUtil} from "./BasketUtil";
 import {SolrDocumentHelper} from "./SolrDocumentHelper";
+import {BasketStore} from "./BasketStore";
 
 export class SearchDisplay {
     constructor(private _container: HTMLElement) {
@@ -53,10 +54,15 @@ export class SearchDisplay {
     <div class="row searchResultList">
         <div class="col-md-10 col-md-offset-1">
             <div class="row header">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <span>${result.response.numFound} <span data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></span></span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
+                    <a data-i18n="cmo.basket.add.all" data-basket-add-all="true"></a>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-md-6">
                     <span data-i18n="${SearchDisplay.SORT_LABEL_KEY}"></span>
                     <select data-sort-select="">
                         ${this.getSortOptions(sort[ 0 ])}
@@ -65,7 +71,7 @@ export class SearchDisplay {
                            ${sort[ 1 ] == "desc" ? "&darr;" : "&uarr;"}             
                     </span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <span data-i18n="${SearchDisplay.ROWS_LABEL_KEY}"></span>
                     <select data-rows-select="">
                         <option value="10">10</option>
@@ -117,6 +123,48 @@ export class SearchDisplay {
         rowsSelect.value = (result.responseHeader.params["rows"]||10)+"";
         rowsSelect.addEventListener("change", ()=>{
             pageChangeHandler(0,sortSelect.value, ascdesc.innerHTML.trim() !== "↓", parseInt(rowsSelect.value));
+        });
+
+        let addAllButton = <HTMLElement>this._container.querySelector("[data-basket-add-all]");
+
+        addAllButton.addEventListener("click", () => {
+            let newParams = [];
+
+            for (let paramKey in result.responseHeader.params) {
+                if (result.responseHeader.params.hasOwnProperty(paramKey)) {
+                    let paramVal = result.responseHeader.params[ paramKey ];
+                    if (paramKey == "rows") {
+
+                    }
+
+                    switch (paramKey) {
+                        case "rows":
+                            newParams.push([ "rows", "9999999" ]);
+                            break;
+                        case "start":
+                            newParams.push([ "start", "0" ]);
+                            break;
+                        default:
+                            if (Array.isArray(paramVal)) {
+                                newParams.push([ paramKey ].concat(paramVal));
+                            } else {
+                                newParams.push([ paramKey, paramVal ]);
+                            }
+                    }
+
+                }
+            }
+
+
+            new SolrSearcher().search(newParams, (resultForBasket) => {
+                let basketStore = BasketStore.getInstance();
+                let idArr = [];
+                for (let doc of resultForBasket.response.docs) {
+                    idArr.push(doc.id);
+                }
+                basketStore.addAll(idArr);
+            });
+
         });
 
         I18N.translateElements(this._container);

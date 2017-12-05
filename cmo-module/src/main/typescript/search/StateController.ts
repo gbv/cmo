@@ -62,7 +62,7 @@ export class StateController {
                     if (!(key in groupObj)) {
                         groupObj[ key ] = [];
                     }
-                    groupObj[ key ].push(decodeURIComponent(value));
+                    groupObj[ key ].push(decodeURIComponent(value.split("+").join("%20")));
                 }
             });
 

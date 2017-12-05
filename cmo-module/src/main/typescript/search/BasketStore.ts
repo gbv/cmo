@@ -34,6 +34,14 @@ export class BasketStore {
         this._listener.forEach(listener => listener());
     }
 
+    public addAll(docs: string[]) {
+        docs.forEach(docID => {
+            this._store.push(docID);
+        });
+        this.save();
+        this._listener.forEach(listener => listener());
+    }
+
     public remove(...docs: string[]) {
         docs.forEach(docID => {
             let index = this._store.indexOf(docID);
@@ -43,6 +51,11 @@ export class BasketStore {
         });
         this.save();
         this._listener.forEach(listener => listener());
+    }
+
+
+    public removeAll() {
+        this._store.slice().forEach(e => this.remove(e));
     }
 
     public contains(id: string) {
@@ -60,6 +73,8 @@ export class BasketStore {
                 [ "rows", "99999" ] ], (result) => {
                 callback(result.response.docs);
             });
+        } else {
+            callback([]);
         }
     }
 
@@ -85,6 +100,8 @@ export class BasketStore {
 
                 callback(groupMap, sortBy);
             });
+        } else {
+            callback({}, sortBy);
         }
     }
 
