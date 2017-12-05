@@ -19,6 +19,9 @@
   <xsl:variable name="jquery.version" select="'3.1.1'" />
   <xsl:variable name="jquery.migrate.version" select="'1.4.1'" />
   <xsl:variable name="datetimepicker.version" select="'1.7.1'" />
+  <xsl:variable name="jquery.table.sort.version" select="'2.25.4'" />
+  <xsl:variable name="system.js.version" select="'0.19.3'" />
+
   <!-- End of various versions -->
   <xsl:variable name="PageTitle" select="/*/@title" />
 
@@ -41,11 +44,13 @@
         <link href="{$WebApplicationBaseURL}css/file.css" rel="stylesheet" />
 
         <link href="{$WebApplicationBaseURL}rsc/sass/scss/bootstrap-cmo.css" rel="stylesheet" />
-
+        <link href="{$WebApplicationBaseURL}webjars/tablesorter/{$jquery.table.sort.version}/css/theme.default.css" rel="stylesheet" />
 
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery/{$jquery.version}/jquery.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery-migrate/{$jquery.migrate.version}/jquery-migrate.min.js"></script>
-        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/systemjs/0.19.3/dist/system.js"></script>
+        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/systemjs/{$system.js.version}/dist/system.js"></script>
+        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/tablesorter/{$jquery.table.sort.version}/js/jquery.tablesorter.js" async="true"></script>
+
         <script>
           window["mcrBaseURL" ] = '<xsl:value-of select="$WebApplicationBaseURL" />';
           window["mcrLanguage" ] = '<xsl:value-of select="$CurrentLang" />';

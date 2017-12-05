@@ -13,14 +13,6 @@ export class BasketDisplay {
     private basket = BasketStore.getInstance();
     private preDisplayContent: Array<HTMLElement> = null;
 
-    private static TABLE_SORT = {
-        "expression-editor.label.title" : "displayTitle",
-        "source-editor.label.title" : "displayTitle",
-        "source-mods-editor.label.title" : "displayTitle",
-        "edition-mods-editor.label.title" : "displayTitle",
-        "edition-mods-editor.label.publishingDate":"mods.yearIssued",
-        "source-mods-editor.label.publishingDate":"mods.yearIssued",
-    };
 
     private static TABLE = {
         "expression" : {
@@ -122,8 +114,6 @@ export class BasketDisplay {
 
                 this._container.innerHTML = "<div id='basket'>" + content.join(" ") + "</div>";
             }
-
-
             I18N.translateElements(this._container);
             ClassificationResolver.putLabels(this._container);
             BasketUtil.activateLinks(this._container);
@@ -135,17 +125,12 @@ export class BasketDisplay {
                 });
             this._container.style.width = "100%";
 
-            Array.prototype.slice.call(document.querySelectorAll("[data-sort]"))
-                .forEach(function (el) {
-                    el.addEventListener("click", () => {
-                        let sortFor = el.getAttribute("data-sort");
-                        let dir = el.classList.contains("sort-asc") ? "desc" : "asc";
-                        basketDisplay.basket.getDocumentsGrouped("cmoType", callback, sortFor + " " + dir);
-                    });
-                });
+            let jQuery = window["jQuery"];
+            jQuery(this._container).find("table").tablesorter();
         };
 
         basketDisplay.basket.getDocumentsGrouped("cmoType", callback);
+
     }
 
     public displayObjects(type: string, objs: Array<CMOBaseDocument>, sort: string) {
@@ -165,8 +150,7 @@ export class BasketDisplay {
                       <thead>
                         <tr>
         ${cols.map((col) => {
-            let sortField = BasketDisplay.TABLE_SORT[ type + "-" + col ];
-            return `<th ${typeof sortField !== "undefined" && sortField != null ? " data-sort='" + sortField + "' " : ""}${sortField == field && direction == "asc" ? " class='sort-asc' " : ""} data-i18n="${col}">${col}</th>`
+            return `<th data-i18n="${col}">${col}</th>`
         }).join("")}
         <th></th>
                         </tr>
