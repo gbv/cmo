@@ -4,7 +4,7 @@
   "main": "index.js",
   "repository": "https://github.com/gbv/cmo.git",
   "author": "Sebastian Hofmann <hofmann.s@uni-jena.de>",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "scripts": {
     "build": "tsc"
   },
