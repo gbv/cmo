@@ -189,33 +189,33 @@
                          class="col-xs-12 col-md-6 col-lg-10">
                        <div class="row">
                          <div class="col-lg-2">
-                           <a href="http://www.maxweberstiftung.de/institute/institute-oi-istanbul.html">
+                           <a href="http://www.maxweberstiftung.de/institute/institute-oi-istanbul.html" target="_blank">
                              <img src="{$WebApplicationBaseURL}content/images/logos/orient_institut_istanbul.svg" title="Link to Orient Institute Istanbul" alt="Logo Orient Institute Istanbul" id="logo_oi" />
                            </a>
                          </div>
                          <div class="col-lg-2">
-                           <a href="https://www.uni-muenster.de/ArabistikIslam/">
+                           <a href="https://www.uni-muenster.de/ArabistikIslam/" target="_blank">
                              <img src="{$WebApplicationBaseURL}content/images/logos/institut_arabistik.svg" title="Link to Institute for Arabistik and Islam" alt="Logo Institute for Arabistik and Islam" id="logo_arab" />
                            </a>
                          </div>
                          <div class="col-lg-2">
-                           <a href="https://www.uni-muenster.de/Musikwissenschaft/">
+                           <a href="https://www.uni-muenster.de/Musikwissenschaft/" target="_blank">
                              <img src="{$WebApplicationBaseURL}content/images/logos/muwi_muenster.png" width="175" title="Link to Musikwissenschaft Münster" alt="Logo Musikwissenschaft Münster" style="margin-top:10px;" />
                            </a>
                          </div>
                          <div class="col-lg-2" style="text-align: center;">
-                           <a href="http://www.maxweberstiftung.de/startseite.html">
+                           <a href="http://www.maxweberstiftung.de/startseite.html" target="_blank">
                              <img src="{$WebApplicationBaseURL}content/images/logos/max_weber_stiftung.png" width="106" title="Link to Max Weber Stiftung" alt="Logo Max Weber Stiftung" style="margin-top:5px;" />
                            </a>
                          </div>
                          <div class="col-lg-2" style="margin-top: 15px;">
-                           <a href="http://dfg.de/">
+                           <a href="http://dfg.de/" target="_blank">
                              <span id="dfg_founded">gefördert durch:</span>
                              <img src="{$WebApplicationBaseURL}content/images/logos/dfg.svg" title="Link to DFG" alt="DFG logo" id="logo_dfg" />
                            </a>
                          </div>
                          <div class="col-lg-2">
-                           <a href="https://www.gbv.de/">
+                           <a href="https://www.gbv.de/" target="_blank">
                              <img src="{$WebApplicationBaseURL}content/images/logos/vzg.svg" title="Link to VZG" alt="VZG logo" id="logo_vzg" />
                            </a>
                          </div>
@@ -235,13 +235,13 @@
                         </div>
                         
                         <div id="logo" class="hidden-xs hidden-sm col-md-2 col-lg-2">
-                            <a href="http://www.mycore.de/">
+                            <a href="http://www.mycore.de/" target="_blank">
                                 <img src="{$WebApplicationBaseURL}content/images/mycore_logo_small_invert.png" title="{$mcr_version}" alt="powered by MyCoRe" />
                             </a>
                         </div>
                         <div id="logo"
                              class="col-xs-12 col-sm-12 hidden-md hidden-lg">
-                            <a href="http://www.mycore.de/">
+                            <a href="http://www.mycore.de/" target="_blank">
                                 <img src="{$WebApplicationBaseURL}content/images/mycore_logo_small_invert.png" title="{$mcr_version}" alt="powered by MyCoRe" />
                             </a>
                         </div>
