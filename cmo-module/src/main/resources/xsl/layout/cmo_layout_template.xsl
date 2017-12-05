@@ -151,13 +151,23 @@
                                 </div>
                               </div>
                             </div>
-                            <xsl:if test="not (contains($RequestURL, '/editor/'))">
-                              <div id="sidebar"
-                                 class="hidden-xs hidden-sm col-md-3 col-lg-3">
-                                <!-- TODO: add sidebar content -->
-                                &#160;
-                            </div>
-                            </xsl:if>
+                            <xsl:choose>
+                              <xsl:when test="not (contains($RequestURL, '/editor/'))">
+                                <div id="sidebar"
+                                   class="hidden-xs hidden-sm col-md-3 col-lg-3">
+                                  <!-- TODO: add sidebar content -->
+                                  &#160;
+                                </div>
+                              </xsl:when>
+                              <!-- hide div complete -->
+                              <xsl:otherwise>
+                                <div id="sidebar"
+                                   class="hidden-xs hidden-sm col-md-3 col-lg-3 hidden">
+                                  <!-- TODO: add sidebar content -->
+                                  &#160;
+                                </div>
+                              </xsl:otherwise>
+                            </xsl:choose>
                         </div>
                     </div>
                 </div>
