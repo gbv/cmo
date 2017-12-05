@@ -10,17 +10,33 @@
       <xed:cancel url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
       <xed:cancel url="{$cancelUrl}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
       <xed:cancel url="../content/index.html?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
-      <xed:post-processor class="org.mycore.mei.MEIPostProcessor" />
+      <xed:post-processor class="org.mycore.mei.MEIPostProcessor" xsl="editor/xeditor2mei.xsl" />
 
       <xed:bind xpath="/mycoreobject">
         <xed:bind xpath="@ID" initially="cmo_expression_00000000" />
-        <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML']/meiContainer/mei:source">
+        <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML'][@notinherit='true']/meiContainer/mei:expression">
+
+          <xed:include uri="webapp:editor/editor-includes.xed" ref="mycore.common" />
+          <xed:include uri="webapp:editor/editor-includes.xed" ref="failed-validation-messages" />
+          
           <fieldset>
             <legend>
               <xed:output i18n="editor.legend.expression" />
             </legend>
 
             <!-- TODO: add input fields here -->
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_identifier" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_title" />
+            
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_language" />
+
+            <xed:bind xpath="mei:classification">
+              <xed:bind xpath="classEntry[@authority='cmo_kindOfData']" initially="cmo_kindOfData:source" />
+            </xed:bind>
+            
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_usuler" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_makamler" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_musictype" />
 
             <!-- Button (Double) -->
             <div class="form-group">
