@@ -483,10 +483,12 @@
   </xsl:template>
 
   <xsl:template name="cmo-helpbutton">
-    <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover" data-placement="right"
-       data-content="{@help-text}">
-      <i class="fa fa-info"></i>
-    </a>
+    <span class="pmud-button">
+      <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover" data-placement="right"
+         data-content="{@help-text}">
+        <i class="fa fa-info"></i>
+      </a>
+    </span>
   </xsl:template>
 
   <xsl:template match="cmo:pmud">

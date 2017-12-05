@@ -10,17 +10,60 @@
       <xed:cancel url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
       <xed:cancel url="{$cancelUrl}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
       <xed:cancel url="../content/index.html?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
-      <xed:post-processor class="org.mycore.mei.MEIPostProcessor" />
+      <xed:post-processor class="org.mycore.mei.MEIPostProcessor" xsl="editor/xeditor2mei.xsl" />
 
       <xed:bind xpath="/mycoreobject">
         <xed:bind xpath="@ID" initially="cmo_person_00000000" />
-        <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML']/meiContainer/mei:source">
+        <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML'][@notinherit='true']/meiContainer/mei:persName">
+        
+          <xed:include uri="webapp:editor/editor-includes.xed" ref="mycore.common" />
+          <xed:include uri="webapp:editor/editor-includes.xed" ref="failed-validation-messages" />
+
           <fieldset>
             <legend>
-              <xed:output i18n="editor.legend.person" />
+              <div class="col-md-10">
+                <xed:output i18n="editor.legend.person" />
+              </div>
             </legend>
 
-            <!-- TODO: add input fields here -->
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_personNameCMO" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_identifierGND" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_personNameByType" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_personNameBySource" />
+
+            <fieldset>
+              <legend>
+                <div class="col-md-10">
+                  <span class="small"><xed:output i18n="editor.label.lifeData.birth" /></span>
+                </div>
+              </legend>
+              <xed:repeat xpath="mei:date[@type='birth']" min="1" max="100">
+                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_pmud" />
+                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_isoApproxDate" />
+                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_dateSource" />
+                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_dateLabel" />
+                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_textDate" />
+                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_calendar" />
+              </xed:repeat>
+            </fieldset>
+
+            <fieldset>
+              <legend>
+                <div class="col-md-10">
+                  <span class="small"><xed:output i18n="editor.label.lifeData.death" /></span>
+                </div>
+              </legend>
+              <xed:repeat xpath="mei:date[@type='death']" min="1" max="100">
+                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_pmud" />
+                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_isoApproxDate" />
+                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_dateSource" />
+                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_dateLabel" />
+                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_calendar" />
+              </xed:repeat>
+            </fieldset>
+
+            <!-- TODO: add source & label -->
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_personAnnotBySource" />
 
             <!-- Button (Double) -->
             <div class="form-group">

@@ -89,7 +89,7 @@
   </xed:template>
 
   <xed:template id="cmo_modsGenre">
-    <cmo:selectClassification xpath="mods:genre[@authorityURI='http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres']" bind="@valueURIxEditor" repeat="true" min="1"
+    <cmo:selectClassification xpath="mods:genre[@type='intern'][@authorityURI='http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres']" bind="@valueURIxEditor" repeat="true" min="1"
                               max="10" label="editor.label.mods.genre" classification="cmo_genres"
                               help-text="{i18n:cmo.help.mods.genre}" />
   </xed:template>
