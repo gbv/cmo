@@ -39,34 +39,8 @@
             
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_relationListRealization" />
 
-            <!-- Button (Double) -->
-            <div class="form-group">
-              <label class="col-md-4 control-label" for="save"></label>
-              <div class="col-md-8">
-                <xed:choose>
-                  <xed:when test="contains(/mycoreobject/@ID, '_00000000')">
-                    <button id="save" class="btn btn-success createobject" type="submit" xed:target="servlet"
-                      xed:href="CreateObjectServlet">
-                      <xed:output i18n="common.button.save" />
-                    </button>
-                  </xed:when>
-                  <xed:otherwise>
-                    <button id="save" class="btn btn-success updateobject" type="submit" xed:target="servlet"
-                      xed:href="UpdateObjectServlet">
-                      <xed:output i18n="common.button.save" />
-                    </button>
-                  </xed:otherwise>
-                </xed:choose>
-                <xed:output value="'&#160;'" />
-                <button id="cancel" class="btn btn-danger" type="submit" xed:target="cancel">
-                  <xed:output i18n="common.button.cancel" />
-                </button>
-                <xed:output value="'&#160;'" />
-                <button id="debug" class="btn btn-info" type="submit" xed:target="debug">
-                  <xed:output i18n="common.button.debug" />
-                </button>
-              </div>
-            </div>
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_saveCancelDebug" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cleanup-rules" />
           </fieldset>
         </xed:bind>
       </xed:bind>

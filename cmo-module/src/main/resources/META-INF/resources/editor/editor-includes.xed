@@ -122,6 +122,11 @@
                   rows="5" />
   </xed:template>
 
+  <xed:template id="cmo_annot">
+    <cmo:textarea xpath="mei:notesStmt/mei:annot" repeat="true" min="1" max="10" type="cmo_annotType"
+                  label="editor.label.annot" help-text="{i18n:cmo.help.annot}" rows="3" />
+  </xed:template>
+
   <xed:template id="cmo_language">
     <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='rfc4646']" bind="@xml:id" repeat="true" min="1"
                               max="10" label="editor.label.language" classification="rfc4646"
@@ -132,11 +137,6 @@
     <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='iso15924']" bind="@xml:id" repeat="true" min="1"
                               max="10" label="editor.label.scriptLanguage" classification="iso15924"
                               help-text="{i18n:cmo.help.scriptLanguage}" />
-  </xed:template>
-
-  <xed:template id="cmo_annot">
-    <cmo:textarea xpath="mei:notesStmt/mei:annot" repeat="true" min="1" max="10" type="cmo_annotType"
-                  label="editor.label.annot" help-text="{i18n:cmo.help.annot}" rows="3" />
   </xed:template>
 
   <xed:template id="cmo_sourceType">
