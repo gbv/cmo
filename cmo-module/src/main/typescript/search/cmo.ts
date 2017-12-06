@@ -10,6 +10,7 @@ import {StateController} from "./StateController";
 import {SolrSearcher} from "../other/Solr";
 import {BasketDisplay} from "./BasketDisplay";
 import {BasketStore} from "./BasketStore";
+import {BasketUtil} from "./BasketUtil";
 
 let eContainer = <HTMLElement>document.querySelector("#e_suche");
 let kContainer = <HTMLElement>document.querySelector("#k_suche");
@@ -463,6 +464,9 @@ Array.prototype.slice.call(document.querySelectorAll("[data-subselect]")).forEac
 
     };
 });
+
+BasketUtil.activateLinks(window.document.body);
+
 //kSearch.getSolrQuery()
 
 

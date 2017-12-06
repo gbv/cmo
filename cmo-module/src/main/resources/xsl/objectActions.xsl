@@ -17,7 +17,6 @@
     <xsl:param name="accessedit" select="acl:checkPermission($id,'writedb')" />
     <xsl:param name="accessdelete" select="acl:checkPermission($id,'deletedb')" />
 
-    <xsl:if test="$accessedit or $accessdelete">
       <div class="dropdown pull-right">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
           <span class="fa fa-cog" aria-hidden="true"></span> Aktionen
@@ -25,36 +24,40 @@
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
           <li role="presentation">
-            <xsl:variable name="type">
-              <xsl:choose>
-                <xsl:when test="substring-before(substring-after($id, '_'), '_') = 'mods'">
-                  <xsl:value-of select="substring-after(//mods:mods/mods:classification/@valueURI, 'cmo_kindOfData#')" />
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:value-of select="substring-before(substring-after($id, '_'), '_')" />
-                </xsl:otherwise>
-              </xsl:choose>
-            </xsl:variable>
-            <a role="menuitem" tabindex="-1" href="{$WebApplicationBaseURL}editor/{$type}.xed?id={$id}">
-              <xsl:value-of select="i18n:translate('object.editObject')" />
-            </a>
+            <a role="menuitem" data-basket="{$id}"></a>
           </li>
-          <li role="presentation">
-            <a href="{$ServletsBaseURL}derivate/create{$HttpSession}?id={$id}" role="menuitem" tabindex="-1">
-              <xsl:value-of select="i18n:translate('derivate.addDerivate')" />
-            </a>
-          </li>
-          <xsl:if test="$accessdelete">
+          <xsl:if test="$accessedit or $accessdelete">
             <li role="presentation">
-              <a href="{$ServletsBaseURL}object/delete{$HttpSession}?id={$id}" role="menuitem" tabindex="-1">
-                <xsl:value-of select="i18n:translate('object.delObject')" />
+              <xsl:variable name="type">
+                <xsl:choose>
+                  <xsl:when test="substring-before(substring-after($id, '_'), '_') = 'mods'">
+                    <xsl:value-of select="substring-after(//mods:mods/mods:classification/@valueURI, 'cmo_kindOfData#')" />
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="substring-before(substring-after($id, '_'), '_')" />
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:variable>
+              <a role="menuitem" tabindex="-1" href="{$WebApplicationBaseURL}editor/{$type}.xed?id={$id}">
+                <xsl:value-of select="i18n:translate('object.editObject')" />
               </a>
             </li>
+            <li role="presentation">
+              <a href="{$ServletsBaseURL}derivate/create{$HttpSession}?id={$id}" role="menuitem" tabindex="-1">
+                <xsl:value-of select="i18n:translate('derivate.addDerivate')" />
+              </a>
+            </li>
+            <xsl:if test="$accessdelete">
+              <li role="presentation">
+                <a href="{$ServletsBaseURL}object/delete{$HttpSession}?id={$id}" role="menuitem" tabindex="-1">
+                  <xsl:value-of select="i18n:translate('object.delObject')" />
+                </a>
+              </li>
+            </xsl:if>
           </xsl:if>
         </ul>
       </div>
 
-    </xsl:if>
 
   </xsl:template>
 
