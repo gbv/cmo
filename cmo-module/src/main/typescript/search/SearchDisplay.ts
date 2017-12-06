@@ -195,7 +195,7 @@ export class SearchDisplay {
     private renderList(result: SolrSearchResult): string {
         let docs = result.response.docs;
         return docs.map((doc, i) => {
-            let index = result.response.start + i;
+            let index = i;
             switch (doc.objectType) {
                 case "expression":
                     return this.displayExpression(doc, index, result);

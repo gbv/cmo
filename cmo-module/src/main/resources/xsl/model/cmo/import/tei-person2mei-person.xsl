@@ -92,7 +92,17 @@
     <xsl:variable name="type" select="local-name()" />
 
     <xsl:for-each select="tei:date">
-      <mei:date type="{$type}" calendar="gregorian">
+      <xsl:variable name="calendar">
+        <xsl:choose>
+          <xsl:when test="@calendar">
+            <xsl:value-of select="substring-after(@calendar, '#')" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="'gregorian'" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <mei:date type="{$type}" calendar="{$calendar}">
         <xsl:if test="@notBefore">
           <xsl:attribute name="notbefore">
             <xsl:value-of select="@notBefore" />
@@ -125,21 +135,25 @@
             </xsl:when>
           </xsl:choose>
         </xsl:if>
-        <xsl:if test="tei:ref/@target">
-          <xsl:attribute name="source">
-            <xsl:value-of select="tei:ref/@target" />
-          </xsl:attribute>
-          <xsl:if test="tei:ref/text()">
-            <xsl:attribute name="label">
-              <xsl:value-of select="tei:ref/text()" />
-            </xsl:attribute>
-          </xsl:if>
-        </xsl:if>
-        <xsl:if test="string-length(text()) &gt; 0">
-          <xsl:value-of select="text()" />
-        </xsl:if>
+        <xsl:apply-templates select="tei:ref" />
+        <xsl:apply-templates select="text()" />
       </mei:date>
     </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="text()">
+    <xsl:value-of select="normalize-space(.)" />
+  </xsl:template>
+
+  <xsl:template match="tei:ref">
+    <xsl:attribute name="source">
+      <xsl:value-of select="@target" />
+    </xsl:attribute>
+    <xsl:if test="text()">
+      <xsl:attribute name="label">
+        <xsl:value-of select="normalize-space(text())" />
+      </xsl:attribute>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="tei:list/tei:item">

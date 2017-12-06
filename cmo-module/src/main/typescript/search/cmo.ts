@@ -310,6 +310,7 @@ let getResultAction = (params) => {
     let [ , action ] = params.filter(([ key, value ]) => key == "action")[ 0 ] || [ null, null ];
 
     switch (action) {
+        case "init_search":
         case "search":
             return (doc, result, hitOnPage) => {
                 let param = "";

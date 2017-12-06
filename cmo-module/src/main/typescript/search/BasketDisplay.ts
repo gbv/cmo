@@ -35,7 +35,7 @@ export class BasketDisplay {
             "editor.label.lifeData.death" : (doc: CMOBaseDocument) => (doc[ "death.date.content" ] || [ "" ])[ 0 ] || ""
         },
         "source" : {
-            "editor.label.identifier" : (doc: CMOBaseDocument) => doc[ "identifier.type.CMO" ][ 0 ],
+            "editor.label.identifier" : (doc: CMOBaseDocument) => `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${doc[ "identifier.type.CMO" ][ 0 ]}</a>`,
             "editor.label.identifier.shelfmark" : (doc)=> doc[ "repo.identifier.shelfmark" ] || "",
             "editor.label.corpName": (doc)=> doc["repo.corpName.library"] || "",
             "editor.label.title" : (doc: CMOBaseDocument) =>
@@ -79,7 +79,7 @@ export class BasketDisplay {
 
     private static getCategorySpan(doc: CMOBaseDocument, clazz: string): string {
         let rightCategoryField = BasketDisplay.findRightCategoryField(doc, clazz);
-        return `${rightCategoryField.map(field => `<span data-clazz="${clazz}" data-category="${field.category}" class="value"></span>`).join("")}`
+        return `${rightCategoryField.map(field => `<span data-clazz="${clazz}" data-category="${field.category}" class="value"></span>`).join(", ")}`
     }
 
     private static findRightCategoryField(doc: CMOBaseDocument, clazz: string): Array<{ clazz: string; category: string }> {

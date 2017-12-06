@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "sourceRoot": "src/main/typescript",
+
     "target": "es5",
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
-    "inlineSourceMap":true,
-    "inlineSources":true,
+    "inlineSourceMap":false,
+    "inlineSources":false,
     "outDir": "target/classes/META-INF/resources/js/",
     "typeRoots": ["node_modules/@types"],
     "module": "system",
