@@ -67,7 +67,7 @@
     <xsl:apply-templates select="@*|*" mode="solrIndex" />
   </xsl:template>
 
-  <xsl:template match="meiContainer/mei:source">
+  <xsl:template match="meiContainer/mei:source" mode="solrIndex">
     <field name="displayTitle">
       <xsl:choose>
         <xsl:when test="mei:titleStmt/mei:title[@type='main']">
@@ -78,6 +78,7 @@
         </xsl:when>
       </xsl:choose>
     </field>
+
     <xsl:apply-templates select="@*|*" mode="solrIndex" />
   </xsl:template>
 
