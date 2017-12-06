@@ -187,7 +187,7 @@
                             <xed:output i18n="editor.select" />
                           </option>
                           <xed:include
-                            uri="xslStyle:items2options:classification:editorComplete:1:children:{@classification}" />
+                            uri="xslStyle:items2options:classification:editorComplete:-1:children:{@classification}" />
                         </select>
                       </xed:bind>
                     </xsl:when>
@@ -197,7 +197,7 @@
                           <xed:output i18n="editor.select" />
                         </option>
                         <xed:include
-                          uri="xslStyle:items2options:classification:editorComplete:1:children:{@classification}" />
+                          uri="xslStyle:items2options:classification:editorComplete:-1:children:{@classification}" />
                       </select>
                     </xsl:otherwise>
                   </xsl:choose>
@@ -229,7 +229,7 @@
                       <xed:output i18n="editor.select" />
                     </option>
                     <xed:include
-                      uri="xslStyle:items2options:classification:editorComplete:1:children:{@classification}" />
+                      uri="xslStyle:items2options:classification:editorComplete:-1:children:{@classification}" />
                   </select>
                 </div>
               </div>
