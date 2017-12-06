@@ -3,6 +3,8 @@ import {CMOBaseDocument, SolrSearcher} from "../other/Solr";
 export class BasketStore {
 
     private static BASKET_STORE_KEY = "BasketStore";
+    public static BASKET_LIMIT = 300;
+
     private static _instance: BasketStore = (() => BasketStore.load())();
 
     public static getInstance() {
@@ -27,7 +29,8 @@ export class BasketStore {
     }
 
     public add(...docs: string[]) {
-        docs.forEach(docID => {
+        let left = BasketStore.BASKET_LIMIT - this.count();
+        docs.slice(0, left).forEach(docID => {
             this._store.push(docID);
         });
         this.save();
@@ -35,7 +38,8 @@ export class BasketStore {
     }
 
     public addAll(docs: string[]) {
-        docs.forEach(docID => {
+        let left = BasketStore.BASKET_LIMIT - this.count();
+        docs.slice(0, left).forEach(docID => {
             this._store.push(docID);
         });
         this.save();
