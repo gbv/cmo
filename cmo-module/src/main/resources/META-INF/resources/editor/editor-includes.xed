@@ -166,7 +166,7 @@
 
   <xed:template id="cmo_makamler">
     <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_makamler']"
-                              label="editor.search.makamler"
+                              label="editor.search.makam"
                               classification="cmo_makamler" help-text="{i18n:cmo.help.makamler}" />
   </xed:template>
 
@@ -265,6 +265,37 @@
     </xed:repeat>
   </xed:template>
 
+
+  <xed:template id="cmo_relationListRealization">
+      <xed:bind xpath="mei:relationList/mei:relation[@rel='isRealizationOf']">
+        <div class="cmo-fieldset-content">
+          <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:work' class="form-group">
+            <div class="row">
+              <label class="col-md-4 control-label">
+                <xed:output i18n="editor.legend.work" />
+              </label>
+              <div class="col-md-6 ">
+                <div class="form-inline">
+                  <xed:bind xpath="@target">
+                    <input type="text" placeholder="eg. cmo_work_00000016" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
+                  </xed:bind>
+                  <span class="pmud-button">
+                    <a tabindex="0" class="btn btn-default info-button" role="button"
+                        title="{i18n:cmo.help.workSearch}" data-subselect-trigger="">
+                      <i class="fa fa-search"></i>
+                  </a>
+                  </span>
+                  <xed:bind xpath="@label">
+                    <input type="text" placeholder="eg. CMOi00224" data-subselect-target="identifier.type.CMO" style="width: 20%;margin-left: 10px;" class="form-control form-control-inline" />
+                  </xed:bind>
+                </div>
+              </div>
+              <cmo:help-pmud help-text="{i18n:cmo.help.relationListRealization}" pmud="false" />
+            </div>
+          </div>
+        </div>
+      </xed:bind>
+  </xed:template>
 
   <xed:template id="cmo_relationList">
     <fieldset>
