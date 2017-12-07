@@ -7,9 +7,9 @@
 
     <xed:form xmlns:xed="http://www.mycore.de/xeditor" xmlns:mods="http://www.loc.gov/mods/v3" method="post" role="form" class="form-horizontal">
       <xed:source uri="xslStyle:mycoreobject-editor,editor/mods2xeditor:mcrobject:{$id}" />
-      <xed:cancel url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
-      <xed:cancel url="{$cancelUrl}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
-      <xed:cancel url="../content/index.html?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
+      <xed:cancel url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}" />
+      <xed:cancel url="{$cancelUrl}" />
+      <xed:cancel url="../content/index.xml" />
       <xed:post-processor xsl="editor/xeditor2mods.xsl" />
 
       <xed:bind xpath="/mycoreobject">
