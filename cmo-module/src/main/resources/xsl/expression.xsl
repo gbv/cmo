@@ -13,7 +13,7 @@
   <xsl:template match="/mycoreobject[contains(@ID,'_expression_')]">
     <xsl:call-template name="metadataPage">
       <xsl:with-param name="content">
-        
+
         <xsl:apply-templates select="response" />
         
         <h1>
@@ -34,7 +34,9 @@
         <!--Show metadata -->
         <xsl:call-template name="metadataSection">
           <xsl:with-param name="content">
-
+            <xsl:call-template name="objectActions">
+              <xsl:with-param name="id" select="@ID" />
+            </xsl:call-template>
             <xsl:apply-templates select="structure/parents/parent" mode="metadataView">
               <xsl:with-param name="type" select="'expression'" />
             </xsl:apply-templates>
