@@ -384,6 +384,9 @@ StateController.onStateChange((params, selfChange) => {
             mainContainer.classList.add("col-lg-9");
         case "init_search":
             aditionalQuery = params.filter(([ key ]) => key !== 'q' && key !== 'action' && key !== "sort");
+            if(action == "init_search"){
+                action = "search";
+            }
         case "search":
             ctrl = null;
             for (let param of params) {
