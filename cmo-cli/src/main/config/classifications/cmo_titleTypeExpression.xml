@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_titleTypeExpression">
+  <label xml:lang="en" text="Type of expression title" />
+  <label xml:lang="de" text="Expression-Titelformen" />
+  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_titleTypeExpression" />
+  <categories>
+    <category ID="main">
+      <label xml:lang="de" text="main" />
+      <label xml:lang="en" text="main" />
+    </category>
+    <category ID="orig">
+      <label xml:lang="en" text="orig" />
+      <label xml:lang="de" text="orig" />
+    </category>
+    <category ID="alt">
+      <label xml:lang="de" text="alt" />
+      <label xml:lang="en" text="alt" />
+    </category>
+    <category ID="placeholder">
+      <label xml:lang="de" text="placeholder" />
+      <label xml:lang="en" text="placeholder" />
+    </category>
+    <category ID="index">
+      <label xml:lang="en" text="index" />
+      <label xml:lang="de" text="index" />
+    </category>
+    <category ID="orig_index">
+      <label xml:lang="en" text="orig_index" />
+      <label xml:lang="de" text="orig_index" />
+    </category>
+  </categories>
+</mycoreclass>
+

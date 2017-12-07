@@ -15,6 +15,9 @@
         <!--Show metadata -->
         <xsl:call-template name="metadataSection">
           <xsl:with-param name="content">
+            <xsl:call-template name="objectActions">
+              <xsl:with-param name="id" select="@ID" />
+            </xsl:call-template>
 
             <xsl:apply-templates select="response" />
 

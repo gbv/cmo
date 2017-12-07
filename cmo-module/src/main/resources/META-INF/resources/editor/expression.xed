@@ -7,9 +7,9 @@
 
     <xed:form xmlns:xed="http://www.mycore.de/xeditor" xmlns:mei="http://www.music-encoding.org/ns/mei" method="post" role="form" class="form-horizontal">
       <xed:source uri="xslStyle:mycoreobject-editor,editor/mei2xeditor:mcrobject:{$id}" />
-      <xed:cancel url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
-      <xed:cancel url="{$cancelUrl}?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
-      <xed:cancel url="../content/index.html?XSL.Status.Message=mir.editstatus.canceled&amp;XSL.Status.Style=danger" />
+      <xed:cancel url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}" />
+      <xed:cancel url="{$cancelUrl}" />
+      <xed:cancel url="../content/index.xml" />
       <xed:post-processor class="org.mycore.mei.MEIPostProcessor" xsl="editor/xeditor2mei.xsl" />
 
       <xed:bind xpath="/mycoreobject">
@@ -25,18 +25,22 @@
             </legend>
 
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_identifier" />
-            <!-- TODO: add composer to title statement -->
-            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_title" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_titleExpression" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_composer" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_lyricist" />
+            <!-- TODO: add label support to inipit-->
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_incip" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_language" />
 
             <xed:bind xpath="mei:classification">
               <xed:bind xpath="classEntry[@authority='cmo_kindOfData']" initially="cmo_kindOfData:source" />
             </xed:bind>
-            
+            <!-- TODO: add tempo tag -->
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_usuler" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_makamler" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_musictype" />
-            
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_annot" />
+
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_relationListRealization" />
 
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_saveCancelDebug" />

@@ -250,77 +250,83 @@
     <xsl:choose>
       <xsl:when test="@repeat = 'true'">
         <xed:repeat xpath="{@xpath}" min="{@min}" max="{@max}">
-          <xsl:variable name="xed-val-marker">{$xed-validation-marker}</xsl:variable>
-          <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:person'
-               class="form-group {@class} {$xed-val-marker}">
-            <div class="row">
-              <!-- start -->
-              <label class="col-md-4 control-label form-inline">
-                <xsl:if test="@label">
-                  <xed:output i18n="{@label}" />
-                </xsl:if>
-              </label>
-              <div class="col-md-6">
-                <input id="{@id}" type="text" data-subselect-target="name" class="form-control">
-                  <xsl:copy-of select="@placeholder" />
-                </input>
+          <xed:bind xpath="mei:persName">
+            <xsl:variable name="xed-val-marker">{$xed-validation-marker}</xsl:variable>
+            <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:person'
+                 class="form-group {@class} {$xed-val-marker}">
+              <div class="row">
+                <!-- start -->
+                <label class="col-md-4 control-label form-inline">
+                  <xsl:if test="@label">
+                    <xed:output i18n="{@label}" />
+                  </xsl:if>
+                </label>
+                <div class="col-md-6">
+                  <input id="{@id}" type="text" data-subselect-target="name" class="form-control">
+                    <xsl:copy-of select="@placeholder" />
+                  </input>
+                </div>
+                <div class="col-md-2">
+                  <xsl:if test="string-length(@help-text) &gt; 0">
+                    <xsl:call-template name="cmo-helpbutton" />
+                  </xsl:if>
+                  <xsl:call-template name="cmo-pmud" />
+                </div>
+                <!-- end -->
               </div>
-              <div class="col-md-2">
-                <xsl:if test="string-length(@help-text) &gt; 0">
-                  <xsl:call-template name="cmo-helpbutton" />
-                </xsl:if>
-                <xsl:call-template name="cmo-pmud" />
+              <div class="row">
+                <xed:bind xpath="@nymref">
+                  <label class="col-md-4 control-label form-inline">
+                    <xed:output i18n="editor.label.nameLink" />
+                  </label>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" data-subselect-target="id"
+                           placeholder="cmo_person_00000434" />
+                  </div>
+                  <div class="col-md-2">
+                    <span class="pmud-button">
+                      <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover"
+                         data-placement="right" data-content="{i18n:translate('cmo.help.nameLink')}">
+                        <i class="fa fa-info"></i>
+                      </a>
+                      <a tabindex="0" class="btn btn-default info-button" role="button"
+                         title="{i18n:translate('cmo.help.search')}" data-subselect-trigger="">
+                        <i class="fa fa-search"></i>
+                    </a>
+                    </span>
+                  </div>
+                </xed:bind>
               </div>
-              <!-- end -->
             </div>
-            <div class="row">
-              <xed:bind xpath="mei:persName/@nymref">
+          </xed:bind>
+          <xsl:call-template name="cmo-required" />
+        </xed:repeat>
+      </xsl:when>
+      <xsl:otherwise>
+        <xed:bind xpath="{@xpath}">
+          <xed:bind xpath="mei:persName">
+            <xsl:variable name="xed-val-marker">{$xed-validation-marker}</xsl:variable>
+            <div class="form-group {@class} {$xed-val-marker}">
+              <div class="row">
+                <xsl:call-template name="cmo-textfield" />
+              </div>
+            </div>
+            <xed:bind xpath="@nymref">
+              <div class="row">
                 <label class="col-md-4 control-label form-inline">
                   <xed:output i18n="editor.label.nameLink" />
                 </label>
                 <div class="col-md-6">
-                  <input type="text" class="form-control" data-subselect-target="id"
-                         placeholder="cmo_person_00000434" />
+                  <input type="text" class="form-control" placeholder="cmo_person_00000434" />
                 </div>
                 <div class="col-md-2">
                   <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover"
                      data-placement="right" data-content="{i18n:translate('cmo.help.nameLink')}">
                     <i class="fa fa-info"></i>
                   </a>
-                  <a tabindex="0" class="btn btn-default info-button" role="button"
-                     title="{i18n:translate('cmo.help.search')}" data-subselect-trigger="">
-                    <i class="fa fa-search"></i>
-                  </a>
                 </div>
-              </xed:bind>
-            </div>
-          </div>
-          <xsl:call-template name="cmo-required" />
-        </xed:repeat>
-      </xsl:when>
-      <xsl:otherwise>
-        <xed:bind xpath="{@xpath}">
-          <xsl:variable name="xed-val-marker">{$xed-validation-marker}</xsl:variable>
-          <div class="form-group {@class} {$xed-val-marker}">
-            <div class="row">
-              <xsl:call-template name="cmo-textfield" />
-            </div>
-          </div>
-          <xed:bind xpath="mei:persName/@nymref">
-            <div class="row">
-              <label class="col-md-4 control-label form-inline">
-                <xed:output i18n="editor.label.nameLink" />
-              </label>
-              <div class="col-md-6">
-                <input type="text" class="form-control" placeholder="cmo_person_00000434" />
               </div>
-              <div class="col-md-2">
-                <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover"
-                   data-placement="right" data-content="{i18n:translate('cmo.help.nameLink')}">
-                  <i class="fa fa-info"></i>
-                </a>
-              </div>
-            </div>
+            </xed:bind>
           </xed:bind>
           <xsl:call-template name="cmo-required" />
         </xed:bind>
