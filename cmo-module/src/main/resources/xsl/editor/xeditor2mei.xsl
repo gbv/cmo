@@ -8,7 +8,6 @@
 >
 
   <xsl:include href="copynodes.xsl" />
-  <xsl:include href="editor/mei-node-utils.xsl" />
 
   <xsl:template match="mei:date">
     <xsl:copy>

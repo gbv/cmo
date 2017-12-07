@@ -45,10 +45,22 @@
     <cmo:textfield xpath="mei:titleStmt/mei:title" label="editor.label.title" type="cmo_titleType" lang="rfc4646"
                    repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
   </xed:template>
+  
+  <xed:template id="cmo_titleExpression">
+    <cmo:textfield xpath="mei:titleStmt/mei:title" label="editor.label.title" type="cmo_titleTypeExpression" lang="iso15924"
+                   repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
+  </xed:template>
 
   <xed:template id="cmo_personNameCMO">
     <cmo:textfield xpath="mei:name[@type='CMO']" label="editor.label.name.cmo" help-text="{i18n:cmo.help.name.cmo}"
                    class="required" required="true" required-text="{i18n:cmo.validation.identifier}"/>
+  </xed:template>
+
+  <xed:template id="cmo_incip">
+    <xed:bind xpath="mei:incip">
+      <cmo:textfield xpath="mei:incipText/mei:p" label="editor.label.incip" lang="iso15924"
+                     repeat="true" min="1" max="10" help-text="{i18n:cmo.help.incip}" />
+    </xed:bind>
   </xed:template>
 
   <xed:template id="cmo_editor">
@@ -73,6 +85,18 @@
     <cmo:nameLinkField xpath="mei:titleStmt/mei:funder" repeat="true" min="1" max="10"
                        placeholder="last name, first name" label="editor.label.funder"
                        help-text="{i18n:cmo.help.funder}" />
+  </xed:template>
+
+  <xed:template id="cmo_lyricist">
+    <cmo:nameLinkField xpath="mei:titleStmt/mei:lyricist" repeat="true" min="1" max="10"
+                       placeholder="last name, first name" label="editor.label.lyricist"
+                       help-text="{i18n:cmo.help.lyricist}" />
+  </xed:template>
+
+  <xed:template id="cmo_composer">
+    <cmo:nameLinkField xpath="mei:titleStmt/mei:composer" repeat="true" min="1" max="10"
+                       placeholder="last name, first name" label="editor.label.composer"
+                       help-text="{i18n:cmo.help.composer}" />
   </xed:template>
 
   <xed:template id="cmo_seriesTitle">
