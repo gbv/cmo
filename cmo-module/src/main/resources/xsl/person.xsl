@@ -45,10 +45,17 @@
   </xsl:template>
 
   <xsl:template priority="1" mode="resulttitle" match="mycoreobject[contains(@ID,'_person_')]">
-    <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='CMO'] |
-    ./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMAS-main'] |
-    ./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMAS-other'] |
-    ./metadata/def.meiContainer/meiContainer/mei:persName/mei:identifier[@type='CMO']" />
+    <xsl:choose>
+      <xsl:when test="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='CMO']">
+        <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='CMO']" />
+      </xsl:when>
+      <xsl:when test="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMAS-main']">
+        <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMAS-main']" />
+      </xsl:when>
+      <xsl:when test="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMAS-other']">
+        <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMAS-other']" />
+      </xsl:when>
+    </xsl:choose>
   </xsl:template>
 
 

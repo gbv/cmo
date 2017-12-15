@@ -32,11 +32,12 @@
 
   <xsl:template match="mei:persName[@nymref]" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:persName[@nymref]</xsl:comment>
+    <xsl:value-of select="concat(text(), ' ')" />
     <xsl:call-template name="objectLink">
       <xsl:with-param name="obj_id" select="@nymref" />
     </xsl:call-template>
   </xsl:template>
-  
+
   <xsl:template match="mei:persName[mei:name]" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:persName/mei:name</xsl:comment>
     <xsl:call-template name="metadataTextContent">

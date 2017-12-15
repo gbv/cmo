@@ -19,9 +19,7 @@
   ~  59 Temple Place - Suite 330, Boston, MA  02111-1307 USA
   ~
   -->
-
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
                 version="1.0">
 
@@ -54,7 +52,7 @@
       <xsl:apply-templates select='@*|node()' />
       <xsl:if test="mei:physDesc/mei:provenance">
         <mei:history>
-          <xsl:apply-templates select="mei:physDesc/mei:provenance/mei:eventList" mode="copy"/>
+          <xsl:apply-templates select="mei:physDesc/mei:provenance/mei:eventList" mode="copy" />
         </mei:history>
       </xsl:if>
     </mei:source>
@@ -92,6 +90,27 @@
     </xsl:copy>
   </xsl:template>
 
+  <xsl:template match="mei:composer|mei:editor|mei:author">
+    <xsl:copy>
+      <xsl:choose>
+        <xsl:when test="mei:persName">
+          <mei:persName dbkey="{mei:persName/@dbkey}">
+            <xsl:choose>
+              <xsl:when test="text()">
+                <xsl:value-of select="text()" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="mei:persName/text()" />
+              </xsl:otherwise>
+            </xsl:choose>
+          </mei:persName>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="text()" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:copy>
+  </xsl:template>
 
 
 </xsl:stylesheet>
