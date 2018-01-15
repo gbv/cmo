@@ -10,17 +10,27 @@
       <xed:cancel url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}" />
       <xed:cancel url="{$cancelUrl}" />
       <xed:cancel url="../content/index.xml" />
-      <xed:post-processor class="org.mycore.mei.MEIPostProcessor" />
+      <xed:post-processor class="org.mycore.mei.MEIPostProcessor" xsl="editor/xeditor2mei.xsl" />
 
       <xed:bind xpath="/mycoreobject">
         <xed:bind xpath="@ID" initially="cmo_work_00000000" />
-        <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML']/meiContainer/mei:source">
+        <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML'][@notinherit='true']/meiContainer/mei:work">
+
+          <xed:include uri="webapp:editor/editor-includes.xed" ref="mycore.common" />
+          <xed:include uri="webapp:editor/editor-includes.xed" ref="failed-validation-messages" />
+            <xed:bind xpath="mei:classification">
+              <xed:bind xpath="classEntry[@authority='cmo_kindOfData']" initially="cmo_kindOfData:source" />
+            </xed:bind>
+
           <fieldset>
             <legend>
               <xed:output i18n="editor.legend.work" />
             </legend>
 
-            <!-- TODO: add input fields here -->
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_identifier" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_musictype" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_annot" />
+            <!-- TODO: add biblList and expressionList, check annot types -->
 
             <!-- Button (Double) -->
             <div class="form-group">
