@@ -228,7 +228,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div id="copyright" class="col-xs-12 col-sm-6 col-md-5 col-lg-3">
-                            © 2017 Corpus Musicae Ottomanicae (CMO)
+                            © 2018 Corpus Musicae Ottomanicae (CMO)
                         </div>
                         <div id="contact" class="col-xs-12 col-sm-6 col-md-5 col-lg-2">
                           <a href="mailto:cmo@uni-muenster.de">cmo@uni-muenster.de</a>
