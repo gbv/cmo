@@ -15,8 +15,9 @@
   <properties>
     <MCR.AppName>cmo</MCR.AppName>
     <solr.location>${user.home}/.mycore/dev-cmo/data/solr</solr.location>
+    <!-- solr.location>${user.home}/AppData/Local/MyCoRe/dev-cmo/data/solr</solr.location -->
     <solr-runner.solrMirrorURL>http://mirror.23media.de/apache/lucene/solr/</solr-runner.solrMirrorURL>
-    <solr-runner.solrVersionString>6.6.1</solr-runner.solrVersionString>
+    <solr-runner.solrVersionString>7.2.1</solr-runner.solrVersionString>
   </properties>
   <build>
     <finalName>cmo-${project.version}</finalName>
@@ -62,28 +63,15 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>de.vzg.maven</groupId>
+        <groupId>org.mycore</groupId>
         <artifactId>solr-runner-maven-plugin</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.mycore.solr</groupId>
-            <artifactId>mycore-solr-plugin</artifactId>
-            <version>0.2</version>
-          </dependency>
-        </dependencies>
         <configuration>
           <solrHome>${solr.location}</solrHome>
           <solrPort>8983</solrPort>
           <solrHomeTemplate>${project.basedir}/src/main/solrHome</solrHomeTemplate>
           <solrMirrorURL>${solr-runner.solrMirrorURL}</solrMirrorURL>
           <solrVersionString>${solr-runner.solrVersionString}</solrVersionString>
-          <pluginCoreMappings>
-            <pluginCoreMapping>
-              <core>cmo</core>
-              <plugin>org.mycore.solr:mycore-solr-plugin</plugin>
-            </pluginCoreMapping>
-          </pluginCoreMappings>
         </configuration>
       </plugin>
     </plugins>
@@ -116,7 +104,7 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>de.vzg.maven</groupId>
+            <groupId>org.mycore</groupId>
             <artifactId>solr-runner-maven-plugin</artifactId>
             <executions>
               <execution>
