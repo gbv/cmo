@@ -18,13 +18,6 @@
           description="Eine Person oder Institution, die für den geistigen oder gestalterischen Inhalt hauptsächlich verantwortlich ist, insbesondere für gedruckten text. Dieser Ausdruck kann auch verwendet wenn mehr als eine Person betroffen ist." />
         <label xml:lang="x-miless" text="author" />
       </category>
-      <category ID="tch">
-        <label xml:lang="en" text="Teacher"
-          description="Use for a person who, in the context of a resource, gives instruction in an intellectual subject or demonstrates while teaching physical skills. " />
-        <label xml:lang="de" text="Dozent(in)"
-          description="Eine Person, die im Kontext einer Resource Instruktionen zu einem intellektuellen Thema gibt oder demonstriert, während sie physische Fähigkeiten lehrt." />
-        <label xml:lang="x-miless" text="teacher" />
-      </category>
       <category ID="pht">
         <label xml:lang="en" text="Photographer"
           description="Use for a person or organization responsible for taking photographs, whether they are used in their original form or as reproductions." />
@@ -52,18 +45,25 @@
       <label xml:lang="de" text="Verlag, Verleger(in)"
         description="Eine Person oder Institution, die gedruckte Sachen, oft Text, gedruckte Musik oder Kunstwerke der Öffentlichkeit zur Verfügung stellt." />
       <label xml:lang="x-miless" text="publisher" />
-      <category ID="dst">
-        <label xml:lang="en" text="Distributor" description="Use for a person or organization that has exclusive or shared marketing rights for an item." />
-        <label xml:lang="de" text="Distribution"
-          description="Eine Person oder Organisation, die die exklusiven oder geteilten Vermarktungsrechte für ein Werk hat." />
-        <label xml:lang="x-miless" text="distributor" />
-      </category>
       <category ID="edt">
         <label xml:lang="en" text="Editor"
           description="Use for a person or organization who prepares for publication a work not primarily his/her own, such as by elucidating text, adding introductory or other critical matter, or technically directing an editorial staff." />
         <label xml:lang="de" text="Herausgeber(in)"
           description="Eine Person oder Institution, die vorbereitend bei der Veröffentlichung einer nicht primär eigenen Arbeit mitwirkt, z.B. duch Texterklärungen, Hinzufügen von Einleitungen und anderen kritischen Inhalten, oder die technische Leitung ..." />
         <label xml:lang="x-miless" text="editor" />
+      </category>
+      <category ID="pbd">
+        <label xml:lang="en" text="Publishing director"
+          description="A person or organization who presides over the elaboration of a collective work to ensure its coherence or continuity. This includes editors-in-chief, literary editors, editors of series, etc." />
+        <label xml:lang="de" text="Verlagsleiter(in)"
+          description="Eine Person oder Organisation, die die Ausarbeitung einer kollektiven Arbeit vornimmt, um ihre Kontinuität zu gewährleisten. Dazu gehören Chefredakteure, Literaturredakteure, Herausgeber von Serien usw." />
+        <label xml:lang="x-miless" text="editor" />
+      </category>
+      <category ID="dst">
+        <label xml:lang="en" text="Distributor" description="Use for a person or organization that has exclusive or shared marketing rights for an item." />
+        <label xml:lang="de" text="Distribution"
+          description="Eine Person oder Organisation, die die exklusiven oder geteilten Vermarktungsrechte für ein Werk hat." />
+        <label xml:lang="x-miless" text="distributor" />
       </category>
     </category>
     <category ID="ctb">
@@ -76,13 +76,6 @@
         <label xml:lang="en" text="Transcriber"
           description="A person, family, or organization contributing to a resource by changing it from one system of notation to another. For a work transcribed for a different instrument or performing group, see Arranger [arr]. For makers of pen-facsimiles, use Facsimilist [fac]." />
         <label xml:lang="de" text="Transkriptionist(in)" />
-      </category>
-      <category ID="ths">
-        <label xml:lang="en" text="Thesis advisor"
-          description="Use for a person under whose supervision a degree candidate develops and presents a thesis, mémoire, or text of a dissertation. " />
-        <label xml:lang="de" text="Akademische Betreuung"
-          description="Eine Person, unter deren Betreuung ein Kandidat eine Dissertation oder Abschlussarbeit entwickelt und präsentiert." />
-        <label xml:lang="x-miless" text="advisor" />
       </category>
       <category ID="rev">
         <label xml:lang="en" text="Reviewer"
@@ -105,20 +98,6 @@
           description="Eine Person oder Institution, die Material aus verschiedenen Quellen zusammengebracht hat, die als Sammlung arrangiert und beschrieben wurde." />
         <label xml:lang="x-miless" text="collector" />
       </category>
-      <category ID="pro">
-        <label xml:lang="en" text="Producer"
-          description="Use for a person or organization responsible for the making of a motion picture, including business aspects, management of the productions, and the commercial success of the work." />
-        <label xml:lang="de" text="Audio/Video Produktion"
-          description="Eine Person oder Einrichtung, die für die Erstellung eines Filmes verantwortlich ist, inklusiver kommerzieller Aspekte und Management der Produktion" />
-        <label xml:lang="x-miless" text="producer" />
-      </category>
-      <category ID="drt">
-        <label xml:lang="en" text="Director"
-          description="Use for a person or organization who is responsible for the general management of a work or who supervises the production of a performance for stage, screen, or sound recording." />
-        <label xml:lang="de" text="Regie"
-          description="Eine Person oder Institution, die für das generelle Management einer Arbeit oder Überwachung der Produktion einer Bühnendarstellung, eines Filmes oder einer Audioaufnahme verantwortlich ist." />
-        <label xml:lang="x-miless" text="director" />
-      </category>
       <category ID="fnd">
         <label xml:lang="en" text="Funder" description="Use for a person or organization that furnished financial support for the production of the work." />
         <label xml:lang="de" text="Finanzielle Förderung"
@@ -131,13 +110,6 @@
         <label xml:lang="de" text="Übersetzer(in)"
           description="Eine Person oder Institution, die eine Text von einer Sprache in eine andere, oder eine ältere Form einer Sprache in eine modernere übersetzt." />
         <label xml:lang="x-miless" text="translator" />
-      </category>
-      <category ID="ill">
-        <label xml:lang="en" text="Illustrator"
-          description="Use for a person or organization who conceives, and perhaps also implements, a design or illustration, usually to accompany a written text." />
-        <label xml:lang="de" text="Illustrator(in)"
-          description="Eine Person oder Institution, die eine Zeichnung oder Illustration  entwirft und eventuell auch implementiert, um einen geschriebenen Text zu begleiten. " />
-        <label xml:lang="x-miless" text="illustrator" />
       </category>
       <category ID="sad">
         <label xml:lang="en" text="Scientific advisor"
@@ -157,12 +129,6 @@
         <label xml:lang="de" text="Redaktion"
           description="Eine Person oder Institution, die eine Information in eine zur Veröffentlichung geeignete Fassung bringt ohne für den geistigen Inhalt verantwortlich zu sein. " />
         <label xml:lang="x-miless" text="redactor" />
-      </category>
-      <category ID="ldr">
-        <label xml:lang="en" text="Laboratory director"
-          description="Use for a person or organization that manages or supervises work done in a controlled setting or environment." />
-        <label xml:lang="de" text="Laborleitung" description="Eine Person oder Institution, die die Arbeit in einem kontrollierten Umfeld überwacht." />
-        <label xml:lang="x-miless" text="laboratoryDirector" />
       </category>
       <category ID="adp">
         <label xml:lang="en" text="Adapter"
@@ -185,32 +151,6 @@
           description="Eine Person oder Institution, die mit dem geistigen Inhalt des Werkes verbunden ist. Diese Kategorie umfasst nicht den Herausgeber oder eine persönliche Zugehörigkeit oder einen Sponsor, es sei denn sie ist auch der Corporate Autor." />
         <label xml:lang="x-miless" text="originator" />
       </category>
-      <category ID="aqt">
-        <label xml:lang="en" text="Author in quotations or text extracts"
-          description="Use for a person or organization whose work is largely quoted or extracted in works to which he or she did not contribute directly. Such quotations are found particularly in exhibition catalogs, collections of photographs, etc." />
-        <label xml:lang="de" text="Zitierte Person"
-          description="Eine Person oder Institution, deren Arbeit weitgehend zitiert wird oder in Werken beschrieben werden, zu denen er oder sie nicht direkt beigetragen haben. Solche Zitierungen findet man besonders in Ausstellungen, Katalogen, Sammlungen, Fotografien etc." />
-        <label xml:lang="x-miless" text="citedPerson" />
-      </category>
-      <category ID="hnr">
-        <label xml:lang="en" text="Honoree" description="Use for a person or organization in memory or honor of whom a book, manuscript, etc. is donated. " />
-        <label xml:lang="de" text="Gefeierte Person" description="Eine Person oder Institution, die in einem Buch, Manuskript u.s.w. geehrt wird." />
-        <label xml:lang="x-miless" text="honoree" />
-      </category>
-      <category ID="ive">
-        <label xml:lang="en" text="Interviewee"
-          description="Use for a person or organization who is interviewed at a consultation or meeting, usually by a reporter, pollster, or some other information gathering agent." />
-        <label xml:lang="de" text="Interviewpartner"
-          description="Die Person oder Institution, die bei einem Besuch oder auf einem Meeting von einem Reporter, einem Meinungsforscher oder einer anderen Informationen sammelnden Person befragt wurde." />
-        <label xml:lang="x-miless" text="interviewee" />
-      </category>
-      <category ID="ivr">
-        <label xml:lang="en" text="Interviewer"
-               description="Use for a person or organization responsible for creating or contributing to a resource by acting as an interviewer, reporter, pollster, or some other information gathering agent." />
-        <label xml:lang="de" text="Interviewer"
-               description="Die Person oder Institution, die verantwortlich für das Erstellen oder Beitragen zu einer Quelle ist, und dabei als Interviewer, Reporter, Meinungsforscher oder andere Informationen sammelnde Person auftritt." />
-        <label xml:lang="x-miless" text="interviewee" />
-       </category>
       <category ID="dtc">
         <label xml:lang="en" text="Data contributor"
                description="Use for a person or organization that submits data for inclusion in a database or other collection of data." />
@@ -243,12 +183,6 @@
         description="An organization hosting the event, exhibit, conference, etc., which gave rise to a resource, but having little or no responsibility for the content of the resource." />
       <label xml:lang="de" text="Beherbergende Einrichtung"
         description="Eine Einrichtung, in deren Umfeld das Werk entsteht, aber ohne nennenswerten Einfluss auf den Inhalt." />
-    </category>
-    <category ID="orm">
-      <label xml:lang="en" text="Organizer of meeting"
-        description="Use for a person or organization responsible for organizing a meeting for which an item is the report or proceedings." />
-      <label xml:lang="de" text="Veranstalter"
-        description="Eine Person oder Institution, die verantwortlich für die Organisation eines Treffens ist. Dabei entstehen Reporte oder Konferenzbänder." />
     </category>
     <category ID="prt">
       <label xml:lang="en" text="Printer "
