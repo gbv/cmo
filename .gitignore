@@ -157,3 +157,6 @@ $RECYCLE.BIN/
 .nfs*
 cmo-module/node_modules/
 cmo-module/node/
+
+# fileupload workaround
+cmo-webapp/src/main/webapp/fileupload.xml
