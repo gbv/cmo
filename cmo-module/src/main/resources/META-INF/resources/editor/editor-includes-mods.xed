@@ -75,6 +75,10 @@
     <cmo:textfield xpath="mods:physicalDescription/mods:extent" help-text="{i18n:cmo.help.mods.extent}" label="cmo.mods.extent" />
   </xed:template>
   
+  <xed:template id="cmo_modsHostTitle">
+    <cmo:textfield xpath="mods:relatedItem[@type='host']/mods:titleInfo/mods:title" help-text="{i18n:cmo.help.mods.hostTitle}" label="cmo.mods.hostTitle" />
+  </xed:template>
+  
   <xed:template id="cmo_modsSeriesTitle">
     <cmo:textfield xpath="mods:relatedItem[@type='series']/mods:titleInfo/mods:title" help-text="{i18n:cmo.help.mods.seriesTitle}" label="cmo.mods.seriesTitle" />
   </xed:template>
@@ -205,9 +209,9 @@
       </div>
     </xed:repeat>
   </xed:template>
-  
-  <xed:template id="cmo_modsHostTitle">
-    <xed:bind xpath="mods:relatedItem[@type='host']/mods:titleInfo/mods:title">
+
+  <xed:template id="cmo_modsHostTitleLink">
+    <xed:bind xpath="mods:relatedItem[@type='host']/@xlink:href">
       <div data-subselect='category.top:"cmo_kindOfData:edition"' class="form-group">
         <div class="row">
           <label class="col-md-4 control-label">
@@ -229,7 +233,7 @@
       </div>
     </xed:bind>
   </xed:template>
-  
+
   <!-- TODO: use templates here -->
   <xed:template id="cmo_modsOriginalLink">
     <xed:bind xpath="mods:relatedItem[@type='original']/@xlink:href">

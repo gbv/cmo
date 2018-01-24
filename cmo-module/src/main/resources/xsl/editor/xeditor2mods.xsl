@@ -12,7 +12,42 @@
   <xsl:include href="copynodes.xsl" />
   <xsl:include href="mods-utils.xsl"/>
   <xsl:include href="coreFunctions.xsl"/>
-  
+
+  <xsl:param name="MCR.Metadata.ObjectID.NumberPattern" select="00000000"/>
+
+  <xsl:template match="mycoreobject/structure">
+    <xsl:copy>
+      <xsl:variable name="hostItem"
+                    select="../metadata/def.modsContainer/modsContainer/mods:mods/mods:relatedItem[@type='host'
+                    and @xlink:href and mcrid:isValid(@xlink:href)
+                    and not($MCR.Metadata.ObjectID.NumberPattern=substring(@xlink:href, string-length(@xlink:href) - string-length($MCR.Metadata.ObjectID.NumberPattern) + 1))]/@xlink:href"/>
+      <xsl:if test="$hostItem">
+        <parents class="MCRMetaLinkID">
+          <parent xlink:href="{$hostItem}" xlink:type="locator" inherited="0"/>
+        </parents>
+      </xsl:if>
+      <xsl:apply-templates />
+    </xsl:copy>
+  </xsl:template>
+
+  <xsl:template match="mycoreobject[not(structure)]">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <xsl:variable name="hostItem"
+                    select="metadata/def.modsContainer/modsContainer/mods:mods/mods:relatedItem[@type='host'
+                    and @xlink:href and mcrid:isValid(@xlink:href)
+                    and not($MCR.Metadata.ObjectID.NumberPattern=substring(@xlink:href, string-length(@xlink:href) - string-length($MCR.Metadata.ObjectID.NumberPattern) + 1))]/@xlink:href"/>
+      <xsl:if test="$hostItem">
+        <structure>
+          <parents class="MCRMetaLinkID">
+            <parent xlink:href="{$hostItem}" xlink:type="locator" inherited="0"/>
+          </parents>
+        </structure>
+      </xsl:if>
+      <xsl:apply-templates select="node()"/>
+    </xsl:copy>
+  </xsl:template>
+
   <!-- create value URI using valueURIxEditor and authorityURI -->
   <xsl:template match="@valueURIxEditor">
     <xsl:choose>
@@ -108,4 +143,5 @@
   <xsl:template match="mods:part/mods:extent[@unit='pages']" xmlns:pages="xalan://org.mycore.mods.MCRMODSPagesHelper">
     <xsl:copy-of select="pages:buildExtentPagesNodeSet(mods:list/text())" />
   </xsl:template>
+  
 </xsl:stylesheet>

@@ -138,6 +138,27 @@
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="mods:relatedItem[@type='host']" mode="metadataView">
+    <xsl:call-template name="metadataLabelContent">
+      <xsl:with-param name="label" select="'editor.label.host'" />
+      <xsl:with-param name="content">
+        <xsl:choose>
+          <xsl:when test="@xlink:href">
+            <xsl:call-template name="objectLink">
+              <xsl:with-param select="@xlink:href" name="obj_id" />
+            </xsl:call-template>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="mods:titleInfo/mods:title" />
+          </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="mods:part/mods:extent[@unit='pages']">
+          <xsl:value-of select="concat(', ',i18n:translate('cmo.pages.abbreviated.multiple'), ' ', mods:part/mods:extent[@unit='pages']/mods:start, ' - ', mods:part/mods:extent[@unit='pages']/mods:end )" />
+        </xsl:if>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+
   <xsl:template match="mods:relatedItem[@type='series']" mode="metadataView">
     <xsl:call-template name="metadataLabelContent">
       <xsl:with-param name="label" select="'editor.legend.series'" />

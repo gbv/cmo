@@ -37,6 +37,7 @@
             <xsl:call-template name="metadataContainer">
               <xsl:with-param name="content">
                 <xsl:apply-templates select="//mods:mods/mods:identifier[@type='CMO']" mode="metadataView" />
+                <xsl:apply-templates select="//mods:mods/mods:relatedItem[@type='host']" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods" mode="metadataViewName" />
                 <xsl:apply-templates select="//mods:mods/mods:genre" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:originInfo[@eventType='publication']/mods:publisher" mode="metadataView" />
@@ -46,6 +47,7 @@
                 <xsl:apply-templates select="//mods:mods/mods:relatedItem[@type='series']" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:note" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:relatedItem[@type='original']" mode="metadataView" />
+                <xsl:apply-templates select="structure/children" mode="metadataView" />
               </xsl:with-param>
             </xsl:call-template>
           </xsl:with-param>
