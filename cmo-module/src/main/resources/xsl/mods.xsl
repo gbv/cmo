@@ -40,6 +40,7 @@
                 <xsl:apply-templates select="//mods:mods/mods:relatedItem[@type='host']" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods" mode="metadataViewName" />
                 <xsl:apply-templates select="//mods:mods/mods:genre" mode="metadataView" />
+                <xsl:apply-templates select="//mods:mods/mods:classification[@displayLabel='cmo_editionTypes']" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:originInfo[@eventType='publication']/mods:publisher" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:originInfo[@eventType='publication']/mods:dateIssued" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:originInfo[@eventType='publication']/mods:place/mods:placeTerm" mode="metadataView" />

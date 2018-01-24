@@ -93,6 +93,18 @@
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="mods:classification[@displayLabel='cmo_editionTypes']" mode="metadataView">
+    <xsl:call-template name="metadataLabelContent">
+      <xsl:with-param name="label" select="'editor.label.mods.editionType'" />
+      <xsl:with-param name="content">
+        <xsl:variable name="editionType">
+          <xsl:value-of select="substring-after(@valueURI, '#')" />
+        </xsl:variable>
+        <xsl:value-of select="document(concat('classification:metadata:0:children:cmo_editionTypes:', $editionType))//category/label[@xml:lang=$CurrentLang]/@text"/>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+
   <xsl:template match="mods:originInfo[@eventType='publication']/mods:publisher" mode="metadataView">
     <xsl:call-template name="metadataLabelContent">
       <xsl:with-param name="label" select="'editor.label.publisher'" />
