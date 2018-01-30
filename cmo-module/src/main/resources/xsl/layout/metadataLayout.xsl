@@ -32,13 +32,21 @@
 
 
   <xsl:template name="metadataLabelContent">
+    <xsl:param name="style" select="''" />
     <xsl:param name="label" />
+    <xsl:param name="type" select="''" />
     <xsl:param name="content" />
-    <tr>
-      <th class="col-md-4">
-        <xsl:value-of select="i18n:translate($label)" />
+    <tr class="{$style}">
+      <th class="col-md-3">
+        <xsl:if test="string-length($label) &gt; 0">
+          <xsl:value-of select="i18n:translate($label)" />
+        </xsl:if>
       </th>
-      <td class="col-md-8">
+      <td class="col-md-2 text-center cmo_contentType">
+        <xsl:variable name="rTree" select="exslt:node-set($type)" />
+        <xsl:copy-of select="$rTree" />
+      </td>
+      <td class="col-md-7">
         <xsl:variable name="rTree" select="exslt:node-set($content)" />
         <xsl:copy-of select="$rTree" />
       </td>
@@ -46,13 +54,19 @@
   </xsl:template>
 
   <xsl:template name="metadataTextContent">
+    <xsl:param name="style" select="''" />
     <xsl:param name="text" />
+    <xsl:param name="type" select="''" />
     <xsl:param name="content" />
-    <tr>
-      <th class="col-md-4">
+    <tr class="{$style}">
+      <th class="col-md-3">
         <xsl:value-of select="$text" />
       </th>
-      <td class="col-md-8">
+      <td class="col-md-2 text-center cmo_contentType">
+        <xsl:variable name="rTree" select="exslt:node-set($type)" />
+        <xsl:copy-of select="$rTree" />
+      </td>
+      <td class="col-md-7">
         <xsl:variable name="rTree" select="exslt:node-set($content)" />
         <xsl:copy-of select="$rTree" />
       </td>
@@ -60,14 +74,20 @@
   </xsl:template>
 
   <xsl:template name="metadataContentContent">
+    <xsl:param name="style" select="''" />
     <xsl:param name="content1" />
     <xsl:param name="content2" />
-    <tr>
-      <th class="col-md-4">
+    <xsl:param name="type" select="''" />
+    <tr class="{$style}">
+      <th class="col-md-3">
         <xsl:variable name="rTree1" select="exslt:node-set($content1)" />
         <xsl:copy-of select="$rTree1" />
       </th>
-      <td class="col-md-8">
+      <td class="col-md-2 text-center cmo_contentType">
+        <xsl:variable name="rTree" select="exslt:node-set($type)" />
+        <xsl:copy-of select="$rTree" />
+      </td>
+      <td class="col-md-7">
         <xsl:variable name="rTree2" select="exslt:node-set($content2)" />
         <xsl:copy-of select="$rTree2" />
       </td>
@@ -76,10 +96,11 @@
 
 
   <xsl:template name="metadataSoloContent">
+    <xsl:param name="style" select="''" />
     <xsl:param name="content" />
 
-    <tr>
-      <td colspan="2" class="col-md-12">
+    <tr class="{$style}">
+      <td colspan="3" class="col-md-12">
         <xsl:variable name="rTree" select="exslt:node-set($content)" />
         <xsl:copy-of select="$rTree" />
       </td>
@@ -256,15 +277,17 @@
   </xsl:template>
 
   <xsl:template name="displayDerivateSection">
-    <xsl:if test="structure/derobjects/derobject[acl:checkPermission(@xlink:href,'read')]">
-      <xsl:call-template name="derivateSection">
-        <xsl:with-param name="content">
-          <xsl:apply-templates select="structure/derobjects/derobject[acl:checkPermission(@xlink:href,'read')]">
-            <xsl:with-param name="objID" select="@ID" />
-          </xsl:apply-templates>
-        </xsl:with-param>
-      </xsl:call-template>
-    </xsl:if>
+    <xsl:for-each select="structure/derobjects/derobject">
+      <xsl:if test="acl:checkPermission(@xlink:href,'read')">
+        <xsl:call-template name="derivateSection">
+          <xsl:with-param name="content">
+            <xsl:apply-templates select=".">
+              <xsl:with-param name="objID" select="@ID" />
+            </xsl:apply-templates>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:if>
+    </xsl:for-each>
   </xsl:template>
 
 </xsl:stylesheet>

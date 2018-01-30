@@ -65,7 +65,22 @@
   <xsl:template match="derobject">
     <xsl:param name="objID" />
     <xsl:variable name="derId" select="@xlink:href" />
+
+    <xsl:if test="(key('rights', $derId)/@read and mcrxsl:isDisplayedEnabledDerivate($derId)) or key('rights', $derId)/@write">
+    
     <xsl:variable name="derivateXML" select="document(concat('mcrobject:',$derId))" />
+
+    <!-- TODO: use http://www.verovio.org for mei presentation -->
+    <!-- script src="{$WebApplicationBaseURL}js/verovio-toolkit.js"></script>
+    <div id="output"/>
+    <script type="text/javascript">
+        var vrvToolkit = new verovio.toolkit();
+        /* Load the file using HTTP GET */
+        $.get( "../servlets/MCRFileNodeServlet/cmo_derivate_00000001/NE203__p._1-1_1.0.mei", function( data ) {
+            var svg = vrvToolkit.renderData(data, {});
+            $("#output").html(svg);
+        }, 'text');
+    </script -->
 
     <div id="files{@xlink:href}" class="file_box">
       <div class="row header">
@@ -118,6 +133,7 @@
       </div>
 
     </div>
+    </xsl:if>
   </xsl:template>
 
 
@@ -228,8 +244,6 @@
           </xsl:call-template>
           <xsl:text> ]</xsl:text>
         </span>
-        <span class="{$fileCss} fa fa-star">
-        </span>
         <span class="file_date">
           <xsl:call-template name="formatISODate">
             <xsl:with-param name="date" select="date[@type='lastModified']" />
@@ -268,6 +282,9 @@
             </xsl:otherwise>
           </xsl:choose>
         </span>
+        <xsl:if test="concat($derId,'/',$maindoc) = $filePath">
+          <span class="{$fileCss} fa fa-star" style="margin-left:10px"></span>
+        </xsl:if>
       </div>
     </div>
   </xsl:template>
@@ -277,41 +294,49 @@
     <xsl:param name="parentObjID" />
     <xsl:param name="suffix" select="''" />
 
-    <xsl:if test="acl:checkPermission($deriv,'writedb')">
-      <xsl:variable select="concat('mcrobject:',$deriv)" name="derivlink" />
-      <xsl:variable select="document($derivlink)" name="derivate" />
+    <xsl:variable select="concat('mcrobject:',$deriv)" name="derivlink" />
+    <xsl:variable select="document($derivlink)" name="derivate" />
 
-
-      <div class="options pull-right">
-        <div class="btn-group">
-          <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-cog"></i>
-            <xsl:value-of select="' Aktionen'" />
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-right">
+    <div class="options pull-right">
+      <div class="btn-group">
+        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-cog"></i>
+          <xsl:value-of select="i18n:translate('cmo.derivate.action')" />
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <!-- TODO: fix derivate editor -->
+          <!-- xsl:if test="key('rights', $deriv)/@write">
             <li>
-              <a href="{$ServletsBaseURL}derivate/update{$HttpSession}?id={$deriv}">
-                <!-- xsl:value-of select="i18n:translate('component.swf.derivate.updateFile')" / -->
-                Beschriftung bearbeiten
+              <a href="{$WebApplicationBaseURL}editor/editor-derivate.xed{$HttpSession}?derivateid={$deriv}" class="option">
+                <xsl:value-of select="i18n:translate('component.mods.metaData.options.updateDerivateName')" />
               </a>
             </li>
+          </xsl:if -->
+          <xsl:if test="key('rights', $deriv)/@write">
             <li>
-              <a href="{$ServletsBaseURL}derivate/update{$HttpSession}?objectid={../../../@ID}&amp;id={$deriv}{$suffix}" class="option">
-                <xsl:value-of select="i18n:translate('component.swf.derivate.addFile')" />
+              <a href="{$ServletsBaseURL}MCRDisplayHideDerivateServlet?derivate={$deriv}" class="option">
+                <xsl:value-of select="i18n:translate(concat('cmo.derivate.display.', $derivate//derivate/@display))" />
               </a>
             </li>
-            <xsl:if test="acl:checkPermission($deriv,'deletedb')">
-              <li class="last">
-                <a href="{$ServletsBaseURL}derivate/delete{$HttpSession}?id={$deriv}" class="confirm_deletion option" data-text="{i18n:translate('confirm.derivate.text')}">
-                  <xsl:value-of select="i18n:translate('component.swf.derivate.delDerivate')" />
-                </a>
-              </li>
-            </xsl:if>
-          </ul>
-        </div>
+          </xsl:if>
+          <xsl:if test="key('rights', $deriv)/@read">
+            <li>
+              <a href="{$ServletsBaseURL}MCRZipServlet/{$deriv}" class="option">
+                <xsl:value-of select="i18n:translate('component.mods.metaData.options.zip')" />
+              </a>
+            </li>
+          </xsl:if>
+          <xsl:if test="key('rights', $deriv)/@delete">
+            <li class="last">
+              <a href="{$ServletsBaseURL}derivate/delete{$HttpSession}?id={$deriv}" class="confirm_deletion option" data-text="{i18n:translate('cmo.confirm.derivate.text')}">
+                <xsl:value-of select="i18n:translate('component.mods.metaData.options.delDerivate')" />
+              </a>
+            </li>
+          </xsl:if>
+        </ul>
       </div>
-    </xsl:if>
+    </div>
   </xsl:template>
 
 

@@ -29,17 +29,22 @@
 
   <xsl:template match="mei:titleStmt" mode="metadataView">
     <xsl:comment>mei/titleStmt.xsl > mei:titleStmt</xsl:comment>
-    <xsl:if test="mei:title">
+    <xsl:for-each select="mei:title">
       <xsl:call-template name="metadataLabelContent">
-        <xsl:with-param name="label" select="'editor.label.title'" />
+        <xsl:with-param name="style">
+          <xsl:if test="position() &gt; 1"><xsl:value-of select="'cmo_noBorder'" /></xsl:if>
+        </xsl:with-param>
+        <xsl:with-param name="label">
+          <xsl:if test="position() = 1"><xsl:value-of select="'editor.label.title'" /></xsl:if>
+        </xsl:with-param>
+        <xsl:with-param name="type">
+          <xsl:value-of select="@type" />
+        </xsl:with-param>
         <xsl:with-param name="content">
-          <xsl:apply-templates select="mei:title[@type='main']" mode="metadataView" />
-          <xsl:apply-templates select="mei:title[@type='sub']" mode="metadataView" />
-          <xsl:apply-templates select="mei:title[@type='desc']" mode="metadataView"/>
-          <xsl:apply-templates select="mei:title[not(contains('main,sub,desc', @type))]" mode="metadataView" />
+          <xsl:apply-templates select="." mode="metadataView" />
         </xsl:with-param>
       </xsl:call-template>
-    </xsl:if>
+    </xsl:for-each>
 
     <xsl:if test="//mei:classification[mei:classCode[contains(@authURI,'cmo_makamler')]]">
       <xsl:call-template name="metadataLabelContent">
@@ -59,8 +64,6 @@
   <xsl:template match="mei:title" mode="metadataView">
     <xsl:comment>mei/titleStmt.xsl > mei:title</xsl:comment>
     <span class="cmo_titleStmt"><xsl:value-of select="text()" /> </span>
-    <small>(<xsl:value-of select="@type" />)</small>
-    <br />
   </xsl:template>
 
 </xsl:stylesheet>

@@ -40,13 +40,21 @@
 
   <xsl:template match="mei:persName[mei:name]" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:persName/mei:name</xsl:comment>
-    <xsl:call-template name="metadataTextContent">
-      <xsl:with-param name="text">
-        <xsl:value-of select="i18n:translate('editor.label.nameVariants')" />
-      </xsl:with-param>
-      <xsl:with-param name="content">
-        <xsl:for-each select="mei:name[generate-id()=generate-id(key('persNames',text())[1])]">
-        <xsl:value-of select="text()"/>
+    
+    <xsl:for-each select="mei:name[generate-id()=generate-id(key('persNames',text())[1])]">
+      <xsl:call-template name="metadataLabelContent">
+      
+        <xsl:with-param name="style">
+          <xsl:if test="position() &gt; 1"><xsl:value-of select="'cmo_noBorder'" /></xsl:if>
+        </xsl:with-param>
+        <xsl:with-param name="label">
+          <xsl:if test="position() = 1"><xsl:value-of select="'editor.label.nameVariants'" /></xsl:if>
+        </xsl:with-param>
+        <xsl:with-param name="type">
+          <xsl:value-of select="@type" />
+        </xsl:with-param>
+        <xsl:with-param name="content">
+          <xsl:value-of select="text()"/>
           <xsl:for-each select="key('persNames',text())">
             <xsl:choose>
               <xsl:when test="@source and @label">
@@ -55,15 +63,11 @@
               <xsl:when test="@source">
                 <small> [<xsl:call-template name="objectLink"><xsl:with-param select="@source" name="obj_id" /></xsl:call-template>]</small>
               </xsl:when>
-              <xsl:when test="@type">
-                <small><xsl:value-of select="concat(' [', @type, ']')"></xsl:value-of></small>
-              </xsl:when>
             </xsl:choose>
           </xsl:for-each>
-          <br />
-        </xsl:for-each>
-      </xsl:with-param>
-    </xsl:call-template>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:for-each>
   </xsl:template>
 
 
@@ -186,12 +190,12 @@
 
   <xsl:template match="mei:name" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:name</xsl:comment>
-    <xsl:call-template name="metadataTextContent">
-      <xsl:with-param name="text">
-        <xsl:value-of select="i18n:translate('editor.label.name')" />
-        <xsl:if test="@type">
-          <xsl:value-of select="concat(' [', @type, ']')" />
-        </xsl:if>
+    <xsl:call-template name="metadataLabelContent">
+      <xsl:with-param name="label">
+        <xsl:value-of select="'editor.label.name'" />
+      </xsl:with-param>
+      <xsl:with-param name="type">
+        <xsl:value-of select="@type" />
       </xsl:with-param>
       <xsl:with-param name="content">
         <xsl:value-of select="text()" />

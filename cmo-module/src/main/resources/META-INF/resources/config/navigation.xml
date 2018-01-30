@@ -109,7 +109,7 @@
       <label xml:lang="de">Neuen Katalog-Eintrag erstellen</label>
       <label xml:lang="en">Create new catalogue entry</label>
     </item>
-    <item href="/content/publish/edition.xml" type="intern">
+    <item href="/editor/edition.xed" type="intern">
       <label xml:lang="de">Neuen Editions-Eintrag erstellen</label>
       <label xml:lang="en">Create new edition entry</label>
     </item>
