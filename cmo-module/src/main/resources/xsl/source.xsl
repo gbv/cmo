@@ -68,6 +68,7 @@
 
   <xsl:template name="contentContainer">
     <xsl:call-template name="metadataSoloContent">
+      <xsl:with-param name="label" select="'editor.label.contents'" />
       <xsl:with-param name="content">
         <xsl:call-template name="displaySourceComponent" />
       </xsl:with-param>

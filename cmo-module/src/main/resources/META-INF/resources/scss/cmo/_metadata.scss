@@ -19,6 +19,7 @@
   }
 }
 
+/* TODO: refacture */
 table > tbody > tr.cmo_noBorder > td, table > tbody > tr.cmo_noBorder > th {
     border-top: 0px;
     margin-top: 0px;
@@ -29,4 +30,9 @@ table > tbody > tr.cmo_noBorder > td, table > tbody > tr.cmo_noBorder > th {
   font-weight: bold;
   color: #aaa;
   font-size: small;
+}
+
+.cmo_spaceTable {
+  border-collapse: separate;
+  border-spacing: 15px 2px;
 }

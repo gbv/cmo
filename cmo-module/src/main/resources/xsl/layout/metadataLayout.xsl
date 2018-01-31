@@ -97,9 +97,15 @@
 
   <xsl:template name="metadataSoloContent">
     <xsl:param name="style" select="''" />
+    <xsl:param name="label" />
     <xsl:param name="content" />
 
     <tr class="{$style}">
+      <th class="col-md-3">
+        <xsl:if test="string-length($label) &gt; 0">
+          <xsl:value-of select="i18n:translate($label)" />
+        </xsl:if>
+      </th>
       <td colspan="3" class="col-md-12">
         <xsl:variable name="rTree" select="exslt:node-set($content)" />
         <xsl:copy-of select="$rTree" />
@@ -109,7 +115,16 @@
 
   <xsl:template name="metadataContainer">
     <xsl:param name="content" />
-    <table class="table">
+    <table class="table cmo_spaceTable">
+      <tr class="cmo_noBorder">
+        <th class="col-md-3">
+        </th>
+        <td class="col-md-2 text-center cmo_contentType">
+          <xsl:value-of select="i18n:translate('cmo.metadata.typeLabel')" />
+        </td>
+        <td class="col-md-7">
+        </td>
+      </tr>
       <xsl:variable name="rTree" select="exslt:node-set($content)" />
       <xsl:copy-of select="$rTree" />
     </table>

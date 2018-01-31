@@ -12,24 +12,29 @@
     <item href="/content/below/about.xml" type="intern">
       <label xml:lang="de">Über uns</label>
       <label xml:lang="en">About</label>
+      <label xml:lang="tr">Hakkımızda</label>
     </item>
     <item href="/content/below/imprint.xml" type="intern">
       <label xml:lang="de">Impressum</label>
       <label xml:lang="en">Imprint</label>
+      <label xml:lang="tr">Yasal uyarı</label>
     </item>
     <item href="/content/below/contact.xml" type="intern">
       <label xml:lang="de">Kontakt</label>
       <label xml:lang="en">Contact</label>
+      <label xml:lang="tr">İletişim</label>
     </item>
     <item href="/content/below/contributors.xml" type="intern">
       <label xml:lang="de">Beteiligte</label>
       <label xml:lang="en">Contributors</label>
+      <label xml:lang="tr">Katkıda bulunanlar</label>
     </item>
   </menu>
   <menu id="cmo_edition" dir="/content/edition">
     <!-- CMO edition menu  -->
     <label xml:lang="de">Edition</label>
     <label xml:lang="en">Edition</label>
+    <label xml:lang="tr">Edisyon</label>
     <item href="/content/edition/about.xml" type="intern">
       <label xml:lang="de">Über</label>
       <label xml:lang="en">About</label>
@@ -37,20 +42,24 @@
     <item href="/content/edition/browse.xml" type="intern">
       <label xml:lang="de">Blättern</label>
       <label xml:lang="en">Browse edition</label>
+      <label xml:lang="tr">Göz at</label>
     </item>
     <item href="/content/edition/guidelines.xml" type="intern">
       <label xml:lang="de">Leitlinien</label>
       <label xml:lang="en">Edition guidelines</label>
+      <label xml:lang="tr">Ana ilkeler</label>
     </item>
     <item href="/content/edition/abbreviations.xml" type="intern">
       <label xml:lang="de">Abkürzungsverzeichnis</label>
       <label xml:lang="en">List of abbreviations</label>
+      <label xml:lang="tr">Kısaltmalar</label>
     </item>
   </menu>
   <menu id="cmo_catalogue" dir="/content/catalogue">
     <!-- CMO catalogue menu  -->
     <label xml:lang="de">Quellenkatalog</label>
     <label xml:lang="en">Source Catalogue</label>
+    <label xml:lang="tr">Kaynak Kataloğu</label>
     <item href="/content/catalogue/about.xml" type="intern">
       <label xml:lang="de">Über</label>
       <label xml:lang="en">About</label>
@@ -58,6 +67,7 @@
     <item href="/content/catalogue/source.xml" type="intern">
       <label xml:lang="de">Art der Quelle</label>
       <label xml:lang="en">Browse Source</label>
+      <label xml:lang="tr">Kaynak türü</label>
     </item>
     <item href="/content/catalogue/makam.xml" type="intern">
       <label xml:lang="de">Makâm</label>
@@ -70,22 +80,27 @@
     <item href="/content/catalogue/person.xml" type="intern">
       <label xml:lang="de">Person</label>
       <label xml:lang="en">Browse Person</label>
+      <label xml:lang="tr">Kişi</label>
     </item>
     <item href="/content/catalogue/music_type.xml" type="intern">
       <label xml:lang="de">Genre der Musik</label>
       <label xml:lang="en">Browse Genre</label>
+      <label xml:lang="tr">Eser türü/formu</label>
     </item>
     <item href="/content/catalogue/literary_form.xml" type="intern">
       <label xml:lang="de">Literarische Form</label>
       <label xml:lang="en">Browse Literary Form</label>
+      <label xml:lang="tr">Edebi tür/form</label>
     </item>
     <item href="/content/catalogue/incipit.xml" type="intern">
       <label xml:lang="de">Textanfänge</label>
       <label xml:lang="en">Browse Incipit</label>
+      <label xml:lang="tr">Güfte başlangıcı</label>
     </item>
     <item href="/content/catalogue/poetic_title.xml" type="intern">
       <label xml:lang="de">Poetischer Titel</label>
       <label xml:lang="en">Browse Poetic title</label>
+      <label xml:lang="tr">Eser başlığı</label>
     </item>
   </menu>
   <menu id="cmo_help" dir="/content/help">
@@ -95,6 +110,7 @@
     <item id="cmo_userGuide" href="/content/help/user_guide.xml" type="intern">
       <label xml:lang="de">Nutzerhandbuch</label>
       <label xml:lang="en">User Guide</label>
+      <label xml:lang="tr">Kullanım kılavuzu</label>
     </item>
     <item id="cmo_tutorial" href="/content/help/tutorial.xml" type="intern">
       <label xml:lang="de">Tutorials</label>

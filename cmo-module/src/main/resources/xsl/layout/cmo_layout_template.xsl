@@ -189,7 +189,7 @@
                          class="col-xs-12 col-md-6 col-lg-10">
                        <div class="row">
                          <div class="col-lg-2">
-                           <a href="http://www.maxweberstiftung.de/institute/institute-oi-istanbul.html">
+                           <a href="https://www.oiist.org/">
                              <img src="{$WebApplicationBaseURL}content/images/logos/orient_institut_istanbul.svg" title="Link to Orient Institute Istanbul" alt="Logo Orient Institute Istanbul" id="logo_oi" />
                            </a>
                          </div>
