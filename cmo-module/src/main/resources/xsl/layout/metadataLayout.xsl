@@ -282,7 +282,7 @@
         <xsl:call-template name="derivateSection">
           <xsl:with-param name="content">
             <xsl:apply-templates select=".">
-              <xsl:with-param name="objID" select="@ID" />
+              <xsl:with-param name="objID" select="../../../@ID" />
             </xsl:apply-templates>
           </xsl:with-param>
         </xsl:call-template>

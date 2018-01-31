@@ -315,6 +315,11 @@
           </xsl:if -->
           <xsl:if test="key('rights', $deriv)/@write">
             <li>
+              <a href="{$ServletsBaseURL}derivate/update{$HttpSession}?objectid={$parentObjID}&amp;id={$deriv}{$suffix}" class="option">
+                <xsl:value-of select="i18n:translate('component.mods.metaData.options.addFile')" />
+              </a>
+            </li>
+            <li>
               <a href="{$ServletsBaseURL}MCRDisplayHideDerivateServlet?derivate={$deriv}" class="option">
                 <xsl:value-of select="i18n:translate(concat('cmo.derivate.display.', $derivate//derivate/@display))" />
               </a>
