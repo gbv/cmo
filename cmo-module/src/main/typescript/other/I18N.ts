@@ -1,4 +1,5 @@
 import {Utils} from "./Utils";
+
 export class I18N {
     private static DEFAULT_FETCH_LEVEL = 1;
 
@@ -10,7 +11,7 @@ export class I18N {
 
     static translate(key: string, callback: (translation: string) => void) {
         let baseUrl: string = Utils.getBaseURL();
-        let resourceUrl = baseUrl + "rsc/locale/translate/";
+        let resourceUrl = baseUrl + "rsc/locale/translate/" + this.getCurrentLanguage() + "/";
 
         if (key in I18N.keyObj) {
             callback(I18N.keyObj[ key ]);
@@ -38,7 +39,7 @@ export class I18N {
                         for (let index in I18N.fetchKeyHandlerList[ fetchKey ]) {
                             I18N.fetchKeyHandlerList[ fetchKey ][ index ]()
                         }
-                        delete I18N.fetchKeyHandlerList[fetchKey];
+                        delete I18N.fetchKeyHandlerList[ fetchKey ];
                     }
                 };
                 xhttp.open('GET', resourceUrl + fetchKey, true);
