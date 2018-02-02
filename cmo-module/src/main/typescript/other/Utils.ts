@@ -72,7 +72,7 @@ export class UserInputParser {
                     if (state.quotePos == -1) {
                         let lcp = state.lastCompleteFieldPos;
                         state.lastCompleteFieldPos = i + 1;
-                        yield UserInputParser.escapeSpecialCharacters(input.substring(lcp, i));
+                        yield input.substring(lcp, i);
                     }
                     break;
             }
@@ -80,7 +80,7 @@ export class UserInputParser {
         if (state.lastCompleteFieldPos < input.length) {
             let lcp = state.lastCompleteFieldPos;
             state.lastCompleteFieldPos = input.length;
-            yield UserInputParser.escapeSpecialCharacters(input.substring(lcp, input.length));
+            yield input.substring(lcp, input.length);
         }
     }
 
