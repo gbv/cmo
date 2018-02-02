@@ -327,7 +327,7 @@ let getResultAction = (params) => {
                 if (param[ param.length - 1 ] == "&") {
                     param = param.substring(0, param.length - 1);
                 }
-                param += `&start=${hitOnPage}&rows=1&origrows=${result.responseHeader.params[ "rows" ] || 10}&XSL.Style=browse`;
+                param += `&start=${(result.response.start || 0)+ hitOnPage}&rows=1&origrows=${result.responseHeader.params[ "rows" ] || 10}&XSL.Style=browse`;
                 window.location.href = `${Utils.getBaseURL()}servlets/solr/select?${param}`;
             };
 
