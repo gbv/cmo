@@ -31,7 +31,7 @@
               <xsl:variable name="type">
                 <xsl:choose>
                   <xsl:when test="substring-before(substring-after($id, '_'), '_') = 'mods'">
-                    <xsl:value-of select="substring-after(//mods:mods/mods:classification/@valueURI, 'cmo_kindOfData#')" />
+                    <xsl:value-of select="'bibliography'" />
                   </xsl:when>
                   <xsl:otherwise>
                     <xsl:value-of select="substring-before(substring-after($id, '_'), '_')" />
