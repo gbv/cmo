@@ -37,7 +37,43 @@
       </boolean>
     </condition>
   </mcrpermission>
-  <mcrpermission name="create-simpledoc" description="Erzeugen eines einfachen Dokuments" ruledescription="submitter, editor and administrator">
+  <mcrpermission name="create-work" description="Erzeugen einer Work" ruledescription="submitter, editor and administrator">
+    <condition format="xml">
+      <boolean operator="or">
+        <condition value="admin" operator="=" field="group" />
+        <condition value="editor" operator="=" field="group" />
+        <condition value="submitter" operator="=" field="group" />
+      </boolean>
+    </condition>
+  </mcrpermission>
+  <mcrpermission name="create-source" description="Erzeugen einer Source" ruledescription="submitter, editor and administrator">
+    <condition format="xml">
+      <boolean operator="or">
+        <condition value="admin" operator="=" field="group" />
+        <condition value="editor" operator="=" field="group" />
+        <condition value="submitter" operator="=" field="group" />
+      </boolean>
+    </condition>
+  </mcrpermission>
+  <mcrpermission name="create-mods" description="Erzeugen eines Mods Dokuments" ruledescription="submitter, editor and administrator">
+    <condition format="xml">
+      <boolean operator="or">
+        <condition value="admin" operator="=" field="group" />
+        <condition value="editor" operator="=" field="group" />
+        <condition value="submitter" operator="=" field="group" />
+      </boolean>
+    </condition>
+  </mcrpermission>
+  <mcrpermission name="create-expression" description="Erzeugen einer Expression" ruledescription="submitter, editor and administrator">
+    <condition format="xml">
+      <boolean operator="or">
+        <condition value="admin" operator="=" field="group" />
+        <condition value="editor" operator="=" field="group" />
+        <condition value="submitter" operator="=" field="group" />
+      </boolean>
+    </condition>
+  </mcrpermission>
+  <mcrpermission name="create-person" description="Erzeugen einer Person" ruledescription="submitter, editor and administrator">
     <condition format="xml">
       <boolean operator="or">
         <condition value="admin" operator="=" field="group" />
