@@ -303,7 +303,7 @@ export class SearchGUI {
             if (key == "objectType" && value in this.typeMap) {
                 if (this.typeSelect.value !== value) {
                     this.typeSelect.value = value;
-                    this.typeChanged();
+                    this.typeChanged(false);
                 }
             }
 

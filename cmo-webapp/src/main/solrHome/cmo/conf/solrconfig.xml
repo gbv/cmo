@@ -1301,6 +1301,50 @@
    </updateRequestProcessorChain>
   -->
 
+  <requestHandler name="/mods_nameIdentifier" class="solr.StandardRequestHandler">
+    <!-- default values for query parameters -->
+    <lst name="defaults">
+      <str name="defType">edismax</str>
+      <!-- show explicit set parameters in response (literal.<foo>) -->
+      <str name="echoParams">explicit</str>
+      <str name="rows">20</str>
+      <str name="fl">*,score</str>
+      <str
+        name="qf">id^100 mods.gnd^100 mods.identifier^100 isbn^100 mods.name^100 mods.mods.nameIdentifier^100 mods.title^80 mods.author^40 mods.publisher^30 mods.abstract^10 mods.place^5 allMeta^2
+      </str>
+      <str name="bq">created:[NOW/DAY-6MONTH TO NOW/DAY]</str>
+      <str name="mask">modules/mods/search-simplemods.xml</str>
+      <str name="wt">xml</str>
+
+      <str name="qs">5</str>
+      <str name="start">0</str>
+
+      <!-- execute this query in case no q parameter is provided -->
+      <str name="q.alt">*:* -objectType:data_file -objectType:derivate</str>
+
+      <!-- sort by score, if user submits empty form, we show the last changed docs first (as the score will be fixed to 1.0) -->
+      <str name="sort">mods.dateIssued desc, mods.dateIssued.host desc, score desc</str>
+
+      <!-- set as recommended by http://wiki.apache.org/solr/DisMaxQParserPlugin -->
+      <str name="tie">0.1</str>
+
+      <!-- enable highlighting -->
+      <str name="hl">true</str>
+
+      <str name="owner">createdby:guest</str>
+    </lst>
+    <lst name="appends">
+      <!-- query fields parameter -->
+      <str name="qf">mods.nameIdentifier</str>
+      <str name="pf">mods.nameIdentifier</str>
+
+      <!-- filter query: search only in published mods objects-->
+      <str name="fq">objectType:"mods" AND (state:published OR {!v=$owner})</str>
+    </lst>
+
+  </requestHandler>
+
+
   <!-- Script update processor
 
     This example hooks in an update processor implemented using JavaScript.
