@@ -15,6 +15,7 @@ More information about MyCoRe are available at http://www.mycore.org
  - run `bin/cmo.sh create configuration directory`
  - you now have a config dir `~/.mycore/cmo`
  - configure your database connection in `~/.mycore/cmo/resources/META-INF/persistence.xml`
+ - perhaps you need to download a driver to `~/.mycore/cmo/lib/`
  - run cli command `bin/cmo.sh process config/setup-commands.txt` to load default data
  - Go to cmo-webapp
  - Install solr with the command: `mvn solr-runner:copyHome solr-runner:installSolrPlugins`
