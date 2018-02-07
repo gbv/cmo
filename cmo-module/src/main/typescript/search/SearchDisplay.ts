@@ -40,7 +40,7 @@ export class SearchDisplay {
     };
 
     public displayResult(result: SolrSearchResult, pageChangeHandler: (newPage: number, field: string, asc: boolean, rows: number) => void,
-                         onResultClickHandler: (doc: CMOBaseDocument, result: SolrSearchResult, hitOnPage) => void) {
+                         onResultClickHandler: (doc: CMOBaseDocument, result: SolrSearchResult, hitOnPage) => void, extra: HTMLElement) {
         let getSort = (result: SolrSearchResult) => {
             if ("sort" in result.responseHeader.params) {
                 let sortParams = result.responseHeader.params[ "sort" ];
@@ -49,10 +49,12 @@ export class SearchDisplay {
             return [ "score", "asc" ];
         };
         let sort = getSort(result);
+        const divClass = "search-extra";
 
         this._container.innerHTML = `
     <div class="row searchResultList">
         <div class="col-md-10 col-md-offset-1">
+            ${ (extra !== null) ? `<div class='row'><div class='col-md-12 ${divClass}'></div></div>` : ""}
             <div class="row header">
                 <div class="col-md-6">
                     <span>${result.response.numFound} <span data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></span></span>
@@ -85,6 +87,10 @@ export class SearchDisplay {
              ${this.renderNav(result)}
         </div>
     </div>`;
+
+        if (extra !== null) {
+            (<HTMLElement>this._container.querySelector("." + divClass)).appendChild(extra);
+        }
 
         (<HTMLSelectElement>this._container.querySelector("[data-sort-select]")).value = sort[ 0 ];
         let sortSelect = <HTMLSelectElement>this._container.querySelector("[data-sort-select]");

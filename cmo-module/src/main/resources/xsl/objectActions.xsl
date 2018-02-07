@@ -30,8 +30,14 @@
             <li role="presentation">
               <xsl:variable name="type">
                 <xsl:choose>
-                  <xsl:when test="substring-before(substring-after($id, '_'), '_') = 'mods'">
+                  <xsl:when test="substring-before(substring-after($id, '_'), '_') = 'mods' and
+                  substring-after(//mods:mods/mods:classification/@valueURI, 'cmo_kindOfData#') = 'source'">
+                    <!-- source mods = bibliography -->
                     <xsl:value-of select="'bibliography'" />
+                  </xsl:when>
+                  <xsl:when test="substring-before(substring-after($id, '_'), '_') = 'mods'">
+                    <!-- edition mods = edition -->
+                    <xsl:value-of select="'edition'" />
                   </xsl:when>
                   <xsl:otherwise>
                     <xsl:value-of select="substring-before(substring-after($id, '_'), '_')" />
@@ -47,6 +53,14 @@
                 <xsl:value-of select="i18n:translate('derivate.addDerivate')" />
               </a>
             </li>
+            <xsl:if test="substring-before(substring-after($id, '_'), '_') = 'expression'">
+              <li role="presentation">
+                <a role="menuitem" tabindex="-1"
+                   href="#action=set-parent&amp;of={$id}&amp;q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20objectType%3Aperson)&amp;fq=cmoType%3Aexpression">
+                  <xsl:value-of select="i18n:translate('cmo.replace.parent')" />
+                </a>
+              </li>
+            </xsl:if>
             <xsl:if test="$accessdelete">
               <li role="presentation">
                 <a href="{$ServletsBaseURL}object/delete{$HttpSession}?id={$id}" role="menuitem" tabindex="-1">

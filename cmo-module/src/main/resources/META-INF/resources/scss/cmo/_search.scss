@@ -209,3 +209,12 @@
 #basket{
   font-size: 14px;
 }
+
+.search-extra {
+  padding: 0px;
+
+  .cmo-abort-button {
+    cursor: pointer;
+    padding: 5px;
+  }
+}

@@ -11,6 +11,7 @@ import {SolrSearcher} from "../other/Solr";
 import {BasketDisplay} from "./BasketDisplay";
 import {BasketStore} from "./BasketStore";
 import {BasketUtil} from "./BasketUtil";
+import {I18N} from "../other/I18N";
 
 let eContainer = <HTMLElement>document.querySelector("#e_suche");
 let kContainer = <HTMLElement>document.querySelector("#k_suche");
@@ -45,8 +46,8 @@ let facet = new SearchFacetController(sideBar, translationMap,
 const eSearchBaseQuery = "category.top:\"cmo_kindOfData:edition\"";
 const kSearchBaseQuery = "(category.top:\"cmo_kindOfData:source\" OR objectType:person)";
 
-let eSearch = new SearchController(eContainer, facet, "cmo.edition.search", eSearchBaseQuery);
-let kSearch = new SearchController(kContainer, facet, "cmo.catalog.search", kSearchBaseQuery);
+const eSearch = new SearchController(eContainer, facet, "cmo.edition.search", eSearchBaseQuery);
+const kSearch = new SearchController(kContainer, facet, "cmo.catalog.search", kSearchBaseQuery);
 
 /* enable/disable search on click */
 eContainer.addEventListener('click', () => {
@@ -280,7 +281,7 @@ let onQueryChanged = (searchController: SearchController) => {
 
     currentTimeOut = window.setTimeout(() => {
         let [ , action ] = StateController.getState().filter(([ key, value ]) => key == "action")[ 0 ] || [ undefined, undefined ];
-        if (action != "search" && action != "subselect") {
+        if (action != "search" && action != "subselect" && action != "set-parent") {
             action = "search";
         }
 
@@ -356,14 +357,48 @@ let getResultAction = (params) => {
                     }
                 });
                 subselectTarget = null;
-                window.location.hash = '';
+                window.location.hash = "";
                 sideBar.classList.add("hidden");
                 mainContainer.classList.add("col-md-11");
                 mainContainer.classList.add("col-lg-11");
                 mainContainer.classList.remove("col-md-9");
                 mainContainer.classList.remove("col-lg-9");
 
-            }
+            };
+        case "set-parent":
+            return (doc) => {
+                const child = params.filter(([ key, value ]) => key == "of")[ 0 ][ 1 ];
+                const newParent = doc.id;
+                I18N.translate("cmo.replace.parent.confirm", (translation) => {
+                    const message = translation.replace("{0}", child).replace("{1}", newParent);
+                    const replace = confirm(message);
+
+                    if (replace) {
+                        const url = `${Utils.getBaseURL()}rsc/cmo/object/move/${child}?to=${newParent}`;
+                        let xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = () => {
+                            if (xhttp.readyState === XMLHttpRequest.DONE) {
+                                if (xhttp.status == 200) {
+                                    I18N.translate("cmo.replace.parent.success", (translation) => {
+                                        alert(translation);
+                                        aditionalQuery = null;
+                                        window.location.hash = "";
+                                        window.location.reload(true);
+                                    });
+                                } else {
+                                    I18N.translate("cmo.replace.parent.failed", (translation) => {
+                                        alert(translation + "/n" + xhttp.response[ "message" ]);
+                                        console.error(xhttp.response);
+                                    });
+                                }
+                            }
+                        };
+                        xhttp.open('GET', url, true);
+                        xhttp.send();
+                    }
+                });
+
+            };
     }
 };
 
@@ -374,14 +409,70 @@ StateController.onStateChange((params, selfChange) => {
     let [ , action ] = params.filter(([ key, value ]) => key == "action")[ 0 ] || [ null, null ];
 
     updateMainContainerSize();
+    let extra: HTMLElement = null;
+
+    let getSetParentExtra = function () {
+        const parentExtra = document.createElement("div");
+        const buttonClass = "cmo-abort-button";
+        const textClass = "cmo-replace-parent-description-text";
+
+        parentExtra.classList.add('well');
+        parentExtra.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
+
+        I18N.translate('cmo.replace.parent.description', (translation) => {
+            const replaceText: HTMLSpanElement = <HTMLSpanElement>parentExtra.querySelector("." + textClass);
+            replaceText.innerText = translation;
+        });
+
+        const replaceButton: HTMLElement = <HTMLElement>parentExtra.querySelector("." + buttonClass);
+        I18N.translate('cmo.abort', (translation) => {
+            replaceButton.innerText = translation;
+            replaceButton.addEventListener('click', () => {
+                window.location.hash = "";
+            });
+        });
+
+        return parentExtra;
+    };
+
+    let getSubselect = function () {
+        const subSelect = document.createElement("div");
+        const buttonClass = "cmo-abort-button";
+        const textClass = "cmo-subselect-description-text";
+
+        subSelect.classList.add('well');
+        subSelect.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
+
+        I18N.translate('cmo.subselect.description', (translation) => {
+            const replaceText: HTMLSpanElement = <HTMLSpanElement>subSelect.querySelector("." + textClass);
+            replaceText.innerText = translation;
+        });
+
+        const replaceButton: HTMLElement = <HTMLElement>subSelect.querySelector("." + buttonClass);
+        I18N.translate('cmo.abort', (translation) => {
+            replaceButton.innerText = translation;
+            replaceButton.addEventListener('click', () => {
+                window.location.hash = "";
+            });
+        });
+
+        return subSelect;
+    };
 
     switch (action) {
         case "subselect":
+        case "set-parent":
             sideBar.classList.remove("hidden");
             mainContainer.classList.remove("col-md-11");
             mainContainer.classList.remove("col-lg-11");
             mainContainer.classList.add("col-md-9");
             mainContainer.classList.add("col-lg-9");
+            if (action == 'subselect') {
+                extra = getSubselect();
+            } else {
+                extra = getSetParentExtra();
+            }
+
         case "init_search":
             aditionalQuery = params.filter(([ key ]) => key !== 'q' && key !== 'action' && key !== "sort");
             if(action == "init_search"){
@@ -419,7 +510,7 @@ StateController.onStateChange((params, selfChange) => {
                         searchDisplay.displayResult(result, (start, sortField, asc, rows) => {
                             window.scrollTo(0, 0);
                             search(start, ctrl, action, sortField, asc, rows);
-                        }, getResultAction(params),);
+                        }, getResultAction(params), extra);
                         facet.displayFacet(result);
                     }));
             }
