@@ -27,6 +27,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.mycore.access.MCRAccessException;
+import org.mycore.access.MCRAccessManager;
 import org.mycore.datamodel.common.MCRActiveLinkException;
 import org.mycore.datamodel.metadata.MCRObjectID;
 import org.mycore.frontend.cli.MCRObjectCommands;
@@ -41,14 +42,23 @@ public class CMOObjectResource {
     @GET
     public Response setParent(@PathParam("id") String objectID, @QueryParam("to") String target) {
         if (!(MCRObjectID.isValid(objectID) && MCRObjectID.isValid(target))) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                .entity(new Gson().toJson(new CMOResourceError("Invalid object IDs")))
-                .build();
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(new Gson().toJson(new CMOResourceError("Invalid object IDs")))
+                    .build();
         }
+
+        if (!MCRAccessManager.checkPermission(objectID, MCRAccessManager.PERMISSION_WRITE)) {
+            return Response
+                    .status(Response.Status.UNAUTHORIZED)
+                    .entity(new Gson()
+                            .toJson(new CMOResourceError("No Rights!"))).build();
+        }
+
         try {
             MCRObjectCommands.replaceParent(objectID, target);
             return Response.status(Response.Status.OK).entity("{}").build();
-        } catch (MCRActiveLinkException | MCRAccessException e) {
+        } catch (Throwable e) {
             return Response.status(Response.Status.BAD_REQUEST)
                 .entity(new Gson().toJson(new CMOResourceError("Something went wrong", e)))
                 .build();

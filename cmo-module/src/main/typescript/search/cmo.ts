@@ -387,7 +387,7 @@ let getResultAction = (params) => {
                                     });
                                 } else {
                                     I18N.translate("cmo.replace.parent.failed", (translation) => {
-                                        alert(translation + "/n" + xhttp.response[ "message" ]);
+                                        alert(translation + "\n" + JSON.parse(xhttp.response)[ "message" ]);
                                         console.error(xhttp.response);
                                     });
                                 }
@@ -398,6 +398,39 @@ let getResultAction = (params) => {
                     }
                 });
 
+            };
+        case "add-child":
+            return (doc) => {
+                const parent = params.filter(([ key, value ]) => key == "to")[ 0 ][ 1 ];
+                const childToAdd = doc.id;
+                I18N.translate("cmo.add.child.confirm", (translation) => {
+                    const message = translation.replace("{0}", parent).replace("{1}", childToAdd);
+                    const replace = confirm(message);
+
+                    if (replace) {
+                        const url = `${Utils.getBaseURL()}rsc/cmo/object/move/${childToAdd}?to=${parent}`;
+                        let xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = () => {
+                            if (xhttp.readyState === XMLHttpRequest.DONE) {
+                                if (xhttp.status == 200) {
+                                    I18N.translate("cmo.add.child.success", (translation) => {
+                                        alert(translation);
+                                        aditionalQuery = null;
+                                        window.location.hash = "";
+                                        window.location.reload(true);
+                                    });
+                                } else {
+                                    I18N.translate("cmo.add.child.failed", (translation) => {
+                                        alert(translation + "\n" + JSON.parse(xhttp.response)[ "message" ]);
+                                        console.error(xhttp.response);
+                                    });
+                                }
+                            }
+                        };
+                        xhttp.open('GET', url, true);
+                        xhttp.send();
+                    }
+                });
             };
     }
 };
@@ -411,7 +444,7 @@ StateController.onStateChange((params, selfChange) => {
     updateMainContainerSize();
     let extra: HTMLElement = null;
 
-    let getSetParentExtra = function () {
+    const getSetParentExtra = function () {
         const parentExtra = document.createElement("div");
         const buttonClass = "cmo-abort-button";
         const textClass = "cmo-replace-parent-description-text";
@@ -435,7 +468,7 @@ StateController.onStateChange((params, selfChange) => {
         return parentExtra;
     };
 
-    let getSubselect = function () {
+    const getSubselect = function () {
         const subSelect = document.createElement("div");
         const buttonClass = "cmo-abort-button";
         const textClass = "cmo-subselect-description-text";
@@ -459,7 +492,31 @@ StateController.onStateChange((params, selfChange) => {
         return subSelect;
     };
 
+    const getAddChildExtra = () => {
+        const childExtra = document.createElement("div");
+        const buttonClass = "cmo-abort-button";
+        const textClass = "cmo-add-child-description-text";
+
+        childExtra.classList.add('well');
+        childExtra.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
+
+        I18N.translate('cmo.add.child.description', (translation) => {
+            const replaceText: HTMLSpanElement = <HTMLSpanElement>childExtra.querySelector("." + textClass);
+            replaceText.innerText = translation;
+        });
+
+        const replaceButton: HTMLElement = <HTMLElement>childExtra.querySelector("." + buttonClass);
+        I18N.translate('cmo.abort', (translation) => {
+            replaceButton.innerText = translation;
+            replaceButton.addEventListener('click', () => {
+                window.location.hash = "";
+            });
+        });
+        return childExtra;
+    };
+
     switch (action) {
+        case "add-child":
         case "subselect":
         case "set-parent":
             sideBar.classList.remove("hidden");
@@ -467,12 +524,18 @@ StateController.onStateChange((params, selfChange) => {
             mainContainer.classList.remove("col-lg-11");
             mainContainer.classList.add("col-md-9");
             mainContainer.classList.add("col-lg-9");
-            if (action == 'subselect') {
-                extra = getSubselect();
-            } else {
-                extra = getSetParentExtra();
-            }
 
+            switch (action) {
+                case "add-child":
+                    extra = getAddChildExtra();
+                    break;
+                case "subselect":
+                    extra = getSubselect();
+                    break;
+                case"set-parent":
+                    extra = getSetParentExtra();
+                    break;
+            }
         case "init_search":
             aditionalQuery = params.filter(([ key ]) => key !== 'q' && key !== 'action' && key !== "sort");
             if(action == "init_search"){
