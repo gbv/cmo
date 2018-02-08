@@ -403,6 +403,8 @@
       <filter class="solr.SnowballPorterFilterFactory" language="Turkish"/>
     </analyzer>
   </fieldType>
+  <fieldType name="sort_tr" class="solr.ICUCollationField"  locale="tr" strength="primary"  />
+
 
   <fieldType name="text_ws" class="solr.TextField" positionIncrementGap="100">
     <analyzer>
@@ -616,6 +618,8 @@
     <field name="title.lang.ota-arab" type="text_ar" multiValued="true" stored="true" />
   <dynamicField name="title.*" type="text_general" multiValued="true" stored="true"/>
   <field name="displayTitle" type="text_tr" indexed="true" stored="true" multiValued="false" />
+  <field name="displayTitleSort" type="sort_tr" indexed="true" stored="false" multiValued="false" />
+  <copyField source="displayTitle" dest="displayTitleSort" />
 
   <!-- optimize mods title -->
   <copyField source="mods.title.*" dest="mods.title.de.*" />

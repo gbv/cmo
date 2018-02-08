@@ -36,7 +36,7 @@ export class SearchDisplay {
 
     private sortOptions = {
         "editor.search.sort.relevance" : "score",
-        "editor.search.sort.title" : "displayTitle",
+        "editor.search.sort.title" : "displayTitleSort",
     };
 
     public displayResult(result: SolrSearchResult, pageChangeHandler: (newPage: number, field: string, asc: boolean, rows: number) => void,

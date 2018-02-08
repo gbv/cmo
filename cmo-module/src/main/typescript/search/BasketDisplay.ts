@@ -126,7 +126,11 @@ export class BasketDisplay {
             this._container.style.width = "100%";
 
             let jQuery = window["jQuery"];
-            jQuery(this._container).find("table").tablesorter();
+            jQuery(this._container).find("table").tablesorter({
+                textSorter : function (a, b) {
+                    return a.localeCompare(b, 'tr', {sensitivity : "base"});
+                }
+            });
             this._container.querySelector("[data-basket-empty]").addEventListener("click", ()=>{
                this.basket.removeAll();
                this.display(type);
