@@ -50,6 +50,7 @@
     <xsl:comment>mei/classification.xsl > mei:classification</xsl:comment>
     <xsl:if test="mei:termList/mei:term">
       <xsl:for-each select="mei:classCode[not(contains(@authURI, 'cmo_kindOfData'))]">
+        <xsl:variable name="authURI" select="@authURI" />
         <xsl:variable name="classCodeID" select="@xml:id" />
           <xsl:if test="../mei:termList[@classcode=concat('#', $classCodeID)]/mei:term">
             <xsl:call-template name="metadataTextContent">
@@ -60,6 +61,11 @@
                     select="../mei:termList[@classcode=concat('#', $classCodeID)]/mei:term">
                     <li>
                       <xsl:value-of select="classification:getClassLabel(.)" />
+                      <xsl:if test="contains($authURI, 'cmo_makamler') or contains($authURI, 'cmo_usuler')">
+                        <span class="standardized">
+                          <xsl:value-of select="classification:getParentClassLabel(.)" />
+                        </span>
+                      </xsl:if>
                     </li>
                   </xsl:for-each>
                 </ul>

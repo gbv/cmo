@@ -36,3 +36,16 @@ table > tbody > tr.cmo_noBorder > td, table > tbody > tr.cmo_noBorder > th {
   border-collapse: separate;
   border-spacing: 15px 2px;
 }
+
+span.standardized:before {
+  content: '[';
+}
+
+span.standardized:after {
+  content: ']';
+}
+
+span.standardized {
+  color: lightgrey;
+  margin-left: 0.5em;
+}

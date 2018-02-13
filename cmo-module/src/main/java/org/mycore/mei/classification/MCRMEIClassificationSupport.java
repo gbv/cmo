@@ -22,6 +22,7 @@
 package org.mycore.mei.classification;
 
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -102,6 +103,20 @@ public class MCRMEIClassificationSupport {
 
     public static String getClassLabel(NodeList terms) {
         MCRCategory category = getClassificationFromElement(terms);
+        if (category != null) {
+            Optional<MCRLabel> currentLabel = category.getCurrentLabel();
+
+            if (currentLabel.isPresent()) {
+                return currentLabel.get().getText();
+            }
+        }
+
+        return terms.item(0).getTextContent();
+    }
+
+    public static String getParentClassLabel(NodeList terms) {
+        List<MCRCategory> parents = DAO.getParents(getClassificationFromElement(terms).getId());
+        MCRCategory category = parents.get(0);
         if (category != null) {
             Optional<MCRLabel> currentLabel = category.getCurrentLabel();
 
