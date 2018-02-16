@@ -3,7 +3,7 @@ import {
     ClassificationSearchField, DateSearchField, SearchController, SearchField,
 
 } from 'search/SearchComponent';
-import {Utils} from "../other/Utils";
+import {UserInputParser, Utils} from "../other/Utils";
 import {SearchDisplay} from "./SearchDisplay";
 import {SearchFacetController} from "./SearchFacet";
 import {StateController} from "./StateController";
@@ -621,6 +621,16 @@ Array.prototype.slice.call(document.querySelectorAll("[data-subselect]")).forEac
 
 
     };
+});
+
+
+Array.prototype.slice.call(document.querySelectorAll("[data-search-catalogue]")).forEach((node) => {
+    const fq = node.getAttribute("data-search-query");
+    node.addEventListener('click', ()=>{
+        const url = `q=${kSearchBaseQuery}&fq=${encodeURIComponent(fq)}&start=0&action=init_search&sort=score%20desc&rows=10`;
+        window.location.hash = url;
+    });
+
 });
 
 BasketUtil.activateLinks(window.document.body);

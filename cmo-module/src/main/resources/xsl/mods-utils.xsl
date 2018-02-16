@@ -339,34 +339,12 @@
     </xsl:variable>
     <xsl:variable name="nameIdentifier" select="xalan:nodeset($nameIds)/nameIdentifier[1]" />
 
-    <!-- if user is in role editor or admin, show all; other users only gets their own and published publications -->
-    <xsl:variable name="owner">
-      <xsl:choose>
-        <xsl:when test="mcrxml:isCurrentUserInRole('admin') or mcrxml:isCurrentUserInRole('editor')">
-          <xsl:text>*</xsl:text>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="$CurrentUser" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:variable name="query">
-      <xsl:choose>
-        <xsl:when test="count($nameIdentifier) &gt; 0">
-          <xsl:value-of
-            select="concat($ServletsBaseURL,'solr/mods_nameIdentifier?q=mods.nameIdentifier:', $nameIdentifier/@type, '%5C:', $nameIdentifier/@id, '&amp;owner=createdby:', $owner)" />
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="concat($ServletsBaseURL,'solr/mods_nameIdentifier?q=', '+mods.name:&quot;')" />
-          <xsl:apply-templates select="." mode="nameString" />
-          <xsl:value-of select="concat('&quot;', '&amp;owner=createdby:', $owner)" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <a itemprop="creator" href="{$query}">
+      <xsl:variable name="name"><xsl:apply-templates select="." mode="nameString" /></xsl:variable>
+    <xsl:variable name="query" select="concat('{!join from=id to=composer.ref.pure}identifier.type.GND:', $nameIdentifier/@id)"/>
+    <a itemprop="creator"  data-search-catalogue="true" data-search-query="{$query}" >
       <span itemscope="itemscope" itemtype="http://schema.org/Person">
         <span itemprop="name">
-      <xsl:apply-templates select="." mode="nameString" />
+            <xsl:value-of select="$name" />
         </span>
         <xsl:if test="count($nameIdentifier) &gt; 0">
           <xsl:text>&#160;</xsl:text><!-- add whitespace here -->
