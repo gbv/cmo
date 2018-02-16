@@ -16,6 +16,14 @@
     margin-bottom:30px;
 }
 
+/*
+ fix for https://github.com/gbv/cmo/issues/62
+ */
+@media print {
+  a[href]:after, a[title]:after {
+    content: none !important;
+  }
+}
 
 /* ---------------------------------------------------------------------------
    base structure
