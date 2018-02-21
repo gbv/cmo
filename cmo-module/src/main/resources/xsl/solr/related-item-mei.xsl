@@ -31,6 +31,13 @@
         </xsl:choose>
       </field>
 
+      <xsl:for-each select="mods:identifier">
+        <xsl:variable name="type" select="@type" />
+        <field name="mods.identifier.{$type}">
+          <xsl:value-of select="text()" />
+        </field>
+      </xsl:for-each>
+
       <xsl:for-each select="mods:relatedItem">
         <xsl:variable name="type" select="@type" />
 

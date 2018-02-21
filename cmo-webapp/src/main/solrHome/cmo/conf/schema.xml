@@ -580,6 +580,7 @@
     <field name="mods.mainAuthor" type="namesType" indexed="true" stored="false" />
     <field name="mods.genre" type="string" multiValued="true" />
     <field name="mods.identifier" type="string" multiValued="true" />
+    <dynamicField name="mods.identifier.*" type="string" />
     <field name="mods.identifier.host" type="string" multiValued="true" />
     <field name="mods.abstract" type="text_de" multiValued="true" />
     <field name="mods.abstract.result" type="text_de" indexed="false" />
