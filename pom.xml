@@ -19,9 +19,6 @@
     <url>https://github.com/gbv/cmo/tree/master</url>
     <tag>HEAD</tag>
   </scm>
-  <prerequisites>
-    <maven>3.2.2</maven>
-  </prerequisites>
   <properties>
     <changelog.since>2017-01-25</changelog.since>
     <!-- until snapshot matches released version (required for 'mvn changes:changes-check') -->
@@ -71,6 +68,11 @@
                       <include>org.slf4j:jcl-over-slf4j</include>
                     </includes>
                   </bannedDependencies>
+
+                  <requireMavenVersion>
+                    <version>3.2.2</version>
+                  </requireMavenVersion>
+
                 </rules>
                 <fail>true</fail>
               </configuration>
