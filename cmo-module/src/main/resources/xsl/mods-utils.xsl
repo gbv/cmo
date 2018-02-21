@@ -5,9 +5,10 @@
   xmlns:mcrxml="xalan://org.mycore.common.xml.MCRXMLFunctions"
   xmlns:mods="http://www.loc.gov/mods/v3"
   xmlns:mcrmods="xalan://org.mycore.mods.classification.MCRMODSClassificationSupport"
+  xmlns:solr="xalan://org.mycore.solr.MCRSolrUtils"
   xmlns:xalan="http://xml.apache.org/xalan"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  exclude-result-prefixes="i18n mcrxml mcrmods xalan xlink">
+  exclude-result-prefixes="i18n mcrxml mcrmods xalan solr xlink">
 
   <xsl:param name="CurrentUser" />
   <xsl:param name="CurrentLang" />
@@ -338,9 +339,20 @@
       </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="nameIdentifier" select="xalan:nodeset($nameIds)/nameIdentifier[1]" />
-
-      <xsl:variable name="name"><xsl:apply-templates select="." mode="nameString" /></xsl:variable>
-    <xsl:variable name="query" select="concat('{!join from=id to=composer.ref.pure}identifier.type.GND:', $nameIdentifier/@id)"/>
+      <xsl:variable name="name">
+        <xsl:apply-templates select="." mode="nameString" />
+      </xsl:variable>
+    <xsl:variable name="fq">
+      <xsl:choose>
+        <xsl:when test="$nameIdentifier/@id">
+          <xsl:value-of select="concat('{!join from=id to=composer.ref.pure}identifier.type.GND:', $nameIdentifier/@id)" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="concat('{!join from=id to=composer.ref.pure}name:&quot;', solr:escapeSearchValue($name), '&quot;')" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="query" select="$fq"/>
     <a itemprop="creator"  data-search-catalogue="true" data-search-query="{$query}" >
       <span itemscope="itemscope" itemtype="http://schema.org/Person">
         <span itemprop="name">
