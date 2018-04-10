@@ -51,7 +51,7 @@
     <xsl:apply-templates select="mei:physLoc/mei:repository/mei:corpName[@type='library']" mode="metadataView" />
     <xsl:apply-templates select="mei:physLoc/mei:repository/mei:geogName" mode="metadataView" />
     <xsl:apply-templates select="mei:physLoc/mei:repository/mei:identifier " mode="metadataView" />
-    <xsl:apply-templates select="mei:source/mei:identifier[@type='RISM']" mode="metadataView" />
+    <xsl:apply-templates select="mei:identifier[@type='RISM']" mode="metadataView" />
     <xsl:apply-templates select="mei:titleStmt" mode="metadataView" />
     <xsl:apply-templates select="mei:seriesStmt" mode="metadataView" />
     <xsl:apply-templates select="mei:pubStmt" mode="metadataView" />

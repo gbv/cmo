@@ -29,31 +29,34 @@
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
   <!-- TODO: how to display publisher, pubPlace and Date -->
+  <!-- TODO: check if we should use type column for type of identifier -->
   <xsl:template match="mei:identifier" mode="metadataView">
     <xsl:comment>mei/identifier.xsl > mei:identifier</xsl:comment>
-    <xsl:variable name="label">
-      <xsl:choose>
-        <xsl:when test="@type">
-          <xsl:value-of select="concat('editor.label.identifier.',@type)" />
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="'editor.label.identifier'" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:call-template name="metadataLabelContent">
-      <xsl:with-param name="label" select="$label" />
-      <xsl:with-param name="content">
+    <xsl:if test="string-length(text()) &gt; 0">
+      <xsl:variable name="label">
         <xsl:choose>
-          <xsl:when test="@type='GND'">
-            <a href="http://d-nb.info/gnd/{text()}" target="_blank"><xsl:value-of select="text()" /></a>
+          <xsl:when test="@type">
+            <xsl:value-of select="concat('editor.label.identifier.',@type)" />
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="text()" />
+            <xsl:value-of select="'editor.label.identifier'" />
           </xsl:otherwise>
         </xsl:choose>
-      </xsl:with-param>
-    </xsl:call-template>
+      </xsl:variable>
+      <xsl:call-template name="metadataLabelContent">
+        <xsl:with-param name="label" select="$label" />
+        <xsl:with-param name="content">
+          <xsl:choose>
+            <xsl:when test="@type='GND'">
+              <a href="http://d-nb.info/gnd/{text()}"><xsl:value-of select="text()" /></a>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="text()" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
   </xsl:template>
 
 
