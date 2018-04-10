@@ -36,12 +36,11 @@
                 <xsl:apply-templates select="//mei:notesStmt" mode="metadataView" />
                 <xsl:apply-templates select="//mei:biblList" mode="metadataView" />
                 <xsl:apply-templates select="//mei:classification" mode="metadataView" />
+                
+                <xsl:call-template name="expressionContainer" />
               </xsl:with-param>
             </xsl:call-template>
 
-            <ol>
-              <xsl:call-template name="listExpressions" />
-            </ol>
           </xsl:with-param>
         </xsl:call-template>
 
@@ -49,59 +48,70 @@
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
+  
+  <xsl:template name="expressionContainer">
+    <xsl:call-template name="metadataSoloContent">
+      <xsl:with-param name="label" select="'editor.label.contents'" />
+      <xsl:with-param name="content">
+        <xsl:call-template name="listExpressions" />
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
 
 
   <xsl:template name="listExpressions">
-    <xsl:for-each select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression">
-      <li>
-        <xsl:variable name="expression" select="document(concat('mcrobject:', @data))" />
-        <xsl:variable name="expressionElement"
-                      select="$expression/mycoreobject/metadata/def.meiContainer/meiContainer/mei:expression" />
-        <xsl:variable name="pageNumber" select="@n" />
-
-
-        <xsl:variable name="makam">
-          <xsl:call-template name="getClassLabel">
-            <xsl:with-param name="class" select="'cmo_makamler'" />
-            <xsl:with-param name="meiElement" select="$expressionElement" />
-          </xsl:call-template>
-        </xsl:variable>
-
-        <xsl:variable name="musictype">
-          <xsl:call-template name="getClassLabel">
-            <xsl:with-param name="class" select="'cmo_musictype'" />
-            <xsl:with-param name="meiElement" select="$expressionElement" />
-          </xsl:call-template>
-        </xsl:variable>
-
-        <xsl:variable name="usuler">
-          <xsl:call-template name="getClassLabel">
-            <xsl:with-param name="class" select="'cmo_usuler'" />
-            <xsl:with-param name="meiElement" select="$expressionElement" />
-          </xsl:call-template>
-        </xsl:variable>
-
-        <a href="{concat($WebApplicationBaseURL, 'receive/',@data)}">
-          <xsl:if test="$pageNumber">
-            <xsl:value-of select="concat($pageNumber, ', ')" />
-          </xsl:if>
-          <xsl:if test="string-length($makam)&gt;0">
-            <xsl:value-of select="concat($makam,' ')" />
-          </xsl:if>
-          <xsl:if test="string-length($musictype)&gt;0">
-            <xsl:value-of select="concat($musictype,' ')" />
-          </xsl:if>
-          <xsl:if test="string-length($usuler)&gt;0">
-            <xsl:value-of select="concat($usuler,' ')" />
-          </xsl:if>
-        </a>
-        <xsl:if test="$expressionElement/mei:titleStmt/mei:composer/mei:persName/@nymref">
-          <a href="{$expressionElement/mei:titleStmt/mei:composer/mei:persName/@nymref}">
-            <xsl:value-of select="$expressionElement/mei:titleStmt/mei:composer/mei:persName/text()" />
+    <ol>
+      <xsl:for-each select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression">
+        <li>
+          <xsl:variable name="expression" select="document(concat('mcrobject:', @data))" />
+          <xsl:variable name="expressionElement"
+                        select="$expression/mycoreobject/metadata/def.meiContainer/meiContainer/mei:expression" />
+          <xsl:variable name="pageNumber" select="@n" />
+  
+  
+          <xsl:variable name="makam">
+            <xsl:call-template name="getClassLabel">
+              <xsl:with-param name="class" select="'cmo_makamler'" />
+              <xsl:with-param name="meiElement" select="$expressionElement" />
+            </xsl:call-template>
+          </xsl:variable>
+  
+          <xsl:variable name="musictype">
+            <xsl:call-template name="getClassLabel">
+              <xsl:with-param name="class" select="'cmo_musictype'" />
+              <xsl:with-param name="meiElement" select="$expressionElement" />
+            </xsl:call-template>
+          </xsl:variable>
+  
+          <xsl:variable name="usuler">
+            <xsl:call-template name="getClassLabel">
+              <xsl:with-param name="class" select="'cmo_usuler'" />
+              <xsl:with-param name="meiElement" select="$expressionElement" />
+            </xsl:call-template>
+          </xsl:variable>
+  
+          <a href="{concat($WebApplicationBaseURL, 'receive/',@data)}">
+            <xsl:if test="$pageNumber">
+              <xsl:value-of select="concat($pageNumber, ', ')" />
+            </xsl:if>
+            <xsl:if test="string-length($makam)&gt;0">
+              <xsl:value-of select="concat($makam,' ')" />
+            </xsl:if>
+            <xsl:if test="string-length($musictype)&gt;0">
+              <xsl:value-of select="concat($musictype,' ')" />
+            </xsl:if>
+            <xsl:if test="string-length($usuler)&gt;0">
+              <xsl:value-of select="concat($usuler,' ')" />
+            </xsl:if>
           </a>
-        </xsl:if>
-      </li>
-    </xsl:for-each>
+          <xsl:if test="$expressionElement/mei:titleStmt/mei:composer/mei:persName/@nymref">
+            <a href="{$expressionElement/mei:titleStmt/mei:composer/mei:persName/@nymref}">
+              <xsl:value-of select="$expressionElement/mei:titleStmt/mei:composer/mei:persName/text()" />
+            </a>
+          </xsl:if>
+        </li>
+      </xsl:for-each>
+    </ol>
   </xsl:template>
 
   <xsl:template priority="1" mode="resulttitle" match="mycoreobject[contains(@ID,'_work_')]">
