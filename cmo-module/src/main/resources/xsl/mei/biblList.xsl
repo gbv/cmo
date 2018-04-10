@@ -39,6 +39,8 @@
           <xsl:call-template name="objectLink">
             <xsl:with-param select="./@target" name="obj_id" />
           </xsl:call-template>
+          <xsl:text>, </xsl:text>
+          <xsl:value-of select="." />
           <br />
         </xsl:for-each>
       </xsl:with-param>
