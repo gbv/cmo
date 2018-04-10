@@ -120,7 +120,7 @@
         <th class="col-md-3">
         </th>
         <td class="col-md-2 text-center cmo_contentType">
-          <xsl:value-of select="i18n:translate('cmo.metadata.typeLabel')" />
+          <!-- xsl:value-of select="i18n:translate('cmo.metadata.typeLabel')" / --> <!-- do not show type header, fix: https://github.com/gbv/cmo/issues/107 -->
         </td>
         <td class="col-md-7">
         </td>
