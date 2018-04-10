@@ -35,12 +35,21 @@
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="label" select="'editor.label.geogName'" />
         <xsl:with-param name="content">
-          <xsl:for-each select="mei:geogName">
-            <xsl:value-of select="." />
-            <xsl:if test="position() != last()">
-              <xsl:text> </xsl:text>
-            </xsl:if>
-          </xsl:for-each>
+          <xsl:choose>
+            <xsl:when test="mei:geogName[@type='country'] and mei:geogName[@type='city']">
+              <xsl:value-of select="mei:geogName[@type='city']" />
+              <xsl:text>, </xsl:text>
+              <xsl:value-of select="mei:geogName[@type='country']" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:for-each select="mei:geogName">
+                <xsl:value-of select="." />
+                <xsl:if test="position() != last()">
+                  <xsl:text> </xsl:text>
+                </xsl:if>
+              </xsl:for-each>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:with-param>
       </xsl:call-template>
     </xsl:if>

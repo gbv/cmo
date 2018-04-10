@@ -52,7 +52,7 @@
             <dd>
               <ul class="list-unstyled">
                 <xsl:for-each select="mei:physMedium">
-                  <li><xsl:value-of select="concat(., ' (', @label, ')')" /></li>
+                  <li><xsl:value-of select="concat(@label, ': ', .)" /></li>
                 </xsl:for-each>
               </ul>
             </dd>
