@@ -48,6 +48,7 @@
 
   <xsl:template match="mei:source" mode="metadataView">
     <xsl:apply-templates select="mei:identifier[@type='CMO']" mode="metadataView" />
+    <xsl:apply-templates select="mei:classification" mode="metadataView" />
     <xsl:apply-templates select="mei:physLoc/mei:repository/mei:corpName[@type='library']" mode="metadataView" />
     <xsl:apply-templates select="mei:physLoc/mei:repository/mei:geogName" mode="metadataView" />
     <xsl:apply-templates select="mei:physLoc/mei:repository/mei:identifier " mode="metadataView" />
@@ -60,7 +61,6 @@
     <xsl:apply-templates select="mei:history" mode="metadataView" />
     <xsl:apply-templates select="mei:langUsage" mode="metadataView" />
     <xsl:apply-templates select="mei:notesStmt" mode="printAnnot" />
-    <xsl:apply-templates select="mei:classification" mode="metadataView" />
 
     <xsl:call-template name="contentContainer" />
   </xsl:template>
