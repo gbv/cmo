@@ -59,7 +59,7 @@
     <xsl:apply-templates select="mei:contents" mode="metadataView" />
     <xsl:apply-templates select="mei:history" mode="metadataView" />
     <xsl:apply-templates select="mei:langUsage" mode="metadataView" />
-    <xsl:apply-templates select="mei:notesStmt" mode="metadataView" />
+    <xsl:apply-templates select="mei:notesStmt" mode="printAnnot" />
     <xsl:apply-templates select="mei:classification" mode="metadataView" />
 
     <xsl:call-template name="contentContainer" />

@@ -32,8 +32,10 @@
                 </xsl:call-template>
                 <xsl:apply-templates select="//mei:persName[mei:name]" mode="metadataView" />
                 <xsl:apply-templates select="//mei:persName/mei:identifier[not(@type='cmo_intern')]" mode="metadataView" />
-                <xsl:call-template name="showPersonDates" />
-                <xsl:apply-templates select="//mei:persName/mei:annot" mode="metadataView" />
+                <xsl:if test="//mei:date">
+                  <xsl:call-template name="showPersonDates" />
+                </xsl:if>
+                <xsl:apply-templates select="//mei:persName" mode="printAnnot" />
               </xsl:with-param>
             </xsl:call-template>
           </xsl:with-param>

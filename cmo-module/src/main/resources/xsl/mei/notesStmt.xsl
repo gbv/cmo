@@ -29,7 +29,7 @@
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
   <!-- TODO: display this -->
-  <xsl:template match="mei:notesStmt" mode="metadataView">
+  <xsl:template match="mei:notesStmt | mei:persName" mode="printAnnot">
     <xsl:comment>mei/notesStmt.xsl > mei:notesStmt</xsl:comment>
     <xsl:for-each select="mei:annot">
       <xsl:call-template name="metadataLabelContent">
@@ -47,15 +47,6 @@
         </xsl:with-param>
       </xsl:call-template>
     </xsl:for-each>
-  </xsl:template>
-
-  <xsl:template match="mei:annot" mode="metadataView">
-    <xsl:call-template name="metadataLabelContent">
-      <xsl:with-param name="label" select="'editor.label.annot'" />
-      <xsl:with-param name="content">
-        <xsl:call-template name="printAnnot" />
-      </xsl:with-param>
-    </xsl:call-template>
   </xsl:template>
 
   <xsl:template name="printAnnot">

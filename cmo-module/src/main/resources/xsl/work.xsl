@@ -33,7 +33,7 @@
                 <xsl:apply-templates select="//mei:identifier" mode="metadataView" />
                 <xsl:apply-templates select="//mei:composer" mode="metadataView" />
                 <xsl:apply-templates select="//mei:lyricist" mode="metadataView" />
-                <xsl:apply-templates select="//mei:notesStmt" mode="metadataView" />
+                <xsl:apply-templates select="//mei:notesStmt" mode="printAnnot" />
                 <xsl:apply-templates select="//mei:biblList" mode="metadataView" />
                 <xsl:apply-templates select="//mei:classification" mode="metadataView" />
                 
