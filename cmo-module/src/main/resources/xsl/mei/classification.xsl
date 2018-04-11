@@ -60,11 +60,15 @@
                   <xsl:for-each
                     select="../mei:termList[@classcode=concat('#', $classCodeID)]/mei:term">
                     <li>
-                      <xsl:value-of select="classification:getClassLabel(.)" />
+                      <xsl:variable name="classLabel" select="classification:getClassLabel(.)" />
+                      <xsl:value-of select="$classLabel" />
                       <xsl:if test="contains($authURI, 'cmo_makamler') or contains($authURI, 'cmo_usuler')">
-                        <span class="standardized">
-                          <xsl:value-of select="classification:getParentClassLabel(.)" />
-                        </span>
+                        <xsl:variable name="stdForm" select="classification:getParentClassLabel(.)" />
+                        <xsl:if test="$stdForm != $classLabel">
+                          <span class="standardized">
+                            <xsl:value-of select="$stdForm" />
+                          </span>
+                        </xsl:if>
                       </xsl:if>
                     </li>
                   </xsl:for-each>
