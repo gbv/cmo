@@ -114,11 +114,29 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template match="mods:originInfo[@eventType='publication']/mods:dateIssued" mode="metadataView">
+  <xsl:template name="printDateIssued">
     <xsl:call-template name="metadataLabelContent">
       <xsl:with-param name="label" select="'editor.label.publishingDate'" />
       <xsl:with-param name="content">
-        <xsl:value-of select="." />
+        <xsl:choose>
+          <xsl:when test="//mods:originInfo[@eventType='publication']/mods:dateIssued[@qualifier='approximate'] and 
+                          //mods:originInfo[@eventType='publication']/mods:dateIssued[@point='start'] and
+                          //mods:originInfo[@eventType='publication']/mods:dateIssued[@point='end']">
+            <span>
+              <xsl:attribute name="title">
+                <xsl:value-of select="//mods:originInfo[@eventType='publication']/mods:dateIssued[@point='start']" />
+                <xsl:text> - </xsl:text>
+                <xsl:value-of select="//mods:originInfo[@eventType='publication']/mods:dateIssued[@point='end']" />
+              </xsl:attribute>
+              <xsl:value-of select="i18n:translate('cmo.pages.approximate.date')"/>
+              <xsl:text> </xsl:text>
+              <xsl:value-of select="//mods:originInfo[@eventType='publication']/mods:dateIssued[@qualifier='approximate']" />
+            </span>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="//mods:originInfo[@eventType='publication']/mods:dateIssued" />
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>

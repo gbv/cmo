@@ -41,9 +41,11 @@
                 <xsl:apply-templates select="//mods:mods" mode="metadataViewName" />
                 <xsl:apply-templates select="//mods:mods/mods:genre" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:classification[@displayLabel='cmo_editionTypes']" mode="metadataView" />
-                <xsl:apply-templates select="//mods:mods/mods:originInfo[@eventType='publication']/mods:publisher" mode="metadataView" />
-                <xsl:apply-templates select="//mods:mods/mods:originInfo[@eventType='publication']/mods:dateIssued" mode="metadataView" />
-                <xsl:apply-templates select="//mods:mods/mods:originInfo[@eventType='publication']/mods:place/mods:placeTerm" mode="metadataView" />
+                <xsl:apply-templates select="//mods:originInfo[@eventType='publication']/mods:publisher" mode="metadataView" />
+                <xsl:if test="//mods:originInfo[@eventType='publication']/mods:dateIssued">
+                  <xsl:call-template name="printDateIssued" />
+                </xsl:if>
+                <xsl:apply-templates select="//mods:originInfo[@eventType='publication']/mods:place/mods:placeTerm" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:physicalDescription/mods:extent" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:relatedItem[@type='series']" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:note" mode="metadataView" />
