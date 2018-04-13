@@ -181,7 +181,9 @@ kSearch.addExtended({
             new DateSearchField("editor.label.publishingDate", [ "publish.date.range" ]),
             new SearchField("editor.label.contributer", [ "editor", "author", "respStmt", "hand.name" ]),
             new SearchField("editor.label.publishingInformation", [ "publisher", "publisher.place", "series",
-                "repo.corpName", "repo.identifier", "repo.geogName", "history.event.eventGeogName" ]) ]
+                "repo.corpName", "repo.identifier", "repo.geogName", "history.event.eventGeogName" ]),
+            new CheckboxSearchField("cmo.hasFiles", "hasFiles", "true"),
+        ]
     },
     mods : {
         type : "bibl",
