@@ -30,19 +30,19 @@
        used only, if no title available -->
   <xsl:template name="printStandardizedHitListTitle">
     <xsl:comment>mei-utils.xsl > printStandardizedHitListTitle </xsl:comment>
-    <xsl:if test="//mei:classification[mei:classCode[contains(@authURI,'cmo_makamler')]]">
+    <xsl:if test=".//mei:classification[mei:classCode[contains(@authURI,'cmo_makamler')]]">
       <xsl:call-template name="printParentClassLabel">
         <xsl:with-param name="classId" select="'cmo_makamler'" />
       </xsl:call-template>
       <xsl:text> </xsl:text>
     </xsl:if>
-    <xsl:if test="//mei:classification[mei:classCode[contains(@authURI,'cmo_musictype')]]">
+    <xsl:if test=".//mei:classification[mei:classCode[contains(@authURI,'cmo_musictype')]]">
       <xsl:call-template name="printClassLabel">
         <xsl:with-param name="classId" select="'cmo_musictype'" />
       </xsl:call-template>
       <xsl:text> </xsl:text>
     </xsl:if>
-    <xsl:if test="//mei:classification[mei:classCode[contains(@authURI,'cmo_usuler')]]">
+    <xsl:if test=".//mei:classification[mei:classCode[contains(@authURI,'cmo_usuler')]]">
       <xsl:call-template name="printParentClassLabel">
         <xsl:with-param name="classId" select="'cmo_usuler'" />
       </xsl:call-template>
