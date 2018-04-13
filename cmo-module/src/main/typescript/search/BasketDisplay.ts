@@ -39,10 +39,13 @@ export class BasketDisplay {
             "editor.label.identifier.shelfmark" : (doc)=> doc[ "repo.identifier.shelfmark" ] || "",
             "editor.label.corpName": (doc)=> doc["repo.corpName.library"] || "",
             "editor.label.title" : (doc: CMOBaseDocument) =>
-                `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities((doc[ "o" ] || "") + "")}</a>`,
+                `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities((doc[ "displayTitle" ] || "") + "")}</a>`,
 
             "editor.label.publisher" : (doc: CMOBaseDocument) => doc[ "publisher" ] || "",
-            "editor.label.editor" : (doc: CMOBaseDocument) => (doc[ "editor" ] || []).join("; "),
+            "editor.label.editor" : (doc: CMOBaseDocument) => (doc[ "editor" ] ||[]).concat((doc["editor.ref"]||[]).map((ref=> {
+                const [editorName, href] = ref.split("|");
+                return `<a href="${Utils.getBaseURL()}receive/${href}">${editorName}</a>`;
+            }))).join("; "),
             "editor.label.pubPlace" : (doc: CMOBaseDocument) => doc[ "publisher.place" ] || "",
             "editor.label.publishingDate" : (doc: CMOBaseDocument) => doc[ "publish.date.content" ] || "",
             "editor.label.series" : (doc: CMOBaseDocument) => (doc[ "series" ] || []).join(", "),
