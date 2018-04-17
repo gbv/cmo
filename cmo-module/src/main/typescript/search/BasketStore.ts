@@ -30,7 +30,9 @@ export class BasketStore {
 
     public add(...docs: string[]) {
         let left = BasketStore.BASKET_LIMIT - this.count();
-        docs.slice(0, left).forEach(docID => {
+        docs.slice(0, left)
+            .filter(doc=> !this.contains(doc))
+            .forEach(docID => {
             this._store.push(docID);
         });
         this.save();
@@ -39,7 +41,9 @@ export class BasketStore {
 
     public addAll(docs: string[]) {
         let left = BasketStore.BASKET_LIMIT - this.count();
-        docs.slice(0, left).forEach(docID => {
+        docs.slice(0, left)
+            .filter(doc=> !this.contains(doc))
+            .forEach(docID => {
             this._store.push(docID);
         });
         this.save();

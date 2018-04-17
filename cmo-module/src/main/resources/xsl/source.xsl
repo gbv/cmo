@@ -80,6 +80,16 @@
       <xsl:value-of select="mei:identifier/text()" />
       <xsl:text> </xsl:text>
       <xsl:value-of select="mei:titleStmt/mei:title" />
+      <xsl:text> </xsl:text>
+      <xsl:if test="count(mei:relationList/mei:relation)&gt;0">
+        <xsl:element name="a">
+          <xsl:attribute name="data-basket">
+            <xsl:apply-templates select="mei:relationList/mei:relation" mode="buildLink"/>
+          </xsl:attribute>
+          <xsl:value-of select="'Add all to Basket!'"/>
+        </xsl:element>
+      </xsl:if>
+
     </xsl:if>
     <ol>
       <xsl:for-each select="mei:componentGrp/mei:source">
@@ -89,6 +99,13 @@
       </xsl:for-each>
       <xsl:call-template name="listRelations" />
     </ol>
+  </xsl:template>
+
+  <xsl:template match="mei:relationList/mei:relation" mode="buildLink">
+    <xsl:if test="not(position()=1)">
+      <xsl:value-of select="','"/>
+    </xsl:if>
+    <xsl:value-of select=" @target"/>
   </xsl:template>
 
   <xsl:template name="listRelations">

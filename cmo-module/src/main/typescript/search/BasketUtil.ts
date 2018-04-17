@@ -1,4 +1,3 @@
-import {CMOBaseDocument} from "../other/Solr";
 import {BasketStore} from "./BasketStore";
 import {I18N} from "../other/I18N";
 
@@ -13,27 +12,27 @@ export class BasketUtil {
         basketElements.forEach((basketElement: HTMLElement) => {
             let inactive = basketElement.getAttribute("data-basket-activated") !== "true";
             if (inactive) {
-                let id: string = basketElement.getAttribute("data-basket");
+                let ids: Array<string> = basketElement.getAttribute("data-basket").split(",");
 
                 let changed = () => {
-                    let contains = BasketUtil.basket.contains(id);
+                    let containsAll = !ids.map(id => BasketUtil.basket.contains(id)).some(isInBasket => !isInBasket);
 
-                    if (contains) {
-                        basketElement.setAttribute("data-i18n", "cmo.basket.remove");
+                    if (containsAll) {
+                        basketElement.setAttribute("data-i18n", ids.length > 1 ? "cmo.basket.remove.multi" : "cmo.basket.remove");
                     } else{
-                        basketElement.setAttribute("data-i18n", "cmo.basket.add");
+                        basketElement.setAttribute("data-i18n", ids.length > 1 ? "cmo.basket.add.multi" : "cmo.basket.add");
                     }
 
                     I18N.translateElements(basketElement.parentElement);
                 };
 
                 basketElement.addEventListener("click", () => {
-                    let contains = BasketUtil.basket.contains(id);
+                    let containsAll = !ids.map(id => BasketUtil.basket.contains(id)).some(isInBasket => !isInBasket);
 
-                    if(contains){
-                        BasketUtil.basket.remove(id);
+                    if (containsAll) {
+                        BasketUtil.basket.remove.apply(BasketUtil.basket, ids);
                     } else {
-                        BasketUtil.basket.add(id);
+                        BasketUtil.basket.add.apply(BasketUtil.basket, ids)
                     }
 
                     changed();

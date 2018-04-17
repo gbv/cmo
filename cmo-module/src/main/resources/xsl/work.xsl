@@ -59,7 +59,20 @@
   </xsl:template>
 
 
+  <xsl:template match="mei:expressionList/mei:expression" mode="buildLink">
+    <xsl:if test="not(position()=1)">
+      <xsl:value-of select="','" />
+    </xsl:if>
+    <xsl:value-of select="@data" />
+  </xsl:template>
+
   <xsl:template name="listExpressions">
+    <xsl:element name="a">
+      <xsl:attribute name="data-basket">
+        <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression" mode="buildLink" />
+      </xsl:attribute>
+      <xsl:value-of select="'Add all to Basket!'" />
+    </xsl:element>
     <ol>
       <xsl:for-each select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression">
         <li>
