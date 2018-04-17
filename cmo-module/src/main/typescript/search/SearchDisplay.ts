@@ -136,15 +136,15 @@ export class SearchDisplay {
         addAllButton.addEventListener("click", () => {
             let newParams = [];
 
+            let hasRows = false;
             for (let paramKey in result.responseHeader.params) {
                 if (result.responseHeader.params.hasOwnProperty(paramKey)) {
                     let paramVal = result.responseHeader.params[ paramKey ];
-                    if (paramKey == "rows") {
 
-                    }
 
                     switch (paramKey) {
                         case "rows":
+                            hasRows=true;
                             newParams.push([ "rows", "9999999" ]);
                             break;
                         case "start":
@@ -159,6 +159,10 @@ export class SearchDisplay {
                     }
 
                 }
+            }
+
+            if(!hasRows){
+                newParams.push([ "rows", "9999999" ]);
             }
 
 
