@@ -23,7 +23,7 @@
       <field name="displayTitle">
         <xsl:choose>
           <xsl:when test="mods:titleInfo/mods:title and mods:titleInfo/mods:subTitle">
-            <xsl:value-of select="concat(mods:titleInfo/mods:title, ':', mods:titleInfo/mods:subTitle)" />
+            <xsl:value-of select="concat(mods:titleInfo/mods:title, ' : ', mods:titleInfo/mods:subTitle)" />
           </xsl:when>
           <xsl:when test="mods:titleInfo/mods:title">
             <xsl:value-of select="mods:titleInfo/mods:title" />
