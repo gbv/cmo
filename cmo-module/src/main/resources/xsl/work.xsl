@@ -104,23 +104,38 @@
           </xsl:variable>
   
           <a href="{concat($WebApplicationBaseURL, 'receive/',@data)}">
-            <xsl:if test="$pageNumber">
-              <xsl:value-of select="concat($pageNumber, ', ')" />
-            </xsl:if>
-            <xsl:if test="string-length($makam)&gt;0">
-              <xsl:value-of select="concat($makam,' ')" />
-            </xsl:if>
-            <xsl:if test="string-length($musictype)&gt;0">
-              <xsl:value-of select="concat($musictype,' ')" />
-            </xsl:if>
-            <xsl:if test="string-length($usuler)&gt;0">
-              <xsl:value-of select="concat($usuler,' ')" />
-            </xsl:if>
+            <xsl:choose>
+              <xsl:when test="$expression//mei:expression/mei:titleStmt/mei:title[@type='main']">
+                <xsl:value-of select="$expression//mei:expression/mei:titleStmt/mei:title[@type='main']" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:if test="string-length($makam) &gt; 0">
+                  <xsl:value-of select="concat($makam,' ')" />
+                </xsl:if>
+                <xsl:if test="string-length($musictype) &gt; 0">
+                  <xsl:value-of select="concat($musictype,' ')" />
+                </xsl:if>
+                <xsl:if test="string-length($usuler) &gt; 0">
+                  <xsl:value-of select="$usuler" />
+                </xsl:if>
+              </xsl:otherwise>
+            </xsl:choose>
           </a>
+          <span class="standardized">
+            <xsl:choose>
+              <xsl:when test="$pageNumber">
+                <xsl:value-of select="$pageNumber" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="$expression//mei:expression/mei:identifier[@type='CMO']" />
+              </xsl:otherwise>
+            </xsl:choose>
+          </span>
           <xsl:if test="$expressionElement/mei:titleStmt/mei:composer/mei:persName/@nymref">
-            <a href="{$expressionElement/mei:titleStmt/mei:composer/mei:persName/@nymref}">
-              <xsl:value-of select="$expressionElement/mei:titleStmt/mei:composer/mei:persName/text()" />
-            </a>
+            <xsl:text>, </xsl:text>
+            <xsl:call-template name="objectLink">
+              <xsl:with-param name="obj_id" select="$expressionElement/mei:titleStmt/mei:composer/mei:persName/@nymref" />
+            </xsl:call-template>
           </xsl:if>
         </li>
       </xsl:for-each>

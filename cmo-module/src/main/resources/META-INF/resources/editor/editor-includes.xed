@@ -171,8 +171,8 @@
   </xed:template>
 
   <xed:template id="cmo_contentType">
-    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_contentType']"
-                              label="editor.search.contentType"
+    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_contentType']" repeat="true" min="1"
+                              max="10" label="editor.search.contentType"
                               classification="cmo_contentType" help-text="{i18n:cmo.help.contentType}" />
   </xed:template>
 
@@ -338,7 +338,7 @@
               <div class="col-md-6 ">
                 <div class="form-inline">
                   <xed:bind xpath="@target">
-                    <input type="text" placeholder="z.B. cmo_expression_00002186" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
+                    <input type="text" placeholder="eg. cmo_expression_00002186" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
                   <span class="pmud-button">
                     <a tabindex="0" class="btn btn-default info-button" role="button"
@@ -359,6 +359,80 @@
     </fieldset>
   </xed:template>
   
+  <xed:template id="cmo_expressionList">
+    <fieldset>
+      <legend class="cmo-fieldset-legend">
+        <div class="col-md-10">
+          <xed:output i18n="cmo.expressionList" />
+        </div>
+      </legend>
+      <xed:repeat xpath="mei:expressionList/mei:expression" min="1" max="100">
+        <div class="cmo-fieldset-content">
+          <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:expression' class="form-group">
+            <div class="row">
+              <label class="col-md-4 control-label">
+                <xed:output i18n="cmo.relation" />
+              </label>
+              <div class="col-md-6 ">
+                <div class="form-inline">
+                  <xed:bind xpath="@data">
+                    <input type="text" placeholder="eg. cmo_expression_00002186" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
+                  </xed:bind>
+                  <span class="pmud-button">
+                    <a tabindex="0" class="btn btn-default info-button" role="button"
+                        title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
+                      <i class="fa fa-search"></i>
+                  </a>
+                  </span>
+                  <xed:bind xpath="@label">
+                    <input type="text" placeholder="eg. CMO_NE211, p. 66" style="width: 20%;margin-left: 10px;" class="form-control form-control-inline" />
+                  </xed:bind>
+                </div>
+              </div>
+              <cmo:help-pmud help-text="{i18n:cmo.help.expressionList}" pmud="true" />
+            </div>
+          </div>
+        </div>
+      </xed:repeat>
+    </fieldset>
+  </xed:template>
+
+  <xed:template id="cmo_biblList">
+    <fieldset>
+      <legend class="cmo-fieldset-legend">
+        <div class="col-md-10">
+          <xed:output i18n="editor.label.biblList" />
+        </div>
+      </legend>
+      <xed:repeat xpath="mei:biblList/mei:bibl" min="1" max="100">
+        <div class="cmo-fieldset-content">
+          <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:mods' class="form-group">
+            <div class="row">
+              <label class="col-md-4 control-label">
+                <xed:output i18n="editor.cmo.select.source-mods" />
+              </label>
+              <div class="col-md-6 ">
+                <div class="form-inline">
+                  <xed:bind xpath="@target">
+                    <input type="text" placeholder="eg. cmo_mods_00000019" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
+                  </xed:bind>
+                  <span class="pmud-button">
+                    <a tabindex="0" class="btn btn-default info-button" role="button"
+                        title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
+                      <i class="fa fa-search"></i>
+                  </a>
+                  </span>
+                  <input type="text" placeholder="eg. TRT-NA REPno. S.E 2791" style="width: 20%;margin-left: 10px;" class="form-control form-control-inline" />
+                </div>
+              </div>
+              <cmo:help-pmud help-text="{i18n:cmo.help.biblList}" pmud="true" />
+            </div>
+          </div>
+        </div>
+      </xed:repeat>
+    </fieldset>
+  </xed:template>
+
   <xed:template id="cmo_componentGrp">
     <xed:bind xpath="mei:componentGrp">
       <xed:repeat xpath="mei:source" min="1" max="100">
