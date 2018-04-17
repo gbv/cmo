@@ -8,6 +8,7 @@
 >
 
   <xsl:include href="copynodes.xsl" />
+  <xsl:key name="classentry-by-authority" match="//mei:classification/classEntry" use="@authority" />
 
   <xsl:template match="mei:date">
     <xsl:copy>
@@ -71,18 +72,26 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="classEntry">
+  <xsl:template match="mei:classification">
+    <mei:classification>
+      <xsl:for-each select="classEntry[@authority and
+        count(. | key('classentry-by-authority',@authority)[1])=1]">
 
-    <xsl:variable name="classcode">
-      <xsl:value-of select="concat(generate-id(.),'-',(floor(math:random()*100000) mod 100000) + 1)" />
-    </xsl:variable>
+        <xsl:variable name="classcode">
+          <xsl:value-of select="concat(generate-id(.),'-',(floor(math:random()*100000) mod 100000) + 1)" />
+        </xsl:variable>
+        <xsl:variable name="classid" select="@authority" />
 
-    <mei:classCode authURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/{@authority}" xml:id="{$classcode}" />
-    <mei:termList classcode="#{$classcode}">
-      <mei:term>
-        <xsl:value-of select="substring-after(., concat(@authority, ':'))" />
-      </mei:term>
-    </mei:termList>
+        <mei:classCode authURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/{$classid}" xml:id="{$classcode}" />
+        <mei:termList classcode="#{$classcode}">
+          <xsl:for-each select="../classEntry[@authority = $classid]">
+            <mei:term>
+              <xsl:value-of select="substring-after(., concat($classid, ':'))" />
+            </mei:term>
+          </xsl:for-each>
+        </mei:termList>
+      </xsl:for-each>
+    </mei:classification>
   </xsl:template>
 
 
