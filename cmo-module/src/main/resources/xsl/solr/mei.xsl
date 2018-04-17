@@ -42,9 +42,6 @@
         <xsl:when test="mei:titleStmt/mei:title[@type='main']">
           <xsl:value-of select="mei:titleStmt/mei:title[@type='main']" />
         </xsl:when>
-        <xsl:when test="mei:titleStmt/mei:title[@type='alt']">
-          <xsl:value-of select="mei:titleStmt/mei:title[@type='alt']" />
-        </xsl:when>
         <xsl:otherwise>
           <xsl:call-template name="printStandardizedHitListTitle" />
         </xsl:otherwise>
