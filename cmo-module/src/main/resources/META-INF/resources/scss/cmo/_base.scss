@@ -1,4 +1,39 @@
 /* ---------------------------------------------------------------------------
+   base functions
+----------------------------------------------------------------------------*/
+.cmo_clear {
+  clear: both;
+}
+
+.cmo_arrowUp {
+  width: 16px;
+  height: 21px;
+  background-image: url("../../../content/images/misc_icons/cmo_arrowUp.svg");
+  background-repeat: no-repeat;
+  float: left;
+}
+
+.cmo_arrowLeft {
+  width: 20px;
+  height: 16px;
+  background-image: url("../../../content/images/misc_icons/cmo_arrowLeft.svg");
+  background-repeat: no-repeat;
+  float: left;
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.cmo_arrowRight {
+  width: 20px;
+  height: 16px;
+  background-image: url("../../../content/images/misc_icons/cmo_arrowRight.svg");
+  background-repeat: no-repeat;
+  float: right;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+/* ---------------------------------------------------------------------------
    inline styles to css
    moved styles from the document here
 ----------------------------------------------------------------------------*/

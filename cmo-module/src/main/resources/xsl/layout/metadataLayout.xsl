@@ -42,7 +42,7 @@
           <xsl:value-of select="i18n:translate($label)" />
         </xsl:if>
       </th>
-      <td class="col-md-2 text-center cmo_contentType">
+      <td class="col-md-2 text-right cmo_contentType">
         <xsl:variable name="rTree" select="exslt:node-set($type)" />
         <xsl:copy-of select="$rTree" />
       </td>
@@ -62,7 +62,7 @@
       <th class="col-md-3">
         <xsl:value-of select="$text" />
       </th>
-      <td class="col-md-2 text-center cmo_contentType">
+      <td class="col-md-2 text-right cmo_contentType">
         <xsl:variable name="rTree" select="exslt:node-set($type)" />
         <xsl:copy-of select="$rTree" />
       </td>
@@ -85,7 +85,7 @@
           <xsl:copy-of select="$rTree1" />
         </xsl:if>
       </th>
-      <td class="col-md-2 text-center cmo_contentType">
+      <td class="col-md-2 text-right cmo_contentType">
         <xsl:variable name="rTree" select="exslt:node-set($type)" />
         <xsl:copy-of select="$rTree" />
       </td>
@@ -118,15 +118,6 @@
   <xsl:template name="metadataContainer">
     <xsl:param name="content" />
     <table class="table cmo_spaceTable">
-      <tr class="cmo_noBorder">
-        <th class="col-md-3">
-        </th>
-        <td class="col-md-2 text-center cmo_contentType">
-          <!-- xsl:value-of select="i18n:translate('cmo.metadata.typeLabel')" / --> <!-- do not show type header, fix: https://github.com/gbv/cmo/issues/107 -->
-        </td>
-        <td class="col-md-7">
-        </td>
-      </tr>
       <xsl:variable name="rTree" select="exslt:node-set($content)" />
       <xsl:copy-of select="$rTree" />
     </table>

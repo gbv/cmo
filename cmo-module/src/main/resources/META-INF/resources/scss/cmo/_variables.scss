@@ -3,7 +3,11 @@
    http://getbootstrap.com/customize/#less-variables
 ----------------------------------------------------------------------------*/
 $gray-base:     #252626;
-$gray-dark:     lighten($gray-base, 20%);
+$gray-darker:   lighten($gray-base, 20%);
+$gray-dark:     lighten($gray-base, 30%);
+$gray:          #969696;
+$gray-light:    lighten($gray, 15%);
+$gray-lighter:  lighten($gray, 30%);
 $brand-primary: #eeab2b;
 $brand-success: #008200;
 $brand-info:    #666689;

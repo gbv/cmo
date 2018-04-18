@@ -83,6 +83,9 @@
       <xsl:text> </xsl:text>
       <xsl:if test="count(mei:relationList/mei:relation)&gt;0">
         <xsl:element name="a">
+          <xsl:attribute name="class">
+            cmo_addToBasket
+          </xsl:attribute>
           <xsl:attribute name="data-basket">
             <xsl:apply-templates select="mei:relationList/mei:relation" mode="buildLink"/>
           </xsl:attribute>
@@ -91,7 +94,7 @@
       </xsl:if>
 
     </xsl:if>
-    <ol>
+    <ol class="cmo_clear">
       <xsl:for-each select="mei:componentGrp/mei:source">
         <li>
           <xsl:call-template name="displaySourceComponent" />

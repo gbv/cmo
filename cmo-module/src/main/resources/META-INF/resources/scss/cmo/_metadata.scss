@@ -21,20 +21,22 @@
 
 /* TODO: refacture */
 table > tbody > tr.cmo_noBorder > td, table > tbody > tr.cmo_noBorder > th {
-    border-top: 0px;
-    margin-top: 0px;
-    padding: 0px 8px 8px 8px;
+  border-top: 0px;
+  margin-top: 0px;
+  padding: 0px 8px 8px 8px;
 }
 
 .cmo_contentType {
-  font-weight: bold;
-  color: #aaa;
-  font-size: small;
+  color: $gray;
 }
 
 .cmo_spaceTable {
   border-collapse: separate;
   border-spacing: 15px 2px;
+}
+
+.cmo_addToBasket {
+  float: right;
 }
 
 span.standardized:before {
@@ -46,6 +48,6 @@ span.standardized:after {
 }
 
 span.standardized {
-  color: lightgrey;
+  color: $gray;
   margin-left: 0.5em;
 }

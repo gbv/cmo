@@ -109,20 +109,20 @@
             <xsl:with-param name="numPerPage" select="1" />
           </xsl:call-template>
         </xsl:variable>
-        <div class="col-xs-12 col-md-5 text-left">
+        <div class="col-xs-12 col-md-4 text-left">
           <a tabindex="0" class="previous" href="{$link}" data-pagination=".caption:mods.title.main">
-            <span class="fa fa-chevron-left icon" />
+            <span class="cmo_arrowLeft" />
             <span class="caption">
               <xsl:value-of select="$label.previousHit" />
             </span>
           </a>
         </div>
       </xsl:if>
-      <div class="col-xs-12 col-md-2 text-center">
+      <div class="col-xs-12 col-md-4 text-center">
         <xsl:attribute name="class">
-          <xsl:text>col-xs-12 col-md-2 text-center</xsl:text>
+          <xsl:text>col-xs-12 col-md-4 text-center</xsl:text>
           <xsl:if test="$page = 1">
-            <xsl:text> col-md-offset-5</xsl:text>
+            <xsl:text> col-md-offset-4</xsl:text>
           </xsl:if>
         </xsl:attribute>
         <a title="{i18n:translate(concat($i18nprefix, '.back'))}">
@@ -141,7 +141,7 @@
             </xsl:variable>
             <xsl:value-of select="concat($params, '&amp;start=', $newStart)" />
           </xsl:attribute>
-          <span class="fa fa-chevron-up" />
+          <span class="cmo_arrowUp" />
         </a>
         <xsl:text>&#160;</xsl:text>
         <xsl:value-of select="i18n:translate(concat($i18nprefix, '.entriesInfo'), concat($page, ';', $pages))" />
@@ -154,12 +154,12 @@
             <xsl:with-param name="numPerPage" select="1" />
           </xsl:call-template>
         </xsl:variable>
-        <div class="col-xs-12 col-md-5 text-right">
+        <div class="col-xs-12 col-md-4 text-right">
           <a tabindex="0" class="next" href="{$link}" data-pagination=".caption:mods.title.main">
-            <span class="fa fa-chevron-right icon" />
             <span class="caption">
               <xsl:value-of select="$label.nextHit" />
             </span>
+            <span class="cmo_arrowRight" />
           </a>
         </div>
       </xsl:if>

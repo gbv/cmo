@@ -105,7 +105,6 @@
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_edition']" />
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_catalogue']" />
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_publish']" />
-                                <!-- TODO: Add Basket -->
                                 <li id="cmo_basket">
                                   <a href="#action=basket">
                                     <sup id="basked_badge">0</sup>
@@ -136,7 +135,7 @@
                                   <xsl:attribute name="class">
                                     <xsl:choose>
                                       <xsl:when test="contains($RequestURL, '/editor/')"><xsl:text>col-md-12</xsl:text></xsl:when>
-                                      <xsl:otherwise><xsl:text>col-md-10 col-md-offset-1</xsl:text></xsl:otherwise>
+                                      <xsl:otherwise><xsl:text>col-md-11 col-md-offset-1</xsl:text></xsl:otherwise>
                                     </xsl:choose>
                                   </xsl:attribute>
                                   <xsl:call-template name="print.writeProtectionMessage" />

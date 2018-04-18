@@ -12,14 +12,14 @@
 
     <xsl:call-template name="metadataPage">
       <xsl:with-param name="content">
+        <xsl:apply-templates select="response" />
+        
         <!--Show metadata -->
         <xsl:call-template name="metadataSection">
           <xsl:with-param name="content">
             <xsl:call-template name="objectActions">
               <xsl:with-param name="id" select="@ID" />
             </xsl:call-template>
-
-            <xsl:apply-templates select="response" />
 
             <xsl:apply-templates select="//mei:identifier" mode="metadataHeader" />
 
@@ -68,12 +68,15 @@
 
   <xsl:template name="listExpressions">
     <xsl:element name="a">
+      <xsl:attribute name="class">
+        cmo_addToBasket
+      </xsl:attribute>
       <xsl:attribute name="data-basket">
         <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression" mode="buildLink" />
       </xsl:attribute>
       <xsl:value-of select="'Add all to Basket!'" />
     </xsl:element>
-    <ol>
+    <ol class="cmo_clear">
       <xsl:for-each select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression">
         <li>
           <xsl:variable name="expression" select="document(concat('mcrobject:', @data))" />
