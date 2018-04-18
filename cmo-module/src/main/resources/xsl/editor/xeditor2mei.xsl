@@ -94,5 +94,11 @@
     </mei:classification>
   </xsl:template>
 
+  <xsl:template match="mei:tempo">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <xsl:value-of select="substring-after(., 'cmo_tempo:')"/>
+    </xsl:copy>
+  </xsl:template>
 
 </xsl:stylesheet>

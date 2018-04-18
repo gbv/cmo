@@ -182,6 +182,11 @@
                               classification="cmo_notationType" help-text="{i18n:cmo.help.notationType}" />
   </xed:template>
 
+  <xed:template id="cmo_tempo">
+    <cmo:selectClassification xpath="mei:tempo" label="editor.label.tempo" classification="cmo_tempo"
+                              help-text="{i18n:cmo.help.tempo}" />
+  </xed:template>
+
   <xed:template id="cmo_usuler">
     <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_usuler']"
                               label="editor.search.usuler"
@@ -540,6 +545,7 @@
     <xed:cleanup-rule xpath="//mei:termList" relevant-if="string-length(mei:term/text())&gt;0" />
     <xed:cleanup-rule xpath="//mei:relationList" relevant-if="string-length(mei:relation/@target)&gt;0" />
 
+    <xed:cleanup-rule xpath="//mei:incip" relevant-if="count(mei:incipText/*)&gt;0" />
   </xed:template>
 
 </xed:template>

@@ -35,7 +35,7 @@
             <xed:bind xpath="mei:classification">
               <xed:bind xpath="classEntry[@authority='cmo_kindOfData']" initially="cmo_kindOfData:source" />
             </xed:bind>
-            <!-- TODO: add tempo tag -->
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_tempo" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_usuler" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_makamler" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_musictype" />

@@ -103,5 +103,11 @@
     </xsl:copy>
   </xsl:template>
 
+  <xsl:template match="mei:tempo">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <xsl:value-of select="concat('cmo_tempo:', .)"/>
+    </xsl:copy>
+  </xsl:template>
 
 </xsl:stylesheet>

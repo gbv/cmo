@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_tempo">
+  <label xml:lang="de" text="Tempo" />
+  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_tempo" />
+  <label xml:lang="en" text="Tempo" />
+  <categories>
+    <category ID="Hafîf">
+      <label xml:lang="de" text="Hafîf" />
+      <label xml:lang="en" text="Hafîf" />
+    </category>
+    <category ID="Ağır">
+      <label xml:lang="de" text="Ağır" />
+      <label xml:lang="en" text="Ağır" />
+    </category>
+    <category ID="Yürük">
+      <label xml:lang="en" text="Yürük" />
+      <label xml:lang="de" text="Yürük" />
+    </category>
+  </categories>
+</mycoreclass>
