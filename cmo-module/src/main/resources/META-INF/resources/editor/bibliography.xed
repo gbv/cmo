@@ -5,7 +5,7 @@
 
     <h1>Create new Bibliography</h1>
 
-    <xed:form xmlns:xed="http://www.mycore.de/xeditor" xmlns:mods="http://www.loc.gov/mods/v3" method="post" role="form" class="form-horizontal">
+    <xed:form id="cmo_xeditor" xmlns:xed="http://www.mycore.de/xeditor" xmlns:mods="http://www.loc.gov/mods/v3" method="post" role="form" class="form-horizontal">
       <xed:source uri="xslStyle:mycoreobject-editor,editor/mods2xeditor:mcrobject:{$id}" />
       <xed:cancel url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}" />
       <xed:cancel url="{$cancelUrl}" />

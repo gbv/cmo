@@ -454,19 +454,36 @@
             </select>
           </xed:bind>
         </xsl:if>
+        <xsl:if test="@textLabel">
+          <xsl:text>&#160;</xsl:text>
+          <xed:bind xpath="@label">
+            <input type="text" class="form-control" style="width: 100px;" />
+          </xed:bind>
+        </xsl:if>
         <xsl:if test="@lang">
           <xsl:text>&#160;</xsl:text>
           <xed:bind xpath="@xml:lang">
-            <select class="form-control">
+            <select class="form-control" style="width: 150px;">
               <xed:include uri="xslStyle:items2options:classification:editor:1:children:{@lang}" />
             </select>
           </xed:bind>
         </xsl:if>
       </label>
       <div class="col-md-6">
-        <input id="{@id}" type="text" class="form-control">
-          <xsl:copy-of select="@placeholder" />
-        </input>
+        <xsl:choose>
+          <xsl:when test="@rootBind">
+            <xed:bind xpath="{@rootBind}">
+              <input id="{@id}" type="text" class="form-control">
+                <xsl:copy-of select="@placeholder" />
+              </input>
+            </xed:bind>
+          </xsl:when>
+          <xsl:otherwise>
+            <input id="{@id}" type="text" class="form-control">
+              <xsl:copy-of select="@placeholder" />
+            </input>
+          </xsl:otherwise>
+        </xsl:choose>
       </div>
       <div class="col-md-2">
         <xsl:if test="string-length(@help-text) &gt; 0">

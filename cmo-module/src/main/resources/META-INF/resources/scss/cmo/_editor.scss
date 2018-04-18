@@ -7,6 +7,18 @@
   width: 130px;
 }*/
 
+
+#cmo_xeditor {
+  font-size: 85%;
+  select, .form-control {
+    font-size: 90%;
+  }
+  label {
+    font-weight: normal;
+    color: $brand-info;
+  }
+}
+
 .required label::after {
   content: " *";
 }
