@@ -28,24 +28,29 @@
   xmlns:mei="http://www.music-encoding.org/ns/mei"
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
-  <!-- TODO: how to display publisher, pubPlace and Date -->
   <xsl:template match="mei:incip" mode="metadataView">
     <xsl:comment>mei/incip.xsl > mei:incip</xsl:comment>
 
-    <xsl:call-template name="metadataContentContent">
-      <xsl:with-param name="content1">
-        <abbr title="{i18n:translate('editor.label.incipText')}">Incipit</abbr>
-      </xsl:with-param>
-      <xsl:with-param name="content2">
-        <xsl:for-each select="mei:incipText">
-          <xsl:value-of select="." disable-output-escaping="yes" />
-          <xsl:if test="@label">
-            <small> (<xsl:value-of select="@label" />)</small>
+    <xsl:for-each select="mei:incipText">
+      <xsl:call-template name="metadataContentContent">
+        <xsl:with-param name="style">
+          <xsl:if test="position() &gt; 1"><xsl:value-of select="'cmo_noBorder'" /></xsl:if>
+        </xsl:with-param>
+        <xsl:with-param name="content1">
+          <xsl:if test="position() = 1">
+            <abbr title="{i18n:translate('editor.label.incipText')}">Incipit</abbr>
           </xsl:if>
-          <xsl:if test="position() != last()"><br /></xsl:if>
-        </xsl:for-each>
-      </xsl:with-param>
-    </xsl:call-template>
+        </xsl:with-param>
+        <xsl:with-param name="type">
+          <xsl:if test="@label">
+            <xsl:value-of select="@label" />
+          </xsl:if>
+        </xsl:with-param>
+        <xsl:with-param name="content2">
+            <xsl:value-of select="." disable-output-escaping="yes" />
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:for-each>
   </xsl:template>
 
 

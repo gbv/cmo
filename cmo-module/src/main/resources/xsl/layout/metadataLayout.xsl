@@ -80,8 +80,10 @@
     <xsl:param name="type" select="''" />
     <tr class="{$style}">
       <th class="col-md-3">
-        <xsl:variable name="rTree1" select="exslt:node-set($content1)" />
-        <xsl:copy-of select="$rTree1" />
+        <xsl:if test="string-length($content1) &gt; 0">
+          <xsl:variable name="rTree1" select="exslt:node-set($content1)" />
+          <xsl:copy-of select="$rTree1" />
+        </xsl:if>
       </th>
       <td class="col-md-2 text-center cmo_contentType">
         <xsl:variable name="rTree" select="exslt:node-set($type)" />
