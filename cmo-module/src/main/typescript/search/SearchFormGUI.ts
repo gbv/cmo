@@ -434,9 +434,9 @@ export class TextSearchFieldInput extends SearchFieldInput {
     public getSolrQueryPart(): string {
         if (this.input.value.trim().length > 0) {
             if (this.searchFields.length > 1) {
-                return `(${this.searchFields.map(sf => `${sf}:"${UserInputParser.escapeSpecialCharacters(this.input.value)}"`).join(" OR ")})`
+                return `(${this.searchFields.map(sf => `${sf}:${this.input.value.indexOf(" ")==-1 ? this.input.value:'"'+this.input.value + '"'}`).join(" OR ")})`
             } else {
-                return `${this.searchFields}:"${this.input.value}"`
+                return `${this.searchFields}:${this.input.value.indexOf(" ")==-1 ? this.input.value:'"'+this.input.value + '"'}`
             }
         } else {
             return null;
