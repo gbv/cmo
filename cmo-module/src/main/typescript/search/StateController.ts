@@ -29,21 +29,20 @@ export class StateController {
 
             window.addEventListener('hashchange', (evt: HashChangeEvent) => {
                 onHashChange(evt.newURL);
-
             });
 
         }
 
         StateController.stateHandlerList.push(changeHandler);
         if (typeof window.location.hash !== "undefined" && window.location.hash != null) {
-            onHashChange(window.location.toString());
+            StateController.stateChanged(window.location.toString());
         }
     }
 
 
-    static stateChanged(newURL:string){
+    static stateChanged(newURL:string, selfChange = StateController.selfChange == window.location.hash.substring(1)){
         let arrParams = this.getState(newURL);
-        StateController.stateHandlerList.forEach(handler => handler(arrParams, StateController.selfChange == window.location.hash.substring(1)));
+        StateController.stateHandlerList.forEach(handler => handler(arrParams, selfChange));
     }
 
     public static getState(newURL: string = window.location.href) {

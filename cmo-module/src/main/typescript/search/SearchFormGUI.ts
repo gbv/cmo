@@ -300,12 +300,12 @@ export class SearchGUI {
                 this.mainSearchInputElement.value += value;
             }
 
-            if (key == "objectType" && value in this.typeMap) {
+            /*if (key == "objectType" && value in this.typeMap) {
                 if (this.typeSelect.value !== value) {
                     this.typeSelect.value = value;
                     this.typeChanged(false);
                 }
-            }
+            }*/
 
             if (key in this.fieldSFIMap) {
                 let searchFieldGUIs = this.fieldSFIMap[ key ];
@@ -739,9 +739,8 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
     }
 
     setValue(value: any) {
-
         if (value.indexOf(" TO ") == -1) {
-            this.input.setAttribute("value", value);
+            this.input.setAttribute("value", UserInputParser.unescapeSpecialCharacters(value));
         } else {
             this.inputRangeCheckbox.checked = true;
             let fromToString = Utils.stripSurrounding(Utils.stripSurrounding(value, "["), "]");
