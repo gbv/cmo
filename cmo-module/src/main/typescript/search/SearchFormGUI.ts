@@ -234,7 +234,7 @@ export class SearchGUI {
         let kvMap = {};
 
         let bqMap = this.nameBaseQueryMap;
-
+        this._wasExtendedSearchOpen=true;
 
         let process = (queryParts) => {
             for (let queryPart of queryParts) {
