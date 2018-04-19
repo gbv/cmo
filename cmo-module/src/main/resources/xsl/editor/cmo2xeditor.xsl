@@ -64,6 +64,19 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template match="cmo:subselectWrapper">
+    <div data-subselect="{@query}">
+      <xsl:apply-templates/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="cmo:subselectTrigger">
+    <a tabindex="0" class="btn btn-default info-button" role="button"
+       title="{i18n:translate('cmo.help.search')}" data-subselect-trigger="">
+      <i class="fa fa-search"></i>
+    </a>
+  </xsl:template>
+
   <xsl:template match="cmo:textarea">
     <xsl:variable name="xed-val-marker">{$xed-validation-marker}</xsl:variable>
     <xsl:choose>
@@ -252,7 +265,7 @@
         <xed:repeat xpath="{@xpath}" min="{@min}" max="{@max}">
           <xed:bind xpath="mei:persName">
             <xsl:variable name="xed-val-marker">{$xed-validation-marker}</xsl:variable>
-            <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:person'
+            <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:person'
                  class="form-group {@class} {$xed-val-marker}">
               <div class="row">
                 <!-- start -->
@@ -474,12 +487,14 @@
           <xsl:when test="@rootBind">
             <xed:bind xpath="{@rootBind}">
               <input id="{@id}" type="text" class="form-control">
+                <xsl:call-template name="addSubselectTarget"/>
                 <xsl:copy-of select="@placeholder" />
               </input>
             </xed:bind>
           </xsl:when>
           <xsl:otherwise>
             <input id="{@id}" type="text" class="form-control">
+              <xsl:call-template name="addSubselectTarget"/>
               <xsl:copy-of select="@placeholder" />
             </input>
           </xsl:otherwise>
@@ -494,6 +509,14 @@
         </xsl:if>
       </div>
     </div>
+  </xsl:template>
+
+  <xsl:template name="addSubselectTarget">
+    <xsl:if test="@subselect-target">
+      <xsl:attribute name="data-subselect-target">
+        <xsl:value-of select="@subselect-target"/>
+      </xsl:attribute>
+    </xsl:if>
   </xsl:template>
 
 
@@ -524,6 +547,14 @@
     <div class="col-md-2 {@class}">
       <xsl:if test="string-length(@help-text) &gt; 0">
         <xsl:call-template name="cmo-helpbutton" />
+      </xsl:if>
+      <xsl:if test="@subselect-trigger">
+        <span class="pmud-button">
+          <button class="btn btn-default" role="button"
+                  title="{i18n:translate('cmo.help.search')}" data-subselect-trigger="">
+            <i class="fa fa-search"></i>
+          </button>
+        </span>
       </xsl:if>
       <xsl:if test="@pmud='true'">
         <xsl:call-template name="cmo-pmud" />

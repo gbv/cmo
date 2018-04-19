@@ -47,7 +47,7 @@
           <xsl:apply-templates select="@numLinks" mode="formatCount">
             <xsl:with-param name="maxCount" select="$maxLinks" />
           </xsl:apply-templates>
-          <a href='#f{@query}&amp;q=(category.top:"cmo_kindOfData:source" OR objectType:person)&amp;action=init_search'>
+          <a href='#f{@query}&amp;q=(category.top:"cmo_kindOfData:source" OR cmoType:person)&amp;action=init_search'>
             <xsl:value-of select="label" />
           </a>
           <xsl:if test="uri">

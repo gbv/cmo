@@ -3,7 +3,7 @@
 <xed:template xmlns:xed="http://www.mycore.de/xeditor"
               xmlns:cmo="http://cmo.gbv.de/cmo"
               xmlns:mei="http://www.music-encoding.org/ns/mei"
-              xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+>
 
 
   <xed:template id="in.out">
@@ -237,7 +237,7 @@
     <xed:repeat xpath="mei:name[@source]" min="1" max="100">
       <div class="cmo-fieldset-content">
         <!-- TODO: should be  objectType:source OR objectType:mods -->
-        <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:source' class="form-group">
+        <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:source' class="form-group">
           <div class="row">
             <label class="col-md-4 control-label">
               <xed:output i18n="editor.label.name.bySource" />
@@ -269,7 +269,7 @@
   <xed:template id="cmo_personAnnotBySource">
     <xed:repeat xpath="mei:annot" min="1" max="100">
       <div class="cmo-fieldset-content">
-        <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:mods' class="form-group">
+        <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:mods' class="form-group">
           <div class="row">
             <label class="col-md-4 control-label">
               <xed:output i18n="editor.label.annot" />
@@ -303,7 +303,7 @@
   <xed:template id="cmo_relationListRealization">
       <xed:bind xpath="mei:relationList/mei:relation[@rel='isRealizationOf']">
         <div class="cmo-fieldset-content">
-          <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:work' class="form-group">
+          <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:work' class="form-group">
             <div class="row">
               <label class="col-md-4 control-label">
                 <xed:output i18n="editor.legend.work" />
@@ -340,7 +340,7 @@
       </legend>
       <xed:repeat xpath="mei:relationList/mei:relation[@rel='isEmbodimentOf']" min="1" max="100">
         <div class="cmo-fieldset-content">
-          <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:expression' class="form-group">
+          <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:expression' class="form-group">
             <div class="row">
               <label class="col-md-4 control-label">
                 <xed:output i18n="cmo.relation" />
@@ -378,7 +378,7 @@
       </legend>
       <xed:repeat xpath="mei:expressionList/mei:expression" min="1" max="100">
         <div class="cmo-fieldset-content">
-          <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:expression' class="form-group">
+          <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:expression' class="form-group">
             <div class="row">
               <label class="col-md-4 control-label">
                 <xed:output i18n="cmo.relation" />
@@ -416,7 +416,7 @@
       </legend>
       <xed:repeat xpath="mei:biblList/mei:bibl" min="1" max="100">
         <div class="cmo-fieldset-content">
-          <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:mods' class="form-group">
+          <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:mods' class="form-group">
             <div class="row">
               <label class="col-md-4 control-label">
                 <xed:output i18n="editor.cmo.select.source-mods" />
@@ -460,7 +460,22 @@
       </xed:repeat>
     </xed:bind>
   </xed:template>
-  
+
+
+  <xed:template id="cmo_date_from_source">
+    <cmo:subselectWrapper query='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:source'>
+      <cmo:help-pmud subselect-trigger="true" help-text="{i18n:cmo.help.date}" class="col-md-offset-10" pmud="true"/>
+      <cmo:isoApproxDate xpath="." label="editor.label.normDate" help-text="{i18n:cmo.help.normDate}"/>
+      <cmo:textfield xpath="./@source" label="editor.label.dateSource" placeholder="{i18n:cmo.placeholder.dateSource}"
+                     help-text="{i18n:cmo.help.dateSource}" subselect-target="id" />
+      <cmo:textfield xpath="./@label" label="editor.label.dateLabel" placeholder="{i18n:cmo.placeholder.dateLabel}"
+                     help-text="{i18n:cmo.help.dateLabel}" subselect-target="displayTitle" />
+      <cmo:textfield xpath="." label="editor.label.textDate" placeholder="{i18n:cmo.placeholder.textDate}"
+                     help-text="{i18n:cmo.help.textDate}" />
+      <cmo:selectClassification xpath="./@calendar" label="editor.label.calendar" classification="cmo_calendar"
+                                help-text="{i18n:cmo.help.calendar}" />
+    </cmo:subselectWrapper>
+  </xed:template>
 
   <!-- <date isodate="" from="" to="" notbefore="1997" notafter="1997" calendar="gregorian" label="">1997</date> -->
   <!-- <mei:date calendar="gregorian" type="birth" notbefore="1860" notafter="1860" source="cmo_mods_00000025" label="MA2/III, p. 418"/> -->

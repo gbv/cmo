@@ -608,7 +608,8 @@ refreshBaskedBadge();
 // The input then just can be <input name='personID' data-subselect-target='id' /> <input name='personName' data-subselect-target='solrField2' />
 Array.prototype.slice.call(document.querySelectorAll("[data-subselect]")).forEach((node) => {
     let element = <HTMLElement>node;
-    (<HTMLElement>element.querySelector("[data-subselect-trigger]")).onclick = () => {
+    (<HTMLElement>element.querySelector("[data-subselect-trigger]")).onclick = (e) => {
+        e.preventDefault();
         let query = element.getAttribute("data-subselect");
         subselectTarget = Array.prototype.slice.call(element.querySelectorAll("[data-subselect-target]"));
 

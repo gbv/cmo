@@ -38,12 +38,7 @@
                 </div>
               </legend>
               <xed:repeat xpath="mei:date[@type='birth']" min="1" max="100">
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_pmud" />
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_isoApproxDate" />
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_dateSource" />
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_dateLabel" />
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_textDate" />
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_calendar" />
+                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_date_from_source" />
               </xed:repeat>
             </fieldset>
 
@@ -54,11 +49,7 @@
                 </div>
               </legend>
               <xed:repeat xpath="mei:date[@type='death']" min="1" max="100">
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_pmud" />
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_isoApproxDate" />
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_dateSource" />
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_dateLabel" />
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_calendar" />
+                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_date_from_source" />
               </xed:repeat>
             </fieldset>
 
