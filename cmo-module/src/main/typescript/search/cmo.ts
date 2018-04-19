@@ -561,7 +561,6 @@ StateController.onStateChange((params, selfChange) => {
             if (ctrl != null) {
                 ctrl.enable = true;
 
-
                 if (!selfChange) {
                     ctrl.setSolrQuery(params);
                 }

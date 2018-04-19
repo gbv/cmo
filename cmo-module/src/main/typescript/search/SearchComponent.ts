@@ -98,7 +98,7 @@ export class SearchController {
         return allQueries;
     }
 
-    public setSolrQuery(queries: Array<Array<string>>): void {
+    public setSolrQuery(queries: Array<Array<string>>) {
         let qps = [];
         for (let param of queries) {
             let [ paramName ] = param;

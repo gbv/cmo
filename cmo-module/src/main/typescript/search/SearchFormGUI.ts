@@ -293,6 +293,7 @@ export class SearchGUI {
         }
 
         this.mainSearchInputElement.value = "";
+
         for (let key in kvMap) {
             let value = kvMap[ key ];
 
@@ -314,6 +315,7 @@ export class SearchGUI {
                 }
             }
         }
+
     }
 
     changed = () => {
@@ -557,13 +559,15 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
             }
 
             this.select.innerHTML = this.getOptionHTML(classification);
-            this.select.addEventListener("change", () => {
-                this.changed();
-            });
 
             if (this._resolveHanging != null) {
                 this._resolveHanging();
             }
+            if(this.attached){
+                this.enableChosen();
+            }
+
+            this.resolved = true;
         });
     }
 
@@ -572,6 +576,8 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
     private rootVal: string;
     private _template: string;
     private select: HTMLSelectElement;
+    private resolved:boolean = false;
+    private attached:boolean = false;
 
     private labelElement: HTMLElement;
 
@@ -581,9 +587,19 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
 
     public attach(to: HTMLElement) {
         to.appendChild(this.root);
+        this.attached = true;
+        if(this.resolved){
+            this.enableChosen();
+        }
+    }
+
+    private enableChosen() {
+        window["$"](this.select).chosen({disable_search_threshold: 10, width: "95%"});
+        window["$"](this.select).on('change', ()=>this.changed());
     }
 
     public detach(from: HTMLElement) {
+        this.attached = false;
         from.removeChild(this.root);
     }
 

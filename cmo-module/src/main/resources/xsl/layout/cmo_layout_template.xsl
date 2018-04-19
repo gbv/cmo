@@ -18,6 +18,7 @@
   <xsl:variable name="fontawesome.version" select="'4.7.0'" />
   <xsl:variable name="jquery.version" select="'3.1.1'" />
   <xsl:variable name="jquery.migrate.version" select="'1.4.1'" />
+  <xsl:variable name="chosen.version" select="'1.8.3'" />
   <xsl:variable name="datetimepicker.version" select="'1.7.1'" />
   <xsl:variable name="jquery.table.sort.version" select="'2.25.4'" />
   <xsl:variable name="system.js.version" select="'0.19.3'" />
@@ -45,9 +46,11 @@
 
         <link href="{$WebApplicationBaseURL}rsc/sass/scss/bootstrap-cmo.css" rel="stylesheet" />
         <link href="{$WebApplicationBaseURL}webjars/tablesorter/{$jquery.table.sort.version}/css/theme.default.css" rel="stylesheet" />
+        <link href="{$WebApplicationBaseURL}webjars/chosen-js/{$chosen.version}/chosen.min.css" rel="stylesheet" />
 
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery/{$jquery.version}/jquery.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery-migrate/{$jquery.migrate.version}/jquery-migrate.min.js"></script>
+        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/chosen-js/{$chosen.version}/chosen.jquery.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/systemjs/{$system.js.version}/dist/system.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/tablesorter/{$jquery.table.sort.version}/js/jquery.tablesorter.js" async="true"></script>
 

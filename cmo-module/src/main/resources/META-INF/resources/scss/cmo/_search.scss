@@ -218,3 +218,29 @@
     padding: 5px;
   }
 }
+
+.row {
+
+  .chosen-single {
+    background: none !important;
+  }
+
+  .chosen-container-single a.chosen-single,
+  .chosen-container-multi ul.chosen-choices{min-height: 34px; padding-top: 4px; padding-left: 1em;}
+  .chosen-container-multi ul.chosen-choices{border: 1px solid #ccc; border-radius: 4px; }
+  .chosen-container b{background-position: 0px 6px !important; }
+  .chosen-with-drop b{background-position: -18px 6px !important; }
+}
+
+.input-group {
+  >div.chosen-container-single:not(:last-child) a.chosen-single,
+  >div.chosen-container-multi:not(:last-child) ul.chosen-choices{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  >div.chosen-container-single:not(:nth-child(2)) a.chosen-single,
+  >div.chosen-container-multi:not(:nth-child(2)) ul.chosen-choices{ /* the original select will be the first-child regardless so not first visible */
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
