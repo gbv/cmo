@@ -167,17 +167,19 @@
                       <xsl:attribute name="title"><xsl:value-of select="$isoDate" /></xsl:attribute>
                       <xsl:value-of select="$displayDate" />
                     </time>
-                    <xsl:text> (</xsl:text>
-                    <xsl:value-of select="@calendar" />
-                    <xsl:text>; </xsl:text>
-                    <xsl:value-of select="i18n:translate('cmo.see')" />
-                    <xsl:text> </xsl:text>
-                    <xsl:call-template name="objectLink">
-                      <xsl:with-param select="@source" name="obj_id" />
-                    </xsl:call-template>
-                    <xsl:text> - </xsl:text>
-                    <xsl:value-of select="@label" />
-                    <xsl:text>)</xsl:text>
+                    <xsl:if test="@calendar and @source and @label">
+                      <xsl:text> (</xsl:text>
+                      <xsl:value-of select="@calendar" />
+                      <xsl:text>; </xsl:text>
+                      <xsl:value-of select="i18n:translate('cmo.see')" />
+                      <xsl:text> </xsl:text>
+                      <xsl:call-template name="objectLink">
+                        <xsl:with-param select="@source" name="obj_id" />
+                      </xsl:call-template>
+                      <xsl:text> - </xsl:text>
+                      <xsl:value-of select="@label" />
+                      <xsl:text>)</xsl:text>
+                    </xsl:if>
                   </li>
                 </xsl:for-each>
               </ul>

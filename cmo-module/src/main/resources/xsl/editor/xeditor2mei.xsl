@@ -13,14 +13,14 @@
   <xsl:template match="mei:date">
     <xsl:copy>
       <xsl:choose>
-        <xsl:when test="@approx">
-          <xsl:apply-templates select="@notbefore|@notafter|@calendar|@label|node()" />
+        <xsl:when test="@approx='true'">
+          <xsl:apply-templates select="@type|@source|@notbefore|@notafter|@calendar|@label|node()" />
         </xsl:when>
-        <xsl:when test="@range">
-          <xsl:apply-templates select="@startdate|@enddate|@calendar|@label|node()" />
+        <xsl:when test="@range='true'">
+          <xsl:apply-templates select="@type|@source|@startdate|@enddate|@calendar|@label|node()" />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates select="@isodate|@calendar|@label|node()" />
+          <xsl:apply-templates select="@type|@source|@isodate|@calendar|@label|node()" />
         </xsl:otherwise>
       </xsl:choose>
 

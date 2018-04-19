@@ -535,6 +535,7 @@
   <xed:template id="cleanup-rules">
     <xed:cleanup-rule xpath="//mei:title" relevant-if="string-length(text())&gt;0" />
     <xed:cleanup-rule xpath="//mei:biblScope" relevant-if="string(length)&gt;0" />
+    <xed:cleanup-rule xpath="//mei:identifier " relevant-if="string(length)&gt;0" />
     <xed:cleanup-rule xpath="//mei:seriesStmt" relevant-if="count(*)&gt;0" />
 
     <xed:cleanup-rule xpath="//mei:language"
@@ -551,6 +552,7 @@
     <xed:cleanup-rule xpath="//mei:relationList" relevant-if="string-length(mei:relation/@target)&gt;0" />
 
     <xed:cleanup-rule xpath="//mei:incip" relevant-if="count(mei:incipText/*)&gt;0" />
+    <xed:cleanup-rule xpath="//mei:date" relevant-if="@notbefore or @notafter or @startdate or @enddate or @isodate or string-length(text())&gt;0" />
   </xed:template>
 
 </xed:template>
