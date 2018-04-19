@@ -234,7 +234,6 @@ export class SearchGUI {
         let kvMap = {};
 
         let bqMap = this.nameBaseQueryMap;
-        this._wasExtendedSearchOpen=true;
 
         let process = (queryParts) => {
             for (let queryPart of queryParts) {
@@ -285,6 +284,7 @@ export class SearchGUI {
 
             if (isMatching) {
                 if (this.typeSelect.value !== name) {
+                    this._wasExtendedSearchOpen=true;
                     this.typeSelect.value = name;
                     this.typeChanged(false);
                 }

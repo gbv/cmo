@@ -44,7 +44,7 @@ let facet = new SearchFacetController(sideBar, translationMap,
     });
 
 const eSearchBaseQuery = "category.top:\"cmo_kindOfData:edition\"";
-const kSearchBaseQuery = "(category.top:\"cmo_kindOfData:source\" OR objectType:person)";
+const kSearchBaseQuery = "(category.top:\"cmo_kindOfData:source\" OR cmoType:person)";
 
 const eSearch = new SearchController(eContainer, facet, "cmo.edition.search", eSearchBaseQuery);
 const kSearch = new SearchController(kContainer, facet, "cmo.catalog.search", kSearchBaseQuery);
