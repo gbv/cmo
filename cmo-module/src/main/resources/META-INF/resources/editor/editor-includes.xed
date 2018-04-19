@@ -115,6 +115,11 @@
                    required-text="{i18n:cmo.validation.identifier}" />
   </xed:template>
   
+  <xed:template id="cmo_identifierRISM">
+    <cmo:textfield xpath="mei:identifier[@type='RISM']" label="editor.label.identifier.RISM"
+                   help-text="{i18n:cmo.help.identifier.RISM}"/>
+  </xed:template>
+  
   <xed:template id="cmo_identifierGND">
     <cmo:textfield xpath="mei:identifier[@type='GND']" label="editor.label.identifier.GND"
                    help-text="{i18n:cmo.help.gnd}" />
