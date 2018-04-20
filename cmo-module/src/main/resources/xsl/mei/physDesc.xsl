@@ -28,7 +28,6 @@
   xmlns:mei="http://www.music-encoding.org/ns/mei"
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
-  <!-- TODO: display this -->
   <xsl:template match="mei:physDesc" mode="metadataView">
     <xsl:comment>mei/physDesc.xsl > mei:physDesc</xsl:comment>
     <xsl:call-template name="metadataLabelContent">
@@ -36,11 +35,11 @@
       <xsl:with-param name="content">
         <dl>
           <xsl:if test="mei:dimensions">
-            <dt>Dimensions:</dt>
+            <dt><xsl:value-of select="concat(i18n:translate('editor.label.dimensions'), ':'" /></dt>
             <dd><xsl:value-of select="mei:dimensions" /></dd>
           </xsl:if>
           <xsl:if test="mei:extent">
-            <dt>Extent:</dt>
+            <dt><xsl:value-of select="concat(i18n:translate('editor.label.dimensions'), ':'" /></dt>
             <dd><xsl:value-of select="mei:extent" /></dd>
           </xsl:if>
           <!-- xsl:if test="mei:script">
@@ -48,7 +47,7 @@
             <dd><xsl:value-of select="mei:script" /></dd>
           </xsl:if -->
           <xsl:if test="mei:physMedium">
-            <dt>Used materials:</dt>
+            <dt><xsl:value-of select="concat(i18n:translate('editor.label.physMedium'), ':'" /></dt>
             <dd>
               <ul class="list-unstyled">
                 <xsl:for-each select="mei:physMedium">

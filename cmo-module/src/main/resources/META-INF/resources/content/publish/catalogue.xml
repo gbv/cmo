@@ -29,13 +29,13 @@
           <h2><small>Sources</small></h2>
           <ul>
             <li class="row">
-              <a href="../../editor/source.xed?type=print">
+              <a href="../../editor/print.xed">
                 <span class="col-xs-2"><img src="../images/publish_icons/print.png" alt="print symbol" /></span>
                 <span class="col-xs-9">Print</span>
               </a>
             </li>
             <li class="row">
-              <a href="../../editor/source.xed?type=manuscript">
+              <a href="../../editor/manuscript.xed">
                 <span class="col-xs-2"><img src="../images/publish_icons/manuscript.png" alt="manuscript symbol" /></span>
                 <span class="col-xs-9">Manuscript</span>
               </a>
