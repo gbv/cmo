@@ -35,11 +35,11 @@
       <xsl:with-param name="content">
         <dl>
           <xsl:if test="mei:dimensions">
-            <dt><xsl:value-of select="concat(i18n:translate('editor.label.dimensions'), ':'" /></dt>
+            <dt><xsl:value-of select="concat(i18n:translate('editor.label.dimensions'), ':')" /></dt>
             <dd><xsl:value-of select="mei:dimensions" /></dd>
           </xsl:if>
           <xsl:if test="mei:extent">
-            <dt><xsl:value-of select="concat(i18n:translate('editor.label.dimensions'), ':'" /></dt>
+            <dt><xsl:value-of select="concat(i18n:translate('editor.label.extent'), ':')" /></dt>
             <dd><xsl:value-of select="mei:extent" /></dd>
           </xsl:if>
           <!-- xsl:if test="mei:script">
@@ -47,9 +47,9 @@
             <dd><xsl:value-of select="mei:script" /></dd>
           </xsl:if -->
           <xsl:if test="mei:physMedium">
-            <dt><xsl:value-of select="concat(i18n:translate('editor.label.physMedium'), ':'" /></dt>
+            <dt><xsl:value-of select="concat(i18n:translate('editor.label.physMedium'), ':')" /></dt>
             <dd>
-              <ul class="list-unstyled">
+              <ul class="list-unstyled cmo_physMedium">
                 <xsl:for-each select="mei:physMedium">
                   <li><xsl:value-of select="concat(@label, ': ', .)" /></li>
                 </xsl:for-each>

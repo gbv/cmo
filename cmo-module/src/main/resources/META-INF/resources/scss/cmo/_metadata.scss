@@ -39,6 +39,10 @@ table > tbody > tr.cmo_noBorder > td, table > tbody > tr.cmo_noBorder > th {
   float: right;
 }
 
+.cmo_physMedium li {
+  margin-bottom: 5px;
+}
+
 span.standardized:before {
   content: '[';
 }
