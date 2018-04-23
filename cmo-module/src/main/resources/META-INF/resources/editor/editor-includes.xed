@@ -7,28 +7,14 @@
 
 
   <xed:template id="in.out">
-    <xed:source uri="xslStyle:mycoreobject-editor,mcrobject:{$id}" />
-    <xed:cancel
-      url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}?XSL.Status.Message=cmo.editstatus.canceled&amp;XSL.Status.Style=danger" />
-    <xed:cancel url="{$cancelUrl}?XSL.Status.Message=cmo.editstatus.canceled&amp;XSL.Status.Style=danger" />
-    <xed:cancel url="../index.html?XSL.Status.Message=cmo.editstatus.canceled&amp;XSL.Status.Style=danger" />
-    <!-- xed:post-processor xsl="editor/xeditor2mods.xsl" / -->
+      <xed:source uri="xslStyle:mycoreobject-editor,editor/mei2xeditor:mcrobject:{$id}" />
+      <xed:cancel url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}" />
+      <xed:cancel url="{$cancelUrl}" />
+      <xed:cancel url="../content/index.xml" />
+      <xed:post-processor class="org.mycore.mei.MEIPostProcessor" xsl="editor/xeditor2mei.xsl" />
   </xed:template>
 
   <xed:template id="mycore.common">
-    <!-- This should be only relevant if the object should copied
-    <xed:choose>
-      <xed:when test="string-length($origin) &gt; 0">
-        <xed:bind xpath="@ID" initially="{$origin}_mods_00000000" />
-      </xed:when>
-      <xed:when test="xed:call-java('org.mycore.common.xml.MCRXMLFunctions','getCurrentUserAttribute','origin')">
-        <xed:bind xpath="@ID"
-                  initially="{xed:call-java('org.mycore.common.xml.MCRXMLFunctions','getCurrentUserAttribute','origin')}_mods_00000000" />
-      </xed:when>
-      <xed:otherwise>
-        <xed:bind xpath="@ID" initially="{$MIR.projectid.default}_mods_00000000" />
-      </xed:otherwise>
-    </xed:choose>-->
     <input type="hidden" name="XSL.Status.Message" value="cmo.editstatus.success" />
     <input type="hidden" name="XSL.Status.Style" value="success" />
     <script type="text/javascript" src="{$WebApplicationBaseURL}js/cmo_editor.js"></script>
@@ -216,7 +202,8 @@
   </xed:template>
 
   <xed:template id="cmo_eventDesc">
-    <!-- >cmo:textarea xpath="mei:desc" label="editor.label.eventDesc" help-text="{i18n:cmo.help.eventDesc}"
+    <!-- TODO: bring description with links to work -->
+    <!-- cmo:textarea xpath="mei:desc" label="editor.label.eventDesc" help-text="{i18n:cmo.help.eventDesc}"
                   rows="5" / -->
     <xed:repeat xpath="mei:desc" min="1" max="5">
     <div class="form-group">
@@ -287,14 +274,14 @@
   </xed:template>
 
   <xed:template id="cmo_usuler">
-    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_usuler']"
-                              label="editor.search.usuler"
+    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_usuler']" repeat="true" min="1"
+                              max="10" label="editor.search.usuler"
                               classification="cmo_usuler" help-text="{i18n:cmo.help.usuler}" />
   </xed:template>
 
   <xed:template id="cmo_makamler">
-    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_makamler']"
-                              label="editor.search.makam"
+    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_makamler']" repeat="true" min="1"
+                              max="10" label="editor.search.makam"
                               classification="cmo_makamler" help-text="{i18n:cmo.help.makamler}" />
   </xed:template>
 
@@ -302,6 +289,12 @@
     <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_musictype']"
                               label="editor.search.musictype"
                               classification="cmo_musictype" help-text="{i18n:cmo.help.musictype}" />
+  </xed:template>
+  
+  <xed:template id="cmo_litform">
+    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_litform']"
+                              label="editor.search.litform"
+                              classification="cmo_litform" help-text="{i18n:cmo.help.litform}" />
   </xed:template>
 
   <xed:template id="cmo_personNameByType">

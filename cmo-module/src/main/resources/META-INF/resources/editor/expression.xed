@@ -6,11 +6,7 @@
     <h1>Create new Expression</h1>
 
     <xed:form id="cmo_xeditor" xmlns:xed="http://www.mycore.de/xeditor" xmlns:mei="http://www.music-encoding.org/ns/mei" method="post" role="form" class="form-horizontal">
-      <xed:source uri="xslStyle:mycoreobject-editor,editor/mei2xeditor:mcrobject:{$id}" />
-      <xed:cancel url="../servlets/MCRLockServlet?action=unlock&amp;id={$id}&amp;url=/receive/{$id}" />
-      <xed:cancel url="{$cancelUrl}" />
-      <xed:cancel url="../content/index.xml" />
-      <xed:post-processor class="org.mycore.mei.MEIPostProcessor" xsl="editor/xeditor2mei.xsl" />
+      <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="in.out" />
 
       <xed:bind xpath="/mycoreobject">
         <xed:bind xpath="@ID" initially="cmo_expression_00000000" />
@@ -39,6 +35,7 @@
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_usuler" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_makamler" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_musictype" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_litform" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_annot" />
 
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_relationListRealization" />
