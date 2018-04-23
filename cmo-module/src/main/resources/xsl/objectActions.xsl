@@ -64,13 +64,13 @@
               <!-- expression component actions -->
               <li role="presentation">
                 <a role="menuitem" tabindex="-1"
-                   href="#action=set-parent&amp;of={$id}&amp;q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20objectType%3Aperson)&amp;fq=cmoType%3Aexpression">
+                   href="#action=set-parent&amp;of={$id}&amp;q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=cmoType%3Aexpression">
                   <xsl:value-of select="i18n:translate('cmo.replace.parent')" />
                 </a>
               </li>
               <li role="presentation">
                 <a role="menuitem" tabindex="-1"
-                   href="#action=add-child&amp;to={$id}&amp;q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20objectType%3Aperson)&amp;fq=cmoType%3Aexpression">
+                   href="#action=add-child&amp;to={$id}&amp;q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=cmoType%3Aexpression">
                   <xsl:value-of select="i18n:translate('cmo.add.child')" />
                 </a>
               </li>
