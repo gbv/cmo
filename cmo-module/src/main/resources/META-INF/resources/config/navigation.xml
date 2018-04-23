@@ -77,11 +77,6 @@
       <label xml:lang="de">Usûl</label>
       <label xml:lang="en">Browse Usûl</label>
     </item>
-    <item href="/content/catalogue/person.xml" type="intern">
-      <label xml:lang="de">Person</label>
-      <label xml:lang="en">Browse Person</label>
-      <label xml:lang="tr">Kişi</label>
-    </item>
     <item href="/content/catalogue/music_type.xml" type="intern">
       <label xml:lang="de">Genre der Musik</label>
       <label xml:lang="en">Browse Genre</label>
