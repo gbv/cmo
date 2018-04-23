@@ -28,21 +28,6 @@
   xmlns:mei="http://www.music-encoding.org/ns/mei"
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
-  <!--
-    <mei:history>
-      <eventList>
-        <event>
-          <head>Creation</head>
-          <persName dbkey="pp-72121066-6">Māndolīn Artīn Efendi</persName>
-          <geogName>Istanbul</geogName>
-          <date notbefore="1868-04-24" notafter="1869-04-12" calendar="hijri">1285</date>
-          <p>The title page bears the inscription ‘Māndolīn Artīn Efendinin noṭa defteridir/1285’ in
-            Arabic script, followed by the initials ‘AR’ in Latin script (in the same hand).</p>
-        </event>
-      </eventList>
-    </mei:history>
-   -->
-
 
   <xsl:template match="mei:history" mode="metadataView">
     <xsl:comment>mei/history.xsl > mei:history</xsl:comment>

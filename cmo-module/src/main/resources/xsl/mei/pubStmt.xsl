@@ -28,7 +28,7 @@
   xmlns:mei="http://www.music-encoding.org/ns/mei"
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
-  <!-- TODO: how to display publisher, pubPlace and Date -->
+
   <xsl:template match="mei:pubStmt" mode="metadataView">
     <xsl:comment>mei/pubStmt.xsl > mei:pubStmt</xsl:comment>
 

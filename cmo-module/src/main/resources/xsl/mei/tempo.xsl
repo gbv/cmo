@@ -28,7 +28,7 @@
   xmlns:mei="http://www.music-encoding.org/ns/mei"
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
-  <!-- TODO: display this -->
+
   <xsl:template match="mei:tempo" mode="metadataView">
     <xsl:comment>mei/tempo.xsl > mei:tempo</xsl:comment>
     <xsl:call-template name="metadataLabelContent">

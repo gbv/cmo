@@ -28,8 +28,7 @@
   xmlns:mei="http://www.music-encoding.org/ns/mei"
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
-  <!-- TODO: how to display publisher, pubPlace and Date -->
-  <!-- TODO: check if we should use type column for type of identifier -->
+
   <xsl:template match="mei:identifier" mode="metadataView">
     <xsl:comment>mei/identifier.xsl > mei:identifier</xsl:comment>
     <xsl:if test="string-length(text()) &gt; 0">

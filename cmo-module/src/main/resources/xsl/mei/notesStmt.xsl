@@ -28,7 +28,7 @@
   xmlns:mei="http://www.music-encoding.org/ns/mei"
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
-  <!-- TODO: display this -->
+
   <xsl:template match="mei:notesStmt | mei:persName" mode="printAnnot">
     <xsl:comment>mei/notesStmt.xsl > mei:notesStmt</xsl:comment>
     <xsl:for-each select="mei:annot">
