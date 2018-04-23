@@ -434,8 +434,8 @@
       </analyzer>
     </fieldType>
 
-   <!-- kind of mcrobjectid, mcrderivateid, fileid -->
-   <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <!-- kind of mcrobjectid, mcrderivateid, fileid -->
+    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
 
 
     <field name="objectKind" type="string" />
@@ -469,7 +469,7 @@
     <field name="fileCategory" type="string" multiValued="true"/>
     <field name="maindoc" type="string" />
     <field name="iviewFile" type="string" />
-  <field name="hasFiles" type="boolean" />
+    <field name="hasFiles" type="boolean" />
 
     <!-- MCRFile related fields -->
     <field name="derivateID" type="string" />
@@ -478,7 +478,7 @@
     <field name="content" type="text_general" stored="false" />
 
     <!-- default search fields -->
-  <field name="allMeta" type="text_tr" multiValued="true" stored="false" />
+    <field name="allMeta" type="text_tr" multiValued="true" stored="false" />
     <field name="search_result_link_text" type="text_de" indexed="false"/>
 
   <field name="cmoType" type="string" stored="true" indexed="true" />
@@ -491,7 +491,7 @@
 
   <!-- mei:incip -->
   <field name="incip" type="text_tr" multiValued="true" />
-  <dynamicField name="incip.*" type="string" multiValued="true" />
+  <dynamicField name="incip.*" type="string" />
 
   <!-- this field is not really used, only to restrict to the simple search of mods or expressions -->
   <field name="complex" type="string" multiValued="false" />

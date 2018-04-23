@@ -11,13 +11,25 @@
         <p>
           Index of incipits from the CMO Catalogue with links to respective data:
         </p>
-        <p>
-          For a suggestion of how an index list might be displayed, see
-          ex. 6. Exact contents of individual lists are still to be decided by
-          the editorial team.
-        </p>
+        <ul id="cmo_incipitList">
+        </ul>
       </div>
     </div>
+  <script>
+    $( document ).ready(function() {
+      $.ajax({
+        type: "GET",
+        url: "../../api/v1/search?q=incip:*&amp;rows=2000&amp;fl=id,%20incip.main,%20incip&amp;sort=incip.main%20asc&amp;wt=json&amp;json.wrf=?",
+        dataType: "jsonp",
+        success: function (data) {
+          $(data.response.docs).each(function(i, doc){
+          var incipitText = (doc['incip.main']  !== undefined) ? doc['incip.main'] : doc['incip'][0];
+            $('#cmo_incipitList').append($('<li></li>')
+              .append('<a href="../../receive/' + doc['id'] + '">' + incipitText + '</a>'));
+          });
+        },
+      });
+    });
+  </script>
   </section>
-
 </MyCoReWebPage>
