@@ -11,13 +11,31 @@
         <p>
           Index of poetic titles from the CMO Catalogue with links to respective data:
         </p>
-        <p>
-          For a suggestion of how an index list might be displayed, see
-          ex. 6. Exact contents of individual lists are still to be decided by
-          the editorial team.
-        </p>
+        <ul id="cmo_titleList">
+        </ul>
       </div>
     </div>
+    <script>
+      <!-- TODO: make sort case insensitive -->
+      $( document ).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "../../api/v1/search?q=objectType:expression&amp;rows=0&amp;facet.field=title.type.alt&amp;facet.query=objectType:expression&amp;facet.sort=index&amp;facet.limit=-1&amp;facet=on&amp;wt=json&amp;json.wrf=?",
+          dataType: "jsonp",
+          success: function (data) {
+            var poetTitle = "";
+            $(data.facet_counts.facet_fields["title.type.alt"]).each(function(i, int){
+              if (i % 2 === 0) {
+                poetTitle = int;
+              }
+              else {
+                $('#cmo_titleList').append($('<li></li>')
+                .append('[ ' + int + ' ] <a href="#">' + poetTitle + '</a>')); <!-- TODO: add incipit search here -->
+              }
+            });
+          },
+        });
+      });
+    </script>
   </section>
-
 </MyCoReWebPage>

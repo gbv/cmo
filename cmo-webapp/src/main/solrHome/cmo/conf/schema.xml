@@ -491,7 +491,8 @@
 
   <!-- mei:incip -->
   <field name="incip" type="text_tr" multiValued="true" />
-  <dynamicField name="incip.*" type="string" />
+  <field name="incip.main" type="string" multiValued="false" />
+  <dynamicField name="incip.*" type="text_tr" />
 
   <!-- this field is not really used, only to restrict to the simple search of mods or expressions -->
   <field name="complex" type="string" multiValued="false" />
@@ -605,7 +606,7 @@
     <field name="mods.part" type="string" multiValued="true" />
     <field name="mods.note" type="text_general" multiValued="true" />
 
-  <dynamicField name="mods.part.*" type="string" />
+    <dynamicField name="mods.part.*" type="string" />
     <dynamicField name="mods.part.order*" type="int" />
     <dynamicField name="mods.relatedItem*" type="string" multiValued="true" />
 
@@ -615,12 +616,14 @@
     <field name="title" type="text_general" multiValued="true" stored="true" />
     <field name="title.lang.de" type="text_de"  multiValued="true" stored="true" />
     <field name="title.lang.en" type="text_en"  multiValued="true" stored="true" />
-  <field name="title.lang.tr" type="text_tr" multiValued="true" stored="true" />
+    <field name="title.lang.tr" type="text_tr" multiValued="true" stored="true" />
     <field name="title.lang.ota-arab" type="text_ar" multiValued="true" stored="true" />
-  <dynamicField name="title.*" type="text_general" multiValued="true" stored="true"/>
-  <field name="displayTitle" type="text_tr" indexed="true" stored="true" multiValued="false" />
-  <field name="displayTitleSort" type="sort_tr" indexed="true" stored="false" multiValued="false" />
-  <copyField source="displayTitle" dest="displayTitleSort" />
+    <field name="title.lang.ota-armn" type="text_ar" multiValued="true" stored="true" /><!-- TODO: change to armn language -->
+    <field name="title.type.alt" type="string" multiValued="false" stored="true" />
+    <dynamicField name="title.*" type="text_tr" multiValued="true" stored="true"/>
+    <field name="displayTitle" type="text_tr" indexed="true" stored="true" multiValued="false" />
+    <field name="displayTitleSort" type="sort_tr" indexed="true" stored="false" multiValued="false" />
+    <copyField source="displayTitle" dest="displayTitleSort" />
 
   <!-- optimize mods title -->
   <copyField source="mods.title.*" dest="mods.title.de.*" />

@@ -15,21 +15,27 @@
         </ul>
       </div>
     </div>
-  <script>
-    $( document ).ready(function() {
-      $.ajax({
-        type: "GET",
-        url: "../../api/v1/search?q=incip:*&amp;rows=2000&amp;fl=id,%20incip.main,%20incip&amp;sort=incip.main%20asc&amp;wt=json&amp;json.wrf=?",
-        dataType: "jsonp",
-        success: function (data) {
-          $(data.response.docs).each(function(i, doc){
-          var incipitText = (doc['incip.main']  !== undefined) ? doc['incip.main'] : doc['incip'][0];
-            $('#cmo_incipitList').append($('<li></li>')
-              .append('<a href="../../receive/' + doc['id'] + '">' + incipitText + '</a>'));
-          });
-        },
+    <script>
+      <!-- TODO: make sort case insensitive -->
+      $( document ).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "../../api/v1/search?q=objectType:expression&amp;rows=0&amp;facet.field=incip.main&amp;facet.query=objectType:expression&amp;facet.sort=index&amp;facet=on&amp;facet.limit=-1&amp;wt=json&amp;json.wrf=?",
+          dataType: "jsonp",
+          success: function (data) {
+            var incipit = "";
+            $(data.facet_counts.facet_fields["incip.main"]).each(function(i, int){
+              if (i % 2 === 0) {
+                incipit = int;
+              }
+              else {
+                $('#cmo_incipitList').append($('<li></li>')
+                  .append('[ ' + int + ' ] <a href="#">' + incipit + '</a>')); <!-- TODO: add incipit search here -->
+              }
+            });
+          },
+        });
       });
-    });
-  </script>
+    </script>
   </section>
 </MyCoReWebPage>
