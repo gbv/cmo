@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE stylesheet [
+    <!ENTITY nbsp  "&#160;" >
+    ]>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
                 xmlns:math="http://exslt.org/math"
                 xmlns:classification="xalan://org.mycore.mei.classification.MCRMEIClassificationSupport"
-                exclude-result-prefixes="xlink mei math classification" version="1.0"
+                xmlns:meiUtil="xalan://org.mycore.mei.MEIUtils"
+                xmlns:exsl="http://exslt.org/common"
+                exclude-result-prefixes="xlink mei math classification meiUtil exsl" version="1.0"
 >
+  <xsl:param name="WebApplicationBaseURL" />
 
   <xsl:include href="copynodes.xsl" />
   <xsl:key name="classentry-by-authority" match="//mei:classification/classEntry" use="@authority" />
@@ -94,11 +100,54 @@
     </mei:classification>
   </xsl:template>
 
-  <xsl:template match="mei:tempo">
-    <xsl:copy>
-      <xsl:apply-templates select="@*" />
-      <xsl:value-of select="substring-after(., 'cmo_tempo:')"/>
-    </xsl:copy>
+  <xsl:template match="mei:desc">
+    <mei:desc>
+      <xsl:call-template name="convertMEIToHTML" />
+    </mei:desc>
+  </xsl:template>
+
+  <xsl:template match="mei:annot">
+    <mei:annot type="{@type}">
+      <xsl:call-template name="convertMEIToHTML" />
+    </mei:annot>
+  </xsl:template>
+
+  <xsl:template name="convertMEIToHTML">
+    <xsl:apply-templates mode="convert" select="meiUtil:decodeDescContent(text())/node()" />
+  </xsl:template>
+
+
+  <xsl:template match="*" mode="convert">
+    <!-- remove elements -->
+  </xsl:template>
+
+  <xsl:template match="text()" mode="convert">
+    <xsl:value-of select="."/>
+  </xsl:template>
+
+  <xsl:template match="br" mode="convert">
+    <mei:lb/>
+  </xsl:template>
+
+  <xsl:template match="a" mode="convert">
+    <xsl:variable name="id" select="substring-after(@href, concat($WebApplicationBaseURL, 'receive/'))" />
+    <xsl:choose>
+      <xsl:when test="contains($id, '_mods_')">
+        <xsl:element name="mei:bibl">
+          <xsl:attribute name="target"><xsl:value-of select="$id"/></xsl:attribute>
+          <xsl:value-of select="text()" />
+        </xsl:element>
+      </xsl:when>
+      <xsl:when test="contains($id, '_source_')">
+        <xsl:element name="mei:ref">
+          <xsl:attribute name="target"><xsl:value-of select="$id"/></xsl:attribute>
+          <xsl:value-of select="text()" />
+        </xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+      </xsl:otherwise>
+    </xsl:choose>
+
   </xsl:template>
 
 </xsl:stylesheet>

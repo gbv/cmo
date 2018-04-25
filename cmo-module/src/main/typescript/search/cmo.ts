@@ -1,9 +1,11 @@
 import {
     CheckboxSearchField,
-    ClassificationSearchField, DateSearchField, SearchController, SearchField,
-
+    ClassificationSearchField,
+    DateSearchField,
+    SearchController,
+    SearchField,
 } from 'search/SearchComponent';
-import {UserInputParser, Utils} from "../other/Utils";
+import {Utils} from "../other/Utils";
 import {SearchDisplay} from "./SearchDisplay";
 import {SearchFacetController} from "./SearchFacet";
 import {StateController} from "./StateController";
@@ -283,7 +285,7 @@ let onQueryChanged = (searchController: SearchController) => {
 
     currentTimeOut = window.setTimeout(() => {
         let [ , action ] = StateController.getState().filter(([ key, value ]) => key == "action")[ 0 ] || [ undefined, undefined ];
-        if (action != "search" && action != "subselect" && action != "set-parent") {
+        if (action != "search" && action != "subselect" && action != "subselect-insert" && action != "set-parent" && action != "add-child") {
             action = "search";
         }
 
@@ -367,6 +369,31 @@ let getResultAction = (params) => {
                 mainContainer.classList.remove("col-lg-9");
 
             };
+        case "subselect-insert":
+
+            return (doc, result, hitOnPage) => {
+                aditionalQuery = null;
+
+                resetJS();
+                ctrl.setInputValue('');
+                ctrl.enable = false;
+                let element = document.querySelector("." + insertClassName);
+
+                subselectTarget.forEach((sst) => {
+                    let fieldValue = doc["id"];
+                    let realValue = (fieldValue instanceof Array) ? fieldValue[0] : fieldValue;
+
+                    element.setAttribute("href", Utils.getBaseURL() + "receive/" + realValue);
+                });
+                subselectTarget = null;
+                window.location.hash = "";
+                sideBar.classList.add("hidden");
+                mainContainer.classList.add("col-md-11");
+                mainContainer.classList.add("col-lg-11");
+                mainContainer.classList.remove("col-md-9");
+                mainContainer.classList.remove("col-lg-9");
+            };
+
         case "set-parent":
             return (doc) => {
                 const child = params.filter(([ key, value ]) => key == "of")[ 0 ][ 1 ];
@@ -521,6 +548,8 @@ StateController.onStateChange((params, selfChange) => {
         case "add-child":
         case "subselect":
         case "set-parent":
+        case "subselect-insert":
+
             sideBar.classList.remove("hidden");
             mainContainer.classList.remove("col-md-11");
             mainContainer.classList.remove("col-lg-11");
@@ -532,6 +561,7 @@ StateController.onStateChange((params, selfChange) => {
                     extra = getAddChildExtra();
                     break;
                 case "subselect":
+                case "subselect-insert":
                     extra = getSubselect();
                     break;
                 case"set-parent":
@@ -622,6 +652,126 @@ Array.prototype.slice.call(document.querySelectorAll("[data-subselect]")).forEac
         }, 1000);
 
 
+    };
+});
+
+let insertClassName = null;
+
+Array.prototype.slice.call(document.querySelectorAll("[data-insert-subselect]")).forEach((node) => {
+    let element = <HTMLElement>node;
+    let trigger = (<HTMLElement>element.querySelector("[data-subselect-trigger]"));
+    let _subselectTarget = <HTMLInputElement>element.querySelector("[data-subselect-target]");
+    const contentEditable = document.createElement("div");
+
+
+
+    contentEditable.setAttribute("contentEditable", "true");
+    contentEditable.style.width = "100%";
+    contentEditable.style.minHeight = "3em";
+    contentEditable.style.display = "inline-block";
+    contentEditable.classList.add("form-control");
+    _subselectTarget.parentElement.insertBefore(contentEditable, _subselectTarget);
+    contentEditable.innerHTML = _subselectTarget.value;
+    _subselectTarget.style.display = "none";
+    Array.prototype.slice.call(contentEditable.querySelectorAll(".inserted")).forEach((linkElement)=>{
+        linkElement.addEventListener("click", () => {
+            window.open(linkElement.getAttribute("href"), '_blank');
+        });
+    });
+
+
+    const disable = () => {
+        trigger.setAttribute("disabled", "true");
+    };
+
+    const enable = () => {
+        trigger.removeAttribute("disabled");
+    };
+
+    disable();
+
+    const config = {
+        subtree: true,
+        attributes: true,
+        childList: true,
+        characterData: true,
+        characterDataOldValue: true
+    };
+
+    let observer: MutationObserver;
+    observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+            if (mutation.type == "childList") {
+                let action = [];
+
+                Array.prototype.slice.call(contentEditable.children)
+                    .filter((child) => {
+                        return !((<HTMLElement>child).classList.contains("inserted")) && child.nodeName.toLocaleLowerCase() !== "br";
+                    } )
+                    .forEach((child) => {
+                        action.push(() => {
+                            contentEditable.replaceChild(document.createTextNode(child.innerText), child);
+                        });
+                    });
+
+
+                observer.disconnect();
+                action.forEach(a => a());
+                observer.observe(contentEditable, config);
+            }
+
+            _subselectTarget.value = contentEditable.innerHTML;
+        });
+    });
+
+
+    observer.observe(contentEditable, config);
+
+
+    const isInTargetNode = function (node) {
+        if (node === contentEditable) {
+            return true;
+        }
+
+        if ("parentNode" in node && node.parentNode != null) {
+            return isInTargetNode(node.parentNode);
+        }
+    };
+
+    contentEditable.addEventListener("mouseup", () => {
+        let selection = window.getSelection();
+
+        if (isInTargetNode(selection.anchorNode) && selection.type === "Range") {
+            enable();
+        } else {
+            disable();
+        }
+    });
+
+
+    trigger.onclick = (e) => {
+        e.preventDefault();
+
+        const rng = Math.random().toString().replace(".", "");
+        const className = insertClassName = "inserted" + rng;
+        let aElement = `<a class='inserted ${className}'>${window.getSelection()}</a>`;
+        document.execCommand("insertHTML", false, aElement);
+
+        let query = element.getAttribute("data-insert-subselect");
+        subselectTarget = [contentEditable];
+
+        let linkElement = document.querySelector("." + className);
+        linkElement.addEventListener("click", () => {
+            window.open(linkElement.getAttribute("href"), '_blank');
+        });
+
+        window.location.hash = `q=${query}&start=0&action=subselect-insert`;
+        window.setTimeout(() => {
+            if (ctrl !== null) {
+                ctrl.openExtendedSearch(true);
+                ctrl.focus()
+            }
+        }, 1000);
     };
 });
 

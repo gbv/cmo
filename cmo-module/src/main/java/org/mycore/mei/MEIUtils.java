@@ -42,6 +42,8 @@
 
 package org.mycore.mei;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -65,13 +67,17 @@ import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.EntityRef;
+import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.Parent;
 import org.jdom2.ProcessingInstruction;
 import org.jdom2.Text;
 import org.jdom2.filter.Filters;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.DOMOutputter;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
+import org.mycore.common.MCRException;
 import org.w3c.dom.Node;
 
 public class MEIUtils {
@@ -357,6 +363,29 @@ public class MEIUtils {
             e.printStackTrace();
         }
         return node.getTextContent();
+    }
+
+    public static String encodeDescContent(Node node) {
+        final String nodeString = getNodeString(node);
+        return getNodeString(node);
+    }
+
+    public static Node decodeDescContent(String node) {
+
+        final byte[] decodedBytesWithRoot = ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+            + "<!DOCTYPE htmlpart [\n"
+            + "    <!ENTITY nbsp  \"&#160;\" >\n"
+            + "    ]><node>" + node + "</node>").replaceAll("<br>", "<br/>").getBytes();
+        try {
+            final Document doc = new SAXBuilder().build(new ByteArrayInputStream(decodedBytesWithRoot));
+            ;
+            final org.w3c.dom.Element root = new DOMOutputter().output(doc.getRootElement());
+            return root;
+
+        } catch (JDOMException | IOException e) {
+            throw new MCRException(e);
+        }
+
     }
 
 }

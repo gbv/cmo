@@ -58,3 +58,7 @@ fieldset {
   margin-left: 1px;
   margin-top: 4px;
 }
+
+.form-control[contenteditable='true']{
+  height: initial;
+}
