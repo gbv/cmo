@@ -77,6 +77,68 @@
     </a>
   </xsl:template>
 
+  <!--
+   cmo:mixedContent
+   label="editor.label.annot"
+   help-text="{i18n:cmo.help.annot}"
+   query='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:source'
+   repeat-buttons="true"
+   type="cmo_annotType"
+   xpath="."
+   />
+  -->
+  <xsl:template match="cmo:mixedContent">
+    <div class="form-group" data-insert-subselect='{@query}'>
+      <div class="row">
+        <label class="col-md-4 control-label form-inline">
+          <xed:output i18n="{@label}"/>
+          <xsl:if test="@type">
+            <xed:text>&#160;</xed:text>
+            <xed:bind xpath="@type">
+              <select class="form-control">
+                <xed:include uri="xslStyle:items2options:classification:editor:1:children:{@type}"/>
+              </select>
+            </xed:bind>
+          </xsl:if>
+        </label>
+        <div class="col-md-6">
+          <xed:bind xpath="{@xpath}">
+            <input type="text" data-subselect-target="id"/>
+          </xed:bind>
+        </div>
+        <div class="col-md-2">
+          <span class="pmud-button" data-subselect-trigger="true">
+            <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover"
+               data-placement="right">
+              <i class="fa fa-search"></i>
+            </a>
+          </span>
+          <xsl:if test="@repeat-buttons = 'true'">
+            <span class="pmud-button">
+              <xed:controls>insert</xed:controls>
+            </span>
+            <span class="pmud-button">
+              <xed:controls>remove</xed:controls>
+            </span>
+            <span class="pmud-button">
+              <xed:controls>up</xed:controls>
+            </span>
+            <span class="pmud-button">
+              <xed:controls>down</xed:controls>
+            </span>
+          </xsl:if>
+          <span class="pmud-button">
+            <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover"
+               data-placement="right"
+               data-content="{@help-text}">
+              <i class="fa fa-info"></i>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </xsl:template>
+
   <xsl:template match="cmo:textarea">
     <xsl:variable name="xed-val-marker">{$xed-validation-marker}</xsl:variable>
     <xsl:choose>

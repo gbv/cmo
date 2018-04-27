@@ -385,13 +385,16 @@ let getResultAction = (params) => {
 
                     element.setAttribute("href", Utils.getBaseURL() + "receive/" + realValue);
                 });
-                subselectTarget = null;
                 window.location.hash = "";
                 sideBar.classList.add("hidden");
                 mainContainer.classList.add("col-md-11");
                 mainContainer.classList.add("col-lg-11");
                 mainContainer.classList.remove("col-md-9");
                 mainContainer.classList.remove("col-lg-9");
+                window.scroll(0, subselectTarget[0].getBoundingClientRect().top-(window.innerHeight/2));
+                subselectTarget = null;
+
+
             };
 
         case "set-parent":
