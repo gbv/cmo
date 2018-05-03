@@ -30,7 +30,7 @@
               }
               else {
                 $('#cmo_titleList').append($('<li></li>')
-                .append('[ ' + int + ' ] <a href="#">' + poetTitle + '</a>')); <!-- TODO: add incipit search here -->
+                .append('[ ' + int + ' ] <a href="#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=title.type.alt%3A%22'+poetTitle+'%22&amp;start=0&amp;action=init_search&amp;sort=score%20desc&amp;rows=10">' + poetTitle + '</a>')); <!-- TODO: add incipit search here -->
               }
             });
           },

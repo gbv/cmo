@@ -572,7 +572,7 @@ StateController.onStateChange((params, selfChange) => {
                     break;
             }
         case "init_search":
-            aditionalQuery = params.filter(([ key ]) => key !== 'q' && key !== 'action' && key !== "sort");
+            aditionalQuery = params.filter(([ key ]) => key !== 'q' && key !== 'action' && key !== "sort" && key !== "rows" && key !== "start");
             if(action == "init_search"){
                 action = "search";
             }

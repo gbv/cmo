@@ -181,8 +181,74 @@
   <xed:template id="cmo_physDescHandList">
     <xed:bind xpath="mei:handList">
       <!-- TODO: <hand xml:lang="tur-latn" medium="Pencil" resp="cmo_person_00000233"> -->
-      <cmo:textfield xpath="mei:hand" lang="iso15924" repeat="true" min="1" max="20" label="editor.label.handList"
-                     help-text="{i18n:cmo.help.handList}" />
+      <!-- <cmo:textfield xpath="mei:hand" lang="" repeat="true" min="1" max="20" label=""
+                      help-text="{i18n:cmo.help.handList}" /> -->
+      <xed:repeat xpath="mei:hand" min="1" max="100">
+        <div class="cmo-fieldset-content">
+          <!-- TODO: should be  objectType:source OR objectType:mods -->
+          <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:person'>
+            <div class="row form-group">
+              <label class="col-md-4 control-label">
+                <xed:output i18n="editor.label.handList"/>
+              </label>
+              <div class="col-md-6">
+              </div>
+              <cmo:help-pmud help-text="{i18n:cmo.help.name.bySource}" pmud="true"/>
+            </div>
+            <div class="row form-group">
+              <label class="col-md-4 control-label">
+                <xed:output i18n="editor.label.material"/>
+              </label>
+              <div class="col-md-6">
+                  <xed:bind xpath="@medium">
+                    <input type="text" placeholder="Pencil"
+                           class="form-control form-control-inline"/>
+                  </xed:bind>
+              </div>
+            </div>
+            <div class="row form-group">
+              <label class="col-md-4 control-label">
+                <xed:output i18n="editor.label.language"/>
+              </label>
+              <div class="col-md-6">
+                <select class="form-control">
+                  <xed:include uri="xslStyle:items2options:classification:editor:1:children:iso15924"/>
+                </select>
+              </div>
+            </div>
+            <div class="row form-group">
+              <label class="col-md-4 control-label">
+                <xed:output i18n="editor.label.respPerson"/>
+              </label>
+              <div class="col-md-6">
+                <div class="form-inline">
+                  <xed:bind xpath="@resp">
+                    <input type="text" placeholder="eg. cmo_source_00000043" data-subselect-target="id"
+                           class="form-control form-control-inline"/>
+                  </xed:bind>
+                  <span class="pmud-button">
+                    <a tabindex="0" class="btn btn-default info-button" role="button"
+                       title="{i18n:cmo.help.sourceSearch}" data-subselect-trigger="">
+                      <i class="fa fa-search"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row form-group">
+              <label class="col-md-4 control-label">
+                <xed:output i18n="editor.label.hand"/>
+              </label>
+              <div class="col-md-6">
+                <xed:bind xpath=".">
+                  <input type="text" placeholder="headings in cursive Armenian script"
+                         class="form-control form-control-inline"/>
+                </xed:bind>
+              </div>
+            </div>
+          </div>
+        </div>
+      </xed:repeat>
     </xed:bind>
   </xed:template>
 
