@@ -46,6 +46,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -127,6 +128,8 @@ public class MEIUtils {
 
     public static final XPathExpression<Element> CHILD_EXTRACT_XPATH = XPathFactory
         .instance().compile(EXTRACT_XPATH_STRING, Filters.element(), null, MEIUtils.MEI_NAMESPACE);
+
+    private static final Set<String> ALLOWED_EMPTY_NODES = Stream.of("lb").collect(Collectors.toSet());
 
     public static void clear(Element root) {
         CMO_BAD_ATTRIBUTES.evaluate(root).forEach(attr -> {
@@ -342,7 +345,7 @@ public class MEIUtils {
             List<Content> elementsToRemove = content.stream().filter(removeNodes)
                 .collect(Collectors.toList());
             elementsToRemove.forEach(((Element) node)::removeContent);
-            return content.size() == 0 && ((Element) node).getAttributes().size() == 0;
+            return content.size() == 0 && ((Element) node).getAttributes().size() == 0 && !ALLOWED_EMPTY_NODES.contains(((Element) node).getName());
         } else if (node instanceof Text) {
             return ((Text) node).getTextTrim().equals("");
         } else if (node instanceof ProcessingInstruction || node instanceof EntityRef) {

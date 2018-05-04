@@ -717,15 +717,15 @@
 
   <xed:template id="cleanup-rules">
     <xed:cleanup-rule xpath="//mei:title" relevant-if="string-length(text())&gt;0" />
-    <xed:cleanup-rule xpath="//mei:biblScope" relevant-if="string(length)&gt;0" />
-    <xed:cleanup-rule xpath="//mei:identifier " relevant-if="string(length)&gt;0" />
+    <xed:cleanup-rule xpath="//mei:biblScope" relevant-if="string-length(text())&gt;0" />
+    <xed:cleanup-rule xpath="//mei:identifier " relevant-if="string-length(text())&gt;0" />
     <xed:cleanup-rule xpath="//mei:seriesStmt" relevant-if="count(*)&gt;0" />
 
     <xed:cleanup-rule xpath="//mei:language"
                       relevant-if="string-length(@authority)&gt;0 and string-length(@xml:id)&gt;0" />
     <xed:cleanup-rule xpath="//mei:langUsage" relevant-if="count(*)&gt;0" />
 
-    <xed:cleanup-rule xpath="//mei:annot" relevant-if="string-length(text())&gt;0" />
+    <xed:cleanup-rule xpath="//mei:annot" relevant-if="string-length(text())&gt;0 or count(*) &gt; 0" />
     <xed:cleanup-rule xpath="//mei:notesStmt" relevant-if="count(*)&gt;0" />
 
     <xed:cleanup-rule xpath="//classEntry" relevant-if="string-length(text())&gt;0" />

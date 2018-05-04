@@ -25,7 +25,7 @@
   xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
   xmlns:acl="xalan://org.mycore.access.MCRAccessManager"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  xmlns:mei="http://www.music-encoding.org/ns/mei"
+  xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xsL="http://www.w3.org/1999/XSL/Transform"
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
 
@@ -43,10 +43,28 @@
           <xsl:value-of select="@type" />
         </xsl:with-param>
         <xsl:with-param name="content">
-          <xsl:call-template name="printAnnot" />
+          <xsl:comment><xsl:value-of select="name(..)" /></xsl:comment>
+          <xsl:choose>
+            <xsl:when test="local-name(..)='persName'">
+              <xsl:call-template name="printAnnot" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="node()" mode="printAnnot" />
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:with-param>
       </xsl:call-template>
     </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="mei:ref" mode="printAnnot">
+    <a href="{$WebApplicationBaseURL}receive/{@target}">
+      <xsl:apply-templates select="text()" mode="printAnnot" />
+    </a>
+  </xsl:template>
+
+  <xsl:template match="mei:lb" mode="printAnnot">
+    <br />
   </xsl:template>
 
   <xsl:template name="printAnnot">
