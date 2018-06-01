@@ -237,7 +237,7 @@
   <!-- TODO: use templates here -->
   <xed:template id="cmo_modsOriginalLink">
     <xed:bind xpath="mods:relatedItem[@type='original']/@xlink:href">
-      <div data-subselect='(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:expression' class="form-group">
+      <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:expression' class="form-group">
         <div class="row">
           <label class="col-md-4 control-label">
             <xed:output i18n="cmo.mods.originalLink" />
