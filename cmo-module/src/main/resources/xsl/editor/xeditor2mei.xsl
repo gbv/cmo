@@ -106,7 +106,7 @@
     </mei:desc>
   </xsl:template>
 
-  <xsl:template match="mei:annot">
+  <xsl:template match="mei:annot[local-name(..) ='person']">
     <mei:annot type="{@type}">
       <xsl:call-template name="convertMEIToHTML" />
     </mei:annot>
