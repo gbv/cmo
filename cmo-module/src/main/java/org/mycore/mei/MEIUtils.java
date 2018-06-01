@@ -78,6 +78,7 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.DOMOutputter;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
+import org.mycore.common.MCRConstants;
 import org.mycore.common.MCRException;
 import org.w3c.dom.Node;
 
@@ -119,10 +120,10 @@ public class MEIUtils {
         .getNamespace("cmo", "http://www.corpus-musicae-ottomanicae.de/ns/cmo");
 
     private static final XPathExpression<Attribute> CMO_BAD_ATTRIBUTES = XPathFactory.instance()
-        .compile(".//@cmo:*|.//@meiversion.num", Filters.attribute(), null, TEI_NAMESPACE, MEI_NAMESPACE, CMO_NAMESPACE);
+        .compile(".//@cmo:*|.//@meiversion.num|@xml:id", Filters.attribute(), null, TEI_NAMESPACE, MEI_NAMESPACE, CMO_NAMESPACE, MCRConstants.MODS_NAMESPACE);
 
     private static final XPathExpression<Element> CMO_BAD_ELEMENTS = XPathFactory.instance()
-        .compile(".//cmo:*", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE, CMO_NAMESPACE);
+        .compile(".//cmo:*|.//mods:identifier[@type='cmo_intern']|.//mei:identifier[@type='cmo_intern']", Filters.element(), null, TEI_NAMESPACE, MEI_NAMESPACE, CMO_NAMESPACE, MCRConstants.MODS_NAMESPACE);
 
     private static final String EXTRACT_XPATH_STRING = "/mei:*/mei:componentGrp/mei:*";
 

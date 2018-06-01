@@ -27,9 +27,6 @@
 
             <xsl:call-template name="metadataContainer">
               <xsl:with-param name="content">
-                <xsl:call-template name="displayIdWithOldLink">
-                  <xsl:with-param name="id" select="//mei:identifier[@type='cmo_intern']/text()" />
-                </xsl:call-template>
                 <xsl:apply-templates select="//mei:persName[mei:name]" mode="metadataView" />
                 <xsl:apply-templates select="//mei:persName/mei:identifier[not(@type='cmo_intern')]" mode="metadataView" />
                 <xsl:if test="//mei:date">

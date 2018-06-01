@@ -43,9 +43,6 @@
 
             <xsl:call-template name="metadataContainer">
               <xsl:with-param name="content">
-                <xsl:call-template name="displayIdWithOldLink">
-                  <xsl:with-param name="id" select="//mei:expression/@xml:id" />
-                </xsl:call-template>
                 <xsl:apply-templates select="//mei:identifier" mode="metadataView" />
                 <xsl:apply-templates select="//mei:titleStmt" mode="metadataView" />
                 <xsl:apply-templates select="//mei:incip" mode="metadataView" />
