@@ -3,7 +3,7 @@
 <xed:template xmlns:xed="http://www.mycore.de/xeditor"
               xmlns:cmo="http://cmo.gbv.de/cmo"
               xmlns:mei="http://www.music-encoding.org/ns/mei"
-              xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+              xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.mycore.de/xeditor">
 
 
   <xed:template id="cmo_modsTitle">
@@ -68,7 +68,53 @@
   </xed:template>
   
   <xed:template id="cmo_modsDateIssued">
-    <cmo:textfield xpath="mods:originInfo[@eventType='publication']/mods:dateIssued[@encoding='w3cdtf']" help-text="{i18n:cmo.help.mods.dateIssued}" label="cmo.mods.dateIssued" />
+    <xsd:bind xpath="mods:originInfo[@eventType='publication']/date">
+      <div class="form-group {$xed-val-marker}">
+        <div class="row">
+          <label class="col-md-4 control-label">
+            <xed:output i18n="cmo.mods.dateIssued"/>
+          </label>
+          <div class="col-md-6">
+            <div class="form-inline" data-toggleDate="true">
+              <xed:bind xpath="@approx" initially="false" default="false">
+                <div class="checkbox">
+                  <label>
+                    <input class="cmo_toggleRange" type="checkbox" value="true"/>
+                    <xed:output i18n="editor.label.rangeDate"/>
+                  </label>
+                </div>
+              </xed:bind>
+              <xed:bind xpath="@iso">
+                <input type="text" placeholder="YYYY-MM-DD" class="cmoIsodate form-control date"/>
+              </xed:bind>
+              <div class="cmoRangeBox" style="display:none;">
+                <div class="input-group form-inline input-daterange">
+                  <xed:bind xpath="@start">
+                    <input type="text" placeholder="YYYY-MM-DD"
+                           class="cmo_startdate form-control cmo_dateInput"/>
+                  </xed:bind>
+                  <label class="input-group-addon">
+                    <xsl:text>-</xsl:text>
+                  </label>
+                  <xed:bind xpath="@end">
+                    <input type="text" placeholder="YYYY-MM-DD"
+                           class="cmo_enddate form-control cmo_dateInput"/>
+                  </xed:bind>
+                </div>
+                <xed:bind xpath="@text">
+                  <input type="text" placeholder="Ca. 1990"
+                         class="cmo_enddate form-control cmo_dateInput"/>
+                </xed:bind>
+              </div>
+            </div>
+          </div>
+          <xsl:call-template name="cmo-required"/>
+        </div>
+      </div>
+    </xsd:bind>
+
+    <cmo:textfield xpath="/mods:dateIssued[@encoding='w3cdtf']" help-text="{i18n:cmo.help.mods.dateIssued}"
+                   label="cmo.mods.dateIssued"/>
   </xed:template>
   
   <xed:template id="cmo_modsExtent">
@@ -277,7 +323,7 @@
 
   <xed:template id="cmo_mods_cleanup-rules">
     <xed:cleanup-rule xpath="//mods:*"
-      relevant-if="(string-length(normalize-space(text())) &gt; 0) or mods:* or cmd:* or (string-length(@xlink:href) &gt; 0) or (string-length(@valueURIxEditor) &gt; 0) or (string-length(@mcr:categId) &gt; 0) or (string-length(@order) &gt; 0)" />
+                      relevant-if="(string-length(normalize-space(text())) &gt; 0) or mods:* or date or(string-length(@xlink:href) &gt; 0) or (string-length(@valueURIxEditor) &gt; 0) or (string-length(@mcr:categId) &gt; 0) or (string-length(@order) &gt; 0)"/>
     <xed:cleanup-rule xpath="//mods:name" relevant-if="(mods:namePart|mods:displayForm) or (string-length(@valueURI) &gt; 0) or (string-length(@valueURIxEditor) &gt; 0)" />
     <xed:cleanup-rule xpath="//mods:name/@authorityURI" relevant-if="(string-length(../@valueURI) &gt; 0) or (string-length(../@valueURIxEditor) &gt; 0)" />
     <xed:cleanup-rule xpath="//mods:topic/@authorityURI" relevant-if="(string-length(../@valueURI) &gt; 0) or (string-length(../@valueURIxEditor) &gt; 0)" />
@@ -288,11 +334,14 @@
     <xed:cleanup-rule xpath="//mods:name/mods:namePart/@type" relevant-if="../@type!='other'" />
     <xed:cleanup-rule xpath="//mods:*/@xlink:type" relevant-if="text()!='simple'" />
     <xed:cleanup-rule xpath="//mods:detail" relevant-if="mods:number|mods:caption|mods:title" />
-    <xed:cleanup-rule xpath="//mods:accessCondition[@type='copyrightMD']" relevant-if="string-length(cmd:copyright/cmd:rights.holder/cmd:name/text()) &gt; 0" />
     <xed:cleanup-rule xpath="//mods:accessCondition[@type='restriction on access']" relevant-if="string-length(text()) &gt; 0" />
     <xed:cleanup-rule xpath="//mods:accessCondition[@type='use and reproduction']" relevant-if="string-length(text()) &gt; 0" />
     <xed:cleanup-rule xpath="//mods:extension[@displayLabel='characteristics']" relevant-if="(string-length(chars/@year) &gt; 0) or (string-length(chars/@refereed) &gt; 0)" />
     <xed:cleanup-rule xpath="//structure/parents" relevant-if="false()" />
+    <xed:cleanup-rule xpath="//date/@iso" relevant-if="string-length(.)&gt;0"/>
+    <xed:cleanup-rule xpath="//date/@start" relevant-if="string-length(.)&gt;0"/>
+    <xed:cleanup-rule xpath="//date/@end" relevant-if="string-length(.)&gt;0"/>
+    <xed:cleanup-rule xpath="//date" relevant-if="@iso|@start|@end"/>
   </xed:template>
 
 </xed:template>

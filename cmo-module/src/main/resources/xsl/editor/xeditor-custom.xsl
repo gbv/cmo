@@ -5,8 +5,9 @@
   xmlns:xed="http://www.mycore.de/xeditor"
   xmlns:xalan="http://xml.apache.org/xalan"
   xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
-  xmlns:transformer="xalan://org.mycore.frontend.xeditor.MCRXEditorTransformer"
-  exclude-result-prefixes="xsl xed xalan i18n transformer">
+                xmlns:cmo="http://cmo.gbv.de/cmo"
+                xmlns:transformer="xalan://org.mycore.frontend.xeditor.MCRXEditorTransformer"
+  exclude-result-prefixes="xsl xed xalan i18n transformer cmo">
 
   <!-- ========== Repeater buttons: <xed:repeat><xed:controls> ========== -->
 

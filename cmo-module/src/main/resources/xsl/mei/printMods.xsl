@@ -26,7 +26,8 @@
   xmlns:acl="xalan://org.mycore.access.MCRAccessManager"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:mods="http://www.loc.gov/mods/v3"
-  exclude-result-prefixes="xalan xlink acl i18n mods" version="1.0">
+  xmlns:dateHelper="xalan://org.mycore.mei.MCRDateHelper"
+  exclude-result-prefixes="xalan xlink acl i18n mods dateHelper" version="1.0">
 
 
   <xsl:template match="mods:identifier[@type='CMO']" mode="metadataView">
@@ -118,25 +119,45 @@
     <xsl:call-template name="metadataLabelContent">
       <xsl:with-param name="label" select="'editor.label.publishingDate'" />
       <xsl:with-param name="content">
-        <xsl:choose>
-          <xsl:when test="//mods:originInfo[@eventType='publication']/mods:dateIssued[@qualifier='approximate'] and 
-                          //mods:originInfo[@eventType='publication']/mods:dateIssued[@point='start'] and
-                          //mods:originInfo[@eventType='publication']/mods:dateIssued[@point='end']">
-            <span>
-              <xsl:attribute name="title">
-                <xsl:value-of select="//mods:originInfo[@eventType='publication']/mods:dateIssued[@point='start']" />
-                <xsl:text> - </xsl:text>
-                <xsl:value-of select="//mods:originInfo[@eventType='publication']/mods:dateIssued[@point='end']" />
+        <xsl:for-each select="//mods:originInfo[@eventType='publication']">
+          <span>
+            <xsl:choose>
+              <xsl:when test="mods:dateIssued[@qualifier='approximate']">
+                <xsl:if test="mods:dateIssued[@point='start'] or mods:dateIssued[@point='end']">
+                  <xsl:attribute name="title">
+                    <xsl:if test="mods:dateIssued[@point='start']">
+                      <xsl:value-of select="mods:dateIssued[@point='start']"/>
+                    </xsl:if>
+                    <xsl:text> - </xsl:text>
+                    <xsl:if test="mods:dateIssued[@point='end']">
+                      <xsl:value-of select="mods:dateIssued[@point='end']"/>
+                    </xsl:if>
               </xsl:attribute>
-              <xsl:value-of select="i18n:translate('cmo.pages.approximate.date')"/>
-              <xsl:text> </xsl:text>
-              <xsl:value-of select="//mods:originInfo[@eventType='publication']/mods:dateIssued[@qualifier='approximate']" />
-            </span>
+                </xsl:if>
+                <xsl:value-of select="i18n:translate('cmo.pages.approximate.date')"/>
+                <xsl:text> </xsl:text>
+                <xsl:value-of select="mods:dateIssued[@qualifier='approximate']"/>
+              </xsl:when>
+              <xsl:when test="mods:dateIssued[@point='start'] and mods:dateIssued[@point='end']">
+                <xsl:value-of select="mods:dateIssued[@point='start']"/>
+                <xsl:text> - </xsl:text>
+                <xsl:value-of select="mods:dateIssued[@point='end']"/>
+              </xsl:when>
+              <xsl:when test="mods:dateIssued[@point='start']">
+                <xsl:value-of select="mods:dateIssued[@point='start']"/>
+                <xsl:text> - </xsl:text>
+                <xsl:value-of select="dateHelper:currentDateAsString()" />
+              </xsl:when>
+              <xsl:when test="mods:dateIssued[@point='end']">
+                <xsl:text> - </xsl:text>
+                <xsl:value-of select="mods:dateIssued[@point='end']"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="//mods:originInfo[@eventType='publication']/mods:dateIssued" />
+            <xsl:value-of select="mods:dateIssued"/>
           </xsl:otherwise>
         </xsl:choose>
+          </span>
+        </xsl:for-each>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>

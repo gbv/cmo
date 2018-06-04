@@ -2,11 +2,12 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mcr="http://www.mycore.org/"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:mods="http://www.loc.gov/mods/v3"
+                xmlns:cmo="http://cmo.gbv.de/cmo"
                 xmlns:mcrmods="xalan://org.mycore.mods.classification.MCRMODSClassificationSupport"
                 xmlns:mcrxml="xalan://org.mycore.common.xml.MCRXMLFunctions"
                 xmlns:mcrdataurl="xalan://org.mycore.datamodel.common.MCRDataURL"
                 xmlns:mcrid="xalan://org.mycore.datamodel.metadata.MCRObjectID" xmlns:exslt="http://exslt.org/common"
-                exclude-result-prefixes="mcrmods mcrid xlink mcr mcrxml mcrdataurl exslt" version="1.0"
+                exclude-result-prefixes="mcrmods mcrid xlink mcr mcrxml mcrdataurl exslt cmo" version="1.0"
 >
 
   <xsl:include href="copynodes.xsl" />
@@ -137,7 +138,33 @@
       </xsl:if>
     </xsl:copy>
   </xsl:template>
-  
+
+  <xsl:template match="date">
+    <xsl:choose>
+      <xsl:when test="@approx = 'true'">
+        <xsl:if test="string-length(@text) &gt; 0 ">
+          <mods:dateIssued qualifier="approximate">
+            <xsl:value-of select="@text"/>
+          </mods:dateIssued>
+        </xsl:if>
+        <xsl:if test="string-length(@start) &gt; 0 ">
+          <mods:dateIssued point="start" encoding="w3cdtf">
+            <xsl:value-of select="@start"/>
+          </mods:dateIssued>
+        </xsl:if>
+        <xsl:if test="string-length(@end) &gt; 0 ">
+          <mods:dateIssued point="end" encoding="w3cdtf">
+            <xsl:value-of select="@end"/>
+          </mods:dateIssued>
+        </xsl:if>
+      </xsl:when>
+      <xsl:otherwise>
+        <mods:dateIssued encoding="w3cdtf">
+          <xsl:value-of select="@iso"/>
+        </mods:dateIssued>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
   
   <!-- In editor, all variants of page numbers are edited in a single text field -->
   <xsl:template match="mods:part/mods:extent[@unit='pages']" xmlns:pages="xalan://org.mycore.mods.MCRMODSPagesHelper">

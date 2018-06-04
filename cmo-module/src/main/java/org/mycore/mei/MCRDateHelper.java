@@ -1,5 +1,6 @@
 package org.mycore.mei;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -7,6 +8,7 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -138,6 +140,10 @@ public class MCRDateHelper {
             return ld1.compareTo(ld2);
         };
 
+    }
+
+    public static String currentDateAsString(){
+        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     }
 
     private static class DateRange {
