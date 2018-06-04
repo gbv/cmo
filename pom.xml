@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.mycore</groupId>
     <artifactId>mycore-parent</artifactId>
-    <version>33-SNAPSHOT</version>
+    <version>37-SNAPSHOT</version>
   </parent>
   <groupId>de.vzg.cmo</groupId>
   <artifactId>cmo-parent</artifactId>
@@ -24,8 +24,8 @@
     <!-- until snapshot matches released version (required for 'mvn changes:changes-check') -->
     <changes.version>2017.01</changes.version>
     <java.target.version>1.8</java.target.version>
-    <jetty.version>9.4.9.v20180320</jetty.version>
-    <mycore.version>2017.07-SNAPSHOT</mycore.version>
+    <jetty.version>9.4.10.v20180503</jetty.version>
+    <mycore.version>2018.06.0-SNAPSHOT</mycore.version>
     <site.suffix />
   </properties>
   <build>
