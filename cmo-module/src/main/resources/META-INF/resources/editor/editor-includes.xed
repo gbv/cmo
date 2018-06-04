@@ -179,11 +179,7 @@
   </xed:template>
   
   <xed:template id="cmo_physDescHandList">
-    <xed:bind xpath="mei:handList">
-      <!-- TODO: <hand xml:lang="tur-latn" medium="Pencil" resp="cmo_person_00000233"> -->
-      <!-- <cmo:textfield xpath="mei:hand" lang="" repeat="true" min="1" max="20" label=""
-                      help-text="{i18n:cmo.help.handList}" /> -->
-      <xed:repeat xpath="mei:hand" min="1" max="100">
+    <xed:repeat xpath="mei:handList/mei:hand" min="1" max="100">
         <div class="cmo-fieldset-content">
           <!-- TODO: should be  objectType:source OR objectType:mods -->
           <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:person'>
@@ -211,9 +207,11 @@
                 <xed:output i18n="editor.label.language"/>
               </label>
               <div class="col-md-6">
-                <select class="form-control">
-                  <xed:include uri="xslStyle:items2options:classification:editor:1:children:iso15924"/>
-                </select>
+                <xed:bind xpath="@xml:lang">
+                  <select class="form-control">
+                    <xed:include uri="xslStyle:items2options:classification:editor:1:children:iso15924"/>
+                  </select>
+                </xed:bind>
               </div>
             </div>
             <div class="row form-group">
@@ -240,16 +238,13 @@
                 <xed:output i18n="editor.label.hand"/>
               </label>
               <div class="col-md-6">
-                <xed:bind xpath=".">
                   <input type="text" placeholder="headings in cursive Armenian script"
                          class="form-control form-control-inline"/>
-                </xed:bind>
               </div>
             </div>
           </div>
         </div>
       </xed:repeat>
-    </xed:bind>
   </xed:template>
 
   <xed:template id="cmo_physDescCondition">
