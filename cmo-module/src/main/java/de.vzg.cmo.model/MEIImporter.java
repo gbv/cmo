@@ -364,7 +364,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                 }
                 wrapper.orderTopLevelElement();
             } else {
-                MEIUtils.removeEmptyNodes(rootElement);
+                MEIWrapper.removeEmptyNodes(rootElement);
             }
 
             MEIUtils.clearCircularDependency(rootElement);
@@ -738,7 +738,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
             SAXBuilder saxBuilder = new SAXBuilder();
             Document document = saxBuilder.build(is);
             LOGGER.info("Read document: {}", meiFilePath.toString());
-            MEIUtils.removeEmptyNodes(document.getRootElement());
+            MEIWrapper.removeEmptyNodes(document.getRootElement());
 
             final ConcurrentHashMap<String, Document> hashMap = chooseType(meiFilePath, document);
             if (hashMap == null) {

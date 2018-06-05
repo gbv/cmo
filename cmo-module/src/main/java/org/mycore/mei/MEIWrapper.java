@@ -29,16 +29,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.naming.OperationNotSupportedException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jdom2.Attribute;
 import org.jdom2.Content;
 import org.jdom2.Element;
+import org.jdom2.EntityRef;
 import org.jdom2.Namespace;
+import org.jdom2.ProcessingInstruction;
+import org.jdom2.Text;
 import org.jdom2.filter.Filters;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
@@ -56,6 +63,8 @@ public abstract class MEIWrapper {
         .compile(".//mei:date", Filters.element(), null, MEI_NAMESPACE);
 
     private static final Logger LOGGER = LogManager.getLogger();
+
+    private static final Set<String> ALLOWED_EMPTY_NODES = Stream.of("lb").collect(Collectors.toSet());
 
     private final Element root;
 
@@ -110,6 +119,80 @@ public abstract class MEIWrapper {
         MCRObjectID objectID = MCRObjectID.getInstance(objectIdString);
         MCRObject object = MCRMetadataManager.retrieveMCRObject(objectID);
         return getWrapper(object);
+    }
+
+    /**
+     * @param node
+     * @return true if the content is empty and can be removed
+     */
+    public static boolean removeEmptyNodes(Content node) {
+        if (node instanceof Element) {
+            Predicate<Content> removeNodes = MEIWrapper::removeEmptyNodes;
+            List<Content> content = ((Element) node).getContent();
+            List<Content> elementsToRemove = content.stream().filter(removeNodes)
+                .collect(Collectors.toList());
+            elementsToRemove.forEach(((Element) node)::removeContent);
+
+            return !isElementRelevant((Element) node);
+        } else if (node instanceof Text) {
+            return ((Text) node).getTextTrim().equals("");
+        } else if (node instanceof ProcessingInstruction || node instanceof EntityRef) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static boolean isElementRelevant(Element element) {
+        final String elementName = element.getName();
+        final Element parentElement = element.getParentElement();
+
+        if (parentElement == null) {
+            return false;
+        }
+
+        if (elementName.equals("head") && parentElement.getChildren().size() <= 1) {
+            // event with only head can be removed
+            return false;
+        }
+
+        if (elementName.equals("geogName") && element.getChildren().size() == 0) {
+            return false;
+        }
+
+        if (elementName.equals("hand") && element.getChildren().size() == 0) {
+            return false;
+        }
+
+        if (elementName.equals("dimensions") && element.getChildren().size() == 0) {
+            return false;
+        }
+
+        final boolean attributesRelevant = element.getAttributes()
+            .stream().anyMatch(MEIWrapper::isAttributeRelevant);
+
+        return attributesRelevant || element.getContent().size()>0 ||  ALLOWED_EMPTY_NODES.contains(elementName);
+    }
+
+    private static boolean isAttributeRelevant(Attribute attribute) {
+        final Element parentElement = attribute.getParent();
+        if (parentElement == null) {
+            return false;
+        }
+
+        if (parentElement.getName().equals("geogName") && attribute.getName().equals("type")) {
+            return false;
+        }
+
+        if (parentElement.getName().equals("corpName") && attribute.getName().equals("type")) {
+            return false;
+        }
+
+        if (parentElement.getName().equals("hand") && attribute.getName().equals("lang")) {
+            return false;
+        }
+
+        return true;
     }
 
     public abstract String getWrappedElementName();
@@ -242,6 +325,6 @@ public abstract class MEIWrapper {
      * Removes all empty elements recursive
      */
     public void removeEmptyElements() {
-        MEIUtils.removeEmptyNodes(this.root);
+        removeEmptyNodes(this.root);
     }
 }

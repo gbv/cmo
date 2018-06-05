@@ -51,7 +51,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -64,15 +63,11 @@ import javax.xml.transform.stream.StreamResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Attribute;
-import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.EntityRef;
 import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.Parent;
-import org.jdom2.ProcessingInstruction;
-import org.jdom2.Text;
 import org.jdom2.filter.Filters;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.DOMOutputter;
@@ -130,7 +125,6 @@ public class MEIUtils {
     public static final XPathExpression<Element> CHILD_EXTRACT_XPATH = XPathFactory
         .instance().compile(EXTRACT_XPATH_STRING, Filters.element(), null, MEIUtils.MEI_NAMESPACE);
 
-    private static final Set<String> ALLOWED_EMPTY_NODES = Stream.of("lb").collect(Collectors.toSet());
 
     public static void clear(Element root) {
         CMO_BAD_ATTRIBUTES.evaluate(root).forEach(attr -> {
@@ -334,26 +328,6 @@ public class MEIUtils {
 
     public static void orderElements(Element root) {
 
-    }
-    /**
-     * @param node
-     * @return true if the content is empty and can be removed
-     */
-    public static boolean removeEmptyNodes(Content node) {
-        if (node instanceof Element) {
-            Predicate<Content> removeNodes = MEIUtils::removeEmptyNodes;
-            List<Content> content = ((Element) node).getContent();
-            List<Content> elementsToRemove = content.stream().filter(removeNodes)
-                .collect(Collectors.toList());
-            elementsToRemove.forEach(((Element) node)::removeContent);
-            return content.size() == 0 && ((Element) node).getAttributes().size() == 0 && !ALLOWED_EMPTY_NODES.contains(((Element) node).getName());
-        } else if (node instanceof Text) {
-            return ((Text) node).getTextTrim().equals("");
-        } else if (node instanceof ProcessingInstruction || node instanceof EntityRef) {
-            return false;
-        }
-
-        return true;
     }
 
     public static String getNodeString(Node node) {
