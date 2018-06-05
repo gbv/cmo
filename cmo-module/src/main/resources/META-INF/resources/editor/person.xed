@@ -22,6 +22,8 @@
               </div>
             </legend>
 
+            <xed:bind xpath="mods:classification[@displayLabel='cmo_kindOfData'][@authorityURI='http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_kindOfData']/@valueURIxEditor"
+                      initially="cmo_kindOfData:source" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_personNameCMO" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_identifierGND" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_personNameByType" />
