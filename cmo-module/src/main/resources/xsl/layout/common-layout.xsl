@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:basket="xalan://org.mycore.frontend.basket.MCRBasketManager" xmlns:mcr="http://www.mycore.org/" xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
-  xmlns:actionmapping="xalan://org.mycore.wfc.actionmapping.MCRURLRetriever" xmlns:mcrver="xalan://org.mycore.common.MCRCoreVersion"
+  xmlns:actionmapping="xalan://org.mycore.wfc.actionmapping.MCRURLRetriever" xmlns:meiUtils="xalan://org.mycore.mei.MEIUtils" xmlns:mcrver="xalan://org.mycore.common.MCRCoreVersion"
   xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions" xmlns:layoutUtils="xalan:///org.mycore.frontend.MCRLayoutUtilities" xmlns:exslt="http://exslt.org/common"
   exclude-result-prefixes="layoutUtils xlink basket actionmapping mcr mcrver mcrxsl i18n exslt">
   <xsl:strip-space elements="*" />
@@ -74,7 +74,9 @@
 
   <!-- ========== Check if given document has <site /> root tag ======================== -->
   <xsl:template match="/*[not(local-name()='site')]">
-    <xsl:message terminate="yes">This is not a site document, fix your properties.</xsl:message>
+
+    <xsl:message terminate="yes">This is not a site document, fix your properties.<xsl:value-of select="meiUtils:getNodeString(.)" /></xsl:message>
+
   </xsl:template>
 
 

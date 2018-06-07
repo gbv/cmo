@@ -55,3 +55,21 @@ span.standardized {
   color: $gray;
   margin-left: 0.5em;
 }
+
+.dragover {
+
+  .file_set, .well {
+    background-color: $btn-info-bg !important;
+
+    .file_name a {
+      color: $btn-info-color !important;
+    }
+  }
+
+  background-color: $btn-info-bg !important;
+  color: $btn-info-color !important;
+}
+
+[data-upload-target].well {
+  text-align: center;
+}

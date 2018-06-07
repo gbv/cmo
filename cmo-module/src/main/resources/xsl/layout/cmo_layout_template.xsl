@@ -53,8 +53,14 @@
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/chosen-js/{$chosen.version}/chosen.jquery.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/systemjs/{$system.js.version}/dist/system.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/tablesorter/{$jquery.table.sort.version}/js/jquery.tablesorter.js" async="true"></script>
+        <script src="{$WebApplicationBaseURL}modules/webtools/upload/js/upload-api.js"></script>
+        <script src="{$WebApplicationBaseURL}modules/webtools/upload/js/upload-gui.js"></script>
+        <link rel="stylesheet" type="text/css" href="{$WebApplicationBaseURL}modules/webtools/upload/css/upload-gui.css" />
 
         <script>
+          window["mycoreUploadSettings"] = {
+            webAppBaseURL:"<xsl:value-of select='$WebApplicationBaseURL' />"
+          };
           window["mcrBaseURL" ] = '<xsl:value-of select="$WebApplicationBaseURL" />';
           window["mcrLanguage" ] = '<xsl:value-of select="$CurrentLang" />';
           System.config({

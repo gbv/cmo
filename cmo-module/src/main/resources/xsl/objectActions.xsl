@@ -55,9 +55,9 @@
                 <xsl:value-of select="i18n:translate('object.editObject')" />
               </a>
             </li>
-            <li role="presentation">
-              <a href="{$ServletsBaseURL}derivate/create{$HttpSession}?id={$id}" role="menuitem" tabindex="-1">
-                <xsl:value-of select="i18n:translate('derivate.addDerivate')" />
+            <li>
+              <a onclick="javascript: $('.drop-to-object-optional').toggle(); window.scrollTo(0, $('.drop-to-object-optional').offset().top-50);">
+                <xsl:value-of select="i18n:translate('cmo.upload.addDerivate')" />
               </a>
             </li>
             <xsl:if test="substring-before(substring-after($id, '_'), '_') = 'expression'">
@@ -357,11 +357,6 @@
             </li>
           </xsl:if -->
           <xsl:if test="key('rights', $deriv)/@write">
-            <li>
-              <a href="{$ServletsBaseURL}derivate/update{$HttpSession}?objectid={$parentObjID}&amp;id={$deriv}{$suffix}" class="option">
-                <xsl:value-of select="i18n:translate('component.mods.metaData.options.addFile')" />
-              </a>
-            </li>
             <li>
               <a href="{$ServletsBaseURL}MCRDisplayHideDerivateServlet?derivate={$deriv}" class="option">
                 <xsl:value-of select="i18n:translate(concat('cmo.derivate.display.', $derivate//derivate/@display))" />

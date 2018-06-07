@@ -284,6 +284,28 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template name="displayUploadBox">
+    <xsl:variable name="objID" select="@ID" />
+    <xsl:if test="acl:checkPermission($objID,'write')">
+        <div data-upload-object="{$objID}" data-upload-target="/">
+          <xsl:choose>
+            <xsl:when test="count(structure/derobjects/derobject)=0">
+              <xsl:attribute name="class">drop-to-object cmo-file-upload-box well</xsl:attribute>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:attribute name="class">drop-to-object-optional cmo-file-upload-box well</xsl:attribute>
+              <xsl:attribute name="style">display:none;</xsl:attribute>
+            </xsl:otherwise>
+          </xsl:choose>
+          <i class="fa fa-upload"></i>
+          <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
+        </div>
+        <script>
+          mycore.upload.enable(document.querySelector(".drop-to-object,.drop-to-object-optional").parentElement);
+        </script>
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template name="displayDerivateSection">
     <xsl:for-each select="structure/derobjects/derobject">
       <xsl:if test="acl:checkPermission(@xlink:href,'read')">
@@ -294,6 +316,16 @@
             </xsl:apply-templates>
           </xsl:with-param>
         </xsl:call-template>
+      </xsl:if>
+      <xsl:if test="acl:checkPermission(@xlink:href, 'write')">
+        <div data-upload-object="{@xlink:href}" data-upload-target="/">
+              <xsl:attribute name="class">drop-to-derivate cmo-file-upload-box well</xsl:attribute>
+          <i class="fa fa-upload"></i>
+          <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
+        </div>
+        <script>
+          mycore.upload.enable(document.querySelector(".drop-to-derivate").parentElement);
+        </script>
       </xsl:if>
     </xsl:for-each>
   </xsl:template>

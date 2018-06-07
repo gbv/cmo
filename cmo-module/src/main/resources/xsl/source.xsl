@@ -37,7 +37,7 @@
             </xsl:call-template>
           </xsl:with-param>
         </xsl:call-template>
-
+        <xsl:call-template name="displayUploadBox" />
         <xsl:call-template name="displayDerivateSection" />
       </xsl:with-param>
     </xsl:call-template>
