@@ -55,11 +55,14 @@
                 <xsl:value-of select="i18n:translate('object.editObject')" />
               </a>
             </li>
-            <li>
-              <a onclick="javascript: $('.drop-to-object-optional').toggle(); window.scrollTo(0, $('.drop-to-object-optional').offset().top-50);">
+            <xsl:variable name="objType" select="substring-before(substring-after($id, '_'), '_')"/>
+            <xsl:if test="contains('expression,source,mods', $objType)">
+              <li>
+              <a onclick="javascript: $('.drop-to-object-optional').toggle(); window.setTimeout(function(){{ window.scrollTo(0, $('.drop-to-object-optional,.drop-to-object').offset().top-50);}}, 100);">
                 <xsl:value-of select="i18n:translate('cmo.upload.addDerivate')" />
               </a>
             </li>
+            </xsl:if>
             <xsl:if test="substring-before(substring-after($id, '_'), '_') = 'expression'">
               <!-- expression component actions -->
               <li role="presentation">

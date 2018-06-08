@@ -57,6 +57,7 @@
         </xsl:call-template>
 
         <xsl:apply-templates select="structure" mode="showViewer" />
+        <xsl:call-template name="displayUploadBox" />
         <xsl:call-template name="displayDerivateSection" />
       </xsl:with-param>
     </xsl:call-template>
