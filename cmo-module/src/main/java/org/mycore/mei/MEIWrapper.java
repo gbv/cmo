@@ -156,15 +156,24 @@ public abstract class MEIWrapper {
             return false;
         }
 
-        if (elementName.equals("geogName") && element.getChildren().size() == 0) {
+        if (elementName.equals("geogName") && element.getContent().size() == 0) {
             return false;
         }
 
-        if (elementName.equals("hand") && element.getChildren().size() == 0) {
+        if (elementName.equals("hand") && element.getContent().size() == 0) {
             return false;
         }
 
-        if (elementName.equals("dimensions") && element.getChildren().size() == 0) {
+        if (elementName.equals("dimensions") && element.getContent().size() == 0) {
+            return false;
+        }
+
+        if (elementName.equals("identifier") && element.getContent().size() == 0) {
+            return false;
+        }
+
+        if(elementName.equals("event") && element.getContent().stream().noneMatch(content-> !content.getCType().equals(
+            Content.CType.Element) ||  !((Element)content).getName().equals("head"))){
             return false;
         }
 
