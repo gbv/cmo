@@ -584,6 +584,12 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
                     List<String> labels = classificationLabelsMap.computeIfAbsent(parent, p -> new ArrayList<String>());
                     labels.add(label);
                     return combined;
+                } else  if(label.isEmpty()){
+                    label = Optional.ofNullable(element.getAttributeValue("classLink", MEIUtils.CMO_NAMESPACE)).orElse("");
+                    if(label.isEmpty()){
+                        return null;
+                    }
+                    return label;
                 }
                 return null;
             }).filter(Objects::nonNull)
