@@ -26,7 +26,9 @@
               </xsl:if>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:call-template name="printStandardizedTerm" />
+              <xsl:for-each select="//mei:expression">
+                <xsl:call-template name="printStandardizedTerm" />
+              </xsl:for-each>
             </xsl:otherwise>
           </xsl:choose>
         </h1>

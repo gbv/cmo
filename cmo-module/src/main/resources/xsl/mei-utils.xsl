@@ -12,13 +12,13 @@
   <!-- standardized term (expression): <Makam> <Music Genre> -->
   <xsl:template name="printStandardizedTerm">
     <xsl:comment>mei-utils.xsl > printStandardizedTerm </xsl:comment>
-    <xsl:if test="//mei:classification[mei:classCode[contains(@authURI,'cmo_makamler')]]">
+    <xsl:if test="mei:classification[mei:classCode[contains(@authURI,'cmo_makamler')]]">
       <xsl:call-template name="printParentClassLabel">
         <xsl:with-param name="classId" select="'cmo_makamler'" />
       </xsl:call-template>
       <xsl:text> </xsl:text>
     </xsl:if>
-    <xsl:if test="//mei:classification[mei:classCode[contains(@authURI,'cmo_musictype')]]">
+    <xsl:if test="mei:classification[mei:classCode[contains(@authURI,'cmo_musictype')]]">
       <xsl:call-template name="printClassLabel">
         <xsl:with-param name="classId" select="'cmo_musictype'" />
       </xsl:call-template>
@@ -30,22 +30,17 @@
        used only, if no title available -->
   <xsl:template name="printStandardizedHitListTitle">
     <xsl:comment>mei-utils.xsl > printStandardizedHitListTitle </xsl:comment>
-    <xsl:if test=".//mei:classification[mei:classCode[contains(@authURI,'cmo_makamler')]]">
+    <xsl:if test="mei:classification[mei:classCode[contains(@authURI,'cmo_makamler')]]">
       <xsl:call-template name="printParentClassLabel">
         <xsl:with-param name="classId" select="'cmo_makamler'" />
       </xsl:call-template>
       <xsl:text> </xsl:text>
     </xsl:if>
-    <xsl:if test=".//mei:classification[mei:classCode[contains(@authURI,'cmo_musictype')]]">
+    <xsl:if test="mei:classification[mei:classCode[contains(@authURI,'cmo_musictype')]]">
       <xsl:call-template name="printClassLabel">
         <xsl:with-param name="classId" select="'cmo_musictype'" />
       </xsl:call-template>
       <xsl:text> </xsl:text>
-    </xsl:if>
-    <xsl:if test=".//mei:classification[mei:classCode[contains(@authURI,'cmo_usuler')]]">
-      <xsl:call-template name="printParentClassLabel">
-        <xsl:with-param name="classId" select="'cmo_usuler'" />
-      </xsl:call-template>
     </xsl:if>
   </xsl:template>
   
@@ -53,18 +48,18 @@
   <!-- prints first category label found for given classification ID -->
   <xsl:template name="printClassLabel">
     <xsl:param name="classId" />
-    <xsl:variable name="classCodeId" select="//mei:classification/mei:classCode[contains(@authURI, $classId)]/@xml:id" />
-    <xsl:if test="//mei:classification/mei:termList[@classcode=concat('#', $classCodeId)]/mei:term">
-      <xsl:value-of select="classification:getClassLabel(//mei:classification/mei:termList[@classcode=concat('#', $classCodeId)]/mei:term)" />
+    <xsl:variable name="classCodeId" select="mei:classification/mei:classCode[contains(@authURI, $classId)]/@xml:id" />
+    <xsl:if test="mei:classification/mei:termList[@classcode=concat('#', $classCodeId)]/mei:term">
+      <xsl:value-of select="classification:getClassLabel(mei:classification/mei:termList[@classcode=concat('#', $classCodeId)]/mei:term)" />
     </xsl:if>
   </xsl:template>
   
   <xsl:template name="printParentClassLabel">
     <xsl:param name="classId" />
-    <xsl:variable name="classCodeId" select="//mei:classification/mei:classCode[contains(@authURI, $classId)]/@xml:id" />
+    <xsl:variable name="classCodeId" select="mei:classification/mei:classCode[contains(@authURI, $classId)]/@xml:id" />
     
-    <xsl:if test="//mei:classification/mei:termList[@classcode=concat('#', $classCodeId)]/mei:term">
-      <xsl:variable name="categId" select="//mei:classification/mei:termList[@classcode=concat('#', $classCodeId)]/mei:term" />
+    <xsl:if test="mei:classification/mei:termList[@classcode=concat('#', $classCodeId)]/mei:term">
+      <xsl:variable name="categId" select="mei:classification/mei:termList[@classcode=concat('#', $classCodeId)]/mei:term" />
       <xsl:variable name="classURI" select="concat('classification:metadata:0:parents:', $classId, ':', $categId)" />
       <xsl:variable name="parentCateg" select="document($classURI)//category[@ID=$categId]/parent::category" />
       <xsl:choose>

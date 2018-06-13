@@ -50,7 +50,9 @@
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="label" select="'editor.label.standardizedTerm'" />
         <xsl:with-param name="content">
-          <xsl:call-template name="printStandardizedTerm" />
+          <xsl:for-each select="..">
+            <xsl:call-template name="printStandardizedTerm"  />
+          </xsl:for-each>
         </xsl:with-param>
       </xsl:call-template>
     </xsl:if>
