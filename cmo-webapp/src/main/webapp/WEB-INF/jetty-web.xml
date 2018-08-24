@@ -4,10 +4,12 @@
     "http://www.eclipse.org/jetty/configure_9_0.dtd">
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
 
+  <!-- currently not working
   <Call name="setAttribute">
     <Arg>org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern</Arg>
     <Arg>.*\/mycore[^/]*\.jar$|.*\/cmo[^/]*\.jar$|.*\/mir[^/]*\.jar$|.*webjars.*|.*\/classes\/.*</Arg>
   </Call>
+-->
 
   <!-- Configure Restricted realm (servlet authentication), else jetty will not start  -->
   <Get name="securityHandler">

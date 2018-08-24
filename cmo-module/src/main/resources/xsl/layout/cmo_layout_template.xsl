@@ -41,7 +41,6 @@
         <link href="{$WebApplicationBaseURL}webjars/font-awesome/{$fontawesome.version}/css/font-awesome.min.css" rel="stylesheet" />
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet" />
-        <link href="{$WebApplicationBaseURL}css/fileupload.css" rel="stylesheet" />
         <link href="{$WebApplicationBaseURL}css/file.css" rel="stylesheet" />
 
         <link href="{$WebApplicationBaseURL}rsc/sass/scss/bootstrap-cmo.css" rel="stylesheet" />

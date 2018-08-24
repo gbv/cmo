@@ -245,8 +245,21 @@
       </xsl:choose>
     </xsl:variable>
     <div class="col-xs-12">
-      <div class="file_set {$fileCss}">
+      <div class="file_set {$fileCss}" data-upload-target="/">
         <xsl:if test="(acl:checkPermission($derId,'writedb') or acl:checkPermission($derId,'deletedb'))">
+          <xsl:attribute name="data-upload-object">
+            <xsl:value-of select="$derId" />
+          </xsl:attribute>
+          <xsl:attribute name="data-upload-target">
+            <xsl:choose>
+              <xsl:when test="@type='directory'">
+                <xsl:value-of select="concat($path, $fileName, '/')" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="$path" />
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
           <div class="options pull-right">
             <div class="btn-group">
               <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">

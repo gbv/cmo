@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.vzg.cmo</groupId>
     <artifactId>cmo-parent</artifactId>
-    <version>2017.01-SNAPSHOT</version>
+    <version>2018.06-SNAPSHOT</version>
   </parent>
   <artifactId>cmo-cli</artifactId>
   <packaging>pom</packaging>
