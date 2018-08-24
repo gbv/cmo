@@ -231,6 +231,11 @@ kSearch.addExtended({
             new CheckboxSearchField("cmo.hasFiles", "{!join from=reference to=id}hasFiles", "true"),
             new CheckboxSearchField("cmo.hasReference", "{!join from=mods.relatedItem to=id}*", "*")
         ]
+    },
+    "work" : {
+        type: "work",
+        baseQuery : [ "objectType:work" ],
+        fields: []
     }
 });
 
