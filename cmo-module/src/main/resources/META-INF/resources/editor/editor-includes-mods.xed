@@ -113,8 +113,8 @@
       </div>
     </xsd:bind>
 
-    <cmo:textfield xpath="/mods:dateIssued[@encoding='w3cdtf']" help-text="{i18n:cmo.help.mods.dateIssued}"
-                   label="cmo.mods.dateIssued"/>
+    <!--<cmo:textfield xpath="/mods:dateIssued[@encoding='w3cdtf']" help-text="{i18n:cmo.help.mods.dateIssued}"
+                   label="cmo.mods.dateIssued"/>-->
   </xed:template>
   
   <xed:template id="cmo_modsExtent">
