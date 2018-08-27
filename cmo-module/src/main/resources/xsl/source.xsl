@@ -78,19 +78,8 @@
       <xsl:text> </xsl:text>
       <xsl:value-of select="mei:titleStmt/mei:title" />
       <xsl:text> </xsl:text>
-      <xsl:if test="count(mei:relationList/mei:relation)&gt;0">
-        <xsl:element name="a">
-          <xsl:attribute name="class">
-            cmo_addToBasket
-          </xsl:attribute>
-          <xsl:attribute name="data-basket">
-            <xsl:apply-templates select="mei:relationList/mei:relation" mode="buildLink"/>
-          </xsl:attribute>
-          <xsl:value-of select="'Add all to Basket!'"/>
-        </xsl:element>
-      </xsl:if>
-
     </xsl:if>
+    <xsl:call-template name="displayBasketOptions"/>
     <ol class="cmo_clear">
       <xsl:for-each select="mei:componentGrp/mei:source">
         <li>
@@ -101,6 +90,19 @@
     </ol>
   </xsl:template>
 
+  <xsl:template name="displayBasketOptions">
+    <xsl:if test="count(mei:relationList/mei:relation)&gt;0">
+      <xsl:element name="a">
+        <xsl:attribute name="class">
+          cmo_addToBasket
+        </xsl:attribute>
+        <xsl:attribute name="data-basket">
+          <xsl:apply-templates select="mei:relationList/mei:relation" mode="buildLink"/>
+        </xsl:attribute>
+        <xsl:value-of select="'Add all to Basket!'"/>
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
   <xsl:template match="mei:relationList/mei:relation" mode="buildLink">
     <xsl:if test="not(position()=1)">
       <xsl:value-of select="','"/>
