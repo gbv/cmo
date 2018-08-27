@@ -187,6 +187,27 @@
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="label" select="'editor.label.contents'" />
         <xsl:with-param name="content">
+          <xsl:element name="a">
+            <xsl:attribute name="class">
+              cmo_addToBasket
+            </xsl:attribute>
+            <xsl:attribute name="data-basket">
+              <xsl:for-each select="child">
+                <xsl:if test="not(position()=1)">
+                  <xsl:value-of select="','"/>
+                </xsl:if>
+                <xsl:value-of select="@xlink:href"/>
+                <xsl:variable name="grandChildren"
+                              select="document(concat('solr:q=parent:', @xlink:href, '&amp;rows=1000&amp;fl=id'))/response/result"/>
+                <xsl:if test="$grandChildren/@numFound &gt; 0">
+                  <xsl:for-each select="$grandChildren/doc">
+                    <xsl:value-of select="concat(',', str[@name='id'])"/>
+                  </xsl:for-each>
+                </xsl:if>
+              </xsl:for-each>
+            </xsl:attribute>
+            <xsl:value-of select="'Add all to Basket!'"/>
+          </xsl:element>
           <ul class="list-unstyled">
             <xsl:for-each select="child">
               <xsl:sort select="@xlink:title" />
