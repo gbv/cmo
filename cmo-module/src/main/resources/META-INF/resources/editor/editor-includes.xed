@@ -179,7 +179,7 @@
   </xed:template>
   
   <xed:template id="cmo_physDescHandList">
-    <xed:repeat xpath="mei:handList/mei:hand" min="1" max="100">
+    <xed:repeat xpath="mei:handList/mei:hand" min="1">
         <div class="cmo-fieldset-content">
           <!-- TODO: should be  objectType:source OR objectType:mods -->
           <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:person'>
@@ -478,7 +478,7 @@
           <xed:output i18n="cmo.relationList" />
         </div>
       </legend>
-      <xed:repeat xpath="mei:relationList/mei:relation[@rel='isEmbodimentOf']" min="1" max="100">
+      <xed:repeat xpath="mei:relationList/mei:relation[@rel='isEmbodimentOf']" min="1">
         <div class="cmo-fieldset-content">
           <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:expression' class="form-group">
             <div class="row">
@@ -516,7 +516,7 @@
           <xed:output i18n="cmo.expressionList" />
         </div>
       </legend>
-      <xed:repeat xpath="mei:expressionList/mei:expression" min="1" max="100">
+      <xed:repeat xpath="mei:expressionList/mei:expression" min="1">
         <div class="cmo-fieldset-content">
           <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:expression' class="form-group">
             <div class="row">
@@ -554,7 +554,7 @@
           <xed:output i18n="editor.label.biblList" />
         </div>
       </legend>
-      <xed:repeat xpath="mei:biblList/mei:bibl" min="1" max="100">
+      <xed:repeat xpath="mei:biblList/mei:bibl" min="1">
         <div class="cmo-fieldset-content">
           <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:mods' class="form-group">
             <div class="row">
@@ -585,7 +585,7 @@
 
   <xed:template id="cmo_componentGrp">
     <xed:bind xpath="mei:componentGrp">
-      <xed:repeat xpath="mei:source" min="1" max="100">
+      <xed:repeat xpath="mei:source" min="1">
         <fieldset class="cmo-fieldset-componentGrp">
           <legend class="cmo-fieldset-legend">
             <div class="col-md-10">
@@ -604,7 +604,7 @@
   <xed:template id="cmo_historyEventList">
           <fieldset>
             <xed:bind xpath="mei:history/mei:eventList">
-              <xed:repeat xpath="mei:event" min="1" max="5">
+              <xed:repeat xpath="mei:event" min="1">
                 <legend>
                   <div class="col-md-10">
                     <xed:output i18n="editor.legend.historyEventList" />
