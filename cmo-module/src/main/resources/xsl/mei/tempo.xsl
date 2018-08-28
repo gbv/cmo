@@ -34,7 +34,7 @@
     <xsl:call-template name="metadataLabelContent">
       <xsl:with-param name="label" select="'editor.label.tempo'" />
       <xsl:with-param name="content">
-        <xsl:value-of select="." />
+        <xsl:value-of select="@label" />
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
