@@ -57,7 +57,7 @@
           <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="cmo_mods_cleanup-rules" />
 
           <!-- extra rule for edition -->
-          <xed:cleanup-rule xpath="//mods:relatedItem" relevant-if="@xlink:href and (string-length(@xlink:href) &gt; 0)" />
+          <!--<xed:cleanup-rule xpath="//mods:relatedItem" relevant-if="not(type='host') or (@xlink:href and (string-length(@xlink:href) &gt; 0))" />-->
         </xed:bind>
       </xed:bind>
     </xed:form>

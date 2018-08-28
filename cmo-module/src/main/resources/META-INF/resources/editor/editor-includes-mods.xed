@@ -2,7 +2,6 @@
 
 <xed:template xmlns:xed="http://www.mycore.de/xeditor"
               xmlns:cmo="http://cmo.gbv.de/cmo"
-              xmlns:mei="http://www.music-encoding.org/ns/mei"
               xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.mycore.de/xeditor">
 
 
@@ -257,15 +256,18 @@
   </xed:template>
 
   <xed:template id="cmo_modsHostTitleLink">
-    <xed:bind xpath="mods:relatedItem[@type='host']/@xlink:href">
+    <xed:repeat xpath="mods:relatedItem[@type='host']" max="1">
       <div data-subselect='category.top:"cmo_kindOfData:edition"' class="form-group">
         <div class="row">
           <label class="col-md-4 control-label">
-            <xed:output i18n="cmo.mods.hostTitle" />
+            <xed:output i18n="cmo.mods.hostTitle"/>
           </label>
           <div class="col-md-6">
             <div class="form-inline">
-              <input type="text" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline {$xed-validation-marker}" />
+              <xed:bind xpath="@xlink:href">
+                <input type="text" data-subselect-target="id" style="width: 70%;"
+                       class="form-control form-control-inline {$xed-validation-marker}"/>
+              </xed:bind>
               <span class="pmud-button">
                 <a tabindex="0" class="btn btn-default info-button" role="button"
                    title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
@@ -274,10 +276,10 @@
               </span>
             </div>
           </div>
-          <cmo:help-pmud help-text="{i18n:cmo.help.mods.hostTitle}" />
+          <cmo:help-pmud help-text="{i18n:cmo.help.mods.hostTitle}" pmud="true"/>
         </div>
       </div>
-    </xed:bind>
+    </xed:repeat>
   </xed:template>
 
   <!-- TODO: use templates here -->
