@@ -205,6 +205,7 @@
     <field name="composer">
       <xsl:value-of select="." />
     </field>
+
     <xsl:if test="@nymref">
       <field name="composer.ref">
         <xsl:value-of select="concat(.,'|',@nymref)" />

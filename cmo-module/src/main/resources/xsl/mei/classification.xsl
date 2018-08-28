@@ -62,7 +62,7 @@
                     <li>
                       <xsl:variable name="classLabel" select="classification:getClassLabel(.)" />
                       <xsl:value-of select="$classLabel" />
-                      <xsl:if test="contains($authURI, 'cmo_makamler') or contains($authURI, 'cmo_usuler')">
+                      <xsl:if test="contains($authURI, 'cmo_makamler') or contains($authURI, 'cmo_usuler') or contains($authURI, 'cmo_musictype')">
                         <xsl:variable name="stdForm" select="classification:getParentClassLabel(.)" />
                         <xsl:if test="not($stdForm = 'Usul') and not($stdForm = 'Makam')">
                           <span class="standardized">
