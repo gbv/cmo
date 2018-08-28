@@ -3,9 +3,7 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:mods="http://www.loc.gov/mods/v3"
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
-                xmlns:mcrxml="xalan://org.mycore.common.xml.MCRXMLFunctions"
                 xmlns:meiDate="xalan://org.mycore.mei.MCRDateHelper"
-                xmlns:meiIndexUtils="xalan://org.mycore.mei.indexing.MEIIndexUtils"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 exclude-result-prefixes="mods mei xlink">
   <xsl:import href="xslImport:solr-document:solr/mei.xsl" />
@@ -207,7 +205,6 @@
     <field name="composer">
       <xsl:value-of select="." />
     </field>
-
     <xsl:if test="@nymref">
       <field name="composer.ref">
         <xsl:value-of select="concat(.,'|',@nymref)" />
@@ -243,6 +240,9 @@
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:author/mei:persName" mode="solrIndex">
+    <field name="author">
+      <xsl:value-of select="." />
+    </field>
     <field name="author.ref">
       <xsl:value-of select="concat(.,'|', @nymref)" />
     </field>
@@ -258,6 +258,9 @@
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:editor/mei:persName" mode="solrIndex">
+    <field name="editor">
+      <xsl:value-of select="."/>
+    </field>
     <field name="editor.ref">
       <xsl:value-of select="concat(.,'|', @nymref)" />
     </field>
