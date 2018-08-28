@@ -307,7 +307,7 @@
 
   <xsl:template name="displayUploadBox">
     <xsl:variable name="objID" select="@ID" />
-    <xsl:if test="acl:checkPermission($objID,'write')">
+    <xsl:if test="acl:checkPermission($objID,'writedb')">
         <div data-upload-object="{$objID}" data-upload-target="/">
           <xsl:choose>
             <xsl:when test="count(structure/derobjects/derobject)=0">
@@ -338,7 +338,7 @@
           </xsl:with-param>
         </xsl:call-template>
       </xsl:if>
-      <xsl:if test="acl:checkPermission(@xlink:href, 'write')">
+      <xsl:if test="acl:checkPermission(@xlink:href, 'writedb')">
         <div data-upload-object="{@xlink:href}" data-upload-target="/">
               <xsl:attribute name="class">drop-to-derivate cmo-file-upload-box well</xsl:attribute>
           <i class="fa fa-upload"></i>
