@@ -40,7 +40,11 @@
           <xsl:if test="position() = 1"><xsl:value-of select="'editor.label.annot'" /></xsl:if>
         </xsl:with-param>
         <xsl:with-param name="type">
-          <xsl:value-of select="@type" />
+          <xsl:variable name="type" select="@type" />
+          <xsl:call-template name="printClassLabel2">
+            <xsl:with-param name="classID" select="'cmo_annotType'" />
+            <xsl:with-param name="categID" select="$type" />
+          </xsl:call-template>
         </xsl:with-param>
         <xsl:with-param name="content">
           <xsl:comment><xsl:value-of select="name(..)" /></xsl:comment>

@@ -78,4 +78,23 @@
     </xsl:if>
   </xsl:template>
 
+
+  <xsl:template name="printClassLabel2">
+    <xsl:param name="classID" />
+    <xsl:param name="categID" />
+    <xsl:variable name="classification" select="document(concat('classification:metadata:all:children:',$classID))/mycoreclass/categories" />
+
+    <xsl:choose>
+      <xsl:when test="$classification//category[@ID=$categID]/label[@xml:lang=$CurrentLang]">
+        <xsl:value-of select="$classification//category[@ID=$categID]/label[@xml:lang=$CurrentLang]/@text" />
+      </xsl:when>
+      <xsl:when test="$classification//category[@ID=$categID]/label[@xml:lang=$DefaultLang]">
+        <xsl:value-of select="$classification//category[@ID=$categID]/label[@xml:lang=$CurrentLang]/@text" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$classification//category[@ID=$categID]/label[1]/@text" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
 </xsl:stylesheet>
