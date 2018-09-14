@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><mycoreobject xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="datamodel-source.xsd" ID="cmo_source_00000054" label="cmo_source_00000054" version="2.0">
+  <structure/>
+  <metadata>
+    <def.meiContainer class="MCRMetaXML" heritable="false" notinherit="true">
+      <meiContainer inherited="0">
+        <mei:source xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:cmo="http://www.corpus-musicae-ottomanicae.de/ns/cmo">
+          <identifier xmlns="http://www.music-encoding.org/ns/mei" type="CMO">MB-Ke</identifier>
+          <titleStmt xmlns="http://www.music-encoding.org/ns/mei">
+            <title type="main">Eražštut‘iwn</title>
+            <title type="desc">or ē hamaṙōt tełekut‘iwn eražštakan skzbanc‘ elewēǰut‘eanc‘ ełanakac‘ ew
+      nšanagrac‘ xazic‘ (1815)</title>
+            <author>
+              <mei:persName nymref="cmo_person_00000413">Bžškean, H. Minas</mei:persName>
+            </author>
+            <editor>K‘erovbean, Aram</editor>
+          </titleStmt>
+          <pubStmt xmlns="http://www.music-encoding.org/ns/mei">
+            <publisher>Girk‘ Hratarakč‘ut‘iwn</publisher>
+            <pubPlace>
+              <geogName>Yerevan</geogName>
+            </pubPlace>
+            <date notbefore="1997" calendar="gregorian" isodate="1997">1997</date>
+          </pubStmt>
+          <langUsage xmlns="http://www.music-encoding.org/ns/mei">
+            <language authority="rfc4646" xml:id="hy">Armenian</language>
+          </langUsage>
+          <contents xmlns="http://www.music-encoding.org/ns/mei">
+            <p>Modern edition of a treatise on music and notation by the Mxit'arist scholar Minas Bžškean
+      (1777-1851), with an introduction and notes by Aram K‘erovbean. The treatise was completed in
+      1812 and is the earliest exposition of the modern system of Armenian notation, or Hampartsum
+      notation (Tr. Hamparsum notası). It was intended to be published in 1815 (the date borne on
+      the original title page), but remained unpublished until the appearance of the present
+      edition. The treatise also contains musical examples, including a peşrev and a saz semâîsi. A
+      manuscript draft and a fair copy (both autographs) are housed in the archive of the Armenian
+      monastery of San Lazzaro, Venice.</p>
+          </contents>
+          <mei:classification>
+            <mei:classCode authURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_sourceType" xml:id="id3b34b0f0"/>
+            <mei:termList classcode="#id3b34b0f0">
+              <mei:term>st-96023048-4</mei:term>
+            </mei:termList>
+            <mei:classCode authURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_kindOfData" xml:id="id4174a1d0"/>
+            <mei:termList classcode="#id4174a1d0">
+              <mei:term>source</mei:term>
+            </mei:termList>
+            <mei:classCode authURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_contentType" xml:id="id19d3771a"/>
+            <mei:termList classcode="#id19d3771a">
+              <mei:term>ct-53694626-6</mei:term>
+            </mei:termList>
+            <mei:classCode authURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_notationType" xml:id="id346972d7"/>
+            <mei:termList classcode="#id346972d7">
+              <mei:term>nt-72034937-3</mei:term>
+            </mei:termList>
+          </mei:classification>
+        </mei:source>
+      </meiContainer>
+    </def.meiContainer>
+  </metadata>
+  <service>
+    <servdates class="MCRMetaISO8601Date">
+      <servdate type="createdate" inherited="0">2018-06-13T13:32:14.797Z</servdate>
+      <servdate type="modifydate" inherited="0">2018-06-13T13:32:14.797Z</servdate>
+    </servdates>
+  </service>
+</mycoreobject>

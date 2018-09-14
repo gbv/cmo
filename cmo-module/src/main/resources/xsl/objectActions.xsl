@@ -10,6 +10,7 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:encoder="xalan://java.net.URLEncoder"
   xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions"
+  xmlns:pi="xalan://org.mycore.pi.frontend.MCRIdentifierXSLUtils"
   exclude-result-prefixes="xalan xlink mcr i18n acl mcrxsl mods mei encoder" version="1.0">
   <xsl:param name="MCR.Users.Superuser.UserName" />
 
@@ -100,10 +101,61 @@
                 </a>
               </li>
             </xsl:if>
+
+            <!-- Register PI -->
+            <xsl:variable name="piServiceInformation" select="pi:getPIServiceInformation($id)" />
+            <xsl:for-each select="$piServiceInformation">
+              <xsl:if test="@permission='true'">
+                <li>
+                  <xsl:if test="@inscribed='true'">
+                    <xsl:attribute name="class">
+                      <xsl:text>disabled</xsl:text>
+                    </xsl:attribute>
+                  </xsl:if>
+
+                  <!-- data-type is just used for translation -->
+                  <a href="#" data-type="{@type}"
+                     data-mycoreID="{$id}"
+                     data-baseURL="{$WebApplicationBaseURL}">
+                    <xsl:if test="@inscribed='false'">
+                      <xsl:attribute name="data-register-pi">
+                        <xsl:value-of select="@id" />
+                      </xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="i18n:translate(concat('component.pi.register.',@id))" />
+                  </a>
+                </li>
+              </xsl:if>
+            </xsl:for-each>
           </xsl:if>
         </ul>
       </div>
 
+    <div class="modal fade" id="modal-pi" tabindex="-1" role="dialog" data-backdrop="static">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" data-i18n="component.pi.register."></h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-2">
+                <i class="fa fa-question-circle"></i>
+              </div>
+              <div class="col-md-10" data-i18n="component.pi.register.modal.text."></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default modal-pi-cancel" data-dismiss="modal">
+              <xsl:value-of select="i18n:translate('component.pi.register.modal.abort')" />
+            </button>
+            <button type="button" class="btn btn-danger" id="modal-pi-add"
+                    data-i18n="component.pi.register.">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </xsl:template>
 

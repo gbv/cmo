@@ -61,6 +61,7 @@
             webAppBaseURL:"<xsl:value-of select='$WebApplicationBaseURL' />"
           };
           window["mcrBaseURL" ] = '<xsl:value-of select="$WebApplicationBaseURL" />';
+          window["webApplicationBaseURL" ] = '<xsl:value-of select="$WebApplicationBaseURL" />';
           window["mcrLanguage" ] = '<xsl:value-of select="$CurrentLang" />';
           System.config({
           baseURL: '<xsl:value-of select="concat($WebApplicationBaseURL, 'js/')" />',
@@ -102,7 +103,8 @@
         </header>
 
         <section>
-            <div class="container-fluid">
+          <xsl:call-template name="print.statusMessage" />
+          <div class="container-fluid">
                 <div class="row">
                     <div id="side_menu_1"
                          class="hidden-xs hidden-sm col-md-3 col-lg-2 text-center">

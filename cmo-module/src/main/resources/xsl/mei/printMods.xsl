@@ -30,9 +30,9 @@
   exclude-result-prefixes="xalan xlink acl i18n mods dateHelper" version="1.0">
 
 
-  <xsl:template match="mods:identifier[@type='CMO']" mode="metadataView">
+  <xsl:template match="mods:identifier" mode="metadataView">
     <xsl:call-template name="metadataLabelContent">
-      <xsl:with-param name="label" select="'editor.label.identifier.CMO'" />
+      <xsl:with-param name="label" select="concat('editor.label.identifier.', @type)" />
       <xsl:with-param name="content">
         <xsl:value-of select="." />
       </xsl:with-param>

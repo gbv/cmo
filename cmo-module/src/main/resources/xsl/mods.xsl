@@ -41,6 +41,7 @@
                 <xsl:apply-templates select="//mods:mods" mode="metadataViewName" />
                 <xsl:apply-templates select="//mods:mods/mods:genre" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:classification[@displayLabel='cmo_editionTypes']" mode="metadataView" />
+                <xsl:apply-templates select="//mods:mods/mods:identifier[not(@type='CMO') and not(@type='cmo_intern')]" mode="metadataView"/>
                 <xsl:apply-templates select="//mods:originInfo[@eventType='publication']/mods:publisher" mode="metadataView" />
                 <xsl:if test="//mods:originInfo[@eventType='publication']/mods:dateIssued">
                   <xsl:call-template name="printDateIssued" />
