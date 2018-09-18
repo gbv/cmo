@@ -727,6 +727,7 @@
     <xed:cleanup-rule xpath="//mei:classification" relevant-if="count(*)&gt;0" />
 
     <xed:cleanup-rule xpath="//mei:termList" relevant-if="string-length(mei:term/text())&gt;0" />
+    <xed:cleanup-rule xpath="//mei:relation" relevant-if="string-length(@target)&gt;0" />
     <xed:cleanup-rule xpath="//mei:relationList" relevant-if="string-length(mei:relation/@target)&gt;0" />
 
     <xed:cleanup-rule xpath="//mei:incip" relevant-if="count(mei:incipText/*)&gt;0" />
