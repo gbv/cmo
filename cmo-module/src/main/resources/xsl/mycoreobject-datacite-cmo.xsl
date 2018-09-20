@@ -2,7 +2,7 @@
 
 <!-- ======================================================================
  Converts MyCoRe/MODS to DataCite Schema, to register metadata for DOIs.
- See http://schema.datacite.org/meta/kernel-3/
+ See http://schema.datacite.org/meta/kernel-4/
  ====================================================================== -->
 
 <xsl:stylesheet version="1.0"
@@ -10,9 +10,10 @@
   xmlns:xalan="http://xml.apache.org/xalan"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:mods="http://www.loc.gov/mods/v3"
+  xmlns:mei="http://www.music-encoding.org/ns/mei"
   xmlns:mcrmods="xalan://org.mycore.mods.classification.MCRMODSClassificationSupport"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://datacite.org/schema/kernel-3"
+  xmlns="http://datacite.org/schema/kernel-4"
   exclude-result-prefixes="xsl xlink mods xalan mcrmods">
 
   <xsl:output method="xml" encoding="UTF-8" indent="yes" xalan:indent-amount="2" />
@@ -23,10 +24,12 @@
 
   <xsl:template match="mycoreobject">
     <xsl:apply-templates select="metadata/def.modsContainer/modsContainer/mods:mods" />
+    <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:source" />
+    <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:expression" />
   </xsl:template>
 
   <xsl:template match="mods:mods">
-    <resource xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
+    <resource xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4.1/metadata.xsd">
       <xsl:call-template name="identifier" />
       <xsl:call-template name="creators" />
       <xsl:call-template name="titles" />
@@ -41,6 +44,28 @@
       <xsl:call-template name="alternateIdentifiers" />
     </resource>
   </xsl:template>
+  
+  <xsl:template match="mei:source">
+    <resource xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4.1/metadata.xsd">
+      <xsl:call-template name="identifier" />
+      <xsl:call-template name="meiCreators" />
+      <xsl:call-template name="meiTitles" />
+      <xsl:call-template name="meiPublisher" />
+      <xsl:apply-templates select="." mode="publicationYear" />
+      <resourceType resourceTypeGeneral="Text">source</resourceType>
+    </resource>
+  </xsl:template>
+  
+  <xsl:template match="mei:expression">
+    <resource xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4.1/metadata.xsd">
+      <xsl:call-template name="identifier" />
+      <xsl:call-template name="meiCreators" />
+      <xsl:call-template name="meiTitles" />
+      <xsl:call-template name="meiPublisher" />
+      <xsl:apply-templates select="." mode="publicationYear" />
+      <resourceType resourceTypeGeneral="Text">expression</resourceType>
+    </resource>
+  </xsl:template>
 
   <!-- ========== identifier (1) ========== -->
 
@@ -50,6 +75,9 @@
         <xsl:when test="mods:identifier[@type='doi']">
           <xsl:apply-templates select="mods:identifier[@type='doi']" mode="identifier" />
         </xsl:when>
+        <xsl:when test="mei:identifier[@type='doi']">
+          <xsl:apply-templates select="mei:identifier[@type='doi']" mode="identifier" />
+        </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="concat('10.5072/dummy.',number(substring-after(substring-after(ancestor::mycoreobject/@ID,'_'),'_')))" />
         </xsl:otherwise>
@@ -57,7 +85,7 @@
     </identifier>
   </xsl:template>
 
-  <xsl:template match="mods:identifier[@type='doi']" mode="identifier">
+  <xsl:template match="mods:identifier[@type='doi']|mei:identifier[@type='doi']" mode="identifier">
     <xsl:choose>
       <xsl:when test="starts-with(text(),'doi:')">
         <xsl:value-of select="substring-after(text(),'doi:')" />
@@ -120,6 +148,12 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template name="meiTitles">
+    <titles>
+      <title xml:lang="en"><xsl:value-of select="mei:identifier[@type='CMO']" /></title>
+    </titles>
+  </xsl:template>
+
   <!-- ========== creators (1-n) ========== -->
 
   <xsl:template name="creators">
@@ -152,6 +186,12 @@
         </creatorName>
       </creator>
     </xsl:if>
+  </xsl:template>
+  
+  <xsl:template name="meiCreators">
+    <creator>
+      <creatorName nameType="organizational">Corpus Musicae Ottomanicae (CMO)</creatorName>
+    </creator>
   </xsl:template>
 
   <!-- ========== publisher (1) ========== -->
@@ -203,6 +243,10 @@
   <xsl:template mode="publisher" match="mods:name">
       <xsl:value-of select="mods:displayForm" />
   </xsl:template>
+  
+  <xsl:template name="meiPublisher">
+    <publisher>Prof. Dr. Ralf Martin Jäger, Westfälische Wilhelms-Universität Münster</publisher>
+  </xsl:template>
 
   <!-- ========== publicationYear (1) ========== -->
 
@@ -229,6 +273,11 @@
     </publicationYear>
   </xsl:template>
 
+  <xsl:template mode="publicationYear" match="mei:*">
+    <publicationYear>
+      <xsl:value-of select="substring(//servdate[@type='createdate'],1,4)" />
+    </publicationYear>
+  </xsl:template>
 
   <!-- ========== contributors (0-n) ========== -->
   <xsl:template name="contributors">
