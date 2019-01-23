@@ -138,15 +138,17 @@
 
   <xsl:template match="mei:tempo">
     <xsl:copy>
-      <xsl:apply-templates select="@*" />
-      <xsl:value-of select="substring-after(., 'cmo_tempo:')"/>
-    </xsl:copy>
-  </xsl:template>
-
-  <xsl:template match="mei:tempo">
-    <xsl:copy>
-      <xsl:apply-templates select="@*" />
-      <xsl:value-of select="concat('cmo_tempo:', .)"/>
+      <xsl:choose>
+        <xsl:when test="@label and string-length(text())=0">
+          <xsl:value-of select="concat('cmo_tempo:', @label)"/>
+        </xsl:when>
+        <xsl:when test="contains(., 'cmo_tempo:') and string-length(text())">
+          <xsl:value-of select="."/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="concat('cmo_tempo:', .)"/>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:copy>
   </xsl:template>
 
