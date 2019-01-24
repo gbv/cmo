@@ -39,7 +39,7 @@
             <xsl:value-of select="@label"/>
           </xsl:when>
           <xsl:when test="contains(., 'cmo_tempo:')">
-            <xsl:value-of select="substring-after(., 'cmo_tempo:')."/>
+            <xsl:value-of select="substring-after(., 'cmo_tempo:')"/>
           </xsl:when>
           <xsl:otherwise>
             <xsl:value-of select="text()"/>
