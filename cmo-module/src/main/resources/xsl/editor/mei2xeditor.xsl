@@ -142,7 +142,7 @@
         <xsl:when test="@label and string-length(text())=0">
           <xsl:value-of select="concat('cmo_tempo:', @label)"/>
         </xsl:when>
-        <xsl:when test="contains(., 'cmo_tempo:') and string-length(text())">
+        <xsl:when test="contains(., 'cmo_tempo:')">
           <xsl:value-of select="."/>
         </xsl:when>
         <xsl:otherwise>
