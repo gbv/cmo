@@ -34,17 +34,7 @@
     <xsl:call-template name="metadataLabelContent">
       <xsl:with-param name="label" select="'editor.label.tempo'" />
       <xsl:with-param name="content">
-        <xsl:choose>
-          <xsl:when test="@label and string-length(text())=0">
-            <xsl:value-of select="@label"/>
-          </xsl:when>
-          <xsl:when test="contains(., 'cmo_tempo:')">
-            <xsl:value-of select="substring-after(., 'cmo_tempo:')"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="text()"/>
-          </xsl:otherwise>
-        </xsl:choose>
+        <xsl:value-of select="text()" />
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>

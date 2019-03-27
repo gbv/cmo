@@ -150,4 +150,15 @@
 
   </xsl:template>
 
+  <xsl:template match="mei:tempo">
+    <xsl:variable name="type" select="substring-before(text(), ':')"/>
+    <xsl:variable name="value" select="substring-after(text(), ':')"/>
+    <xsl:copy>
+      <xsl:attribute name="type">
+        <xsl:value-of select="$type"/>
+      </xsl:attribute>
+      <xsl:value-of select="$value"/>
+    </xsl:copy>
+  </xsl:template>
+
 </xsl:stylesheet>

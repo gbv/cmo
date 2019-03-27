@@ -28,9 +28,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.naming.OperationNotSupportedException;
 
+import org.jdom2.Element;
+import org.jdom2.filter.Filters;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
 import org.mycore.access.MCRAccessException;
 import org.mycore.datamodel.classifications2.MCRCategory;
 import org.mycore.datamodel.classifications2.MCRCategoryDAOFactory;
@@ -40,6 +45,8 @@ import org.mycore.datamodel.metadata.MCRObject;
 import org.mycore.datamodel.metadata.MCRObjectID;
 import org.mycore.frontend.cli.annotation.MCRCommand;
 import org.mycore.frontend.cli.annotation.MCRCommandGroup;
+import org.mycore.mei.MEIExpressionWrapper;
+import org.mycore.mei.MEIUtils;
 import org.mycore.mei.MEIWrapper;
 import org.mycore.mei.classification.MCRMEIAuthorityInfo;
 
@@ -96,6 +103,52 @@ public class MCRCMOImportCommands {
 
         meiWrapper.setClassification(newClassifications);
         MCRMetadataManager.update(object);
+    }
+
+    @MCRCommand(syntax = "clean tempo in {0}")
+    public static void cleanTempo(String mycoreID) throws MCRAccessException {
+        final MCRObjectID objectID = MCRObjectID.getInstance(mycoreID);
+        final MCRObject object = MCRMetadataManager.retrieveMCRObject(objectID);
+
+        if ("expression".equals(objectID.getTypeId())) {
+            final MEIExpressionWrapper expressionWrapper = (MEIExpressionWrapper) MEIWrapper.getWrapper(object);
+            final XPathExpression<Element> tempoXPath = XPathFactory.instance()
+                .compile(".//mei:tempo", Filters.element(), Collections.emptyMap(), MEIUtils.MEI_NAMESPACE);
+
+            AtomicInteger tempoElementsChanged = new AtomicInteger(0);
+            tempoXPath.evaluate(expressionWrapper.getRoot())
+                .stream()
+                .forEach(tempo -> {
+                    final String text = tempo.getText();
+
+                    String newText;
+                    String newType;
+
+                    if (text.contains(":")) {
+                        // assume text is category:id
+                        final String[] vals = text.split(":");
+                        newText = vals[1];
+                        newType = vals[0];
+                    } else if (tempo.getAttributeValue("label") != null) {
+                        // assume label is id
+                        newText = tempo.getAttributeValue("label");
+                        tempo.removeAttribute("label");
+                        newType = "cmo_tempo";
+                    } else {
+                        // assume text is id
+                        newText = text;
+                        newType = "cmo_tempo";
+                    }
+
+                    tempo.setText(newText);
+                    tempo.setAttribute("type", newType);
+                    tempoElementsChanged.incrementAndGet();
+                });
+
+            if (tempoElementsChanged.get() > 0) {
+                MCRMetadataManager.update(object);
+            }
+        }
     }
 
 }
