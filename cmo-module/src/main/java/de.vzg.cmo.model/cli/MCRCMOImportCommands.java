@@ -21,15 +21,29 @@
 
 package de.vzg.cmo.model.cli;
 
-import de.vzg.cmo.model.MEIImporter;
-
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
+import javax.naming.OperationNotSupportedException;
+
+import org.mycore.access.MCRAccessException;
+import org.mycore.datamodel.classifications2.MCRCategory;
+import org.mycore.datamodel.classifications2.MCRCategoryDAOFactory;
+import org.mycore.datamodel.classifications2.MCRCategoryID;
+import org.mycore.datamodel.metadata.MCRMetadataManager;
+import org.mycore.datamodel.metadata.MCRObject;
+import org.mycore.datamodel.metadata.MCRObjectID;
 import org.mycore.frontend.cli.annotation.MCRCommand;
 import org.mycore.frontend.cli.annotation.MCRCommandGroup;
+import org.mycore.mei.MEIWrapper;
+import org.mycore.mei.classification.MCRMEIAuthorityInfo;
+
+import de.vzg.cmo.model.MEIImporter;
 
 @MCRCommandGroup(name = "CMO Commands")
 public class MCRCMOImportCommands {
@@ -49,5 +63,39 @@ public class MCRCMOImportCommands {
         return Collections.emptyList();
     }
 
+    @MCRCommand(syntax = "clean redundant classifications in {0}")
+    public static void cleanRedundantClassification(String mycoreID)
+        throws OperationNotSupportedException, MCRAccessException {
+        final MCRObjectID objectID = MCRObjectID.getInstance(mycoreID);
+        final MCRObject object = MCRMetadataManager.retrieveMCRObject(objectID);
+        final MEIWrapper meiWrapper = MEIWrapper.getWrapper(object);
+
+        final HashMap<MCRMEIAuthorityInfo, List<String>> classifications = meiWrapper.getClassification();
+        final HashMap<MCRMEIAuthorityInfo, List<String>> newClassifications = new HashMap<>();
+
+        classifications.keySet().forEach(classification -> {
+            final List<String> values = classifications.get(classification);
+
+            HashSet<String> keepValues = new HashSet<>(values);
+            values.forEach(categValue -> {
+                MCRCategoryID categoryID = classification.getCategoryID(categValue);
+                if (categoryID != null) {
+                    MCRCategoryDAOFactory.getInstance().getParents(categoryID)
+                        .stream()
+                        .map(MCRCategory::getId)
+                        .map(MCRCategoryID::getID)
+                        .filter(keepValues::contains)
+                        .forEach(keepValues::remove);
+                }
+            });
+
+            if(!keepValues.isEmpty()){
+                newClassifications.put(classification,new ArrayList<>(keepValues));
+            }
+        });
+
+        meiWrapper.setClassification(newClassifications);
+        MCRMetadataManager.update(object);
+    }
 
 }
