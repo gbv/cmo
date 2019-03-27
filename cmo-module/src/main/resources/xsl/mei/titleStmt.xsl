@@ -29,6 +29,16 @@
 
   <xsl:template match="mei:titleStmt" mode="metadataView">
     <xsl:comment>mei/titleStmt.xsl > mei:titleStmt</xsl:comment>
+    <xsl:variable name="titleTypeClass">
+      <xsl:choose>
+        <xsl:when test="count(ancestor::mei:expression)&gt;0">
+          <xsl:value-of select="'cmo_titleTypeExpression'"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="'cmo_titleType'"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
     <xsl:for-each select="mei:title">
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="style">
@@ -40,7 +50,7 @@
         <xsl:with-param name="type">
           <xsl:variable name="type" select="@type" />
           <xsl:call-template name="printClassLabel2">
-            <xsl:with-param name="classID" select="'cmo_titleType'" />
+            <xsl:with-param name="classID" select="$titleTypeClass"/>
             <xsl:with-param name="categID" select="$type" />
           </xsl:call-template>
         </xsl:with-param>
