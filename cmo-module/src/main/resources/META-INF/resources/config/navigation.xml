@@ -70,37 +70,39 @@
       <label xml:lang="en">About</label>
     </item>
     <item href="/content/catalogue/source.xml" type="intern">
-      <label xml:lang="de">Art der Quelle</label>
-      <label xml:lang="en">Browse Source</label>
-      <label xml:lang="tr">Kaynak türü</label>
+      <label xml:lang="de">Blättern nach Quellen-Typ</label>
+      <label xml:lang="en">Browse by source type</label>
+      <label xml:lang="tr">Kaynak türü </label>
     </item>
     <item href="/content/catalogue/makam.xml" type="intern">
-      <label xml:lang="de">Makâm</label>
-      <label xml:lang="en">Browse Makâm</label>
+      <label xml:lang="de">Blättern nach Makâm</label>
+      <label xml:lang="en">Browse by makâm</label>
+      <label xml:lang="tr">Makâm dizini</label>
     </item>
     <item href="/content/catalogue/usul.xml" type="intern">
-      <label xml:lang="de">Usûl</label>
-      <label xml:lang="en">Browse Usûl</label>
+      <label xml:lang="de">Blättern nach Usûl</label>
+      <label xml:lang="en">Browse by usûl</label>
+      <label xml:lang="tr">Usûl dizini</label>
     </item>
     <item href="/content/catalogue/music_type.xml" type="intern">
-      <label xml:lang="de">Genre der Musik</label>
-      <label xml:lang="en">Browse Genre</label>
-      <label xml:lang="tr">Eser türü/formu</label>
+      <label xml:lang="de">Blättern nach Genre</label>
+      <label xml:lang="en">Browse by genre</label>
+      <label xml:lang="tr">Tür/form dizini</label>
     </item>
     <item href="/content/catalogue/literary_form.xml" type="intern">
-      <label xml:lang="de">Literarische Form</label>
-      <label xml:lang="en">Browse Literary Form</label>
-      <label xml:lang="tr">Edebi tür/form</label>
+      <label xml:lang="de">Blättern nach literarischer Form</label>
+      <label xml:lang="en">Browse by literary form</label>
+      <label xml:lang="tr">Edebi form dizini</label>
     </item>
     <item href="/content/catalogue/incipit.xml" type="intern">
-      <label xml:lang="de">Textanfänge</label>
-      <label xml:lang="en">Browse Incipit</label>
-      <label xml:lang="tr">Güfte başlangıcı</label>
+      <label xml:lang="de">Blättern nach Incipit</label>
+      <label xml:lang="en">Browse by incipit</label>
+      <label xml:lang="tr">Güfte dizini</label>
     </item>
     <item href="/content/catalogue/poetic_title.xml" type="intern">
-      <label xml:lang="de">Poetischer Titel</label>
-      <label xml:lang="en">Browse Poetic title</label>
-      <label xml:lang="tr">Eser başlığı</label>
+      <label xml:lang="de">Blättern nach Titel</label>
+      <label xml:lang="en">Browse by title</label>
+      <label xml:lang="tr">Başlık dizini</label>
     </item>
   </menu>
   <menu id="cmo_help" dir="/content/help">

@@ -7,10 +7,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <h1>Browse Poetic Titles</h1>
-        <p>
-          Index of poetic titles from the CMO Catalogue with links to respective data:
-        </p>
+        <h3><i18n key="cmo.browse.poetic_title" /></h3>
         <ul id="cmo_titleList">
         </ul>
       </div>

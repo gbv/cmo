@@ -7,10 +7,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <h1>Browse Incipits</h1>
-        <p>
-          Index of incipits from the CMO Catalogue with links to respective data:
-        </p>
+        <h3><i18n key="cmo.browse.incipit" /></h3>
         <ul id="cmo_incipitList">
         </ul>
       </div>
