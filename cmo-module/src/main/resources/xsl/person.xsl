@@ -33,6 +33,7 @@
                   <xsl:call-template name="showPersonDates" />
                 </xsl:if>
                 <xsl:apply-templates select="//mei:persName" mode="printAnnot" />
+                <xsl:call-template name="license"/>
               </xsl:with-param>
             </xsl:call-template>
           </xsl:with-param>

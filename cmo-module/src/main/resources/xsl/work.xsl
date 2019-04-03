@@ -31,7 +31,8 @@
                 <xsl:apply-templates select="//mei:biblList" mode="metadataView" />
                 <xsl:apply-templates select="//mei:classification" mode="metadataView" />
                 <xsl:apply-templates select="//mei:notesStmt" mode="printAnnot" />
-                
+                <xsl:call-template name="license"/>
+
                 <xsl:call-template name="expressionContainer" />
               </xsl:with-param>
             </xsl:call-template>

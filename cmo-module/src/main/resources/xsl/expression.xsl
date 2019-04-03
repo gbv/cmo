@@ -59,6 +59,7 @@
                   <xsl:with-param name="objectId" select="@ID" />
                 </xsl:call-template>
                 <xsl:apply-templates select="//mei:notesStmt" mode="printAnnot" />
+                <xsl:call-template name="license"/>
                 <xsl:apply-templates select="structure/children" mode="metadataView" />
               </xsl:with-param>
             </xsl:call-template>

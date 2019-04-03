@@ -58,10 +58,11 @@
     <xsl:apply-templates select="mei:history" mode="metadataView" />
     <xsl:apply-templates select="mei:langUsage" mode="metadataView" />
     <xsl:apply-templates select="mei:notesStmt" mode="printAnnot" />
+    <xsl:call-template name="license"/>
 
     <xsl:call-template name="contentContainer" />
   </xsl:template>
-
+  
 
   <xsl:template name="contentContainer">
     <xsl:call-template name="metadataSoloContent">

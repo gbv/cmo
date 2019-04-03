@@ -51,6 +51,8 @@
                 <xsl:apply-templates select="//mods:mods/mods:relatedItem[@type='series']" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:note" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:relatedItem[@type='original']" mode="metadataView" />
+                <xsl:call-template name="license"/>
+
                 <xsl:apply-templates select="structure/children" mode="metadataView" />
               </xsl:with-param>
             </xsl:call-template>
