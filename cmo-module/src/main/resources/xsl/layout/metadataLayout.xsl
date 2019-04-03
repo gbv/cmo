@@ -27,8 +27,9 @@
                 xmlns:acl="xalan://org.mycore.access.MCRAccessManager"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
+                xmlns:mods="http://www.loc.gov/mods/v3"
                 xmlns:exslt="http://exslt.org/common"
-                exclude-result-prefixes="xalan xlink acl i18n mei exslt">
+                exclude-result-prefixes="xalan xlink acl i18n mei mods exslt">
 
 
   <xsl:template name="metadataLabelContent">
@@ -184,6 +185,10 @@
 
   <xsl:template match="children" mode="metadataView">
     <xsl:if test="child">
+      <xsl:variable name="sortCriteria">
+            <xsl:value-of select="'&amp;sort=displayTitle asc'"/>
+      </xsl:variable>
+
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="label" select="'editor.label.contents'" />
         <xsl:with-param name="content">
@@ -209,15 +214,15 @@
             <xsl:value-of select="'Add all to Basket!'"/>
           </xsl:element>
           <ul class="list-unstyled">
-            <xsl:for-each select="child">
-              <xsl:sort select="@xlink:title" />
+            <xsl:for-each
+                select="document(concat('solr:q=parent:', ../../@ID, '&amp;rows=1000&amp;fl=id', $sortCriteria))/response/result/doc">
               <li>
                 <xsl:call-template name="objectLink">
-                  <xsl:with-param select="./@xlink:href" name="obj_id" />
+                  <xsl:with-param select="str[@name='id']" name="obj_id"/>
                 </xsl:call-template>
 
                 <xsl:variable name="grandChildren"
-                              select="document(concat('solr:q=parent:', @xlink:href, '&amp;rows=1000&amp;fl=id'))/response/result" />
+                              select="document(concat('solr:q=parent:', @xlink:href, '&amp;rows=1000&amp;fl=id', $sortCriteria))/response/result" />
                 <xsl:if test="$grandChildren/@numFound &gt; 0">
                   <ul class="list-unstyled">
                     <xsl:for-each select="$grandChildren/doc">
@@ -349,6 +354,27 @@
         </script>
       </xsl:if>
     </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="license">
+    <xsl:call-template name="metadataLabelContent">
+      <xsl:with-param name="label" select="'editor.label.license'"/>
+      <xsl:with-param name="content">
+        <xsl:choose>
+          <xsl:when test="contains(/mycoreobject/@ID, '_mods_') and contains(/mycoreobject/metadata/def.modsContainer/modsContainer/mods:mods/mods:classification/@valueURI, '#edition')">
+            <a href="http://creativecommons.org/licenses/by/4.0/deed.{$CurrentLang}" rel="license">
+              <img src="//i.creativecommons.org/l/by/4.0/88x31.png" />
+            </a>
+          </xsl:when>
+          <xsl:otherwise>
+            <a href="http://creativecommons.org/licenses/by-nc/4.0/deed.{$CurrentLang}" rel="license">
+              <img src="//i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+            </a>
+          </xsl:otherwise>
+        </xsl:choose>
+
+      </xsl:with-param>
+    </xsl:call-template>
   </xsl:template>
 
 </xsl:stylesheet>
