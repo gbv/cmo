@@ -31,7 +31,7 @@ export class BasketDisplay {
             "editor.label.incip" : (doc:CMOBaseDocument) => (doc["incip"]||[]).join(", ")
         },
         "person" : {
-            "editor.label.name" : (doc: CMOBaseDocument) => doc[ "name" ].map((name) => `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${name||""}</a>`).join("<br/>"),
+            "editor.label.name": (doc: CMOBaseDocument) => ((doc["name"] instanceof Array) ? doc["name"] : [doc["name"]]).map((name) => `<a href="${Utils.getBaseURL()}receive/${doc["id"]}">${name || ""}</a>`).join("<br/>"),
             "editor.label.lifeData.birth" : (doc: CMOBaseDocument) => (doc[ "birth.date.content" ] || [ "" ])[ 0 ] || "",
             "editor.label.lifeData.death" : (doc: CMOBaseDocument) => (doc[ "death.date.content" ] || [ "" ])[ 0 ] || ""
         },
