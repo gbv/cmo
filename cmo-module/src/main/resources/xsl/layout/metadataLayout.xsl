@@ -362,17 +362,16 @@
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="contains(/mycoreobject/@ID, '_mods_') and contains(/mycoreobject/metadata/def.modsContainer/modsContainer/mods:mods/mods:classification/@valueURI, '#edition')">
-            <a href="http://creativecommons.org/licenses/by/4.0/deed.{$CurrentLang}" rel="license">
-              <img src="//i.creativecommons.org/l/by/4.0/88x31.png" />
-            </a>
-          </xsl:when>
-          <xsl:otherwise>
             <a href="http://creativecommons.org/licenses/by-nc/4.0/deed.{$CurrentLang}" rel="license">
               <img src="//i.creativecommons.org/l/by-nc/4.0/88x31.png" />
             </a>
+          </xsl:when>
+          <xsl:otherwise>
+            <a href="http://creativecommons.org/licenses/by/4.0/deed.{$CurrentLang}" rel="license">
+              <img src="//i.creativecommons.org/l/by/4.0/88x31.png" />
+            </a>
           </xsl:otherwise>
         </xsl:choose>
-
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
