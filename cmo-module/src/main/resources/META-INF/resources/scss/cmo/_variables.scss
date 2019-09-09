@@ -2,6 +2,9 @@
    override bootstrap sass variables specified here:
    http://getbootstrap.com/customize/#less-variables
 ----------------------------------------------------------------------------*/
+
+$font-family-sans-serif: "Open Sans", Helvetica, Arial, sans-serif;
+
 $gray-base:     #252626;
 $gray-darker:   lighten($gray-base, 20%);
 $gray-dark:     lighten($gray-base, 30%);
@@ -14,8 +17,11 @@ $success: #008200;
 $info:    #666689;
 $warning: #7800cc;
 $danger:  #cc1400;
-$body-bg:       #666689;
+$body-bg: #666689;
 $secondary:    $gray-dark;
+
+$headings-color: #666689;
+$headings-font-weight: 600;
 
 /* ---------------------------------------------------------------------------
    inline styles to css

@@ -265,7 +265,7 @@
             </div>
         </footer>
 
-        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap-sass/{$bootstrap.version}/javascripts/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap/{$bootstrap.version}/js/bootstrap.bundle.min.js"></script>
        </body>
     </html>
   </xsl:template>

@@ -6,7 +6,7 @@
 
     <div id="cmo_start" class="text-center">
       <h1>CMO Editionen und Quellen-Katalog</h1>
-      <h2><small>Willkommen auf der Online-Publikationsplattform von Corpus Musicae Ottomanicae (CMO)</small></h2>
+      <h2><small class="text-muted">Willkommen auf der Online-Publikationsplattform von Corpus Musicae Ottomanicae (CMO)</small></h2>
       <img id="cmo_pitch_set" src="images/pitch_set.png" />
       <p>
         CMO ist ein Langzeitprojekt für die kritische Edition von Musikhandschriften aus dem Nahen Osten, die sich
