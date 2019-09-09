@@ -8,7 +8,7 @@
   </parent>
   <groupId>de.vzg.cmo</groupId>
   <artifactId>cmo-parent</artifactId>
-  <version>2018.06-SNAPSHOT</version>
+  <version>2019.06-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>CMO</name>
   <description>MyCoRe based application for project Corpus Musicae Ottomanicae</description>
@@ -23,9 +23,9 @@
     <changelog.since>2017-01-25</changelog.since>
     <!-- until snapshot matches released version (required for 'mvn changes:changes-check') -->
     <changes.version>2017.01</changes.version>
-    <java.target.version>1.8</java.target.version>
-    <jetty.version>9.4.11.v20180605</jetty.version>
-    <mycore.version>2018.06.0.3-SNAPSHOT</mycore.version>
+    <java.target.version>11</java.target.version>
+    <jetty.version>9.4.20.v20190813</jetty.version>
+    <mycore.version>2019.06.1-SNAPSHOT</mycore.version>
     <site.suffix />
   </properties>
   <build>
@@ -315,8 +315,8 @@
       </dependency>
       <dependency>
         <groupId>org.webjars</groupId>
-        <artifactId>bootstrap-sass</artifactId>
-        <version>3.3.7</version>
+        <artifactId>bootstrap</artifactId>
+        <version>4.3.1</version>
       </dependency>
       <dependency>
         <groupId>net.sf.saxon</groupId>

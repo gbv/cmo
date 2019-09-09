@@ -14,7 +14,7 @@
   <xsl:strip-space elements="*" />
 
   <!-- Various versions -->
-  <xsl:variable name="bootstrap.version" select="'3.3.7'" />
+  <xsl:variable name="bootstrap.version" select="'4.3.1'" />
   <xsl:variable name="fontawesome.version" select="'4.7.0'" />
   <xsl:variable name="jquery.version" select="'3.1.1'" />
   <xsl:variable name="jquery.migrate.version" select="'1.4.1'" />
@@ -79,21 +79,21 @@
             <div class="container-fluid">
                 <div class="row">
                     <div id="logo"
-                         class="col-xs-4 col-sm-3 col-lg-2 text-center">
+                         class="col-4 col-sm-3 col-lg-2 text-center">
                         <a href="{$WebApplicationBaseURL}">
                             <img src="{$WebApplicationBaseURL}content/images/cmo_logo.jpg" alt="CMO" />
                             <span id="slogan">Corpus Musicae Ottomanicae</span>
                         </a>
                     </div>
                     <div id="suche"
-                         class="col-xs-8 col-md-9 col-lg-10">
+                         class="col-8 col-md-9 col-lg-10">
                         <div class="row">
                             <div id="e_suche"
-                                 class="col-xs-6 col-md-8 col-lg-8">
+                                 class="col-6 col-md-8 col-lg-8">
                                 e-suche
                             </div>
                             <div id="k_suche"
-                                 class="col-xs-6 col-md-4 col-lg-4">
+                                 class="col-6 col-md-4 col-lg-4">
                                 k-suche
                             </div>
                         </div>
@@ -107,9 +107,9 @@
           <div class="container-fluid">
                 <div class="row">
                     <div id="side_menu_1"
-                         class="hidden-xs hidden-sm col-md-3 col-lg-2 text-center">
+                         class="d-none d-md-block col-md-3 col-lg-2 text-center">
                          <div class="fullheightbox">
-                            <nav class="collapse navbar-collapse main-nav-entries">
+                            <nav class="collapse show navbar-collapse main-nav-entries">
                               <ul class="nav navbar-nav">
                                 <li id="cmo_home"><a href="{$WebApplicationBaseURL}content/index.xml"><xsl:value-of select="i18n:translate('cmo.frontpage')" /></a></li>
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_edition']" />
@@ -125,7 +125,7 @@
                             </nav>
                          </div>
                     </div>
-                    <div id="content" class="col-xs-12 col-md-9 col-lg-10">
+                    <div id="content" class="col-12 col-md-9 col-lg-10">
                         <nav id="cmo_side-menu">
                           <ul class="nav navbar-nav pull-right">
                             <xsl:call-template name="languageMenu" />
@@ -163,7 +163,7 @@
                             <xsl:choose>
                               <xsl:when test="not (contains($RequestURL, '/editor/'))">
                                 <div id="sidebar"
-                                   class="hidden-xs hidden-sm col-md-3 col-lg-3">
+                                   class="d-none d-md-block col-md-3 col-lg-3">
                                   <!-- TODO: add sidebar content -->
                                   &#160;
                                 </div>
@@ -171,7 +171,7 @@
                               <!-- hide div complete -->
                               <xsl:otherwise>
                                 <div id="sidebar"
-                                   class="hidden-xs hidden-sm col-md-3 col-lg-3 hidden">
+                                   class="d-none d-md-block col-md-3 col-lg-3 hidden">
                                   <!-- TODO: add sidebar content -->
                                   &#160;
                                 </div>
@@ -187,7 +187,7 @@
             <div id="subnav" class="container-fluid">
                 <div class="row">
                     <div id="side_menu_2"
-                         class="hidden-xs hidden-sm col-md-3 col-lg-2">
+                         class="d-none d-md-block col-md-3 col-lg-2">
                       <nav>
                         <ul class="nav">
                           <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_help']/*" />
@@ -195,7 +195,7 @@
                       </nav>
                     </div>
                     <div id="bottom_menu"
-                         class="col-xs-12 col-md-6 col-lg-10">
+                         class="col-12 col-md-6 col-lg-10">
                        <div class="row">
                          <div class="col-lg-2">
                            <a href="https://www.oiist.org/">
@@ -236,26 +236,26 @@
             <div id="powered">
                 <div class="container-fluid">
                     <div class="row">
-                        <div id="copyright" class="col-xs-12 col-sm-6 col-md-5 col-lg-3">
+                        <div id="copyright" class="col-12 col-sm-6 col-md-5 col-lg-3">
                             © 2018 Corpus Musicae Ottomanicae (CMO)
                         </div>
-                        <div id="contact" class="col-xs-12 col-sm-6 col-md-5 col-lg-2">
+                        <div id="contact" class="col-12 col-sm-6 col-md-5 col-lg-2">
                           <a href="mailto:cmo@uni-muenster.de">cmo@uni-muenster.de</a>
                         </div>
                         
-                        <div id="logo" class="hidden-xs hidden-sm col-md-2 col-lg-2">
+                        <div id="logo" class="d-none d-md-block col-md-2 col-lg-2">
                             <a href="http://www.mycore.de/">
                                 <img src="{$WebApplicationBaseURL}content/images/mycore_logo_small_invert.png" title="{$mcr_version}" alt="powered by MyCoRe" />
                             </a>
                         </div>
                         <div id="logo"
-                             class="col-xs-12 col-sm-12 hidden-md hidden-lg">
+                             class="col-12 col-sm-12 d-md-none d-lg-none">
                             <a href="http://www.mycore.de/">
                                 <img src="{$WebApplicationBaseURL}content/images/mycore_logo_small_invert.png" title="{$mcr_version}" alt="powered by MyCoRe" />
                             </a>
                         </div>
                         
-                        <div id="nav_below" class="col-xs-12 col-sm-12 col-md-10 col-lg-5 text-center">
+                        <div id="nav_below" class="col-12 col-sm-12 col-md-10 col-lg-5 text-center">
                           <ul>
                             <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_below']/*" />
                           </ul>
@@ -265,7 +265,7 @@
             </div>
         </footer>
 
-        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap-sass/{$bootstrap.version}/javascripts/bootstrap.min.js"></script>
+        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap-sass/{$bootstrap.version}/javascripts/bootstrap.bundle.min.js"></script>
        </body>
     </html>
   </xsl:template>

@@ -8,34 +8,20 @@ $gray-dark:     lighten($gray-base, 30%);
 $gray:          #969696;
 $gray-light:    lighten($gray, 15%);
 $gray-lighter:  lighten($gray, 30%);
-$brand-primary: #eeab2b;
-$brand-success: #008200;
-$brand-info:    #666689;
-$brand-warning: #7800cc;
-$brand-danger:  #cc1400;
+
+$primary: #eeab2b;
+$success: #008200;
+$info:    #666689;
+$warning: #7800cc;
+$danger:  #cc1400;
 $body-bg:       #666689;
-$text-color:    $gray-dark;
-
-$font-family-sans-serif: "Open Sans", Helvetica, Arial, sans-serif;
-$font-size-base:         16px;
-
-$headings-small-color:  $text-color;
-$font-size-h1:          floor(($font-size-base * 2.25));
-$font-size-h2:          floor(($font-size-base * 1.75));
-$headings-font-weight:  600;
-$headings-color:        $brand-info;
-
-$pagination-color:       $brand-info;
-$pagination-hover-color: $brand-danger;
-
+$secondary:    $gray-dark;
 
 /* ---------------------------------------------------------------------------
    inline styles to css
    moved styles from the document here
 ----------------------------------------------------------------------------*/
-$cmo_purple_separators: $brand-info;
+$cmo_purple_separators: $info;
 $cmo_purple_footerBack: #fbfafb;
-$cmo_grey_fontColor:    $text-color;
+$cmo_grey_fontColor:    $secondary;
 $cmo_shadow:            #dadada;
-
-$icon-font-path: "../../../webjars/bootstrap-sass/3.3.7/fonts/bootstrap/"

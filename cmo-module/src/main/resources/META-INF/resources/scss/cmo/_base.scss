@@ -127,7 +127,7 @@ section {
     background-color: $cmo_purple_footerBack;
 }
 section #side_menu_1 {
-    color: $text-color;
+    color: $secondary;
 }
 section #content {
     // der mittlere Bereich hat die Höhe vom ViewPort - 70px Header - 40px padding vom mittleren Bereich - 100px Fussmenu - 50px Footer
@@ -152,7 +152,7 @@ section #sidebar {
   #cmo_icon-profile {
     margin: 0 0 0 0;
     padding: 0 0 10px 0;
-    color: $text-color;
+    color: $secondary;
     font-size: 14px;
     img {
       margin-bottom: 5px;
@@ -168,7 +168,7 @@ section #sidebar {
       display: inline;
     }
     li a {
-      color: $text-color;
+      color: $secondary;
       font-size: 14px;
     }
     li.active a {
@@ -176,7 +176,7 @@ section #sidebar {
     }
     li:not(:last-child):after {
       content: ' | ';
-      color: $text-color;
+      color: $secondary;
       font-size: 14px;
     }
   }
@@ -283,14 +283,14 @@ footer {
     font-size: 12px;
 
   #subnav #side_menu_2 {
-    color: $text-color;
+    color: $secondary;
     background-color: white;
     border-top: 1px solid #ccc;
   }
 
   #subnav #bottom_menu,
   #subnav #bottom_side {
-    color: $text-color;
+    color: $secondary;
     background-color: $cmo_purple_footerBack;
     border-top: 1px solid #ccc;
   }
@@ -332,7 +332,7 @@ footer {
   }
   #dfg_founded {
     font-size: xx-small;
-    color: $text-color;
+    color: $secondary;
   }
 
   #logo_vzg {

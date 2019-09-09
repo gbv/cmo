@@ -59,15 +59,15 @@ span.standardized {
 .dragover {
 
   .file_set, .well {
-    background-color: $btn-info-bg !important;
+    background-color: $info !important;
 
     .file_name a {
-      color: $btn-info-color !important;
+      color: $info !important;
     }
   }
 
-  background-color: $btn-info-bg !important;
-  color: $btn-info-color !important;
+  background-color: $info !important;
+  color: $info !important;
 }
 
 [data-upload-target].well {
