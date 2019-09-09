@@ -57,6 +57,10 @@
               <name>MCR.SASS.DeveloperMode</name>
               <value>false</value>
             </systemProperty>
+            <systemProperty>
+              <name>project.basedir</name>
+              <value>${project.basedir}</value>
+            </systemProperty>
           </systemProperties>
           <contextXml>${project.basedir}/src/etc/jetty-context.xml</contextXml>
         </configuration>

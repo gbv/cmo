@@ -5,7 +5,7 @@
     <Set name="loginService">
       <New class="org.eclipse.jetty.security.HashLoginService">
         <Set name="name">Restricted</Set>
-        <Set name="config">src/etc/jetty-realm.properties</Set>
+        <Set name="config"><SystemProperty name="project.basedir" />/src/etc/jetty-realm.properties</Set>
         <Call name="start"/>
       </New>
     </Set>
