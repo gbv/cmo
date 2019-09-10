@@ -128,12 +128,16 @@
                          </div>
                     </div>
                     <div id="content" class="col-12 col-md-9 col-lg-10">
-                        <nav id="cmo_side-menu">
-                          <ul class="nav navbar-nav pull-right">
-                            <xsl:call-template name="languageMenu" />
-                            <xsl:call-template name="loginMenu" />
-                          </ul>
-                        </nav>
+                        <div class="row">
+                          <div class="offset-9 col-3">
+                            <nav id="cmo_side-menu"> <!-- display: block -->
+                              <ul class="nav navbar-nav float-right">
+                                <xsl:call-template name="languageMenu" />
+                                <xsl:call-template name="loginMenu" />
+                              </ul>
+                            </nav>
+                          </div>
+                        </div>
                         <div class="row">
                             <div id="main">
                               <xsl:attribute name="class">

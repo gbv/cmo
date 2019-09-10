@@ -47,3 +47,17 @@
       border: 1px solid green;
     }
   }
+
+// anchor elements which should be shown as a link, but can not have a href attribute
+a[data-basket-add-all], a[data-basket], a[data-facet-show] {
+  &:not([href]):not([tabindex]) {
+    color: $link-color;
+    text-decoration: $link-decoration;
+
+    @include hover {
+      color: $link-hover-color;
+      text-decoration: $link-hover-decoration;
+    }
+  }
+}
+

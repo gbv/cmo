@@ -53,18 +53,18 @@ export class SearchDisplay {
 
         this._container.innerHTML = `
     <div class="row searchResultList">
-        <div class="col-md-10 col-md-offset-1">
-            ${ (extra !== null) ? `<div class='row'><div class='col-md-12 ${divClass}'></div></div>` : ""}
+        <div class="col-10 offset-1">
+            ${ (extra !== null) ? `<div class='row'><div class='col-12 ${divClass}'></div></div>` : ""}
             <div class="row header">
-                <div class="col-md-6">
+                <div class="col-6">
                     <span>${result.response.numFound} <span data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></span></span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-6">
                     <a data-i18n="cmo.basket.add.all" data-basket-add-all="true"></a>
                 </div>
                 </div>
                 <div class="row">
-                <div class="col-md-6">
+                <div class="col-6">
                     <span data-i18n="${SearchDisplay.SORT_LABEL_KEY}"></span>
                     <select data-sort-select="">
                         ${this.getSortOptions(sort[ 0 ])}
@@ -73,7 +73,7 @@ export class SearchDisplay {
                            ${sort[ 1 ] == "desc" ? "&darr;" : "&uarr;"}             
                     </span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-6">
                     <span data-i18n="${SearchDisplay.ROWS_LABEL_KEY}"></span>
                     <select data-rows-select="">
                         <option value="10">10</option>
@@ -257,7 +257,7 @@ export class SearchDisplay {
         let nextPageAttribute = currentPage >= lastAfter ? '' : "data-switch-page='" + ((currentPage + 1) * rows) + "'";
 
         return pagesToRender.length > 0 ? `
- <div class="row text-center pages"><div class="col-md-12">
+ <div class="row text-center pages"><div class="col-12">
     <div class="btn-group" role="group">
         <button type="button" class="btn btn-primary" ${previousPageAttribute}>&lt;</button>
         ${pagesToRender.map(page => `

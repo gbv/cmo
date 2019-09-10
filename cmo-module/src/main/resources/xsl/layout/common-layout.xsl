@@ -41,7 +41,7 @@
       select="concat( $ServletsBaseURL, 'MCRLoginServlet',$HttpSession,'?url=', encoder:encode( string( $RequestURL ) ) )" />
     <xsl:choose>
       <xsl:when test="mcrxsl:isCurrentUserGuestUser()">
-        <li id="cmo_profile" class="pull-left text-center">
+        <li id="cmo_profile" class="float-left text-center">
           <a id="cmo_icon-profile" href="{$loginURL}">
             <img title="{i18n:translate('component.userlogin.button.login')}" src="{$WebApplicationBaseURL}content/images/menu_icons/logo_profile_grey.png" />
             <br />
@@ -50,7 +50,7 @@
         </li>
       </xsl:when>
       <xsl:otherwise>
-        <li id="cmo_profile" class="dropdown pull-left text-center">
+        <li id="cmo_profile" class="dropdown float-left text-center">
           <xsl:if test="$loaded_navigation_xml/menu[@id='cmo_user']//item[@href = $browserAddress ]">
             <xsl:attribute name="class">
               <xsl:value-of select="'active'" />
@@ -180,7 +180,7 @@
   </xsl:template>
 
   <xsl:template name="languageMenu">
-    <li id="cmo_language" class="pull-left">
+    <li id="cmo_language" class="float-left">
       <!-- a data-toggle="dropdown" title="{i18n:translate('language.change')}">
         <xsl:value-of select="i18n:translate(concat('language.change.', $CurrentLang))" />
         <span class="caret" />

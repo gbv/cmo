@@ -149,6 +149,10 @@ section #sidebar {
 #cmo_side-menu {
   margin-top: 20px;
 
+  >ul {
+    display: block;
+  }
+
   #cmo_icon-profile {
     margin: 0 0 0 0;
     padding: 0 0 10px 0;
