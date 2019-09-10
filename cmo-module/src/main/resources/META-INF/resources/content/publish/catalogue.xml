@@ -13,14 +13,14 @@
           <ul>
             <li class="row">
               <a href="../../editor/person.xed">
-                <span class="col-xs-2"><img src="../images/publish_icons/person.png" alt="person symbol" /></span>
-                <span class="col-xs-9">Person</span>
+                <span class="col-2"><img src="../images/publish_icons/person.png" alt="person symbol" /></span>
+                <span class="col-9">Person</span>
               </a>
             </li>
             <li class="row">
               <a href="../../editor/bibliography.xed">
-                <span class="col-xs-2"><img src="../images/publish_icons/bibliography.png" alt="bibliography symbol" /></span>
-                <span class="col-xs-9">Bibliography</span>
+                <span class="col-2"><img src="../images/publish_icons/bibliography.png" alt="bibliography symbol" /></span>
+                <span class="col-9">Bibliography</span>
               </a>
             </li>
           </ul>
@@ -30,14 +30,14 @@
           <ul>
             <li class="row">
               <a href="../../editor/print.xed">
-                <span class="col-xs-2"><img src="../images/publish_icons/print.png" alt="print symbol" /></span>
-                <span class="col-xs-9">Print</span>
+                <span class="col-2"><img src="../images/publish_icons/print.png" alt="print symbol" /></span>
+                <span class="col-9">Print</span>
               </a>
             </li>
             <li class="row">
               <a href="../../editor/manuscript.xed">
-                <span class="col-xs-2"><img src="../images/publish_icons/manuscript.png" alt="manuscript symbol" /></span>
-                <span class="col-xs-9">Manuscript</span>
+                <span class="col-2"><img src="../images/publish_icons/manuscript.png" alt="manuscript symbol" /></span>
+                <span class="col-9">Manuscript</span>
               </a>
             </li>
           </ul>
@@ -47,8 +47,8 @@
           <ul>
             <li class="row">
               <a href="../../editor/expression.xed">
-                <span class="col-xs-2"><img src="../images/publish_icons/expression.png" alt="expression symbol" /></span>
-                <span class="col-xs-9">Expression</span>
+                <span class="col-2"><img src="../images/publish_icons/expression.png" alt="expression symbol" /></span>
+                <span class="col-9">Expression</span>
               </a>
             </li>
           </ul>
@@ -58,8 +58,8 @@
           <ul>
             <li class="row">
               <a href="../../editor/work.xed">
-                <span class="col-xs-2"><img src="../images/publish_icons/work.png" alt="work symbol" /></span>
-                <span class="col-xs-9">Work</span>
+                <span class="col-2"><img src="../images/publish_icons/work.png" alt="work symbol" /></span>
+                <span class="col-9">Work</span>
               </a>
             </li>
           </ul>

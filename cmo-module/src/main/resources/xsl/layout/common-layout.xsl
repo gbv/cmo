@@ -101,15 +101,14 @@
   <xsl:template match="/navigation//menu[@id and (group[item] or item)]">
     <xsl:param name="active" select="descendant-or-self::item[@href = $browserAddress ]" />
     <xsl:variable name="menuId" select="generate-id(.)" />
-    <li id="{@id}" class="dropdown">
+    <li id="{@id}" class="nav-item dropdown">
       <xsl:if test="$active">
-        <xsl:attribute name="class">
+        <!-- xsl:attribute name="class">
           <xsl:value-of select="'dropdown open'" />
-        </xsl:attribute>
+        </xsl:attribute -->
       </xsl:if>
       <a id="{$menuId}" class="dropdown-toggle" data-toggle="dropdown" href="#">
         <xsl:apply-templates select="." mode="linkText" />
-        <span class="caret"></span>
       </a>
       <ul class="dropdown-menu" role="menu" aria-labelledby="{$menuId}">
         <xsl:apply-templates select="item|group" />
@@ -147,7 +146,7 @@
     </xsl:param>
     <xsl:choose>
       <xsl:when test="string-length($url ) &gt; 0">
-        <li>
+        <li class="nav-item">
           <xsl:if test="@id">
             <xsl:attribute name="id">
               <xsl:value-of select="@id" />

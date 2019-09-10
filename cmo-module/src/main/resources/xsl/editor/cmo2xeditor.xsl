@@ -71,7 +71,7 @@
   </xsl:template>
 
   <xsl:template match="cmo:subselectTrigger">
-    <a tabindex="0" class="btn btn-default info-button" role="button"
+    <a tabindex="0" class="btn btn-secondary info-button" role="button"
        title="{i18n:translate('cmo.help.search')}" data-subselect-trigger="">
       <i class="fa fa-search"></i>
     </a>
@@ -108,7 +108,7 @@
         </div>
         <div class="col-md-2">
           <span class="pmud-button" data-subselect-trigger="true">
-            <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover"
+            <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover"
                data-placement="right">
               <i class="fa fa-search"></i>
             </a>
@@ -128,7 +128,7 @@
             </span>
           </xsl:if>
           <span class="pmud-button">
-            <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover"
+            <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover"
                data-placement="right"
                data-content="{@help-text}">
               <i class="fa fa-info"></i>
@@ -360,11 +360,11 @@
                   </div>
                   <div class="col-md-2">
                     <span class="pmud-button">
-                      <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover"
+                      <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover"
                          data-placement="right" data-content="{i18n:translate('cmo.help.nameLink')}">
                         <i class="fa fa-info"></i>
                       </a>
-                      <a tabindex="0" class="btn btn-default info-button" role="button"
+                      <a tabindex="0" class="btn btn-secondary info-button" role="button"
                          title="{i18n:translate('cmo.help.search')}" data-subselect-trigger="">
                         <i class="fa fa-search"></i>
                     </a>
@@ -395,7 +395,7 @@
                   <input type="text" class="form-control" placeholder="cmo_person_00000434" />
                 </div>
                 <div class="col-md-2">
-                  <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover"
+                  <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover"
                      data-placement="right" data-content="{i18n:translate('cmo.help.nameLink')}">
                     <i class="fa fa-info"></i>
                   </a>
@@ -592,7 +592,7 @@
 
   <xsl:template name="cmo-helpbutton">
     <span class="pmud-button">
-      <a tabindex="0" class="btn btn-default info-button" role="button" data-toggle="popover" data-placement="right"
+      <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover" data-placement="right"
          data-content="{@help-text}">
         <i class="fa fa-info"></i>
       </a>
@@ -612,7 +612,7 @@
       </xsl:if>
       <xsl:if test="@subselect-trigger">
         <span class="pmud-button">
-          <button class="btn btn-default" role="button"
+          <button class="btn btn-secondary" role="button"
                   title="{i18n:translate('cmo.help.search')}" data-subselect-trigger="">
             <i class="fa fa-search"></i>
           </button>

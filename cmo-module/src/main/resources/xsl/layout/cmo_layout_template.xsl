@@ -111,7 +111,7 @@
                          <div class="fullheightbox">
                             <nav class="collapse show navbar-collapse main-nav-entries">
                               <ul class="nav navbar-nav">
-                                <li id="cmo_home"><a href="{$WebApplicationBaseURL}content/index.xml"><xsl:value-of select="i18n:translate('cmo.frontpage')" /></a></li>
+                                <li class="nav-item" id="cmo_home"><a href="{$WebApplicationBaseURL}content/index.xml"><xsl:value-of select="i18n:translate('cmo.frontpage')" /></a></li>
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_edition']" />
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_catalogue']" />
                                 <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_publish']" />
@@ -136,8 +136,8 @@
                             <div id="main">
                               <xsl:attribute name="class">
                                 <xsl:choose>
-                                  <xsl:when test="contains($RequestURL, '/editor/')"><xsl:text>col-md-11 col-lg-11</xsl:text></xsl:when>
-                                  <xsl:otherwise><xsl:text>col-md-9 col-lg-9</xsl:text></xsl:otherwise>
+                                  <xsl:when test="contains($RequestURL, '/editor/')"><xsl:text>col-11</xsl:text></xsl:when>
+                                  <xsl:otherwise><xsl:text>col-9</xsl:text></xsl:otherwise>
                                 </xsl:choose>
                               </xsl:attribute>
                               <div class="row">
@@ -145,7 +145,7 @@
                                   <xsl:attribute name="class">
                                     <xsl:choose>
                                       <xsl:when test="contains($RequestURL, '/editor/')"><xsl:text>col-md-12</xsl:text></xsl:when>
-                                      <xsl:otherwise><xsl:text>col-md-11 col-md-offset-1</xsl:text></xsl:otherwise>
+                                      <xsl:otherwise><xsl:text>col-md-11 offset-md-1</xsl:text></xsl:otherwise>
                                     </xsl:choose>
                                   </xsl:attribute>
                                   <xsl:call-template name="print.writeProtectionMessage" />

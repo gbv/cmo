@@ -43,14 +43,14 @@
     <div id="search_browsing">
       <div id="search_options">
         <!-- TODO: add functionality to refine search bottons, before display them again -->
-        <!-- a href="#" type="button" class="btn btn-default btn-sm">Suche verfeinern</a -->
+        <!-- a href="#" type="button" class="btn btn-secondary btn-sm">Suche verfeinern</a -->
         <xsl:copy-of select="$ResultPages" />
 
         <!-- xsl:variable name="origRows" select="lst[@name='responseHeader']/lst[@name='params']/str[@name='origrows']" />
         <xsl:variable name="newStart" select="$start - ($start mod $origRows)" />
         <xsl:variable name="href" select="concat($proxyBaseURL,'?', $HttpSession, $params, '&amp;start=', $newStart)" />
 
-        <a href="{$href}" class="btn btn-default btn-sm" role="button">
+        <a href="{$href}" class="btn btn-secondary btn-sm" role="button">
           <xsl:value-of select="i18n:translate('component.solr.searchresult.back')" />
         </a -->
       </div>
@@ -109,7 +109,7 @@
             <xsl:with-param name="numPerPage" select="1" />
           </xsl:call-template>
         </xsl:variable>
-        <div class="col-xs-12 col-md-4 text-left">
+        <div class="col-12 col-md-4 text-left">
           <a tabindex="0" class="previous" href="{$link}" data-pagination=".caption:mods.title.main">
             <span class="cmo_arrowLeft" />
             <span class="caption">
@@ -118,11 +118,11 @@
           </a>
         </div>
       </xsl:if>
-      <div class="col-xs-12 col-md-4 text-center">
+      <div class="col-12 col-md-4 text-center">
         <xsl:attribute name="class">
-          <xsl:text>col-xs-12 col-md-4 text-center</xsl:text>
+          <xsl:text>col-12 col-md-4 text-center</xsl:text>
           <xsl:if test="$page = 1">
-            <xsl:text> col-md-offset-4</xsl:text>
+            <xsl:text> offset-md-4</xsl:text>
           </xsl:if>
         </xsl:attribute>
         <a title="{i18n:translate(concat($i18nprefix, '.back'))}">
@@ -154,7 +154,7 @@
             <xsl:with-param name="numPerPage" select="1" />
           </xsl:call-template>
         </xsl:variable>
-        <div class="col-xs-12 col-md-4 text-right">
+        <div class="col-12 col-md-4 text-right">
           <a tabindex="0" class="next" href="{$link}" data-pagination=".caption:mods.title.main">
             <span class="caption">
               <xsl:value-of select="$label.nextHit" />

@@ -225,7 +225,7 @@
                            class="form-control form-control-inline"/>
                   </xed:bind>
                   <span class="pmud-button">
-                    <a tabindex="0" class="btn btn-default info-button" role="button"
+                    <a tabindex="0" class="btn btn-secondary info-button" role="button"
                        title="{i18n:cmo.help.sourceSearch}" data-subselect-trigger="">
                       <i class="fa fa-search"></i>
                     </a>
@@ -391,7 +391,7 @@
                   <input type="hidden" data-subselect-target="identifier.type.CMO" />
                 </xed:bind>
                 <span class="pmud-button">
-                  <a tabindex="0" class="btn btn-default info-button" role="button"
+                  <a tabindex="0" class="btn btn-secondary info-button" role="button"
                         title="{i18n:cmo.help.sourceSearch}" data-subselect-trigger="">
                       <i class="fa fa-search"></i>
                   </a>
@@ -424,7 +424,7 @@
                   <input type="text" data-subselect-target="mods.identifier" placeholder="eg. TMAS/I, p. 261" style="width: 64%;margin-left: 10px;" class="form-control form-control-inline" />
                 </xed:bind>
                 <span class="pmud-button">
-                  <a tabindex="0" class="btn btn-default info-button" role="button"
+                  <a tabindex="0" class="btn btn-secondary info-button" role="button"
                         title="{i18n:cmo.help.modsSearch}" data-subselect-trigger="">
                       <i class="fa fa-search"></i>
                   </a>
@@ -454,7 +454,7 @@
                     <input type="text" placeholder="eg. cmo_work_00000016" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
                   <span class="pmud-button">
-                    <a tabindex="0" class="btn btn-default info-button" role="button"
+                    <a tabindex="0" class="btn btn-secondary info-button" role="button"
                         title="{i18n:cmo.help.workSearch}" data-subselect-trigger="">
                       <i class="fa fa-search"></i>
                   </a>
@@ -491,7 +491,7 @@
                     <input type="text" placeholder="eg. cmo_expression_00002186" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
                   <span class="pmud-button">
-                    <a tabindex="0" class="btn btn-default info-button" role="button"
+                    <a tabindex="0" class="btn btn-secondary info-button" role="button"
                         title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
                       <i class="fa fa-search"></i>
                   </a>
@@ -529,7 +529,7 @@
                     <input type="text" placeholder="eg. cmo_expression_00002186" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
                   <span class="pmud-button">
-                    <a tabindex="0" class="btn btn-default info-button" role="button"
+                    <a tabindex="0" class="btn btn-secondary info-button" role="button"
                         title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
                       <i class="fa fa-search"></i>
                   </a>
@@ -567,7 +567,7 @@
                     <input type="text" placeholder="eg. cmo_mods_00000019" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
                   <span class="pmud-button">
-                    <a tabindex="0" class="btn btn-default info-button" role="button"
+                    <a tabindex="0" class="btn btn-secondary info-button" role="button"
                         title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
                       <i class="fa fa-search"></i>
                   </a>
@@ -627,7 +627,7 @@
 
   <xed:template id="cmo_date_from_source">
     <cmo:subselectWrapper query='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:source'>
-      <cmo:help-pmud subselect-trigger="true" help-text="{i18n:cmo.help.date}" class="col-md-offset-10" pmud="true"/>
+      <cmo:help-pmud subselect-trigger="true" help-text="{i18n:cmo.help.date}" class="offset-md-10" pmud="true"/>
       <cmo:isoApproxDate xpath="." label="editor.label.normDate" help-text="{i18n:cmo.help.normDate}"/>
       <cmo:textfield xpath="./@source" label="editor.label.dateSource" placeholder="{i18n:cmo.placeholder.dateSource}"
                      help-text="{i18n:cmo.help.dateSource}" subselect-target="id" />
@@ -662,7 +662,7 @@
                               help-text="{i18n:cmo.help.calendar}" />
   </xed:template>
   <xed:template id="cmo_pmud">
-    <cmo:help-pmud help-text="{i18n:cmo.help.date}" class="col-md-offset-10" pmud="true" />
+    <cmo:help-pmud help-text="{i18n:cmo.help.date}" class="offset-md-10" pmud="true" />
   </xed:template>
 
   <xed:template id="cmo_saveCancelDebug">

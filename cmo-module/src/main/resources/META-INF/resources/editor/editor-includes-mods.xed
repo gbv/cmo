@@ -269,7 +269,7 @@
                        class="form-control form-control-inline {$xed-validation-marker}"/>
               </xed:bind>
               <span class="pmud-button">
-                <a tabindex="0" class="btn btn-default info-button" role="button"
+                <a tabindex="0" class="btn btn-secondary info-button" role="button"
                    title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
                   <i class="fa fa-search"></i>
                 </a>
@@ -293,7 +293,7 @@
           <div class="col-md-6">
             <div class="form-inline">
               <input type="text" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline {$xed-validation-marker}" />
-              <a tabindex="0" class="btn btn-default info-button" role="button"
+              <a tabindex="0" class="btn btn-secondary info-button" role="button"
                  title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
                 <i class="fa fa-search"></i>
               </a>

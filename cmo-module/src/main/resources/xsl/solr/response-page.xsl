@@ -23,7 +23,7 @@
     </xsl:variable>
 
     <div class="row result_head">
-      <div class="col-xs-12 result_headline">
+      <div class="col-12 result_headline">
         <h1><small>
           <xsl:choose>
             <xsl:when test="$hits=0">
@@ -42,7 +42,7 @@
 
 <!-- Pagination & Trefferliste -->
     <div class="row result_body">
-      <div class="cols-xs-12 col-sm-8 col-lg-9 result_list">
+      <div class="cols12 col-sm-8 col-lg-9 result_list">
         <div id="hit_list" class="list-group">
           <xsl:apply-templates select="doc|arr[@name='groups']/lst/str[@name='groupValue']" />
         </div>

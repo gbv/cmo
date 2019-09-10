@@ -20,7 +20,7 @@
     <xsl:param name="accessdelete" select="acl:checkPermission($id,'deletedb')" />
 
       <div class="dropdown pull-right">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
           <span class="fa fa-cog" aria-hidden="true"></span> Aktionen
           <span class="caret"></span>
         </button>
@@ -146,7 +146,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default modal-pi-cancel" data-dismiss="modal">
+            <button type="button" class="btn btn-secondary modal-pi-cancel" data-dismiss="modal">
               <xsl:value-of select="i18n:translate('component.pi.register.modal.abort')" />
             </button>
             <button type="button" class="btn btn-danger" id="modal-pi-add"
@@ -182,7 +182,7 @@
 
     <div id="files{@xlink:href}" class="file_box">
       <div class="row header">
-        <div class="col-xs-12">
+        <div class="col-12">
           <div class="headline">
             <div class="title">
               <a class="btn btn-primary btn-sm file_toggle" data-toggle="collapse" href="#collapse{@xlink:href}" aria-expanded="false" aria-controls="collapse{@xlink:href}">
@@ -296,7 +296,7 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <div class="col-xs-12">
+    <div class="col-12">
       <div class="file_set {$fileCss}" data-upload-target="/">
         <xsl:if test="(acl:checkPermission($derId,'writedb') or acl:checkPermission($derId,'deletedb'))">
           <xsl:attribute name="data-upload-object">
@@ -314,7 +314,7 @@
           </xsl:attribute>
           <div class="options pull-right">
             <div class="btn-group">
-              <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-cog"></i>
                 <span class="caret"></span>
               </a>
@@ -410,7 +410,7 @@
 
     <div class="options pull-right">
       <div class="btn-group">
-        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
           <i class="fa fa-cog"></i>
           <xsl:value-of select="i18n:translate('cmo.derivate.action')" />
           <span class="caret"></span>
