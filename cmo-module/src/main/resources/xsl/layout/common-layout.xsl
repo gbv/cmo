@@ -9,9 +9,7 @@
   <xsl:param name="CurrentUser" />
   <xsl:param name="numPerPage" />
   <xsl:param name="previousObject" />
-  <xsl:param name="previousObjectHost" />
   <xsl:param name="nextObject" />
-  <xsl:param name="nextObjectHost" />
   <xsl:param name="resultListEditorID" />
   <xsl:param name="page" />
   <xsl:param name="breadCrumb" />
