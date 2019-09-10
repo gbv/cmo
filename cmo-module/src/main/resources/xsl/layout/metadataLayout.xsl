@@ -323,7 +323,7 @@
               <xsl:attribute name="style">display:none;</xsl:attribute>
             </xsl:otherwise>
           </xsl:choose>
-          <i class="fa fa-upload"></i>
+          <i class="fas fa-upload"></i>
           <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
         </div>
         <script>
@@ -346,7 +346,7 @@
       <xsl:if test="acl:checkPermission(@xlink:href, 'writedb')">
         <div data-upload-object="{@xlink:href}" data-upload-target="/">
               <xsl:attribute name="class">drop-to-derivate cmo-file-upload-box well</xsl:attribute>
-          <i class="fa fa-upload"></i>
+          <i class="fas fa-upload"></i>
           <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
         </div>
         <script>

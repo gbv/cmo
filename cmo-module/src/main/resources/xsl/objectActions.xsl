@@ -21,7 +21,7 @@
 
       <div class="dropdown pull-right">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-          <span class="fa fa-cog" aria-hidden="true"></span> Aktionen
+          <span class="fas fa-cog" aria-hidden="true"></span> Aktionen
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -140,7 +140,7 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-md-2">
-                <i class="fa fa-question-circle"></i>
+                <i class="fas fa-question-circle"></i>
               </div>
               <div class="col-md-10" data-i18n="component.pi.register.modal.text."></div>
             </div>
@@ -315,7 +315,7 @@
           <div class="options pull-right">
             <div class="btn-group">
               <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-cog"></i>
+                <i class="fas fa-cog"></i>
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu dropdown-menu-right">
@@ -324,7 +324,7 @@
                     <a title="{i18n:translate('IFS.mainFile')}"
                       href="{$WebApplicationBaseURL}servlets/MCRDerivateServlet{$HttpSession}?derivateid={$derId}&amp;objectid={$objID}&amp;todo=ssetfile&amp;file={$fileName}"
                       class="option" >
-                      <span class="fa fa-star"></span>
+                      <span class="fas fa-star"></span>
                       <xsl:value-of select="i18n:translate('IFS.mainFile')" />
                     </a>
                   </li>
@@ -339,7 +339,7 @@
                       <xsl:attribute name="title">
                         <xsl:value-of select="i18n:translate(concat('IFS.',@type,'Delete'))" />
                       </xsl:attribute>
-                      <span class="fa fa-trash"></span>
+                      <span class="fas fa-trash-alt"></span>
                       <xsl:value-of select="i18n:translate(concat('IFS.',@type,'Delete'))" />
                     </a>
                   </li>
@@ -394,7 +394,7 @@
           </xsl:choose>
         </span>
         <xsl:if test="concat($derId,'/',$maindoc) = $filePath">
-          <span class="{$fileCss} fa fa-star" style="margin-left:10px"></span>
+          <span class="{$fileCss} fas fa-star" style="margin-left:10px"></span>
         </xsl:if>
       </div>
     </div>
@@ -411,7 +411,7 @@
     <div class="options pull-right">
       <div class="btn-group">
         <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-          <i class="fa fa-cog"></i>
+          <i class="fas fa-cog"></i>
           <xsl:value-of select="i18n:translate('cmo.derivate.action')" />
           <span class="caret"></span>
         </a>

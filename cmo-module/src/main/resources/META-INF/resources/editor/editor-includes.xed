@@ -227,7 +227,7 @@
                   <span class="pmud-button">
                     <a tabindex="0" class="btn btn-secondary info-button" role="button"
                        title="{i18n:cmo.help.sourceSearch}" data-subselect-trigger="">
-                      <i class="fa fa-search"></i>
+                      <i class="fas fa-search"></i>
                     </a>
                   </span>
                 </div>
@@ -393,7 +393,7 @@
                 <span class="pmud-button">
                   <a tabindex="0" class="btn btn-secondary info-button" role="button"
                         title="{i18n:cmo.help.sourceSearch}" data-subselect-trigger="">
-                      <i class="fa fa-search"></i>
+                      <i class="fas fa-search"></i>
                   </a>
                 </span>
                 <input type="text" placeholder="eg. Ṭanbūrī Emīn Āġā" style="width: 64%;margin-left: 10px;" class="form-control form-control-inline" />
@@ -426,7 +426,7 @@
                 <span class="pmud-button">
                   <a tabindex="0" class="btn btn-secondary info-button" role="button"
                         title="{i18n:cmo.help.modsSearch}" data-subselect-trigger="">
-                      <i class="fa fa-search"></i>
+                      <i class="fas fa-search"></i>
                   </a>
                 </span>
               </div>
@@ -456,7 +456,7 @@
                   <span class="pmud-button">
                     <a tabindex="0" class="btn btn-secondary info-button" role="button"
                         title="{i18n:cmo.help.workSearch}" data-subselect-trigger="">
-                      <i class="fa fa-search"></i>
+                      <i class="fas fa-search"></i>
                   </a>
                   </span>
                   <xed:bind xpath="@label">
@@ -493,7 +493,7 @@
                   <span class="pmud-button">
                     <a tabindex="0" class="btn btn-secondary info-button" role="button"
                         title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
-                      <i class="fa fa-search"></i>
+                      <i class="fas fa-search"></i>
                   </a>
                   </span>
                   <xed:bind xpath="@n">
@@ -531,7 +531,7 @@
                   <span class="pmud-button">
                     <a tabindex="0" class="btn btn-secondary info-button" role="button"
                         title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
-                      <i class="fa fa-search"></i>
+                      <i class="fas fa-search"></i>
                   </a>
                   </span>
                   <xed:bind xpath="@label">
@@ -569,7 +569,7 @@
                   <span class="pmud-button">
                     <a tabindex="0" class="btn btn-secondary info-button" role="button"
                         title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
-                      <i class="fa fa-search"></i>
+                      <i class="fas fa-search"></i>
                   </a>
                   </span>
                   <input type="text" placeholder="eg. TRT-NA REPno. S.E 2791" style="width: 20%;margin-left: 10px;" class="form-control form-control-inline" />

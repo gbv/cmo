@@ -271,7 +271,7 @@
               <span class="pmud-button">
                 <a tabindex="0" class="btn btn-secondary info-button" role="button"
                    title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
-                  <i class="fa fa-search"></i>
+                  <i class="fas fa-search"></i>
                 </a>
               </span>
             </div>
@@ -295,7 +295,7 @@
               <input type="text" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline {$xed-validation-marker}" />
               <a tabindex="0" class="btn btn-secondary info-button" role="button"
                  title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
-                <i class="fa fa-search"></i>
+                <i class="fas fa-search"></i>
               </a>
             </div>
           </div>

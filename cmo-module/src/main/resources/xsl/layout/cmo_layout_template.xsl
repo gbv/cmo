@@ -17,7 +17,7 @@
 
   <!-- Various versions -->
   <xsl:variable name="bootstrap.version" select="'4.3.1'" />
-  <xsl:variable name="fontawesome.version" select="'4.7.0'" />
+  <xsl:variable name="fontawesome.version" select="'5.10.1'" />
   <xsl:variable name="jquery.version" select="'3.1.1'" />
   <xsl:variable name="jquery.migrate.version" select="'1.4.1'" />
   <xsl:variable name="chosen.version" select="'1.8.3'" />
@@ -40,7 +40,7 @@
         </xsl:comment>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <link href="{$WebApplicationBaseURL}webjars/font-awesome/{$fontawesome.version}/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="{$WebApplicationBaseURL}webjars/font-awesome/{$fontawesome.version}/css/all.min.css" rel="stylesheet" />
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet" />
         <link href="{$WebApplicationBaseURL}css/file.css" rel="stylesheet" />

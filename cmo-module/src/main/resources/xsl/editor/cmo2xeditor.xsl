@@ -73,7 +73,7 @@
   <xsl:template match="cmo:subselectTrigger">
     <a tabindex="0" class="btn btn-secondary info-button" role="button"
        title="{i18n:translate('cmo.help.search')}" data-subselect-trigger="">
-      <i class="fa fa-search"></i>
+      <i class="fas fa-search"></i>
     </a>
   </xsl:template>
 
@@ -110,7 +110,7 @@
           <span class="pmud-button" data-subselect-trigger="true">
             <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover"
                data-placement="right">
-              <i class="fa fa-search"></i>
+              <i class="fas fa-search"></i>
             </a>
           </span>
           <xsl:if test="@repeat-buttons = 'true'">
@@ -131,7 +131,7 @@
             <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover"
                data-placement="right"
                data-content="{@help-text}">
-              <i class="fa fa-info"></i>
+              <i class="fas fa-info"></i>
             </a>
           </span>
         </div>
@@ -362,11 +362,11 @@
                     <span class="pmud-button">
                       <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover"
                          data-placement="right" data-content="{i18n:translate('cmo.help.nameLink')}">
-                        <i class="fa fa-info"></i>
+                        <i class="fas fa-info"></i>
                       </a>
                       <a tabindex="0" class="btn btn-secondary info-button" role="button"
                          title="{i18n:translate('cmo.help.search')}" data-subselect-trigger="">
-                        <i class="fa fa-search"></i>
+                        <i class="fas fa-search"></i>
                     </a>
                     </span>
                   </div>
@@ -397,7 +397,7 @@
                 <div class="col-md-2">
                   <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover"
                      data-placement="right" data-content="{i18n:translate('cmo.help.nameLink')}">
-                    <i class="fa fa-info"></i>
+                    <i class="fas fa-info"></i>
                   </a>
                 </div>
               </div>
@@ -490,7 +490,7 @@
                   </div>
                   <div class="col-md-6 center-vertical">
                     <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="person.fields.noHidden" />
-                    <span class="fa fa-chevron-down expand-item" title="{i18n:translate('cmo.mods.help.expand')}" aria-hidden="true"></span>
+                    <span class="fas fa-chevron-down expand-item" title="{i18n:translate('cmo.mods.help.expand')}" aria-hidden="true"></span>
                   </div>
                   <div class="col-md-2">
                     <xsl:if test="string-length(@help-text) &gt; 0">
@@ -594,7 +594,7 @@
     <span class="pmud-button">
       <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover" data-placement="right"
          data-content="{@help-text}">
-        <i class="fa fa-info"></i>
+        <i class="fas fa-info"></i>
       </a>
     </span>
   </xsl:template>
@@ -614,7 +614,7 @@
         <span class="pmud-button">
           <button class="btn btn-secondary" role="button"
                   title="{i18n:translate('cmo.help.search')}" data-subselect-trigger="">
-            <i class="fa fa-search"></i>
+            <i class="fas fa-search"></i>
           </button>
         </span>
       </xsl:if>
