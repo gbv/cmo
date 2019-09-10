@@ -1,3 +1,8 @@
+/* bootstrap 4 fixes */
+
+/*
+ * quick fix for drop down menus
+ */
 .nav > li {
     position: relative;
     display: block;
@@ -17,3 +22,28 @@
     line-height: 1.42857143;
     white-space: nowrap;
 }
+
+
+/*
+ * this is only a workaround for server side validation, we should
+ * refacture the html an use html5 features here - TODO
+ */
+ .mcr-invalid {
+    label {
+      color: red;
+    }
+    input,
+    select {
+      border: 1px solid red;
+      padding-right: calc((1em + .75rem) * 3 / 4 + 1.75rem);
+    }
+  }
+  .mcr-valid {
+    label {
+      color: green;
+    }
+    input,
+    select {
+      border: 1px solid green;
+    }
+  }
