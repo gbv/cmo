@@ -5,7 +5,9 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:basket="xalan://org.mycore.frontend.basket.MCRBasketManager" xmlns:mcr="http://www.mycore.org/" xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
   xmlns:mcrver="xalan://org.mycore.common.MCRCoreVersion"
-  xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions" exclude-result-prefixes="xlink basket mcr mcrver mcrxsl i18n">
+  xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions"
+  xmlns:calendar="xalan://java.util.GregorianCalendar"
+  exclude-result-prefixes="xlink basket mcr mcrver mcrxsl i18n calendar">
 
   <xsl:import href="resource:xsl/layout/common-layout.xsl" />
 
@@ -233,11 +235,12 @@
                 </div>
             </div>
             <xsl:variable name="mcr_version" select="concat('MyCoRe ',mcrver:getCompleteVersion())" />
+            <xsl:variable name="copyrightDate" select="calendar:new()"/>
             <div id="powered">
                 <div class="container-fluid">
                     <div class="row">
                         <div id="copyright" class="col-12 col-sm-6 col-md-5 col-lg-3">
-                            © 2018 Corpus Musicae Ottomanicae (CMO)
+                            © <xsl:value-of select="calendar:get($copyrightDate, 1)"/> Corpus Musicae Ottomanicae (CMO)
                         </div>
                         <div id="contact" class="col-12 col-sm-6 col-md-5 col-lg-2">
                           <a href="mailto:cmo@uni-muenster.de">cmo@uni-muenster.de</a>
