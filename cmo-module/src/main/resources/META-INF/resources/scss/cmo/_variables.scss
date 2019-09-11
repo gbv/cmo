@@ -4,6 +4,11 @@
 ----------------------------------------------------------------------------*/
 
 $font-family-sans-serif: "Open Sans", Helvetica, Arial, sans-serif;
+$body-color:         #707474;
+$line-height-base:   1.428571429;
+
+$headings-color:     #666689;
+$headings-font-weight: 600;
 
 $gray-base:     #252626;
 $gray-darker:   lighten($gray-base, 20%);
@@ -19,9 +24,6 @@ $warning: #7800cc;
 $danger:  #cc1400;
 $body-bg: #666689;
 $secondary:    $gray-dark;
-
-$headings-color: #666689;
-$headings-font-weight: 600;
 
 /* ---------------------------------------------------------------------------
    inline styles to css
