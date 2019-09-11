@@ -19,10 +19,9 @@
     <xsl:param name="accessedit" select="acl:checkPermission($id,'writedb')" />
     <xsl:param name="accessdelete" select="acl:checkPermission($id,'deletedb')" />
 
-      <div class="dropdown pull-right">
+      <div class="dropdown float-right">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
           <span class="fas fa-cog" aria-hidden="true"></span> Aktionen
-          <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
           <li role="presentation">
@@ -202,7 +201,6 @@
                     <xsl:value-of select="position()" />
                   </span>
                 </xsl:if>
-                <span class="caret"></span>
               </a>
             </div>
             <xsl:apply-templates select="." mode="derivateActions">
@@ -312,11 +310,10 @@
               </xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
-          <div class="options pull-right">
+          <div class="options float-right">
             <div class="btn-group">
               <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
                 <i class="fas fa-cog"></i>
-                <span class="caret"></span>
               </a>
               <ul class="dropdown-menu dropdown-menu-right">
                 <xsl:if test="acl:checkPermission($derId,'writedb') and @type!='directory'">
@@ -408,12 +405,11 @@
     <xsl:variable select="concat('mcrobject:',$deriv)" name="derivlink" />
     <xsl:variable select="document($derivlink)" name="derivate" />
 
-    <div class="options pull-right">
+    <div class="options float-right">
       <div class="btn-group">
         <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
           <i class="fas fa-cog"></i>
           <xsl:value-of select="i18n:translate('cmo.derivate.action')" />
-          <span class="caret"></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-right">
           <!-- TODO: fix derivate editor -->

@@ -183,7 +183,6 @@
     <li id="cmo_language" class="float-left">
       <!-- a data-toggle="dropdown" title="{i18n:translate('language.change')}">
         <xsl:value-of select="i18n:translate(concat('language.change.', $CurrentLang))" />
-        <span class="caret" />
       </a -->
       <ul class="cmo_language-menu" role="menu">
         <xsl:variable name="availableLanguages">

@@ -37,7 +37,13 @@
     <xsl:param name="label" />
     <xsl:param name="type" select="''" />
     <xsl:param name="content" />
-    <tr class="{$style}">
+    <tr>
+      <xsl:attribute name="class">
+        <xsl:value-of select="'d-flex'" />
+        <xsl:if test="string-length($style)&gt;0">
+          <xsl:value-of select="concat(' ', $style)" />
+        </xsl:if>
+      </xsl:attribute>
       <th class="col-md-3">
         <xsl:if test="string-length($label) &gt; 0">
           <xsl:value-of select="i18n:translate($label)" />
@@ -59,7 +65,13 @@
     <xsl:param name="text" />
     <xsl:param name="type" select="''" />
     <xsl:param name="content" />
-    <tr class="{$style}">
+    <tr>
+      <xsl:attribute name="class">
+        <xsl:value-of select="'d-flex'" />
+        <xsl:if test="string-length($style)&gt;0">
+          <xsl:value-of select="concat(' ', $style)" />
+        </xsl:if>
+      </xsl:attribute>
       <th class="col-md-3">
         <xsl:value-of select="$text" />
       </th>
@@ -79,7 +91,13 @@
     <xsl:param name="content1" />
     <xsl:param name="content2" />
     <xsl:param name="type" select="''" />
-    <tr class="{$style}">
+    <tr>
+      <xsl:attribute name="class">
+        <xsl:value-of select="'d-flex'" />
+        <xsl:if test="string-length($style)&gt;0">
+          <xsl:value-of select="concat(' ', $style)" />
+        </xsl:if>
+      </xsl:attribute>
       <th class="col-md-3">
         <xsl:if test="string-length($content1) &gt; 0">
           <xsl:variable name="rTree1" select="exslt:node-set($content1)" />
@@ -103,7 +121,13 @@
     <xsl:param name="label" />
     <xsl:param name="content" />
 
-    <tr class="{$style}">
+    <tr>
+      <xsl:attribute name="class">
+        <xsl:value-of select="'d-flex'" />
+        <xsl:if test="string-length($style)&gt;0">
+          <xsl:value-of select="concat(' ', $style)" />
+        </xsl:if>
+      </xsl:attribute>
       <th class="col-md-3">
         <xsl:if test="string-length($label) &gt; 0">
           <xsl:value-of select="i18n:translate($label)" />
