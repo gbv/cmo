@@ -48,7 +48,11 @@
     }
   }
 
-// anchor elements which should be shown as a link, but can not have a href attribute
+
+/*
+ * anchor elements which should be shown as a link,
+ * but can not have a href attribute
+ */
 a[data-basket-add-all], a[data-basket], a[data-facet-show] {
   &:not([href]):not([tabindex]) {
     color: $link-color;
@@ -59,5 +63,91 @@ a[data-basket-add-all], a[data-basket], a[data-facet-show] {
       text-decoration: $link-hover-decoration;
     }
   }
+}
+
+/*
+ * fontawesome fix, far only works with font-weight 400
+ */
+
+.far {
+  font-weight: 400;
+}
+
+
+/* 
+ * browse layout from MIR
+ */
+
+
+/* icons */
+.cbList .fa {
+  margin-left: 10px;
+  font-size: 26px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.cbList .fa-plus-square {  }
+.cbList .fa-square {
+  color: #ccc;
+}
+.cbList .fa-minus-square {}
+
+/* first level */
+ul.cbList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ul.cbList li {
+  margin: 1px 0px 0px 0px;
+  padding: 0px 0px 0px 10px;
+  border-radius: 1px;
+  line-height: 36px;
+  color: #ddd;
+}
+ul.cbList li:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+ul.cbList li:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+ul.cbList li a {
+  text-decoration: none;
+}
+ul.cbList li a:first-child {
+  color: #aaa;
+}
+ul span.cbNum {
+  padding: 0 8px 0 12px;
+  color: #999;
+}
+
+/* second+ level */
+ul.cbList ul {
+  padding: 0 0 0 0px;
+}
+ul.cbList li li a {
+  color: $link_color;
+}
+ul.cbList li li {
+  margin: 1px 0 0 0;
+  padding: 0px 0 0px 22px;
+  border-radius: 1px;
+  line-height: 32px;
+}
+ul.cbList li li:first-child {
+  margin: 10px 0 0 0;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+ul.cbList li li:last-child {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  margin-bottom:0px;
+}
+ul ul span.cbNum {
+  color: #999;
 }
 
