@@ -23,7 +23,6 @@
   <xsl:variable name="chosen.version" select="'1.8.3'" />
   <xsl:variable name="datetimepicker.version" select="'1.7.1'" />
   <xsl:variable name="jquery.table.sort.version" select="'2.25.4'" />
-  <xsl:variable name="system.js.version" select="'0.19.3'" />
 
   <!-- End of various versions -->
   <xsl:variable name="PageTitle" select="/*/@title" />
@@ -52,10 +51,10 @@
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery/{$jquery.version}/jquery.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/jquery-migrate/{$jquery.migrate.version}/jquery-migrate.min.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/chosen-js/{$chosen.version}/chosen.jquery.min.js"></script>
-        <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/systemjs/{$system.js.version}/dist/system.js"></script>
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/tablesorter/{$jquery.table.sort.version}/js/jquery.tablesorter.js" async="true"></script>
         <script src="{$WebApplicationBaseURL}modules/webtools/upload/js/upload-api.js"></script>
         <script src="{$WebApplicationBaseURL}modules/webtools/upload/js/upload-gui.js"></script>
+        <script src="{$WebApplicationBaseURL}js/cmo.bundle.js"></script>
         <link rel="stylesheet" type="text/css" href="{$WebApplicationBaseURL}modules/webtools/upload/css/upload-gui.css" />
 
         <script>
@@ -65,12 +64,6 @@
           window["mcrBaseURL" ] = '<xsl:value-of select="$WebApplicationBaseURL" />';
           window["webApplicationBaseURL" ] = '<xsl:value-of select="$WebApplicationBaseURL" />';
           window["mcrLanguage" ] = '<xsl:value-of select="$CurrentLang" />';
-          System.config({
-          baseURL: '<xsl:value-of select="concat($WebApplicationBaseURL, 'js/')" />',
-          defaultJSExtensions: true
-          });
-          // loads /js/main.js
-          System.import('search/cmo.js');
         </script>
         <xsl:copy-of select="head/*" />
       </head>

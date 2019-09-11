@@ -224,10 +224,6 @@
       <artifactId>tablesorter</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.webjars.npm</groupId>
-      <artifactId>systemjs</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>momentjs</artifactId>
     </dependency>

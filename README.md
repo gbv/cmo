@@ -39,3 +39,7 @@ DELETE FROM MCRCATEGORYLINK WHERE OBJECTTYPE='expression'
                                   or OBJECTTYPE='mods'
                                   or OBJECTTYPE='person';
 ```
+
+## Debug
+
+The project uses webpack to bundle typescript. To Debug change the mode in cmo-module/webpack.config.js to 'development'. 

@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-
     "target": "es5",
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
@@ -8,7 +7,7 @@
     "inlineSources":false,
     "outDir": "target/classes/META-INF/resources/js/",
     "typeRoots": ["node_modules/@types"],
-    "module": "system",
+    "module": "es6",
     "lib": ["es5","dom","es2015", "es2015.iterable"]
   }
 }
