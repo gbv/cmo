@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_genres">
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_genres">
   <label xml:lang="en" text="genre" description="A list of publication types" />
-  <label xml:lang="de" text="Genre" description="Liste der Publikationsarten" />
   <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres" />
+  <label xml:lang="de" text="Genre" description="Liste der Publikationsarten" />
   <categories>
+    <category ID="Multivolume_monograph">
+      <label xml:lang="de" text="Mehrbändiges Werk" />
+      <label xml:lang="tr" text="Çok ciltli kitap" />
+      <label xml:lang="en" text="Multivolume monograph" />
+    </category>
     <category ID="article">
-      <label xml:lang="de" text="Artikel / Aufsatz" />
       <label xml:lang="en" text="Article / Chapter" />
+      <label xml:lang="de" text="Artikel / Aufsatz" />
+      <label xml:lang="tr" text="Makale / Kitap bölümü" />
     </category>
     <category ID="book">
+      <label xml:lang="tr" text="Kitap, monografi" />
       <label xml:lang="de" text="Buch, Monographie" />
       <label xml:lang="en" text="Book, Monograph" />
     </category>
     <category ID="series">
       <label xml:lang="en" text="Series" />
+      <label xml:lang="tr" text="Dizi" />
       <label xml:lang="de" text="Serie" />
     </category>
   </categories>

@@ -4,61 +4,75 @@
   <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_annotType" />
   <label xml:lang="en" text="Annotation Types" />
   <categories>
+    <category ID="other">
+      <label xml:lang="de" text="Andere" />
+      <label xml:lang="en" text="Other" />
+    </category>
+    <category ID="Usûl_name">
+      <label xml:lang="en" text="Usûl_name" />
+      <label xml:lang="tr" text="Usûl_name" />
+      <label xml:lang="de" text="Usûl_name" />
+    </category>
+    <category ID="Alternative_H4">
+      <label xml:lang="tr" text="Alternative_H4" />
+      <label xml:lang="de" text="Alternative_H4" />
+      <label xml:lang="en" text="Alternative_H4" />
+    </category>
     <category ID="Editors">
       <label xml:lang="de" text="Bearbeiter" />
       <label xml:lang="en" text="Editors" />
-    </category>
-    <category ID="Fascicles">
-      <label xml:lang="de" text="Faszikel" />
-      <label xml:lang="en" text="Fascicles" />
-    </category>
-    <category ID="Script">
-      <label xml:lang="en" text="Script" />
-      <label xml:lang="de" text="Skript" />
-    </category>
-    <category ID="Publisher">
-      <label xml:lang="de" text="Herausgeber" />
-      <label xml:lang="en" text="Publisher" />
-    </category>
-    <category ID="Printer">
-      <label xml:lang="de" text="Drucker" />
-      <label xml:lang="en" text="Printer" />
-    </category>
-    <category ID="Series">
-      <label xml:lang="de" text="Serie" />
-      <label xml:lang="en" text="Series" />
-    </category>
-    <category ID="Volumes">
-      <label xml:lang="de" text="Volumes" />
-      <label xml:lang="en" text="Volumes" />
-    </category>
-    <category ID="Sections">
-      <label xml:lang="de" text="Sections" />
-      <label xml:lang="en" text="Sections" />
     </category>
     <category ID="Date">
       <label xml:lang="de" text="Datum" />
       <label xml:lang="en" text="Date" />
     </category>
-    <category ID="Transcriber">
-      <label xml:lang="de" text="Transcriber" />
-      <label xml:lang="en" text="Transcriber" />
-    </category>
     <category ID="Edition">
-      <label xml:lang="de" text="Edition" />
       <label xml:lang="en" text="Edition" />
+      <label xml:lang="de" text="Edition" />
     </category>
-        <category ID="Translation">
-      <label xml:lang="de" text="Translation" />
-      <label xml:lang="en" text="Translation" />
-    </category>
-    <category ID="Later_annotation">
-      <label xml:lang="de" text="Later_annotation" />
-      <label xml:lang="en" text="Later_annotation" />
+    <category ID="Fascicles">
+      <label xml:lang="en" text="Fascicles" />
+      <label xml:lang="de" text="Faszikel" />
     </category>
     <category ID="Identifier">
-      <label xml:lang="de" text="Identifikator" />
       <label xml:lang="en" text="Identifier" />
+      <label xml:lang="de" text="Identifikator" />
+    </category>
+    <category ID="Later_annotation">
+      <label xml:lang="de" text="Later annotation" />
+      <label xml:lang="en" text="Later annotation" />
+    </category>
+    <category ID="Publisher">
+      <label xml:lang="en" text="Publisher" />
+      <label xml:lang="de" text="Herausgeber" />
+    </category>
+    <category ID="Printer">
+      <label xml:lang="en" text="Printer" />
+      <label xml:lang="de" text="Drucker" />
+    </category>
+    <category ID="Sections">
+      <label xml:lang="de" text="Sections" />
+      <label xml:lang="en" text="Sections" />
+    </category>
+    <category ID="Series">
+      <label xml:lang="en" text="Series" />
+      <label xml:lang="de" text="Serie" />
+    </category>
+    <category ID="Script">
+      <label xml:lang="de" text="Skript" />
+      <label xml:lang="en" text="Script" />
+    </category>
+    <category ID="Transcriber">
+      <label xml:lang="en" text="Transcriber" />
+      <label xml:lang="de" text="Transcriber" />
+    </category>
+    <category ID="Translation">
+      <label xml:lang="en" text="Translation" />
+      <label xml:lang="de" text="Translation" />
+    </category>
+    <category ID="Volumes">
+      <label xml:lang="en" text="Volumes" />
+      <label xml:lang="de" text="Volumes" />
     </category>
   </categories>
 </mycoreclass>
