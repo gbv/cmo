@@ -12,6 +12,7 @@ export class SearchController {
     private view: SearchGUI;
     private _enabled: boolean = false;
     private _enabledHandlerList: Array<(enabled: boolean) => void> = [];
+    private _resetSearchhandlerList: Array<() => void> = [];
 
     constructor(container: HTMLElement, private facetController: SearchFacetController, placeHolderKey: string, private baseQuery: string) {
         this.view = new SearchGUI(container, placeHolderKey, baseQuery);
@@ -21,8 +22,10 @@ export class SearchController {
         });
 
         this.view.searchIcon.addEventListener("click", () => {
+            this._resetSearchhandlerList.forEach(e => e());
             this.setInputValue("");
             this.view.reset();
+            this.facetController.reset();
         });
 
         facetController.addChangeHandler(() => {
@@ -42,6 +45,17 @@ export class SearchController {
         let handlerIndex = this._enabledHandlerList.indexOf(handler);
         if (handlerIndex !== -1) {
             this._enabledHandlerList.splice(handlerIndex, 1);
+        }
+    }
+
+    public addResetSearchHandler(handler: () => void) {
+        this._resetSearchhandlerList.push(handler);
+    }
+
+    public removeResetSearchHandler(handler: () => void) {
+        let handlerIndex = this._resetSearchhandlerList.indexOf(handler);
+        if (handlerIndex !== -1) {
+            this._resetSearchhandlerList.splice(handlerIndex, 1);
         }
     }
 

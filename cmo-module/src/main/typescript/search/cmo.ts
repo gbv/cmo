@@ -59,6 +59,14 @@ window.addEventListener('load', ()=> {
         kSearch.enable = false;
     });
 
+    const resetHandler = ()=>{
+        aditionalQuery = [];
+
+    };
+
+    kSearch.addResetSearchHandler(resetHandler);
+    eSearch.addResetSearchHandler(resetHandler);
+
     eSearch.addEnabledHandler((enabled) => {
         if (enabled) {
             eContainer.setAttribute("class", "col-xs-8 col-md-8 col-lg-8");
