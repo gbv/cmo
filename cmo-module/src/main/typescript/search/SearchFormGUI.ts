@@ -52,12 +52,12 @@ export class SearchGUI {
 <div class="search">
     <img class="search icon" src="${this.searchIconUrl}">
     <input type="search" class="form-control mainSearch" name="q">
-    <img class="extender icon hidden"src="${this.extenderIconUrl}">
+    <img class="extender icon d-none"src="${this.extenderIconUrl}">
     <div class="extendedSearch closed container">
         <div class="row">
-            <div class="form-group">
-                <label class="typeLabel col-md-4 control-label form-inline"></label>
-                <div class="controls col-md-8">
+            <div class="form-group col-12 row">
+                <label class="typeLabel col-12 col-md-4 control-label form-inline"></label>
+                <div class="controls col-12 col-md-8">
                     <select class="type form-control form-control-inline"></select>
                 </div>
             </div>
@@ -197,11 +197,11 @@ export class SearchGUI {
     }
 
     public activateExtenderIcon() {
-        this._extenderIcon.classList.remove("hidden");
+        this._extenderIcon.classList.remove("d-none");
     }
 
     public deactivateExtenderIcon() {
-        this._extenderIcon.classList.add("hidden");
+        this._extenderIcon.classList.add("d-none");
     }
 
 
@@ -417,9 +417,9 @@ export class TextSearchFieldInput extends SearchFieldInput {
 
     public getTemplate() {
         return `
-<div class="form-group">
-    <label class="col-md-4 control-label form-inline"></label>
-    <div class="col-md-8">
+<div class="form-group col-12 row">
+    <label class="col-12 col-md-4 control-label form-inline"></label>
+    <div class="col-12 col-md-8">
         <input class="form-control" type="search">
     </div>
 </div>
@@ -469,9 +469,9 @@ export class CheckboxSearchFieldInput extends SearchFieldInput {
 
     public init() {
         this._template = `
-              <div class="form-group">
-                  <div class="col-md-4 control-label form-inline"></div>
-                  <div class="controls col-md-8">
+              <div class="form-group col-12 row">
+                  <div class="col-12 col-md-4 control-label form-inline"></div>
+                  <div class="col-12 col-md-8 controls">
                       <div class="checkbox">
                         <label>
                             <input type="checkbox"/>
@@ -529,9 +529,9 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
 
     public init() {
         this._template = `
-              <div class="form-group">
-                  <label class="col-md-4 control-label form-inline"></label>
-                  <div class="controls col-md-8">
+              <div class="form-group col-12 row">
+                  <label class="col-12 col-md-4 control-label form-inline"></label>
+                  <div class="col-12 col-md-8 controls">
                     <select class="form-control form-control-inline">
 
                     </select>
@@ -709,11 +709,11 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
 
     private rangeCheckBoxChanged() {
         if (this.isRangeSelected()) {
-            this.noRangeBox.classList.add("hidden");
-            this.rangeBox.classList.remove("hidden");
+            this.noRangeBox.classList.add("d-none");
+            this.rangeBox.classList.remove("d-none");
         } else {
-            this.rangeBox.classList.add("hidden");
-            this.noRangeBox.classList.remove("hidden");
+            this.rangeBox.classList.add("d-none");
+            this.noRangeBox.classList.remove("d-none");
         }
     }
 
@@ -779,9 +779,9 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
         let checkBoxID = Math.random().toString();
 
         return `
-<div class="form-group">
-    <label class="col-md-4 control-label form-inline date"></label>
-    <div class="col-md-8">
+<div class="form-group col-12 row">
+    <label class="col-12 col-md-4 control-label form-inline date"></label>
+    <div class="col-12 col-md-8">
         <div class="form-inline">
             <input id="date_${checkBoxID}" class="checkbox inline" type="checkbox" />
             <label for="#date_${checkBoxID}" class="range inline"> </label>
@@ -789,7 +789,7 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
         <div class="form-inline noRange">
             <input class="form-control noRange inline datepicker" type="text" placeholder="1788-03-28" />
         </div>
-        <div class="form-inline range hidden input-group input-daterange">
+        <div class="form-inline range d-none input-group input-daterange">
             <label for="#date_1_${checkBoxID}" class="range inline from input-group-addon"> </label>
             <input id="date_1_${checkBoxID}" class="form-control inline from datepicker" type="text" placeholder="1788-03-28" />
             <label for="#date_2_${checkBoxID}" class="range inline to input-group-addon"> </label>

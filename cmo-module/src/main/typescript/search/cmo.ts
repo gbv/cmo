@@ -377,7 +377,7 @@ window.addEventListener('load', ()=> {
                     });
                     subselectTarget = null;
                     window.location.hash = "";
-                    sideBar.classList.add("hidden");
+                    sideBar.classList.add("d-none");
                     mainContainer.classList.add("col-md-11");
                     mainContainer.classList.add("col-lg-11");
                     mainContainer.classList.remove("col-md-9");
@@ -401,7 +401,7 @@ window.addEventListener('load', ()=> {
                         element.setAttribute("href", Utils.getBaseURL() + "receive/" + realValue);
                     });
                     window.location.hash = "";
-                    sideBar.classList.add("hidden");
+                    sideBar.classList.add("d-none");
                     mainContainer.classList.add("col-md-11");
                     mainContainer.classList.add("col-lg-11");
                     mainContainer.classList.remove("col-md-9");
@@ -568,7 +568,7 @@ window.addEventListener('load', ()=> {
             case "set-parent":
             case "subselect-insert":
 
-                sideBar.classList.remove("hidden");
+                sideBar.classList.remove("d-none");
                 mainContainer.classList.remove("col-md-11");
                 mainContainer.classList.remove("col-lg-11");
                 mainContainer.classList.add("col-md-9");
