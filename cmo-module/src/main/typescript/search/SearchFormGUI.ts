@@ -584,7 +584,8 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
     private labelElement: HTMLElement;
 
     public reset() {
-        this.select.values = this.select.options.item(0).innerText;
+        this.select.value = this.select.options.item(0).value;
+        window["$"](this.select).trigger("chosen:updated");
     }
 
     public attach(to: HTMLElement) {
