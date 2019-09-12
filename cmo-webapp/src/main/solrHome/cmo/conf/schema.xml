@@ -619,7 +619,7 @@
     <field name="title.lang.tr" type="text_tr" multiValued="true" stored="true" />
     <field name="title.lang.ota-arab" type="text_ar" multiValued="true" stored="true" />
     <field name="title.lang.ota-armn" type="text_ar" multiValued="true" stored="true" /><!-- TODO: change to armn language -->
-    <field name="title.type.alt" type="string" multiValued="false" stored="true" />
+    <field name="title.type.alt" type="string" multiValued="true" stored="true" />
     <dynamicField name="title.*" type="text_tr" multiValued="true" stored="true"/>
     <field name="displayTitle" type="text_tr" indexed="true" stored="true" multiValued="false" />
     <field name="displayTitleSort" type="sort_tr" indexed="true" stored="false" multiValued="false" />
