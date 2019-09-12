@@ -188,10 +188,12 @@ export class SearchGUI {
 
     public activateDeleteIcon() {
         this._searchIcon.src = this.searchClearIconUrl;
+        I18N.translate("cmo.search.reset", translation => this.searchIcon.setAttribute("title", translation));
     }
 
     public activateSearchIcon() {
         this._searchIcon.src = this.searchIconUrl;
+        this.searchIcon.removeAttribute("title");
     }
 
     public activateExtenderIcon() {
