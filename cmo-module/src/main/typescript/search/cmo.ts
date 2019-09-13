@@ -764,24 +764,19 @@ window.addEventListener('load', ()=> {
             }
         };
 
-        contentEditable.addEventListener("mouseup", () => {
-            let selection = window.getSelection();
-
-            if (isInTargetNode(selection.anchorNode) && selection.type === "Range") {
-                enable();
-            } else {
-                disable();
-            }
-        });
-
-
         trigger.onclick = (e) => {
             e.preventDefault();
-
             const rng = Math.random().toString().replace(".", "");
             const className = insertClassName = "inserted" + rng;
+
+            let selection = window.getSelection();
             let aElement = `<a class='inserted ${className}'>${window.getSelection()}</a>`;
-            document.execCommand("insertHTML", false, aElement);
+
+            if ((selection.type === "Range" || selection.type === "Caret") && isInTargetNode(selection.anchorNode)) {
+                document.execCommand("insertHTML", false, aElement);
+            } else {
+                contentEditable.innerHTML+=aElement;
+            }
 
             let query = element.getAttribute("data-insert-subselect");
             subselectTarget = [contentEditable];
