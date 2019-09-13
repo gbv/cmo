@@ -705,17 +705,6 @@ window.addEventListener('load', ()=> {
             });
         });
 
-
-        const disable = () => {
-            trigger.setAttribute("disabled", "true");
-        };
-
-        const enable = () => {
-            trigger.removeAttribute("disabled");
-        };
-
-        disable();
-
         const config = {
             subtree: true,
             attributes: true,
