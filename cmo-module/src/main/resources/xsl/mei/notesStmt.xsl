@@ -61,8 +61,8 @@
     </xsl:for-each>
   </xsl:template>
 
-  <xsl:template match="mei:ref" mode="printAnnot">
-    <a href="{$WebApplicationBaseURL}receive/{@target}">
+  <xsl:template match="mei:ref|mei:bibl|mei:persName" mode="printAnnot">
+    <a href="{$WebApplicationBaseURL}receive/{@target|@nymref}">
       <xsl:apply-templates select="text()" mode="printAnnot" />
     </a>
   </xsl:template>

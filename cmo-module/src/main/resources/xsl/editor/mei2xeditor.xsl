@@ -116,7 +116,7 @@
     </mei:desc>
   </xsl:template>
 
-  <xsl:template match="mei:annot[local-name(..) ='person']">
+  <xsl:template match="mei:annot[local-name(..) ='person' or local-name(..) ='notesStmt']">
     <mei:annot type="{@type}">
       <xsl:call-template name="convertMEIToHTML" />
     </mei:annot>
@@ -130,8 +130,8 @@
 
   </xsl:template>
 
-  <xsl:template match="mei:bibl|mei:ref" mode="convert">
-    <a class="inserted" href="{concat($WebApplicationBaseURL, 'receive/')}{@target}"><xsl:value-of select="text()" /></a>
+  <xsl:template match="mei:bibl|mei:ref|mei:persName" mode="convert">
+    <a class="inserted" href="{concat($WebApplicationBaseURL, 'receive/')}{@target|@nymref}"><xsl:value-of select="text()" /></a>
   </xsl:template>
   
   <xsl:template match="mei:lb"  mode="convert"><br/></xsl:template>

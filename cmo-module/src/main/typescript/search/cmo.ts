@@ -397,7 +397,15 @@ window.addEventListener('load', ()=> {
                     subselectTarget.forEach((sst) => {
                         let fieldValue = doc["id"];
                         let realValue = (fieldValue instanceof Array) ? fieldValue[0] : fieldValue;
-
+                        if(element.innerHTML.length==0){
+                            if("mods.identifier.CMO" in doc){
+                                element.innerHTML = doc["mods.identifier.CMO"];
+                            } else if("identifier.type.CMO" in doc){
+                                element.innerHTML = doc["identifier.type.CMO"];
+                            } else if ("displayTitle" in doc){
+                                element.innerHTML = doc["displayTitle"];
+                            }
+                        }
                         element.setAttribute("href", Utils.getBaseURL() + "receive/" + realValue);
                     });
                     window.location.hash = "";

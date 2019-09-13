@@ -106,7 +106,7 @@
     </mei:desc>
   </xsl:template>
 
-  <xsl:template match="mei:annot[local-name(..) ='person']">
+  <xsl:template match="mei:annot[local-name(..) ='person' or local-name(..) ='notesStmt']">
     <mei:annot type="{@type}">
       <xsl:call-template name="convertMEIToHTML" />
     </mei:annot>
@@ -141,6 +141,12 @@
       <xsl:when test="contains($id, '_source_')">
         <xsl:element name="mei:ref">
           <xsl:attribute name="target"><xsl:value-of select="$id"/></xsl:attribute>
+          <xsl:value-of select="text()" />
+        </xsl:element>
+      </xsl:when>
+      <xsl:when test="contains($id, '_person_')">
+        <xsl:element name="mei:persName">
+          <xsl:attribute name="nymref"><xsl:value-of select="$id"/></xsl:attribute>
           <xsl:value-of select="text()" />
         </xsl:element>
       </xsl:when>
