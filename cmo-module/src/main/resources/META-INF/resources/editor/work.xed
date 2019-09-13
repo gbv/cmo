@@ -32,7 +32,7 @@
 
             <!-- Button (Double) -->
             <div class="form-group">
-              <label class="col-md-4 control-label" for="save"></label>
+              <label class="col-md-4 col-form-label" for="save"></label>
               <div class="col-md-8">
                 <xed:choose>
                   <xed:when test="contains(/mycoreobject/@ID, '_00000000')">

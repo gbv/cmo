@@ -20,7 +20,7 @@
     <xsl:param name="accessdelete" select="acl:checkPermission($id,'deletedb')" />
 
       <div class="dropdown float-right">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
           <span class="fas fa-cog" aria-hidden="true"></span> Aktionen
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -145,7 +145,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary modal-pi-cancel" data-dismiss="modal">
+            <button type="button" class="btn btn-light modal-pi-cancel" data-dismiss="modal">
               <xsl:value-of select="i18n:translate('component.pi.register.modal.abort')" />
             </button>
             <button type="button" class="btn btn-danger" id="modal-pi-add"
@@ -312,7 +312,7 @@
           </xsl:attribute>
           <div class="options float-right">
             <div class="btn-group">
-              <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+              <a href="#" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
                 <i class="fas fa-cog"></i>
               </a>
               <ul class="dropdown-menu dropdown-menu-right">
@@ -407,7 +407,7 @@
 
     <div class="options float-right">
       <div class="btn-group">
-        <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+        <a href="#" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
           <i class="fas fa-cog"></i>
           <xsl:value-of select="i18n:translate('cmo.derivate.action')" />
         </a>

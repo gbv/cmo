@@ -261,7 +261,7 @@ export class SearchDisplay {
     <div class="btn-group" role="group">
         <button type="button" class="btn btn-primary" ${previousPageAttribute}>&lt;</button>
         ${pagesToRender.map(page => `
-<button type="button" class="btn ${(page == currentPage) ? 'btn-primary' : 'btn-secondary'}" data-switch-page="${page * rows}">${page + 1}</button>
+<button type="button" class="btn ${(page == currentPage) ? 'btn-primary' : 'btn-light'}" data-switch-page="${page * rows}">${page + 1}</button>
 `).join("")}
          <button type="button" class="btn btn-primary" ${nextPageAttribute}>&gt;</button>
     </div>

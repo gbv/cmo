@@ -13,7 +13,7 @@
   <xsl:template match="cmo:textfield.nobind">
     <div class="form-group">
       <div class="row">
-        <label class="col-md-4 control-label">
+        <label class="col-md-4 col-form-label">
           <xed:output i18n="{@label}" />
         </label>
         <div class="col-md-6 {@divClass}">
@@ -71,7 +71,7 @@
   </xsl:template>
 
   <xsl:template match="cmo:subselectTrigger">
-    <a tabindex="0" class="btn btn-secondary info-button" role="button"
+    <a tabindex="0" class="btn btn-light info-button" role="button"
        title="{i18n:translate('cmo.help.search')}" data-subselect-trigger="">
       <i class="fas fa-search"></i>
     </a>
@@ -90,7 +90,7 @@
   <xsl:template match="cmo:mixedContent">
     <div class="form-group" data-insert-subselect='{@query}'>
       <div class="row">
-        <label class="col-md-4 control-label form-inline">
+        <label class="col-md-4 col-form-label form-inline">
           <xed:output i18n="{@label}"/>
           <xsl:if test="@type">
             <xed:text>&#160;</xed:text>
@@ -108,7 +108,7 @@
         </div>
         <div class="col-md-2">
           <span class="pmud-button" data-subselect-trigger="true">
-            <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover"
+            <a tabindex="0" class="btn btn-light info-button" role="button" data-toggle="popover"
                data-placement="right">
               <i class="fas fa-search"></i>
             </a>
@@ -128,7 +128,7 @@
             </span>
           </xsl:if>
           <span class="pmud-button">
-            <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover"
+            <a tabindex="0" class="btn btn-light info-button" role="button" data-toggle="popover"
                data-placement="right"
                data-content="{@help-text}">
               <i class="fas fa-info"></i>
@@ -149,7 +149,7 @@
               <xsl:choose>
                 <xsl:when test="@bind">
                   <xed:bind xpath="{@bind}">
-                    <label class="col-md-4 control-label form-inline">
+                    <label class="col-md-4 col-form-label form-inline">
                       <xed:output i18n="{@label}" />
                       <xsl:if test="@type">
                         <xsl:text>&#160;</xsl:text>
@@ -175,7 +175,7 @@
                   </xed:bind>
                 </xsl:when>
                 <xsl:otherwise>
-                  <label class="col-md-4 control-label form-inline">
+                  <label class="col-md-4 col-form-label form-inline">
                     <xed:output i18n="{@label}" />
                     <xsl:if test="@type">
                       <xsl:text>&#160;</xsl:text>
@@ -209,7 +209,7 @@
         <xed:bind xpath="{@xpath}">
           <div class="form-group {@class} {$xed-val-marker}">
             <div class="row">
-              <label class="col-md-4 control-label form-inline">
+              <label class="col-md-4 col-form-label form-inline">
                 <xed:output i18n="{@label}" />
                 <xsl:if test="@type">
                   <xsl:text>&#160;</xsl:text>
@@ -249,7 +249,7 @@
           <xsl:variable name="xed-val-marker">{$xed-validation-marker}</xsl:variable>
           <div class="form-group {@class} {$xed-val-marker}">
             <div class="row">
-              <label class="col-md-4 control-label">
+              <label class="col-md-4 col-form-label">
                 <xed:output i18n="{@label}" />
               </label>
               <div class="col-md-6">
@@ -294,7 +294,7 @@
           <xsl:variable name="xed-val-marker">{$xed-validation-marker}</xsl:variable>
           <div class="form-group {@class} {$xed-val-marker}">
             <div class="row">
-              <label class="col-md-4 control-label">
+              <label class="col-md-4 col-form-label">
                 <xed:output i18n="{@label}" />
               </label>
               <div class="col-md-6">
@@ -331,7 +331,7 @@
                  class="form-group {@class} {$xed-val-marker}">
               <div class="row">
                 <!-- start -->
-                <label class="col-md-4 control-label form-inline">
+                <label class="col-md-4 col-form-label form-inline">
                   <xsl:if test="@label">
                     <xed:output i18n="{@label}" />
                   </xsl:if>
@@ -351,7 +351,7 @@
               </div>
               <div class="row">
                 <xed:bind xpath="@nymref">
-                  <label class="col-md-4 control-label form-inline">
+                  <label class="col-md-4 col-form-label form-inline">
                     <xed:output i18n="editor.label.nameLink" />
                   </label>
                   <div class="col-md-6">
@@ -360,11 +360,11 @@
                   </div>
                   <div class="col-md-2">
                     <span class="pmud-button">
-                      <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover"
+                      <a tabindex="0" class="btn btn-light info-button" role="button" data-toggle="popover"
                          data-placement="right" data-content="{i18n:translate('cmo.help.nameLink')}">
                         <i class="fas fa-info"></i>
                       </a>
-                      <a tabindex="0" class="btn btn-secondary info-button" role="button"
+                      <a tabindex="0" class="btn btn-light info-button" role="button"
                          title="{i18n:translate('cmo.help.search')}" data-subselect-trigger="">
                         <i class="fas fa-search"></i>
                     </a>
@@ -388,14 +388,14 @@
             </div>
             <xed:bind xpath="@nymref">
               <div class="row">
-                <label class="col-md-4 control-label form-inline">
+                <label class="col-md-4 col-form-label form-inline">
                   <xed:output i18n="editor.label.nameLink" />
                 </label>
                 <div class="col-md-6">
                   <input type="text" class="form-control" placeholder="cmo_person_00000434" />
                 </div>
                 <div class="col-md-2">
-                  <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover"
+                  <a tabindex="0" class="btn btn-light info-button" role="button" data-toggle="popover"
                      data-placement="right" data-content="{i18n:translate('cmo.help.nameLink')}">
                     <i class="fas fa-info"></i>
                   </a>
@@ -413,7 +413,7 @@
     <xsl:variable name="xed-val-marker">{$xed-validation-marker}</xsl:variable>
     <div class="form-group {@class} {$xed-val-marker}">
       <div class="row">
-        <label class="col-md-4 control-label">
+        <label class="col-md-4 col-form-label">
           <xed:output i18n="{@label}" />
         </label>
         <div class="col-md-6">
@@ -517,7 +517,7 @@
 
   <xsl:template name="cmo-textfield">
     <div class="row">
-      <label class="col-md-4 control-label form-inline">
+      <label class="col-md-4 col-form-label form-inline">
         <xsl:if test="@label">
           <xed:output i18n="{@label}" />
         </xsl:if>
@@ -592,7 +592,7 @@
 
   <xsl:template name="cmo-helpbutton">
     <span class="pmud-button">
-      <a tabindex="0" class="btn btn-secondary info-button" role="button" data-toggle="popover" data-placement="right"
+      <a tabindex="0" class="btn btn-light info-button" role="button" data-toggle="popover" data-placement="right"
          data-content="{@help-text}">
         <i class="fas fa-info"></i>
       </a>
@@ -612,7 +612,7 @@
       </xsl:if>
       <xsl:if test="@subselect-trigger">
         <span class="pmud-button">
-          <button class="btn btn-secondary" role="button"
+          <button class="btn btn-light" role="button"
                   title="{i18n:translate('cmo.help.search')}" data-subselect-trigger="">
             <i class="fas fa-search"></i>
           </button>

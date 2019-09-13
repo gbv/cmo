@@ -68,9 +68,15 @@ a[data-facet-show]:not([href]):not([tabindex]) {
 /*
  * fontawesome fix, far only works with font-weight 400
  */
-
 .far {
   font-weight: 400;
+}
+
+/*
+ * add border color
+ */
+.btn-light {
+  border-color: #d7dce1;
 }
 
 

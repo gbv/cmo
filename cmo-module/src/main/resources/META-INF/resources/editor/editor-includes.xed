@@ -184,7 +184,7 @@
           <!-- TODO: should be  objectType:source OR objectType:mods -->
           <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:person'>
             <div class="row form-group">
-              <label class="col-md-4 control-label">
+              <label class="col-md-4 col-form-label">
                 <xed:output i18n="editor.label.handList"/>
               </label>
               <div class="col-md-6">
@@ -192,7 +192,7 @@
               <cmo:help-pmud help-text="{i18n:cmo.help.name.bySource}" pmud="true"/>
             </div>
             <div class="row form-group">
-              <label class="col-md-4 control-label">
+              <label class="col-md-4 col-form-label">
                 <xed:output i18n="editor.label.material"/>
               </label>
               <div class="col-md-6">
@@ -203,7 +203,7 @@
               </div>
             </div>
             <div class="row form-group">
-              <label class="col-md-4 control-label">
+              <label class="col-md-4 col-form-label">
                 <xed:output i18n="editor.label.language"/>
               </label>
               <div class="col-md-6">
@@ -215,7 +215,7 @@
               </div>
             </div>
             <div class="row form-group">
-              <label class="col-md-4 control-label">
+              <label class="col-md-4 col-form-label">
                 <xed:output i18n="editor.label.respPerson"/>
               </label>
               <div class="col-md-6">
@@ -225,7 +225,7 @@
                            class="form-control form-control-inline"/>
                   </xed:bind>
                   <span class="pmud-button">
-                    <a tabindex="0" class="btn btn-secondary info-button" role="button"
+                    <a tabindex="0" class="btn btn-light info-button" role="button"
                        title="{i18n:cmo.help.sourceSearch}" data-subselect-trigger="">
                       <i class="fas fa-search"></i>
                     </a>
@@ -234,7 +234,7 @@
               </div>
             </div>
             <div class="row form-group">
-              <label class="col-md-4 control-label">
+              <label class="col-md-4 col-form-label">
                 <xed:output i18n="editor.label.hand"/>
               </label>
               <div class="col-md-6">
@@ -355,7 +355,7 @@
       <div class="cmo-fieldset-content">
         <div class="form-group">
           <div class="row">
-            <label class="col-md-4 control-label">
+            <label class="col-md-4 col-form-label">
               <xed:output i18n="editor.label.name.byType" />
             </label>
             <div class="col-md-6 ">
@@ -379,7 +379,7 @@
         <!-- TODO: should be  objectType:source OR objectType:mods -->
         <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:source' class="form-group">
           <div class="row">
-            <label class="col-md-4 control-label">
+            <label class="col-md-4 col-form-label">
               <xed:output i18n="editor.label.name.bySource" />
             </label>
             <div class="col-md-6 ">
@@ -391,7 +391,7 @@
                   <input type="hidden" data-subselect-target="identifier.type.CMO" />
                 </xed:bind>
                 <span class="pmud-button">
-                  <a tabindex="0" class="btn btn-secondary info-button" role="button"
+                  <a tabindex="0" class="btn btn-light info-button" role="button"
                         title="{i18n:cmo.help.sourceSearch}" data-subselect-trigger="">
                       <i class="fas fa-search"></i>
                   </a>
@@ -411,7 +411,7 @@
       <div class="cmo-fieldset-content">
         <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:mods' class="form-group">
           <div class="row">
-            <label class="col-md-4 control-label">
+            <label class="col-md-4 col-form-label">
               <xed:output i18n="editor.label.annot" />
             </label>
             <div class="col-md-6 ">
@@ -424,7 +424,7 @@
                   <input type="text" data-subselect-target="mods.identifier" placeholder="eg. TMAS/I, p. 261" style="width: 64%;margin-left: 10px;" class="form-control form-control-inline" />
                 </xed:bind>
                 <span class="pmud-button">
-                  <a tabindex="0" class="btn btn-secondary info-button" role="button"
+                  <a tabindex="0" class="btn btn-light info-button" role="button"
                         title="{i18n:cmo.help.modsSearch}" data-subselect-trigger="">
                       <i class="fas fa-search"></i>
                   </a>
@@ -445,7 +445,7 @@
         <div class="cmo-fieldset-content">
           <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:work' class="form-group">
             <div class="row">
-              <label class="col-md-4 control-label">
+              <label class="col-md-4 col-form-label">
                 <xed:output i18n="editor.legend.work" />
               </label>
               <div class="col-md-6 ">
@@ -454,7 +454,7 @@
                     <input type="text" placeholder="eg. cmo_work_00000016" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
                   <span class="pmud-button">
-                    <a tabindex="0" class="btn btn-secondary info-button" role="button"
+                    <a tabindex="0" class="btn btn-light info-button" role="button"
                         title="{i18n:cmo.help.workSearch}" data-subselect-trigger="">
                       <i class="fas fa-search"></i>
                   </a>
@@ -482,7 +482,7 @@
         <div class="cmo-fieldset-content">
           <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:expression' class="form-group">
             <div class="row">
-              <label class="col-md-4 control-label">
+              <label class="col-md-4 col-form-label">
                 <xed:output i18n="cmo.relation" />
               </label>
               <div class="col-md-6 ">
@@ -491,7 +491,7 @@
                     <input type="text" placeholder="eg. cmo_expression_00002186" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
                   <span class="pmud-button">
-                    <a tabindex="0" class="btn btn-secondary info-button" role="button"
+                    <a tabindex="0" class="btn btn-light info-button" role="button"
                         title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
                       <i class="fas fa-search"></i>
                   </a>
@@ -520,7 +520,7 @@
         <div class="cmo-fieldset-content">
           <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:expression' class="form-group">
             <div class="row">
-              <label class="col-md-4 control-label">
+              <label class="col-md-4 col-form-label">
                 <xed:output i18n="cmo.relation" />
               </label>
               <div class="col-md-6 ">
@@ -529,7 +529,7 @@
                     <input type="text" placeholder="eg. cmo_expression_00002186" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
                   <span class="pmud-button">
-                    <a tabindex="0" class="btn btn-secondary info-button" role="button"
+                    <a tabindex="0" class="btn btn-light info-button" role="button"
                         title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
                       <i class="fas fa-search"></i>
                   </a>
@@ -558,7 +558,7 @@
         <div class="cmo-fieldset-content">
           <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:mods' class="form-group">
             <div class="row">
-              <label class="col-md-4 control-label">
+              <label class="col-md-4 col-form-label">
                 <xed:output i18n="editor.cmo.select.source-mods" />
               </label>
               <div class="col-md-6 ">
@@ -567,7 +567,7 @@
                     <input type="text" placeholder="eg. cmo_mods_00000019" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
                   <span class="pmud-button">
-                    <a tabindex="0" class="btn btn-secondary info-button" role="button"
+                    <a tabindex="0" class="btn btn-light info-button" role="button"
                         title="{i18n:cmo.help.relationSearch}" data-subselect-trigger="">
                       <i class="fas fa-search"></i>
                   </a>
@@ -668,7 +668,7 @@
   <xed:template id="cmo_saveCancelDebug">
     <!-- Button (Double) -->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="save"></label>
+      <label class="col-md-4 col-form-label" for="save"></label>
       <div class="col-md-8">
         <xed:choose>
           <xed:when test="contains(/mycoreobject/@ID, '_00000000')">

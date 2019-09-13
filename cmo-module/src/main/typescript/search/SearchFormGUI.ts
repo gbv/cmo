@@ -56,7 +56,7 @@ export class SearchGUI {
     <div class="extendedSearch closed container">
         <div class="row">
             <div class="form-group col-12 row">
-                <label class="typeLabel col-12 col-md-4 control-label form-inline"></label>
+                <label class="typeLabel col-12 col-md-4 col-form-label form-inline"></label>
                 <div class="controls col-12 col-md-8">
                     <select class="type form-control form-control-inline"></select>
                 </div>
@@ -418,7 +418,7 @@ export class TextSearchFieldInput extends SearchFieldInput {
     public getTemplate() {
         return `
 <div class="form-group col-12 row">
-    <label class="col-12 col-md-4 control-label form-inline"></label>
+    <label class="col-12 col-md-4 col-form-label form-inline"></label>
     <div class="col-12 col-md-8">
         <input class="form-control" type="search">
     </div>
@@ -470,7 +470,7 @@ export class CheckboxSearchFieldInput extends SearchFieldInput {
     public init() {
         this._template = `
               <div class="form-group col-12 row">
-                  <div class="col-12 col-md-4 control-label form-inline"></div>
+                  <div class="col-12 col-md-4 col-form-label form-inline"></div>
                   <div class="col-12 col-md-8 controls">
                       <div class="checkbox">
                         <label>
@@ -530,7 +530,7 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
     public init() {
         this._template = `
               <div class="form-group col-12 row">
-                  <label class="col-12 col-md-4 control-label form-inline"></label>
+                  <label class="col-12 col-md-4 col-form-label form-inline"></label>
                   <div class="col-12 col-md-8 controls">
                     <select class="form-control form-control-inline">
 
@@ -780,7 +780,7 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
 
         return `
 <div class="form-group col-12 row">
-    <label class="col-12 col-md-4 control-label form-inline date"></label>
+    <label class="col-12 col-md-4 col-form-label form-inline date"></label>
     <div class="col-12 col-md-8">
         <div class="form-inline">
             <input id="date_${checkBoxID}" class="checkbox inline" type="checkbox" />
