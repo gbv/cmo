@@ -210,7 +210,7 @@
   <xsl:template match="children" mode="metadataView">
     <xsl:if test="child">
       <xsl:variable name="sortCriteria">
-            <xsl:value-of select="'&amp;sort=displayTitleSort asc'"/>
+            <xsl:value-of select="'&amp;sort=displayTitle asc'"/>
       </xsl:variable>
 
       <xsl:call-template name="metadataLabelContent">
