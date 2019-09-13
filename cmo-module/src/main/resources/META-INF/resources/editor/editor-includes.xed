@@ -34,12 +34,12 @@
   
   <xed:template id="cmo_titleExpression">
     <cmo:textfield xpath="mei:titleStmt/mei:title" label="editor.label.title" type="cmo_titleTypeExpression" lang="iso15924"
-                   repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
+                   repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" class="required" required="true" required-i18n="cmo.validation.titleExpression" />
   </xed:template>
 
   <xed:template id="cmo_personNameCMO">
     <cmo:textfield xpath="mei:name[@type='CMO']" label="editor.label.name.cmo" help-text="{i18n:cmo.help.name.cmo}"
-                   class="required" required="true" required-text="{i18n:cmo.validation.identifier}"/>
+                   class="required" required="true" required-i18n="cmo.validation.identifier" />
   </xed:template>
 
   <xed:template id="cmo_incip">
@@ -104,7 +104,7 @@
   <xed:template id="cmo_identifier">
     <cmo:textfield xpath="mei:identifier[@type='CMO']" label="editor.label.identifier.CMO"
                    help-text="{i18n:cmo.help.identifier}" class="required" required="true"
-                   required-text="{i18n:cmo.validation.identifier}" />
+                   required-i18n="cmo.validation.identifier" />
   </xed:template>
   
   <xed:template id="cmo_identifierRISM">
@@ -120,7 +120,7 @@
   <xed:template id="cmo_identifierSimple">
     <cmo:textfield xpath="mei:identifier" label="editor.label.identifierSimple"
                    help-text="{i18n:cmo.help.identifierSimple}"
-                   required-text="{i18n:cmo.validation.identifierSimple}" />
+                   required-i18n="cmo.validation.identifierSimple" />
   </xed:template>
 
   <xed:template id="cmo_publisher">
@@ -306,7 +306,7 @@
     <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_sourceType']"
                               label="editor.search.sourceType"
                               classification="cmo_sourceType" class="required" required="true"
-                              required-text="{i18n:cmo.validation.sourceType}" help-text="{i18n:cmo.help.sourceType}" />
+                              required-i18n="cmo.validation.sourceType" help-text="{i18n:cmo.help.sourceType}" />
   </xed:template>
 
   <xed:template id="cmo_contentType">
