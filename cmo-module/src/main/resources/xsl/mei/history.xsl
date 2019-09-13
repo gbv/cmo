@@ -56,7 +56,7 @@
                 </xsl:if>
                 <xsl:if test="string-length(mei:desc) &gt; 0">
                   <p>
-                    <xsl:value-of select="mei:desc" />
+                    <xsl:apply-templates select="mei:desc/node()" mode="printDesc" />
                   </p>
                 </xsl:if>
               </dd>
@@ -65,6 +65,12 @@
         </xsl:with-param>
       </xsl:call-template>
     </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="mei:ref|mei:bibl|mei:persName" mode="printDesc">
+    <a href="{$WebApplicationBaseURL}receive/{@target|@nymref}">
+      <xsl:value-of select="text()" />
+    </a>
   </xsl:template>
 
 </xsl:stylesheet>
