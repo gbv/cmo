@@ -303,6 +303,7 @@ export class SearchDisplay {
         ${this.displayHitTitle(doc, index, result, (doc)=> {
             return doc[ "displayTitle" ];
         })}
+        <span class="col-md-12">${doc["identifier.type.CMO"]}</span>
         <span class="col-md-12">${this.displayCombinedField(doc, 'lyricist')} 
         ${this.displayCombinedField(doc, 'composer')}</span>
         ${solrDocumentHelper.getMultiValue("incip")
@@ -360,6 +361,7 @@ export class SearchDisplay {
             return `
         ${badges}
         ${this.displayHitTitle(doc, index, result, (doc) => doc[ "title.type.main" ])}
+        <span class="col-md-12">${doc["identifier.type.CMO"]}</span>
         <span class="col-md-12">${line1}</span>
         <span class="col-md-12">${line2}</span>
         <span class="col-md-12">
@@ -372,10 +374,8 @@ export class SearchDisplay {
                 .join(", ")}</div>`;
 
 
-            let line2 = solrDocumentHelper.getSingleValue("identifier.type.CMO")
-                .map(id => `CMO: ${id}`)
-                .or(() => solrDocumentHelper.getSingleValue("identifier.type.RISM")
-                    .map(id => `RISM: ${id}`))
+            let line2 = solrDocumentHelper.getSingleValue("identifier.type.RISM")
+                .map(id => `RISM: ${id}`)
                 .map(id => `<span class="col-md-12">${id}</span>`)
                 .orElse("");
 
@@ -426,7 +426,9 @@ export class SearchDisplay {
         }
 
 
-        return `${this.displayHitTitle(doc, index, result, (doc) => doc[ "displayTitle" ])}   
+        return `${doc["cmoType"] == "source-mods" ? `<span class="col-md-12"><span data-i18n="editor.cmo.select.source-mods" class="badge badge-pill"></span></span>`: ``}
+               ${this.displayHitTitle(doc, index, result, (doc) => doc[ "displayTitle" ])}   
+               ${doc["cmoType"] == "source-mods" && "mods.identifier.CMO" in doc ? `<span class="col-md-12">${doc["mods.identifier.CMO"]}</span>` : ``}
                   ${fieldsLine2.length > 0 ? `<span class="col-md-12">${fieldsLine2.join(" | ")}</span>` : ""}
                   ${fieldsLine3.length > 0 ? `<span class="col-md-12">${fieldsLine3.join(" : ")}</span>` : ""}
                  ${this.displayBasketButton(doc)}`;
