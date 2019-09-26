@@ -43,10 +43,14 @@ export class BasketDisplay {
                 `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities((doc[ "displayTitle" ] || "") + "")}</a>`,
 
             "editor.label.publisher" : (doc: CMOBaseDocument) => doc[ "publisher" ] || "",
-            "editor.label.editor" : (doc: CMOBaseDocument) => (doc[ "editor" ] ||[]).concat((doc["editor.ref"]||[]).map((ref=> {
-                const [editorName, href] = ref.split("|");
-                return `<a href="${Utils.getBaseURL()}receive/${href}">${editorName}</a>`;
-            }))).join("; "),
+            "editor.label.editorAndAuthor": (doc: CMOBaseDocument) =>
+                (doc["author"] || []).concat((doc["author.ref"] || []).map((ref => {
+                    const [editorName, href] = ref.split("|");
+                    return `<a href="${Utils.getBaseURL()}receive/${href}">${editorName}</a>`;
+                }))).concat((doc["editor"] || []).concat((doc["editor.ref"] || []).map((ref => {
+                    const [editorName, href] = ref.split("|");
+                    return `<a href="${Utils.getBaseURL()}receive/${href}">${editorName}</a>`;
+                })))).join("; "),
             "editor.label.pubPlace" : (doc: CMOBaseDocument) => doc[ "publisher.place" ] || "",
             "editor.label.publishingDate" : (doc: CMOBaseDocument) => doc[ "publish.date.content" ] || "",
             "editor.label.series" : (doc: CMOBaseDocument) => (doc[ "series" ] || []).join(", "),
@@ -60,7 +64,7 @@ export class BasketDisplay {
             "editor.label.title" : (doc: CMOBaseDocument) =>
                 `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities(doc[ "displayTitle" ] + "")}</a>`,
             "editor.label.pubPlace": (doc: CMOBaseDocument) => doc[ "mods.place" ] || "",
-            "editor.label.publishingDate": (doc: CMOBaseDocument) => doc[ "mods.yearIssued" ] || "",
+            "editor.label.publishingDate": (doc: CMOBaseDocument) => doc[ "mods.dateIssued" ] || "",
 
         },
         "edition-mods" : {
@@ -74,8 +78,7 @@ export class BasketDisplay {
         },
         "work": {
             "editor.label.identifier" : (doc: CMOBaseDocument) => `<a href="${Utils.getBaseURL()}receive/${doc["id"]}">${doc[ "identifier.type.CMO" ][ 0 ]}</a>`,
-            "cmo.genre" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_musictype"),
-            "cmo.kindOfData" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_kindOfData")
+            "cmo.genre" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_musictype")
         }
 
 
