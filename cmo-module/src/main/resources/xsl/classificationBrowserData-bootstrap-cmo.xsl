@@ -35,7 +35,7 @@
         <li>
           <xsl:choose>
             <xsl:when test="@children = 'true'">
-              <a href="#" onclick="toggleClass('{@id}','{$folder.closed}','{$folder.open}');"><i class="{$folder.closed}" id="cbButton_{$id}" /></a>
+              <a href="#" onclick="toggleClass('{@id}','{$folder.closed}','{$folder.open}'); event.preventDefault()"><i class="{$folder.closed}" id="cbButton_{$id}" /></a>
             </xsl:when>
             <xsl:otherwise>
               <i class="{$folder.leaf}" id="cbButton_{$id}" />
