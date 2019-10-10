@@ -31,6 +31,7 @@ export interface SolrSearchResult {
     response: Response;
     grouped: any;
     facet_counts: FacetHeader;
+    highlighting: any;
 }
 
 export interface FacetHeader {

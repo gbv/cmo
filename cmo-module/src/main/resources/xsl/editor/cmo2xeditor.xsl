@@ -535,6 +535,11 @@
             <input type="text" class="form-control" style="width: 100px;" />
           </xed:bind>
         </xsl:if>
+        <xsl:if test="@textLabelFixed">
+          <xed:bind xpath="@label">
+            <input type="hidden" style="display:none" value="{@textLabelFixed}" />
+          </xed:bind>
+        </xsl:if>
         <xsl:if test="@lang">
           <xsl:text>&#160;</xsl:text>
           <xed:bind xpath="@xml:lang">
@@ -549,6 +554,9 @@
           <xsl:when test="@rootBind">
             <xed:bind xpath="{@rootBind}">
               <input id="{@id}" type="text" class="form-control">
+                <xsl:if test="@autocomplete">
+                  <xsl:attribute name="data-autocomplete-field"><xsl:value-of select="@autocomplete" /></xsl:attribute>
+                </xsl:if>
                 <xsl:call-template name="addSubselectTarget"/>
                 <xsl:copy-of select="@placeholder" />
               </input>
@@ -556,6 +564,9 @@
           </xsl:when>
           <xsl:otherwise>
             <input id="{@id}" type="text" class="form-control">
+              <xsl:if test="@autocomplete">
+                <xsl:attribute name="data-autocomplete-field"><xsl:value-of select="@autocomplete" /></xsl:attribute>
+              </xsl:if>
               <xsl:call-template name="addSubselectTarget"/>
               <xsl:copy-of select="@placeholder" />
             </input>

@@ -403,8 +403,21 @@
       <filter class="solr.SnowballPorterFilterFactory" language="Turkish"/>
     </analyzer>
   </fieldType>
-  <fieldType name="sort_tr" class="solr.ICUCollationField"  locale="tr" strength="primary"  />
+  <fieldType name="sort_tr" class="solr.ICUCollationField"  locale="" strength="primary"  />
 
+  <!-- Added for incipit autocompletion -->
+  <fieldType name="text_tr_ngram" class="solr.TextField" positionIncrementGap="100">
+    <analyzer type="index">
+      <tokenizer class="solr.NGramTokenizerFactory" minGramSize="2" maxGramSize="10"/>
+      <filter class="solr.TurkishLowerCaseFilterFactory"/>
+      <filter class="solr.ASCIIFoldingFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.EdgeNGramTokenizerFactory" minGramSize="2" maxGramSize="10"/>
+      <filter class="solr.TurkishLowerCaseFilterFactory"/>
+      <filter class="solr.ASCIIFoldingFilterFactory"/>
+    </analyzer>
+  </fieldType>
 
   <fieldType name="text_ws" class="solr.TextField" positionIncrementGap="100">
     <analyzer>
@@ -467,7 +480,7 @@
     <field name="urn" type="string" multiValued="true" />
     <field name="fileURN" type="string" />
     <field name="fileCategory" type="string" multiValued="true"/>
-    <field name="maindoc" type="string" />
+    <field name="derivateMaindoc" type="string" />
     <field name="iviewFile" type="string" />
     <field name="hasFiles" type="boolean" />
 
@@ -492,7 +505,10 @@
   <!-- mei:incip -->
   <field name="incip" type="text_tr" multiValued="true" />
   <field name="incip.main" type="string" multiValued="false" />
-  <dynamicField name="incip.*" type="text_tr" />
+  <dynamicField name="incip.*" type="text_tr" multiValued="true" />
+
+  <copyField source="incip.normalized" dest="incip.normalized.autocomplete" />
+  <field name="incip.normalized.autocomplete" type="text_tr_ngram" multiValued="true" />
 
   <!-- this field is not really used, only to restrict to the simple search of mods or expressions -->
   <field name="complex" type="string" multiValued="false" />

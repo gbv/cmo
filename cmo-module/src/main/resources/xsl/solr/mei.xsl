@@ -183,11 +183,6 @@
         <xsl:value-of select="." />
       </field>
     </xsl:for-each>
-    <xsl:if test="not(mei:incipText[@label='main'])">
-      <field name="incip.main">
-        <xsl:value-of select="mei:incipText" />
-      </field>
-    </xsl:if>
   </xsl:template>
 
   <xsl:template match="mei:identifier" mode="solrIndex">

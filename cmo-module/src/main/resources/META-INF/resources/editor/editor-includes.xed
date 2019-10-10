@@ -44,7 +44,9 @@
 
   <xed:template id="cmo_incip">
     <xed:bind xpath="mei:incip">
-      <cmo:textfield xpath="mei:incipText" rootBind="mei:p" label="editor.label.incip" lang="iso15924" textLabel="true"
+      <cmo:textfield xpath="mei:incipText[@label='normalized']" rootBind="mei:p" label="editor.label.incip.normalized" lang="iso15924" textLabelFixed="normalized" autocomplete="incip.normalized.autocomplete"
+                     repeat="true" min="1" max="10" help-text="{i18n:cmo.help.incip}" />
+      <cmo:textfield xpath="mei:incipText[not(@label='normalized')]" rootBind="mei:p" label="editor.label.incip" lang="iso15924" textLabel="true"
                      repeat="true" min="1" max="10" help-text="{i18n:cmo.help.incip}" />
     </xed:bind>
   </xed:template>

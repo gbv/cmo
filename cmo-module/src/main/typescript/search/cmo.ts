@@ -797,6 +797,112 @@ window.addEventListener('load', ()=> {
 
     BasketUtil.activateLinks(window.document.body);
 
+    const autoCompleteAttr = "data-autocomplete-field";
+    Array.prototype.slice.call(document.querySelectorAll(`[${autoCompleteAttr}]`)).forEach((node) => {
+        const field = node.getAttribute(autoCompleteAttr);
+        const solrSearcher1 = new SolrSearcher();
+        const autocompletionList = document.createElement('ul');
+
+        autocompletionList.classList.add('autocomplete-list');
+        autocompletionList.classList.add('inactive');
+        node.parentElement.insertBefore(autocompletionList, node.nextSibling);
+
+        const show = (show = true) => {
+            const classes = autocompletionList.classList;
+            (show ? classes.remove : classes.add).call(classes, 'inactive');
+        };
+
+        const search = () => {
+            const searchString = node.value.trim();
+            if (searchString.length < 2) {
+                show(false);
+            } else {
+                solrSearcher1.search([
+                    ['q', `${field}:"${searchString}"`],
+                    ['fl', field],
+                    ['hl', 'on'],
+                    ['hl.fl', field],
+                    ['rows', '1000'],
+                    ['hl.preserveMulti', 'on']
+                ], result => {
+                    const allValues = new Set();
+                    for (const objID in result.highlighting) {
+                        if (result.highlighting.hasOwnProperty(objID)) {
+                            const fieldValue = result.highlighting[objID][field];
+                            (fieldValue instanceof Array ? fieldValue : [fieldValue]).forEach(v => {
+                                if (v !== null && typeof v != "undefined") {
+                                    allValues.add(v);
+                                }
+                            });
+                        }
+                    }
+                    if (allValues.size > 0) {
+                        show(true);
+                        const valuesArr = [];
+                        allValues.forEach(v => valuesArr.push(v));
+                        autocompletionList.innerHTML = valuesArr.map(v => `<li>${v}</li>`).join("\n");
+                        Array.prototype.forEach.call(autocompletionList.children, (child, index) => {
+                            const content = child.textContent;
+                            child.onclick = () => {
+                                node.value = content;
+                                show(false);
+                            };
+                        });
+                    }
+                });
+            }
+        };
+
+        node.onkeydown = (ke) => {
+            switch (ke.code) {
+                case "Escape":
+                    show(false);
+                    break;
+                case "Enter":
+                    ke.preventDefault();
+                    node.value = autocompletionList.querySelector(".current").textContent;
+                    show(false);
+                    break;
+                case "ArrowDown":
+                case "ArrowUp":
+                    let current = autocompletionList.querySelector(".current");
+                    let next: Element;
+
+                    if (current !== null && typeof current !== "undefined") {
+                        next = ke.code === "ArrowDown" ? current.nextElementSibling : current.previousElementSibling;
+
+                        if (next === null || typeof next === "undefined") {
+                            next = ke.code === "ArrowDown" ? autocompletionList.firstElementChild : autocompletionList.lastElementChild;
+                        }
+
+                        if (next != null && typeof next !== "undefined") {
+                            current.classList.remove("current");
+                        } else {
+                            show(false);
+                        }
+                    } else {
+                        next = ke.code === "ArrowDown" ? autocompletionList.firstElementChild : autocompletionList.lastElementChild;
+                    }
+
+                    if (next !== null) {
+                        next.classList.add("current");
+                    }
+                    break;
+                default:
+                    search();
+            }
+        };
+
+        node.onblur = () => {
+            window.setTimeout(() => {
+                show(false);
+            }, 100);
+        };
+
+        node.onfocus = () => {
+            search();
+        };
+    });
 });
 
 

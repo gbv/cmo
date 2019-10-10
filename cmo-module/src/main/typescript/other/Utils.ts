@@ -1,5 +1,3 @@
-import get = Reflect.get;
-
 export class Utils {
     constructor() {
 
