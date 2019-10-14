@@ -636,6 +636,7 @@
     <field name="title.lang.de" type="text_de"  multiValued="true" stored="true" />
     <field name="title.lang.en" type="text_en"  multiValued="true" stored="true" />
     <field name="title.lang.tr" type="text_tr" multiValued="true" stored="true" />
+    <field name="title.lang.turk-latin" type="text_tr" multiValued="true" stored="true" />
     <field name="title.lang.ota-arab" type="text_ar" multiValued="true" stored="true" />
     <field name="title.lang.ota-armn" type="text_ar" multiValued="true" stored="true" /><!-- TODO: change to armn language -->
     <field name="title.type.alt" type="string" multiValued="true" stored="true" />
