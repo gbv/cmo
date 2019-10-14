@@ -508,7 +508,10 @@
   <dynamicField name="incip.*" type="text_tr" multiValued="true" />
 
   <copyField source="incip.normalized" dest="incip.normalized.autocomplete" />
+  <copyField source="incip.normalized" dest="incip.normalized.facet" />
+
   <field name="incip.normalized.autocomplete" type="text_tr_ngram" multiValued="true" />
+  <field name="incip.normalized.facet" type="string" multiValued="true" />
 
   <!-- this field is not really used, only to restrict to the simple search of mods or expressions -->
   <field name="complex" type="string" multiValued="false" />

@@ -17,17 +17,17 @@
       $( document ).ready(function() {
         $.ajax({
           type: "GET",
-          url: "../../api/v1/search?q=objectType:expression&amp;rows=0&amp;facet.field=incip.main&amp;facet.query=objectType:expression&amp;facet.sort=index&amp;facet=on&amp;facet.limit=-1&amp;wt=json&amp;json.wrf=?",
+          url: "../../api/v1/search?q=objectType:expression&amp;rows=0&amp;facet.field=incip.normalized.facet&amp;facet.query=objectType:expression&amp;facet.sort=index&amp;facet=on&amp;facet.limit=-1&amp;wt=json&amp;json.wrf=?",
           dataType: "jsonp",
           success: function (data) {
             var incipit = "";
-            $(data.facet_counts.facet_fields["incip.main"]).each(function(i, int){
+            $(data.facet_counts.facet_fields["incip.normalized.facet"]).each(function(i, int){
               if (i % 2 === 0) {
                 incipit = int;
               }
               else {
                 $('#cmo_incipitList').append($('<li></li>')
-                  .append('[ ' + int + ' ] <a href="#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=incip.main%3A%22'+incipit+'%22&amp;start=0&amp;action=init_search&amp;sort=score%20desc&amp;rows=10">' + incipit + '</a>')); <!-- TODO: add incipit search here -->
+                  .append('[ ' + int + ' ] <a href="#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=incip.normalized.facet%3A%22'+incipit+'%22&amp;start=0&amp;action=init_search&amp;sort=score%20desc&amp;rows=10">' + incipit + '</a>')); <!-- TODO: add incipit search here -->
               }
             });
           },
