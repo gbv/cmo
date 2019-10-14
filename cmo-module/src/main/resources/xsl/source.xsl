@@ -57,6 +57,9 @@
     <xsl:apply-templates select="mei:contents" mode="metadataView" />
     <xsl:apply-templates select="mei:history" mode="metadataView" />
     <xsl:apply-templates select="mei:langUsage" mode="metadataView" />
+    <xsl:call-template name="printEdition">
+      <xsl:with-param name="objectId" select="/mycoreobject/@ID" />
+    </xsl:call-template>
     <xsl:apply-templates select="mei:notesStmt" mode="printAnnot" />
     <xsl:call-template name="license"/>
 
