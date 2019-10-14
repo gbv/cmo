@@ -28,7 +28,7 @@ export class BasketDisplay {
             "cmo.genre" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_musictype"),
             "cmo.makam" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_makamler"),
             "cmo.usul" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_usuler"),
-            "editor.label.incip" : (doc:CMOBaseDocument) => (doc["incip"]||[]).join(", ")
+            "editor.label.incip" : (doc:CMOBaseDocument) => (doc["incip.normalized"]||[]).join(", ")
         },
         "person" : {
             "editor.label.name": (doc: CMOBaseDocument) => ((doc["name"] instanceof Array) ? doc["name"] : [doc["name"]]).map((name) => `<a href="${Utils.getBaseURL()}receive/${doc["id"]}">${name || ""}</a>`).join("<br/>"),
