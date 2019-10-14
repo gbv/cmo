@@ -306,7 +306,7 @@ export class SearchDisplay {
         <span class="col-md-12">${doc["identifier.type.CMO"]}</span>
         <span class="col-md-12">${this.displayCombinedField(doc, 'lyricist')} 
         ${this.displayCombinedField(doc, 'composer')}</span>
-        ${solrDocumentHelper.getMultiValue("incip")
+        ${solrDocumentHelper.getMultiValue("incip.normalized")
             .map(incip => `<span class="col-md-12">${incip.join(", ")}</span>`)
             .orElse("")}
         ${this.displayBasketButton(doc)}
