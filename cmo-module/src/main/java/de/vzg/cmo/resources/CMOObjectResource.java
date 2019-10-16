@@ -18,6 +18,9 @@
 
 package de.vzg.cmo.resources;
 
+import java.io.IOException;
+import java.util.stream.Stream;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -26,9 +29,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.mycore.access.MCRAccessException;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
 import org.mycore.access.MCRAccessManager;
-import org.mycore.datamodel.common.MCRActiveLinkException;
+import org.mycore.common.content.MCRContent;
+import org.mycore.common.content.MCRJDOMContent;
+import org.mycore.common.content.transformer.MCRContentTransformerFactory;
 import org.mycore.datamodel.metadata.MCRObjectID;
 import org.mycore.frontend.cli.MCRObjectCommands;
 
@@ -37,22 +44,52 @@ import com.google.gson.Gson;
 @Path("cmo/object/")
 public class CMOObjectResource {
 
+    public static final Namespace EXPORT_NAMESPACE = Namespace
+        .getNamespace("export", "http://www.corpus-musicae-ottomanicae.de/ns/export");
+
+    @Path("export/{transformer}/{ids}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @GET
+    public Response export(@PathParam("transformer") String transformer, @PathParam("ids") String idListString)
+        throws IOException {
+        Document doc = new Document(new Element("export", EXPORT_NAMESPACE));
+        final Element exportElement = doc.getRootElement();
+        Stream.of(idListString.split(","))
+            .map(id -> {
+                final Element dependency = new Element("dependency", EXPORT_NAMESPACE);
+                dependency.setAttribute("id",id);
+                dependency.setAttribute("resolved","false");
+                return dependency;
+            })
+            .forEach(exportElement::addContent);
+
+        final MCRContent result = MCRContentTransformerFactory
+            .getTransformer(transformer)
+            .transform(new MCRJDOMContent(doc));
+
+        return Response
+            .status(Response.Status.OK)
+            .header("Content-disposition","attachment; filename=\"export.zip\"")
+            .entity(result.asByteArray())
+            .build();
+    }
+
     @Path("move/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public Response setParent(@PathParam("id") String objectID, @QueryParam("to") String target) {
         if (!(MCRObjectID.isValid(objectID) && MCRObjectID.isValid(target))) {
             return Response
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity(new Gson().toJson(new CMOResourceError("Invalid object IDs")))
-                    .build();
+                .status(Response.Status.BAD_REQUEST)
+                .entity(new Gson().toJson(new CMOResourceError("Invalid object IDs")))
+                .build();
         }
 
         if (!MCRAccessManager.checkPermission(objectID, MCRAccessManager.PERMISSION_WRITE)) {
             return Response
-                    .status(Response.Status.UNAUTHORIZED)
-                    .entity(new Gson()
-                            .toJson(new CMOResourceError("No Rights!"))).build();
+                .status(Response.Status.UNAUTHORIZED)
+                .entity(new Gson()
+                    .toJson(new CMOResourceError("No Rights!"))).build();
         }
 
         try {

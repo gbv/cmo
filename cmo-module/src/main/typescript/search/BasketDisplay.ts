@@ -105,7 +105,7 @@ export class BasketDisplay {
         let basketDisplay = this;
         let callback = (objects, sort) => {
             if (type !== undefined) {
-                this._container.innerHTML = "<div id='basket'>" + this.displayControls() + this.displayObjects(type, objects[ type ], sort) + "</div>";
+                this._container.innerHTML = "<div id='basket'>" + this.displayControls(objects, type) + this.displayObjects(type, objects[ type ], sort) + "</div>";
             } else {
                 let objectTypes = [];
                 for (let type in objects) {
@@ -119,7 +119,7 @@ export class BasketDisplay {
                     return table;
                 });
 
-                this._container.innerHTML = "<div id='basket'>" + this.displayControls() + content.join(" ") + "</div>";
+                this._container.innerHTML = "<div id='basket'>" + this.displayControls(objects) + content.join(" ") + "</div>";
             }
             I18N.translateElements(this._container);
             ClassificationResolver.putLabels(this._container);
@@ -142,6 +142,17 @@ export class BasketDisplay {
                this.basket.removeAll();
                this.display(type);
             });
+
+            Array.prototype.slice.call(this._container.querySelectorAll("[data-export-ids]")).forEach(function (el) {
+                const idList = el.getAttribute("data-export-ids");
+                const transformer = el.getAttribute("data-export-transformer");
+
+                el.addEventListener("click", ()=>{
+                    if(idList.length>0){
+                        window.location.href=`${Utils.getBaseURL()}rsc/cmo/object/export/${transformer}/${idList}`;
+                    }
+                });
+            })
         };
 
         basketDisplay.basket.getDocumentsGrouped("cmoType", callback);
@@ -205,10 +216,25 @@ export class BasketDisplay {
         this.preDisplayContent = children;
     }
 
-    private displayControls() {
-        return `<div class="row">
-<div class="col-md-12"><button class="button button-default" data-basket-empty data-i18n="cmo.basket.remove.all"></button> </div>
+    private displayControls(objects: any, type?: string) {
+        const exportIds = [];
+        if (typeof type == "undefined") {
+            for (const type in objects) {
+                if (objects.hasOwnProperty(type)) {
+                    (<Array<CMOBaseDocument>>objects[type]).map(doc => doc.id).forEach((id) => exportIds.push(id));
+                }
+            }
+        } else {
+            (<Array<CMOBaseDocument>>objects[type]).map(doc => doc.id).forEach((id) => exportIds.push(id));
+        }
+        const idListString = exportIds.join(",");
 
+        return `<div class="row">
+<div class="col-md-12">
+<button class="btn btn-secondary" data-basket-empty data-i18n="cmo.basket.remove.all"></button> 
+<button class="btn btn-secondary" data-i18n="cmo.basket.export.all" data-export-transformer="resolve-content-meimods" data-export-ids="${idListString}"></button> 
+<button class="btn btn-secondary" data-i18n="cmo.basket.export.all.dependency" data-export-transformer="resolve-dependencies-meimods" data-export-ids="${idListString}"></button> 
+</div>
 </div>`;
     }
 }
