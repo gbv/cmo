@@ -14,13 +14,13 @@ import {BasketDisplay} from "./BasketDisplay";
 import {BasketStore} from "./BasketStore";
 import {BasketUtil} from "./BasketUtil";
 import {I18N} from "../other/I18N";
+import {ClassificationResolver} from "../other/Classification";
 
-window.addEventListener('load', ()=> {
+window.addEventListener('load', () => {
 
     let eContainer = <HTMLElement>document.querySelector("#e_suche");
     let kContainer = <HTMLElement>document.querySelector("#k_suche");
     let sideBar = <HTMLElement>document.querySelector("#sidebar");
-
 
 
     let translationMap = {};
@@ -30,21 +30,21 @@ window.addEventListener('load', ()=> {
 
     let facet = new SearchFacetController(sideBar, translationMap,
         {
-            field : "cmoType",
-            type : "translate",
-            translate : "editor.cmo.select."
+            field: "cmoType",
+            type: "translate",
+            translate: "editor.cmo.select."
         },
         {
-            field : "cmo_makamler",
-            type : "class"
+            field: "cmo_makamler",
+            type: "class"
         },
         {
-            field : "cmo_usuler",
-            type : "class"
+            field: "cmo_usuler",
+            type: "class"
         },
         {
-            field : "cmo_musictype",
-            type : "class"
+            field: "cmo_musictype",
+            type: "class"
         });
 
     const eSearchBaseQuery = "category.top:\"cmo_kindOfData:edition\"";
@@ -59,7 +59,7 @@ window.addEventListener('load', ()=> {
         kSearch.enable = false;
     });
 
-    const resetHandler = ()=>{
+    const resetHandler = () => {
         aditionalQuery = [];
 
     };
@@ -91,20 +91,20 @@ window.addEventListener('load', ()=> {
 
     });
 
-    let updateMainContainerSize = ()=>{
-        let normalClass = [ "col-md-9", "col-lg-9" ];
-        let largeClass = [ "col-md-12", "col-lg-12" ];
+    let updateMainContainerSize = () => {
+        let normalClass = ["col-md-9", "col-lg-9"];
+        let largeClass = ["col-md-12", "col-lg-12"];
 
-        if(kSearch.enable){
-            largeClass.forEach(token=>mainContainer.classList.remove(token));
-            normalClass.forEach(token=>mainContainer.classList.add(token));
-            sideBar.style.display='block';
+        if (kSearch.enable) {
+            largeClass.forEach(token => mainContainer.classList.remove(token));
+            normalClass.forEach(token => mainContainer.classList.add(token));
+            sideBar.style.display = 'block';
         }
 
-        if(eSearch.enable){
-            normalClass.forEach(token=>mainContainer.classList.remove(token));
-            largeClass.forEach(token=>mainContainer.classList.add(token));
-            sideBar.style.display='none';
+        if (eSearch.enable) {
+            normalClass.forEach(token => mainContainer.classList.remove(token));
+            largeClass.forEach(token => mainContainer.classList.add(token));
+            sideBar.style.display = 'none';
         }
 
     };
@@ -119,136 +119,164 @@ window.addEventListener('load', ()=> {
         }
     });
 
-    eSearch.addExtended({
-        mods : {
-            type : "mods",
-            baseQuery : [ "objectType:mods", "-complex:*" ],
-            fields : [
-                new ClassificationSearchField("category.top", "diniPublType"),
-                new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
-                new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name" ])
+    let languageFields = [];
+    const ISO15924 = "iso15924";
+    const RFC5646 = "rfc5646";
 
-            ]
-        },
-        mods_complex : {
-            type : "mods",
-            baseQuery : [ "objectType:mods" ],
-            fields : [
-                new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
-                new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name" ]),
-                new SearchField("editor.label.publisher", [ "mods.publisher" ]),
-                new ClassificationSearchField("category.top", "DDC"),
-                new ClassificationSearchField("category.top", "diniPublType"),
-                new DateSearchField("editor.legend.pubDate", [ "mods.dateIssued.range", "mods.dateIssued.host.range" ]),
-            ]
+    const langComplete = {};
+    langComplete[ISO15924] = false;
+    langComplete[RFC5646] = false;
+
+    const onComplete = ()=>{
+        const titleFields = ["title"];
+        languageFields.map(s=> "title.lang." + s).forEach(f=> titleFields.push(f));
+
+        eSearch.addExtended({
+            mods: {
+                type: "mods",
+                baseQuery: ["objectType:mods", "-complex:*"],
+                fields: [
+                    new ClassificationSearchField("category.top", "diniPublType"),
+                    new SearchField("editor.label.title", ["mods.title", "mods.title.main", "mods.title.subtitle"]),
+                    new SearchField("editor.label.name", ["mods.nameIdentifier", "mods.name"])
+
+                ]
+            },
+            mods_complex: {
+                type: "mods",
+                baseQuery: ["objectType:mods"],
+                fields: [
+                    new SearchField("editor.label.title", ["mods.title", "mods.title.main", "mods.title.subtitle"]),
+                    new SearchField("editor.label.name", ["mods.nameIdentifier", "mods.name"]),
+                    new SearchField("editor.label.publisher", ["mods.publisher"]),
+                    new ClassificationSearchField("category.top", "DDC"),
+                    new ClassificationSearchField("category.top", "diniPublType"),
+                    new DateSearchField("editor.legend.pubDate", ["mods.dateIssued.range", "mods.dateIssued.host.range"]),
+                ]
+            }
+        });
+
+    // Katalog Search field definition
+        kSearch.addExtended({
+            expression: {
+                type: "expression",
+                baseQuery: ["objectType:expression", "-complex:*"],
+                fields: [new SearchField("editor.label.title", titleFields),
+                    new ClassificationSearchField("category.top", "iso15924"),
+                    new ClassificationSearchField("category.top", "rfc4646"),
+                    new ClassificationSearchField("category.top", "cmo_musictype"),
+                    new ClassificationSearchField("category.top", "cmo_makamler", 1),
+                    new ClassificationSearchField("category.top", "cmo_usuler", 1),
+                    new SearchField("editor.label.incip", ["incip"])],
+            }
+            ,
+            expression_complex: {
+                type: "expression",
+                baseQuery: ["objectType:expression"],
+                fields: [
+                    new SearchField("editor.label.title", titleFields),
+                    new ClassificationSearchField("category.top", "iso15924"),
+                    new ClassificationSearchField("category.top", "rfc4646"),
+                    new ClassificationSearchField("category.top", "cmo_musictype"),
+                    new ClassificationSearchField("category.top", "cmo_makamler", 1),
+                    new ClassificationSearchField("category.top", "cmo_usuler", 1),
+                    new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_sourceType"),
+                    new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_notationType"),
+                    new DateSearchField("editor.label.publishingDate", ["{!join from=reference to=id}publish.date.range"]),
+                    new SearchField("editor.label.composer", ["{!join from=id to=composer.ref.pure}name"]),
+                    new DateSearchField("editor.label.lifeData", ["{!join from=id to=composer.ref.pure}date.range"]),
+                    new SearchField("editor.label.lyricist", ["{!join from=id to=lyricist.ref.pure}name"]),
+                    new DateSearchField("editor.label.lifeData", ["{!join from=id to=lyricist.ref.pure}date.range"]),
+                    new SearchField("editor.label.incip", ["incip"]),
+                    new CheckboxSearchField("cmo.hasFiles", "{!join from=reference to=id}hasFiles", "true"),
+                    new CheckboxSearchField("cmo.hasReference", "{!join from=mods.relatedItem to=id}*", "*"),
+                ],
+            },
+            source: {
+                type: "source",
+                baseQuery: ["objectType:source"],
+                fields: [
+                    new SearchField("editor.label.title", titleFields),
+                    new ClassificationSearchField("category.top", "cmo_sourceType"),
+                    new ClassificationSearchField("category.top", "cmo_notationType"),
+                    new ClassificationSearchField("category.top", "cmo_contentType"),
+                    new ClassificationSearchField("category.top", "iso15924"),
+                    new ClassificationSearchField("category.top", "rfc4646"),
+                    new DateSearchField("editor.label.publishingDate", ["publish.date.range"]),
+                    new SearchField("editor.label.contributer", ["editor", "author", "respStmt", "hand.name"]),
+                    new SearchField("editor.label.publishingInformation", ["publisher", "publisher.place", "series",
+                        "repo.corpName", "repo.identifier", "repo.geogName", "history.event.eventGeogName"]),
+                    new CheckboxSearchField("cmo.hasFiles", "hasFiles", "true"),
+                ]
+            },
+            mods: {
+                type: "bibl",
+                baseQuery: ["objectType:mods"],
+                fields: [
+                    new SearchField("editor.label.title", ["mods.title", "mods.title.main", "mods.title.subtitle"]),
+                    new SearchField("editor.label.name", ["mods.nameIdentifier", "mods.name"]),
+                    new SearchField("editor.label.publishingInformation", ["mods.publisher", "mods.place",
+                        "mods.title.de.series", "mods.title.en.series", "mods.title.tr.series",
+                        "mods.title.de.host", "mods.title.en.host", "mods.title.tr.host"]),
+                    /* new ClassificationSearchField("mods.ddc", "DDC"), */
+                    /* new ClassificationSearchField("mods.type", "diniPublType"), */
+                    new DateSearchField("editor.legend.pubDate", ["mods.dateIssued.range", "mods.dateIssued.host.range"])
+                ]
+            },
+            person: {
+                type: "person",
+                baseQuery: ["objectType:person"],
+                fields: [
+                    new SearchField("editor.label.name", ["name", "name.general"]),
+                    new DateSearchField("editor.label.lifeData", ["date.range"]),
+                    new CheckboxSearchField("editor.label.composer", "{!join from=composer.ref.pure to=id}composer.ref.pure", "*"),
+                    new CheckboxSearchField("editor.label.lyricist", "{!join from=lyricist.ref.pure to=id}lyricist.ref.pure", "*")
+                ],
+
+            },
+            lyrics: {
+                type: "expression",
+                baseQuery: ["objectType:expression", "cmo_musictype:gn-66217054-X"],
+                fields: [
+                    new SearchField("editor.label.title", titleFields),
+                    new SearchField("editor.label.identifier", ["identifier"]),
+                    new SearchField("editor.label.incip", ["incip"]),
+                    new ClassificationSearchField("category.top", "iso15924"),
+                    new ClassificationSearchField("category.top", "rfc4646"),
+                    new ClassificationSearchField("category.top", "cmo_musictype"),
+                    new ClassificationSearchField("category.top", "cmo_litform"),
+                    new ClassificationSearchField("category.top", "cmo_makamler", 1),
+                    new ClassificationSearchField("category.top", "cmo_usuler", 1),
+                    new SearchField("editor.label.lyricist", ["{!join from=id to=lyricist.ref.pure}name"]),
+                    new DateSearchField("editor.label.lifeData", ["{!join from=id to=lyricist.ref.pure}date.range"]),
+                    new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_sourceType"),
+                    new CheckboxSearchField("cmo.hasFiles", "{!join from=reference to=id}hasFiles", "true"),
+                    new CheckboxSearchField("cmo.hasReference", "{!join from=mods.relatedItem to=id}*", "*")
+                ]
+            },
+            "work": {
+                type: "work",
+                baseQuery: ["objectType:work"],
+                fields: []
+            }
+        });
+    };
+
+    ClassificationResolver.resolve(ISO15924, (langClazz) => {
+        langClazz.categories.forEach(categ => languageFields.push(categ.ID));
+        langComplete[ISO15924] = true;
+        if(langComplete[ISO15924] && langComplete[RFC5646]){
+            onComplete();
         }
     });
 
-// Katalog Search field definition
-    kSearch.addExtended({
-        expression : {
-            type : "expression",
-            baseQuery : [ "objectType:expression", "-complex:*" ],
-            fields : [ new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
-                new ClassificationSearchField("category.top", "iso15924"),
-                new ClassificationSearchField("category.top", "rfc4646"),
-                new ClassificationSearchField("category.top", "cmo_musictype"),
-                new ClassificationSearchField("category.top", "cmo_makamler", 1),
-                new ClassificationSearchField("category.top", "cmo_usuler", 1),
-                new SearchField("editor.label.incip", [ "incip" ]) ],
-        }
-        ,
-        expression_complex : {
-            type : "expression",
-            baseQuery : [ "objectType:expression" ],
-            fields : [
-                new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
-                new ClassificationSearchField("category.top", "iso15924"),
-                new ClassificationSearchField("category.top", "rfc4646"),
-                new ClassificationSearchField("category.top", "cmo_musictype"),
-                new ClassificationSearchField("category.top", "cmo_makamler", 1),
-                new ClassificationSearchField("category.top", "cmo_usuler", 1),
-                new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_sourceType"),
-                new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_notationType"),
-                new DateSearchField("editor.label.publishingDate", [ "{!join from=reference to=id}publish.date.range" ]),
-                new SearchField("editor.label.composer", [ "{!join from=id to=composer.ref.pure}name" ]),
-                new DateSearchField("editor.label.lifeData", [ "{!join from=id to=composer.ref.pure}date.range" ]),
-                new SearchField("editor.label.lyricist", [ "{!join from=id to=lyricist.ref.pure}name" ]),
-                new DateSearchField("editor.label.lifeData", [ "{!join from=id to=lyricist.ref.pure}date.range" ]),
-                new SearchField("editor.label.incip", [ "incip" ]),
-                new CheckboxSearchField("cmo.hasFiles", "{!join from=reference to=id}hasFiles", "true"),
-                new CheckboxSearchField("cmo.hasReference", "{!join from=mods.relatedItem to=id}*", "*"),
-            ],
-        },
-        source : {
-            type : "source",
-            baseQuery : [ "objectType:source" ],
-            fields : [
-                new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
-                new ClassificationSearchField("category.top", "cmo_sourceType"),
-                new ClassificationSearchField("category.top", "cmo_notationType"),
-                new ClassificationSearchField("category.top", "cmo_contentType"),
-                new ClassificationSearchField("category.top", "iso15924"),
-                new ClassificationSearchField("category.top", "rfc4646"),
-                new DateSearchField("editor.label.publishingDate", [ "publish.date.range" ]),
-                new SearchField("editor.label.contributer", [ "editor", "author", "respStmt", "hand.name" ]),
-                new SearchField("editor.label.publishingInformation", [ "publisher", "publisher.place", "series",
-                    "repo.corpName", "repo.identifier", "repo.geogName", "history.event.eventGeogName" ]),
-                new CheckboxSearchField("cmo.hasFiles", "hasFiles", "true"),
-            ]
-        },
-        mods : {
-            type : "bibl",
-            baseQuery : [ "objectType:mods" ],
-            fields : [
-                new SearchField("editor.label.title", [ "mods.title", "mods.title.main", "mods.title.subtitle" ]),
-                new SearchField("editor.label.name", [ "mods.nameIdentifier", "mods.name" ]),
-                new SearchField("editor.label.publishingInformation", [ "mods.publisher", "mods.place",
-                    "mods.title.de.series", "mods.title.en.series", "mods.title.tr.series",
-                    "mods.title.de.host", "mods.title.en.host", "mods.title.tr.host" ]),
-                /* new ClassificationSearchField("mods.ddc", "DDC"), */
-                /* new ClassificationSearchField("mods.type", "diniPublType"), */
-                new DateSearchField("editor.legend.pubDate", [ "mods.dateIssued.range", "mods.dateIssued.host.range" ])
-            ]
-        },
-        person : {
-            type : "person",
-            baseQuery : [ "objectType:person" ],
-            fields : [
-                new SearchField("editor.label.name", [ "name", "name.general" ]),
-                new DateSearchField("editor.label.lifeData", [ "date.range" ]),
-                new CheckboxSearchField("editor.label.composer", "{!join from=composer.ref.pure to=id}composer.ref.pure", "*"),
-                new CheckboxSearchField("editor.label.lyricist", "{!join from=lyricist.ref.pure to=id}lyricist.ref.pure", "*")
-            ],
-
-        },
-        lyrics : {
-            type : "expression",
-            baseQuery : [ "objectType:expression", "cmo_musictype:gn-66217054-X" ],
-            fields : [
-                new SearchField("editor.label.title", [ "title", "title.lang.en", "title.lang.tr", "title.lang.ota-arab" ]),
-                new SearchField("editor.label.identifier", [ "identifier" ]),
-                new SearchField("editor.label.incip", [ "incip" ]),
-                new ClassificationSearchField("category.top", "iso15924"),
-                new ClassificationSearchField("category.top", "rfc4646"),
-                new ClassificationSearchField("category.top", "cmo_musictype"),
-                new ClassificationSearchField("category.top", "cmo_litform"),
-                new ClassificationSearchField("category.top", "cmo_makamler", 1),
-                new ClassificationSearchField("category.top", "cmo_usuler", 1),
-                new SearchField("editor.label.lyricist", [ "{!join from=id to=lyricist.ref.pure}name" ]),
-                new DateSearchField("editor.label.lifeData", [ "{!join from=id to=lyricist.ref.pure}date.range" ]),
-                new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_sourceType"),
-                new CheckboxSearchField("cmo.hasFiles", "{!join from=reference to=id}hasFiles", "true"),
-                new CheckboxSearchField("cmo.hasReference", "{!join from=mods.relatedItem to=id}*", "*")
-            ]
-        },
-        "work" : {
-            type: "work",
-            baseQuery : [ "objectType:work" ],
-            fields: []
+    ClassificationResolver.resolve(RFC5646, (langClazz) => {
+        langClazz.categories.forEach(categ => languageFields.push(categ.ID));
+        langComplete[RFC5646] = true;
+        if(langComplete[ISO15924] && langComplete[RFC5646]){
+            onComplete();
         }
     });
-
 
     /* switch input  */
     let switcher = <Element>document.createElement("div");
@@ -282,7 +310,7 @@ window.addEventListener('load', ()=> {
     let baskedDisplay = new BasketDisplay(<HTMLElement>mainContainer);
     let solrSearcher = new SolrSearcher();
 
-    let resetJS= ()=>{
+    let resetJS = () => {
         baskedDisplay.reset();
         facet.reset();
         searchDisplay.reset();
@@ -299,7 +327,7 @@ window.addEventListener('load', ()=> {
 
 
         currentTimeOut = window.setTimeout(() => {
-            let [ , action ] = StateController.getState().filter(([ key, value ]) => key == "action")[ 0 ] || [ undefined, undefined ];
+            let [, action] = StateController.getState().filter(([key, value]) => key == "action")[0] || [undefined, undefined];
             if (action != "search" && action != "subselect" && action != "subselect-insert" && action != "set-parent" && action != "add-child") {
                 action = "search";
             }
@@ -312,10 +340,10 @@ window.addEventListener('load', ()=> {
         let queries = searchController.getSolrQuery();
 
         let params = queries
-            .concat([ [ "start", start ] ])
-            .concat([ [ "action", action ] ])
-            .concat([ [ "sort", (sortField || "score") + " " + (asc ? "asc" : "desc") ] ])
-            .concat([ [ "rows", rows ] ]);
+            .concat([["start", start]])
+            .concat([["action", action]])
+            .concat([["sort", (sortField || "score") + " " + (asc ? "asc" : "desc")]])
+            .concat([["rows", rows]]);
 
         if (aditionalQuery.length > 0) {
             params = params.concat(aditionalQuery);
@@ -327,7 +355,7 @@ window.addEventListener('load', ()=> {
 
     let getResultAction = (params) => {
 
-        let [ , action ] = params.filter(([ key, value ]) => key == "action")[ 0 ] || [ null, null ];
+        let [, action] = params.filter(([key, value]) => key == "action")[0] || [null, null];
 
         switch (action) {
             case "init_search":
@@ -338,16 +366,16 @@ window.addEventListener('load', ()=> {
                         if (i == "wt" || i == "start" || i == "rows") {
                             continue;
                         }
-                        if (result.responseHeader.params[ i ] instanceof Array) {
-                            param += result.responseHeader.params[ i ].map(param => `${i}=${encodeURIComponent(param)}`).join("&") + "&";
+                        if (result.responseHeader.params[i] instanceof Array) {
+                            param += result.responseHeader.params[i].map(param => `${i}=${encodeURIComponent(param)}`).join("&") + "&";
                         } else {
-                            param += `${i}=${ encodeURIComponent(result.responseHeader.params[ i ])}&`;
+                            param += `${i}=${encodeURIComponent(result.responseHeader.params[i])}&`;
                         }
                     }
-                    if (param[ param.length - 1 ] == "&") {
+                    if (param[param.length - 1] == "&") {
                         param = param.substring(0, param.length - 1);
                     }
-                    param += `&start=${(result.response.start || 0)+ hitOnPage}&rows=1&origrows=${result.responseHeader.params[ "rows" ] || 10}&XSL.Style=browse`;
+                    param += `&start=${(result.response.start || 0) + hitOnPage}&rows=1&origrows=${result.responseHeader.params["rows"] || 10}&XSL.Style=browse`;
                     window.location.href = `${Utils.getBaseURL()}servlets/solr/select?${param}`;
                 };
 
@@ -367,9 +395,9 @@ window.addEventListener('load', ()=> {
                     subselectTarget.forEach((sst) => {
                         let field = sst.getAttribute("data-subselect-target");
                         if ("value" in sst) {
-                            let fieldValue = doc[ field ];
+                            let fieldValue = doc[field];
                             if (fieldValue instanceof Array) {
-                                sst.value = fieldValue[ 0 ];
+                                sst.value = fieldValue[0];
                             } else {
                                 sst.value = fieldValue;
                             }
@@ -397,12 +425,12 @@ window.addEventListener('load', ()=> {
                     subselectTarget.forEach((sst) => {
                         let fieldValue = doc["id"];
                         let realValue = (fieldValue instanceof Array) ? fieldValue[0] : fieldValue;
-                        if(element.innerHTML.length==0){
-                            if("mods.identifier.CMO" in doc){
+                        if (element.innerHTML.length == 0) {
+                            if ("mods.identifier.CMO" in doc) {
                                 element.innerHTML = doc["mods.identifier.CMO"];
-                            } else if("identifier.type.CMO" in doc){
+                            } else if ("identifier.type.CMO" in doc) {
                                 element.innerHTML = doc["identifier.type.CMO"];
-                            } else if ("displayTitle" in doc){
+                            } else if ("displayTitle" in doc) {
                                 element.innerHTML = doc["displayTitle"];
                             }
                         }
@@ -414,7 +442,7 @@ window.addEventListener('load', ()=> {
                     mainContainer.classList.add("col-lg-11");
                     mainContainer.classList.remove("col-md-9");
                     mainContainer.classList.remove("col-lg-9");
-                    window.scroll(0, subselectTarget[0].getBoundingClientRect().top-(window.innerHeight/2));
+                    window.scroll(0, subselectTarget[0].getBoundingClientRect().top - (window.innerHeight / 2));
                     subselectTarget = null;
 
 
@@ -422,7 +450,7 @@ window.addEventListener('load', ()=> {
 
             case "set-parent":
                 return (doc) => {
-                    const child = params.filter(([ key, value ]) => key == "of")[ 0 ][ 1 ];
+                    const child = params.filter(([key, value]) => key == "of")[0][1];
                     const newParent = doc.id;
                     I18N.translate("cmo.replace.parent.confirm", (translation) => {
                         const message = translation.replace("{0}", child).replace("{1}", newParent);
@@ -442,7 +470,7 @@ window.addEventListener('load', ()=> {
                                         });
                                     } else {
                                         I18N.translate("cmo.replace.parent.failed", (translation) => {
-                                            alert(translation + "\n" + JSON.parse(xhttp.response)[ "message" ]);
+                                            alert(translation + "\n" + JSON.parse(xhttp.response)["message"]);
                                             console.error(xhttp.response);
                                         });
                                     }
@@ -456,7 +484,7 @@ window.addEventListener('load', ()=> {
                 };
             case "add-child":
                 return (doc) => {
-                    const parent = params.filter(([ key, value ]) => key == "to")[ 0 ][ 1 ];
+                    const parent = params.filter(([key, value]) => key == "to")[0][1];
                     const childToAdd = doc.id;
                     I18N.translate("cmo.add.child.confirm", (translation) => {
                         const message = translation.replace("{0}", parent).replace("{1}", childToAdd);
@@ -476,7 +504,7 @@ window.addEventListener('load', ()=> {
                                         });
                                     } else {
                                         I18N.translate("cmo.add.child.failed", (translation) => {
-                                            alert(translation + "\n" + JSON.parse(xhttp.response)[ "message" ]);
+                                            alert(translation + "\n" + JSON.parse(xhttp.response)["message"]);
                                             console.error(xhttp.response);
                                         });
                                     }
@@ -494,7 +522,7 @@ window.addEventListener('load', ()=> {
 
 
     StateController.onStateChange((params, selfChange) => {
-        let [ , action ] = params.filter(([ key, value ]) => key == "action")[ 0 ] || [ null, null ];
+        let [, action] = params.filter(([key, value]) => key == "action")[0] || [null, null];
 
         updateMainContainerSize();
         let extra: HTMLElement = null;
@@ -595,14 +623,14 @@ window.addEventListener('load', ()=> {
                         break;
                 }
             case "init_search":
-                aditionalQuery = params.filter(([ key ]) => key !== 'q' && key !== 'action' && key !== "sort" && key !== "rows" && key !== "start");
-                if(action == "init_search"){
+                aditionalQuery = params.filter(([key]) => key !== 'q' && key !== 'action' && key !== "sort" && key !== "rows" && key !== "start");
+                if (action == "init_search") {
                     action = "search";
                 }
             case "search":
                 ctrl = null;
                 for (let param of params) {
-                    let [ , v ] = param;
+                    let [, v] = param;
 
                     if (v.indexOf(kSearchBaseQuery) != -1) {
                         ctrl = kSearch;
@@ -690,7 +718,6 @@ window.addEventListener('load', ()=> {
         const contentEditable = document.createElement("div");
 
 
-
         contentEditable.setAttribute("contentEditable", "true");
         contentEditable.style.width = "100%";
         contentEditable.style.minHeight = "3em";
@@ -699,7 +726,7 @@ window.addEventListener('load', ()=> {
         _subselectTarget.parentElement.insertBefore(contentEditable, _subselectTarget);
         contentEditable.innerHTML = _subselectTarget.value;
         _subselectTarget.style.display = "none";
-        Array.prototype.slice.call(contentEditable.querySelectorAll(".inserted")).forEach((linkElement)=>{
+        Array.prototype.slice.call(contentEditable.querySelectorAll(".inserted")).forEach((linkElement) => {
             linkElement.addEventListener("click", () => {
                 window.open(linkElement.getAttribute("href"), '_blank');
             });
@@ -722,7 +749,7 @@ window.addEventListener('load', ()=> {
                     Array.prototype.slice.call(contentEditable.children)
                         .filter((child) => {
                             return !((<HTMLElement>child).classList.contains("inserted")) && child.nodeName.toLocaleLowerCase() !== "br";
-                        } )
+                        })
                         .forEach((child) => {
                             action.push(() => {
                                 contentEditable.replaceChild(document.createTextNode(child.innerText), child);
@@ -764,7 +791,7 @@ window.addEventListener('load', ()=> {
             if ((selection.type === "Range" || selection.type === "Caret") && isInTargetNode(selection.anchorNode)) {
                 document.execCommand("insertHTML", false, aElement);
             } else {
-                contentEditable.innerHTML+=aElement;
+                contentEditable.innerHTML += aElement;
             }
 
             let query = element.getAttribute("data-insert-subselect");
@@ -788,7 +815,7 @@ window.addEventListener('load', ()=> {
 
     Array.prototype.slice.call(document.querySelectorAll("[data-search-catalogue]")).forEach((node) => {
         const fq = node.getAttribute("data-search-query");
-        node.addEventListener('click', ()=>{
+        node.addEventListener('click', () => {
             const url = `q=${kSearchBaseQuery}&fq=${encodeURIComponent(fq)}&start=0&action=init_search&sort=score%20desc&rows=10`;
             window.location.hash = url;
         });
