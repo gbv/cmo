@@ -210,7 +210,7 @@
   <xsl:template match="children" mode="metadataView">
     <xsl:if test="child">
       <xsl:variable name="sortCriteria">
-            <xsl:value-of select="'&amp;sort=displayTitle asc'"/>
+        <xsl:value-of select="'&amp;sort=displayTitleSort asc'"/>
       </xsl:variable>
 
       <xsl:call-template name="metadataLabelContent">
@@ -246,7 +246,7 @@
                 </xsl:call-template>
 
                 <xsl:variable name="grandChildren"
-                              select="document(concat('solr:q=parent:', @xlink:href, '&amp;rows=1000&amp;fl=id', $sortCriteria))/response/result" />
+                  select="document(concat('solr:q=parent:', str[@name='id'], '&amp;rows=1000&amp;fl=id', $sortCriteria))/response/result" />
                 <xsl:if test="$grandChildren/@numFound &gt; 0">
                   <ul class="list-unstyled">
                     <xsl:for-each select="$grandChildren/doc">
