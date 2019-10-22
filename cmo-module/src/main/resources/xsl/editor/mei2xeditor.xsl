@@ -46,7 +46,7 @@
 
   <!-- xsl:template match="mei:title/@xml:lang">
     <xsl:attribute name="xml:lang">
-      <xsl:value-of select="concat('rfc4646:', .)" />
+      <xsl:value-of select="concat('rfc5646:', .)" />
     </xsl:attribute>
   </xsl:template -->
 
@@ -79,10 +79,10 @@
         </xsl:when>
         <xsl:otherwise>
           <xsl:attribute name="xml:id">
-            <xsl:value-of select="concat('rfc4646:', @xml:id)" />
+            <xsl:value-of select="concat('rfc5646:', @xml:id)" />
           </xsl:attribute>
           <xsl:attribute name="authority">
-            <xsl:value-of select="'rfc4646'" />
+            <xsl:value-of select="'rfc5646'" />
           </xsl:attribute>
         </xsl:otherwise>
       </xsl:choose>

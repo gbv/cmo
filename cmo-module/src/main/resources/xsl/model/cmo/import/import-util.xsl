@@ -35,7 +35,7 @@
     <xsl:param name="lang" />
     <xsl:choose>
       <xsl:when test="contains('tur ara fra ell eng fas hye ota tr ar fr el hy fa de en', $lang)">
-        <xsl:value-of select="'rfc4646'" />
+        <xsl:value-of select="'rfc5646'" />
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="'iso15924'" />

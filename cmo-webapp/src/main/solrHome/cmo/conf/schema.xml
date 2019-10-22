@@ -655,7 +655,7 @@
   <dynamicField name="mods.title.tr.*" type="text_tr" multiValued="true" stored="true" />
 
   <field name="langugage.iso15924" type="string" multiValued="true" stored="true" />
-  <field name="langugage.rfc4646" type="string" multiValued="true" stored="true" />
+  <field name="langugage.rfc5646" type="string" multiValued="true" stored="true" />
 
     <!-- identifier (gnd, pnd, etc.) -->
     <dynamicField name="id.*" type="string" />

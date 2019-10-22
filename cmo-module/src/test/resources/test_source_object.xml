@@ -22,7 +22,7 @@
             <date notbefore="1997" calendar="gregorian" isodate="1997">1997</date>
           </pubStmt>
           <langUsage xmlns="http://www.music-encoding.org/ns/mei">
-            <language authority="rfc4646" xml:id="hy">Armenian</language>
+            <language authority="rfc5646" xml:id="hy">Armenian</language>
           </langUsage>
           <contents xmlns="http://www.music-encoding.org/ns/mei">
             <p>Modern edition of a treatise on music and notation by the Mxit'arist scholar Minas Bžškean

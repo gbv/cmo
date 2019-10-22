@@ -47,7 +47,7 @@
 
   <xsl:template match="mei:title/@xml:lang">
     <xsl:attribute name="xml:lang">
-      <xsl:value-of select="substring-after(., 'rfc4646:')" />
+      <xsl:value-of select="substring-after(., 'rfc5646:')" />
     </xsl:attribute>
   </xsl:template -->
 
@@ -64,9 +64,9 @@
     <xsl:copy>
       <xsl:apply-templates select="@*" />
 
-      <xsl:if test="starts-with(@xml:id , 'rfc4646:')">
+      <xsl:if test="starts-with(@xml:id , 'rfc5646:')">
         <xsl:attribute name="xml:id">
-          <xsl:value-of select="substring-after(@xml:id, 'rfc4646:')" />
+          <xsl:value-of select="substring-after(@xml:id, 'rfc5646:')" />
         </xsl:attribute>
       </xsl:if>
       <xsl:if test="starts-with(@xml:id, 'iso15924:')">
