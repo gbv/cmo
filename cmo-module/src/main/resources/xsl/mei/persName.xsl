@@ -27,9 +27,10 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:mei="http://www.music-encoding.org/ns/mei"
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
-
+  
+  <xsl:key name="persTypes" match="mei:name" use="@type"/>
   <xsl:key name="persNames" match="mei:name" use="."/>
-
+  
   <xsl:template match="mei:persName[@nymref]" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:persName[@nymref]</xsl:comment>
     <xsl:value-of select="concat(text(), ' ')" />
@@ -37,13 +38,13 @@
       <xsl:with-param name="obj_id" select="@nymref" />
     </xsl:call-template>
   </xsl:template>
-
+  
   <xsl:template match="mei:persName[mei:name]" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:persName/mei:name</xsl:comment>
-    
-    <xsl:for-each select="mei:name[generate-id()=generate-id(key('persNames',text())[1])]">
+
+    <xsl:for-each select="mei:name[generate-id()=generate-id(key('persTypes', @type))]">
+      <xsl:variable name="currentType" select="@type" />
       <xsl:call-template name="metadataLabelContent">
-      
         <xsl:with-param name="style">
           <xsl:if test="position() &gt; 1"><xsl:value-of select="'cmo_noBorder'" /></xsl:if>
         </xsl:with-param>
@@ -55,7 +56,7 @@
         </xsl:with-param>
         <xsl:with-param name="content">
           <xsl:value-of select="text()"/>
-          <xsl:for-each select="key('persNames',text())">
+          <xsl:for-each select="key('persNames',text())[@type=$currentType]">
             <xsl:choose>
               <xsl:when test="@source and @label">
                 <small> [<a href="{$WebApplicationBaseURL}receive/{@source}"><xsl:value-of select="@label" /></a>]</small>
@@ -69,8 +70,8 @@
       </xsl:call-template>
     </xsl:for-each>
   </xsl:template>
-
-
+  
+  
   <xsl:template match="mei:author" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:author</xsl:comment>
     <xsl:call-template name="metadataLabelContent">
@@ -80,7 +81,7 @@
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
-
+  
   <xsl:template match="mei:editor" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:editor</xsl:comment>
     <xsl:call-template name="metadataLabelContent">
@@ -90,7 +91,7 @@
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
-
+  
   <xsl:template match="mei:composer" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:composer</xsl:comment>
     <xsl:call-template name="metadataLabelContent">
@@ -100,7 +101,7 @@
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
-
+  
   <xsl:template match="mei:lyricist" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:lyricist</xsl:comment>
     <xsl:call-template name="metadataLabelContent">
@@ -110,8 +111,8 @@
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
-
-
+  
+  
   <xsl:template name="showPersonDates">
     <xsl:comment>mei/persName.xsl > mei:date</xsl:comment>
     <xsl:call-template name="metadataLabelContent">
@@ -189,7 +190,7 @@
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
-
+  
   <xsl:template match="mei:name" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:name</xsl:comment>
     <xsl:call-template name="metadataLabelContent">
@@ -207,5 +208,5 @@
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
-
+  
 </xsl:stylesheet>

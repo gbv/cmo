@@ -26,6 +26,9 @@ table > tbody > tr.cmo_noBorder > td, table > tbody > tr.cmo_noBorder > th {
   margin-top: 0px;
   padding: 0px 8px 8px 8px;
 }
+table > tbody > tr.cmo_border > td {
+  padding: 0px 8px 8px 8px;
+}
 
 .cmo_contentType {
   color: $gray;
