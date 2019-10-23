@@ -53,7 +53,7 @@
               <xsl:call-template name="printAnnot" />
             </xsl:when>
             <xsl:otherwise>
-              <xsl:apply-templates select="node()" mode="printAnnot" />
+              <xsl:apply-templates select="node()" mode="printAnnot2" />
             </xsl:otherwise>
           </xsl:choose>
         </xsl:with-param>
@@ -61,13 +61,13 @@
     </xsl:for-each>
   </xsl:template>
 
-  <xsl:template match="mei:ref|mei:bibl|mei:persName" mode="printAnnot">
+  <xsl:template match="mei:ref|mei:bibl|mei:persName" mode="printAnnot2">
     <a href="{$WebApplicationBaseURL}receive/{@target|@nymref}">
       <xsl:apply-templates select="text()" mode="printAnnot" />
     </a>
   </xsl:template>
 
-  <xsl:template match="mei:lb" mode="printAnnot">
+  <xsl:template match="mei:lb" mode="printAnnot2">
     <br />
   </xsl:template>
 

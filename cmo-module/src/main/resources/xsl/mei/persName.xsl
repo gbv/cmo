@@ -20,17 +20,17 @@
   ~
   -->
 <xsl:stylesheet
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:xalan="http://xml.apache.org/xalan"
-  xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
-  xmlns:acl="xalan://org.mycore.access.MCRAccessManager"
-  xmlns:xlink="http://www.w3.org/1999/xlink"
-  xmlns:mei="http://www.music-encoding.org/ns/mei"
-  exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
-  
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xalan="http://xml.apache.org/xalan"
+    xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
+    xmlns:acl="xalan://org.mycore.access.MCRAccessManager"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:mei="http://www.music-encoding.org/ns/mei"
+    exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
+
   <xsl:key name="persTypes" match="mei:name" use="@type"/>
-  <xsl:key name="persNames" match="mei:name" use="."/>
-  
+  <xsl:key name="persNames" match="mei:name" use="concat(@type, text())"/>
+
   <xsl:template match="mei:persName[@nymref]" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:persName[@nymref]</xsl:comment>
     <xsl:value-of select="concat(text(), ' ')" />
@@ -41,8 +41,8 @@
   
   <xsl:template match="mei:persName[mei:name]" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:persName/mei:name</xsl:comment>
-
-    <xsl:for-each select="mei:name[generate-id()=generate-id(key('persTypes', @type))]">
+    <xsl:variable name="names" select="mei:name" />
+    <xsl:for-each select="mei:name[generate-id()=generate-id(key('persTypes', @type)[1])]">
       <xsl:variable name="currentType" select="@type" />
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="style">
@@ -55,16 +55,20 @@
           <xsl:value-of select="@type" />
         </xsl:with-param>
         <xsl:with-param name="content">
-          <xsl:value-of select="text()"/>
-          <xsl:for-each select="key('persNames',text())[@type=$currentType]">
-            <xsl:choose>
-              <xsl:when test="@source and @label">
-                <small> [<a href="{$WebApplicationBaseURL}receive/{@source}"><xsl:value-of select="@label" /></a>]</small>
-              </xsl:when>
-              <xsl:when test="@source">
-                <small> [<xsl:call-template name="objectLink"><xsl:with-param select="@source" name="obj_id" /></xsl:call-template>]</small>
-              </xsl:when>
-            </xsl:choose>
+          <xsl:for-each select="$names[generate-id()=generate-id(key('persNames',concat($currentType, text()))[1])]" >
+            <xsl:variable name="currentText" select="text()" />
+            <xsl:value-of select="text()"/>
+            <xsl:for-each select="$names[@type = $currentType and text()=$currentText]">
+              <xsl:choose>
+                <xsl:when test="@source and @label">
+                  <small> [<a href="{$WebApplicationBaseURL}receive/{@source}"><xsl:value-of select="@label" /></a>]</small>
+                </xsl:when>
+                <xsl:when test="@source">
+                  <small> [<xsl:call-template name="objectLink"><xsl:with-param select="@source" name="obj_id" /></xsl:call-template>]</small>
+                </xsl:when>
+              </xsl:choose>
+            </xsl:for-each>
+            <br/>
           </xsl:for-each>
         </xsl:with-param>
       </xsl:call-template>

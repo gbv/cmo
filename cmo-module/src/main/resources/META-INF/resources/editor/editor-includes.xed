@@ -31,7 +31,7 @@
     <cmo:textfield xpath="mei:titleStmt/mei:title" label="editor.label.title" type="cmo_titleType" lang="rfc5646"
                    repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
   </xed:template>
-  
+
   <xed:template id="cmo_titleExpression">
     <cmo:textfield xpath="mei:titleStmt/mei:title" label="editor.label.title" type="cmo_titleTypeExpression" lang="iso15924"
                    repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" class="required" required="true" required-i18n="cmo.validation.titleExpression" />
@@ -108,17 +108,17 @@
                    help-text="{i18n:cmo.help.identifier}" class="required" required="true"
                    required-i18n="cmo.validation.identifier" />
   </xed:template>
-  
+
   <xed:template id="cmo_identifierRISM">
     <cmo:textfield xpath="mei:identifier[@type='RISM']" label="editor.label.identifier.RISM"
                    help-text="{i18n:cmo.help.identifier.RISM}"/>
   </xed:template>
-  
+
   <xed:template id="cmo_identifierGND">
     <cmo:textfield xpath="mei:identifier[@type='GND']" label="editor.label.identifier.GND"
                    help-text="{i18n:cmo.help.gnd}" />
   </xed:template>
-  
+
   <xed:template id="cmo_identifierSimple">
     <cmo:textfield xpath="mei:identifier" label="editor.label.identifierSimple"
                    help-text="{i18n:cmo.help.identifierSimple}"
@@ -149,17 +149,17 @@
                      help-text="{i18n:cmo.help.geogName}" />
     </xed:bind>
   </xed:template>
-  
+
   <xed:template id="cmo_physLocCorpName">
     <cmo:textfield xpath="mei:corpName[@type='library']" label="editor.label.corpName"
                    help-text="{i18n:cmo.help.corpName}" />
   </xed:template>
-  
+
   <xed:template id="cmo_physLocCollection">
     <cmo:textfield xpath="mei:identifier[@type='collection']" label="editor.label.identifier.collection"
                    help-text="{i18n:cmo.help.identifier.collection}" />
   </xed:template>
-  
+
   <xed:template id="cmo_physLocShelfmark">
     <cmo:textfield xpath="mei:identifier[@type='shelfmark']" label="editor.label.identifier.shelfmark"
                    help-text="{i18n:cmo.help.identifier.shelfmark}" />
@@ -169,17 +169,17 @@
     <cmo:textfield xpath="mei:dimensions[@unit='cm']" label="editor.label.dimensions"
                    help-text="{i18n:cmo.help.dimensions}" />
   </xed:template>
-  
+
   <xed:template id="cmo_physDescExtent">
     <cmo:textfield xpath="mei:extent" label="editor.label.extent"
                    help-text="{i18n:cmo.help.extent}" />
   </xed:template>
-  
+
   <xed:template id="cmo_physDescPhysMedium">
     <cmo:textfield xpath="mei:physMedium" textLabel="true" repeat="true" min="1" max="20" label="editor.label.physMedium"
                    help-text="{i18n:cmo.help.physMedium}" />
   </xed:template>
-  
+
   <xed:template id="cmo_physDescHandList">
     <xed:repeat xpath="mei:handList/mei:hand" min="1">
         <div class="cmo-fieldset-content">
@@ -258,7 +258,7 @@
     <cmo:textfield xpath="mei:head" label="editor.label.eventHead"
                    help-text="{i18n:cmo.help.eventHead}" />
   </xed:template>
-  
+
   <xed:template id="cmo_eventGeogName">
     <cmo:textfield xpath="mei:geogName" label="editor.label.geogName"
                    help-text="{i18n:cmo.help.geogName}" />
@@ -345,63 +345,63 @@
                               label="editor.search.musictype"
                               classification="cmo_musictype" help-text="{i18n:cmo.help.musictype}" />
   </xed:template>
-  
+
   <xed:template id="cmo_litform">
     <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_litform']"
                               label="editor.search.litform"
                               classification="cmo_litform" help-text="{i18n:cmo.help.litform}" />
   </xed:template>
 
-  <xed:template id="cmo_personNameByType">
-    <xed:repeat xpath="mei:name[not(@type='CMO')][not(@source)]" min="1" max="100">
-      <div class="cmo-fieldset-content">
-        <div class="form-group">
-          <div class="row">
-            <label class="col-md-4 col-form-label">
-              <xed:output i18n="editor.label.name.byType" />
-            </label>
-            <div class="col-md-6 ">
-              <div class="form-inline">
-                <xed:bind xpath="@type">
-                  <input type="text" placeholder="eg. TMAS-main" style="width: 30%;" class="form-control form-control-inline" />
-                </xed:bind>
-                <input type="text" placeholder="eg. Emîn Ağa" style="width: 64%;margin-left: 40px;" class="form-control form-control-inline" />
-              </div>
-            </div>
-            <cmo:help-pmud help-text="{i18n:cmo.help.name.byType}" pmud="true" />
-          </div>
-        </div>
-      </div>
-    </xed:repeat>
-  </xed:template>
-
   <xed:template id="cmo_personNameBySource">
-    <xed:repeat xpath="mei:name[@source]" min="1" max="100">
+    <xed:repeat xpath="mei:name[not(@type='CMO')]" min="1" max="100">
       <div class="cmo-fieldset-content">
         <!-- TODO: should be  objectType:source OR objectType:mods -->
         <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:source' class="form-group">
           <div class="row">
             <label class="col-md-4 col-form-label">
-              <xed:output i18n="editor.label.name.bySource" />
+              <xed:output i18n="editor.label.type" />
             </label>
             <div class="col-md-6 ">
-              <div class="form-inline">
-                <xed:bind xpath="@source">
-                  <input type="text" placeholder="eg. cmo_source_00000043" data-subselect-target="id" style="width: 30%;" class="form-control form-control-inline" />
+                <xed:bind xpath="@type">
+                  <input type="text" placeholder="eg. TMAS-main" class="form-control form-control-inline" />
                 </xed:bind>
-                <xed:bind xpath="@label">
-                  <input type="hidden" data-subselect-target="identifier.type.CMO" />
-                </xed:bind>
-                <span class="pmud-button">
-                  <a tabindex="0" class="btn btn-light info-button" role="button"
-                        title="{i18n:cmo.help.sourceSearch}" data-subselect-trigger="">
-                      <i class="fas fa-search"></i>
-                  </a>
-                </span>
-                <input type="text" placeholder="eg. Ṭanbūrī Emīn Āġā" style="width: 64%;margin-left: 10px;" class="form-control form-control-inline" />
-              </div>
             </div>
             <cmo:help-pmud help-text="{i18n:cmo.help.name.bySource}" pmud="true" />
+          </div>
+          <div class="row">
+            <label class="col-md-4 col-form-label">
+              <xed:output i18n="editor.label.sourceLink" />
+            </label>
+            <div class="col-md-6">
+              <xed:bind xpath="@source">
+                <input type="text" placeholder="eg. cmo_source_00000043" data-subselect-target="id" class="form-control form-control-inline" />
+              </xed:bind>
+              <xed:bind xpath="@label">
+                <input type="hidden" data-subselect-target="identifier.type.CMO" />
+              </xed:bind>
+            </div>
+            <div class="col-md-2">
+              <span class="pmud-button">
+                <a tabindex="0" class="btn btn-light info-button" role="button"
+                   title="{i18n:cmo.help.sourceSearch}" data-subselect-trigger="">
+                  <i class="fas fa-search"></i>
+                </a>
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-md-4 col-form-label">
+              <xed:output i18n="editor.label.name" />
+            </label>
+            <div class="col-md-6">
+              <input type="text" placeholder="eg. Ṭanbūrī Emīn Āġā" class="form-control" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+              <hr />
+            </div>
           </div>
         </div>
       </div>
@@ -510,7 +510,7 @@
       </xed:repeat>
     </fieldset>
   </xed:template>
-  
+
   <xed:template id="cmo_expressionList">
     <fieldset>
       <legend class="cmo-fieldset-legend">
