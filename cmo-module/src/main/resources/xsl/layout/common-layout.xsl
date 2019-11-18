@@ -99,18 +99,36 @@
   <xsl:template match="/navigation//menu[@id and (group[item] or item)]">
     <xsl:param name="active" select="descendant-or-self::item[@href = $browserAddress ]" />
     <xsl:variable name="menuId" select="generate-id(.)" />
-    <li id="{@id}" class="nav-item dropdown">
+    <li id="{@id}" class="nav-item">
       <xsl:if test="$active">
-        <!-- xsl:attribute name="class">
-          <xsl:value-of select="'dropdown open'" />
-        </xsl:attribute -->
+        <xsl:attribute name="class">
+          <xsl:value-of select="'nav-item active'" />
+        </xsl:attribute>
       </xsl:if>
-      <a id="{$menuId}" class="dropdown-toggle" data-toggle="dropdown" href="#">
+      <a
+        class="nav-link cmo-dropdown-toggle collapsed"
+        data-toggle="collapse"
+        href="#{$menuId}"
+        aria-expanded="false">
+        <xsl:if test="$active">
+          <xsl:attribute name="class">
+            <xsl:value-of select="'nav-link cmo-dropdown-toggle'" />
+          </xsl:attribute>
+        </xsl:if>
         <xsl:apply-templates select="." mode="linkText" />
+        <i class="fas fa-chevron-right"></i>
+        <i class="fas fa-chevron-down"></i>
       </a>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="{$menuId}">
-        <xsl:apply-templates select="item|group" />
-      </ul>
+      <div id="{$menuId}" class="collapse">
+          <xsl:if test="$active">
+            <xsl:attribute name="class">
+              <xsl:value-of select="'collapse show'" />
+            </xsl:attribute>
+          </xsl:if>
+          <ul class="nav flex-column cmo-dropdown-menu" role="menu">
+            <xsl:apply-templates select="item|group" />
+          </ul>
+      </div>
     </li>
   </xsl:template>
   <xsl:template match="/navigation//group[@id and item]">
@@ -152,7 +170,7 @@
           </xsl:if>
           <xsl:if test="$active">
             <xsl:attribute name="class">
-              <xsl:value-of select="'active'" />
+              <xsl:value-of select="'nav-item active'" />
             </xsl:attribute>
           </xsl:if>
           <a href="{$url}">

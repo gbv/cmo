@@ -242,7 +242,7 @@
                         <div id="contact" class="col-12 col-sm-6 col-md-5 col-lg-2">
                           <a href="mailto:cmo@uni-muenster.de">cmo@uni-muenster.de</a>
                         </div>
-                        
+
                         <div id="logo" class="d-none d-md-block col-md-2 col-lg-2">
                             <a href="http://www.mycore.de/">
                                 <img src="{$WebApplicationBaseURL}content/images/mycore_logo_small_invert.png" title="{$mcr_version}" alt="powered by MyCoRe" />
@@ -254,7 +254,7 @@
                                 <img src="{$WebApplicationBaseURL}content/images/mycore_logo_small_invert.png" title="{$mcr_version}" alt="powered by MyCoRe" />
                             </a>
                         </div>
-                        
+
                         <div id="nav_below" class="col-12 col-sm-12 col-md-10 col-lg-5 text-center">
                           <ul>
                             <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_below']/*" />

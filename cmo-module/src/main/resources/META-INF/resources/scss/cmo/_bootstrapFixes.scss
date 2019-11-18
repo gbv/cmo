@@ -1,5 +1,18 @@
 /* bootstrap 4 fixes */
 
+//reset text decoration for hovered links
+a:hover {
+    text-decoration: none;
+}
+
+// restore nav hover
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color:
+  #e3e3e3;
+}
+
 /*
  * quick fix for drop down menus
  */
@@ -11,7 +24,7 @@
 .nav > li > a {
     position: relative;
     display: block;
-    padding: 10px 15px;
+    padding: 13px 15px;
 }
 
 .dropdown-menu > li > a {
@@ -80,7 +93,7 @@ a[data-facet-show]:not([href]):not([tabindex]) {
 }
 
 
-/* 
+/*
  * browse layout from MIR
  */
 
@@ -155,4 +168,3 @@ ul.cbList li li:last-child {
 ul ul span.cbNum {
   color: #999;
 }
-

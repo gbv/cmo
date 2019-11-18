@@ -1,6 +1,7 @@
 /* ---------------------------------------------------------------------------
    base functions
 ----------------------------------------------------------------------------*/
+
 .cmo_clear {
   clear: both;
 }
@@ -141,145 +142,6 @@ section #sidebar {
     background-color: white;
 }
 
-
-/* ---------------------------------------------------------------------------
-   login and languange menu
-----------------------------------------------------------------------------*/
-
-#cmo_side-menu {
-  margin-top: 20px;
-
-  >ul {
-    display: block;
-  }
-
-  #cmo_icon-profile {
-    margin: 0 0 0 0;
-    padding: 0 0 10px 0;
-    color: $secondary;
-    font-size: 14px;
-    img {
-      margin-bottom: 5px;
-    }
-  }
-
-  .cmo_language-menu {
-    list-style: none;
-    margin-top: 6px;
-    margin-right: 15px;
-
-    li {
-      display: inline;
-    }
-    li a {
-      color: $secondary;
-      font-size: 14px;
-    }
-    li.active a {
-      font-weight: bold;
-    }
-    li:not(:last-child):after {
-      content: ' | ';
-      color: $secondary;
-      font-size: 14px;
-    }
-  }
-}
-
-
-/* ---------------------------------------------------------------------------
-   side menu
-----------------------------------------------------------------------------*/
-#side_menu_1, #side_menu_2 {
-  padding: 0;
-
-  #basked_badge {
-    left: -12px;
-    top: -14px;
-    font-size: 60%;
-    color: #ca1914;
-  }
-
-  ul.nav {
-    float: none;
-    text-align: left;
-    li {
-      float: none;
-    }
-  }
-
-
-  nav {
-    padding: 0;
-    a {
-      color: #57595a;
-    }
-    > ul > li {
-      border-bottom: 1px solid #ccc;
-    }
-    > ul > li#cmo_tutorial {
-      border-bottom: 0px;
-    }
-    > ul > li > a {
-      font-size: 17px;
-      padding-left: 50px;
-      background-position: 15px 15px;
-      background-repeat: no-repeat;
-      background-size: 20px;
-    }
-    > ul > li#cmo_edition > a {
-      background-image: url('../../../content/images/menu_icons/cmo_edition.svg');
-    }
-    > ul > li#cmo_catalogue > a {
-      background-image: url('../../../content/images/menu_icons/cmo_catalogue.svg');
-    }
-    > ul > li#cmo_home > a {
-      background-image: url('../../../content/images/menu_icons/cmo_home.svg');
-    }
-    > ul > li#cmo_basket > a {
-      background-image: url('../../../content/images/menu_icons/cmo_basket.svg');
-    }
-    > ul > li#cmo_publish > a {
-      background-image: url('../../../content/images/menu_icons/cmo_buddy.svg');
-    }
-    > ul > li#cmo_userGuide > a {
-      background-image: url('../../../content/images/menu_icons/cmo_help.svg');
-    }
-    > ul > li#cmo_tutorial > a {
-      background-image: url('../../../content/images/menu_icons/cmo_tutorial.svg');
-    }
-
-    // level 2
-    > ul > li > ul.dropdown-menu {
-      position: static;
-      float: none;
-      border: none;
-      box-shadow: none;
-      margin: 0;
-      padding: 0 0 20px 0;
-      background-color: white;
-      border-radius: none;
-      font-size: 14px;
-    }
-    > ul > li > ul.dropdown-menu > li > a {
-      padding-left: 70px;
-    }
-    > ul > li > ul.dropdown-menu > li > a:hover {
-      color: white;
-      background-color: #666689;
-    }
-  }
-}
-
-
-/* ---------------------------------------------------------------------------
-   bottom menu
-----------------------------------------------------------------------------*/
-#bottom_menu, #bottom_side, #side_menu_2 {
-  height: 91.5px;
-}
-
-
 /* ---------------------------------------------------------------------------
    footer
 ----------------------------------------------------------------------------*/
@@ -358,5 +220,11 @@ background-size: cover;
         color: white;
       }
     }
+  }
+}
+
+.form-login {
+  button {
+    margin-right: 10px;
   }
 }
