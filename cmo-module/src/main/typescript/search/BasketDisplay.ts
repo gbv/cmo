@@ -130,7 +130,7 @@ export class BasketDisplay {
                         el.parentElement.parentElement.remove();
                     });
                 });
-            this._container.style.width = "100%";
+            this._container.classList.add("main--basket");
 
             let jQuery = window["jQuery"];
             jQuery(this._container).find("table").tablesorter({
@@ -206,7 +206,7 @@ export class BasketDisplay {
                 this._container.appendChild(content);
             });
             this.preDisplayContent = null;
-            this._container.style.width = "";
+            this._container.classList.remove("main--basket");
         }
     }
 
@@ -231,9 +231,9 @@ export class BasketDisplay {
 
         return `<div class="row">
 <div class="col-md-12">
-<button class="btn btn-secondary" data-basket-empty data-i18n="cmo.basket.remove.all"></button> 
-<button class="btn btn-secondary" data-i18n="cmo.basket.export.all" data-export-transformer="resolve-content-meimods" data-export-ids="${idListString}"></button> 
-<button class="btn btn-secondary" data-i18n="cmo.basket.export.all.dependency" data-export-transformer="resolve-dependencies-meimods" data-export-ids="${idListString}"></button> 
+<button class="btn btn-secondary" data-basket-empty data-i18n="cmo.basket.remove.all"></button>
+<button class="btn btn-secondary" data-i18n="cmo.basket.export.all" data-export-transformer="resolve-content-meimods" data-export-ids="${idListString}"></button>
+<button class="btn btn-secondary" data-i18n="cmo.basket.export.all.dependency" data-export-transformer="resolve-dependencies-meimods" data-export-ids="${idListString}"></button>
 </div>
 </div>`;
     }

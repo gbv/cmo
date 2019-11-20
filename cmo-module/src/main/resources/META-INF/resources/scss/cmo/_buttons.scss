@@ -1,0 +1,12 @@
+.btn-secondary {
+  color: #707474;
+  background-color: #e1e1e1;
+  border-color: #bebebe;
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    color: darken(#707474, 10%);
+    background-color: darken(#e1e1e1, 10%);
+    border-color: darken(#bebebe, 10%);
+  }
+}

@@ -931,6 +931,3 @@ window.addEventListener('load', () => {
         };
     });
 });
-
-
-

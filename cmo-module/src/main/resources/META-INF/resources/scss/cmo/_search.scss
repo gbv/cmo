@@ -210,6 +210,16 @@
 #basket{
   font-size: 14px;
 }
+#basket {
+  h2 {
+    margin-top: 22px;
+  }
+}
+// gives basket table full width
+#main.main--basket {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
 
 .search-extra {
   padding: 0px;
