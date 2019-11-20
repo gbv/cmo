@@ -6,9 +6,11 @@
   xmlns:xed="http://www.mycore.de/xeditor"
   xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
   xmlns:cmo="http://cmo.gbv.de/cmo"
-  exclude-result-prefixes="xsl cmo i18n">
+  xmlns:exslt="http://exslt.org/common"
+  exclude-result-prefixes="xsl cmo i18n exslt">
 
   <xsl:include href="copynodes.xsl" />
+  <xsl:include href="coreFunctions.xsl" />
 
   <xsl:template match="cmo:textfield.nobind">
     <div class="form-group">
@@ -538,6 +540,27 @@
         <xsl:if test="@textLabelFixed">
           <xed:bind xpath="@label">
             <input type="hidden" style="display:none" value="{@textLabelFixed}" />
+          </xed:bind>
+        </xsl:if>
+        <xsl:if test="@textLabelOptions">
+          <xsl:variable name="optionValues">
+            <xsl:call-template name="Tokenizer">
+              <xsl:with-param name="string" select="@textLabelOptions" />
+              <xsl:with-param name="delimiter" select="'|'" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:text>&#160;</xsl:text>
+          <xed:bind xpath="@label">
+            <select class="form-control" style="width: 100px;">
+              <option value="">
+                <xed:output i18n="editor.select" />
+              </option>
+              <xsl:for-each select="exslt:node-set($optionValues)/token">
+                <option value="{.}">
+                  <xsl:value-of select="."/>
+                </option>
+              </xsl:for-each>
+            </select>
           </xed:bind>
         </xsl:if>
         <xsl:if test="@lang">
