@@ -77,21 +77,6 @@ p {
     margin: 0 0 20px;
 }
 
-.dropdown-toggle .caret {
-    height: 22px;
-    padding-left: 10px;
-    border: none;
-    font-family:'FontAwesome';
-    color: black;
-}
-.dropdown-toggle .caret:before {
-    content: "\f105 ";
-}
-.dropdown.open .caret:before {
-    content: "\f107 ";
-}
-
-
 /* ---------------------------------------------------------------------------
    header
 ----------------------------------------------------------------------------*/

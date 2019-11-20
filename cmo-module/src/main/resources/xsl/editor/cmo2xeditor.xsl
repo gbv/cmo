@@ -490,7 +490,7 @@
                   </div>
                   <div class="col-md-6 center-vertical">
                     <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="person.fields.noHidden" />
-                    <span class="fas fa-chevron-down expand-item" title="{i18n:translate('cmo.mods.help.expand')}" aria-hidden="true"></span>
+                    <span class="fas fa-chevron-up expand-item" title="{i18n:translate('cmo.mods.help.expand')}" aria-hidden="true"></span>
                   </div>
                   <div class="col-md-2">
                     <xsl:if test="string-length(@help-text) &gt; 0">
@@ -504,7 +504,7 @@
             </div>
          </xed:bind>
         </div>
-        <div class="cmo-fieldset-content personExtended-container hidden">
+        <div class="cmo-fieldset-content personExtended-container d-none">
           <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="nameType" />
           <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="namePart.repeated" />
           <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes-mods.xed" ref="person.affiliation" />

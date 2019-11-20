@@ -22,18 +22,18 @@
 
         $("body").on("click", ".expand-item", function () {
             if($(this).attr("data-target")){
-                $(this).closest(".form-group").next($(this).attr("data-target")).toggleClass("hidden");
+                $(this).closest(".form-group").next($(this).attr("data-target")).toggleClass("d-none");
             }
             else {
-                $(this).closest(".cmo-fieldset-modsName").toggleClass("hiddenDetail").next().toggleClass("hidden");
+                $(this).closest(".cmo-fieldset-modsName").toggleClass("hiddenDetail").next().toggleClass("d-none");
             }
-            if($(this).hasClass("fa-chevron-down")) {
-                $(this).removeClass("fa-chevron-down");
-                $(this).addClass("fa-chevron-up");
-            }
-            else {
+            if($(this).hasClass("fa-chevron-up")) {
                 $(this).removeClass("fa-chevron-up");
                 $(this).addClass("fa-chevron-down");
+            }
+            else {
+                $(this).removeClass("fa-chevron-down");
+                $(this).addClass("fa-chevron-up");
             }
         });
 
