@@ -46,6 +46,7 @@
       <xsl:variable name="currentType" select="@type" />
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="style">
+          <xsl:if test="position() = 1"><xsl:value-of select="'cmo_border'" /></xsl:if>
           <xsl:if test="position() &gt; 1"><xsl:value-of select="'cmo_noBorder'" /></xsl:if>
         </xsl:with-param>
         <xsl:with-param name="label">
@@ -173,12 +174,12 @@
                       <xsl:value-of select="$displayDate" />
                     </time>
                     <xsl:if test="@calendar">
-                      <xsl:text>(</xsl:text>
+                      <xsl:text> (</xsl:text>
                       <xsl:value-of select="@calendar" />
                       <xsl:text>)</xsl:text>
                     </xsl:if>
                     <xsl:if test="@source">
-                      <xsl:text>[</xsl:text>
+                      <xsl:text> [</xsl:text>
                       <xsl:choose>
                         <xsl:when test="@label">
                           <a href="{$WebApplicationBaseURL}receive/{@source}"><xsl:value-of select="@label" /></a>
