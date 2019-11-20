@@ -28,55 +28,95 @@
     xmlns:mei="http://www.music-encoding.org/ns/mei"
     exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
-  <xsl:key name="persTypes" match="mei:name" use="@type"/>
-  <xsl:key name="persNames" match="mei:name" use="concat(@type, text())"/>
+  <xsl:key name="persTypes" match="mei:name" use="concat(@type, ' ')"/>
+  <xsl:key name="persNames" match="mei:name" use="concat(@type, ' ', text())"/>
 
   <xsl:template match="mei:persName[@nymref]" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:persName[@nymref]</xsl:comment>
-    <xsl:value-of select="concat(text(), ' ')" />
+    <xsl:value-of select="concat(text(), ' ')"/>
     <xsl:call-template name="objectLink">
-      <xsl:with-param name="obj_id" select="@nymref" />
+      <xsl:with-param name="obj_id" select="@nymref"/>
     </xsl:call-template>
   </xsl:template>
-  
+
   <xsl:template match="mei:persName[mei:name]" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:persName/mei:name</xsl:comment>
-    <xsl:variable name="names" select="mei:name" />
-    <xsl:for-each select="mei:name[generate-id()=generate-id(key('persTypes', @type)[1])]">
-      <xsl:variable name="currentType" select="@type" />
-      <xsl:call-template name="metadataLabelContent">
-        <xsl:with-param name="style">
-          <xsl:if test="position() = 1"><xsl:value-of select="'cmo_border'" /></xsl:if>
-          <xsl:if test="position() &gt; 1"><xsl:value-of select="'cmo_noBorder'" /></xsl:if>
-        </xsl:with-param>
-        <xsl:with-param name="label">
-          <xsl:if test="position() = 1"><xsl:value-of select="'editor.label.nameVariants'" /></xsl:if>
-        </xsl:with-param>
-        <xsl:with-param name="type">
-          <xsl:value-of select="@type" />
-        </xsl:with-param>
-        <xsl:with-param name="content">
-          <xsl:for-each select="$names[generate-id()=generate-id(key('persNames',concat($currentType, text()))[1])]" >
-            <xsl:variable name="currentText" select="text()" />
-            <xsl:value-of select="text()"/>
-            <xsl:for-each select="$names[@type = $currentType and text()=$currentText]">
-              <xsl:choose>
-                <xsl:when test="@source and @label">
-                  <small> [<a href="{$WebApplicationBaseURL}receive/{@source}"><xsl:value-of select="@label" /></a>]</small>
-                </xsl:when>
-                <xsl:when test="@source">
-                  <small> [<xsl:call-template name="objectLink"><xsl:with-param select="@source" name="obj_id" /></xsl:call-template>]</small>
-                </xsl:when>
-              </xsl:choose>
-            </xsl:for-each>
-            <br/>
-          </xsl:for-each>
-        </xsl:with-param>
+    <xsl:variable name="names" select="mei:name"/>
+    <xsl:for-each select="mei:name[@type='CMO']">
+      <xsl:call-template name="outputType">
+        <xsl:with-param name="first" select="true()"/>
+        <xsl:with-param name="names" select="$names"/>
+        <xsl:with-param name="WebApplicationBaseURL" select="$WebApplicationBaseURL"/>
+      </xsl:call-template>
+    </xsl:for-each>
+    <xsl:for-each select="mei:name[generate-id()=generate-id(key('persTypes', concat(@type, ' '))[1]) and not(@type='CMO')]">
+      <xsl:sort select="@type" order="descending"/>
+      <xsl:call-template name="outputType">
+        <xsl:with-param name="first" select="false()"/>
+        <xsl:with-param name="names" select="$names"/>
+        <xsl:with-param name="WebApplicationBaseURL" select="$WebApplicationBaseURL"/>
       </xsl:call-template>
     </xsl:for-each>
   </xsl:template>
-  
-  
+
+  <xsl:template name="outputType">
+    <xsl:param name="names"/>
+    <xsl:param name="WebApplicationBaseURL"/>
+    <xsl:param name="first" />
+    <xsl:variable name="currentType" select="concat(@type, ' ')"/>
+    <xsl:call-template name="metadataLabelContent">
+      <xsl:with-param name="style">
+        <xsl:if test="$first">
+          <xsl:value-of select="'cmo_border'"/>
+        </xsl:if>
+        <xsl:if test="not($first)">
+          <xsl:value-of select="'cmo_noBorder'"/>
+        </xsl:if>
+      </xsl:with-param>
+      <xsl:with-param name="label">
+        <xsl:if test="$first">
+          <xsl:value-of select="'editor.label.nameVariants'"/>
+        </xsl:if>
+      </xsl:with-param>
+      <xsl:with-param name="type">
+        <xsl:choose>
+          <xsl:when test="@type">
+            <xsl:value-of select="@type"/>
+          </xsl:when>
+          <xsl:otherwise>
+            -
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:with-param>
+      <xsl:with-param name="content">
+        <xsl:for-each select="$names[generate-id()=generate-id(key('persNames',concat($currentType, text()))[1])]">
+          <xsl:variable name="currentText" select="text()"/>
+          <xsl:value-of select="text()"/>
+          <xsl:for-each select="$names[concat(@type,  ' ') = $currentType and text()=$currentText]">
+            <xsl:choose>
+              <xsl:when test="@source and @label">
+                <small>[
+                  <a href="{$WebApplicationBaseURL}receive/{@source}">
+                    <xsl:value-of select="@label"/>
+                  </a>
+                  ]
+                </small>
+              </xsl:when>
+              <xsl:when test="@source">
+                <small>[
+                  <xsl:call-template name="objectLink">
+                    <xsl:with-param select="@source" name="obj_id"/>
+                  </xsl:call-template>
+                  ]
+                </small>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:for-each>
+          <br/>
+        </xsl:for-each>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
   <xsl:template match="mei:author" mode="metadataView">
     <xsl:comment>mei/persName.xsl > mei:author</xsl:comment>
     <xsl:call-template name="metadataLabelContent">
