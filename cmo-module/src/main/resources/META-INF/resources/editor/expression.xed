@@ -16,7 +16,7 @@
           <xed:include uri="webapp:editor/editor-includes.xed" ref="failed-validation-messages" />
           
           <fieldset>
-            <legend>
+            <legend class="cmo-fieldset-legend">
               <xed:output i18n="editor.legend.expression" />
             </legend>
 

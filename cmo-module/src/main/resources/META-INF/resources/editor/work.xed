@@ -19,7 +19,7 @@
           </xed:bind>
 
           <fieldset>
-            <legend>
+            <legend class="cmo-fieldset-legend">
               <xed:output i18n="editor.legend.work" />
             </legend>
 

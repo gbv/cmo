@@ -182,17 +182,20 @@
 
   <xed:template id="cmo_physDescHandList">
     <xed:repeat xpath="mei:handList/mei:hand" min="1">
-        <div class="cmo-fieldset-content">
-          <!-- TODO: should be  objectType:source OR objectType:mods -->
-          <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:person'>
-            <div class="row form-group">
-              <label class="col-md-4 col-form-label">
-                <xed:output i18n="editor.label.handList"/>
-              </label>
-              <div class="col-md-6">
-              </div>
-              <cmo:help-pmud help-text="{i18n:cmo.help.name.bySource}" pmud="true"/>
+    <fieldset class="cmo-fieldset-content card">
+      <div class="card-body">
+        <legend class="cmo-fieldset-legend card-title">
+          <div class="row">
+            <div class="col-md-10">
+              <xed:output i18n="editor.label.handList" />
             </div>
+            <cmo:help-pmud help-text="{i18n:cmo.help.name.bySource}" pmud="true"/>
+          </div>
+        </legend>
+
+          <!-- TODO: should be objectType:source OR objectType:mods -->
+          <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:person'>
+
             <div class="row form-group">
               <label class="col-md-4 col-form-label">
                 <xed:output i18n="editor.label.material"/>
@@ -237,7 +240,7 @@
             </div>
             <div class="row form-group">
               <label class="col-md-4 col-form-label">
-                <xed:output i18n="editor.label.hand"/>
+                <xed:output i18n="editor.label.hand" />
               </label>
               <div class="col-md-6">
                   <input type="text" placeholder="headings in cursive Armenian script"
@@ -245,8 +248,9 @@
               </div>
             </div>
           </div>
-        </div>
-      </xed:repeat>
+      </div>
+      </fieldset>
+            </xed:repeat>
   </xed:template>
 
   <xed:template id="cmo_physDescCondition">
@@ -476,8 +480,10 @@
   <xed:template id="cmo_relationList">
     <fieldset>
       <legend class="cmo-fieldset-legend">
-        <div class="col-md-10">
-          <xed:output i18n="cmo.relationList" />
+        <div class="row">
+          <div class="col-md-10">
+            <xed:output i18n="cmo.relationList" />
+          </div>
         </div>
       </legend>
       <xed:repeat xpath="mei:relationList/mei:relation[@rel='isEmbodimentOf']" min="1">
@@ -588,43 +594,51 @@
   <xed:template id="cmo_componentGrp">
     <xed:bind xpath="mei:componentGrp">
       <xed:repeat xpath="mei:source" min="1">
-        <fieldset class="cmo-fieldset-componentGrp">
-          <legend class="cmo-fieldset-legend">
-            <div class="col-md-10">
-              <xed:output i18n="cmo.componentGrp" />
-            </div>
-            <cmo:help-pmud help-text="{i18n:cmo.help.relationList}" pmud="true" />
-          </legend>
-          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_identifierSimple" />
-          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_title" />
-          <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_relationList" />
+        <fieldset class="cmo-fieldset-componentGrp card">
+          <div class="card-body">
+            <legend class="cmo-fieldset-legend card-title">
+              <div class="row">
+                <div class="col-md-10">
+                  <xed:output i18n="cmo.componentGrp" />
+                </div>
+                <cmo:help-pmud help-text="{i18n:cmo.help.relationList}" pmud="true" />
+              </div>
+            </legend>
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_identifierSimple" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_title" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_relationList" />
+          </div>
         </fieldset>
       </xed:repeat>
     </xed:bind>
   </xed:template>
 
   <xed:template id="cmo_historyEventList">
-          <fieldset>
-            <xed:bind xpath="mei:history/mei:eventList">
-              <xed:repeat xpath="mei:event" min="1">
-                <legend>
-                  <div class="col-md-10">
-                    <xed:output i18n="editor.legend.historyEventList" />
-                  </div>
-                  <cmo:help-pmud help-text="{i18n:cmo.help.relationList}" pmud="true" />
-                </legend>
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_eventHead" />
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_persName" />
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_eventGeogName" />
-                <xed:bind xpath="mei:date">
-                  <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_isoApproxDate" />
-                  <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_textDate" />
-                  <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_calendar" />
-                </xed:bind>
-                <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_eventDesc" />
-              </xed:repeat>
+    <fieldset class="card">
+      <div class="card-body">
+        <xed:bind xpath="mei:history/mei:eventList">
+          <xed:repeat xpath="mei:event" min="1">
+            <legend class="cmo-fieldset-legend card-title">
+              <div class="row">
+                <div class="col-md-10">
+                  <xed:output i18n="editor.legend.historyEventList" />
+                </div>
+                <cmo:help-pmud help-text="{i18n:cmo.help.relationList}" pmud="true" />
+              </div>
+            </legend>
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_eventHead" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_persName" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_eventGeogName" />
+            <xed:bind xpath="mei:date">
+              <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_isoApproxDate" />
+              <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_textDate" />
+              <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_calendar" />
             </xed:bind>
-          </fieldset>
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_eventDesc" />
+          </xed:repeat>
+        </xed:bind>
+      </div>
+    </fieldset>
   </xed:template>
 
   <xed:template id="cmo_date_from_source">
@@ -713,7 +727,7 @@
   </xed:template>
 
   <xed:template id="cleanup-rules">
-    <xed:cleanup-rule xpath="//mei:*" relevant-if="(string-length(normalize-space(text())) &gt; 0) or mei:* or (string-length(@xlink:href) &gt; 0)" />
+    <xed:cleanup-rule xpath="//mei:*" relevant-if="(string-length(normalize-space(text())) &gt; 0) or mei:* or (string-length(@xlink:href) &gt; 0) or count(*) &gt; 0" />
 
     <xed:cleanup-rule xpath="//mei:seriesStmt" relevant-if="count(*)&gt;0" />
 
@@ -727,6 +741,7 @@
 
 
     <xed:cleanup-rule xpath="//classEntry" relevant-if="string-length(text())&gt;0" />
+    <xed:cleanup-rule xpath="//mei:expression" relevant-if="string-length(@data)&gt;0" />
     <xed:cleanup-rule xpath="//mei:classification" relevant-if="count(*)&gt;0" />
 
     <xed:cleanup-rule xpath="//mei:termList" relevant-if="string-length(mei:term/text())&gt;0" />
