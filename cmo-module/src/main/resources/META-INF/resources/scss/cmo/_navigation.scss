@@ -18,7 +18,8 @@
     padding: 0 0 10px 0;
     color: $secondary;
     font-size: 14px;
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: transparent;
     }
     img {
@@ -172,7 +173,33 @@
     }
   }
 }
+// for dropdown menu with lists
+li.dropdown-item {
+  // remove spacing from list element
+  padding: 0;
+  a {
+    // add spacing to link instead
+    padding: 0.25rem 1.5rem;
+  }
+}
 
+.cmo-dropdown {
+  .dropdown-item {
+    a {
+      color: #57595a;
+    }
+    a:hover,
+    a:focus {
+      color: white;
+      background-color: #666689;
+    }
+    &.active {
+      a {
+        color: white;
+      }
+    }
+  }
+}
 
 // Large devices (desktops) and below: <= 1200px
 @include media-breakpoint-down(lg) {

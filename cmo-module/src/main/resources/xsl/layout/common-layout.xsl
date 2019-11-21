@@ -41,7 +41,7 @@
       select="concat( $ServletsBaseURL, 'MCRLoginServlet',$HttpSession,'?url=', encoder:encode( string( $RequestURL ) ) )" />
     <xsl:choose>
       <xsl:when test="mcrxsl:isCurrentUserGuestUser()">
-        <li id="cmo_profile" class="float-left text-center">
+        <li id="cmo_profile" class="float-left text-center cmo-dropdown">
           <a id="cmo_icon-profile" href="{$loginURL}">
             <img title="{i18n:translate('component.userlogin.button.login')}" src="{$WebApplicationBaseURL}content/images/menu_icons/logo_profile_grey.png" />
             <br />
@@ -50,7 +50,7 @@
         </li>
       </xsl:when>
       <xsl:otherwise>
-        <li id="cmo_profile" class="dropdown float-left text-center">
+        <li id="cmo_profile" class="dropdown float-left text-center cmo-dropdown">
           <xsl:if test="$loaded_navigation_xml/menu[@id='cmo_user']//item[@href = $browserAddress ]">
             <xsl:attribute name="class">
               <xsl:value-of select="'active'" />
@@ -99,14 +99,14 @@
   <xsl:template match="/navigation//menu[@id and (group[item] or item)]">
     <xsl:param name="active" select="descendant-or-self::item[@href = $browserAddress ]" />
     <xsl:variable name="menuId" select="generate-id(.)" />
-    <li id="{@id}" class="nav-item">
+    <li id="{@id}" class="dropdown-item">
       <xsl:if test="$active">
         <xsl:attribute name="class">
-          <xsl:value-of select="'nav-item active'" />
+          <xsl:value-of select="'dropdown-item active'" />
         </xsl:attribute>
       </xsl:if>
       <a
-        class="nav-link cmo-dropdown-toggle collapsed"
+        class="dropdown-link cmo-dropdown-toggle collapsed"
         data-toggle="collapse"
         href="#{$menuId}"
         aria-expanded="false">
@@ -134,7 +134,7 @@
   <xsl:template match="/navigation//group[@id and item]">
     <xsl:param name="rootNode" select="." />
     <xsl:if test="name(preceding-sibling::*[1])='item'">
-      <li role="presentation" class="divider" />
+      <li role="presentation" class="dropdown-divider" />
     </xsl:if>
     <xsl:if test="label">
       <li role="presentation" class="dropdown-header">
@@ -142,7 +142,7 @@
       </li>
     </xsl:if>
     <xsl:apply-templates />
-    <li role="presentation" class="divider" />
+    <li role="presentation" class="dropdown-divider" />
   </xsl:template>
 
   <xsl:template match="/navigation//item[@href]">
@@ -162,7 +162,7 @@
     </xsl:param>
     <xsl:choose>
       <xsl:when test="string-length($url ) &gt; 0">
-        <li class="nav-item">
+        <li class="dropdown-item">
           <xsl:if test="@id">
             <xsl:attribute name="id">
               <xsl:value-of select="@id" />
@@ -170,10 +170,10 @@
           </xsl:if>
           <xsl:if test="$active">
             <xsl:attribute name="class">
-              <xsl:value-of select="'nav-item active'" />
+              <xsl:value-of select="'dropdown-item active'" />
             </xsl:attribute>
           </xsl:if>
-          <a href="{$url}">
+          <a class="dropdown-link" href="{$url}">
             <xsl:apply-templates select="." mode="linkText" />
           </a>
         </li>

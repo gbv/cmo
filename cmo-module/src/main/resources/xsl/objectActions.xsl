@@ -23,12 +23,12 @@
         <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
           <span class="fas fa-cog" aria-hidden="true"></span> Aktionen
         </button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-          <li role="presentation">
-            <a role="menuitem" data-basket="{$id}"></a>
+        <ul class="dropdown-menu cmo-dropdown" role="menu" aria-labelledby="dropdownMenu1">
+          <li class="dropdown-item" role="presentation">
+            <a class="dropdown-link" href="#" role="menuitem" data-basket="{$id}"></a>
           </li>
           <xsl:if test="$accessedit or $accessdelete">
-            <li role="presentation">
+            <li class="dropdown-item" role="presentation">
               <xsl:variable name="type">
                 <xsl:choose>
                   <xsl:when test="substring-before(substring-after($id, '_'), '_') = 'mods' and
@@ -51,28 +51,28 @@
                   </xsl:otherwise>
                 </xsl:choose>
               </xsl:variable>
-              <a role="menuitem" tabindex="-1" href="{$WebApplicationBaseURL}editor/{$type}.xed?id={$id}">
+              <a class="dropdown-link" role="menuitem" tabindex="-1" href="{$WebApplicationBaseURL}editor/{$type}.xed?id={$id}">
                 <xsl:value-of select="i18n:translate('object.editObject')" />
               </a>
             </li>
             <xsl:variable name="objType" select="substring-before(substring-after($id, '_'), '_')"/>
             <xsl:if test="contains('expression,source,mods', $objType)">
-              <li>
-              <a onclick="javascript: $('.drop-to-object-optional').toggle(); window.setTimeout(function(){{ window.scrollTo(0, $('.drop-to-object-optional,.drop-to-object').offset().top-50);}}, 100);">
+              <li class="dropdown-item">
+              <a class="dropdown-link" href="#" onclick="javascript: $('.drop-to-object-optional').toggle(); window.setTimeout(function(){{ window.scrollTo(0, $('.drop-to-object-optional,.drop-to-object').offset().top-50);}}, 100);">
                 <xsl:value-of select="i18n:translate('cmo.upload.addDerivate')" />
               </a>
             </li>
             </xsl:if>
             <xsl:if test="substring-before(substring-after($id, '_'), '_') = 'expression'">
               <!-- expression component actions -->
-              <li role="presentation">
-                <a role="menuitem" tabindex="-1"
+              <li class="dropdown-item" role="presentation">
+                <a class="dropdown-link" role="menuitem" tabindex="-1"
                    href="#action=set-parent&amp;of={$id}&amp;q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=cmoType%3Aexpression">
                   <xsl:value-of select="i18n:translate('cmo.replace.parent')" />
                 </a>
               </li>
-              <li role="presentation">
-                <a role="menuitem" tabindex="-1"
+              <li class="dropdown-item" role="presentation">
+                <a  class="dropdown-link" role="menuitem" tabindex="-1"
                    href="#action=add-child&amp;to={$id}&amp;q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=cmoType%3Aexpression">
                   <xsl:value-of select="i18n:translate('cmo.add.child')" />
                 </a>
@@ -80,22 +80,22 @@
             </xsl:if>
             <xsl:if test="substring-before(substring-after($id, '_'), '_') = 'work'">
               <!-- work component actions -->
-              <li role="presentation">
-                <a role="menuitem" tabindex="-1"
+              <li class="dropdown-item" role="presentation">
+                <a class="dropdown-link" role="menuitem" tabindex="-1"
                   href="#action=set-parent&amp;of={$id}&amp;q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=cmoType%3Awork">
                   <xsl:value-of select="i18n:translate('cmo.replace.parent')" />
                 </a>
               </li>
-              <li role="presentation">
-                <a role="menuitem" tabindex="-1"
+              <li class="dropdown-item" role="presentation">
+                <a class="dropdown-link" role="menuitem" tabindex="-1"
                   href="#action=add-child&amp;to={$id}&amp;q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=cmoType%3Awork">
                   <xsl:value-of select="i18n:translate('cmo.add.child')" />
                 </a>
               </li>
             </xsl:if>
             <xsl:if test="$accessdelete">
-              <li role="presentation">
-                <a href="{$ServletsBaseURL}object/delete{$HttpSession}?id={$id}" role="menuitem" tabindex="-1">
+              <li class="dropdown-item" role="presentation">
+                <a class="dropdown-link" href="{$ServletsBaseURL}object/delete{$HttpSession}?id={$id}" role="menuitem" tabindex="-1">
                   <xsl:value-of select="i18n:translate('object.delObject')" />
                 </a>
               </li>
@@ -105,7 +105,7 @@
             <xsl:variable name="piServiceInformation" select="pi:getPIServiceInformation($id)" />
             <xsl:for-each select="$piServiceInformation">
               <xsl:if test="@permission='true'">
-                <li>
+                <li class="dropdown-item">
                   <xsl:if test="@inscribed='true'">
                     <xsl:attribute name="class">
                       <xsl:text>disabled</xsl:text>
@@ -113,7 +113,7 @@
                   </xsl:if>
 
                   <!-- data-type is just used for translation -->
-                  <a href="#" data-type="{@type}"
+                  <a class="dropdown-link" href="#" data-type="{@type}"
                      data-mycoreID="{$id}"
                      data-baseURL="{$WebApplicationBaseURL}">
                     <xsl:if test="@inscribed='false'">
@@ -164,7 +164,7 @@
     <xsl:variable name="derId" select="@xlink:href" />
 
     <xsl:if test="(key('rights', $derId)/@read and mcrxsl:isDisplayedEnabledDerivate($derId)) or key('rights', $derId)/@write">
-    
+
     <xsl:variable name="derivateXML" select="document(concat('mcrobject:',$derId))" />
 
     <!-- TODO: use http://www.verovio.org for mei presentation -->
@@ -317,19 +317,19 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-right">
                 <xsl:if test="acl:checkPermission($derId,'writedb') and @type!='directory'">
-                  <li>
+                  <li class="dropdown-item">
                     <a title="{i18n:translate('IFS.mainFile')}"
                       href="{$WebApplicationBaseURL}servlets/MCRDerivateServlet{$HttpSession}?derivateid={$derId}&amp;objectid={$objID}&amp;todo=ssetfile&amp;file={$fileName}"
-                      class="option" >
+                      class="dropdown-link option" >
                       <span class="fas fa-star"></span>
                       <xsl:value-of select="i18n:translate('IFS.mainFile')" />
                     </a>
                   </li>
                 </xsl:if>
                 <xsl:if test="acl:checkPermission($derId,'deletedb')">
-                  <li>
+                  <li class="dropdown-item">
                     <a href="{$WebApplicationBaseURL}servlets/MCRDerivateServlet{$HttpSession}?derivateid={$derId}&amp;objectid={$objID}&amp;todo=sdelfile&amp;file={$fileName}"
-                      class="option confirm_deletion">
+                      class="option dropdown-link confirm_deletion">
                       <xsl:attribute name="data-text">
                         <xsl:value-of select="i18n:translate(concat('confirm.',@type,'.text'))" />
                       </xsl:attribute>
@@ -421,22 +421,22 @@
             </li>
           </xsl:if -->
           <xsl:if test="key('rights', $deriv)/@write">
-            <li>
-              <a href="{$ServletsBaseURL}MCRDisplayHideDerivateServlet?derivate={$deriv}" class="option">
+            <li class="dropdown-item">
+              <a href="{$ServletsBaseURL}MCRDisplayHideDerivateServlet?derivate={$deriv}" class="option dropdown-link">
                 <xsl:value-of select="i18n:translate(concat('cmo.derivate.display.', $derivate//derivate/@display))" />
               </a>
             </li>
           </xsl:if>
           <xsl:if test="key('rights', $deriv)/@read">
-            <li>
-              <a href="{$ServletsBaseURL}MCRZipServlet/{$deriv}" class="option">
+            <li class="dropdown-item">
+              <a href="{$ServletsBaseURL}MCRZipServlet/{$deriv}" class="option dropdown-link">
                 <xsl:value-of select="i18n:translate('component.mods.metaData.options.zip')" />
               </a>
             </li>
           </xsl:if>
           <xsl:if test="key('rights', $deriv)/@delete">
-            <li class="last">
-              <a href="{$ServletsBaseURL}derivate/delete{$HttpSession}?id={$deriv}" class="confirm_deletion option" data-text="{i18n:translate('cmo.confirm.derivate.text')}">
+            <li class="last dropdown-item">
+              <a href="{$ServletsBaseURL}derivate/delete{$HttpSession}?id={$deriv}" class="confirm_deletion option dropdown-link" data-text="{i18n:translate('cmo.confirm.derivate.text')}">
                 <xsl:value-of select="i18n:translate('component.mods.metaData.options.delDerivate')" />
               </a>
             </li>
