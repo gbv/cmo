@@ -2,7 +2,7 @@ import {BasketStore} from "./BasketStore";
 import {CMOBaseDocument} from "../other/Solr";
 import {Utils} from "../other/Utils";
 import {I18N} from "../other/I18N";
-import {Classification, ClassificationResolver} from "../other/Classification";
+import {ClassificationResolver} from "../other/Classification";
 import {BasketUtil} from "./BasketUtil";
 
 export class BasketDisplay {
@@ -13,6 +13,20 @@ export class BasketDisplay {
     private basket = BasketStore.getInstance();
     private preDisplayContent: Array<HTMLElement> = null;
 
+    private static mergeLinkFields = (...arr:string[][])=> {
+        let namesLinkMap = {};
+        arr.forEach((namesRefsArray:string[])=>{
+            (namesRefsArray||[]).forEach(nameAndRef=>{
+                if(typeof nameAndRef!="undefined"){
+                    let [name, ref] = nameAndRef.split("|");
+                    if (!(name in namesLinkMap) || typeof namesLinkMap[name] == 'undefined') {
+                        namesLinkMap[name] = ref;
+                    }
+                }
+            })
+        });
+        return namesLinkMap;
+    };
 
     private static TABLE = {
         "expression" : {
@@ -20,10 +34,16 @@ export class BasketDisplay {
             "editor.label.title" : (doc: CMOBaseDocument) =>
                 `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities(doc[ "displayTitle" ] + "")}</a>`,
             "editor.label.composer" : (doc: CMOBaseDocument) => {
-                return "composer.ref" in doc ? doc[ "composer.ref" ].map((composer) => {
-                    let [ name, id ] = composer.split("|");
-                    return `<a href="${Utils.getBaseURL()}receive/${id}">${Utils.encodeHtmlEntities(name)}</a>`;
-                }) : "";
+                let composerMap = BasketDisplay.mergeLinkFields(doc["composer.display.ref"]);
+                let html = [];
+                for(const composer in composerMap){
+                    if(typeof composerMap[composer] != "undefined"){
+                        html.push(`<a href="${Utils.getBaseURL()}receive/${composerMap[composer]}">${composer}</a>`)
+                    } else {
+                        html.push(composer);
+                    }
+                }
+                return html.join("; ")
             },
             "cmo.genre" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_musictype"),
             "cmo.makam" : (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_makamler"),
@@ -43,14 +63,26 @@ export class BasketDisplay {
                 `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities((doc[ "displayTitle" ] || "") + "")}</a>`,
 
             "editor.label.publisher" : (doc: CMOBaseDocument) => doc[ "publisher" ] || "",
-            "editor.label.editorAndAuthor": (doc: CMOBaseDocument) =>
-                (doc["author"] || []).concat((doc["author.ref"] || []).map((ref => {
-                    const [editorName, href] = ref.split("|");
-                    return `<a href="${Utils.getBaseURL()}receive/${href}">${editorName}</a>`;
-                }))).concat((doc["editor"] || []).concat((doc["editor.ref"] || []).map((ref => {
-                    const [editorName, href] = ref.split("|");
-                    return `<a href="${Utils.getBaseURL()}receive/${href}">${editorName}</a>`;
-                })))).join("; "),
+            "editor.label.editorAndAuthor": (doc: CMOBaseDocument) =>{
+                let authorMap = BasketDisplay.mergeLinkFields(doc["author.display.ref"]);
+                let editorMap = BasketDisplay.mergeLinkFields(doc["editor.display.ref"]);
+                let html = [];
+                for(const author in authorMap){
+                    if(typeof authorMap[author] != "undefined"){
+                        html.push(`<a href="${Utils.getBaseURL()}receive/${authorMap[author]}">${author}</a>`)
+                    } else {
+                        html.push(author);
+                    }
+                }
+                for(const editor in editorMap){
+                    if(typeof editorMap[editor] != "undefined"){
+                        html.push(`<a href="${Utils.getBaseURL()}receive/${editorMap[editor]}">${editor}</a>`)
+                    } else {
+                        html.push(editor);
+                    }
+                }
+                return html.join("; ");
+            },
             "editor.label.pubPlace" : (doc: CMOBaseDocument) => doc[ "publisher.place" ] || "",
             "editor.label.publishingDate" : (doc: CMOBaseDocument) => doc[ "publish.date.content" ] || "",
             "editor.label.series" : (doc: CMOBaseDocument) => (doc[ "series" ] || []).join(", "),

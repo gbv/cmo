@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:mods="http://www.loc.gov/mods/v3"
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
                 xmlns:meiDate="xalan://org.mycore.mei.MCRDateHelper"
@@ -201,14 +200,25 @@
       <xsl:value-of select="." />
     </field>
 
-    <xsl:if test="@nymref">
-      <field name="composer.ref">
-        <xsl:value-of select="concat(.,'|',@nymref)" />
-      </field>
-      <field name="composer.ref.pure">
-        <xsl:value-of select="@nymref" />
-      </field>
-    </xsl:if>
+    <xsl:choose>
+      <xsl:when test="@nymref">
+        <field name="composer.display.ref">
+          <xsl:value-of select="concat(.,'|',@nymref)"/>
+        </field>
+        <field name="composer.ref">
+          <xsl:value-of select="concat(.,'|',@nymref)"/>
+        </field>
+        <field name="composer.ref.pure">
+          <xsl:value-of select="@nymref"/>
+        </field>
+      </xsl:when>
+      <xsl:otherwise>
+        <field name="composer.display.ref">
+          <xsl:value-of select="text()"/>
+        </field>
+      </xsl:otherwise>
+    </xsl:choose>
+
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:lyricist/mei:persName" mode="solrIndex">
@@ -232,25 +242,51 @@
         <xsl:value-of select="text()" />
       </field>
     </xsl:if>
-    <xsl:apply-templates mode="solrIndex" />
+    <xsl:if test="not(mei:persName/@nymref)">
+      <field name="author.display.ref">
+        <xsl:value-of select="text()"/>
+      </field>
+    </xsl:if>
+    <xsl:apply-templates mode="solrIndex"/>
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:author/mei:persName" mode="solrIndex">
     <field name="author">
-      <xsl:value-of select="." />
+      <xsl:value-of select="."/>
     </field>
-    <field name="author.ref">
-      <xsl:value-of select="concat(.,'|', @nymref)" />
+    <xsl:if test="@nymref">
+      <field name="author.ref">
+        <xsl:value-of select="concat(.,'|', @nymref)"/>
+      </field>
+    </xsl:if>
+    <field name="author.display.ref">
+      <xsl:choose>
+        <xsl:when test="@nymref">
+          <xsl:value-of select="concat('mcrobject:', @nymref)"/>
+          <xsl:copy-of select="document(concat('mcrobject:', @nymref))"/>
+          <xsl:variable name="displayName"
+                        select="document(concat('mcrobject:', @nymref))/mycoreobject/metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='CMO']"/>
+          <xsl:value-of select="concat($displayName,'|',@nymref)"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="."/>
+        </xsl:otherwise>
+      </xsl:choose>
     </field>
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:editor" mode="solrIndex">
     <xsl:if test="not(mei:persName)">
       <field name="editor">
-        <xsl:value-of select="text()" />
+        <xsl:value-of select="text()"/>
       </field>
     </xsl:if>
-    <xsl:apply-templates mode="solrIndex" />
+    <xsl:if test="not(mei:persName/@nymref)">
+      <field name="editor.display.ref">
+        <xsl:value-of select="text()"/>
+      </field>
+    </xsl:if>
+    <xsl:apply-templates mode="solrIndex"/>
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:editor/mei:persName" mode="solrIndex">
@@ -258,7 +294,14 @@
       <xsl:value-of select="."/>
     </field>
     <field name="editor.ref">
-      <xsl:value-of select="concat(.,'|', @nymref)" />
+      <xsl:value-of select="concat(.,'|', @nymref)"/>
+    </field>
+    <field name="editor.display.ref">
+      <xsl:value-of select="concat('mcrobject:', @nymref)"/>
+      <xsl:copy-of select="document(concat('mcrobject:', @nymref))"/>
+      <xsl:variable name="displayName"
+                    select="document(concat('mcrobject:', @nymref))/mycoreobject/metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='CMO']"/>
+      <xsl:value-of select="concat($displayName,'|',@nymref)"/>
     </field>
   </xsl:template>
 
