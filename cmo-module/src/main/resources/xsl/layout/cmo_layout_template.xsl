@@ -102,7 +102,7 @@
           <div class="container-fluid">
                 <div class="row">
                     <div id="side_menu_1"
-                         class="col-12 col-md-3 col-lg-2 text-center">
+                         class="col-12 col-md-3 col-xl-2 text-center">
                          <div class="fullheightbox">
                             <nav class="collapse show navbar-collapse main-nav-entries">
                               <ul class="nav navbar-nav">
@@ -120,7 +120,7 @@
                             </nav>
                          </div>
                     </div>
-                    <div id="content" class="col-12 col-md-9 col-lg-10">
+                    <div id="content" class="col-12 col-md-9 col-xl-10">
                         <div class="row">
                           <div class="col-12">
                             <nav id="cmo_side-menu"> <!-- display: block -->
@@ -144,7 +144,7 @@
                                   <xsl:attribute name="class">
                                     <xsl:choose>
                                       <xsl:when test="contains($RequestURL, '/editor/')"><xsl:text>col-12</xsl:text></xsl:when>
-                                      <xsl:otherwise><xsl:text>col-12</xsl:text></xsl:otherwise>
+                                      <xsl:otherwise><xsl:text>offset-lg-1 col-lg-11 col-12</xsl:text></xsl:otherwise>
                                     </xsl:choose>
                                   </xsl:attribute>
                                   <xsl:call-template name="print.writeProtectionMessage" />
@@ -238,29 +238,29 @@
             <div id="powered">
                 <div class="container-fluid">
                     <div class="row">
-                        <div id="copyright" class="col-12 col-sm-7 col-md-5 col-lg-3">
+                      <div id="nav_below" class="col-12 text-center">
+                        <ul>
+                          <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_below']/*" />
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div id="copyright" class="col-12 col-sm-7 col-md-5 col-lg-4">
                             © <xsl:value-of select="calendar:get($copyrightDate, 1)"/> Corpus Musicae Ottomanicae (CMO)
                         </div>
-                        <div id="contact" class="col-12 col-sm-5 col-md-5 col-lg-2">
-                          <a href="mailto:cmo@uni-muenster.de">cmo@uni-muenster.de</a>
-                        </div>
-
-                        <div id="logo" class="d-none d-md-block col-md-2 col-lg-2 text-center">
+                        <div id="logo" class="d-none d-md-block col-md-2 col-lg-4 text-center">
                             <a href="http://www.mycore.de/">
                                 <img src="{$WebApplicationBaseURL}content/images/mycore_logo_small_invert.png" title="{$mcr_version}" alt="powered by MyCoRe" />
                             </a>
+                        </div>
+                        <div id="contact" class="col-12 col-sm-5 col-md-5 col-lg-4 text-right">
+                            <a href="mailto:cmo@uni-muenster.de">cmo@uni-muenster.de</a>
                         </div>
                         <div id="logo"
                              class="col-12 col-sm-12 d-md-none d-lg-none">
                             <a href="http://www.mycore.de/">
                                 <img src="{$WebApplicationBaseURL}content/images/mycore_logo_small_invert.png" title="{$mcr_version}" alt="powered by MyCoRe" />
                             </a>
-                        </div>
-
-                        <div id="nav_below" class="col-12 col-lg-5 text-center">
-                          <ul>
-                            <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_below']/*" />
-                          </ul>
                         </div>
                     </div>
                 </div>

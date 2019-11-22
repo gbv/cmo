@@ -201,6 +201,11 @@ li.dropdown-item {
   }
 }
 
+footer #nav_below > ul > li.dropdown-item.active {
+  background-color: transparent;
+  text-decoration: underline;
+}
+
 // Large devices (desktops) and below: <= 1200px
 @include media-breakpoint-down(lg) {
   // add/overwrite styles for responsive level lg and lower

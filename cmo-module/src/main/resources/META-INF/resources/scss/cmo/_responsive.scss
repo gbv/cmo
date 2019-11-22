@@ -63,6 +63,9 @@ We have different approches
   body {
     padding-top: 70px;
   }
+  footer #nav_below > ul > li {
+    display: inline;
+  }
 }
 
 @include media-breakpoint-up(xl) {
