@@ -226,7 +226,7 @@
                          </div>
                          <div class="logo-box col-12 col-sm-6 col-md-4 col-xl-2">
                            <a href="https://www.gbv.de/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/vzg.svg" title="Link to VZG" alt="VZG logo" id="logo_vzg" class="img-fluid"/>
+                             <img src="{$WebApplicationBaseURL}content/images/logos/vzg.png" title="Link to VZG" alt="VZG logo" id="logo_vzg" class="img-fluid"/>
                            </a>
                          </div>
                        </div>

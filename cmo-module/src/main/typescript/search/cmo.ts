@@ -69,8 +69,8 @@ window.addEventListener('load', () => {
 
     eSearch.addEnabledHandler((enabled) => {
         if (enabled) {
-            eContainer.setAttribute("class", "col-xs-8 col-md-8 col-lg-8");
-            kContainer.setAttribute("class", "col-xs-4 col-md-4 col-lg-4");
+            eContainer.setAttribute("class", "col-12 col-sm-6 col-md-8 col-lg-8");
+            kContainer.setAttribute("class", "col-12 col-sm-6 col-md-4 col-lg-4");
         }
     });
 
@@ -84,8 +84,8 @@ window.addEventListener('load', () => {
     kSearch.addEnabledHandler((enabled) => {
 
         if (enabled) {
-            kContainer.setAttribute("class", "col-xs-8 col-md-8 col-lg-8");
-            eContainer.setAttribute("class", "col-xs-4 col-md-4 col-lg-4");
+            kContainer.setAttribute("class", "col-12 col-sm-6 col-md-8 col-lg-8");
+            eContainer.setAttribute("class", "col-12 col-sm-6 col-md-4 col-lg-4");
         }
 
 
