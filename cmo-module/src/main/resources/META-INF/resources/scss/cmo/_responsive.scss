@@ -1,31 +1,73 @@
 /* ---------------------------------------------------------------------------
    responsive
-----------------------------------------------------------------------------*/
-@media (min-width: 768px) {
-    footer {
-        font-size: 14px;
-    }
-    header #logo img {
-    }
-    footer #powered #contact {
-        margin-top: 20px;
-    }
-    footer #powered #logo {
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-    footer #powered #copyright {
-        margin-top: 20px;
-    }
-}
-@media (min-width: 992px) {
-}
-@media (min-width: 1200px) {
+----------------------------------------------------------------------------
 
+TODO: move responsive settings to each section
+
+We have different approches
+
+// mobile first
+// No media query necessary for xs breakpoint as it's effectively `@media (min-width: 0) { ... }`
+@include media-breakpoint-up(sm) { ... }
+@include media-breakpoint-up(md) { ... }
+@include media-breakpoint-up(lg) { ... }
+@include media-breakpoint-up(xl) { ... }
+
+// desktop first
+@include media-breakpoint-down(xs) { ... }
+@include media-breakpoint-down(sm) { ... }
+@include media-breakpoint-down(md) { ... }
+@include media-breakpoint-down(lg) { ... }
+// No media query necessary for xl breakpoint as it has no upper bound on its width
+
+// only for one specific responsive level
+@include media-breakpoint-only(xs) { ... }
+@include media-breakpoint-only(sm) { ... }
+@include media-breakpoint-only(md) { ... }
+@include media-breakpoint-only(lg) { ... }
+@include media-breakpoint-only(xl) { ... }
+
+// between some responsive level
+@include media-breakpoint-between(md, xl) { ... }
+
+*/
+
+@include media-breakpoint-up(sm) {
+  body {
+      padding-top: 140px;
+  }
+  #e_suche .switcher {
+    display: block;
+  }
+  footer {
+      font-size: 14px;
+  }
+  header #logo img {
+  }
+  footer #powered #contact {
+      margin-top: 20px;
+  }
+  footer #powered #logo {
+      margin-top: 15px;
+      margin-bottom: 15px;
+  }
+  footer #powered #copyright {
+      margin-top: 20px;
+  }
 }
-@media (min-width: 1920px) {
-    header #logo img {
-        width: auto;
-        height: 60px;
-    }
+
+@include media-breakpoint-up(md) {
+}
+
+@include media-breakpoint-up(lg) {
+  body {
+    padding-top: 70px;
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  header #logo img {
+    width: auto;
+    height: 60px;
+  }
 }

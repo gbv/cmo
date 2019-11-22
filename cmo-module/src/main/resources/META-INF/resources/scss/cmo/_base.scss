@@ -69,8 +69,8 @@
    base structure
 ----------------------------------------------------------------------------*/
 body {
-    padding-top: 70px;
-    min-width: 450px;
+    padding-top: 210px;
+    min-width: 320px;
 }
 
 p {
@@ -84,7 +84,7 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  min-width: 540px;
+  min-width: 320px;
   height: 70px;
   z-index: 500;
   box-shadow: 10px 0px 8px $cmo_shadow;
@@ -150,6 +150,13 @@ footer {
     border-left: 1px solid #ccc;
   }
 
+  #subnav #bottom_menu .logo-box  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
   #powered {
     color: white;
     background-color: $cmo_purple_separators;
@@ -168,41 +175,22 @@ footer {
     margin-bottom: 15px;
   }
 
-  #logo_oi {
-    width:150px;
-    margin-top:30px;
-  }
-
-  #logo_arab {
-    width:150px;
-    margin-top:10px;
-  }
-
-  #logo_dfg {
-    width:170px;
-  }
-  #dfg_founded {
-    font-size: xx-small;
-    color: $secondary;
-  }
-
-  #logo_vzg {
-    width:150px;
-    margin-top:30px;
-  }
-
-background-size: cover;
-
-
   #nav_below > ul {
     margin-top: 15px;
     padding-left: 0;
     > li {
       list-style: none;
-      display: inline;
-      padding: 0 30px;
+      padding: 5px 10px;
+      &:hover,
+      &:focus {
+        background-color: transparent;
+      }
       a {
         color: white;
+        &:hover,
+        &:focus {
+          color: white;
+        }
       }
     }
   }

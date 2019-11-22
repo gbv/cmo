@@ -74,21 +74,21 @@
             <div class="container-fluid">
                 <div class="row">
                     <div id="logo"
-                         class="col-4 col-sm-3 col-lg-2 text-center">
+                         class="col-12 col-lg-3 col-xl-2 text-center">
                         <a href="{$WebApplicationBaseURL}">
                             <img src="{$WebApplicationBaseURL}content/images/cmo_logo.jpg" alt="CMO" />
                             <span id="slogan">Corpus Musicae Ottomanicae</span>
                         </a>
                     </div>
                     <div id="suche"
-                         class="col-8 col-md-9 col-lg-10">
+                         class="col-12 col-lg-9 col-xl-10">
                         <div class="row">
                             <div id="e_suche"
-                                 class="col-6 col-md-8 col-lg-8">
+                                 class="col-12 col-sm-6 col-md-8 col-lg-8">
                                 e-suche
                             </div>
                             <div id="k_suche"
-                                 class="col-6 col-md-4 col-lg-4">
+                                 class="col-12 col-sm-6 col-md-4 col-lg-4">
                                 k-suche
                             </div>
                         </div>
@@ -102,7 +102,7 @@
           <div class="container-fluid">
                 <div class="row">
                     <div id="side_menu_1"
-                         class="d-none d-md-block col-md-3 col-lg-2 text-center">
+                         class="col-12 col-md-3 col-lg-2 text-center">
                          <div class="fullheightbox">
                             <nav class="collapse show navbar-collapse main-nav-entries">
                               <ul class="nav navbar-nav">
@@ -122,7 +122,7 @@
                     </div>
                     <div id="content" class="col-12 col-md-9 col-lg-10">
                         <div class="row">
-                          <div class="offset-9 col-3">
+                          <div class="col-12">
                             <nav id="cmo_side-menu"> <!-- display: block -->
                               <ul class="nav navbar-nav float-right">
                                 <xsl:call-template name="languageMenu" />
@@ -135,16 +135,16 @@
                             <div id="main">
                               <xsl:attribute name="class">
                                 <xsl:choose>
-                                  <xsl:when test="contains($RequestURL, '/editor/')"><xsl:text>col-11</xsl:text></xsl:when>
-                                  <xsl:otherwise><xsl:text>col-9</xsl:text></xsl:otherwise>
+                                  <xsl:when test="contains($RequestURL, '/editor/')"><xsl:text>col-12</xsl:text></xsl:when>
+                                  <xsl:otherwise><xsl:text>col-12 col-lg-9 order-2 order-lg-1</xsl:text></xsl:otherwise>
                                 </xsl:choose>
                               </xsl:attribute>
                               <div class="row">
                                 <div>
                                   <xsl:attribute name="class">
                                     <xsl:choose>
-                                      <xsl:when test="contains($RequestURL, '/editor/')"><xsl:text>col-md-12</xsl:text></xsl:when>
-                                      <xsl:otherwise><xsl:text>col-md-11 offset-md-1</xsl:text></xsl:otherwise>
+                                      <xsl:when test="contains($RequestURL, '/editor/')"><xsl:text>col-12</xsl:text></xsl:when>
+                                      <xsl:otherwise><xsl:text>col-12</xsl:text></xsl:otherwise>
                                     </xsl:choose>
                                   </xsl:attribute>
                                   <xsl:call-template name="print.writeProtectionMessage" />
@@ -162,7 +162,7 @@
                             <xsl:choose>
                               <xsl:when test="not (contains($RequestURL, '/editor/'))">
                                 <div id="sidebar"
-                                   class="d-none d-md-block col-md-3 col-lg-3">
+                                   class="col-12 col-lg-3 order-1 order-lg-2">
                                   <!-- TODO: add sidebar content -->
                                   &#160;
                                 </div>
@@ -170,7 +170,7 @@
                               <!-- hide div complete -->
                               <xsl:otherwise>
                                 <div id="sidebar"
-                                   class="d-none d-md-block col-md-3 col-lg-3 hidden">
+                                   class="d-none">
                                   <!-- TODO: add sidebar content -->
                                   &#160;
                                 </div>
@@ -185,46 +185,48 @@
         <footer>
             <div id="subnav" class="container-fluid">
                 <div class="row">
+
                     <div id="side_menu_2"
-                         class="d-none d-md-block col-md-3 col-lg-2">
+                         class="col-12 col-md-3 col-lg-2">
                       <nav>
                         <ul class="nav">
                           <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_help']/*" />
                         </ul>
                       </nav>
                     </div>
+
                     <div id="bottom_menu"
-                         class="col-12 col-md-6 col-lg-10">
+                         class="col-12 col-md-9 col-lg-10">
                        <div class="row">
-                         <div class="col-lg-2">
+                         <div class="logo-box col-12 col-sm-6 col-md-4 col-xl-2">
                            <a href="https://www.oiist.org/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/orient_institut_istanbul.svg" title="Link to Orient Institute Istanbul" alt="Logo Orient Institute Istanbul" id="logo_oi" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/orient_institut_istanbul.svg" title="Link to Orient Institute Istanbul" alt="Logo Orient Institute Istanbul" id="logo_oi" class="img-fluid"/>
                            </a>
                          </div>
-                         <div class="col-lg-2">
+                         <div class="logo-box col-12 col-sm-6 col-md-4 col-xl-2">
                            <a href="https://www.uni-muenster.de/ArabistikIslam/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/institut_arabistik.svg" title="Link to Institute for Arabistik and Islam" alt="Logo Institute for Arabistik and Islam" id="logo_arab" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/institut_arabistik.svg" title="Link to Institute for Arabistik and Islam" alt="Logo Institute for Arabistik and Islam" id="logo_arab" class="img-fluid"/>
                            </a>
                          </div>
-                         <div class="col-lg-2">
+                         <div class="logo-box col-12 col-sm-6 col-md-4 col-xl-2">
                            <a href="https://www.uni-muenster.de/Musikwissenschaft/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/muwi_muenster.png" width="175" title="Link to Musikwissenschaft Münster" alt="Logo Musikwissenschaft Münster" style="margin-top:10px;" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/muwi_muenster.png" title="Link to Musikwissenschaft Münster" alt="Logo Musikwissenschaft Münster" class="img-fluid"/>
                            </a>
                          </div>
-                         <div class="col-lg-2">
+                         <div class="logo-box col-12 col-sm-6 col-md-4 col-xl-2">
                            <a href="http://www.perspectivia.net/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/perspectivia.png" width="170" title="Link to perspectivia.net" alt="Logo perspectivia.net" style="margin-top:25px;" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/perspectivia.png" title="Link to perspectivia.net" alt="Logo perspectivia.net" class="img-fluid"/>
                            </a>
                          </div>
-                         <div class="col-lg-2" style="margin-top: 15px;">
+                         <div class="logo-box col-12 col-sm-6 col-md-4 col-xl-2">
                            <a href="http://dfg.de/">
                              <span id="dfg_founded">gefördert durch:</span>
-                             <img src="{$WebApplicationBaseURL}content/images/logos/dfg.svg" title="Link to DFG" alt="DFG logo" id="logo_dfg" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/dfg.svg" title="Link to DFG" alt="DFG logo" id="logo_dfg" class="img-fluid"/>
                            </a>
                          </div>
-                         <div class="col-lg-2">
+                         <div class="logo-box col-12 col-sm-6 col-md-4 col-xl-2">
                            <a href="https://www.gbv.de/">
-                             <img src="{$WebApplicationBaseURL}content/images/logos/vzg.svg" title="Link to VZG" alt="VZG logo" id="logo_vzg" />
+                             <img src="{$WebApplicationBaseURL}content/images/logos/vzg.svg" title="Link to VZG" alt="VZG logo" id="logo_vzg" class="img-fluid"/>
                            </a>
                          </div>
                        </div>
@@ -236,14 +238,14 @@
             <div id="powered">
                 <div class="container-fluid">
                     <div class="row">
-                        <div id="copyright" class="col-12 col-sm-6 col-md-5 col-lg-3">
+                        <div id="copyright" class="col-12 col-sm-7 col-md-5 col-lg-3">
                             © <xsl:value-of select="calendar:get($copyrightDate, 1)"/> Corpus Musicae Ottomanicae (CMO)
                         </div>
-                        <div id="contact" class="col-12 col-sm-6 col-md-5 col-lg-2">
+                        <div id="contact" class="col-12 col-sm-5 col-md-5 col-lg-2">
                           <a href="mailto:cmo@uni-muenster.de">cmo@uni-muenster.de</a>
                         </div>
 
-                        <div id="logo" class="d-none d-md-block col-md-2 col-lg-2">
+                        <div id="logo" class="d-none d-md-block col-md-2 col-lg-2 text-center">
                             <a href="http://www.mycore.de/">
                                 <img src="{$WebApplicationBaseURL}content/images/mycore_logo_small_invert.png" title="{$mcr_version}" alt="powered by MyCoRe" />
                             </a>
@@ -255,7 +257,7 @@
                             </a>
                         </div>
 
-                        <div id="nav_below" class="col-12 col-sm-12 col-md-10 col-lg-5 text-center">
+                        <div id="nav_below" class="col-12 col-lg-5 text-center">
                           <ul>
                             <xsl:apply-templates select="$loaded_navigation_xml/menu[@id='cmo_below']/*" />
                           </ul>

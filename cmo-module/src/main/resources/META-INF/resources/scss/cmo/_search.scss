@@ -11,6 +11,7 @@
     right: -5px;
     top: 0;
     z-index: 1;
+    display: none;
     cursor: pointer;
 
     img {
@@ -75,6 +76,7 @@
   .search {
     height: 100%;
     border: none;
+    background-color: white;
 
     > input[type='search'] {
       &:focus {
