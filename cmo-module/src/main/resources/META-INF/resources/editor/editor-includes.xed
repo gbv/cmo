@@ -729,26 +729,14 @@
   <xed:template id="cleanup-rules">
     <xed:cleanup-rule xpath="//mei:*" relevant-if="(string-length(normalize-space(text())) &gt; 0) or mei:* or (string-length(@xlink:href) &gt; 0) or count(*) &gt; 0" />
 
-    <xed:cleanup-rule xpath="//mei:seriesStmt" relevant-if="count(*)&gt;0" />
-
-    <xed:cleanup-rule xpath="//mei:language"
-                      relevant-if="string-length(@authority)&gt;0 and string-length(@xml:id)&gt;0" />
-    <xed:cleanup-rule xpath="//mei:langUsage" relevant-if="count(*)&gt;0" />
-
-    <xed:cleanup-rule xpath="//mei:annot" relevant-if="string-length(text())&gt;0 or count(*) &gt; 0" />
-    <xed:cleanup-rule xpath="//mei:notesStmt" relevant-if="count(*)&gt;0" />
-    <xed:cleanup-rule xpath="//mei:lb" relevant-if="string-length(text())&gt;0 or count(*)&gt;0" />
-
-
+    <xed:cleanup-rule xpath="//mei:language" relevant-if="string-length(@authority)&gt;0 and string-length(@xml:id)&gt;0" />
     <xed:cleanup-rule xpath="//classEntry" relevant-if="string-length(text())&gt;0" />
-    <xed:cleanup-rule xpath="//mei:expression" relevant-if="string-length(@data)&gt;0" />
-    <xed:cleanup-rule xpath="//mei:classification" relevant-if="count(*)&gt;0" />
 
-    <xed:cleanup-rule xpath="//mei:termList" relevant-if="string-length(mei:term/text())&gt;0" />
     <xed:cleanup-rule xpath="//mei:relation" relevant-if="string-length(@target)&gt;0" />
     <xed:cleanup-rule xpath="//mei:relationList" relevant-if="string-length(mei:relation/@target)&gt;0" />
 
-    <xed:cleanup-rule xpath="//mei:incip" relevant-if="count(mei:incipText/*)&gt;0" />
+    <xed:cleanup-rule xpath="//mei:notesStmt" relevant-if="string-length(mei:annot/text())&gt;0" />
+    <xed:cleanup-rule xpath="//mei:expression" relevant-if="string-length(@data)&gt;0" />
     <xed:cleanup-rule xpath="//mei:date" relevant-if="@notbefore or @notafter or @startdate or @enddate or @isodate or string-length(text())&gt;0" />
   </xed:template>
 
