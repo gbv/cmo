@@ -155,6 +155,9 @@ footer {
     justify-content: center;
     align-items: center;
     padding: 20px;
+    img {
+      max-height: 40px;
+    }
   }
 
   #powered {
