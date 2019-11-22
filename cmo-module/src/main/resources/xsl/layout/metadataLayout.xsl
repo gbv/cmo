@@ -340,15 +340,17 @@
         <div data-upload-object="{$objID}" data-upload-target="/">
           <xsl:choose>
             <xsl:when test="count(structure/derobjects/derobject)=0">
-              <xsl:attribute name="class">drop-to-object cmo-file-upload-box well</xsl:attribute>
+              <xsl:attribute name="class">drop-to-object cmo-file-upload-box card</xsl:attribute>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:attribute name="class">drop-to-object-optional cmo-file-upload-box well</xsl:attribute>
+              <xsl:attribute name="class">drop-to-object-optional cmo-file-upload-box card</xsl:attribute>
               <xsl:attribute name="style">display:none;</xsl:attribute>
             </xsl:otherwise>
           </xsl:choose>
-          <i class="fas fa-upload"></i>
-          <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
+          <div class="card-body text-center">
+            <i class="fas fa-upload"></i>
+            <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
+          </div>
         </div>
         <script>
           mycore.upload.enable(document.querySelector(".drop-to-object,.drop-to-object-optional").parentElement);
@@ -368,10 +370,11 @@
         </xsl:call-template>
       </xsl:if>
       <xsl:if test="acl:checkPermission(@xlink:href, 'writedb')">
-        <div data-upload-object="{@xlink:href}" data-upload-target="/">
-              <xsl:attribute name="class">drop-to-derivate cmo-file-upload-box well</xsl:attribute>
-          <i class="fas fa-upload"></i>
-          <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
+        <div data-upload-object="{@xlink:href}" data-upload-target="/" class="drop-to-derivate cmo-file-upload-box card">
+          <div class="card-body text-center">
+            <i class="fas fa-upload"></i>
+            <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
+          </div>
         </div>
         <script>
           mycore.upload.enable(document.querySelector(".drop-to-derivate").parentElement);

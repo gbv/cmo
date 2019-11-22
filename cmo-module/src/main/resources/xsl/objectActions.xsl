@@ -212,7 +212,7 @@
         </div>
       </div>
 
-      <div id="collapse{@xlink:href}" class="row body collapse in">
+      <div id="collapse{@xlink:href}" class="row body collapse show">
         <xsl:variable name="ifsDirectory" select="document(concat('ifs:',$derId,'/'))" />
         <xsl:variable name="numOfFiles" select="count($ifsDirectory/mcr_directory/children/child)" />
         <xsl:variable name="maindoc" select="$derivateXML/mycorederivate/derivate/internals/internal/@maindoc" />
@@ -359,7 +359,7 @@
           </xsl:call-template>
         </span>
         <span class="file_preview">
-          <img src="{$WebApplicationBaseURL}images/icons/icon_common_disabled.png" alt="">
+          <img src="{$WebApplicationBaseURL}content/images/misc_icons/icon_common_disabled.png" alt="">
             <xsl:if test="'.pdf' = translate(substring($fileName, string-length($fileName) - 3),'PDF','pdf')">
               <xsl:attribute name="data-toggle">tooltip</xsl:attribute>
               <xsl:attribute name="data-placement">top</xsl:attribute>
