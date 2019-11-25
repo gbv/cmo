@@ -352,9 +352,6 @@
             <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
           </div>
         </div>
-        <script>
-          mycore.upload.enable(document.querySelector(".drop-to-object,.drop-to-object-optional").parentElement);
-        </script>
     </xsl:if>
   </xsl:template>
 
@@ -376,9 +373,6 @@
             <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
           </div>
         </div>
-        <script>
-          mycore.upload.enable(document.querySelector(".drop-to-derivate").parentElement);
-        </script>
       </xsl:if>
     </xsl:for-each>
   </xsl:template>

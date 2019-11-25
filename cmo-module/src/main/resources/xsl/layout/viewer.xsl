@@ -66,8 +66,10 @@
             </xsl:call-template>
           </xsl:when>
           <xsl:otherwise>
-            <div class="well no-viewer">
-              <xsl:value-of select="i18n:translate('metaData.previewInProcessing', $derId)" />
+            <div class="card no-viewer">
+              <div class="card-body">
+                <xsl:value-of select="i18n:translate('metaData.previewInProcessing', $derId)" />
+              </div>
             </div>
           </xsl:otherwise>
         </xsl:choose>

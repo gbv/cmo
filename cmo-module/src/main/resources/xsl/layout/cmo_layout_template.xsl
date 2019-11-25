@@ -268,6 +268,9 @@
         </footer>
 
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap/{$bootstrap.version}/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript">
+          mycore.upload.enable(window.document.body);
+        </script>
        </body>
     </html>
   </xsl:template>
