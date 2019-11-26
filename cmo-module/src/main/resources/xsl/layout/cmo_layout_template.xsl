@@ -10,6 +10,7 @@
   exclude-result-prefixes="xlink basket mcr mcrver mcrxsl i18n calendar">
 
   <xsl:import href="resource:xsl/layout/common-layout.xsl" />
+  <xsl:param name="matomoID" select="'0'" />
 
   <xsl:output method="html" doctype-system="about:legacy-compat" indent="yes" omit-xml-declaration="yes" media-type="text/html"
     version="5" />
@@ -266,6 +267,30 @@
                 </div>
             </div>
         </footer>
+
+        <!-- Matomo -->
+        <xsl:if test="$matomoID &gt; 0">
+          <script type="text/javascript">
+            var _paq = _paq || [];
+            _paq.push(['setDoNotTrack', true]);
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function() {
+            var u="https://matomo.gbv.de/";
+            var objectID = '<xsl:value-of select="//site/@ID" />';
+            if(objectID != "") {
+            _paq.push(["setCustomVariable",1, "object", objectID, "page"]);
+            }
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '<xsl:value-of select="$matomoID" />']);
+            _paq.push(['setDownloadExtensions', '7z|aac|arc|arj|asf|asx|avi|bin|bz|bz2|csv|deb|dmg|doc|exe|flv|gif|gz|gzip|hqx|jar|jpg|jpeg|js|mp2|mp3|mp4|mpg|mpeg|mov|movie|msi|msp|odb|odf|odg|odp|ods|odt|ogg|ogv|pdf|phps|png|ppt|qt|qtm|ra|ram|rar|rpm|sea|sit|tar|tbz|tbz2|tgz|torrent|txt|wav|wma|wmv|wpd|z|zip']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+            })();
+          </script>
+          <noscript><p><img src="https://matomo.gbv.de/matomo.php?idsite={$matomoID}" style="border:0;" alt="" /></p></noscript>
+        </xsl:if>
+        <!-- End Matomo Code -->
 
         <script type="text/javascript" src="{$WebApplicationBaseURL}webjars/bootstrap/{$bootstrap.version}/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript">
