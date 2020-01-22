@@ -82,9 +82,11 @@
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:title" mode="solrIndex">
-    <field name="title">
-      <xsl:value-of select="text()" />
-    </field>
+    <xsl:if test="not(ancestor-or-self::mei:componentGrp)">
+      <field name="title">
+        <xsl:value-of select="text()" />
+      </field>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="mei:respStmt" mode="solrIndex">
@@ -307,24 +309,26 @@
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:title" mode="solrIndex">
-    <xsl:if test="@type">
-      <field name="title.type.{@type}">
+    <xsl:if test="not(ancestor-or-self::mei:componentGrp)">
+      <xsl:if test="@type">
+        <field name="title.type.{@type}">
+          <xsl:value-of select="." />
+        </field>
+      </xsl:if>
+      <xsl:if test="@xml:lang">
+        <field name="title.lang.{@xml:lang}">
+          <xsl:value-of select="." />
+        </field>
+      </xsl:if>
+      <xsl:if test="@xml:lang and @type">
+        <field name="title.typelang.{@type}.{@xml:lang}">
+          <xsl:value-of select="." />
+        </field>
+      </xsl:if>
+      <field name="title">
         <xsl:value-of select="." />
       </field>
     </xsl:if>
-    <xsl:if test="@xml:lang">
-      <field name="title.lang.{@xml:lang}">
-        <xsl:value-of select="." />
-      </field>
-    </xsl:if>
-    <xsl:if test="@xml:lang and @type">
-      <field name="title.typelang.{@type}.{@xml:lang}">
-        <xsl:value-of select="." />
-      </field>
-    </xsl:if>
-    <field name="title">
-      <xsl:value-of select="." />
-    </field>
   </xsl:template>
 
   <xsl:template match="mei:pubStmt/mei:publisher" mode="solrIndex">
