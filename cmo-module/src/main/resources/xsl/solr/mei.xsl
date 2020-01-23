@@ -296,16 +296,18 @@
     <field name="editor">
       <xsl:value-of select="."/>
     </field>
-    <field name="editor.ref">
-      <xsl:value-of select="concat(.,'|', @nymref)"/>
-    </field>
-    <field name="editor.display.ref">
-      <xsl:value-of select="concat('mcrobject:', @nymref)"/>
-      <xsl:copy-of select="document(concat('mcrobject:', @nymref))"/>
-      <xsl:variable name="displayName"
-                    select="document(concat('mcrobject:', @nymref))/mycoreobject/metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='CMO']"/>
-      <xsl:value-of select="concat($displayName,'|',@nymref)"/>
-    </field>
+    <xsl:if test="@nymref">
+      <field name="editor.ref">
+        <xsl:value-of select="concat(.,'|', @nymref)"/>
+      </field>
+      <field name="editor.display.ref">
+        <xsl:value-of select="concat('mcrobject:', @nymref)"/>
+        <xsl:copy-of select="document(concat('mcrobject:', @nymref))"/>
+        <xsl:variable name="displayName"
+                      select="document(concat('mcrobject:', @nymref))/mycoreobject/metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='CMO']"/>
+        <xsl:value-of select="concat($displayName,'|',@nymref)"/>
+      </field>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:title" mode="solrIndex">
