@@ -26,8 +26,7 @@
   xmlns:acl="xalan://org.mycore.access.MCRAccessManager"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:mods="http://www.loc.gov/mods/v3"
-  xmlns:dateHelper="xalan://org.mycore.mei.MCRDateHelper"
-  exclude-result-prefixes="xalan xlink acl i18n mods dateHelper" version="1.0">
+  exclude-result-prefixes="xalan xlink acl i18n mods" version="1.0">
 
 
   <xsl:template match="mods:identifier" mode="metadataView">
@@ -146,7 +145,6 @@
               <xsl:when test="mods:dateIssued[@point='start']">
                 <xsl:value-of select="mods:dateIssued[@point='start']"/>
                 <xsl:text> - </xsl:text>
-                <xsl:value-of select="dateHelper:currentDateAsString()" />
               </xsl:when>
               <xsl:when test="mods:dateIssued[@point='end']">
                 <xsl:text> - </xsl:text>
