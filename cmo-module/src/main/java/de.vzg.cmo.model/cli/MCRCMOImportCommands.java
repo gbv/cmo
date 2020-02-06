@@ -48,7 +48,7 @@ import org.mycore.frontend.cli.annotation.MCRCommandGroup;
 import org.mycore.mei.MEIExpressionWrapper;
 import org.mycore.mei.MEIUtils;
 import org.mycore.mei.MEIWrapper;
-import org.mycore.mei.classification.MCRMEIAuthorityInfo;
+import org.mycore.mei.classification.MCRMEIClassificationSupport;
 
 import de.vzg.cmo.model.MEIImporter;
 
@@ -77,15 +77,15 @@ public class MCRCMOImportCommands {
         final MCRObject object = MCRMetadataManager.retrieveMCRObject(objectID);
         final MEIWrapper meiWrapper = MEIWrapper.getWrapper(object);
 
-        final HashMap<MCRMEIAuthorityInfo, List<String>> classifications = meiWrapper.getClassification();
-        final HashMap<MCRMEIAuthorityInfo, List<String>> newClassifications = new HashMap<>();
+        final HashMap<String, List<String>> classifications = meiWrapper.getClassification();
+        final HashMap<String, List<String>> newClassifications = new HashMap<>();
 
         classifications.keySet().forEach(classification -> {
             final List<String> values = classifications.get(classification);
-
+            MCRCategory category = MCRMEIClassificationSupport.getClassificationFromURI(classification);
             HashSet<String> keepValues = new HashSet<>(values);
             values.forEach(categValue -> {
-                MCRCategoryID categoryID = classification.getCategoryID(categValue);
+                MCRCategoryID categoryID = MCRMEIClassificationSupport.getChildID(category,categValue);
                 if (categoryID != null) {
                     MCRCategoryDAOFactory.getInstance().getParents(categoryID)
                         .stream()

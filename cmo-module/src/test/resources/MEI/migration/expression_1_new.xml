@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<expression xmlns="http://www.music-encoding.org/ns/mei">
+  <title xml:lang="ota-arab" type="main">Beste çenber İsāḳ</title>
+  <title xml:lang="ota-arab" type="orig">بسته ﭼنبر اساق</title>
+  <title xml:lang="ota-arab" type="alt">Dilkeş ḥāverān</title>
+  <composer>
+    İsāḳ
+    <persName nymref="cmo_person_00000292">İsak, Tanburi</persName>
+  </composer>
+  <lyricist>
+    Ḥāmi
+    <persName nymref="cmo_person_00000081">Hami</persName>
+  </lyricist>
+</expression>

@@ -32,7 +32,16 @@ public class MEIExpressionWrapper extends MEIWrapper {
 
     static {
         TOP_LEVEL_ELEMENT_ORDER.add("identifier");
-        TOP_LEVEL_ELEMENT_ORDER.add("titleStmt");
+
+        TOP_LEVEL_ELEMENT_ORDER.add("arranger");
+        TOP_LEVEL_ELEMENT_ORDER.add("author");
+        TOP_LEVEL_ELEMENT_ORDER.add("composer");
+        TOP_LEVEL_ELEMENT_ORDER.add("contributor");
+        TOP_LEVEL_ELEMENT_ORDER.add("editor");
+        TOP_LEVEL_ELEMENT_ORDER.add("funder");
+        TOP_LEVEL_ELEMENT_ORDER.add("librettist");
+        TOP_LEVEL_ELEMENT_ORDER.add("lyricist");
+        TOP_LEVEL_ELEMENT_ORDER.add("sponsor");
 
         TOP_LEVEL_ELEMENT_ORDER.add("key");
         TOP_LEVEL_ELEMENT_ORDER.add("mesuration");

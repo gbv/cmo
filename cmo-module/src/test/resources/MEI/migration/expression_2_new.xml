@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<expression xmlns="http://www.music-encoding.org/ns/mei">
+  <langUsage>
+    <language xml:id="ota" auth="rfc5646">rfc5646:ota</language>
+  </langUsage>
+</expression>

@@ -22,6 +22,7 @@
 package org.mycore.mei.classification;
 
 import java.text.MessageFormat;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +50,9 @@ public class MCRMEIClassificationSupport {
 
     private static final String MEICLASS_INDEX_IDS = "MEIClassIndex.ids";
 
+    private static final String LABEL_LANG_URI = "x-uri";
+
+    @Deprecated
     public static MCRMEIAuthorityInfo getAuthorityInfo(org.jdom2.Element classCodeElement) {
         String authority = classCodeElement.getAttributeValue("authority");
         String authorityURI = classCodeElement.getAttributeValue("authURI");
@@ -57,6 +61,7 @@ public class MCRMEIClassificationSupport {
         return buildAuthorityInfo(authority, authorityURI, classCodeID);
     }
 
+    @Deprecated
     public static MCRMEIAuthorityInfo buildAuthorityInfo(String authority, String authorityURI, String classCodeID) {
         if (classCodeID == null) {
             return null;
@@ -69,6 +74,7 @@ public class MCRMEIClassificationSupport {
         return new MCRMEIAuthorityInfo(authority, authorityURI);
     }
 
+    @Deprecated
     public static MCRMEIAuthorityInfo getAuthorityInfo(Element classCodeElement) {
         String authority = classCodeElement.getAttribute("authority");
         String authorityURI = classCodeElement
@@ -218,4 +224,28 @@ public class MCRMEIClassificationSupport {
     public static String buildIDForLabel(String label) {
         return Integer.toString(label.hashCode(), 16);
     }
+
+    public static String getClassificationIDFromURI(String authorityURI) {
+        return Optional.ofNullable(getClassificationFromURI(authorityURI)).map(MCRCategory::getId)
+            .map(MCRCategoryID::toString).orElse(null);
+    }
+
+    public static MCRCategory getClassificationFromURI(String authorityURI) {
+        Collection<MCRCategory> classificationByURI = DAO.getCategoriesByLabel(LABEL_LANG_URI, authorityURI);
+        return classificationByURI.stream().findFirst().orElse(null);
+    }
+
+    public static MCRCategoryID getChildID(MCRCategory category, String value) {
+        return getChildID(category.getId(), value);
+    }
+
+    public static MCRCategoryID getChildID(MCRCategoryID categoryid, String value) {
+        MCRCategoryID representedCategID = new MCRCategoryID(categoryid.getRootID(), value);
+        if (DAO.exist(representedCategID)) {
+            return representedCategID;
+        }
+        LOGGER.warn("The id: '{}' was not found in classification '{}'", value, categoryid.getRootID());
+        return null;
+    }
+
 }

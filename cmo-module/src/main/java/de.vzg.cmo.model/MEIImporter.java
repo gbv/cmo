@@ -107,6 +107,7 @@ import org.mycore.mods.MCRMODSWrapper;
 import org.mycore.tools.MCRObjectFactory;
 import org.xml.sax.SAXException;
 
+@Deprecated
 public class MEIImporter extends SimpleFileVisitor<Path> {
 
     private static final String BIBLIOGRAPHY_FOLDER = "bibliography";
@@ -357,7 +358,7 @@ public class MEIImporter extends SimpleFileVisitor<Path> {
 
                 try {
                     if (!(wrapper instanceof MEIPersonWrapper)) {
-                        wrapper.setClassification(classifications);
+                        wrapper.setClassificationOld(classifications);
                     }
                 } catch (OperationNotSupportedException e) {
                     throw new MCRException(e);

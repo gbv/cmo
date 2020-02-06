@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_usuler">
+  <label xml:lang="en" text="Usul"/>
+  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_usuler"/>
+  <categories>
+      <category ID="us-48625938-3-5f58ec7">
+        <label xml:lang="tr" text="düyek"/>
+      </category>
+  </categories>
+</mycoreclass>

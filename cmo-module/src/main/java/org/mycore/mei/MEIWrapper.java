@@ -21,8 +21,6 @@
 
 package org.mycore.mei;
 
-import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -56,6 +54,8 @@ import org.mycore.datamodel.metadata.MCRObject;
 import org.mycore.datamodel.metadata.MCRObjectID;
 import org.mycore.mei.classification.MCRMEIAuthorityInfo;
 import org.mycore.mei.classification.MCRMEIClassificationSupport;
+
+import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
 
 public abstract class MEIWrapper {
 
@@ -257,7 +257,44 @@ public abstract class MEIWrapper {
         });
     }
 
-    public HashMap<MCRMEIAuthorityInfo, List<String>> getClassification() {
+    public HashMap<String, List<String>> getClassification() {
+        Element classificationElement = this.root.getChild("classification", MEI_NAMESPACE);
+        HashMap<String, List<String>> classificationMap = new HashMap<>();
+        if (classificationElement != null) {
+            List<Element> terMListElements = classificationElement.getChildren("termList", MEI_NAMESPACE);
+            terMListElements.forEach(termListElement -> {
+                final String clazz = termListElement.getAttributeValue("class");
+                final List<Element> terms = termListElement.getChildren("term", MEI_NAMESPACE);
+                classificationMap.put(clazz, terms.stream().map(Element::getTextTrim).collect(Collectors.toList()));
+            });
+        }
+        return classificationMap;
+    }
+
+    public void setClassification(HashMap<String, List<String>> classificationMap)
+        throws OperationNotSupportedException {
+        deleteClassification();
+        Element classificationElement = new Element("classification", MEI_NAMESPACE);
+
+        classificationMap.keySet().forEach(clazz -> {
+            final Element termList = new Element("termList", MEI_NAMESPACE);
+            termList.setAttribute("class", clazz);
+            classificationMap.get(clazz).stream().map(val -> {
+                final Element term = new Element("term", MEI_NAMESPACE);
+                term.setText(val);
+                return term;
+            }).forEach(termList::addContent);
+            if (termList.getChildren().size() > 0) {
+                classificationElement.addContent(termList);
+            }
+        });
+
+        if (classificationElement.getChildren().size() > 0) {
+            this.root.addContent(classificationElement);
+        }
+    }
+
+    public HashMap<MCRMEIAuthorityInfo, List<String>> getClassificationOld() {
         Element classificationElement = this.root.getChild("classification", MEI_NAMESPACE);
         HashMap<MCRMEIAuthorityInfo, List<String>> classificationMap = new HashMap<>();
 
@@ -290,7 +327,7 @@ public abstract class MEIWrapper {
         return classificationMap;
     }
 
-    public void setClassification(Map<MCRMEIAuthorityInfo, List<String>> classificationMap)
+    public void setClassificationOld(Map<MCRMEIAuthorityInfo, List<String>> classificationMap)
         throws OperationNotSupportedException {
         deleteClassification();
         Element classificationElement = new Element("classification", MEI_NAMESPACE);

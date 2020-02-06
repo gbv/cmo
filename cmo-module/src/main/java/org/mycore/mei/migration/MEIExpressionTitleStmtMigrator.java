@@ -1,0 +1,26 @@
+package org.mycore.mei.migration;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jdom2.Element;
+import org.mycore.mei.MEIWrapper;
+
+import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
+
+public class MEIExpressionTitleStmtMigrator extends MEIMigrator {
+    @Override
+    public void migrate(MEIWrapper obj) {
+        if (obj.getWrappedElementName().equals("expression")) {
+            final Element expression = obj.getRoot();
+            final Element titleStmt = expression.getChild("titleStmt", MEI_NAMESPACE);
+
+            expression.removeContent(titleStmt);
+
+            final List<Element> children = new ArrayList<>(titleStmt.getChildren());
+            children.forEach(Element::detach);
+            children.forEach(expression::addContent);
+            obj.orderTopLevelElement();
+        }
+    }
+}

@@ -21,6 +21,7 @@
 
 package org.mycore.mei.classification;
 
+import org.mycore.datamodel.classifications2.MCRCategory;
 import org.mycore.mei.MEIWrapper;
 
 import org.apache.logging.log4j.LogManager;
@@ -43,12 +44,15 @@ public class MCRMEIClassificationLinkEventHandler extends MCREventHandlerBase {
         MEIWrapper wrapper = MEIWrapper.getWrapper(obj);
         if (wrapper != null) {
             wrapper.getClassification().forEach((classification, valueList) -> {
-                valueList.forEach(categValue -> {
-                    MCRCategoryID categoryID = classification.getCategoryID(categValue);
-                    if (categoryID == null) {
+                final MCRCategory classificationFromURI = MCRMEIClassificationSupport
+                    .getClassificationFromURI(classification);
 
+                valueList.forEach(categValue -> {
+                    final MCRCategoryID categoryID = MCRMEIClassificationSupport
+                        .getChildID(classificationFromURI, categValue);
+                    if (categoryID == null) {
                         LOGGER.warn("Could not find unknown classification: {} -> {},{}", obj.getId().toString(),
-                            classification.toString(), categValue.toString());
+                            classification, categValue);
                     }
                 });
             });
