@@ -28,7 +28,7 @@
   <metadata>
     <element name="meiContainer" type="xml" style="dontknow" notinherit="true" heritable="false">
       <xs:sequence>
-        <xs:element ref="mei:source" />
+        <xs:element ref="mei:manifestation" />
       </xs:sequence>
     </element>
   </metadata>

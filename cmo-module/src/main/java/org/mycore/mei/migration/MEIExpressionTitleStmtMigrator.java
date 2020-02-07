@@ -11,7 +11,7 @@ import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
 public class MEIExpressionTitleStmtMigrator extends MEIMigrator {
     @Override
     public void migrate(MEIWrapper obj) {
-        if (obj.getWrappedElementName().equals("expression")) {
+        if ("expression".equals(obj.getWrappedElementName()) && "work".equals(obj.getWrappedElementName())) {
             final Element expression = obj.getRoot();
             final Element titleStmt = expression.getChild("titleStmt", MEI_NAMESPACE);
 
