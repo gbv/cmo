@@ -157,8 +157,8 @@
 
   <xsl:template match="mycoreobject" mode="resulttitle">
     <xsl:choose>
-      <xsl:when test="metadata/def.meiContainer/meiContainer/mei:source/mei:identifier">
-        <xsl:value-of select="metadata/def.meiContainer/meiContainer/mei:source/mei:identifier" />
+      <xsl:when test="metadata/def.meiContainer/meiContainer/*[local-name()='source' or local-name()='manifestation']/mei:identifier">
+        <xsl:value-of select="metadata/def.meiContainer/meiContainer/*[local-name()='source' or local-name()='manifestation']/mei:identifier" />
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="@ID" />

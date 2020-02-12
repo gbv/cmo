@@ -62,7 +62,7 @@
     <xsl:apply-templates select="@*|*" mode="solrIndex" />
   </xsl:template>
 
-  <xsl:template match="meiContainer/mei:source" mode="solrIndex">
+  <xsl:template match="meiContainer/mei:source|meiContainer/mei:manifestation" mode="solrIndex">
     <field name="displayTitle">
       <xsl:choose>
         <xsl:when test="mei:titleStmt/mei:title[@type='main']">
@@ -82,7 +82,7 @@
   </xsl:template>
 
   <xsl:template match="mei:titleStmt/mei:title" mode="solrIndex">
-    <xsl:if test="not(ancestor-or-self::mei:componentGrp)">
+    <xsl:if test="not(ancestor-or-self::mei:componentList)">
       <field name="title">
         <xsl:value-of select="text()" />
       </field>
@@ -310,8 +310,8 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="mei:titleStmt/mei:title" mode="solrIndex">
-    <xsl:if test="not(ancestor-or-self::mei:componentGrp)">
+  <xsl:template match="mei:title" mode="solrIndex">
+    <xsl:if test="not(ancestor-or-self::mei:componentList)">
       <xsl:if test="@type">
         <field name="title.type.{@type}">
           <xsl:value-of select="." />

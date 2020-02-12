@@ -46,6 +46,7 @@ public class MEISourceWrapper extends MEIWrapper {
         TOP_LEVEL_ELEMENT_ORDER.add("classification");
         TOP_LEVEL_ELEMENT_ORDER.add("itemList");
         TOP_LEVEL_ELEMENT_ORDER.add("componentGrp");
+        TOP_LEVEL_ELEMENT_ORDER.add("componentList");
         TOP_LEVEL_ELEMENT_ORDER.add("relationList");
     }
 

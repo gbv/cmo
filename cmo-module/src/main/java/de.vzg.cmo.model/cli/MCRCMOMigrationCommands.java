@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.mycore.access.MCRAccessException;
 import org.mycore.common.MCRClassTools;
 import org.mycore.common.MCRException;
 import org.mycore.common.config.MCRConfiguration;
@@ -38,12 +39,14 @@ public class MCRCMOMigrationCommands {
     }
 
     @MCRCommand(syntax = "migrate to mei4 {0}")
-    public static void migrateToMEI4(String objectID){
+    public static void migrateToMEI4(String objectID) throws MCRAccessException {
         final MCRObjectID idObject = MCRObjectID.getInstance(objectID);
 
         MCRObject object = MCRMetadataManager.retrieveMCRObject(idObject);
         final MEIWrapper wrapper = MEIWrapper.getWrapper(object);
         migrators.forEach(migrator-> migrator.migrate(wrapper));
+        object.validate();
+        MCRMetadataManager.update(object);
     }
 
 }

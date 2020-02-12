@@ -7,10 +7,10 @@ import org.jdom2.JDOMException;
 import org.junit.Test;
 import org.xml.sax.SAXParseException;
 
-public class MEIExpressionLangUsageMigratorTest extends MEIMigratorTestBase {
+public class MEILangUsageMigratorTest extends MEIMigratorTestBase {
 
     @Test
     public void migrate() throws IOException, JDOMException, SAXParseException, URISyntaxException {
-        testWith("expression_2_old.xml","expression_2_new.xml",new MEIExpressionLangUsageMigrator());
+        testWith("expression_2_old.xml","expression_2_new.xml",new MEILangUsageMigrator());
     }
 }

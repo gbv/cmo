@@ -70,15 +70,21 @@ public abstract class MEIWrapper {
 
     protected MEIWrapper(Element root) {
         String rootName = root.getName();
-        if (!getWrappedElementName().equals(rootName)) {
+        if (!isValidName(rootName)) {
             throw new IllegalArgumentException(rootName + " is can not be wrapped by " + this.getClass().toString());
         }
         this.root = root;
     }
 
+    private boolean isValidName(String rootName) {
+        return getWrappedElementName().equals(rootName);
+    }
+
     public static MEIWrapper getWrapper(Element rootElement) {
         String id = rootElement.getName();
         switch (id) {
+            case "manifestation":
+                return new MEIManifestationWrapper(rootElement);
             case "source":
                 return new MEISourceWrapper(rootElement);
             case "expression":
@@ -302,6 +308,9 @@ public abstract class MEIWrapper {
             List<Element> classCodes = classificationElement.getChildren("classCode", MEI_NAMESPACE);
             List<Element> terMListElements = classificationElement.getChildren("termList", MEI_NAMESPACE);
 
+            if (classCodes.size() == 0) { // this should happen if the classification is already migrated
+                return classificationMap;
+            }
             for (Element classCodeElement : classCodes) {
                 // this is the value which is used to Link a term to class code
                 String classCodeID = classCodeElement.getAttributeValue("id", Namespace.XML_NAMESPACE);

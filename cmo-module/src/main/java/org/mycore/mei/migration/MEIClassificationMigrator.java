@@ -30,7 +30,9 @@ public class MEIClassificationMigrator extends MEIMigrator {
             migrated.put(clazz.get(), values);
         });
         try {
-            obj.setClassification(migrated);
+            if(migrated.size()>0){
+                obj.setClassification(migrated);
+            }
         } catch (OperationNotSupportedException e) {
             // this is ok
         }

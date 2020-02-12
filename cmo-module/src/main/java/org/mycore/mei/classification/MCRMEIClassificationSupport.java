@@ -23,7 +23,6 @@ package org.mycore.mei.classification;
 
 import java.text.MessageFormat;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -31,6 +30,7 @@ import org.apache.logging.log4j.Logger;
 import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.output.DOMOutputter;
+import org.mycore.common.MCRConstants;
 import org.mycore.common.config.MCRConfiguration;
 import org.mycore.datamodel.classifications2.MCRCategory;
 import org.mycore.datamodel.classifications2.MCRCategoryDAO;
@@ -91,54 +91,83 @@ public class MCRMEIClassificationSupport {
 
     }
 
-    public static String getRootClassLabel(NodeList classCodes) {
-        if (classCodes.getLength() == 0) {
-            return null;
-        }
-
-        final Element classCode = (Element) classCodes.item(0);
-        MCRMEIAuthorityInfo authorityInfo = getAuthorityInfo(classCode);
-
-        Optional<MCRLabel> labelOptional = DAO.getCategory(authorityInfo.getRootID(), 0).getCurrentLabel();
+    public static String getRootClassLabel(String classAttribute) {
+        final int i = classAttribute.lastIndexOf("/")+1;
+        final String classID = classAttribute.substring(i);
+        final MCRCategoryID mcrCategoryID = new MCRCategoryID(classID, "");
+        Optional<MCRLabel> labelOptional = DAO.getCategory(mcrCategoryID, 0).getCurrentLabel();
         if (labelOptional.isPresent()) {
             return labelOptional.get().getText();
         } else {
-            return authorityInfo.getRootID().getID();
+            return classAttribute;
         }
     }
 
-    public static String getClassLabel(NodeList terms) {
-        MCRCategory category = getClassificationFromElement(terms);
-        if (category != null) {
-            Optional<MCRLabel> currentLabel = category.getCurrentLabel();
+    @Deprecated
+    public static String getClassLabel(String uri, String termContent) {
+        final int i = uri.lastIndexOf("/")+1;
+        final String classID = uri.substring(i);
 
-            if (currentLabel.isPresent()) {
-                return currentLabel.get().getText();
-            }
+        if(termContent.contains(":")){
+            termContent=termContent.split(":")[1];
         }
 
-        return terms.item(0).getTextContent();
-    }
-
-    public static String getParentClassLabel(NodeList terms) {
-        List<MCRCategory> parents = DAO.getParents(getClassificationFromElement(terms).getId());
-        MCRCategory category = parents.get(0);
-        if (category != null) {
-            Optional<MCRLabel> currentLabel = category.getCurrentLabel();
-
-            if (currentLabel.isPresent()) {
-                return currentLabel.get().getText();
-            }
+        final MCRCategoryID mcrCategoryID = new MCRCategoryID(classID, termContent);
+        Optional<MCRLabel> labelOptional = DAO.getCategory(mcrCategoryID, 0).getCurrentLabel();
+        if (labelOptional.isPresent()) {
+            return labelOptional.get().getText();
+        } else {
+            return uri + ":" + termContent;
         }
-
-        return terms.item(0).getTextContent();
     }
 
-    public static String getClassificationLinkFromTerm(NodeList terms) {
-        MCRCategory category = getClassificationFromElement(terms);
+    @Deprecated
+    public static String getParentClassLabel(String uri, String termContent) {
+        final int i = uri.lastIndexOf("/")+1;
+        final String classID = uri.substring(i);
+
+        if(termContent.contains(":")){
+            termContent=termContent.split(":")[1];
+        }
+        final MCRCategoryID mcrCategoryID = new MCRCategoryID(classID, termContent);
+        Optional<MCRLabel> labelOptional = DAO.getParents(mcrCategoryID).get(0).getCurrentLabel();
+        if (labelOptional.isPresent()) {
+            return labelOptional.get().getText();
+        } else {
+            return uri + ":" + termContent;
+        }
+    }
+
+    public static String getLabelOfLanguage(NodeList terms) {
+        if (terms.getLength() == 1) {
+            final Node languageItem = terms.item(0);
+            final String auth = languageItem.getAttributes().getNamedItem("auth").getTextContent();
+            final String id = languageItem.getAttributes().getNamedItemNS(MCRConstants.XML_NAMESPACE.getURI(), "id")
+                .getTextContent();
+
+
+            final MCRCategoryID categoryID = new MCRCategoryID(auth, id);
+            return Optional.ofNullable(MCRCategoryDAOFactory.getInstance().getCategory(categoryID, 0))
+                .map(MCRCategory::getCurrentLabel)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(MCRLabel::getText)
+                .orElseGet(() -> auth + ":" + id);
+        }
+        return null;
+    }
+
+
+
+    public static String getClassificationLinkFromTerm(String uri, String term) {
+        final int i = uri.lastIndexOf("/")+1;
+        final String classID = uri.substring(i);
+
+        if(term.contains(":")){
+            term=term.split(":")[1];
+        }
         return MessageFormat
-            .format("classification:metadata:0:parents:{0}:{1}", category.getId().getRootID(),
-                category.getId().getID());
+            .format("classification:metadata:0:parents:{0}:{1}", classID, term);
     }
 
     private static MCRCategory getClassificationFromElement(NodeList terms) {

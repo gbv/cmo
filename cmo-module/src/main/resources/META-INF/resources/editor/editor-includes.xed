@@ -297,13 +297,13 @@
   </xed:template>
 
   <xed:template id="cmo_language">
-    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='rfc5646']" bind="@xml:id" repeat="true" min="1"
+    <cmo:selectClassification xpath="mei:langUsage/mei:language[@auth='rfc5646']" bind="@xml:id" repeat="true" min="1"
                               max="10" label="editor.label.language" classification="rfc5646"
                               help-text="{i18n:cmo.help.language}" />
   </xed:template>
 
   <xed:template id="cmo_scriptLanguage">
-    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='iso15924']" bind="@xml:id" repeat="true" min="1"
+    <cmo:selectClassification xpath="mei:langUsage/mei:language[@auth='iso15924']" bind="@xml:id" repeat="true" min="1"
                               max="10" label="editor.label.scriptLanguage" classification="iso15924"
                               help-text="{i18n:cmo.help.scriptLanguage}" />
   </xed:template>
@@ -591,9 +591,9 @@
     </fieldset>
   </xed:template>
 
-  <xed:template id="cmo_componentGrp">
-    <xed:bind xpath="mei:componentGrp">
-      <xed:repeat xpath="mei:source" min="1">
+  <xed:template id="cmo_componentList">
+    <xed:bind xpath="mei:componentList">
+      <xed:repeat xpath="mei:manifestation" min="1">
         <fieldset class="cmo-fieldset-componentGrp card">
           <div class="card-body">
             <legend class="cmo-fieldset-legend card-title">
