@@ -173,7 +173,7 @@
 
     <xsl:variable name="termList" select="$meiElement/mei:classification/mei:termList[contains(@class, $class)]" />
     <xsl:if test="count($termList/mei:term)&gt;0">
-      <xsl:value-of select="classification:getClassLabel($termList/@class, mei:term[1]/text())" />
+      <xsl:value-of select="classification:getClassLabel($termList/@class, $termList/mei:term[1]/text())" />
     </xsl:if>
   </xsl:template>
 

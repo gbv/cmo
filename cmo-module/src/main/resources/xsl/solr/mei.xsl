@@ -37,8 +37,8 @@
   <xsl:template match="mei:expression" mode="solrIndex">
     <field name="displayTitle">
       <xsl:choose>
-        <xsl:when test="mei:titleStmt/mei:title[@type='main']">
-          <xsl:value-of select="mei:titleStmt/mei:title[@type='main']" />
+        <xsl:when test="mei:title[@type='main']">
+          <xsl:value-of select="mei:title[@type='main']" />
         </xsl:when>
         <xsl:otherwise>
           <xsl:call-template name="printStandardizedHitListTitle" />
@@ -62,7 +62,7 @@
     <xsl:apply-templates select="@*|*" mode="solrIndex" />
   </xsl:template>
 
-  <xsl:template match="meiContainer/mei:source|meiContainer/mei:manifestation" mode="solrIndex">
+  <xsl:template match="meiContainer/mei:manifestation" mode="solrIndex">
     <field name="displayTitle">
       <xsl:choose>
         <xsl:when test="mei:titleStmt/mei:title[@type='main']">
@@ -81,6 +81,7 @@
     <xsl:apply-templates mode="solrIndex" />
   </xsl:template>
 
+  <!--
   <xsl:template match="mei:titleStmt/mei:title" mode="solrIndex">
     <xsl:if test="not(ancestor-or-self::mei:componentList)">
       <field name="title">
@@ -88,7 +89,7 @@
       </field>
     </xsl:if>
   </xsl:template>
-
+-->
   <xsl:template match="mei:respStmt" mode="solrIndex">
     <field name="resp">
       <xsl:value-of select="mei:resp" />
@@ -198,7 +199,7 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="mei:titleStmt/mei:composer/mei:persName" mode="solrIndex">
+  <xsl:template match="mei:composer/mei:persName" mode="solrIndex">
     <field name="composer">
       <xsl:value-of select="." />
     </field>
@@ -224,7 +225,7 @@
 
   </xsl:template>
 
-  <xsl:template match="mei:titleStmt/mei:lyricist/mei:persName" mode="solrIndex">
+  <xsl:template match="mei:lyricist/mei:persName" mode="solrIndex">
     <field name="lyricist">
       <xsl:value-of select="." />
     </field>
@@ -239,7 +240,7 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="mei:titleStmt/mei:author" mode="solrIndex">
+  <xsl:template match="mei:author" mode="solrIndex">
     <xsl:if test="not(mei:persName)">
       <field name="author">
         <xsl:value-of select="text()" />
@@ -253,7 +254,7 @@
     <xsl:apply-templates mode="solrIndex"/>
   </xsl:template>
 
-  <xsl:template match="mei:titleStmt/mei:author/mei:persName" mode="solrIndex">
+  <xsl:template match="mei:author/mei:persName" mode="solrIndex">
     <field name="author">
       <xsl:value-of select="."/>
     </field>
@@ -278,7 +279,7 @@
     </field>
   </xsl:template>
 
-  <xsl:template match="mei:titleStmt/mei:editor" mode="solrIndex">
+  <xsl:template match="mei:editor" mode="solrIndex">
     <xsl:if test="not(mei:persName)">
       <field name="editor">
         <xsl:value-of select="text()"/>
@@ -292,7 +293,7 @@
     <xsl:apply-templates mode="solrIndex"/>
   </xsl:template>
 
-  <xsl:template match="mei:titleStmt/mei:editor/mei:persName" mode="solrIndex">
+  <xsl:template match="mei:editor/mei:persName" mode="solrIndex">
     <field name="editor">
       <xsl:value-of select="."/>
     </field>
@@ -312,6 +313,7 @@
 
   <xsl:template match="mei:title" mode="solrIndex">
     <xsl:if test="not(ancestor-or-self::mei:componentList)">
+      <xsl:comment>mei.xsl -> mei:title</xsl:comment>
       <xsl:if test="@type">
         <field name="title.type.{@type}">
           <xsl:value-of select="." />

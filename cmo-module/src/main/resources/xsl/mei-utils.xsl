@@ -12,13 +12,13 @@
   <!-- standardized term (expression): <Makam> <Music Genre> -->
   <xsl:template name="printStandardizedTerm">
     <xsl:comment>mei-utils.xsl > printStandardizedTerm </xsl:comment>
-    <xsl:if test="mei:classification[mei:classCode[contains(@authURI,'cmo_makamler')]]">
+    <xsl:if test="mei:classification[mei:termList[contains(@class,'cmo_makamler')]]">
       <xsl:call-template name="printParentClassLabel">
         <xsl:with-param name="classId" select="'cmo_makamler'" />
       </xsl:call-template>
       <xsl:text> </xsl:text>
     </xsl:if>
-    <xsl:if test="mei:classification[mei:classCode[contains(@authURI,'cmo_musictype')]]">
+    <xsl:if test="mei:classification[mei:termList[contains(@class,'cmo_musictype')]]">
       <xsl:call-template name="printClassLabel">
         <xsl:with-param name="classId" select="'cmo_musictype'" />
       </xsl:call-template>
@@ -30,13 +30,13 @@
        used only, if no title available -->
   <xsl:template name="printStandardizedHitListTitle">
     <xsl:comment>mei-utils.xsl > printStandardizedHitListTitle </xsl:comment>
-    <xsl:if test="mei:classification[mei:classCode[contains(@authURI,'cmo_makamler')]]">
+    <xsl:if test="mei:classification[mei:termList[contains(@class,'cmo_makamler')]]">
       <xsl:call-template name="printParentClassLabel">
         <xsl:with-param name="classId" select="'cmo_makamler'" />
       </xsl:call-template>
       <xsl:text> </xsl:text>
     </xsl:if>
-    <xsl:if test="mei:classification[mei:classCode[contains(@authURI,'cmo_musictype')]]">
+    <xsl:if test="mei:classification[mei:termList[contains(@class,'cmo_musictype')]]">
       <xsl:call-template name="printClassLabel">
         <xsl:with-param name="classId" select="'cmo_musictype'" />
       </xsl:call-template>
@@ -50,7 +50,7 @@
     <xsl:param name="classId" />
     <xsl:variable name="termList" select="mei:classification/mei:termList[contains(@class, $classId)]" />
     <xsl:if test="count($termList/mei:term)&gt;0">
-      <xsl:value-of select="classification:getClassLabel($termList/@class, mei:term[1]/text())" />
+      <xsl:value-of select="classification:getClassLabel($termList/@class, $termList/mei:term[1]/text())" />
     </xsl:if>
   </xsl:template>
   
@@ -58,7 +58,7 @@
     <xsl:param name="classId" />
     <xsl:variable name="termList" select="mei:classification/mei:termList[contains(@class, $classId)]" />
     <xsl:if test="count($termList/mei:term)&gt;0">
-      <xsl:value-of select="classification:getParentClassLabel($termList/@class, mei:term[1]/text())" />
+      <xsl:value-of select="classification:getParentClassLabel($termList/@class, $termList/mei:term[1]/text())" />
     </xsl:if>
   </xsl:template>
 
