@@ -178,7 +178,7 @@
   </xsl:template>
 
   <xsl:template priority="1" mode="resulttitle" match="mycoreobject[contains(@ID,'_source_')]">
-    <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:source/mei:identifier" />
+    <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:manifestation/mei:identifier" />
   </xsl:template>
 
 </xsl:stylesheet>

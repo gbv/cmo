@@ -729,7 +729,7 @@
   <xed:template id="cleanup-rules">
     <xed:cleanup-rule xpath="//mei:*" relevant-if="(string-length(normalize-space(text())) &gt; 0) or mei:* or (string-length(@xlink:href) &gt; 0) or count(*) &gt; 0" />
 
-    <xed:cleanup-rule xpath="//mei:language" relevant-if="string-length(@authority)&gt;0 and string-length(@xml:id)&gt;0" />
+    <xed:cleanup-rule xpath="//mei:language" relevant-if="string-length(@auth)&gt;0 and string-length(@xml:id)&gt;0" />
     <xed:cleanup-rule xpath="//classEntry" relevant-if="string-length(text())&gt;0" />
 
     <xed:cleanup-rule xpath="//mei:relation" relevant-if="string-length(@target)&gt;0" />

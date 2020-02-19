@@ -28,10 +28,19 @@
                 exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
   <xsl:template match="mei:titleStmt" mode="metadataView">
+    <xsl:call-template name="printTitle">
+      <xsl:with-param name="parentElement" select="." />
+    </xsl:call-template>
+  </xsl:template>
+
+
+  <xsl:template name="printTitle" >
+    <xsl:param name="parentElement" />
+
     <xsl:comment>mei/titleStmt.xsl > mei:titleStmt</xsl:comment>
     <xsl:variable name="titleTypeClass">
       <xsl:choose>
-        <xsl:when test="count(ancestor::mei:expression)&gt;0">
+        <xsl:when test="count($parentElement/ancestor-or-self::mei:expression)&gt;0">
           <xsl:value-of select="'cmo_titleTypeExpression'"/>
         </xsl:when>
         <xsl:otherwise>
@@ -39,7 +48,7 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:for-each select="mei:title">
+    <xsl:for-each select="$parentElement/mei:title">
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="style">
           <xsl:if test="position() &gt; 1"><xsl:value-of select="'cmo_noBorder'" /></xsl:if>
@@ -70,12 +79,13 @@
         </xsl:with-param>
       </xsl:call-template>
     </xsl:if>
-    
+
     <xsl:apply-templates select="mei:author" mode="metadataView" />
     <xsl:apply-templates select="mei:composer" mode="metadataView" />
     <xsl:apply-templates select="mei:lyricist" mode="metadataView" />
     <xsl:apply-templates select="mei:editor" mode="metadataView" />
     <xsl:apply-templates select="mei:respStmt" mode="metadataView" />
+
   </xsl:template>
 
   <xsl:template match="mei:title" mode="metadataView">
