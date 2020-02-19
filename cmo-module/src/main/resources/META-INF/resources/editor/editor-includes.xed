@@ -613,6 +613,18 @@
     </xed:bind>
   </xed:template>
 
+  <xed:template id="cmo_creationDate">
+    <xed:bind xpath="mei:creation">
+      <xed:bind xpath="mei:date">
+        <cmo:isoApproxDate xpath="." label="editor.label.creation.date" help-text="{i18n:cmo.help.normDate}" />
+        <cmo:textfield xpath="." label="editor.label.textDate" placeholder="{i18n:cmo.placeholder.textDate}"
+                       help-text="{i18n:cmo.help.textDate}" />
+        <cmo:selectClassification xpath="./@calendar" label="editor.label.calendar" classification="cmo_calendar"
+                                  help-text="{i18n:cmo.help.calendar}" />
+      </xed:bind>
+    </xed:bind>
+  </xed:template>
+
   <xed:template id="cmo_historyEventList">
     <fieldset class="card">
       <div class="card-body">

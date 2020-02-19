@@ -37,6 +37,7 @@ public class MEISourceWrapper extends MEIWrapper {
         TOP_LEVEL_ELEMENT_ORDER.add("pubStmt");
         TOP_LEVEL_ELEMENT_ORDER.add("physDesc");
         TOP_LEVEL_ELEMENT_ORDER.add("physLoc");
+        TOP_LEVEL_ELEMENT_ORDER.add("creation");
         TOP_LEVEL_ELEMENT_ORDER.add("seriesStmt");
         TOP_LEVEL_ELEMENT_ORDER.add("history");
         TOP_LEVEL_ELEMENT_ORDER.add("langUsage");

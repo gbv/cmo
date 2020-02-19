@@ -94,8 +94,18 @@
       </xsl:choose>
     </xsl:variable>
 
+    <xsl:variable name="label">
+      <xsl:choose>
+        <xsl:when test="local-name(..)='creation'">
+          <xsl:value-of select="'editor.label.creation.date'" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="'editor.label.publishingDate'" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
     <xsl:call-template name="metadataLabelContent">
-      <xsl:with-param name="label" select="'editor.label.publishingDate'" />
+      <xsl:with-param name="label" select="$label" />
       <xsl:with-param name="content">
         <time>
           <xsl:attribute name="datetime"><xsl:value-of select="$isoDate" /></xsl:attribute>
