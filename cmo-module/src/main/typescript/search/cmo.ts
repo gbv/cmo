@@ -240,7 +240,6 @@ window.addEventListener('load', () => {
                 baseQuery: ["objectType:expression", "cmo_musictype:gn-66217054-X"],
                 fields: [
                     new SearchField("editor.label.title", titleFields),
-                    new SearchField("editor.label.identifier", ["identifier"]),
                     new SearchField("editor.label.incip", ["incip"]),
                     new ClassificationSearchField("category.top", "iso15924"),
                     new ClassificationSearchField("category.top", "rfc5646"),
