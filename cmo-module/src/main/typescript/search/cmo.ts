@@ -207,6 +207,7 @@ window.addEventListener('load', () => {
                     new SearchField("editor.label.publishingInformation", ["publisher", "publisher.place", "series",
                         "repo.corpName", "repo.identifier", "repo.geogName", "history.event.eventGeogName"]),
                     new CheckboxSearchField("cmo.hasFiles", "hasFiles", "true"),
+                    new CheckboxSearchField("cmo.hasReference", "{!join from=mods.relatedItem to=id}*", "*")
                 ]
             },
             mods: {
