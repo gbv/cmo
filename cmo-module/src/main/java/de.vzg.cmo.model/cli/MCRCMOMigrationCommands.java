@@ -7,10 +7,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.naming.OperationNotSupportedException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,9 +35,8 @@ import org.mycore.datamodel.metadata.MCRObjectID;
 import org.mycore.frontend.cli.annotation.MCRCommand;
 import org.mycore.frontend.cli.annotation.MCRCommandGroup;
 import org.mycore.mei.MEIWrapper;
-import org.mycore.mei.migration.MEIMigrator;
-
 import org.mycore.mei.migration.CMOClassificationIDPatch;
+import org.mycore.mei.migration.MEIMigrator;
 
 @MCRCommandGroup(name = "CMO Migration Commands")
 public class MCRCMOMigrationCommands {
@@ -77,21 +79,27 @@ public class MCRCMOMigrationCommands {
     }
 
     @MCRCommand(syntax = MIGRATE_CLASSIFICATIONS_IN_OBJECT + "{0}")
-    public static void migrateObject(String id) {
-        final MEIWrapper wrapper = MEIWrapper.getWrapper(id);
+    public static void migrateObject(String id) throws OperationNotSupportedException, MCRAccessException {
+        MCRObject obj = MCRMetadataManager.retrieveMCRObject(MCRObjectID.getInstance(id));
+        final MEIWrapper wrapper = MEIWrapper.getWrapper(obj);
+
+        HashMap<String, List<String>> newClassifications = wrapper.getClassification();
+
         wrapper.getClassification().forEach((key, vals) -> {
             String classID=key.substring(key.lastIndexOf("/")+1);
             patches.stream().filter(m -> m.getRootID().equals(classID)).findFirst().ifPresent(patch -> {
-                vals.forEach(val-> {
+                List<String> newValues = vals.stream().map(val -> {
                     final String match = patch.getResultMap().get(classID + ":" + val);
-                    LOGGER.info("Would replace " + classID + ":" + val + " with " + match + " in " + id);
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                    }
-                });
+                    LOGGER.info("replace " + classID + ":" + val + " with " + match + " in " + id);
+                    return match.substring(match.indexOf(":")+1);
+                }).collect(Collectors.toList());
+
+                newClassifications.put(key, newValues);
             });
         });
+
+        wrapper.setClassification(newClassifications);
+        MCRMetadataManager.update(obj);
     }
 
     @MCRCommand(syntax = "migrate all classifications")
