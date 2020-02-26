@@ -21,8 +21,6 @@
 
 package de.vzg.cmo.model.cli;
 
-import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -50,25 +48,9 @@ import org.mycore.mei.MEIUtils;
 import org.mycore.mei.MEIWrapper;
 import org.mycore.mei.classification.MCRMEIClassificationSupport;
 
-import de.vzg.cmo.model.MEIImporter;
-
 @MCRCommandGroup(name = "CMO Commands")
 public class MCRCMOImportCommands {
 
-
-    @MCRCommand(syntax = "import cmo from folder {0} {1}")
-    public static List<String> importCMOFromFolder(String folder, String tempFolder) {
-        try {
-            MEIImporter meiImporter;
-            meiImporter = new MEIImporter();
-           return  meiImporter.importMEIS(FileSystems.getDefault().getPath(folder), FileSystems.getDefault().getPath(
-               tempFolder));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return Collections.emptyList();
-    }
 
     @MCRCommand(syntax = "clean redundant classifications in {0}")
     public static void cleanRedundantClassification(String mycoreID)

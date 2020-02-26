@@ -79,6 +79,12 @@ public class MEIExpressionWrapper extends MEIWrapper {
     }
 
     @Override
+    protected boolean isElementRelevant(Element element) {
+        boolean relevantForMe = element.getName().equals("title");
+        return relevantForMe || super.isElementRelevant(element);
+    }
+
+    @Override
     protected int getRankOf(Element topLevelElement) {
         return TOP_LEVEL_ELEMENT_ORDER.indexOf(topLevelElement.getName());
     }

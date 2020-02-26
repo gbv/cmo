@@ -21,6 +21,8 @@
 
 package org.mycore.mei;
 
+import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -54,8 +56,6 @@ import org.mycore.datamodel.metadata.MCRObject;
 import org.mycore.datamodel.metadata.MCRObjectID;
 import org.mycore.mei.classification.MCRMEIAuthorityInfo;
 import org.mycore.mei.classification.MCRMEIClassificationSupport;
-
-import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
 
 public abstract class MEIWrapper {
 
@@ -131,9 +131,9 @@ public abstract class MEIWrapper {
      * @param node
      * @return true if the content is empty and can be removed
      */
-    public static boolean removeEmptyNodes(Content node) {
+    public boolean removeEmptyNodes(Content node) {
         if (node instanceof Element) {
-            Predicate<Content> removeNodes = MEIWrapper::removeEmptyNodes;
+            Predicate<Content> removeNodes = this::removeEmptyNodes;
             List<Content> content = ((Element) node).getContent();
             List<Content> elementsToRemove = content.stream().filter(removeNodes)
                 .collect(Collectors.toList());
@@ -149,7 +149,7 @@ public abstract class MEIWrapper {
         return true;
     }
 
-    private static boolean isElementRelevant(Element element) {
+    protected boolean isElementRelevant(Element element) {
         final String elementName = element.getName();
         final Element parentElement = element.getParentElement();
 

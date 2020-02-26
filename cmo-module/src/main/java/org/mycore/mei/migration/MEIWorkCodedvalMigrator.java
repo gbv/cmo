@@ -1,14 +1,14 @@
 package org.mycore.mei.migration;
 
+import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
+
 import java.util.List;
 
 import org.jdom2.Element;
 import org.mycore.frontend.MCRFrontendUtil;
 import org.mycore.mei.MEIWrapper;
 
-import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
-
-public class MEIWorkCodevalMigrator extends MEIMigrator {
+public class MEIWorkCodedvalMigrator extends MEIMigrator {
     @Override
     public void migrate(MEIWrapper obj) {
         if ("work".equals(obj.getWrappedElementName())) {
@@ -23,7 +23,7 @@ public class MEIWorkCodevalMigrator extends MEIMigrator {
     private void fixCodeVal(Element expressionInList) {
         final String codeval = expressionInList.getAttributeValue("data");
         expressionInList.removeAttribute("data");
-        expressionInList.setAttribute("codeval", codeval);
+        expressionInList.setAttribute("codedval", codeval);
         expressionInList.setAttribute("auth.uri", MCRFrontendUtil.getBaseURL() + "receive/");
     }
 }
