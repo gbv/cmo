@@ -32,6 +32,7 @@ import org.mycore.datamodel.common.MCRXMLMetadataManager;
 import org.mycore.datamodel.metadata.MCRMetadataManager;
 import org.mycore.datamodel.metadata.MCRObject;
 import org.mycore.datamodel.metadata.MCRObjectID;
+import org.mycore.frontend.cli.MCRObjectCommands;
 import org.mycore.frontend.cli.annotation.MCRCommand;
 import org.mycore.frontend.cli.annotation.MCRCommandGroup;
 import org.mycore.mei.MEIWrapper;
@@ -100,6 +101,15 @@ public class MCRCMOMigrationCommands {
 
         wrapper.setClassification(newClassifications);
         MCRMetadataManager.update(obj);
+    }
+
+    @MCRCommand(syntax = "select all objects to migrate")
+    public static void selectObjects(){
+        List<String> ll = new LinkedList<>();
+        ll.addAll(MCRXMLMetadataManager.instance().listIDsOfType("source"));
+        ll.addAll(MCRXMLMetadataManager.instance().listIDsOfType("expression"));
+        ll.addAll(MCRXMLMetadataManager.instance().listIDsOfType("work"));
+        MCRObjectCommands.setSelectedObjectIDs(ll);
     }
 
     @MCRCommand(syntax = "migrate all classifications")

@@ -59,7 +59,7 @@
     <xsl:if test="not(position()=1)">
       <xsl:value-of select="','" />
     </xsl:if>
-    <xsl:value-of select="@codeval" />
+    <xsl:value-of select="@codedval" />
   </xsl:template>
 
   <xsl:template name="listExpressions">
@@ -75,7 +75,7 @@
     <ol class="cmo_clear">
       <xsl:for-each select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression">
         <li>
-          <xsl:variable name="expression" select="document(concat('mcrobject:', @codeval))" />
+          <xsl:variable name="expression" select="document(concat('mcrobject:', @codedval))" />
           <xsl:variable name="expressionElement"
                         select="$expression/mycoreobject/metadata/def.meiContainer/meiContainer/mei:expression" />
           <xsl:variable name="pageNumber" select="@n" />
@@ -102,7 +102,7 @@
             </xsl:call-template>
           </xsl:variable>
   
-          <a href="{concat($WebApplicationBaseURL, 'receive/',@codeval)}">
+          <a href="{concat($WebApplicationBaseURL, 'receive/',@codedval)}">
             <xsl:choose>
               <xsl:when test="$expression//mei:expression/mei:titleStmt/mei:title[@type='main']">
                 <xsl:value-of select="$expression//mei:expression/mei:titleStmt/mei:title[@type='main']" />
