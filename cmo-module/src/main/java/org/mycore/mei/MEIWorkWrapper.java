@@ -57,7 +57,7 @@ public class MEIWorkWrapper extends MEIWrapper {
 
     static {
         TOP_LEVEL_ELEMENT_ORDER.add("identifier");
-        TOP_LEVEL_ELEMENT_ORDER.add("titleStmt");
+        TOP_LEVEL_ELEMENT_ORDER.add("title");
         TOP_LEVEL_ELEMENT_ORDER.add("key");
         TOP_LEVEL_ELEMENT_ORDER.add("mensuration");
         TOP_LEVEL_ELEMENT_ORDER.add("meter");
