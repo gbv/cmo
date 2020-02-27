@@ -59,23 +59,9 @@
 
   <xsl:template match="mei:date" mode="metadataView">
     <xsl:variable name="displayDate">
-      <xsl:choose>
-        <xsl:when test="text()">
-          <xsl:value-of select="text()" />
-        </xsl:when>
-        <xsl:when test="@isodate">
-          <xsl:value-of select="@isodate" />
-        </xsl:when>
-        <xsl:when test="@notbefore and @notafter">
-          <xsl:value-of select="concat(@notbefore, '-', @notafter)" />
-        </xsl:when>
-        <xsl:when test="@notbefore">
-          <xsl:value-of select="concat(@notbefore, '-?')" />
-        </xsl:when>
-        <xsl:when test="@notafter">
-          <xsl:value-of select="concat('?-', @notafter)" />
-        </xsl:when>
-      </xsl:choose>
+      <xsl:call-template name="getDisplayDate">
+        <xsl:with-param name="dateNode" select="." />
+      </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="isoDate">
       <xsl:choose>
@@ -119,4 +105,24 @@
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template name="getDisplayDate">
+    <xsl:param name="dateNode" />
+    <xsl:choose>
+      <xsl:when test="$dateNode/text()">
+        <xsl:value-of select="$dateNode/text()"/>
+      </xsl:when>
+      <xsl:when test="$dateNode/@isodate">
+        <xsl:value-of select="$dateNode/@isodate"/>
+      </xsl:when>
+      <xsl:when test="$dateNode/@notbefore and $dateNode/@notafter">
+        <xsl:value-of select="concat($dateNode/@notbefore, '-', $dateNode/@notafter)"/>
+      </xsl:when>
+      <xsl:when test="$dateNode/@notbefore">
+        <xsl:value-of select="concat($dateNode/@notbefore, '-?')"/>
+      </xsl:when>
+      <xsl:when test="$dateNode/@notafter">
+        <xsl:value-of select="concat('?-', $dateNode/@notafter)"/>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
 </xsl:stylesheet>

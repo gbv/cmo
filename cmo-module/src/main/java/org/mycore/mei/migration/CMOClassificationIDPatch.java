@@ -19,7 +19,7 @@ import org.mycore.datamodel.classifications2.MCRLabel;
 public class CMOClassificationIDPatch {
 
     private final List<String> preveredLabelPriority =
-        Stream.of("en", "tr", "de")
+        Stream.of("de", "tr", "en")
             .collect(Collectors.toList());
 
     private Document resultDocument;
