@@ -133,7 +133,7 @@
           <xsl:value-of select="i18n:translate($label)" />
         </xsl:if>
       </th>
-      <td colspan="3" class="col-md-12">
+      <td colspan="3" class="col-md-9">
         <xsl:variable name="rTree" select="exslt:node-set($content)" />
         <xsl:copy-of select="$rTree" />
       </td>
