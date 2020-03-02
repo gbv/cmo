@@ -48,7 +48,7 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:for-each select="$parentElement/mei:title">
+    <xsl:for-each select="$parentElement/mei:title[string-length(text()) &gt; 0]">
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="style">
           <xsl:if test="position() &gt; 1"><xsl:value-of select="'cmo_noBorder'" /></xsl:if>

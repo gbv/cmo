@@ -46,7 +46,9 @@
             <xsl:call-template name="metadataContainer">
               <xsl:with-param name="content">
                 <xsl:apply-templates select="//mei:identifier" mode="metadataView" />
-                <xsl:apply-templates select="//mei:titleStmt" mode="metadataView" />
+                <xsl:call-template name="printTitle">
+                  <xsl:with-param name="parentElement" select="//mei:expression" />
+                </xsl:call-template>
                 <xsl:apply-templates select="//mei:incip" mode="metadataView" />
                 <xsl:apply-templates select="//mei:langUsage" mode="metadataView" />
                 <xsl:apply-templates select="//mei:relationList" mode="metadataView" />
