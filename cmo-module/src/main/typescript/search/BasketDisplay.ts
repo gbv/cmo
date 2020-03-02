@@ -63,6 +63,7 @@ export class BasketDisplay {
                 `<a href="${Utils.getBaseURL()}receive/${doc[ "id" ]}">${Utils.encodeHtmlEntities((doc[ "displayTitle" ] || "") + "")}</a>`,
 
             "editor.label.publisher" : (doc: CMOBaseDocument) => doc[ "publisher" ] || "",
+            "editor.label.creation.date" : (doc: CMOBaseDocument) => doc[ "creation.date.content" ] || "",
             "editor.label.editorAndAuthor": (doc: CMOBaseDocument) =>{
                 let authorMap = BasketDisplay.mergeLinkFields(doc["author.display.ref"]);
                 let editorMap = BasketDisplay.mergeLinkFields(doc["editor.display.ref"]);

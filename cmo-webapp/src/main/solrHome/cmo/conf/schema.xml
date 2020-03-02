@@ -561,6 +561,9 @@
   <field name="publish.date.range" type="date_range" multiValued="true" />
   <field name="publish.date.content" type="string" multiValued="true" />
 
+  <field name="creation.date.range" type="date_range" multiValued="true" />
+  <field name="creation.date.content" type="string" multiValued="true" />
+
   <field name="birth.date.range" type="date_range" multiValued="true" />
   <field name="birth.date.content" type="string" multiValued="true" />
 

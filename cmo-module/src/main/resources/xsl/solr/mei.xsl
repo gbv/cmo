@@ -354,6 +354,13 @@
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="mei:creation/mei:date" mode="solrIndex">
+    <xsl:call-template name="date">
+      <xsl:with-param name="dateNode" select="." />
+      <xsl:with-param name="fieldName" select="'creation.date'" />
+    </xsl:call-template>
+  </xsl:template>
+
 
   <xsl:template match="mei:persName/mei:date" mode="solrIndex">
 

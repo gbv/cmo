@@ -114,6 +114,9 @@
       <xsl:when test="$dateNode/@isodate">
         <xsl:value-of select="$dateNode/@isodate"/>
       </xsl:when>
+      <xsl:when test="$dateNode/@startdate and $dateNode/@enddate">
+        <xsl:value-of select="concat($dateNode/@startdate, '-', $dateNode/@enddate)"/>
+      </xsl:when>
       <xsl:when test="$dateNode/@notbefore and $dateNode/@notafter">
         <xsl:value-of select="concat($dateNode/@notbefore, '-', $dateNode/@notafter)"/>
       </xsl:when>
