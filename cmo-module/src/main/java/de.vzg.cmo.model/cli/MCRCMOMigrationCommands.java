@@ -18,8 +18,11 @@ import javax.naming.OperationNotSupportedException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.filter.Filters;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import org.jdom2.xpath.XPathFactory;
 import org.mycore.access.MCRAccessException;
 import org.mycore.common.MCRClassTools;
 import org.mycore.common.MCRException;
@@ -38,6 +41,8 @@ import org.mycore.frontend.cli.annotation.MCRCommandGroup;
 import org.mycore.mei.MEIWrapper;
 import org.mycore.mei.migration.CMOClassificationIDPatch;
 import org.mycore.mei.migration.MEIMigrator;
+
+import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
 
 @MCRCommandGroup(name = "CMO Migration Commands")
 public class MCRCMOMigrationCommands {
@@ -104,12 +109,39 @@ public class MCRCMOMigrationCommands {
     }
 
     @MCRCommand(syntax = "select all objects to migrate")
-    public static void selectObjects(){
+    public static void selectObjects() {
         List<String> ll = new LinkedList<>();
         ll.addAll(MCRXMLMetadataManager.instance().listIDsOfType("source"));
         ll.addAll(MCRXMLMetadataManager.instance().listIDsOfType("expression"));
         ll.addAll(MCRXMLMetadataManager.instance().listIDsOfType("work"));
         MCRObjectCommands.setSelectedObjectIDs(ll);
+    }
+
+    @MCRCommand(syntax = "fix cmo identifier of {0}")
+    public static void fixCMoIdentifier(String objectIdString) throws MCRAccessException {
+        final MCRObjectID objectID = MCRObjectID.getInstance(objectIdString);
+
+        if (!MCRMetadataManager.exists(objectID)) {
+            throw new MCRException("The object " + objectID.toString() + " does not exist!");
+        }
+
+        final MCRObject obj = MCRMetadataManager.retrieveMCRObject(objectID);
+        final MEIWrapper wrapper = MEIWrapper.getWrapper(obj);
+        final Element root = wrapper.getRoot();
+
+        final List<Element> identifierList = XPathFactory.instance().compile(".//mei:identifier[@type='CMO']",
+            Filters.element(), null, MEI_NAMESPACE).evaluate(root);
+
+        final long changedIdentifier = identifierList.stream()
+            .filter(identifierElement -> identifierElement.getTextTrim().startsWith("CMO_"))
+            .peek(identifierElement -> identifierElement
+                .setText(identifierElement.getTextTrim().substring("CMO_".length())))
+            .count();
+
+        if (changedIdentifier > 0) {
+            LOGGER.info("Changed identifier of " + objectIdString);
+            MCRMetadataManager.update(obj);
+        }
     }
 
     @MCRCommand(syntax = "migrate all classifications")
