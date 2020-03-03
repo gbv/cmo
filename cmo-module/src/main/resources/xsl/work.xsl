@@ -104,8 +104,8 @@
   
           <a href="{concat($WebApplicationBaseURL, 'receive/',@codedval)}">
             <xsl:choose>
-              <xsl:when test="$expression//mei:expression/mei:titleStmt/mei:title[@type='main']">
-                <xsl:value-of select="$expression//mei:expression/mei:titleStmt/mei:title[@type='main']" />
+              <xsl:when test="$expression//mei:expression/mei:title[@type='main']">
+                <xsl:value-of select="$expression//mei:expression/mei:title[@type='main']" />
               </xsl:when>
               <xsl:otherwise>
                 <xsl:if test="string-length($makam) &gt; 0">

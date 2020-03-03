@@ -18,11 +18,11 @@
         
         <h1>
           <xsl:choose>
-            <xsl:when test="//mei:titleStmt/mei:title[@type='main']">
-              <xsl:value-of select="//mei:titleStmt/mei:title[@type='main']" />
-              <xsl:if test="//mei:titleStmt/mei:title[@type='sub']">
+            <xsl:when test="//mei:title[@type='main']">
+              <xsl:value-of select="//mei:title[@type='main']" />
+              <xsl:if test="//mei:title[@type='sub']">
                 <xsl:text> : </xsl:text>
-                <xsl:value-of select="//mei:titleStmt/mei:title[@type='sub']" />
+                <xsl:value-of select="//mei:title[@type='sub']" />
               </xsl:if>
             </xsl:when>
             <xsl:otherwise>
