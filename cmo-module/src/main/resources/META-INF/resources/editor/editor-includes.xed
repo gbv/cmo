@@ -181,7 +181,7 @@
   </xed:template>
 
   <xed:template id="cmo_physDescHandList">
-    <xed:repeat xpath="mei:handList/mei:hand" min="1">
+    <xed:repeat xpath="mei:handList/mei:hand" min="0">
     <fieldset class="cmo-fieldset-content card">
       <div class="card-body">
         <legend class="cmo-fieldset-legend card-title">
@@ -238,13 +238,14 @@
                 </div>
               </div>
             </div>
-            <div class="row form-group">
+            <div class="row form-group {$xed-validation-marker}">
               <label class="col-md-4 col-form-label">
                 <xed:output i18n="editor.label.hand" />
               </label>
               <div class="col-md-6">
                   <input type="text" placeholder="headings in cursive Armenian script"
                          class="form-control form-control-inline"/>
+                  <xed:validate display="here" xpath="." test="string-length(normalize-space(text()))&gt;0 or (string-length(normalize-space(@resp))=0 and string-length(normalize-space(@medium))=0)" i18n="editor.validate.hand" />
               </div>
             </div>
           </div>
@@ -739,7 +740,7 @@
   </xed:template>
 
   <xed:template id="cleanup-rules">
-    <xed:cleanup-rule xpath="//mei:*" relevant-if="(string-length(normalize-space(text())) &gt; 0) or mei:* or (string-length(@xlink:href) &gt; 0) or count(*) &gt; 0" />
+    <xed:cleanup-rule xpath="//mei:*" relevant-if="(string-length(normalize-space(text())) &gt; 0) or mei:* or (string-length(@xlink:href) &gt; 0) or count(*) &gt; 0 or string-length(@resp)&gt;0 or string-length(@medium)&gt;0" />
 
     <xed:cleanup-rule xpath="//mei:language" relevant-if="string-length(@auth)&gt;0 and string-length(@xml:id)&gt;0" />
     <xed:cleanup-rule xpath="//classEntry" relevant-if="string-length(text())&gt;0" />

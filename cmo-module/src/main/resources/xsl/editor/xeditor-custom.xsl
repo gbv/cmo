@@ -44,10 +44,14 @@
 
   <!-- ========== Validation error messages: <xed:validate /> ========== -->
 
-  <xsl:template match="xed:validate[@i18n]" mode="message">
+  <xsl:template match="xed:validate[@i18n and not(@display='here')]" mode="message">
     <li>
       <xsl:value-of select="i18n:translate(@i18n)" />
     </li>
+  </xsl:template>
+
+  <xsl:template match="xed:validate[@i18n and @display='here']" mode="message">
+    <strong class="text-danger"><xsl:value-of select="i18n:translate(@i18n)" /></strong>
   </xsl:template>
 
   <xsl:template match="xed:validate" mode="message">
