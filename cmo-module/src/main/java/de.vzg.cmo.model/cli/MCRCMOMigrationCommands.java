@@ -118,7 +118,7 @@ public class MCRCMOMigrationCommands {
     }
 
     @MCRCommand(syntax = "fix cmo identifier of {0}")
-    public static void fixCMoIdentifier(String objectIdString) throws MCRAccessException {
+    public static void fixCMOIdentifier(String objectIdString) throws MCRAccessException {
         final MCRObjectID objectID = MCRObjectID.getInstance(objectIdString);
 
         if (!MCRMetadataManager.exists(objectID)) {
@@ -132,10 +132,20 @@ public class MCRCMOMigrationCommands {
         final List<Element> identifierList = XPathFactory.instance().compile(".//mei:identifier[@type='CMO']",
             Filters.element(), null, MEI_NAMESPACE).evaluate(root);
 
+        final List<Element> expressionList = XPathFactory.instance()
+            .compile(".//mei:expression[contains(@label,'CMO')]",
+                Filters.element(), null, MEI_NAMESPACE).evaluate(root);
+
         final long changedIdentifier = identifierList.stream()
             .filter(identifierElement -> identifierElement.getTextTrim().startsWith("CMO_"))
             .peek(identifierElement -> identifierElement
                 .setText(identifierElement.getTextTrim().substring("CMO_".length())))
+
+            .count() + expressionList.stream().filter(
+            expression -> expression.getAttributeValue("label") != null && expression.getAttributeValue("label")
+                .startsWith("CMO_"))
+            .peek(expression -> expression
+                .setAttribute("label", expression.getAttributeValue("label").substring("CMO_".length())))
             .count();
 
         if (changedIdentifier > 0) {
