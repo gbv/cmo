@@ -130,10 +130,10 @@
               </xsl:otherwise>
             </xsl:choose>
           </span>
-          <xsl:if test="$expressionElement/mei:titleStmt/mei:composer/mei:persName/@nymref">
+          <xsl:if test="$expressionElement/mei:composer/mei:persName/@nymref">
             <xsl:text>, </xsl:text>
             <xsl:call-template name="objectLink">
-              <xsl:with-param name="obj_id" select="$expressionElement/mei:titleStmt/mei:composer/mei:persName/@nymref" />
+              <xsl:with-param name="obj_id" select="$expressionElement/mei:composer/mei:persName/@nymref" />
             </xsl:call-template>
           </xsl:if>
         </li>
