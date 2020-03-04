@@ -337,7 +337,7 @@ export class SearchDisplay {
     }
 
     private displaySource(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
-        let print = doc[ "category.top" ].indexOf("cmo_sourceType:st-96023048-4") === 0;
+        let print = doc[ "category.top" ].indexOf("cmo_sourceType:Printed_source") === 0;
         let _ = (arr) => arr || [];
         let solrDocumentHelper = new SolrDocumentHelper(doc);
 
