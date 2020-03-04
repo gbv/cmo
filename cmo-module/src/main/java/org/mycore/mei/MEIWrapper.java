@@ -21,8 +21,6 @@
 
 package org.mycore.mei;
 
-import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -56,6 +54,8 @@ import org.mycore.datamodel.metadata.MCRObject;
 import org.mycore.datamodel.metadata.MCRObjectID;
 import org.mycore.mei.classification.MCRMEIAuthorityInfo;
 import org.mycore.mei.classification.MCRMEIClassificationSupport;
+
+import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
 
 public abstract class MEIWrapper {
 
@@ -204,6 +204,10 @@ public abstract class MEIWrapper {
         }
 
         if (parentElement.getName().equals("hand") && attribute.getName().equals("lang")) {
+            return false;
+        }
+
+        if(parentElement.getName().equals("relation") && attribute.getName().equals("label")){
             return false;
         }
 
