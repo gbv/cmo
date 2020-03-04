@@ -245,13 +245,13 @@
               <div class="col-md-6">
                   <input type="text" placeholder="headings in cursive Armenian script"
                          class="form-control form-control-inline"/>
-                  <xed:validate display="here" xpath="." test="string-length(normalize-space(text()))&gt;0 or (string-length(normalize-space(@resp))=0 and string-length(normalize-space(@medium))=0)" i18n="editor.validate.hand" />
+                  <xed:validate display="here" test="string-length(normalize-space(text()))&gt;0 or (string-length(normalize-space(@resp))=0 and string-length(normalize-space(@medium))=0)" i18n="editor.validate.hand" />
               </div>
             </div>
           </div>
-      </div>
+        </div>
       </fieldset>
-            </xed:repeat>
+    </xed:repeat>
   </xed:template>
 
   <xed:template id="cmo_physDescCondition">
