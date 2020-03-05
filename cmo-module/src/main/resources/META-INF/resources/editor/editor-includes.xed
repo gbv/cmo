@@ -226,7 +226,7 @@
               <div class="col-md-6">
                 <div class="form-inline">
                   <xed:bind xpath="@resp">
-                    <input type="text" placeholder="eg. cmo_source_00000043" data-subselect-target="id"
+                    <input type="text" placeholder="eg. cmo_person_00000043" data-subselect-target="id"
                            class="form-control form-control-inline"/>
                   </xed:bind>
                   <span class="pmud-button">
