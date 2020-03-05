@@ -76,6 +76,13 @@ public class MEIValidationHelper {
         }
     }
 
+    public static boolean validateOneExpression(Element expressionList) {
+        return expressionList.getChildren("expression", MEIUtils.MEI_NAMESPACE).stream().anyMatch(e -> {
+            final String dataAttr = e.getAttributeValue("codedval");
+            return dataAttr != null && !dataAttr.isEmpty();
+        });
+    }
+
     private static boolean anyDateFieldSet(Element dateElement) {
         boolean approx = Boolean.parseBoolean(dateElement.getAttributeValue("approx"));
         boolean range = Boolean.parseBoolean(dateElement.getAttributeValue("range"));

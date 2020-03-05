@@ -32,6 +32,12 @@
                    repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
   </xed:template>
 
+  <xed:template id="cmo_emptyTitle">
+    <xed:bind xpath="mei:title">
+      <input type="hidden" />
+    </xed:bind>
+  </xed:template>
+
   <xed:template id="cmo_titleExpression">
     <cmo:textfield xpath="mei:title" label="editor.label.title" type="cmo_titleTypeExpression" lang="iso15924"
                    repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" class="required" required="true" required-i18n="cmo.validation.titleExpression" />
@@ -526,6 +532,7 @@
         </div>
       </legend>
       <xed:repeat xpath="mei:expressionList/mei:expression" min="1">
+        <xed:include ref="cmo_emptyTitle" />
         <div class="cmo-fieldset-content">
           <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:expression' class="form-group">
             <div class="row">
@@ -534,7 +541,7 @@
               </label>
               <div class="col-md-6 ">
                 <div class="form-inline">
-                  <xed:bind xpath="@data">
+                  <xed:bind xpath="@codedval">
                     <input type="text" placeholder="eg. cmo_expression_00002186" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
                   <span class="pmud-button">
@@ -745,10 +752,11 @@
     <xed:validate display="global" xpath="//mei:date" class="org.mycore.mei.MEIValidationHelper" method="validateDateText" i18n="editor.validate.dateText" />
     <xed:validate display="global" xpath="//mei:relation" class="org.mycore.mei.MEIValidationHelper" method="validateRelation" i18n="editor.validate.objectExists" />
     <xed:validate display="global" xpath="//mei:relation" class="org.mycore.mei.MEIValidationHelper" method="validateRelationN" i18n="editor.validate.nNoSpace" />
+    <xed:validate display="global" xpath="//mei:expressionList" class="org.mycore.mei.MEIValidationHelper" method="validateOneExpression" i18n="editor.validate.oneExpression" />
   </xed:template>
 
   <xed:template id="cleanup-rules">
-    <xed:cleanup-rule xpath="//mei:*" relevant-if="(string-length(normalize-space(text())) &gt; 0) or mei:* or (string-length(@xlink:href) &gt; 0) or count(*) &gt; 0 or string-length(@resp)&gt;0 or string-length(@medium)&gt;0" />
+    <xed:cleanup-rule xpath="//mei:*" relevant-if="(string-length(normalize-space(text())) &gt; 0) or mei:* or (string-length(@xlink:href) &gt; 0) or count(*) &gt; 0 or string-length(@resp)&gt;0 or string-length(@medium)&gt;0 or local-name()='expressionList' or (local-name()='title' and (local-name(..) = 'work' or local-name(..) = 'expression'))" />
 
     <xed:cleanup-rule xpath="//mei:language" relevant-if="string-length(@auth)&gt;0 and string-length(@xml:id)&gt;0" />
     <xed:cleanup-rule xpath="//classEntry" relevant-if="string-length(text())&gt;0" />
@@ -758,7 +766,7 @@
 
     <xed:cleanup-rule xpath="//mei:notesStmt" relevant-if="string-length(mei:annot/text())&gt;0" />
     <xed:cleanup-rule xpath="//mei:date" relevant-if="@notbefore or @notafter or @startdate or @enddate or @isodate or string-length(text())&gt;0" />
-    <xed:cleanup-rule xpath="//mei:expressionList/mei:expression" relevant-if="string-length(@data)&gt;0" />
+    <xed:cleanup-rule xpath="//mei:expressionList/mei:expression" relevant-if="string-length(@codedval)&gt;0" />
   </xed:template>
 
 </xed:template>
