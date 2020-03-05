@@ -31,7 +31,7 @@
             </xed:bind>
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_identifier" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_identifierRISM" />
-            <xed:bind xpath="mei:classification/classEntry[@authority='cmo_sourceType']" initially="cmo_sourceType:st-96023048-4" />
+            <xed:bind xpath="mei:classification/classEntry[@authority='cmo_sourceType']" initially="cmo_sourceType:Printed_source" />
 
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_title" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_editor" />
