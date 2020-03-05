@@ -69,7 +69,7 @@
   
 
   <xsl:template name="contentContainer">
-    <xsl:if test="mei:componentList">
+    <xsl:if test="mei:componentList|mei:relationList">
       <xsl:call-template name="metadataSoloContent">
         <xsl:with-param name="label" select="'editor.label.contents'" />
         <xsl:with-param name="content">

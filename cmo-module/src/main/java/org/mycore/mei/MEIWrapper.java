@@ -178,15 +178,21 @@ public abstract class MEIWrapper {
             return false;
         }
 
-        if(elementName.equals("event") && element.getContent().stream().noneMatch(content-> !content.getCType().equals(
-            Content.CType.Element) ||  !((Element)content).getName().equals("head"))){
+        if (elementName.equals("event") && element.getContent().stream()
+            .noneMatch(content -> !content.getCType().equals(
+                Content.CType.Element) || !((Element) content).getName().equals("head"))) {
             return false;
+        }
+
+        if (elementName.equals("desc") || elementName.equals("annot")) {
+            return !element.getContent().stream()
+                .allMatch(content -> content instanceof Element && "lb".equals(((Element) content).getName()));
         }
 
         final boolean attributesRelevant = element.getAttributes()
             .stream().anyMatch(MEIWrapper::isAttributeRelevant);
 
-        return attributesRelevant || element.getContent().size()>0 ||  ALLOWED_EMPTY_NODES.contains(elementName);
+        return attributesRelevant || element.getContent().size() > 0 || ALLOWED_EMPTY_NODES.contains(elementName);
     }
 
     private static boolean isAttributeRelevant(Attribute attribute) {
