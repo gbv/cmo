@@ -60,8 +60,6 @@ public class MEISourceWrapper extends MEIWrapper {
         TOP_LEVEL_ELEMENT_ORDER.add("relationList");
     }
 
-    private Element root;
-
     public MEISourceWrapper(Element sourceRoot) {
         super(sourceRoot);
     }
@@ -72,7 +70,7 @@ public class MEISourceWrapper extends MEIWrapper {
 
     @Override
     public void normalize() {
-        final List<Element> relationList = RELATION_XPATH.evaluate(this.root);
+        final List<Element> relationList = RELATION_XPATH.evaluate(this.getRoot());
 
         relationList.forEach(relation -> {
             final Attribute label = relation.getAttribute("label");
