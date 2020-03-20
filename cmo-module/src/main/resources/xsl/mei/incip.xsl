@@ -49,7 +49,7 @@
         <xsl:with-param name="content2">
           <xsl:value-of select="." disable-output-escaping="yes"/>
         </xsl:with-param>
-        <xsl:with-param name="content2Arab" select="contains(@xml:lang,'-arab')" />
+        <xsl:with-param name="content2Arab" select="contains(@xml:lang,'-arab') or contains(@xml:lang, '-latn')" />
       </xsl:call-template>
     </xsl:for-each>
   </xsl:template>
