@@ -82,8 +82,13 @@
   </xsl:template>
 
   <xsl:template match="mei:ref|mei:bibl|mei:persName" mode="printDesc">
-    <a href="{$WebApplicationBaseURL}receive/{@target|@nymref}">
-      <xsl:value-of select="text()" />
+    <a>
+      <xsl:if test="@target|@nymref">
+        <xsl:attribute name="href">
+          <xsl:value-of select="concat($WebApplicationBaseURL, 'receive/', @target|@nymref)"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:value-of select="text()"/>
     </a>
   </xsl:template>
 
