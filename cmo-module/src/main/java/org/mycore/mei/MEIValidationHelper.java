@@ -1,8 +1,7 @@
 package org.mycore.mei;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
 
 import org.jdom2.Element;
 import org.mycore.common.MCRException;
@@ -103,20 +102,12 @@ public class MEIValidationHelper {
             return true;
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            final Date date = sdf.parse(dateAttr);
+        try{
+            final TemporalAccessor parse = MCRDateHelper.MEI_FORMATTER.parse(dateAttr);
             return true;
-        } catch (ParseException e) {
-            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy");
-            try {
-                sdf2.parse(dateAttr);
-                return true;
-            } catch (ParseException ex) {
-                return false;
-            }
+        } catch (DateTimeParseException e){
+            return false;
         }
-
     }
 
     private static boolean isEmpty(String dateAttr) {

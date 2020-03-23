@@ -20,7 +20,7 @@ import org.w3c.dom.NodeList;
 
 public class MCRDateHelper {
 
-    private static DateTimeFormatter MEI_FORMATTER = new DateTimeFormatterBuilder().parseCaseInsensitive()
+    protected static DateTimeFormatter MEI_FORMATTER = new DateTimeFormatterBuilder().parseCaseInsensitive()
         .appendValue(ChronoField.YEAR, 4)
         .optionalStart()
             .appendLiteral("-")
