@@ -27,7 +27,7 @@
       <label xml:lang="en" text="Turkish in Latin script" />
     </category>
     <category ID="ara-arab">
-      <label xml:lang="de" text="Türkisch in arabischer Schrift" />
+      <label xml:lang="de" text="Arabisch in arabischer Schrift" />
       <label xml:lang="en" text="Arabic in Arabic script" />
     </category>
     <category ID="fra-latn">
@@ -35,15 +35,15 @@
       <label xml:lang="en" text="French in Latin script" />
     </category>
     <category ID="hye-armn">
-      <label xml:lang="de" text="Türkisch in armenischer Schrift" />
+      <label xml:lang="de" text="Armenisch in armenischer Schrift" />
       <label xml:lang="en" text="Armenian in Armenian script" />
     </category>
     <category ID="fas-arab">
-      <label xml:lang="de" text="Türkisch in arabischer Schrift" />
+      <label xml:lang="de" text="Persisch in arabischer Schrift" />
       <label xml:lang="en" text="Persian in Arabic script" />
     </category>
     <category ID="ell-grek">
-      <label xml:lang="de" text="Türkisch in griechischer Schrift" />
+      <label xml:lang="de" text="Griechisch in griechischer Schrift" />
       <label xml:lang="en" text="Greek in Greek script" />
     </category>
   </categories>
