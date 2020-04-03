@@ -26,6 +26,8 @@ import java.util.List;
 
 import org.jdom2.Element;
 
+import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
+
 public class MEIExpressionWrapper extends MEIWrapper {
 
     private static final List<String> TOP_LEVEL_ELEMENT_ORDER = new ArrayList<>();
@@ -80,7 +82,8 @@ public class MEIExpressionWrapper extends MEIWrapper {
 
     @Override
     protected boolean isElementRelevant(Element element) {
-        boolean relevantForMe = element.getName().equals("title");
+        boolean relevantForMe = element.getName().equals("title")
+            && element.getParentElement().getChildren("title", MEI_NAMESPACE).size() <= 1;
         return relevantForMe || super.isElementRelevant(element);
     }
 

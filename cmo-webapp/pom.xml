@@ -68,7 +68,7 @@
       <plugin>
         <groupId>org.mycore.plugins</groupId>
         <artifactId>solr-runner-maven-plugin</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
         <configuration>
           <solrHome>${solr.location}</solrHome>
           <solrPort>8983</solrPort>
