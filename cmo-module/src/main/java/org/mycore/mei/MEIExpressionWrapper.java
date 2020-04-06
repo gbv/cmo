@@ -82,9 +82,13 @@ public class MEIExpressionWrapper extends MEIWrapper {
 
     @Override
     protected boolean isElementRelevant(Element element) {
-        boolean relevantForMe = element.getName().equals("title")
-            && element.getParentElement().getChildren("title", MEI_NAMESPACE).size() <= 1;
-        return relevantForMe || super.isElementRelevant(element);
+        final boolean isTitleElement = element.getName().equals("title");
+        if (isTitleElement) {
+            boolean singleTitle = element.getParentElement().getChildren("title", MEI_NAMESPACE).size() <= 1;
+            return singleTitle || element.getTextTrim().length() > 0;
+        }
+
+        return super.isElementRelevant(element);
     }
 
     @Override
