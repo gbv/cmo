@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mycoreclass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0"
-             xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_litform">
-  <label text="Literary form" xml:lang="en" />
-  <label text="Literarische Form" xml:lang="de" />
-  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_litform" />
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_litform">
+  <label xml:lang="x-uri" text="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_litform" />
+  <label xml:lang="en" text="Literary form" />
+  <label xml:lang="de" text="Literarische Form" />
   <categories>
-    <category ID="lf-99333322-3">
+    <category ID="Gazel">
       <label xml:lang="tr" text="Ġazel" />
     </category>
-    <category ID="lf-24518214-2">
+    <category ID="Ilahi">
       <label xml:lang="tr" text="İlâhî" />
     </category>
-    <category ID="lf-96462412-2">
+    <category ID="Kaside">
       <label xml:lang="tr" text="Ḳaṣīde" />
     </category>
-    <category ID="lf-18905691-5">
-      <label xml:lang="tr" text="Rubāʿī" />
+    <category ID="Kta">
+      <label xml:lang="tr" text="Ḳıṭʿa" description="Naẓm" />
     </category>
-    <category ID="lf-93591502-1">
-      <label xml:lang="tr" text="Musammaṭ" />
-    </category>
-    <category ID="lf-16034782-6">
-      <label xml:lang="tr" description="Müzdeviç" text="Müzdevic" />
-    </category>
-    <category ID="lf-90720593-5">
-      <label xml:lang="tr" text="Mükerrer" />
-    </category>
-    <category ID="lf-13163872-5">
-      <label xml:lang="tr" text="Murabbaʿ" />
-    </category>
-    <category ID="lf-87849683-5">
+    <category ID="Muhammes">
       <label xml:lang="tr" text="Muḫammes" />
     </category>
-    <category ID="lf-32736242-5">
+    <category ID="Murabba">
+      <label xml:lang="tr" text="Murabbaʿ" />
+    </category>
+    <category ID="Musammat">
+      <label xml:lang="tr" text="Musammaṭ" />
+    </category>
+    <category ID="Mukerrer">
+      <label xml:lang="tr" text="Mükerrer" />
+    </category>
+    <category ID="Mustezad">
+      <label xml:lang="tr" text="Müstezād" description="Mustazād" />
+    </category>
+    <category ID="Muzdevic">
+      <label xml:lang="tr" text="Müzdevic" description="Müzdeviç" />
+    </category>
+    <category ID="Rubai">
+      <label xml:lang="tr" text="Rubāʿī" />
+    </category>
+    <category ID="Sark">
       <label xml:lang="tr" text="Şarḳı" />
-    </category>
-    <category ID="lf-07422053-0">
-      <label xml:lang="tr" description="Naẓm" text="Ḳıṭʿa" />
-    </category>
-    <category ID="lf-29865332-7">
-      <label xml:lang="tr" description="Mustazād" text="Müstezād" />
     </category>
   </categories>
 </mycoreclass>

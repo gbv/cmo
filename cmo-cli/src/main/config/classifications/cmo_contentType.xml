@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_contentType">
-  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_contentType" />
-  <label xml:lang="en" text="Content Type" />
   <label xml:lang="de" text="Content Type" />
+  <label xml:lang="en" text="Content Type" />
+  <label xml:lang="x-uri" text="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_contentType" />
   <categories>
-    <category ID="ct-19052915-9">
+    <category ID="Vocal_Music">
       <label xml:lang="en" text="Vocal Music" />
     </category>
-    <category ID="ct-72909599-3">
+    <category ID="Instrumental_Music">
       <label xml:lang="en" text="Instrumental Music" />
     </category>
-    <category ID="ct-99837941-9">
+    <category ID="Mixed_musical_collection">
       <label xml:lang="en" text="Mixed musical collection" />
     </category>
-    <category ID="ct-26766284-1">
+    <category ID="Song-Text_collection">
       <label xml:lang="en" text="Song-Text collection" />
     </category>
-    <category ID="ct-53694626-6">
+    <category ID="Theoretical_Works">
       <label xml:lang="en" text="Theoretical Works" />
     </category>
-    <category ID="ct-07080996-2">
+    <category ID="Biography">
       <label xml:lang="en" text="Biography" />
     </category>
-    <category ID="ct-19937114-0">
+    <category ID="History">
       <label xml:lang="en" text="History" />
     </category>
-    <category ID="ct-80622968-4">
+    <category ID="Fasl">
       <label xml:lang="en" text="Fasıl" />
     </category>
-    <category ID="ct-07551311-0">
+    <category ID="Takm">
       <label xml:lang="en" text="Takım" />
     </category>
   </categories>
