@@ -93,6 +93,18 @@
                        help-text="{i18n:cmo.help.lyricist}" />
   </xed:template>
 
+  <xed:template id="cmo_composerExpression">
+    <cmo:nameLinkField xpath="mei:composer" repeat="true" min="1" max="10"
+                       placeholder="last name, first name" label="editor.label.composer"
+                       help-text="{i18n:cmo.help.composer}" />
+  </xed:template>
+
+  <xed:template id="cmo_lyricistExpression">
+    <cmo:nameLinkField xpath="mei:lyricist" repeat="true" min="1" max="10"
+                       placeholder="last name, first name" label="editor.label.lyricist"
+                       help-text="{i18n:cmo.help.lyricist}" />
+  </xed:template>
+
   <xed:template id="cmo_composer">
     <cmo:nameLinkField xpath="mei:titleStmt/mei:composer" repeat="true" min="1" max="10"
                        placeholder="last name, first name" label="editor.label.composer"
