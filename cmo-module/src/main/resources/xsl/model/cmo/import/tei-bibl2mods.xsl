@@ -53,13 +53,13 @@
 
       <xsl:choose>
         <xsl:when test="tei:bibl[@type='in']">
-          <mods:genre valueURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres#article"
-                      authorityURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres"
+          <mods:genre valueURI="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres#article"
+                      authorityURI="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres"
                       type="intern" />
         </xsl:when>
         <xsl:otherwise>
-          <mods:genre valueURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres#book"
-                      authorityURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres"
+          <mods:genre valueURI="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres#book"
+                      authorityURI="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_genres"
                       type="intern" />
         </xsl:otherwise>
       </xsl:choose>

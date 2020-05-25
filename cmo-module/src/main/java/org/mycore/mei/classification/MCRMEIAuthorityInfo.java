@@ -32,6 +32,7 @@ import org.mycore.datamodel.classifications2.MCRCategoryDAOFactory;
 import org.mycore.datamodel.classifications2.MCRCategoryID;
 import org.mycore.datamodel.classifications2.MCRLabel;
 
+@Deprecated
 public class MCRMEIAuthorityInfo {
 
     private static final Logger LOGGER = LogManager.getLogger();

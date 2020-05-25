@@ -82,14 +82,8 @@
     <mei:classification>
       <xsl:for-each select="classEntry[@authority and
         count(. | key('classentry-by-authority',@authority)[1])=1]">
-
-        <xsl:variable name="classcode">
-          <xsl:value-of select="concat(generate-id(.),'-',(floor(math:random()*100000) mod 100000) + 1)" />
-        </xsl:variable>
         <xsl:variable name="classid" select="@authority" />
-
-        <mei:classCode authURI="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/{$classid}" xml:id="{$classcode}" />
-        <mei:termList classcode="#{$classcode}">
+        <mei:termList class="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/{$classid}">
           <xsl:for-each select="../classEntry[@authority = $classid]">
             <mei:term>
               <xsl:value-of select="substring-after(., concat($classid, ':'))" />

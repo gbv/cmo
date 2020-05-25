@@ -597,7 +597,7 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
     }
 
     private enableChosen() {
-        window["$"](this.select).chosen({disable_search_threshold: 10, width: "95%"});
+        window["$"](this.select).chosen({disable_search_threshold: 5, width: "95%"});
         window["$"](this.select).on('change', ()=>this.changed());
     }
 

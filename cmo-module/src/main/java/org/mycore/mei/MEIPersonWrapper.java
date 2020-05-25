@@ -59,12 +59,21 @@ public class MEIPersonWrapper extends MEIWrapper {
         return TOP_LEVEL_ELEMENT_ORDER.indexOf(topLevelElement.getName());
     }
 
-    @Override public HashMap<MCRMEIAuthorityInfo, List<String>> getClassification() {
+    @Override public HashMap<String, List<String>> getClassification() {
         return new HashMap<>();
     }
 
-    @Override public void setClassification(Map<MCRMEIAuthorityInfo, List<String>> classificationMap)
-        throws OperationNotSupportedException {
+    @Override
+    public void setClassification(HashMap<String, List<String>> classificationMap) throws OperationNotSupportedException {
+        throw new OperationNotSupportedException("A person can not have a classification!");
+    }
+
+    @Override public HashMap<MCRMEIAuthorityInfo, List<String>> getClassificationOld() {
+        return new HashMap<>();
+    }
+
+    @Override
+    public void setClassificationOld(Map<MCRMEIAuthorityInfo, List<String>> classificationMap) throws OperationNotSupportedException {
         throw new OperationNotSupportedException("A person can not have a classification!");
     }
 }

@@ -50,6 +50,10 @@
     </li>
   </xsl:template>
 
+  <xsl:template match="xed:validate[@i18n and (@display='here' or @display='local')]" mode="message">
+    <strong class="text-danger"><xsl:value-of select="i18n:translate(@i18n)" /></strong>
+  </xsl:template>
+
   <xsl:template match="xed:validate" mode="message">
     <li>
       <xsl:apply-templates select="node()" mode="xeditor" />

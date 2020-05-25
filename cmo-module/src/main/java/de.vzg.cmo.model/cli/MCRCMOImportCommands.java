@@ -21,8 +21,6 @@
 
 package de.vzg.cmo.model.cli;
 
-import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -48,27 +46,11 @@ import org.mycore.frontend.cli.annotation.MCRCommandGroup;
 import org.mycore.mei.MEIExpressionWrapper;
 import org.mycore.mei.MEIUtils;
 import org.mycore.mei.MEIWrapper;
-import org.mycore.mei.classification.MCRMEIAuthorityInfo;
-
-import de.vzg.cmo.model.MEIImporter;
+import org.mycore.mei.classification.MCRMEIClassificationSupport;
 
 @MCRCommandGroup(name = "CMO Commands")
 public class MCRCMOImportCommands {
 
-
-    @MCRCommand(syntax = "import cmo from folder {0} {1}")
-    public static List<String> importCMOFromFolder(String folder, String tempFolder) {
-        try {
-            MEIImporter meiImporter;
-            meiImporter = new MEIImporter();
-           return  meiImporter.importMEIS(FileSystems.getDefault().getPath(folder), FileSystems.getDefault().getPath(
-               tempFolder));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return Collections.emptyList();
-    }
 
     @MCRCommand(syntax = "clean redundant classifications in {0}")
     public static void cleanRedundantClassification(String mycoreID)
@@ -77,15 +59,15 @@ public class MCRCMOImportCommands {
         final MCRObject object = MCRMetadataManager.retrieveMCRObject(objectID);
         final MEIWrapper meiWrapper = MEIWrapper.getWrapper(object);
 
-        final HashMap<MCRMEIAuthorityInfo, List<String>> classifications = meiWrapper.getClassification();
-        final HashMap<MCRMEIAuthorityInfo, List<String>> newClassifications = new HashMap<>();
+        final HashMap<String, List<String>> classifications = meiWrapper.getClassification();
+        final HashMap<String, List<String>> newClassifications = new HashMap<>();
 
         classifications.keySet().forEach(classification -> {
             final List<String> values = classifications.get(classification);
-
+            MCRCategory category = MCRMEIClassificationSupport.getClassificationFromURI(classification);
             HashSet<String> keepValues = new HashSet<>(values);
             values.forEach(categValue -> {
-                MCRCategoryID categoryID = classification.getCategoryID(categValue);
+                MCRCategoryID categoryID = MCRMEIClassificationSupport.getChildID(category,categValue);
                 if (categoryID != null) {
                     MCRCategoryDAOFactory.getInstance().getParents(categoryID)
                         .stream()

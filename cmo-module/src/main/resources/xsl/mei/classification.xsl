@@ -49,21 +49,19 @@
   <xsl:template match="mei:classification" mode="metadataView">
     <xsl:comment>mei/classification.xsl > mei:classification</xsl:comment>
     <xsl:if test="mei:termList/mei:term">
-      <xsl:for-each select="mei:classCode[not(contains(@authURI, 'cmo_kindOfData'))]">
-        <xsl:variable name="authURI" select="@authURI" />
-        <xsl:variable name="classCodeID" select="@xml:id" />
-          <xsl:if test="../mei:termList[@classcode=concat('#', $classCodeID)]/mei:term">
+      <xsl:for-each select="mei:termList[not(contains(@class, 'cmo_kindOfData'))]">
+        <xsl:variable name="authURI" select="@class" />
             <xsl:call-template name="metadataTextContent">
-              <xsl:with-param name="text" select="classification:getRootClassLabel(.)" />
+              <xsl:with-param name="text" select="classification:getRootClassLabel($authURI)" />
               <xsl:with-param name="content">
                 <ul class="list-unstyled">
                   <xsl:for-each
-                    select="../mei:termList[@classcode=concat('#', $classCodeID)]/mei:term">
+                    select="mei:term">
                     <li>
-                      <xsl:variable name="classLabel" select="classification:getClassLabel(.)" />
+                      <xsl:variable name="classLabel" select="classification:getClassLabel($authURI, text())" />
                       <xsl:value-of select="$classLabel" />
                       <xsl:if test="contains($authURI, 'cmo_makamler') or contains($authURI, 'cmo_usuler') or contains($authURI, 'cmo_musictype')">
-                        <xsl:variable name="stdForm" select="classification:getParentClassLabel(.)" />
+                        <xsl:variable name="stdForm" select="classification:getParentClassLabel($authURI, text())" />
                         <xsl:if test="not($stdForm = 'Usul') and not($stdForm = 'Makam')">
                           <span class="standardized">
                             <xsl:value-of select="$stdForm" />
@@ -75,7 +73,6 @@
                 </ul>
               </xsl:with-param>
             </xsl:call-template>
-        </xsl:if>
       </xsl:for-each>
     </xsl:if>
   </xsl:template>

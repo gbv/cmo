@@ -91,6 +91,9 @@
     <xsl:param name="content1" />
     <xsl:param name="content2" />
     <xsl:param name="type" select="''" />
+    <xsl:param name="content1Arab" select="false()" />
+    <xsl:param name="content2Arab" select="false()" />
+
     <tr>
       <xsl:attribute name="class">
         <xsl:value-of select="'d-flex'" />
@@ -101,6 +104,14 @@
       <th class="col-md-3">
         <xsl:if test="string-length($content1) &gt; 0">
           <xsl:variable name="rTree1" select="exslt:node-set($content1)" />
+          <xsl:choose>
+            <xsl:when test="$content1Arab">
+              <xsl:attribute name="class">col-md-3 cmo_isArabic</xsl:attribute>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:attribute name="class">col-md-3</xsl:attribute>
+            </xsl:otherwise>
+          </xsl:choose>
           <xsl:copy-of select="$rTree1" />
         </xsl:if>
       </th>
@@ -108,9 +119,19 @@
         <xsl:variable name="rTree" select="exslt:node-set($type)" />
         <xsl:copy-of select="$rTree" />
       </td>
-      <td class="col-md-7">
-        <xsl:variable name="rTree2" select="exslt:node-set($content2)" />
-        <xsl:copy-of select="$rTree2" />
+      <td>
+        <xsl:if test="string-length($content2) &gt; 0">
+          <xsl:variable name="rTree2" select="exslt:node-set($content2)" />
+          <xsl:choose>
+            <xsl:when test="$content2Arab">
+              <xsl:attribute name="class">col-md-7 cmo_isArabic</xsl:attribute>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:attribute name="class">col-md-7</xsl:attribute>
+            </xsl:otherwise>
+          </xsl:choose>
+          <xsl:copy-of select="$rTree2" />
+        </xsl:if>
       </td>
     </tr>
   </xsl:template>
@@ -133,7 +154,7 @@
           <xsl:value-of select="i18n:translate($label)" />
         </xsl:if>
       </th>
-      <td colspan="3" class="col-md-12">
+      <td colspan="3" class="col-md-9">
         <xsl:variable name="rTree" select="exslt:node-set($content)" />
         <xsl:copy-of select="$rTree" />
       </td>

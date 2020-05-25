@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_sourceType">
+  <label xml:lang="tr" text="Kaynak türü" />
+  <label xml:lang="de" text="Art der Quelle" />
+  <label xml:lang="en" text="Source Type" />
+  <label xml:lang="x-uri" text="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_sourceType" />
+  <categories>
+    <category ID="Printed_source">
+      <label xml:lang="tr" text="Basılı" />
+      <label xml:lang="de" text="Druck" />
+      <label xml:lang="en" text="Printed source" />
+    </category>
+    <category ID="Manuscript">
+      <label xml:lang="tr" text="El yazması" />
+      <label xml:lang="de" text="Manuskript" />
+      <label xml:lang="en" text="Manuscript" />
+    </category>
+  </categories>
+</mycoreclass>

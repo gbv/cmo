@@ -67,9 +67,28 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template match="mei:persName" mode="metadataViewHistory">
+    <xsl:apply-templates select="." mode="printDesc" />
+  </xsl:template>
+
+  <xsl:template match="mei:geogName" mode="metadataViewHistory">
+    <xsl:value-of select="text()" />
+  </xsl:template>
+
+  <xsl:template match="mei:date" mode="metadataViewHistory">
+    <xsl:call-template name="getDisplayDate">
+      <xsl:with-param name="dateNode" select="." />
+    </xsl:call-template>
+  </xsl:template>
+
   <xsl:template match="mei:ref|mei:bibl|mei:persName" mode="printDesc">
-    <a href="{$WebApplicationBaseURL}receive/{@target|@nymref}">
-      <xsl:value-of select="text()" />
+    <a>
+      <xsl:if test="@target|@nymref">
+        <xsl:attribute name="href">
+          <xsl:value-of select="concat($WebApplicationBaseURL, 'receive/', @target|@nymref)"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:value-of select="text()"/>
     </a>
   </xsl:template>
 

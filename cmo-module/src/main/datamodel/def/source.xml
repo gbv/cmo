@@ -23,12 +23,12 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:mei="http://www.music-encoding.org/ns/mei" xsi:noNamespaceSchemaLocation="datamodel.xsd">
   <xsd>
-    <xs:import namespace="http://www.music-encoding.org/ns/mei" schemaLocation="schema/mei-all_anyStart.xsd" />
+    <xs:import namespace="http://www.music-encoding.org/ns/mei" schemaLocation="schema/mei-4.0-all_anyStart.xsd" />
   </xsd>
   <metadata>
     <element name="meiContainer" type="xml" style="dontknow" notinherit="true" heritable="false">
       <xs:sequence>
-        <xs:element ref="mei:source" />
+        <xs:element ref="mei:manifestation" />
       </xs:sequence>
     </element>
   </metadata>

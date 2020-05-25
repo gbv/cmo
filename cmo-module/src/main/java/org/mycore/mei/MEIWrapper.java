@@ -21,8 +21,6 @@
 
 package org.mycore.mei;
 
-import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -57,6 +55,8 @@ import org.mycore.datamodel.metadata.MCRObjectID;
 import org.mycore.mei.classification.MCRMEIAuthorityInfo;
 import org.mycore.mei.classification.MCRMEIClassificationSupport;
 
+import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
+
 public abstract class MEIWrapper {
 
     private static final XPathExpression<Element> DATE_XPATH = XPathFactory.instance()
@@ -70,15 +70,21 @@ public abstract class MEIWrapper {
 
     protected MEIWrapper(Element root) {
         String rootName = root.getName();
-        if (!getWrappedElementName().equals(rootName)) {
+        if (!isValidName(rootName)) {
             throw new IllegalArgumentException(rootName + " is can not be wrapped by " + this.getClass().toString());
         }
         this.root = root;
     }
 
+    private boolean isValidName(String rootName) {
+        return getWrappedElementName().equals(rootName);
+    }
+
     public static MEIWrapper getWrapper(Element rootElement) {
         String id = rootElement.getName();
         switch (id) {
+            case "manifestation":
+                return new MEIManifestationWrapper(rootElement);
             case "source":
                 return new MEISourceWrapper(rootElement);
             case "expression":
@@ -125,9 +131,9 @@ public abstract class MEIWrapper {
      * @param node
      * @return true if the content is empty and can be removed
      */
-    public static boolean removeEmptyNodes(Content node) {
+    public boolean removeEmptyNodes(Content node) {
         if (node instanceof Element) {
-            Predicate<Content> removeNodes = MEIWrapper::removeEmptyNodes;
+            Predicate<Content> removeNodes = this::removeEmptyNodes;
             List<Content> content = ((Element) node).getContent();
             List<Content> elementsToRemove = content.stream().filter(removeNodes)
                 .collect(Collectors.toList());
@@ -143,7 +149,7 @@ public abstract class MEIWrapper {
         return true;
     }
 
-    private static boolean isElementRelevant(Element element) {
+    protected boolean isElementRelevant(Element element) {
         final String elementName = element.getName();
         final Element parentElement = element.getParentElement();
 
@@ -172,15 +178,21 @@ public abstract class MEIWrapper {
             return false;
         }
 
-        if(elementName.equals("event") && element.getContent().stream().noneMatch(content-> !content.getCType().equals(
-            Content.CType.Element) ||  !((Element)content).getName().equals("head"))){
+        if (elementName.equals("event") && element.getContent().stream()
+            .noneMatch(content -> !content.getCType().equals(
+                Content.CType.Element) || !((Element) content).getName().equals("head"))) {
             return false;
+        }
+
+        if (elementName.equals("desc") || elementName.equals("annot")) {
+            return !element.getContent().stream()
+                .allMatch(content -> content instanceof Element && "lb".equals(((Element) content).getName()));
         }
 
         final boolean attributesRelevant = element.getAttributes()
             .stream().anyMatch(MEIWrapper::isAttributeRelevant);
 
-        return attributesRelevant || element.getContent().size()>0 ||  ALLOWED_EMPTY_NODES.contains(elementName);
+        return attributesRelevant || element.getContent().size() > 0 || ALLOWED_EMPTY_NODES.contains(elementName);
     }
 
     private static boolean isAttributeRelevant(Attribute attribute) {
@@ -198,6 +210,10 @@ public abstract class MEIWrapper {
         }
 
         if (parentElement.getName().equals("hand") && attribute.getName().equals("lang")) {
+            return false;
+        }
+
+        if(parentElement.getName().equals("relation") && attribute.getName().equals("label")){
             return false;
         }
 
@@ -257,7 +273,44 @@ public abstract class MEIWrapper {
         });
     }
 
-    public HashMap<MCRMEIAuthorityInfo, List<String>> getClassification() {
+    public HashMap<String, List<String>> getClassification() {
+        Element classificationElement = this.root.getChild("classification", MEI_NAMESPACE);
+        HashMap<String, List<String>> classificationMap = new HashMap<>();
+        if (classificationElement != null) {
+            List<Element> terMListElements = classificationElement.getChildren("termList", MEI_NAMESPACE);
+            terMListElements.forEach(termListElement -> {
+                final String clazz = termListElement.getAttributeValue("class");
+                final List<Element> terms = termListElement.getChildren("term", MEI_NAMESPACE);
+                classificationMap.put(clazz, terms.stream().map(Element::getTextTrim).collect(Collectors.toList()));
+            });
+        }
+        return classificationMap;
+    }
+
+    public void setClassification(HashMap<String, List<String>> classificationMap)
+        throws OperationNotSupportedException {
+        deleteClassification();
+        Element classificationElement = new Element("classification", MEI_NAMESPACE);
+
+        classificationMap.keySet().forEach(clazz -> {
+            final Element termList = new Element("termList", MEI_NAMESPACE);
+            termList.setAttribute("class", clazz);
+            classificationMap.get(clazz).stream().map(val -> {
+                final Element term = new Element("term", MEI_NAMESPACE);
+                term.setText(val);
+                return term;
+            }).forEach(termList::addContent);
+            if (termList.getChildren().size() > 0) {
+                classificationElement.addContent(termList);
+            }
+        });
+
+        if (classificationElement.getChildren().size() > 0) {
+            this.root.addContent(classificationElement);
+        }
+    }
+
+    public HashMap<MCRMEIAuthorityInfo, List<String>> getClassificationOld() {
         Element classificationElement = this.root.getChild("classification", MEI_NAMESPACE);
         HashMap<MCRMEIAuthorityInfo, List<String>> classificationMap = new HashMap<>();
 
@@ -265,6 +318,9 @@ public abstract class MEIWrapper {
             List<Element> classCodes = classificationElement.getChildren("classCode", MEI_NAMESPACE);
             List<Element> terMListElements = classificationElement.getChildren("termList", MEI_NAMESPACE);
 
+            if (classCodes.size() == 0) { // this should happen if the classification is already migrated
+                return classificationMap;
+            }
             for (Element classCodeElement : classCodes) {
                 // this is the value which is used to Link a term to class code
                 String classCodeID = classCodeElement.getAttributeValue("id", Namespace.XML_NAMESPACE);
@@ -290,7 +346,7 @@ public abstract class MEIWrapper {
         return classificationMap;
     }
 
-    public void setClassification(Map<MCRMEIAuthorityInfo, List<String>> classificationMap)
+    public void setClassificationOld(Map<MCRMEIAuthorityInfo, List<String>> classificationMap)
         throws OperationNotSupportedException {
         deleteClassification();
         Element classificationElement = new Element("classification", MEI_NAMESPACE);

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mei:expression xmlns:mei="http://www.music-encoding.org/ns/mei">
+  <mei:classification>
+    <mei:termList class="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_usuler">
+      <mei:term>us-48625938-3-5f58ec7</mei:term>
+    </mei:termList>
+  </mei:classification>
+</mei:expression>

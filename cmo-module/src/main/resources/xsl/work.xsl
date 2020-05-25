@@ -59,7 +59,7 @@
     <xsl:if test="not(position()=1)">
       <xsl:value-of select="','" />
     </xsl:if>
-    <xsl:value-of select="@data" />
+    <xsl:value-of select="@codedval" />
   </xsl:template>
 
   <xsl:template name="listExpressions">
@@ -75,7 +75,7 @@
     <ol class="cmo_clear">
       <xsl:for-each select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression">
         <li>
-          <xsl:variable name="expression" select="document(concat('mcrobject:', @data))" />
+          <xsl:variable name="expression" select="document(concat('mcrobject:', @codedval))" />
           <xsl:variable name="expressionElement"
                         select="$expression/mycoreobject/metadata/def.meiContainer/meiContainer/mei:expression" />
           <xsl:variable name="pageNumber" select="@n" />
@@ -102,10 +102,10 @@
             </xsl:call-template>
           </xsl:variable>
   
-          <a href="{concat($WebApplicationBaseURL, 'receive/',@data)}">
+          <a href="{concat($WebApplicationBaseURL, 'receive/',@codedval)}">
             <xsl:choose>
-              <xsl:when test="$expression//mei:expression/mei:titleStmt/mei:title[@type='main']">
-                <xsl:value-of select="$expression//mei:expression/mei:titleStmt/mei:title[@type='main']" />
+              <xsl:when test="$expression//mei:expression/mei:title[@type='main']">
+                <xsl:value-of select="$expression//mei:expression/mei:title[@type='main']" />
               </xsl:when>
               <xsl:otherwise>
                 <xsl:if test="string-length($makam) &gt; 0">
@@ -130,10 +130,10 @@
               </xsl:otherwise>
             </xsl:choose>
           </span>
-          <xsl:if test="$expressionElement/mei:titleStmt/mei:composer/mei:persName/@nymref">
+          <xsl:if test="$expressionElement/mei:composer/mei:persName/@nymref">
             <xsl:text>, </xsl:text>
             <xsl:call-template name="objectLink">
-              <xsl:with-param name="obj_id" select="$expressionElement/mei:titleStmt/mei:composer/mei:persName/@nymref" />
+              <xsl:with-param name="obj_id" select="$expressionElement/mei:composer/mei:persName/@nymref" />
             </xsl:call-template>
           </xsl:if>
         </li>

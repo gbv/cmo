@@ -24,11 +24,20 @@ package org.mycore.mei;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jdom2.Attribute;
 import org.jdom2.Element;
+import org.jdom2.filter.Filters;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
+
+import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
 
 public class MEISourceWrapper extends MEIWrapper {
 
     private static final List<String> TOP_LEVEL_ELEMENT_ORDER = new ArrayList<>();
+
+    private static final XPathExpression<Element> RELATION_XPATH = XPathFactory.instance()
+        .compile(".//mei:relation", Filters.element(), null, MEI_NAMESPACE);
 
     static {
         TOP_LEVEL_ELEMENT_ORDER.add("identifier");
@@ -37,6 +46,7 @@ public class MEISourceWrapper extends MEIWrapper {
         TOP_LEVEL_ELEMENT_ORDER.add("pubStmt");
         TOP_LEVEL_ELEMENT_ORDER.add("physDesc");
         TOP_LEVEL_ELEMENT_ORDER.add("physLoc");
+        TOP_LEVEL_ELEMENT_ORDER.add("creation");
         TOP_LEVEL_ELEMENT_ORDER.add("seriesStmt");
         TOP_LEVEL_ELEMENT_ORDER.add("history");
         TOP_LEVEL_ELEMENT_ORDER.add("langUsage");
@@ -46,10 +56,9 @@ public class MEISourceWrapper extends MEIWrapper {
         TOP_LEVEL_ELEMENT_ORDER.add("classification");
         TOP_LEVEL_ELEMENT_ORDER.add("itemList");
         TOP_LEVEL_ELEMENT_ORDER.add("componentGrp");
+        TOP_LEVEL_ELEMENT_ORDER.add("componentList");
         TOP_LEVEL_ELEMENT_ORDER.add("relationList");
     }
-
-    private Element root;
 
     public MEISourceWrapper(Element sourceRoot) {
         super(sourceRoot);
@@ -57,6 +66,20 @@ public class MEISourceWrapper extends MEIWrapper {
 
     protected int getRankOf(Element topLevelElement) {
         return TOP_LEVEL_ELEMENT_ORDER.indexOf(topLevelElement.getName());
+    }
+
+    @Override
+    public void normalize() {
+        final List<Element> relationList = RELATION_XPATH.evaluate(this.getRoot());
+
+        relationList.forEach(relation -> {
+            final Attribute label = relation.getAttribute("label");
+            if (label != null) {
+                relation.removeAttribute(label);
+            }
+        });
+
+        super.normalize();
     }
 
     @Override

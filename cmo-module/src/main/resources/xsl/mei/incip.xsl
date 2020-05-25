@@ -43,12 +43,13 @@
         </xsl:with-param>
         <xsl:with-param name="type">
           <xsl:if test="@label">
-            <xsl:value-of select="@label" />
+            <xsl:value-of select="@label"/>
           </xsl:if>
         </xsl:with-param>
         <xsl:with-param name="content2">
-            <xsl:value-of select="." disable-output-escaping="yes" />
+          <xsl:value-of select="." disable-output-escaping="yes"/>
         </xsl:with-param>
+        <xsl:with-param name="content2Arab" select="contains(@xml:lang,'-arab')" />
       </xsl:call-template>
     </xsl:for-each>
   </xsl:template>

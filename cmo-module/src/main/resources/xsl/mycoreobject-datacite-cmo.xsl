@@ -25,6 +25,7 @@
   <xsl:template match="mycoreobject">
     <xsl:apply-templates select="metadata/def.modsContainer/modsContainer/mods:mods" />
     <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:source" />
+    <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:manifestation" />
     <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:expression" />
   </xsl:template>
 
@@ -45,7 +46,7 @@
     </resource>
   </xsl:template>
   
-  <xsl:template match="mei:source">
+  <xsl:template match="mei:source|mei:manifestation">
     <resource xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4.1/metadata.xsd">
       <xsl:call-template name="identifier" />
       <xsl:call-template name="meiCreators" />

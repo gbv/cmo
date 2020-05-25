@@ -39,12 +39,12 @@
           <xsl:for-each select="mei:language">
             <li>
               <xsl:choose>
-                <xsl:when test="@authority and @xml:id">
-                  <xsl:value-of select="classification:getClassLabel(.)" />
+                <xsl:when test="@auth and @xml:id">
+                  <xsl:value-of select="classification:getLabelOfLanguage(.)" />
                 </xsl:when>
                 <xsl:otherwise>
                   <xsl:value-of select="." />
-                  <xsl:message>WARNING: OBJECT HAS MEI:LANGUAGE BUT NO AUTHORITY AND ID</xsl:message>
+                  <xsl:message>WARNING: OBJECT HAS MEI:LANGUAGE BUT NO AUTH AND ID</xsl:message>
                 </xsl:otherwise>
               </xsl:choose>
             </li>

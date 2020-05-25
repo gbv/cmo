@@ -10,7 +10,7 @@
 
       <xed:bind xpath="/mycoreobject">
         <xed:bind xpath="@ID" initially="cmo_source_00000000" />
-        <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML'][@notinherit='true']/meiContainer/mei:source">
+        <xed:bind xpath="metadata/def.meiContainer[@class='MCRMetaXML'][@notinherit='true']/meiContainer/mei:manifestation">
 
           <xed:include uri="webapp:editor/editor-includes.xed" ref="mycore.common" />
           <xed:include uri="webapp:editor/editor-includes.xed" ref="failed-validation-messages" />
@@ -28,7 +28,7 @@
 
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_identifier" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_identifierRISM" />
-            <xed:bind xpath="mei:classification/classEntry[@authority='cmo_sourceType']" initially="cmo_sourceType:st-92437345-2" />
+            <xed:bind xpath="mei:classification/classEntry[@authority='cmo_sourceType']" initially="cmo_sourceType:Manuscript" />
 
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_title" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_language" />
@@ -42,6 +42,7 @@
               <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_physLocCollection" />
               <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_physLocShelfmark" />
             </xed:bind>
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_creationDate" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_contents" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_annot" />
 
@@ -57,9 +58,10 @@
             <div class="card">
               <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_relationList" />
             </div>
-            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_componentGrp" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_componentList" />
 
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cmo_saveCancelDebug" />
+            <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="validation-rules" />
             <xed:include uri="xslStyle:editor/cmo2xeditor:webapp:editor/editor-includes.xed" ref="cleanup-rules" />
 
           </fieldset>

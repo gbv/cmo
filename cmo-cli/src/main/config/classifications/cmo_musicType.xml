@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_musictype">
+  <label xml:lang="de" text="Musik-Genre" />
+  <label xml:lang="x-uri" text="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_musictype" />
+  <label xml:lang="en" text="Music Genre" />
+  <categories>
+    <category ID="Vocal_music">
+      <label xml:lang="en" text="Vocal music" />
+      <category ID="Agr_semai">
+        <label xml:lang="en" text="Ağır semâî" />
+      </category>
+      <category ID="Agr_aksak_semai">
+        <label xml:lang="de" text="Ağır aksak semâî" />
+        <label xml:lang="en" text="Ağır aksak semâî" />
+        <label xml:lang="tr" text="Ağır aksak semâî" />
+      </category>
+      <category ID="Aksak_semai">
+        <label xml:lang="en" text="Aksak semâî" />
+      </category>
+      <category ID="Bahariyye">
+        <label xml:lang="en" text="Bahâriyye" description="Bahariye" />
+      </category>
+      <category ID="Beste">
+        <label xml:lang="en" text="Beste" />
+      </category>
+      <category ID="Ciftetelli">
+        <label xml:lang="en" text="Çiftetelli" description="Çifte telli" />
+      </category>
+      <category ID="Destan">
+        <label xml:lang="en" text="Destân" />
+      </category>
+      <category ID="Divan">
+        <label xml:lang="en" text="Dîvân" />
+      </category>
+      <category ID="Durak">
+        <label xml:lang="en" text="Durak" />
+      </category>
+      <category ID="Hava">
+        <label xml:lang="en" text="Hava" />
+      </category>
+      <category ID="Ilahi">
+        <label xml:lang="en" text="İlâhî" />
+      </category>
+      <category ID="Kanto">
+        <label xml:lang="en" text="Kanto" />
+      </category>
+      <category ID="Kar">
+        <label xml:lang="en" text="Kâr" />
+      </category>
+      <category ID="Kar-_natk">
+        <label xml:lang="de" text="Kâr-ı nâtık" />
+        <label xml:lang="en" text="Kâr-ı nâtık" />
+        <label xml:lang="tr" text="Kâr-ı nâtık" />
+      </category>
+      <category ID="Karslama">
+        <label xml:lang="en" text="Karşılama" />
+      </category>
+      <category ID="Kocekce">
+        <label xml:lang="en" text="Köçekçe" />
+      </category>
+      <category ID="Mahfel_surmesi">
+        <label xml:lang="en" text="Mahfel sürmesi" />
+      </category>
+      <category ID="Mars">
+        <label xml:lang="en" text="Marş" />
+      </category>
+      <category ID="Mersiye">
+        <label xml:lang="en" text="Mersiye" />
+      </category>
+      <category ID="Miraciyye">
+        <label xml:lang="en" text="Mî’râciyye" description="Mîrâciyye, Mî'râciye, Mîrâciye" />
+      </category>
+      <category ID="Murabba">
+        <label xml:lang="en" text="Murabbâ" />
+      </category>
+      <category ID="Munacat">
+        <label xml:lang="en" text="Münâcât" />
+      </category>
+      <category ID="Mustezad">
+        <label xml:lang="en" text="Müstezâd" description="Müstezât" />
+      </category>
+      <category ID="Naks">
+        <label xml:lang="en" text="Nakış" description="Nakş" />
+      </category>
+      <category ID="Naks_agr_semai">
+        <label xml:lang="en" text="Nakış ağır semâî" description="Nakş ağır semâî" />
+      </category>
+      <category ID="Naks_aksak_semai">
+        <label xml:lang="en" text="Nakış aksak semâî" description="Nakş aksak semâî" />
+      </category>
+      <category ID="Naks_beste">
+        <label xml:lang="en" text="Nakış beste" description="Nakş beste" />
+      </category>
+      <category ID="Naks_hava">
+        <label xml:lang="en" text="Nakış hava" />
+      </category>
+      <category ID="Naks_semai">
+        <label xml:lang="tr" text="Nakış semâî" />
+        <label xml:lang="de" text="Nakış semâî" />
+        <label xml:lang="en" text="Nakış semâî" />
+      </category>
+      <category ID="Naks_yuruk_semai">
+        <label xml:lang="en" text="Nakış yürük semâî" description="Nakş yürük semâî" />
+      </category>
+      <category ID="Nat">
+        <label xml:lang="en" text="Na’t" description="Nat" />
+      </category>
+      <category ID="Nefes">
+        <label xml:lang="en" text="Nefes" />
+      </category>
+      <category ID="Ninni">
+        <label xml:lang="en" text="Ninni" />
+      </category>
+      <category ID="Salat">
+        <label xml:lang="en" text="Salât" />
+      </category>
+      <category ID="Savt">
+        <label xml:lang="en" text="Savt" description="Savft" />
+      </category>
+      <category ID="Semai">
+        <label xml:lang="en" text="Semâî" />
+      </category>
+      <category ID="Sengin_semai">
+        <label xml:lang="en" text="Sengîn semâî" description="Zengîn semâî" />
+      </category>
+      <category ID="Sark">
+        <label xml:lang="en" text="Şarkı" />
+      </category>
+      <category ID="Sugl">
+        <label xml:lang="en" text="Şugl" description="Şuul, Şuğul" />
+      </category>
+      <category ID="Tekbir">
+        <label xml:lang="en" text="Tekbîr" />
+      </category>
+      <category ID="Temcid">
+        <label xml:lang="en" text="Temcîd" />
+      </category>
+      <category ID="Terennum">
+        <label xml:lang="en" text="Terennüm" />
+      </category>
+      <category ID="Tesbih">
+        <label xml:lang="en" text="Tesbîh" />
+      </category>
+      <category ID="Tevsih">
+        <label xml:lang="en" text="Tevşîh" />
+      </category>
+      <category ID="Turku">
+        <label xml:lang="en" text="Türkü" />
+      </category>
+      <category ID="Yuruk_semai">
+        <label xml:lang="en" text="Yürük semâî" />
+      </category>
+      <category ID="1._Selam">
+        <label xml:lang="en" text="1. Selâm" />
+      </category>
+      <category ID="2._Selam">
+        <label xml:lang="en" text="2. Selâm" />
+      </category>
+      <category ID="3._Selam">
+        <label xml:lang="en" text="3. Selâm" />
+      </category>
+      <category ID="4._Selam">
+        <label xml:lang="en" text="4. Selâm" />
+      </category>
+    </category>
+    <category ID="Instrumental_music">
+      <label xml:lang="en" text="Instrumental music" />
+      <category ID="Bahariyye_(enstrumantal)">
+        <label xml:lang="en" text="Bahâriyye (enstrümantal)" />
+      </category>
+      <category ID="Ciftetelli_(enstrumantal)">
+        <label xml:lang="en" text="Çiftetelli (enstrümantal)" description="Çifte telli" />
+      </category>
+      <category ID="Hava_(enstrumantal)">
+        <label xml:lang="en" text="Hava (enstrümantal)" />
+      </category>
+      <category ID="Karabatak_pesrevi">
+        <label xml:lang="en" text="Karabatak peşrevi" />
+      </category>
+      <category ID="Karabatak_saz_semaisi">
+        <label xml:lang="tr" text="Karabatak sâz semâîsi" />
+      </category>
+      <category ID="Karslama_(enstrumantal)">
+        <label xml:lang="en" text="Karşılama (enstrümantal)" />
+      </category>
+      <category ID="Kull-i_kulliyat_pesrevi">
+        <label xml:lang="tr" text="Küll-i küllîyât peşrevi" />
+      </category>
+      <category ID="Longa">
+        <label xml:lang="en" text="Longa" />
+      </category>
+      <category ID="Mars_(enstrumantal)">
+        <label xml:lang="en" text="Marş (enstrümantal)" />
+      </category>
+      <category ID="Medhal">
+        <label xml:lang="en" text="Medhal" description="Methal" />
+      </category>
+      <category ID="Oyun_havas">
+        <label xml:lang="en" text="Oyun havası" />
+      </category>
+      <category ID="Pesrev">
+        <label xml:lang="en" text="Peşrev" />
+      </category>
+      <category ID="Saz_semaisi">
+        <label xml:lang="en" text="Sâz semâîsi" />
+      </category>
+      <category ID="Saz_terennumu">
+        <label xml:lang="en" text="Sâz terennümü" />
+      </category>
+      <category ID="Sirto">
+        <label xml:lang="en" text="Sirto" />
+      </category>
+      <category ID="Son_pesrev">
+        <label xml:lang="en" text="Son peşrev" />
+      </category>
+      <category ID="Son_yuruk_semai">
+        <label xml:lang="en" text="Son yürük semâî" />
+      </category>
+      <category ID="Taksim">
+        <label xml:lang="en" text="Taksîm" />
+      </category>
+      <category ID="Zeybek_(enstrumantal)">
+        <label xml:lang="en" text="Zeybek (enstrümantal)" />
+      </category>
+    </category>
+    <category ID="Cycle_of_music">
+      <label xml:lang="en" text="Cycle of music" />
+      <category ID="Fasl">
+        <label xml:lang="tr" text="Fasıl" />
+      </category>
+      <category ID="Ayin">
+        <label xml:lang="en" text="Âyîn" />
+      </category>
+    </category>
+  </categories>
+</mycoreclass>

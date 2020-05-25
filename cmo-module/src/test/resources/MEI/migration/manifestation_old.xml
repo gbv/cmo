@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<source xmlns="http://www.music-encoding.org/ns/mei">
+  <identifier type="CMO">NE203</identifier>
+  <relationList>
+    <relation xmlns="http://www.music-encoding.org/ns/mei" rel="isEmbodimentOf" target="cmo_expression_00001111"
+              n="p. 01/1"/>
+    <relation xmlns="http://www.music-encoding.org/ns/mei" rel="isEmbodimentOf" target="cmo_expression_00002960"
+              n="p. 01/2"/>
+  </relationList>
+  <componentGrp >
+    <source xml:id="sc-42912801-6">
+      <identifier>TMKl-Ayi/XVII.xxxiv</identifier>
+      <relationList>
+        <relation rel="isEmbodimentOf" target="cmo_expression_00002453" n="p. 852"/>
+        <relation rel="isEmbodimentOf" target="cmo_expression_00003070" n="p. 854"/>
+        <relation rel="isEmbodimentOf" target="cmo_expression_00000113" n="p. 866"/>
+        <relation rel="isEmbodimentOf" target="cmo_expression_00000077" n="p. 867"/>
+      </relationList>
+    </source>
+    <source xml:id="sc-96480413-X">
+      <identifier>TMKl-Ayi/XVII.xxxv</identifier>
+      <relationList>
+        <relation rel="isEmbodimentOf" target="cmo_expression_00000323" n="p. 872"/>
+        <relation rel="isEmbodimentOf" target="cmo_expression_00003156" n="p. 873"/>
+        <relation rel="isEmbodimentOf" target="cmo_expression_00002636" n="p. 881"/>
+        <relation rel="isEmbodimentOf" target="cmo_expression_00001042" n="p. 882"/>
+      </relationList>
+    </source>
+  </componentGrp>
+</source>

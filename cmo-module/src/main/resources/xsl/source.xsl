@@ -15,7 +15,7 @@
 
         <xsl:apply-templates select="response" />
 
-        <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:source/mei:identifier[@type='CMO']"
+        <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/*[local-name()='source' or local-name()='manifestation']/mei:identifier[@type='CMO']"
                              mode="metadataHeader" />
 
         <!--Show metadata -->
@@ -31,7 +31,7 @@
 
             <xsl:call-template name="metadataContainer">
               <xsl:with-param name="content">
-                <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:source" mode="metadataView" />
+                <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:source|metadata/def.meiContainer/meiContainer/mei:manifestation" mode="metadataView" />
                 <xsl:apply-templates select="structure/children" mode="metadataView" />
               </xsl:with-param>
             </xsl:call-template>
@@ -43,12 +43,13 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template match="mei:source" mode="metadataView">
+  <xsl:template match="mei:source|mei:manifestation" mode="metadataView">
     <xsl:apply-templates select="mei:identifier[@type='CMO']" mode="metadataView" />
     <xsl:apply-templates select="mei:classification" mode="metadataView" />
     <xsl:apply-templates select="mei:physLoc/mei:repository/mei:corpName[@type='library']" mode="metadataView" />
     <xsl:apply-templates select="mei:physLoc/mei:repository/mei:geogName" mode="metadataView" />
     <xsl:apply-templates select="mei:physLoc/mei:repository/mei:identifier " mode="metadataView" />
+    <xsl:apply-templates select="mei:creation/mei:date " mode="metadataView" />
     <xsl:apply-templates select="mei:identifier[@type='RISM']" mode="metadataView" />
     <xsl:apply-templates select="mei:titleStmt" mode="metadataView" />
     <xsl:apply-templates select="mei:seriesStmt" mode="metadataView" />
@@ -68,16 +69,18 @@
   
 
   <xsl:template name="contentContainer">
-    <xsl:call-template name="metadataSoloContent">
-      <xsl:with-param name="label" select="'editor.label.contents'" />
-      <xsl:with-param name="content">
-        <xsl:call-template name="displaySourceComponent" />
-      </xsl:with-param>
-    </xsl:call-template>
+    <xsl:if test="mei:componentList|mei:relationList">
+      <xsl:call-template name="metadataSoloContent">
+        <xsl:with-param name="label" select="'editor.label.contents'" />
+        <xsl:with-param name="content">
+          <xsl:call-template name="displaySourceComponent" />
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template name="displaySourceComponent">
-    <xsl:if test="count(ancestor::mei:componentGrp)&gt;0">
+    <xsl:if test="count(ancestor::mei:componentList)&gt;0">
       <xsl:value-of select="mei:identifier/text()" />
       <xsl:text> </xsl:text>
       <xsl:value-of select="mei:titleStmt/mei:title" />
@@ -85,7 +88,7 @@
     </xsl:if>
     <xsl:call-template name="displayBasketOptions"/>
     <ol class="cmo_clear">
-      <xsl:for-each select="mei:componentGrp/mei:source">
+      <xsl:for-each select="mei:componentList/mei:source|mei:componentList/mei:manifestation">
         <li>
           <xsl:call-template name="displaySourceComponent" />
         </li>
@@ -171,21 +174,14 @@
     <xsl:param name="class" />
     <xsl:param name="meiElement" />
 
-    <xsl:variable name="classCode"
-                  select="$meiElement/mei:classification/mei:classCode[contains(@authURI, $class)]/@xml:id" />
-    <xsl:if test="string-length($classCode)&gt;0">
-      <xsl:variable name="term"
-                    select="$meiElement/mei:classification/mei:termList[@classcode=concat('#',$classCode)]/mei:term" />
-      <xsl:if test="$term">
-        <xsl:variable name="label"
-                      select="classification:getClassLabel($term)" />
-        <xsl:value-of select="$label" />
-      </xsl:if>
+    <xsl:variable name="termList" select="$meiElement/mei:classification/mei:termList[contains(@class, $class)]" />
+    <xsl:if test="count($termList/mei:term)&gt;0">
+      <xsl:value-of select="classification:getClassLabel($termList/@class, $termList/mei:term[1]/text())" />
     </xsl:if>
   </xsl:template>
 
   <xsl:template priority="1" mode="resulttitle" match="mycoreobject[contains(@ID,'_source_')]">
-    <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:source/mei:identifier" />
+    <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:manifestation/mei:identifier" />
   </xsl:template>
 
 </xsl:stylesheet>

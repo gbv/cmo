@@ -44,20 +44,21 @@
   </xsl:template>
 
   <xsl:template match="mei:term">
-    <xsl:variable name="uri" select="mcrmei:getClassificationLinkFromTerm(.)" />
+    <xsl:variable name="class" select="../@class" />
+    <xsl:variable name="uri" select="mcrmei:getClassificationLinkFromTerm($class, text())" />
     <xsl:call-template name="indexClass">
       <xsl:with-param name="uri" select="$uri" />
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template match="mei:*[@authority and @xml:id]">
-    <xsl:variable name="uri" select="mcrmei:getClassificationLinkFromTerm(.)" />
+  <xsl:template match="mei:language[@auth and @xml:id]">
+    <xsl:variable name="uri" select="mcrmei:getClassificationLinkFromTerm(@auth, @xml:id)" />
     <xsl:call-template name="indexClass">
       <xsl:with-param name="uri" select="$uri" />
     </xsl:call-template>
 
-    <xsl:if test="name()='mei:langUsage'">
-      <field name="langugage.{@authority}">
+    <xsl:if test="local-name()='language'">
+      <field name="langugage.{@auth}">
         <xsl:value-of select="@xml:id" />
       </field>
     </xsl:if>

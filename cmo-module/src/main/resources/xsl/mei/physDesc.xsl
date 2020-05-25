@@ -74,11 +74,13 @@
             <xsl:for-each select="mei:handList/mei:hand">
               <li>
                 <xsl:value-of select="concat(@medium, ': ', .)" />
-                <xsl:text> (</xsl:text>
-                <xsl:call-template name="objectLink">
-                  <xsl:with-param select="@resp" name="obj_id" />
-                </xsl:call-template>
-                <xsl:text>)</xsl:text>
+                <xsl:if test="@resp">
+                  <xsl:text> (</xsl:text>
+                  <xsl:call-template name="objectLink">
+                    <xsl:with-param select="@resp" name="obj_id"/>
+                  </xsl:call-template>
+                  <xsl:text>)</xsl:text>
+                </xsl:if>
               </li>
             </xsl:for-each>
           </ul>

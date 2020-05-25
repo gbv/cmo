@@ -118,6 +118,15 @@
 
     }
   }
+
+  .chosen-drop {
+    position: fixed;
+    left: initial;
+    top: initial;
+    bottom: initial;
+    right: initial;
+    width: max-content;
+  }
 }
 
 .searchFacet{

@@ -19,7 +19,7 @@
           <xed:include uri="webapp:editor/editor-includes.xed" ref="mycore.common" />
           <xed:include uri="webapp:editor/editor-includes.xed" ref="failed-validation-messages" />
 
-          <xed:bind xpath="mods:classification[@displayLabel='cmo_kindOfData'][@authorityURI='http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_kindOfData']/@valueURIxEditor"
+          <xed:bind xpath="mods:classification[@displayLabel='cmo_kindOfData'][@authorityURI='https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_kindOfData']/@valueURIxEditor"
                     initially="cmo_kindOfData:source" />
           <xed:bind xpath="mods:typeOfResource" initially="text" />
 

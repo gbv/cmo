@@ -49,6 +49,7 @@ public class MEIWrapEventHandler extends MCREventHandlerBase {
             wrapper.orderTopLevelElement();
             wrapper.removeEmptyElements();
             wrapper.normalize();
+            obj.validate();
         }
     }
 

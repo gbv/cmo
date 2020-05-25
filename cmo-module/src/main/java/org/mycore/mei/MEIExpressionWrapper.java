@@ -26,13 +26,24 @@ import java.util.List;
 
 import org.jdom2.Element;
 
+import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
+
 public class MEIExpressionWrapper extends MEIWrapper {
 
     private static final List<String> TOP_LEVEL_ELEMENT_ORDER = new ArrayList<>();
 
     static {
         TOP_LEVEL_ELEMENT_ORDER.add("identifier");
-        TOP_LEVEL_ELEMENT_ORDER.add("titleStmt");
+        TOP_LEVEL_ELEMENT_ORDER.add("title");
+        TOP_LEVEL_ELEMENT_ORDER.add("arranger");
+        TOP_LEVEL_ELEMENT_ORDER.add("author");
+        TOP_LEVEL_ELEMENT_ORDER.add("composer");
+        TOP_LEVEL_ELEMENT_ORDER.add("contributor");
+        TOP_LEVEL_ELEMENT_ORDER.add("editor");
+        TOP_LEVEL_ELEMENT_ORDER.add("funder");
+        TOP_LEVEL_ELEMENT_ORDER.add("librettist");
+        TOP_LEVEL_ELEMENT_ORDER.add("lyricist");
+        TOP_LEVEL_ELEMENT_ORDER.add("sponsor");
 
         TOP_LEVEL_ELEMENT_ORDER.add("key");
         TOP_LEVEL_ELEMENT_ORDER.add("mesuration");
@@ -67,6 +78,17 @@ public class MEIExpressionWrapper extends MEIWrapper {
     @Override
     public String getWrappedElementName() {
         return "expression";
+    }
+
+    @Override
+    protected boolean isElementRelevant(Element element) {
+        final boolean isTitleElement = element.getName().equals("title");
+        if (isTitleElement) {
+            boolean singleTitle = element.getParentElement().getChildren("title", MEI_NAMESPACE).size() <= 1;
+            return singleTitle || element.getTextTrim().length() > 0;
+        }
+
+        return super.isElementRelevant(element);
     }
 
     @Override

@@ -32,8 +32,14 @@
                    repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
   </xed:template>
 
+  <xed:template id="cmo_emptyTitle">
+    <xed:bind xpath="mei:title">
+      <input type="hidden" />
+    </xed:bind>
+  </xed:template>
+
   <xed:template id="cmo_titleExpression">
-    <cmo:textfield xpath="mei:titleStmt/mei:title" label="editor.label.title" type="cmo_titleTypeExpression" lang="iso15924"
+    <cmo:textfield xpath="mei:title" label="editor.label.title" type="cmo_titleTypeExpression" lang="iso15924"
                    repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" class="required" required="true" required-i18n="cmo.validation.titleExpression" />
   </xed:template>
 
@@ -83,6 +89,18 @@
 
   <xed:template id="cmo_lyricist">
     <cmo:nameLinkField xpath="mei:titleStmt/mei:lyricist" repeat="true" min="1" max="10"
+                       placeholder="last name, first name" label="editor.label.lyricist"
+                       help-text="{i18n:cmo.help.lyricist}" />
+  </xed:template>
+
+  <xed:template id="cmo_composerExpression">
+    <cmo:nameLinkField xpath="mei:composer" repeat="true" min="1" max="10"
+                       placeholder="last name, first name" label="editor.label.composer"
+                       help-text="{i18n:cmo.help.composer}" />
+  </xed:template>
+
+  <xed:template id="cmo_lyricistExpression">
+    <cmo:nameLinkField xpath="mei:lyricist" repeat="true" min="1" max="10"
                        placeholder="last name, first name" label="editor.label.lyricist"
                        help-text="{i18n:cmo.help.lyricist}" />
   </xed:template>
@@ -181,7 +199,7 @@
   </xed:template>
 
   <xed:template id="cmo_physDescHandList">
-    <xed:repeat xpath="mei:handList/mei:hand" min="1">
+    <xed:repeat xpath="mei:handList/mei:hand" min="0">
     <fieldset class="cmo-fieldset-content card">
       <div class="card-body">
         <legend class="cmo-fieldset-legend card-title">
@@ -226,7 +244,7 @@
               <div class="col-md-6">
                 <div class="form-inline">
                   <xed:bind xpath="@resp">
-                    <input type="text" placeholder="eg. cmo_source_00000043" data-subselect-target="id"
+                    <input type="text" placeholder="eg. cmo_person_00000043" data-subselect-target="id"
                            class="form-control form-control-inline"/>
                   </xed:bind>
                   <span class="pmud-button">
@@ -238,19 +256,20 @@
                 </div>
               </div>
             </div>
-            <div class="row form-group">
+            <div class="row form-group {$xed-validation-marker}">
               <label class="col-md-4 col-form-label">
                 <xed:output i18n="editor.label.hand" />
               </label>
               <div class="col-md-6">
                   <input type="text" placeholder="headings in cursive Armenian script"
                          class="form-control form-control-inline"/>
+                  <xed:validate display="here" test="string-length(normalize-space(text()))&gt;0 or (string-length(normalize-space(@resp))=0 and string-length(normalize-space(@medium))=0)" i18n="editor.validate.hand" />
               </div>
             </div>
           </div>
-      </div>
+        </div>
       </fieldset>
-            </xed:repeat>
+    </xed:repeat>
   </xed:template>
 
   <xed:template id="cmo_physDescCondition">
@@ -297,13 +316,13 @@
   </xed:template>
 
   <xed:template id="cmo_language">
-    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='rfc5646']" bind="@xml:id" repeat="true" min="1"
+    <cmo:selectClassification xpath="mei:langUsage/mei:language[@auth='rfc5646']" bind="@xml:id" repeat="true" min="1"
                               max="10" label="editor.label.language" classification="rfc5646"
                               help-text="{i18n:cmo.help.language}" />
   </xed:template>
 
   <xed:template id="cmo_scriptLanguage">
-    <cmo:selectClassification xpath="mei:langUsage/mei:language[@authority='iso15924']" bind="@xml:id" repeat="true" min="1"
+    <cmo:selectClassification xpath="mei:langUsage/mei:language[@auth='iso15924']" bind="@xml:id" repeat="true" min="1"
                               max="10" label="editor.label.scriptLanguage" classification="iso15924"
                               help-text="{i18n:cmo.help.scriptLanguage}" />
   </xed:template>
@@ -455,7 +474,7 @@
                 <xed:output i18n="editor.legend.work" />
               </label>
               <div class="col-md-6 ">
-                <div class="form-inline">
+                <div class="form-inline {$xed-validation-marker}">
                   <xed:bind xpath="@target">
                     <input type="text" placeholder="eg. cmo_work_00000016" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
@@ -494,7 +513,7 @@
                 <xed:output i18n="cmo.relation" />
               </label>
               <div class="col-md-6 ">
-                <div class="form-inline">
+                <div class="form-inline {$xed-validation-marker}">
                   <xed:bind xpath="@target">
                     <input type="text" placeholder="eg. cmo_expression_00002186" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
@@ -525,6 +544,7 @@
         </div>
       </legend>
       <xed:repeat xpath="mei:expressionList/mei:expression" min="1">
+        <xed:include ref="cmo_emptyTitle" />
         <div class="cmo-fieldset-content">
           <div data-subselect='(category.top:"cmo_kindOfData:source" OR cmoType:person) AND objectType:expression' class="form-group">
             <div class="row">
@@ -533,7 +553,7 @@
               </label>
               <div class="col-md-6 ">
                 <div class="form-inline">
-                  <xed:bind xpath="@data">
+                  <xed:bind xpath="@codedval">
                     <input type="text" placeholder="eg. cmo_expression_00002186" data-subselect-target="id" style="width: 70%;" class="form-control form-control-inline" />
                   </xed:bind>
                   <span class="pmud-button">
@@ -591,9 +611,9 @@
     </fieldset>
   </xed:template>
 
-  <xed:template id="cmo_componentGrp">
-    <xed:bind xpath="mei:componentGrp">
-      <xed:repeat xpath="mei:source" min="1">
+  <xed:template id="cmo_componentList">
+    <xed:bind xpath="mei:componentList">
+      <xed:repeat xpath="mei:manifestation" min="1">
         <fieldset class="cmo-fieldset-componentGrp card">
           <div class="card-body">
             <legend class="cmo-fieldset-legend card-title">
@@ -610,6 +630,18 @@
           </div>
         </fieldset>
       </xed:repeat>
+    </xed:bind>
+  </xed:template>
+
+  <xed:template id="cmo_creationDate">
+    <xed:bind xpath="mei:creation">
+      <xed:bind xpath="mei:date">
+        <cmo:isoApproxDate xpath="." label="editor.label.creation.date" help-text="{i18n:cmo.help.normDate}" />
+        <cmo:textfield xpath="." label="editor.label.textDate" placeholder="{i18n:cmo.placeholder.textDate}"
+                       help-text="{i18n:cmo.help.textDate}" />
+        <cmo:selectClassification xpath="./@calendar" label="editor.label.calendar" classification="cmo_calendar"
+                                  help-text="{i18n:cmo.help.calendar}" />
+      </xed:bind>
     </xed:bind>
   </xed:template>
 
@@ -726,10 +758,19 @@
     </xed:if>
   </xed:template>
 
-  <xed:template id="cleanup-rules">
-    <xed:cleanup-rule xpath="//mei:*" relevant-if="(string-length(normalize-space(text())) &gt; 0) or mei:* or (string-length(@xlink:href) &gt; 0) or count(*) &gt; 0" />
+  <xed:template id="validation-rules">
+    <xed:validate display="global" xpath="//mei:date" class="org.mycore.mei.MEIValidationHelper" method="validateDate" i18n="editor.validate.dateFormat" />
+    <xed:validate display="global" xpath="//mei:date" class="org.mycore.mei.MEIValidationHelper" method="validateCalendar" i18n="editor.validate.dateCalendar" />
+    <xed:validate display="global" xpath="//mei:date" class="org.mycore.mei.MEIValidationHelper" method="validateDateText" i18n="editor.validate.dateText" />
+    <xed:validate display="global" xpath="//mei:relation" class="org.mycore.mei.MEIValidationHelper" method="validateRelation" i18n="editor.validate.objectExists" />
+    <xed:validate display="global" xpath="//mei:relation" class="org.mycore.mei.MEIValidationHelper" method="validateRelationN" i18n="editor.validate.nNoSpace" />
+    <xed:validate display="global" xpath="//mei:expressionList" class="org.mycore.mei.MEIValidationHelper" method="validateOneExpression" i18n="editor.validate.oneExpression" />
+  </xed:template>
 
-    <xed:cleanup-rule xpath="//mei:language" relevant-if="string-length(@authority)&gt;0 and string-length(@xml:id)&gt;0" />
+  <xed:template id="cleanup-rules">
+    <xed:cleanup-rule xpath="//mei:*" relevant-if="(string-length(normalize-space(text())) &gt; 0) or mei:* or (string-length(@xlink:href) &gt; 0) or count(*) &gt; 0 or string-length(@resp)&gt;0 or string-length(@medium)&gt;0 or local-name()='expressionList' or (local-name()='title' and (local-name(..) = 'work' or local-name(..) = 'expression'))" />
+
+    <xed:cleanup-rule xpath="//mei:language" relevant-if="string-length(@auth)&gt;0 and string-length(@xml:id)&gt;0" />
     <xed:cleanup-rule xpath="//classEntry" relevant-if="string-length(text())&gt;0" />
 
     <xed:cleanup-rule xpath="//mei:relation" relevant-if="string-length(@target)&gt;0" />
@@ -737,7 +778,7 @@
 
     <xed:cleanup-rule xpath="//mei:notesStmt" relevant-if="string-length(mei:annot/text())&gt;0" />
     <xed:cleanup-rule xpath="//mei:date" relevant-if="@notbefore or @notafter or @startdate or @enddate or @isodate or string-length(text())&gt;0" />
-    <xed:cleanup-rule xpath="//mei:expressionList/mei:expression" relevant-if="string-length(@data)&gt;0" />
+    <xed:cleanup-rule xpath="//mei:expressionList/mei:expression" relevant-if="string-length(@codedval)&gt;0" />
   </xed:template>
 
 </xed:template>

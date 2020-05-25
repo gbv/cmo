@@ -73,7 +73,7 @@
           <xsl:attribute name="xml:id">
             <xsl:value-of select="concat('iso15924:', @xml:id)" />
           </xsl:attribute>
-          <xsl:attribute name="authority">
+          <xsl:attribute name="auth">
             <xsl:value-of select="'iso15924'" />
           </xsl:attribute>
         </xsl:when>
@@ -81,7 +81,7 @@
           <xsl:attribute name="xml:id">
             <xsl:value-of select="concat('rfc5646:', @xml:id)" />
           </xsl:attribute>
-          <xsl:attribute name="authority">
+          <xsl:attribute name="auth">
             <xsl:value-of select="'rfc5646'" />
           </xsl:attribute>
         </xsl:otherwise>
@@ -92,16 +92,11 @@
 
   <xsl:template match="mei:classification">
     <xsl:copy>
-      <xsl:apply-templates select="@*" />
-      <xsl:for-each select="mei:classCode">
-        <xsl:variable name="classID" select="concat('#', @xml:id)" />
-        <xsl:variable name="authority" select="substring-after(@authURI, 'classifications/')" />
-        <xsl:for-each select="../mei:termList[@classcode=$classID]/mei:term">
-          <classEntry>
-            <xsl:attribute name="authority">
-              <xsl:value-of select="$authority" />
-            </xsl:attribute>
-            <xsl:value-of select="$authority" />
+      <xsl:for-each select="mei:termList">
+        <xsl:variable name="classificationID" select="substring-after(@class, 'classifications/')" />
+        <xsl:for-each select="mei:term">
+          <classEntry authority="{$classificationID}">
+            <xsl:value-of select="$classificationID" />
             <xsl:text>:</xsl:text>
             <xsl:value-of select="." />
           </classEntry>

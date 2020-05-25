@@ -40,10 +40,10 @@
                     <!-- edition mods = edition -->
                     <xsl:value-of select="'edition'" />
                   </xsl:when>
-                  <xsl:when test="//mei:classification/mei:termList/mei:term = 'st-92437345-2'">
+                  <xsl:when test="//mei:classification/mei:termList/mei:term = 'Manuscript'">
                     <xsl:value-of select="'manuscript'" />
                   </xsl:when>
-                  <xsl:when test="//mei:classification/mei:termList/mei:term = 'st-96023048-4'">
+                  <xsl:when test="//mei:classification/mei:termList/mei:term = 'Printed_source'">
                     <xsl:value-of select="'print'" />
                   </xsl:when>
                   <xsl:otherwise>
