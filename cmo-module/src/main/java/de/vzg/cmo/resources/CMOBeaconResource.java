@@ -31,6 +31,9 @@ public class CMOBeaconResource {
         sb.append("#TARGET: ").append(MCRFrontendUtil.getBaseURL()).append("rsc/gnd/{ID}\n");
         sb.append("#PREFIX: http://d-nb.info/gnd/\n");
         sb.append("#NAME: ").append(MCRConfiguration2.getString("MCR.NameOfProject").get()).append("\n");
+        sb.append("#CONTACT: ").append(MCRConfiguration2.getString("CMO.GND.Beacon.Contact").get()).append("\n");
+        sb.append("#INSTITUTION: ").append(MCRConfiguration2.getString("CMO.GND.Beacon.Institution").get()).append("\n");
+        sb.append("#MESSAGE: ").append(MCRConfiguration2.getString("CMO.GND.Beacon.Message").get()).append("\n");
         sb.append("#UPDATE: will be rebuilt on every request\n");
 
 
