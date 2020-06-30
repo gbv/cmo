@@ -23,6 +23,7 @@ package org.mycore.mei.classification;
 
 import java.text.MessageFormat;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -131,6 +132,30 @@ public class MCRMEIClassificationSupport {
         }
         final MCRCategoryID mcrCategoryID = new MCRCategoryID(classID, termContent);
         Optional<MCRLabel> labelOptional = DAO.getParents(mcrCategoryID).get(0).getCurrentLabel();
+        if (labelOptional.isPresent()) {
+            return labelOptional.get().getText();
+        } else {
+            return uri + ":" + termContent;
+        }
+    }
+
+    public static String getStdClassLabel(String uri, String termContent) {
+        final int i = uri.lastIndexOf("/")+1;
+        final String classID = uri.substring(i);
+
+        if(termContent.contains(":")){
+            termContent=termContent.split(":")[1];
+        }
+        final MCRCategoryID mcrCategoryID = new MCRCategoryID(classID, termContent);
+
+        final List<MCRCategory> parents = DAO.getParents(mcrCategoryID);
+        Optional<MCRLabel> labelOptional;
+
+        if(parents.size()>1){
+            labelOptional = parents.get(0).getCurrentLabel();
+        } else {
+            labelOptional = DAO.getCategory(mcrCategoryID,0).getCurrentLabel();
+        }
         if (labelOptional.isPresent()) {
             return labelOptional.get().getText();
         } else {

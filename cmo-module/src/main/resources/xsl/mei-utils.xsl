@@ -13,7 +13,7 @@
   <xsl:template name="printStandardizedTerm">
     <xsl:comment>mei-utils.xsl > printStandardizedTerm </xsl:comment>
     <xsl:if test="mei:classification[mei:termList[contains(@class,'cmo_makamler')]]">
-      <xsl:call-template name="printParentClassLabel">
+      <xsl:call-template name="printStdClassLabel">
         <xsl:with-param name="classId" select="'cmo_makamler'" />
       </xsl:call-template>
       <xsl:text> </xsl:text>
@@ -31,7 +31,7 @@
   <xsl:template name="printStandardizedHitListTitle">
     <xsl:comment>mei-utils.xsl > printStandardizedHitListTitle </xsl:comment>
     <xsl:if test="mei:classification[mei:termList[contains(@class,'cmo_makamler')]]">
-      <xsl:call-template name="printParentClassLabel">
+      <xsl:call-template name="printStdClassLabel">
         <xsl:with-param name="classId" select="'cmo_makamler'" />
       </xsl:call-template>
       <xsl:text> </xsl:text>
@@ -59,6 +59,14 @@
     <xsl:variable name="termList" select="mei:classification/mei:termList[contains(@class, $classId)]" />
     <xsl:if test="count($termList/mei:term)&gt;0">
       <xsl:value-of select="classification:getParentClassLabel($termList/@class, $termList/mei:term[1]/text())" />
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="printStdClassLabel">
+    <xsl:param name="classId" />
+    <xsl:variable name="termList" select="mei:classification/mei:termList[contains(@class, $classId)]" />
+    <xsl:if test="count($termList/mei:term)&gt;0">
+      <xsl:value-of select="classification:getStdClassLabel($termList/@class, $termList/mei:term[1]/text())" />
     </xsl:if>
   </xsl:template>
 
