@@ -328,6 +328,32 @@ export class SearchGUI {
     public wasExtendedSearchOpen() {
         return this._wasExtendedSearchOpen;
     }
+
+    public getSearchDescription(): Array<{ key?: string, value?: string, classValue?: string, i18nvalue?: string}> {
+        const result = [];
+
+        if (this.isExtendedSearchOpen() || this.wasExtendedSearchOpen()) {
+            const name = this.typeSelect.value;
+            const type = this.nameTypeMap[name];
+            let langKey;
+
+            if (name == 'mods' && type == 'bibl') {
+                langKey = `editor.cmo.select.bibliography`;
+            } else {
+                langKey = `editor.cmo.select.${name}`;
+            }
+
+            result.push({key: "cmo.search.fields.type",i18nvalue:langKey});
+            for (let inputIndex in this.typeMap[this.currentType]) {
+                let input = <SearchFieldInput>this.typeMap[this.currentType][inputIndex];
+                let searchDescription = input.getSearchDescription();
+                if (searchDescription !== null) {
+                    result.push(searchDescription);
+                }
+            }
+        }
+        return result;
+    }
 }
 
 export abstract class SearchFieldInput {
@@ -381,6 +407,7 @@ export abstract class SearchFieldInput {
 
     public abstract reset();
 
+    public abstract getSearchDescription(): { key?: string, value?: string, classValue?: string };
 }
 
 export class TextSearchFieldInput extends SearchFieldInput {
@@ -454,6 +481,16 @@ export class TextSearchFieldInput extends SearchFieldInput {
     reset() {
         this.setValue("");
     }
+
+    public getSearchDescription(): { key?: string, value?: string, classValue?: string } {
+        if (this.input.value.trim().length == 0) {
+            return null;
+        }
+        return {
+            key: this.label,
+            value: this.input.value
+        }
+    }
 }
 
 export class CheckboxSearchFieldInput extends SearchFieldInput {
@@ -515,6 +552,17 @@ export class CheckboxSearchFieldInput extends SearchFieldInput {
     }
 
     reset() {
+
+    }
+
+    public getSearchDescription(): { key?: string, value?: string, classValue?: string } {
+        if (this.input.checked) {
+            return {
+                key: this.label
+            }
+        } else {
+            return null;
+        }
 
     }
 
@@ -639,6 +687,16 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
         }
 
     }
+
+    public getSearchDescription(): { key?: string, value?: string, classValue?: string } {
+        if (this.select.value === this.rootVal) {
+            return null;
+        }
+        return {
+            key: this.label,
+            classValue: `${this.className}:${this.select.value}`
+        }
+    }
 }
 
 
@@ -750,6 +808,39 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
             } else {
                 return null;
             }
+        }
+    }
+
+    public getSearchDescription(): { key?: string, value?: string, classValue?: string } {
+        let value;
+
+        if (this.isRangeSelected()) {
+            let val1 = this.inputFrom.value,
+                val2 = this.inputTo.value;
+            if (val1.trim().length > 0 && val2.trim().length > 0) {
+                value = `${val1}-${val2}`;
+            } else if (val1.trim().length > 0) {
+                value = `${val1}-`;
+            } else if (val2.trim().length > 0) {
+                value = `-${val2}`;
+            } else {
+                value = "";
+            }
+        } else {
+            if (this.input.value.trim().length > 0) {
+                value = this.input.value;
+            } else {
+                value = "";
+            }
+        }
+
+        if (value === null || value === "") {
+            return null;
+        }
+
+        return {
+            key: this.label,
+            value: value
         }
     }
 

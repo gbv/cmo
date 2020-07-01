@@ -655,7 +655,7 @@ window.addEventListener('load', () => {
                     solrSearcher.search(
                         params
                         , (result => {
-                            searchDisplay.displayResult(result, (start, sortField, asc, rows) => {
+                            searchDisplay.displayResult(result, ctrl.getSearchDescription(),(start, sortField, asc, rows) => {
                                 window.scrollTo(0, 0);
                                 search(start, ctrl, action, sortField, asc, rows);
                             }, getResultAction(params), extra);

@@ -39,14 +39,14 @@ export class SearchDisplay {
         "editor.search.sort.title" : "displayTitleSort",
     };
 
-    public displayResult(result: SolrSearchResult, pageChangeHandler: (newPage: number, field: string, asc: boolean, rows: number) => void,
+    public displayResult(result: SolrSearchResult, descriptions:Array<{key?:string, value?:string, classValue?:string, i18nvalue?: string}>, pageChangeHandler: (newPage: number, field: string, asc: boolean, rows: number) => void,
                          onResultClickHandler: (doc: CMOBaseDocument, result: SolrSearchResult, hitOnPage) => void, extra: HTMLElement) {
         let getSort = (result: SolrSearchResult) => {
             if ("sort" in result.responseHeader.params) {
-                let sortParams = result.responseHeader.params[ "sort" ];
-                return (Array.isArray(sortParams) ? sortParams[ 0 ] : sortParams).split(" ");
+                let sortParams = result.responseHeader.params["sort"];
+                return (Array.isArray(sortParams) ? sortParams[0] : sortParams).split(" ");
             }
-            return [ "score", "asc" ];
+            return ["score", "asc"];
         };
         let sort = getSort(result);
         const divClass = "search-extra";
@@ -54,7 +54,12 @@ export class SearchDisplay {
         this._container.innerHTML = `
     <div class="row searchResultList">
         <div class="col-10 offset-1">
-            ${ (extra !== null) ? `<div class='row'><div class='col-12 ${divClass}'></div></div>` : ""}
+            ${(extra !== null) ? `<div class='row'><div class='col-12 ${divClass}'></div></div>` : ""}
+            <div class="row">
+                <div class="col-12">
+                    ${this.displaySeachDescription(descriptions)}
+                </div>
+            </div>
             <div class="row header">
                 <div class="col-6">
                     <span>${result.response.numFound} <span data-i18n="${SearchDisplay.SEARCH_LABEL_KEY}"></span></span>
@@ -527,10 +532,32 @@ export class SearchDisplay {
     private getSortOptions(sort: string) {
         let options = [];
         for (let i18n in this.sortOptions) {
-            let field = this.sortOptions[ i18n ];
+            let field = this.sortOptions[i18n];
             options.push(`<option data-i18n="${i18n}" value="${field}">${i18n}</option>`);
         }
         return options.join();
+    }
+
+
+
+    private displaySeachDescription(descriptions:Array<{key?:string, value?:string, classValue?:string, i18nvalue?: string}>) {
+        return descriptions.map(descr => {
+            if("value" in descr && typeof descr.value != "undefined" && descr.value!=null){
+                return `<span data-i18n="${descr.key}"></span>:${descr.value}`;
+            }
+            if("classValue" in descr && typeof descr.classValue != "undefined" && descr.classValue!=null){
+                return `<span data-clazz="${descr.classValue.split(":")[0]}"></span>:<span data-clazz="${descr.classValue.split(":")[0]}" data-category="${descr.classValue.split(":")[1]}"></span>`;
+            }
+            if("i18nvalue" in descr && typeof descr.i18nvalue != "undefined" && descr.i18nvalue!=null){
+                return `<span data-i18n="${descr.key}"></span>:<span data-i18n="${descr.i18nvalue}"></span>`;
+
+            }
+            if("key" in descr && typeof descr.key != "undefined" && descr.key!=null){
+                return `<span data-i18n="${descr.key}"></span>`;
+
+            }
+
+        }).map(html=> `<span class="badge badge-pill badge-secondary">${html}</span>`).join(" ");
     }
 }
 
