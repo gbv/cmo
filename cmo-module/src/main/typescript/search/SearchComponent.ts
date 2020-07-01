@@ -36,6 +36,9 @@ export class SearchController {
 
     }
 
+    public getSearchDescription():Array<{key?:string, value?:string, classValue?:string, i18nvalue?: string}> {
+        return this.view.getSearchDescription();
+    }
 
     public addEnabledHandler(handler: (enabled: boolean) => void) {
         this._enabledHandlerList.push(handler);
