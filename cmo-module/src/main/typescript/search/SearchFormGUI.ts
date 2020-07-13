@@ -707,9 +707,13 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
         if (this.select.value === this.rootVal) {
             return null;
         }
+        const that = this;
         return {
             key: this.label,
-            classValue: `${this.className}:${this.select.value}`
+            classValue: `${this.className}:${this.select.value}`,
+            reset() {
+                that.reset();
+            }
         }
     }
 }
