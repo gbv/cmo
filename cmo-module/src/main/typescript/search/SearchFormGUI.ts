@@ -1,6 +1,7 @@
 import {UserInputParser, Utils} from "../other/Utils";
 import {I18N} from "../other/I18N";
 import {Classification, ClassificationCategory, ClassificationResolver} from "../other/Classification";
+import {SearchDescription} from "./SearchDescription";
 
 export class SearchGUI {
     get extenderIcon(): HTMLImageElement {
@@ -285,11 +286,11 @@ export class SearchGUI {
             }
 
             if (isMatching) {
-                if (this.typeSelect.value !== name) {
+                //if (this.typeSelect.value !== name) {
                     this._wasExtendedSearchOpen=true;
                     this.typeSelect.value = name;
                     this.typeChanged(false);
-                }
+                //}
                 break;
             }
         }
@@ -329,7 +330,7 @@ export class SearchGUI {
         return this._wasExtendedSearchOpen;
     }
 
-    public getSearchDescription(): Array<{ key?: string, value?: string, classValue?: string, i18nvalue?: string}> {
+    public getSearchDescription(): Array<SearchDescription> {
         const result = [];
 
         if (this.isExtendedSearchOpen() || this.wasExtendedSearchOpen()) {
@@ -343,7 +344,13 @@ export class SearchGUI {
                 langKey = `editor.cmo.select.${name}`;
             }
 
-            result.push({key: "cmo.search.fields.type",i18nvalue:langKey});
+            const that = this;
+            result.push({
+                key: "cmo.search.fields.type", i18nvalue: langKey, reset() {
+                    that.typeSelect.value = that.typeSelect.options[0].value;
+                    that.reset();
+                }
+            });
             for (let inputIndex in this.typeMap[this.currentType]) {
                 let input = <SearchFieldInput>this.typeMap[this.currentType][inputIndex];
                 let searchDescription = input.getSearchDescription();
@@ -407,7 +414,7 @@ export abstract class SearchFieldInput {
 
     public abstract reset();
 
-    public abstract getSearchDescription(): { key?: string, value?: string, classValue?: string };
+    public abstract getSearchDescription(): SearchDescription;
 }
 
 export class TextSearchFieldInput extends SearchFieldInput {
@@ -482,13 +489,17 @@ export class TextSearchFieldInput extends SearchFieldInput {
         this.setValue("");
     }
 
-    public getSearchDescription(): { key?: string, value?: string, classValue?: string } {
+    public getSearchDescription(): SearchDescription {
         if (this.input.value.trim().length == 0) {
             return null;
         }
+        const that = this;
         return {
             key: this.label,
-            value: this.input.value
+            value: this.input.value,
+            reset() {
+                that.reset()
+            }
         }
     }
 }
@@ -555,10 +566,14 @@ export class CheckboxSearchFieldInput extends SearchFieldInput {
 
     }
 
-    public getSearchDescription(): { key?: string, value?: string, classValue?: string } {
+    public getSearchDescription(): SearchDescription {
         if (this.input.checked) {
+            const that = this;
             return {
-                key: this.label
+                key: this.label,
+                reset() {
+                    that.reset()
+                }
             }
         } else {
             return null;
@@ -688,7 +703,7 @@ export class ClassificationSearchFieldInput extends SearchFieldInput {
 
     }
 
-    public getSearchDescription(): { key?: string, value?: string, classValue?: string } {
+    public getSearchDescription(): SearchDescription {
         if (this.select.value === this.rootVal) {
             return null;
         }
@@ -811,7 +826,7 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
         }
     }
 
-    public getSearchDescription(): { key?: string, value?: string, classValue?: string } {
+    public getSearchDescription(): SearchDescription {
         let value;
 
         if (this.isRangeSelected()) {
@@ -838,9 +853,13 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
             return null;
         }
 
+        const that = this;
         return {
             key: this.label,
-            value: value
+            value: value,
+            reset() {
+                that.reset()
+            }
         }
     }
 

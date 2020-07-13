@@ -260,6 +260,197 @@ window.addEventListener('load', () => {
                 fields: []
             }
         });
+
+        StateController.onStateChange((params, selfChange) => {
+            let [, action] = params.filter(([key, value]) => key == "action")[0] || [null, null];
+
+            updateMainContainerSize();
+            let extra: HTMLElement = null;
+
+            const getSetParentExtra = function () {
+                const parentExtra = document.createElement("div");
+                const buttonClass = "cmo-abort-button";
+                const textClass = "cmo-replace-parent-description-text";
+
+                parentExtra.classList.add('well');
+                parentExtra.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
+
+                I18N.translate('cmo.replace.parent.description', (translation) => {
+                    const replaceText: HTMLSpanElement = <HTMLSpanElement>parentExtra.querySelector("." + textClass);
+                    replaceText.innerText = translation;
+                });
+
+                const replaceButton: HTMLElement = <HTMLElement>parentExtra.querySelector("." + buttonClass);
+                I18N.translate('cmo.abort', (translation) => {
+                    replaceButton.innerText = translation;
+                    replaceButton.addEventListener('click', () => {
+                        window.location.hash = "";
+                    });
+                });
+
+                return parentExtra;
+            };
+
+            const getSubselect = function () {
+                const subSelect = document.createElement("div");
+                const buttonClass = "cmo-abort-button";
+                const textClass = "cmo-subselect-description-text";
+
+                subSelect.classList.add('well');
+                subSelect.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
+
+                I18N.translate('cmo.subselect.description', (translation) => {
+                    const replaceText: HTMLSpanElement = <HTMLSpanElement>subSelect.querySelector("." + textClass);
+                    replaceText.innerText = translation;
+                });
+
+                const replaceButton: HTMLElement = <HTMLElement>subSelect.querySelector("." + buttonClass);
+                I18N.translate('cmo.abort', (translation) => {
+                    replaceButton.innerText = translation;
+                    replaceButton.addEventListener('click', () => {
+                        window.location.hash = "";
+                    });
+                });
+
+                return subSelect;
+            };
+
+            const getAddChildExtra = () => {
+                const childExtra = document.createElement("div");
+                const buttonClass = "cmo-abort-button";
+                const textClass = "cmo-add-child-description-text";
+
+                childExtra.classList.add('well');
+                childExtra.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
+
+                I18N.translate('cmo.add.child.description', (translation) => {
+                    const replaceText: HTMLSpanElement = <HTMLSpanElement>childExtra.querySelector("." + textClass);
+                    replaceText.innerText = translation;
+                });
+
+                const replaceButton: HTMLElement = <HTMLElement>childExtra.querySelector("." + buttonClass);
+                I18N.translate('cmo.abort', (translation) => {
+                    replaceButton.innerText = translation;
+                    replaceButton.addEventListener('click', () => {
+                        window.location.hash = "";
+                    });
+                });
+                return childExtra;
+            };
+
+            switch (action) {
+                case "add-child":
+                case "subselect":
+                case "set-parent":
+                case "subselect-insert":
+
+                    sideBar.classList.remove("d-none");
+                    mainContainer.classList.remove("col-md-11");
+                    mainContainer.classList.remove("col-lg-11");
+                    mainContainer.classList.add("col-md-9");
+                    mainContainer.classList.add("col-lg-9");
+
+                    switch (action) {
+                        case "add-child":
+                            extra = getAddChildExtra();
+                            break;
+                        case "subselect":
+                        case "subselect-insert":
+                            extra = getSubselect();
+                            break;
+                        case"set-parent":
+                            extra = getSetParentExtra();
+                            break;
+                    }
+                case "init_search":
+                    aditionalQuery = params.filter(([key]) => key !== 'q' && key !== 'action' && key !== "sort" && key !== "rows" && key !== "start");
+                    if (action == "init_search") {
+                        action = "search";
+                    }
+                case "search":
+                    ctrl = null;
+                    for (let param of params) {
+                        let [, v] = param;
+
+                        if (v.indexOf(kSearchBaseQuery) != -1) {
+                            ctrl = kSearch;
+                        } else if (v.indexOf(eSearchBaseQuery) != -1) {
+                            ctrl = eSearch;
+
+                        }
+                    }
+
+                    resetJS();
+
+                    if (ctrl != null) {
+                        ctrl.enable = true;
+
+                        if (!selfChange) {
+                            ctrl.setSolrQuery(params);
+                        }
+
+                        searchDisplay.save();
+                        facet.save();
+                        searchDisplay.loading();
+                        solrSearcher.search(
+                            params
+                            , (result => {
+                                searchDisplay.displayResult(result, ctrl.getSearchDescription(), (start, sortField, asc, rows) => {
+                                    window.scrollTo(0, 0);
+                                    search(start, ctrl, action, sortField, asc, rows);
+                                }, getResultAction(params), () => {
+                                    ctrl.openExtendedSearch(true);
+                                    onQueryChanged(ctrl);
+                                }, extra);
+                                facet.displayFacet(result);
+                            }));
+                    }
+                    break;
+                case "basket":
+                    resetJS();
+                    baskedDisplay.save();
+                    baskedDisplay.display();
+                    break;
+
+                default:
+                    resetJS();
+            }
+        });
+        kSearch.addQueryChangedHandler(() => onQueryChanged(kSearch));
+        eSearch.addQueryChangedHandler(() => onQueryChanged(eSearch));
+
+
+        let basketBadge = document.querySelector("#basked_badge");
+        let basket = BasketStore.getInstance();
+
+        let refreshBaskedBadge = () => {
+            basketBadge.innerHTML = (basket.count()) + "";
+        };
+
+        basket.addListener(refreshBaskedBadge);
+        refreshBaskedBadge();
+
+// The Parent Element have to look like this <div data-subselect="(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:person">
+// The input then just can be <input name='personID' data-subselect-target='id' /> <input name='personName' data-subselect-target='solrField2' />
+        Array.prototype.slice.call(document.querySelectorAll("[data-subselect]")).forEach((node) => {
+            let element = <HTMLElement>node;
+            (<HTMLElement>element.querySelector("[data-subselect-trigger]")).onclick = (e) => {
+                e.preventDefault();
+                let query = element.getAttribute("data-subselect");
+                subselectTarget = Array.prototype.slice.call(element.querySelectorAll("[data-subselect-target]"));
+
+
+                window.location.hash = `q=${query}&start=0&action=subselect`;
+                window.setTimeout(() => {
+                    if (ctrl !== null) {
+                        ctrl.openExtendedSearch(true);
+                        ctrl.focus()
+                    }
+                }, 1000);
+
+
+            };
+        });
     };
 
     ClassificationResolver.resolve(ISO15924, (langClazz) => {
@@ -520,194 +711,6 @@ window.addEventListener('load', () => {
 
     let ctrl: SearchController = null;
 
-
-    StateController.onStateChange((params, selfChange) => {
-        let [, action] = params.filter(([key, value]) => key == "action")[0] || [null, null];
-
-        updateMainContainerSize();
-        let extra: HTMLElement = null;
-
-        const getSetParentExtra = function () {
-            const parentExtra = document.createElement("div");
-            const buttonClass = "cmo-abort-button";
-            const textClass = "cmo-replace-parent-description-text";
-
-            parentExtra.classList.add('well');
-            parentExtra.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
-
-            I18N.translate('cmo.replace.parent.description', (translation) => {
-                const replaceText: HTMLSpanElement = <HTMLSpanElement>parentExtra.querySelector("." + textClass);
-                replaceText.innerText = translation;
-            });
-
-            const replaceButton: HTMLElement = <HTMLElement>parentExtra.querySelector("." + buttonClass);
-            I18N.translate('cmo.abort', (translation) => {
-                replaceButton.innerText = translation;
-                replaceButton.addEventListener('click', () => {
-                    window.location.hash = "";
-                });
-            });
-
-            return parentExtra;
-        };
-
-        const getSubselect = function () {
-            const subSelect = document.createElement("div");
-            const buttonClass = "cmo-abort-button";
-            const textClass = "cmo-subselect-description-text";
-
-            subSelect.classList.add('well');
-            subSelect.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
-
-            I18N.translate('cmo.subselect.description', (translation) => {
-                const replaceText: HTMLSpanElement = <HTMLSpanElement>subSelect.querySelector("." + textClass);
-                replaceText.innerText = translation;
-            });
-
-            const replaceButton: HTMLElement = <HTMLElement>subSelect.querySelector("." + buttonClass);
-            I18N.translate('cmo.abort', (translation) => {
-                replaceButton.innerText = translation;
-                replaceButton.addEventListener('click', () => {
-                    window.location.hash = "";
-                });
-            });
-
-            return subSelect;
-        };
-
-        const getAddChildExtra = () => {
-            const childExtra = document.createElement("div");
-            const buttonClass = "cmo-abort-button";
-            const textClass = "cmo-add-child-description-text";
-
-            childExtra.classList.add('well');
-            childExtra.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
-
-            I18N.translate('cmo.add.child.description', (translation) => {
-                const replaceText: HTMLSpanElement = <HTMLSpanElement>childExtra.querySelector("." + textClass);
-                replaceText.innerText = translation;
-            });
-
-            const replaceButton: HTMLElement = <HTMLElement>childExtra.querySelector("." + buttonClass);
-            I18N.translate('cmo.abort', (translation) => {
-                replaceButton.innerText = translation;
-                replaceButton.addEventListener('click', () => {
-                    window.location.hash = "";
-                });
-            });
-            return childExtra;
-        };
-
-        switch (action) {
-            case "add-child":
-            case "subselect":
-            case "set-parent":
-            case "subselect-insert":
-
-                sideBar.classList.remove("d-none");
-                mainContainer.classList.remove("col-md-11");
-                mainContainer.classList.remove("col-lg-11");
-                mainContainer.classList.add("col-md-9");
-                mainContainer.classList.add("col-lg-9");
-
-                switch (action) {
-                    case "add-child":
-                        extra = getAddChildExtra();
-                        break;
-                    case "subselect":
-                    case "subselect-insert":
-                        extra = getSubselect();
-                        break;
-                    case"set-parent":
-                        extra = getSetParentExtra();
-                        break;
-                }
-            case "init_search":
-                aditionalQuery = params.filter(([key]) => key !== 'q' && key !== 'action' && key !== "sort" && key !== "rows" && key !== "start");
-                if (action == "init_search") {
-                    action = "search";
-                }
-            case "search":
-                ctrl = null;
-                for (let param of params) {
-                    let [, v] = param;
-
-                    if (v.indexOf(kSearchBaseQuery) != -1) {
-                        ctrl = kSearch;
-                    } else if (v.indexOf(eSearchBaseQuery) != -1) {
-                        ctrl = eSearch;
-
-                    }
-                }
-
-                resetJS();
-
-                if (ctrl != null) {
-                    ctrl.enable = true;
-
-                    if (!selfChange) {
-                        ctrl.setSolrQuery(params);
-                    }
-
-                    searchDisplay.save();
-                    facet.save();
-                    searchDisplay.loading();
-                    solrSearcher.search(
-                        params
-                        , (result => {
-                            searchDisplay.displayResult(result, ctrl.getSearchDescription(),(start, sortField, asc, rows) => {
-                                window.scrollTo(0, 0);
-                                search(start, ctrl, action, sortField, asc, rows);
-                            }, getResultAction(params), extra);
-                            facet.displayFacet(result);
-                        }));
-                }
-                break;
-            case "basket":
-                resetJS();
-                baskedDisplay.save();
-                baskedDisplay.display();
-                break;
-
-            default:
-                resetJS();
-        }
-    });
-    kSearch.addQueryChangedHandler(() => onQueryChanged(kSearch));
-    eSearch.addQueryChangedHandler(() => onQueryChanged(eSearch));
-
-
-    let basketBadge = document.querySelector("#basked_badge");
-    let basket = BasketStore.getInstance();
-
-    let refreshBaskedBadge = () => {
-        basketBadge.innerHTML = (basket.count()) + "";
-    };
-
-    basket.addListener(refreshBaskedBadge);
-    refreshBaskedBadge();
-
-// The Parent Element have to look like this <div data-subselect="(category.top:"cmo_kindOfData:source" OR objectType:person) AND objectType:person">
-// The input then just can be <input name='personID' data-subselect-target='id' /> <input name='personName' data-subselect-target='solrField2' />
-    Array.prototype.slice.call(document.querySelectorAll("[data-subselect]")).forEach((node) => {
-        let element = <HTMLElement>node;
-        (<HTMLElement>element.querySelector("[data-subselect-trigger]")).onclick = (e) => {
-            e.preventDefault();
-            let query = element.getAttribute("data-subselect");
-            subselectTarget = Array.prototype.slice.call(element.querySelectorAll("[data-subselect-target]"));
-
-
-            window.location.hash = `q=${query}&start=0&action=subselect`;
-            window.setTimeout(() => {
-                if (ctrl !== null) {
-                    ctrl.openExtendedSearch(true);
-                    ctrl.focus()
-                }
-            }, 1000);
-
-
-        };
-    });
 
     let insertClassName = null;
 

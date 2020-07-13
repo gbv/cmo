@@ -5,6 +5,7 @@ import {CMOBaseDocument, SolrSearcher, SolrSearchResult} from "../other/Solr";
 import {BasketUtil} from "./BasketUtil";
 import {SolrDocumentHelper} from "./SolrDocumentHelper";
 import {BasketStore} from "./BasketStore";
+import {SearchDescription} from "./SearchDescription";
 
 export class SearchDisplay {
     constructor(private _container: HTMLElement) {
@@ -29,18 +30,21 @@ export class SearchDisplay {
         "birth.date.content" : "editor.label.lifeData.birth",
         "death.date.content" : "editor.label.lifeData.death",
         "name" : "editor.label.name",
-        "publish.date.content" : "editor.label.date",
-        "series" : "editor.label.series"
+        "publish.date.content": "editor.label.date",
+        "series": "editor.label.series"
 
     };
 
     private sortOptions = {
-        "editor.search.sort.relevance" : "score",
-        "editor.search.sort.title" : "displayTitleSort",
+        "editor.search.sort.relevance": "score",
+        "editor.search.sort.title": "displayTitleSort",
     };
 
-    public displayResult(result: SolrSearchResult, descriptions:Array<{key?:string, value?:string, classValue?:string, i18nvalue?: string}>, pageChangeHandler: (newPage: number, field: string, asc: boolean, rows: number) => void,
-                         onResultClickHandler: (doc: CMOBaseDocument, result: SolrSearchResult, hitOnPage) => void, extra: HTMLElement) {
+    private actions: Array<{ dataKey, runnable: () => void }>;
+
+    public displayResult(result: SolrSearchResult, descriptions: Array<SearchDescription>, pageChangeHandler: (newPage: number, field: string, asc: boolean, rows: number) => void,
+                         onResultClickHandler: (doc: CMOBaseDocument, result: SolrSearchResult, hitOnPage) => void, formManipulateHandler:()=>void,extra: HTMLElement) {
+        this.actions = [];
         let getSort = (result: SolrSearchResult) => {
             if ("sort" in result.responseHeader.params) {
                 let sortParams = result.responseHeader.params["sort"];
@@ -97,14 +101,21 @@ export class SearchDisplay {
             (<HTMLElement>this._container.querySelector("." + divClass)).appendChild(extra);
         }
 
-        (<HTMLSelectElement>this._container.querySelector("[data-sort-select]")).value = sort[ 0 ];
+        (<HTMLSelectElement>this._container.querySelector("[data-sort-select]")).value = sort[0];
         let sortSelect = <HTMLSelectElement>this._container.querySelector("[data-sort-select]");
         let ascdesc = <HTMLSpanElement>this._container.querySelector(".ascdesc");
+        this.actions.forEach((action) => {
+            this._container.querySelector(`[data-run='${action.dataKey}']`).addEventListener('click', () => {
+                formManipulateHandler();
+                action.runnable();
+            });
+        });
 
         Array.prototype.slice.call(this._container.querySelectorAll("[data-switch-page]")).forEach((node) => {
             let page = parseInt((<HTMLElement>node).getAttribute("data-switch-page"), 10);
-            node.addEventListener("click", () => {
-                pageChangeHandler(page,sortSelect.value, ascdesc.innerHTML.trim() !== "↓", parseInt(rowsSelect.value));
+            node.addEventListener("click", (e) => {
+                pageChangeHandler(page, sortSelect.value, ascdesc.innerHTML.trim() !== "↓", parseInt(rowsSelect.value));
+                e.stopPropagation();
             });
         });
 
@@ -539,24 +550,27 @@ export class SearchDisplay {
     }
 
 
-
-    private displaySeachDescription(descriptions:Array<{key?:string, value?:string, classValue?:string, i18nvalue?: string}>) {
+    private displaySeachDescription(descriptions: Array<SearchDescription>) {
         return descriptions.map(descr => {
-            if("value" in descr && typeof descr.value != "undefined" && descr.value!=null){
-                return `<span data-i18n="${descr.key}"></span>:${descr.value}`;
-            }
-            if("classValue" in descr && typeof descr.classValue != "undefined" && descr.classValue!=null){
-                return `<span data-clazz="${descr.classValue.split(":")[0]}"></span>:<span data-clazz="${descr.classValue.split(":")[0]}" data-category="${descr.classValue.split(":")[1]}"></span>`;
-            }
-            if("i18nvalue" in descr && typeof descr.i18nvalue != "undefined" && descr.i18nvalue!=null){
-                return `<span data-i18n="${descr.key}"></span>:<span data-i18n="${descr.i18nvalue}"></span>`;
+            let base = "";
+            if ("value" in descr && typeof descr.value != "undefined" && descr.value != null) {
+                base = `<span data-i18n="${descr.key}"></span>:${descr.value}`;
+            } else if ("classValue" in descr && typeof descr.classValue != "undefined" && descr.classValue != null) {
+                base = `<span data-clazz="${descr.classValue.split(":")[0]}"></span>:<span data-clazz="${descr.classValue.split(":")[0]}" data-category="${descr.classValue.split(":")[1]}"></span>`;
+            } else if ("i18nvalue" in descr && typeof descr.i18nvalue != "undefined" && descr.i18nvalue != null) {
+                base = `<span data-i18n="${descr.key}"></span>:<span data-i18n="${descr.i18nvalue}"></span>`;
 
-            }
-            if("key" in descr && typeof descr.key != "undefined" && descr.key!=null){
-                return `<span data-i18n="${descr.key}"></span>`;
-
+            } else if ("key" in descr && typeof descr.key != "undefined" && descr.key != null) {
+                base = `<span data-i18n="${descr.key}"></span>`;
             }
 
+            if ("reset" in descr && descr.reset != null) {
+                const key = Math.random().toString(32).substring(2);
+                this.actions.push({dataKey: key, runnable: () => descr.reset()});
+                return `${base} <span style="cursor: pointer" class="fas fa-times-circle" data-run="${key}"></span>`;
+            }
+
+            return base;
         }).map(html=> `<span class="badge badge-pill badge-secondary">${html}</span>`).join(" ");
     }
 }
