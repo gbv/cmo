@@ -6,6 +6,7 @@ import {
 } from "./SearchFormGUI";
 import {Utils} from "../other/Utils";
 import {SearchFacetController} from "./SearchFacet";
+import {SearchDescription} from "./SearchDescription";
 
 
 export class SearchController {
@@ -36,7 +37,7 @@ export class SearchController {
 
     }
 
-    public getSearchDescription():Array<{key?:string, value?:string, classValue?:string, i18nvalue?: string}> {
+    public getSearchDescription():Array<SearchDescription> {
         return this.view.getSearchDescription();
     }
 
