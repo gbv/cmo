@@ -210,6 +210,15 @@
   }
 }
 
+.cmo-badge {
+  &-filter {
+    font-size: 85%;
+    font-weight: normal;
+    color: white;
+    background-color: $body-bg;
+  }
+}
+
 [data-basket]{
   cursor: pointer;
 }

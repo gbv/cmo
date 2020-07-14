@@ -79,7 +79,7 @@ export class SearchDisplay {
                         ${this.getSortOptions(sort[ 0 ])}
                     </select>
                     <span class="ascdesc">
-                           ${sort[ 1 ] == "desc" ? "&darr;" : "&uarr;"}             
+                           ${sort[ 1 ] == "desc" ? "&darr;" : "&uarr;"}
                     </span>
                 </div>
                 <div class="col-6">
@@ -320,7 +320,7 @@ export class SearchDisplay {
             return doc[ "displayTitle" ];
         })}
         <span class="col-md-12">${doc["identifier.type.CMO"]}</span>
-        <span class="col-md-12">${this.displayCombinedField(doc, 'lyricist')} 
+        <span class="col-md-12">${this.displayCombinedField(doc, 'lyricist')}
         ${this.displayCombinedField(doc, 'composer')}</span>
         ${solrDocumentHelper.getMultiValue("incip.normalized")
             .map(incip => `<span class="col-md-12">${incip.join(", ")}</span>`)
@@ -443,7 +443,7 @@ export class SearchDisplay {
 
 
         return `${doc["cmoType"] == "source-mods" ? `<span class="col-md-12"><span data-i18n="editor.cmo.select.source-mods" class="badge badge-pill"></span></span>`: ``}
-               ${this.displayHitTitle(doc, index, result, (doc) => doc[ "displayTitle" ])}   
+               ${this.displayHitTitle(doc, index, result, (doc) => doc[ "displayTitle" ])}
                ${doc["cmoType"] == "source-mods" && "mods.identifier.CMO" in doc ? `<span class="col-md-12">${doc["mods.identifier.CMO"]}</span>` : ``}
                   ${fieldsLine2.length > 0 ? `<span class="col-md-12">${fieldsLine2.join(" | ")}</span>` : ""}
                   ${fieldsLine3.length > 0 ? `<span class="col-md-12">${fieldsLine3.join(" : ")}</span>` : ""}
@@ -469,7 +469,7 @@ export class SearchDisplay {
                 .and(death, (b, d) => `${b} | ${d}`)
                 .or(() => birth, () => death)
                 .orElse("")
-            } 
+            }
         </span>
         ${this.displayBasketButton(doc)}
         `
@@ -571,7 +571,6 @@ export class SearchDisplay {
             }
 
             return base;
-        }).map(html=> `<span class="badge badge-pill badge-secondary">${html}</span>`).join(" ");
+        }).map(html=> `<span class="badge badge-pill cmo-badge-filter">${html}</span>`).join(" ");
     }
 }
-
