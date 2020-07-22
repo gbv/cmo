@@ -69,6 +69,7 @@
       </xsl:call-template>
     </xsl:for-each>
 
+    <!--
     <xsl:if test="//mei:termList[contains(@class,'cmo_makamler')]">
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="label" select="'editor.label.standardizedTerm'" />
@@ -78,7 +79,7 @@
           </xsl:for-each>
         </xsl:with-param>
       </xsl:call-template>
-    </xsl:if>
+    </xsl:if> -->
 
     <xsl:apply-templates select="$parentElement/mei:author" mode="metadataView" />
     <xsl:apply-templates select="$parentElement/mei:composer" mode="metadataView" />

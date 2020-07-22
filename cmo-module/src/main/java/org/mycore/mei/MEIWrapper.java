@@ -392,4 +392,7 @@ public abstract class MEIWrapper {
     public void removeEmptyElements() {
         removeEmptyNodes(this.root);
     }
+
+    public void fixElements() {
+    }
 }

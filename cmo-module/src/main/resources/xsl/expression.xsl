@@ -25,6 +25,9 @@
                 <xsl:value-of select="//mei:title[@type='sub']" />
               </xsl:if>
             </xsl:when>
+            <xsl:when test="//mei:title[@type='uniform']">
+              <xsl:value-of select="//mei:title[@type='uniform']" />
+            </xsl:when>
             <xsl:otherwise>
               <xsl:for-each select="//mei:expression">
                 <xsl:call-template name="printStandardizedTerm" />

@@ -60,6 +60,10 @@
     </xsl:copy>
   </xsl:template>
 
+  <xsl:template match="mei:title[@type='uniform']">
+    <xsl:comment>deleted uniform title</xsl:comment>
+  </xsl:template>
+
   <xsl:template match="mei:respStmt[mei:resp/text()='Printer']">
     <mei:printer>
       <xsl:value-of select="mei:corpName" />

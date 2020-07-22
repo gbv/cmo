@@ -21,16 +21,22 @@
 
 package org.mycore.mei;
 
+import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.jdom2.Element;
-
-import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
+import org.mycore.mei.classification.MCRMEIClassificationSupport;
 
 public class MEIExpressionWrapper extends MEIWrapper {
 
     private static final List<String> TOP_LEVEL_ELEMENT_ORDER = new ArrayList<>();
+
+    private static final String FIRST_CLASS_IN_TITLE = "cmo_makamler";
+
+    private static final String SECOND_CLASS_IN_TITLE = "cmo_musictype";
 
     static {
         TOP_LEVEL_ELEMENT_ORDER.add("identifier");
@@ -89,6 +95,47 @@ public class MEIExpressionWrapper extends MEIWrapper {
         }
 
         return super.isElementRelevant(element);
+    }
+
+    @Override
+    public void fixElements() {
+        super.fixElements();
+        cleanTitle();
+    }
+
+    public void cleanTitle() {
+        final Element root = this.getRoot();
+
+        final List<Element> titles = root.getChildren("title", MEI_NAMESPACE);
+        final List<Element> titlesToRemove = titles.stream()
+            .filter(t -> "placeholder".equals(t.getAttributeValue("type")) ||
+                "uniform".equals(t.getAttributeValue("type")) ||
+                t.getTextTrim().length() == 0)
+            .collect(Collectors.toList());
+        titlesToRemove.forEach(this.getRoot()::removeContent);
+
+        // create uniform title
+        final String firstClassURL = this.getClassification().keySet().stream()
+            .filter(k -> k.endsWith(FIRST_CLASS_IN_TITLE)).findFirst().get();
+        final String makkamTitlePart = this.getClassification().get(firstClassURL)
+            .stream()
+            .findFirst()
+            .map(makkam -> MCRMEIClassificationSupport.getStdClassLabel(firstClassURL, makkam))
+            .orElseGet(() -> "");
+
+        final String secondClassURL = this.getClassification().keySet().stream()
+            .filter(k -> k.endsWith(SECOND_CLASS_IN_TITLE)).findFirst().get();
+        final String musictypeTitlePart = this.getClassification()
+            .get(secondClassURL).stream()
+            .findFirst()
+            .map(makkam -> MCRMEIClassificationSupport.getClassLabel(secondClassURL, makkam))
+            .orElseGet(() -> "");
+
+        final Element title = new Element("title", MEI_NAMESPACE);
+        title.setAttribute("type", "uniform");
+        title.setText(String.join(" ", makkamTitlePart, musictypeTitlePart));
+        root.addContent(title);
+
     }
 
     @Override

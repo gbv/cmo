@@ -1,5 +1,7 @@
 package de.vzg.cmo.model.cli;
 
+import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Constructor;
@@ -38,11 +40,11 @@ import org.mycore.datamodel.metadata.MCRObjectID;
 import org.mycore.frontend.cli.MCRObjectCommands;
 import org.mycore.frontend.cli.annotation.MCRCommand;
 import org.mycore.frontend.cli.annotation.MCRCommandGroup;
+import org.mycore.mei.MEIExpressionWrapper;
 import org.mycore.mei.MEIWrapper;
+import org.mycore.mei.classification.MCRMEIClassificationSupport;
 import org.mycore.mei.migration.CMOClassificationIDPatch;
 import org.mycore.mei.migration.MEIMigrator;
-
-import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
 
 @MCRCommandGroup(name = "CMO Migration Commands")
 public class MCRCMOMigrationCommands {
@@ -206,6 +208,26 @@ public class MCRCMOMigrationCommands {
             .forEach(commands::add);
 
         return commands;
+    }
+
+    @MCRCommand(syntax = "fix title of {0}")
+    public static void fixTitle(String objectIDString) throws MCRAccessException {
+        final MCRObjectID objectID = MCRObjectID.getInstance(objectIDString);
+        if (!MCRMetadataManager.exists(objectID)) {
+            LOGGER.error("The object {} does not exist", objectIDString);
+            return;
+        }
+
+        MCRObject object = MCRMetadataManager.retrieveMCRObject(objectID);
+        final MEIWrapper wrapper = MEIWrapper.getWrapper(object);
+        if (!"expression".equals(wrapper.getWrappedElementName())) {
+            LOGGER.error("Can only fix titles of expression!");
+            return;
+        }
+
+        MEIExpressionWrapper eWrapper = (MEIExpressionWrapper) wrapper;
+        eWrapper.cleanTitle();
+        MCRMetadataManager.update(object);
     }
 
 }
