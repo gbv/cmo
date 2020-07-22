@@ -21,6 +21,8 @@
 
 package org.mycore.mei.classification;
 
+import org.mycore.datamodel.classifications2.MCRCategLinkReference;
+import org.mycore.datamodel.classifications2.MCRCategLinkServiceFactory;
 import org.mycore.datamodel.classifications2.MCRCategory;
 import org.mycore.mei.MEIWrapper;
 
@@ -32,6 +34,8 @@ import org.mycore.datamodel.classifications2.MCRCategoryDAO;
 import org.mycore.datamodel.classifications2.MCRCategoryDAOFactory;
 import org.mycore.datamodel.classifications2.MCRCategoryID;
 import org.mycore.datamodel.metadata.MCRObject;
+
+import java.util.HashSet;
 
 public class MCRMEIClassificationLinkEventHandler extends MCREventHandlerBase {
 
@@ -47,16 +51,34 @@ public class MCRMEIClassificationLinkEventHandler extends MCREventHandlerBase {
                 final MCRCategory classificationFromURI = MCRMEIClassificationSupport
                     .getClassificationFromURI(classification);
 
+                HashSet<MCRCategoryID> categories = new HashSet<>();
                 valueList.forEach(categValue -> {
                     final MCRCategoryID categoryID = MCRMEIClassificationSupport
                         .getChildID(classificationFromURI, categValue);
+
                     if (categoryID == null) {
                         LOGGER.warn("Could not find unknown classification: {} -> {},{}", obj.getId().toString(),
                             classification, categValue);
+                    } else {
+                        categories.add(categoryID);
                     }
                 });
+                if (!categories.isEmpty()) {
+                    final MCRCategLinkReference objectReference = new MCRCategLinkReference(obj.getId());
+                    MCRCategLinkServiceFactory.getInstance().setLinks(objectReference, categories);
+                }
             });
         }
     }
 
+
+    @Override
+    protected void handleObjectUpdated(MCREvent evt, MCRObject obj) {
+        handleObjectCreated(evt, obj);
+    }
+
+    @Override
+    protected void handleObjectRepaired(MCREvent evt, MCRObject obj) {
+        handleObjectCreated(evt, obj);
+    }
 }

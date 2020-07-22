@@ -40,7 +40,7 @@
 
   <xed:template id="cmo_titleExpression">
     <cmo:textfield xpath="mei:title" label="editor.label.title" type="cmo_titleTypeExpression" lang="iso15924"
-                   repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" class="required" required="true" required-i18n="cmo.validation.titleExpression" />
+                   repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" required="false" required-i18n="cmo.validation.titleExpression" />
   </xed:template>
 
   <xed:template id="cmo_personNameCMO">
