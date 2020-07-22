@@ -8,6 +8,10 @@
       <label xml:lang="de" text="main" />
       <label xml:lang="en" text="main" />
     </category>
+    <category ID="unified">
+      <label xml:lang="de" text="unified" />
+      <label xml:lang="en" text="unified" />
+    </category>
     <category ID="orig">
       <label xml:lang="en" text="orig" />
       <label xml:lang="de" text="orig" />
