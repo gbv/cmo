@@ -25,6 +25,7 @@ import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.jdom2.Element;
@@ -115,21 +116,25 @@ public class MEIExpressionWrapper extends MEIWrapper {
         titlesToRemove.forEach(this.getRoot()::removeContent);
 
         // create uniform title
-        final String firstClassURL = this.getClassification().keySet().stream()
-            .filter(k -> k.endsWith(FIRST_CLASS_IN_TITLE)).findFirst().get();
-        final String makkamTitlePart = this.getClassification().get(firstClassURL)
-            .stream()
-            .findFirst()
-            .map(makkam -> MCRMEIClassificationSupport.getStdClassLabel(firstClassURL, makkam))
-            .orElseGet(() -> "");
+        final Optional<String> firstClassURL = this.getClassification().keySet().stream()
+            .filter(k -> k.endsWith(FIRST_CLASS_IN_TITLE)).findFirst();
 
-        final String secondClassURL = this.getClassification().keySet().stream()
-            .filter(k -> k.endsWith(SECOND_CLASS_IN_TITLE)).findFirst().get();
-        final String musictypeTitlePart = this.getClassification()
-            .get(secondClassURL).stream()
-            .findFirst()
-            .map(makkam -> MCRMEIClassificationSupport.getClassLabel(secondClassURL, makkam))
-            .orElseGet(() -> "");
+        final String makkamTitlePart = firstClassURL
+                .map(value -> this.getClassification()
+                .get(value)
+                .stream()
+                .findFirst()
+                .map(makkam -> MCRMEIClassificationSupport.getStdClassLabel(value, makkam))
+                .orElseGet(() -> "")).orElse("");
+
+        final Optional<String> secondClassURL = this.getClassification().keySet().stream()
+            .filter(k -> k.endsWith(SECOND_CLASS_IN_TITLE)).findFirst();
+        final String musictypeTitlePart = secondClassURL
+                .map(s -> this.getClassification()
+                .get(s).stream()
+                .findFirst()
+                .map(makkam -> MCRMEIClassificationSupport.getClassLabel(s, makkam))
+                .orElseGet(() -> "")).orElse("");
 
         final Element title = new Element("title", MEI_NAMESPACE);
         title.setAttribute("type", "uniform");
