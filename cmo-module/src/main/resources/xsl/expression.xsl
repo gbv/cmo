@@ -65,7 +65,7 @@
                 </xsl:call-template>
                 <xsl:apply-templates select="//mei:notesStmt" mode="printAnnot" />
                 <xsl:call-template name="license"/>
-                <xsl:apply-templates select="structure/children" mode="metadataView" />
+                <xsl:apply-templates select="structure/children" mode="expression" />
               </xsl:with-param>
             </xsl:call-template>
           </xsl:with-param>
