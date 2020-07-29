@@ -40,6 +40,9 @@ DELETE FROM MCRCATEGORYLINK WHERE OBJECTTYPE='expression'
                                   or OBJECTTYPE='person';
 ```
 
+## FOP Settings for PDF export
+Its maybe required to store a fop.xml in the folder ~/.mycore/cmo/resources/ to support the right font rendering. See fop.xml in project.
+
 ## Debug
 
 The project uses webpack to bundle typescript. To Debug change the mode in cmo-module/webpack.config.js to 'development'. 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fop>
+    <renderers>
+        <renderer mime="application/pdf">
+            <fonts>
+                <directory>/usr/share/fonts/liberation</directory>
+                <auto-detect/>
+                <substitutions>
+                    <substitution>
+                        <from font-family="Helvetica" />
+                        <to font-family="LiberationSans" />
+                    </substitution>
+                </substitutions>
+            </fonts>
+        </renderer>
+    </renderers>
+</fop>
