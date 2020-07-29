@@ -17,6 +17,7 @@
  * 			- SELECT			: add searchType selection menu
  * 			- GND 				: search through http://lobid.org
  * 			- VIAF				: search through http://www.viaf.org
+ * 		    - ORCID             : search through https://pub.orcid.org/
  * 		- searchOutput			: the output field for person the nameIdentifer ID,
  * 								  if nothing specified the input field is used
  * 		- searchOutputType		: the output field for person the nameIdentifer type,
@@ -32,7 +33,7 @@
 +function($) {
   'use strict';
 
-  var toggle = '[data-search="searchEntity"]'
+  var toggle = '[data-search="searchEntity"]';
 
   var SearchEntity = function(element, options) {
     this.options = $.extend({}, SearchEntity.DEFAULTS, options);
@@ -293,16 +294,54 @@
       geographic : {
         enabled : false
       }
+    },
+    ORCID : {
+        baseURI: "https://orcid.org/",
+        person: {
+            enabled:true,
+            /* does not work with http only */
+            url: window["webApplicationBaseURL"]+"servlets/MIROrcidServlet",
+            data: function (input) {
+                return {
+                    q: input
+                }
+            },
+            dataConvert: function (data) {
+                return data;
+            }
+        },
+        organisation: {
+            enabled: false
+        },
+        both:{
+            enabled: true,
+            /* does not work with http only */
+            url: window["webApplicationBaseURL"]+"servlets/MIROrcidServlet",
+            data: function (input) {
+                return {
+                    q: input
+                }
+            },
+            dataConvert: function (data) {
+                return data;
+            }
+        },
+        topic:{
+            enabled: false
+        },
+        geographic:{
+            enabled : false
+        }
     }
   };
 
   SearchEntity.DEFAULTS = {
     // Button style
-    buttonClass : "btn btn-default",
+    buttonClass : "btn btn-secondary",
     // Feedback style (optical feedback for current selection)
-    feedbackClass : "feedback label btn-primary",
+    feedbackClass : "feedback badge badge-primary",
     // Feedback cleaner icon style
-    feedbackCleanIconClass : "feedback-clean btn-primary far fa-times-circle",
+    feedbackCleanIconClass : "feedback-clean far fa-times-circle",
 
     // min length of search term
     inputMinLength : 3,
@@ -346,7 +385,7 @@
     this.$element = $element;
 
     var $actions = $(document.createElement("div"));
-    $actions.addClass("input-group-btn");
+    $actions.addClass("input-group-btn input-group-append");
 
     var $searchBtn = this.$searchBtn = $(document.createElement("button"));
     $searchBtn.addClass(options.buttonClass);
@@ -373,6 +412,7 @@
       var $typeBtn = this.$typeBtn = $(document.createElement("button"));
       $typeBtn.addClass(options.buttonClass).addClass("dropdown-toggle");
       $typeBtn.attr("data-toggle", "dropdown");
+      $typeBtn.html("<span class=\"caret\"></span><span class=\"sr-only\">Toggle Dropdown</span>");
 
       $actions.append($typeBtn);
 
@@ -389,9 +429,12 @@
         }
 
         var $entry = $(document.createElement("li"));
-        (type.toUpperCase() == this.selectedType.toUpperCase()) && $entry.addClass("active");
+        if(type.toUpperCase() === this.selectedType.toUpperCase()) {
+          $entry.addClass("active");
+        }
 
         var $ea = $(document.createElement("a"));
+        $ea.addClass("dropdown-item");
         $ea.attr("href", "#");
         $ea.data("search-type", type);
         $ea.text(type);
@@ -419,7 +462,7 @@
     var $parent = this.$parent;
     var options = this.options;
 
-    var isActive = $parent.hasClass("open");
+    var isActive = $parent.find(".dropdown-menu").hasClass("show");
 
     this.clearAll();
 
@@ -432,29 +475,38 @@
         return;
 
       var type = null;
-      for ( var t in SearchEntity.TYPES) {
+      for (var t in SearchEntity.TYPES) {
         if (this.selectedType.toUpperCase() == t.toUpperCase()) {
           type = SearchEntity.TYPES[t][options.searchEntityType];
           break;
         }
       }
 
-      this.$searchBtn.button("loading");
+      let text = this.$searchBtn.text();
+      this.$searchBtn.text(" " + this.$searchBtn.attr("data-loading-text"));
+      let content = jQuery('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">' +
+          '</span><span class="sr-only">' + this.$searchBtn.attr("data-loading-text") + '</span>');
+      this.$searchBtn.prepend(content);
+
+      let that = this;
       if (type != null) {
-        SearchEntity.loadData(type.url, type.dataType, type.data(input), function(data) {
+        SearchEntity.loadData(type.url, type.dataType, type.data(input), function (data) {
           if (data !== undefined) {
             that.showResult(SearchEntity.sortData(input, typeof type.dataConvert == "function" ? type.dataConvert(data) : data));
           } else {
             that.showResult();
           }
-          that.$searchBtn.button("reset");
-        }, function() {
+          content.detach();
+          that.$searchBtn.text(text);
+        }, function () {
           that.showResult();
-          that.$searchBtn.button("reset");
+          content.detach();
+          that.$searchBtn.text(text);
         })
       } else {
         console.error("Search type \"" + this.selectedType.toUpperCase() + "\" is unsupported!");
-        this.$searchBtn.button("reset");
+        content.detach();
+        this.$searchBtn.text(text);
       }
     }
 
@@ -466,15 +518,19 @@
     var $parent = this.$parent;
     var options = this.options;
 
-    var $resultBox = $(document.createElement("ul"));
-    $resultBox.attr("role", "menu");
-    $resultBox.addClass("dropdown-menu");
+    var $resultBox = $(document.createElement("div"));
+    $resultBox.addClass("dropdown");
+
+    var $resultList = $(document.createElement("ul"));
+    $resultList.attr("role", "menu");
+    $resultList.addClass("dropdown-menu");
+    $resultBox.append($resultList);
 
     if (data && data.length > 0) {
       $(data).each(function(index, item) {
         var $li = $(document.createElement("li"));
-
         var $person = $(document.createElement("a"));
+        $person.addClass("dropdown-item");
         $person.attr("href", "#");
         $person.attr("data-type", item.type);
         $person.text(item.label);
@@ -486,23 +542,23 @@
 
         $li.append($person);
 
-        $resultBox.append($li);
+        $resultList.append($li);
       });
     } else {
       var $li = $(document.createElement("li"));
       $li.html(options.searchResultEmpty);
-      $resultBox.append($li);
+      $resultList.append($li);
     }
 
     $parent.append($resultBox);
-    $resultBox.css({
+    $resultList.css({
       height : "auto",
       maxHeight : options.searchResultMaxHeight,
       width : "100%",
       overflow : "auto",
       overflowX : "hidden"
     });
-    $resultBox.dropdown("toggle");
+    $resultList.addClass("show");
 
     this.$element.data($.extend({}, {
       searchResultContainer : $resultBox
@@ -516,23 +572,105 @@
     var $outputType = $(options.searchOutputType, getParent(this.$element))[0] !== undefined ? $(options.searchOutputType, getParent(this.$element)).first() : this.$element;
     var $outputNameType = $(options.searchOutputNameType, getParent(this.$element))[0] !== undefined ? $(options.searchOutputNameType, getParent(this.$element)).first() : this.$element;
 
+    var currentIdFieldIndex = 0;
+    var nameIdFields = [];
+    var nameIdTypes = null;
+
+    var nameIdTypesElements = null;
+
+    var isNewNameFormGroup = true;
+
     if (item) {
       this.$element != $output && item.label && this.$element.val(item.label.replace(SearchEntity.LABEL_CLEANUP, ""));
-      $output.val(getIDFromURL(item.value));
       var outputType = getTypeFromURL(item.value);
+
+      if (item.type) {
+
+        $outputNameType.val(item.type.toLowerCase());
+
+        /* Get dependent personExtended_box */
+        var itemPersonExtendedBox = $($output).closest('fieldset[class="personExtended_box"]');
+
+        /* get the next free output field */
+        nameIdFields = $(itemPersonExtendedBox).find('input[name*="/mods:nameIdentifier"]');
+        nameIdFields = nameIdFields.toArray();
+
+        while (currentIdFieldIndex < nameIdFields.length && nameIdFields[currentIdFieldIndex].value) {
+          currentIdFieldIndex++;
+        }
+
+        /*
+         * Get assigned name identifier types for the dependent
+         * personExtended_box
+         */
+        nameIdTypesElements = $(itemPersonExtendedBox).find('select[name*="/mods:nameIdentifier"]');
+
+        nameIdTypes = nameIdTypesElements.map(function () {return this.value;}).get();
+
+        /*
+         * Output will replace an old value with same identifier type or will be
+         * the next free input field!
+         */
+        if (nameIdTypes.includes(outputType.toLowerCase())) {
+
+          /* note multiple id types on outputType */
+          let depIndexWithIdType = null;
+          let defaultIndexWithIdType = null;
+
+          for (var ind=0; ind < nameIdTypes.length && depIndexWithIdType === null; ind++) {
+
+            if (nameIdTypes[ind] === outputType.toLowerCase()) {
+
+              var outputWithIdType = $(nameIdTypesElements[ind]).closest('div.form-group').find('input[name*="/mods:nameIdentifier"]');
+
+              if (outputWithIdType.val()) {
+                depIndexWithIdType = ind;
+              }
+
+              defaultIndexWithIdType = ind;
+            }
+          }
+
+          /*
+           * avoid default pointer for $output and $outputType -> do not remove
+           * first
+           */
+          if (depIndexWithIdType === null) {
+            depIndexWithIdType = defaultIndexWithIdType;
+          }
+
+          $output[0] = outputWithIdType[0];
+          $outputType[0] = nameIdTypesElements[depIndexWithIdType];
+
+        } else {
+          /* $output will be the next free Input field */
+          $output[0] = nameIdFields[currentIdFieldIndex];
+
+          /* get dependent outputType selection */
+          let dependentOutputType = $('select[name="' + nameIdFields[currentIdFieldIndex].name + '/@type"]');
+          $outputType[0] = dependentOutputType[0];
+        }
+      }
+
+      $output.val(getIDFromURL(item.value));
       if (outputType != "") {
         $outputType.val(outputType.toLowerCase());
       }
-      if (item.type != undefined && item.type != "") {
-        $outputNameType.val(item.type.toLowerCase());
-      }
-    }
 
+      /* if there is not a free identifier output field anymore trigger button */
+      nameIdFields.forEach((currentNameIdField, index) => {
+
+        if (!currentNameIdField.value) {
+          isNewNameFormGroup = false;
+        }
+      });
+    }
     if ($output != this.$element && $output.val().length > 0) {
       var type = $outputType.val();
       var $feedback = $(document.createElement("a"));
       $feedback.attr("href", getURLFromTypeAndID($outputType.val(), $output.val()));
       $feedback.attr("target", "_blank");
+      $feedback.attr("class", "mcr-badge--origin");
       $feedback.css({
         textDecoration : "none"
       });
@@ -548,9 +686,6 @@
       $label.html(type != null ? type.toUpperCase() : "N/A");
 
       var $remover = $(document.createElement("a"));
-      $remover.css({
-        marginLeft : 5,
-      });
       $remover.attr("href", "#");
       $remover.html("<i class=\"" + options.feedbackCleanIconClass + "\"></i>");
       $remover.on("click", function(e) {
@@ -570,14 +705,26 @@
       this.$element.after($feedback);
 
       $feedback.css({
-        position : "absolute",
-        marginLeft : -($feedback.width() + 10),
-        marginTop : Math.floor((this.$element.innerHeight() - $feedback.height()) / 2),
-        zIndex : 100
+        marginLeft : -($feedback.width() + 10)
+      });
+      // prevent badge overlay
+      // add padding to the input field in badge size
+      this.$element.css({
+        paddingRight : ($feedback.width() + 20)
       });
     } else {
       if (this.$feedback)
         this.$feedback.remove();
+      // remove badge overlay padding
+      this.$element.css({
+        paddingRight : 20
+      });
+    }
+
+    if (item && item.type && isNewNameFormGroup) {
+      /* Toggle last add Button to generate new nameField */
+      let addIdentifierButton = $(nameIdFields[nameIdFields.length - 1]).closest('div[class="form-group row"]').find('button[name^="_xed_submit_insert"]');
+      addIdentifierButton.click();
     }
   };
 
@@ -717,7 +864,7 @@
       }
     }
 
-    var $parent = selector && $(selector)
+    var $parent = selector && $(selector);
 
     return $parent && $parent.length ? ($parent.length > 1) ? ($parent = $parent.has($this)) : $parent : $this.parent()
   }
@@ -729,7 +876,7 @@
     return this.each(function() {
       var $this = $(this);
       var data = $this.data('mcr.searchentity');
-      var options = typeof option == 'object' && option
+      var options = typeof option == 'object' && option;
 
       if (!data)
         $this.data('mcr.searchentity', (data = new SearchEntity(this, option)));

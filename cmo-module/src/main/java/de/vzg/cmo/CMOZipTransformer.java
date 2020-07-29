@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.Optional;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -20,6 +21,7 @@ import org.mycore.common.MCRException;
 import org.mycore.common.content.MCRByteContent;
 import org.mycore.common.content.MCRContent;
 import org.mycore.common.content.MCRJDOMContent;
+import org.mycore.common.content.MCRStringContent;
 import org.mycore.common.content.transformer.MCRContentTransformer;
 import org.xml.sax.SAXException;
 
@@ -84,11 +86,17 @@ public class CMOZipTransformer extends MCRContentTransformer {
         private MCRZipEntryContentTuple getEntryContentTuple(Element xmlEntry) {
             final String fileName = xmlEntry.getAttributeValue("fileName");
             final List<Element> children = xmlEntry.getChildren();
-            if (children.isEmpty()) {
+            if (children.isEmpty() && xmlEntry.getText().length()==0) {
                 LOGGER.warn( "Zip Entry of " + fileName + " is Empty!");
                 return new MCRZipEntryContentTuple(new ZipEntry(fileName), new MCRByteContent(new byte[0]));
             }
-            return new MCRZipEntryContentTuple(new ZipEntry(fileName), new MCRJDOMContent(children.get(0).clone()));
+            final String type = Optional.ofNullable(xmlEntry.getAttributeValue("type")).orElse("xml");
+            switch (type){
+                case "text":
+                    return new MCRZipEntryContentTuple(new ZipEntry(fileName), new MCRStringContent(xmlEntry.getText()));
+                default:
+                    return new MCRZipEntryContentTuple(new ZipEntry(fileName), new MCRJDOMContent(children.get(0).clone()));
+            }
         }
     }
 
