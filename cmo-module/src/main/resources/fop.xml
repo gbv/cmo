@@ -3,14 +3,8 @@
     <renderers>
         <renderer mime="application/pdf">
             <fonts>
-                <directory>/usr/share/fonts/liberation</directory>
+                <directory recursive="true">/usr/share/fonts/</directory>
                 <auto-detect/>
-                <substitutions>
-                    <substitution>
-                        <from font-family="Helvetica" />
-                        <to font-family="LiberationSans" />
-                    </substitution>
-                </substitutions>
             </fonts>
         </renderer>
     </renderers>
