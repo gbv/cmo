@@ -6,7 +6,7 @@
     <xsl:param name="CurrentLang"/>
 
     <xsl:template match="table:tables">
-        <fo:root font-family="LiberationSans" language="{$CurrentLang}" hyphenate="true">
+        <fo:root font-family="LiberationSans, UnifontMedium" language="{$CurrentLang}" hyphenate="true">
             <fo:layout-master-set>
                 <fo:simple-page-master master-name="tables"
                                        page-width="297mm" page-height="210mm">
