@@ -6,7 +6,7 @@
     <xsl:param name="CurrentLang"/>
 
     <xsl:template match="table:tables">
-        <fo:root font-family="LiberationSans, UnifontMedium" language="{$CurrentLang}" hyphenate="true">
+        <fo:root font-family="LiberationSans" font-size="8pt" language="{$CurrentLang}" hyphenate="true">
             <fo:layout-master-set>
                 <fo:simple-page-master master-name="tables"
                                        page-width="297mm" page-height="210mm">
@@ -67,7 +67,7 @@
     </xsl:template>
 
     <xsl:template match="table:th|table:td">
-        <fo:table-cell border-color="#000000" padding="0.097cm" border-style="inset" border-width="1pt" font-size="8pt">
+        <fo:table-cell border-color="#000000" padding="0.097cm" border-style="inset" border-width="1pt">
             <fo:block  wrap-option="wrap" overflow="hidden">
                 <xsl:apply-templates/>
             </fo:block>
