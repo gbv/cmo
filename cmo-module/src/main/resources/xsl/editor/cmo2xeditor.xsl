@@ -568,7 +568,7 @@
           <xed:bind xpath="@xml:lang">
             <select class="form-control" style="width: 150px;">
               <option value="">
-                <xed:output i18n="editor.select" />
+                <xed:output i18n="editor.select.optional" />
               </option>
               <xed:include uri="xslStyle:items2options:classification:editor:1:children:{@lang}" />
             </select>
