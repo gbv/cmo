@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="all" title="Barrierefreiheit">
+    <h1>Erklärung zur Barrierefreiheit</h1>
+    <p>
+      Die Max Weber Stiftung – Deutsche Geisteswissenschaftliche Institute im Ausland (MWS) ist bemüht, die Internetseite <a href="https://corpus-musicae-ottomanicae.de">https://corpus-musicae-ottomanicae.de</a> (im Folgenden: Online-Publikationsplattform) im Einklang mit den nationalen Rechtsvorschriften zur Umsetzung der Richtlinie (EU) 2016/2102 des Europäischen Parlaments barrierefrei zugänglich zu machen.
+    </p>
+    <h2>Stand der Vereinbarkeit mit den Anforderungen</h2>
+    <p>
+      Die Online-Publikationsplattform Corpus Musicae Ottomanicae (CMO) ist mit dem Behindertengleichstellungsgesetz Nordrhein-Westfalen (BGG NRW) und der Barrierefreie-Informationstechnik-Verordnung Nordrhein-Westfalen (BITV NRW) teilweise vereinbar.
+    </p>
+    <h2>Nicht barrierefreie Inhalte</h2>
+    <p>
+      Die auf der Online-Publikationsplattform veröffentlichten Dokumente sind teilweise nicht barrierefrei und können nicht automatisiert in ein barrierefreies Format umgewandelt werden, da
+    </p>
+    <ul>
+      <li>die MWS nicht das Recht auf die Änderung der Dateien besitzt,</li>
+      <li>die Ausgangsformate nicht zu Verfügung stehen,</li>
+      <li>die Zitierfähigkeit der Dokumente nicht mehr gewährleistet wäre.</li>
+    </ul>
+    <p>
+      Eine nachträgliche manuelle Bearbeitung der Dokumente ist unverhältnismäßig arbeitsaufwendig und wird nur in Ausnahmefällen durchgeführt.
+    </p>
+    <p>
+      Sofern Beschaffenheit und Zeicheninventar des Quellenmaterials dies erlaubte, wurde in aus vorliegenden Druckwerken durch Retrodigitalisierung entstandenen Digitalisaten mittels OCR-Software Text hinter die Seitenbilder gelegt. Eine weitere Bearbeitung hinsichtlich Barrierefreiheit erfolgt nicht, um die Authentizität der Reproduktion zu gewährleisten.
+    </p>
+    <p>
+      Die Online-Publikationsplattform richtet sich an Wissenschaftlerinnen und Wissenschaftler aus den jeweiligen Fachbereichen. Aufgrund der komplexen Inhalte kann eine einfache Sprachgestaltung nicht umgesetzt werden und es werden gängige Fachbegriffe und Abkürzungen genutzt.
+    </p>
+    <h2>Erstellung dieser Erklärung zur Barrierefreiheit</h2>
+    <p>
+      Diese Erklärung wurde am 23.09.2020 erstellt. Die Einschätzung basiert auf Selbstbewertung.
+    </p>
+    <h2>Kontakt und Feedback</h2>
+    <p>
+      Wenn Ihnen in Bezug auf die barrierefreie Gestaltung der Internetseite <a href="https://corpus-musicae-ottomanicae.de">https://corpus-musicae-ottomanicae.de</a> Mängel auffallen sollten, können Sie sich gerne an uns wenden. Wir sind Ihnen für Hinweise sehr dankbar.
+    </p>
+    <p>
+      Per E-Mail erreichen Sie uns unter <span class="madress">info [at] maxweberstiftung.de</span>.
+      Unsere Postanschrift lautet:
+    </p>
+    <p>
+      Max Weber Stiftung – Deutsche Geisteswissenschaftliche Institute im Ausland<br />
+      Rheinallee 6<br />
+      D-53173 Bonn<br />
+      Telefon +49 (0)228 37786-0
+    </p>
+    <h2>Ombudsstelle für barrierefreie Informationstechnik des Landes Nordrhein-Westfalen</h2>
+    <p>
+      Sollten Sie auf Mitteilungen oder Anfragen zur barrierefreien Informationstechnik der Internetseite <a href="https://corpus-musicae-ottomanicae.de">https://corpus-musicae-ottomanicae.de</a> von den dort genannten Ansprechpartnerinnen und Ansprechpartnern keine zufriedenstellenden Antworten erhalten haben, können Sie die Ombudsstelle für barrierefreie Informationstechnik einschalten. Unter Einbeziehung aller Beteiligten versucht die Ombudsstelle, die Umstände der fehlenden Barrierefreiheit zu ermitteln, damit der Träger diese beheben kann.
+    </p>
+    <p>
+      Sie ist der oder dem Beauftragten für die Belange der Menschen mit Behinderung nach § 11 des Behindertengleichstellungsgesetzes Nordrhein-Westfalen zugeordnet und über folgenden Kontakt zu erreichen:
+    </p>
+    <p>
+      Ministerium für Arbeit, Gesundheit und Soziales des Landes Nordrhein-Westfalen<br />
+      Fürstenwall 25<br />
+      40219 Düsseldorf
+    </p>
+    <p>
+      Sie erreichen die Ombudsstelle unter der folgenden E-Mail-Adresse:<br />
+      <span class="madress">Ombudsstelle-barrierefreie-IT [at] mags.nrw.de</span>.
+    </p>
+  </section>
+  <meta>
+    <log date="2020-09-23" time="14:38" labelPath=" » Accessibility" lastEditor="Kathleen Neumann" />
+  </meta>
+</MyCoReWebPage>

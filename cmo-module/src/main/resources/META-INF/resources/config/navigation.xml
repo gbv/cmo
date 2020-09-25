@@ -24,6 +24,11 @@
       <label xml:lang="en">Privacy Policy</label>
       <label xml:lang="tr">Gizlilik Politikası</label>
     </item>
+    <item href="/content/below/accessibility.xml" type="intern">
+      <label xml:lang="de">Barrierefreiheit</label>
+      <label xml:lang="en">Accessibility</label>
+      <label xml:lang="tr">Ulaşılabilirlik</label>
+    </item>
     <item href="/content/below/contact.xml" type="intern">
       <label xml:lang="de">Kontakt</label>
       <label xml:lang="en">Contact</label>
