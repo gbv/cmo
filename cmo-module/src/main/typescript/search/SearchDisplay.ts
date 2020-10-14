@@ -549,19 +549,30 @@ export class SearchDisplay {
         return options.join();
     }
 
+    private text(textWithHTML:string):string {
+        const helper = document.createElement("a");
+        helper.innerText = textWithHTML;
+        return helper.innerHTML;
+    }
+
+    private attr(text:string):string {
+        if(text!=null){
+            return text.replace('"', "");
+        }
+        return null;
+    }
 
     private displaySeachDescription(descriptions: Array<SearchDescription>) {
         return descriptions.map(descr => {
             let base = "";
             if ("value" in descr && typeof descr.value != "undefined" && descr.value != null) {
-                base = `<span data-i18n="${descr.key}"></span>:${descr.value}`;
+                base = `<span data-i18n="${this.attr(descr.key)}"></span>:${this.text(descr.value)}`;
             } else if ("classValue" in descr && typeof descr.classValue != "undefined" && descr.classValue != null) {
-                base = `<span data-clazz="${descr.classValue.split(":")[0]}"></span>:<span data-clazz="${descr.classValue.split(":")[0]}" data-category="${descr.classValue.split(":")[1]}"></span>`;
+                base = `<span data-clazz="${this.attr(descr.classValue.split(":")[0])}"></span>:<span data-clazz="${this.attr(descr.classValue.split(":")[0])}" data-category="${this.attr(descr.classValue.split(":")[1])}"></span>`;
             } else if ("i18nvalue" in descr && typeof descr.i18nvalue != "undefined" && descr.i18nvalue != null) {
-                base = `<span data-i18n="${descr.key}"></span>:<span data-i18n="${descr.i18nvalue}"></span>`;
-
+                base = `<span data-i18n="${this.attr(descr.key)}"></span>:<span data-i18n="${this.attr(descr.i18nvalue)}"></span>`;
             } else if ("key" in descr && typeof descr.key != "undefined" && descr.key != null) {
-                base = `<span data-i18n="${descr.key}"></span>`;
+                base = `<span data-i18n="${this.attr(descr.key)}"></span>`;
             }
 
             if ("reset" in descr && descr.reset != null) {
