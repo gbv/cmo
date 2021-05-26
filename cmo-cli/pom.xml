@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.vzg.cmo</groupId>
     <artifactId>cmo-parent</artifactId>
-    <version>2019.06-SNAPSHOT</version>
+    <version>2020.06-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
   <artifactId>cmo-cli</artifactId>
@@ -120,6 +120,12 @@
     <dependency>
       <groupId>${project.parent.groupId}</groupId>
       <artifactId>cmo-module</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <!-- required for org.mycore.common.xsl.MCRParameterCollector to work -->
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
       <scope>runtime</scope>
     </dependency>
   </dependencies>
