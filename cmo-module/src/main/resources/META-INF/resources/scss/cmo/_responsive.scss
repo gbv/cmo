@@ -33,7 +33,7 @@ We have different approches
 */
 
 @include media-breakpoint-up(sm) {
-  body {
+  body:not(.mycoreViewer) { // TODO: this needs to be fixed
       padding-top: 140px;
   }
   #e_suche .switcher {
@@ -60,7 +60,7 @@ We have different approches
 }
 
 @include media-breakpoint-up(lg) {
-  body {
+  body:not(.mycoreViewer) { // TODO: this needs to be fixed
     padding-top: 70px;
   }
   footer #nav_below > ul > li {

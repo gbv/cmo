@@ -4,7 +4,7 @@
   <parent>
     <groupId>de.vzg.cmo</groupId>
     <artifactId>cmo-parent</artifactId>
-    <version>2019.06-SNAPSHOT</version>
+    <version>2020.06-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>cmo-module</artifactId>
@@ -194,6 +194,15 @@
     <dependency>
       <groupId>org.mycore</groupId>
       <artifactId>mycore-xeditor</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mycore</groupId>
+      <artifactId>mycore-viewer</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
     </dependency>
     <dependency>
       <groupId>net.sf.saxon</groupId>
