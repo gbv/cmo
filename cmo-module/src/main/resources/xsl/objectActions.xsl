@@ -11,6 +11,7 @@
   xmlns:encoder="xalan://java.net.URLEncoder"
   xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions"
   xmlns:pi="xalan://org.mycore.pi.frontend.MCRIdentifierXSLUtils"
+  xmlns:dateUtil="xalan://de.vzg.cmo.CMODateUtil"
   exclude-result-prefixes="xalan xlink mcr i18n acl mcrxsl mods mei encoder" version="1.0">
   <xsl:param name="MCR.Users.Superuser.UserName" />
 
@@ -353,10 +354,7 @@
           <xsl:text> ]</xsl:text>
         </span>
         <span class="file_date">
-          <xsl:call-template name="formatISODate">
-            <xsl:with-param name="date" select="date[@type='lastModified']" />
-            <xsl:with-param name="format" select="i18n:translate('metaData.date')" />
-          </xsl:call-template>
+            <xsl:value-of select="dateUtil:formatDate(date[@type='lastModified']/text())" />
         </span>
         <span class="file_preview">
           <img src="{$WebApplicationBaseURL}content/images/misc_icons/icon_common_disabled.png" alt="">
@@ -369,9 +367,6 @@
                   <xsl:value-of select="concat($WebApplicationBaseURL,'img/pdfthumb/',$filePath,'?centerThumb=no')" />
                   <xsl:text>"&gt;</xsl:text>
                 </xsl:attribute>
-              <xsl:message>
-                PDF
-              </xsl:message>
             </xsl:if>
           </img>
         </span>
