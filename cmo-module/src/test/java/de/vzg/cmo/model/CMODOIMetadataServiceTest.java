@@ -36,9 +36,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mycore.common.MCRJPATestCase;
+import org.mycore.common.config.MCRConfiguration2;
 import org.mycore.datamodel.metadata.MCRObject;
 import org.mycore.mei.MEIUtils;
 import org.mycore.mei.MEIWrapper;
+import org.mycore.pi.MCRPIMetadataService;
 import org.mycore.pi.MCRPersistentIdentifier;
 import org.mycore.pi.doi.MCRDigitalObjectIdentifier;
 import org.mycore.pi.exceptions.MCRPersistentIdentifierException;
@@ -67,7 +69,8 @@ public class CMODOIMetadataServiceTest extends MCRJPATestCase {
             throw e;
         }
 
-        testService = new CMODOIMetadataService(METADATA_TEST_SERVICE);
+        testService = (CMODOIMetadataService) MCRConfiguration2
+            .getInstanceOf("MCR.PI.MetadataService." + METADATA_TEST_SERVICE).get();
 
         exampleDOI = new MCRDigitalObjectIdentifier("10.5072", "01-2018-00009") {
         };
@@ -99,8 +102,8 @@ public class CMODOIMetadataServiceTest extends MCRJPATestCase {
     protected Map<String, String> getTestProperties() {
         Map<String, String> testProperties = super.getTestProperties();
 
-        testProperties
-            .put("MCR.PI.MetadataService." + METADATA_TEST_SERVICE + ".CMOMetadataService.Prefix", "10.5072/01-");
+        testProperties.put("MCR.PI.MetadataService." + METADATA_TEST_SERVICE, CMODOIMetadataService.class.getName());
+        testProperties.put("MCR.PI.MetadataService." + METADATA_TEST_SERVICE + ".Prefix", "10.5072/01-");
         testProperties.put("MCR.PI.MetadataService." + METADATA_TEST_SERVICE + "." + ALLOWED_MEI_TYPES_PROPERTY,
             "expression,source");
 

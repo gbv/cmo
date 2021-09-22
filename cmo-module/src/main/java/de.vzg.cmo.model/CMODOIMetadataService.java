@@ -27,6 +27,7 @@ import org.jdom2.filter.Filters;
 import org.jdom2.xpath.XPathFactory;
 import org.mycore.common.MCRConstants;
 import org.mycore.common.MCRException;
+import org.mycore.common.config.annotation.MCRPostConstruction;
 import org.mycore.datamodel.metadata.MCRBase;
 import org.mycore.datamodel.metadata.MCRObject;
 import org.mycore.mei.MEIUtils;
@@ -44,9 +45,10 @@ public class CMODOIMetadataService extends MCRPIMetadataService<MCRDigitalObject
 
     private MCRMODSDOIMetadataService mcrmodsdoiMetadataService;
 
-    public CMODOIMetadataService(String metadataManagerID) {
-        super(metadataManagerID);
-        mcrmodsdoiMetadataService = new MCRMODSDOIMetadataService(metadataManagerID);
+    @MCRPostConstruction
+    public void init(String property){
+         mcrmodsdoiMetadataService = new MCRMODSDOIMetadataService();
+         mcrmodsdoiMetadataService.setProperties(getProperties());
     }
 
     @Override

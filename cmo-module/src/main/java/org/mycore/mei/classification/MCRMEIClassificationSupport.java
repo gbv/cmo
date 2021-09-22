@@ -32,7 +32,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.output.DOMOutputter;
 import org.mycore.common.MCRConstants;
-import org.mycore.common.config.MCRConfiguration;
+import org.mycore.common.config.MCRConfiguration2;
 import org.mycore.datamodel.classifications2.MCRCategory;
 import org.mycore.datamodel.classifications2.MCRCategoryDAO;
 import org.mycore.datamodel.classifications2.MCRCategoryDAOFactory;
@@ -267,8 +267,9 @@ public class MCRMEIClassificationSupport {
      */
     public static NodeList getIndexClassification() throws JDOMException {
         org.jdom2.Element list = new org.jdom2.Element("list");
-        MCRConfiguration.instance().getStrings(MEICLASS_INDEX_IDS)
+        MCRConfiguration2.getString(MEICLASS_INDEX_IDS)
             .stream()
+            .flatMap(MCRConfiguration2::splitValue)
             .map(id -> new org.jdom2.Element("classification").setAttribute("id", id))
             .forEach(list::addContent);
 

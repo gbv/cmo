@@ -28,7 +28,7 @@ import org.jdom2.xpath.XPathFactory;
 import org.mycore.access.MCRAccessException;
 import org.mycore.common.MCRClassTools;
 import org.mycore.common.MCRException;
-import org.mycore.common.config.MCRConfiguration;
+import org.mycore.common.config.MCRConfiguration2;
 import org.mycore.common.config.MCRConfigurationDir;
 import org.mycore.datamodel.classifications2.MCRCategory;
 import org.mycore.datamodel.classifications2.MCRCategoryDAOFactory;
@@ -60,8 +60,9 @@ public class MCRCMOMigrationCommands {
     private static List<CMOClassificationIDPatch> patches;
 
     static {
-        migrators = MCRConfiguration.instance().getStrings("MCR.CMO.Migrators")
+        migrators = MCRConfiguration2.getString("MCR.CMO.Migrators")
             .stream()
+            .flatMap(MCRConfiguration2::splitValue)
             .map(migrator -> {
                 try {
                     final Class<? extends MEIMigrator> migratorClass = MCRClassTools.forName(migrator);

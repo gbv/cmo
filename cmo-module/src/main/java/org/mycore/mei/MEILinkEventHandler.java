@@ -37,7 +37,7 @@ import org.jdom2.Text;
 import org.jdom2.filter.Filters;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
-import org.mycore.common.config.MCRConfiguration;
+import org.mycore.common.config.MCRConfiguration2;
 import org.mycore.common.events.MCREvent;
 import org.mycore.common.events.MCREventHandlerBase;
 import org.mycore.datamodel.common.MCRLinkTableManager;
@@ -67,13 +67,7 @@ public class MEILinkEventHandler extends MCREventHandlerBase {
     private Map<String, Function<Element, String>> buildChangeFunctions() {
         HashMap<String, Function<Element, String>> changeFunctions = new HashMap<>();
 
-        Map<String, String> propertiesMap = MCRConfiguration.instance()
-            .getPropertiesMap(MEILINK_EVENT_HANDLER_LABEL_RULES);
-
-        propertiesMap = propertiesMap.entrySet().stream()
-            .map(e -> new AbstractMap.SimpleEntry<>(e.getKey()
-                .substring(MEILINK_EVENT_HANDLER_LABEL_RULES.length()), e.getValue()))
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        Map<String, String> propertiesMap = MCRConfiguration2.getSubPropertiesMap(MEILINK_EVENT_HANDLER_LABEL_RULES);
 
         propertiesMap.forEach((rule, xpath) -> {
             String[] ruleDef = rule.split(".");
