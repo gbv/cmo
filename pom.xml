@@ -8,7 +8,7 @@
   </parent>
   <groupId>de.vzg.cmo</groupId>
   <artifactId>cmo-parent</artifactId>
-  <version>2020.06-SNAPSHOT</version>
+  <version>2021.06-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>CMO</name>
   <description>MyCoRe based application for project Corpus Musicae Ottomanicae</description>
@@ -25,7 +25,7 @@
     <changes.version>2017.01</changes.version>
     <java.target.version>11</java.target.version>
     <jetty.version>9.4.20.v20190813</jetty.version>
-    <mycore.version>2020.06.3-SNAPSHOT</mycore.version>
+    <mycore.version>2021.06.0-SNAPSHOT</mycore.version>
     <site.suffix />
   </properties>
   <build>
