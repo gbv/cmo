@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="rfc5646">
-  <label xml:lang="en" text="Language" description="as defined in RFC 5646" />
   <label xml:lang="x-auth" text="rfc5646" />
   <label xml:lang="de" text="Sprache" description="nach RFC 5646" />
+  <label xml:lang="en" text="Language" description="as defined in RFC 5646" />
+  <label xml:lang="tr" text="Dil" />
   <label xml:lang="x-uri" text="http://www.mycore.org/classifications/rfc5646" />
   <categories>
+    <category ID="heb">
+      <label xml:lang="tr" text="İbranice" />
+      <label xml:lang="de" text="Hebräisch" />
+      <label xml:lang="en" text="Hebrew" />
+    </category>
+    <category ID="lad">
+      <label xml:lang="de" text="Judäo-Spanisch" />
+      <label xml:lang="tr" text="Ladino" />
+      <label xml:lang="en" text="Ladino" />
+    </category>
     <category ID="ota">
       <label xml:lang="x-term" text="ota" />
       <label xml:lang="de" text="Osmanisch Türkisch" />
       <label xml:lang="x-bibl" text="ota" />
       <label xml:lang="en" text="Ottoman Turkish" />
+      <label xml:lang="tr" text="Osmanlı Türkçesi" />
     </category>
     <category ID="tr">
       <label xml:lang="x-bibl" text="tur" />
       <label xml:lang="x-term" text="tur" />
       <label xml:lang="en" text="Turkish" />
       <label xml:lang="de" text="Türkisch" />
+      <label xml:lang="tr" text="Türkçe" />
     </category>
     <category ID="ar">
       <label xml:lang="en" text="Arabic" />
       <label xml:lang="x-term" text="ara" />
       <label xml:lang="x-bibl" text="ara" />
+      <label xml:lang="tr" text="Arapça" />
       <label xml:lang="de" text="Arabisch" />
     </category>
     <category ID="fr">
+      <label xml:lang="tr" text="Fransızca" />
       <label xml:lang="x-term" text="fra" />
       <label xml:lang="en" text="French" />
       <label xml:lang="x-bibl" text="fre" />
       <label xml:lang="de" text="Französisch" />
     </category>
     <category ID="el">
+      <label xml:lang="tr" text="Yunanca" />
       <label xml:lang="en" text="Greek" />
       <label xml:lang="x-term" text="ell" />
       <label xml:lang="de" text="Griechisch" />
@@ -40,9 +56,11 @@
       <label xml:lang="x-term" text="hye" />
       <label xml:lang="de" text="Armenisch" />
       <label xml:lang="x-bibl" text="arm" />
+      <label xml:lang="tr" text="Ermenice" />
     </category>
     <category ID="fa">
       <label xml:lang="de" text="Persisch" />
+      <label xml:lang="tr" text="Farsça" />
       <label xml:lang="x-bibl" text="per" />
       <label xml:lang="en" text="Persian" />
       <label xml:lang="x-term" text="fas" />
@@ -52,12 +70,19 @@
       <label xml:lang="x-bibl" text="ger" />
       <label xml:lang="x-term" text="deu" />
       <label xml:lang="de" text="Deutsch" />
+      <label xml:lang="tr" text="Almanca" />
     </category>
     <category ID="en">
       <label xml:lang="en" text="English" />
       <label xml:lang="x-term" text="eng" />
       <label xml:lang="x-bibl" text="eng" />
+      <label xml:lang="tr" text="İngilizce" />
       <label xml:lang="de" text="Englisch" />
+    </category>
+    <category ID="und">
+      <label xml:lang="de" text="Unbestimmt" />
+      <label xml:lang="en" text="Undetermined" />
+      <label xml:lang="tr" text="Belirsiz" />
     </category>
   </categories>
 </mycoreclass>
