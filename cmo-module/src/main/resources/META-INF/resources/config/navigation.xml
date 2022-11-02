@@ -73,6 +73,7 @@
     <item href="/content/catalogue/about.xml" type="intern">
       <label xml:lang="de">Über</label>
       <label xml:lang="en">About</label>
+      <label xml:lang="tr">Hakkında</label>
     </item>
     <item href="/content/catalogue/source.xml" type="intern">
       <label xml:lang="de">Blättern nach Quellen-Typ</label>
@@ -128,17 +129,21 @@
     <!-- work with content menu  -->
     <label xml:lang="de">Bearbeiter</label>
     <label xml:lang="en">Editor</label>
+    <label xml:lang="tr">Editör</label>
     <item href="/content/publish/catalogue.xml" type="intern">
       <label xml:lang="de">Neuen Katalog-Eintrag erstellen</label>
       <label xml:lang="en">Create new catalogue entry</label>
+      <label xml:lang="tr">Yeni katalog girişi oluştur</label>
     </item>
     <item href="/editor/edition.xed" type="intern">
       <label xml:lang="de">Neuen Editions-Eintrag erstellen</label>
       <label xml:lang="en">Create new edition entry</label>
+      <label xml:lang="tr">Yeni edisyon girişi oluştur</label>
     </item>
     <item href="/search/search-expert.xed" type="intern">
       <label xml:lang="de">Expertensuche</label>
       <label xml:lang="en">expert search</label>
+      <label xml:lang="tr">uzman araması</label>
     </item>
   </menu>
   <menu id="cmo_user">
