@@ -1,50 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="iso15924">
-  <label xml:lang="de" text="Schriftsystem" description="nach ISO 15924" />
-  <label xml:lang="en" text="Script Code" description="as defined in ISO 15924" />
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="iso15924">
+  <label xml:lang="tr" text="Yazma kodu (El yazması kodu)" />
   <label xml:lang="x-auth" text="iso15924" />
-  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/iso15924" />
+  <label xml:lang="x-uri" text="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/iso15924" />
+  <label xml:lang="en" text="Script Code" description="as defined in ISO 15924" />
+  <label xml:lang="de" text="Schriftsystem" description="nach ISO 15924" />
   <categories>
+    <category ID="fa-latn">
+      <label xml:lang="de" text="Persisch in lateinischer Schrift" />
+      <label xml:lang="en" text="Persian in Latin script" />
+      <label xml:lang="tr" text="Latin Alfabesiyle Farsça" />
+    </category>
+    <category ID="fa-arab">
+      <label xml:lang="de" text="Persisch in arabischer Schrift" />
+      <label xml:lang="en" text="Persian in Arabic script" />
+      <label xml:lang="tr" text="Arap Alfabesiyle Farsça" />
+    </category>
+    <category ID="und-Zyyy">
+      <label xml:lang="en" text="Unknown" />
+      <label xml:lang="tr" text="Bilinmeyen" />
+      <label xml:lang="de" text="Unbekannt" />
+    </category>
+    <category ID="7d916d2a-01ae-4851-b76a-c49105c852c0">
+      <label xml:lang="tr" text="Bilinmiyor_kullanmayınız" />
+      <label xml:lang="de" text="Unbekannt_nichtBenutzen" />
+      <label xml:lang="en" text="Unknown_dontUse" />
+    </category>
+    <category ID="ota-hebr">
+      <label xml:lang="de" text="Osmanisch Türkisch in hebräischer Schrift" />
+      <label xml:lang="tr" text="İbrani Alfabesinde Osmanlı Türkçesi" />
+      <label xml:lang="en" text="Ottoman Turkish in Hebrew script" />
+    </category>
+    <category ID="tur-hebr">
+      <label xml:lang="de" text="Türkisch in hebräischer Schrift" />
+      <label xml:lang="en" text="Turkish in Hebrew script" />
+      <label xml:lang="tr" text="İbrani Alfabesinde Türkçe" />
+    </category>
+    <category ID="heb-hebr">
+      <label xml:lang="tr" text="İbrani Alfabesinde İbranice" />
+      <label xml:lang="en" text="Hebrew in Hebrew script" />
+      <label xml:lang="de" text="Hebräisch in Hebräischer Schrift" />
+    </category>
+    <category ID="heb-latn">
+      <label xml:lang="tr" text="Latin Alfabesinde İbranice" />
+      <label xml:lang="en" text="Hebrew in Latin script" />
+      <label xml:lang="de" text="Hebräisch in lateinischer Schrift" />
+    </category>
+    <category ID="lad-hebr">
+      <label xml:lang="en" text="Ladino in Hebrew script" />
+      <label xml:lang="tr" text="İbrani Alfabesinde Ladino" />
+      <label xml:lang="de" text="Judäo-Spanisch in hebräischer Schrift" />
+    </category>
+    <category ID="lad-latn">
+      <label xml:lang="de" text="Judäo-Spanisch in lateinischer Schrift" />
+      <label xml:lang="en" text="Ladino in Latin script" />
+      <label xml:lang="tr" text="Latin Alfabesinde Ladino" />
+    </category>
     <category ID="ota-arab">
+      <label xml:lang="tr" text="Arap Alfabesinde Osmanlı Türkçesi" />
       <label xml:lang="de" text="Osmanisch Türkisch in arabischer Schrift" />
       <label xml:lang="en" text="Ottoman Turkish in Arabic script" />
     </category>
     <category ID="ota-armn">
       <label xml:lang="de" text="Osmanisch Türkisch in armenischer Schrift" />
       <label xml:lang="en" text="Ottoman Turkish in Armenian script" />
+      <label xml:lang="tr" text="Ermeni Alfabesinde Osmanlı Türkçesi" />
     </category>
     <category ID="ota-grek">
+      <label xml:lang="tr" text="Yunan Alfabesinde Osmanlı Türkçesi" />
       <label xml:lang="de" text="Osmanisch Türkisch in griechischer Schrift" />
       <label xml:lang="en" text="Ottoman Turkish in Greek script" />
     </category>
     <category ID="ota-latn">
       <label xml:lang="de" text="Osmanisch Türkisch in lateinischer Schrift" />
       <label xml:lang="en" text="Ottoman Turkish in Latin script" />
+      <label xml:lang="tr" text="Latin Alfabesinde Osmanlı Türkçesi" />
     </category>
     <category ID="tur-latn">
-      <label xml:lang="de" text="Türkisch in lateinischer Schrift" />
+      <label xml:lang="tr" text="Latin Alfabesinde Türkçe" />
       <label xml:lang="en" text="Turkish in Latin script" />
+      <label xml:lang="de" text="Türkisch in lateinischer Schrift" />
     </category>
     <category ID="ara-arab">
       <label xml:lang="de" text="Arabisch in arabischer Schrift" />
       <label xml:lang="en" text="Arabic in Arabic script" />
-    </category>
-    <category ID="fra-latn">
-      <label xml:lang="de" text="Französisch in lateinischer Schrift" />
-      <label xml:lang="en" text="French in Latin script" />
+      <label xml:lang="tr" text="Arap Alfabesinde Arapça" />
     </category>
     <category ID="hye-armn">
+      <label xml:lang="tr" text="Ermeni Alfabesinde Ermenice" />
       <label xml:lang="de" text="Armenisch in armenischer Schrift" />
       <label xml:lang="en" text="Armenian in Armenian script" />
     </category>
-    <category ID="fas-arab">
-      <label xml:lang="de" text="Persisch in arabischer Schrift" />
-      <label xml:lang="en" text="Persian in Arabic script" />
-    </category>
     <category ID="ell-grek">
-      <label xml:lang="de" text="Griechisch in griechischer Schrift" />
       <label xml:lang="en" text="Greek in Greek script" />
+      <label xml:lang="de" text="Griechisch in griechischer Schrift" />
+      <label xml:lang="tr" text="Yunan Alfabesinde Yunanca" />
     </category>
   </categories>
 </mycoreclass>

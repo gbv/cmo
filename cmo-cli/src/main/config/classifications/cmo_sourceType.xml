@@ -11,7 +11,7 @@
       <label xml:lang="en" text="Printed source" />
     </category>
     <category ID="Manuscript">
-      <label xml:lang="tr" text="El yazması" />
+      <label xml:lang="tr" text="Yazma" />
       <label xml:lang="de" text="Manuskript" />
       <label xml:lang="en" text="Manuscript" />
     </category>
