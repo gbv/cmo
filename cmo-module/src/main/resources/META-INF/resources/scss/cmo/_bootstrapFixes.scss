@@ -43,6 +43,15 @@ a:hover {
 
 
 /*
+ * class disabled is no longer supported (needed for disabled menu actions like DOI registering)
+ */
+.disabled a {
+  color: #70787b;
+  cursor: not-allowed;
+}
+
+
+/*
  * this is only a workaround for server side validation, we should
  * refacture the html an use html5 features here - TODO
  */
