@@ -28,13 +28,21 @@
   xmlns:mods="http://www.loc.gov/mods/v3"
   exclude-result-prefixes="xalan xlink acl i18n mods" version="1.0">
 
+<xsl:param name="MCR.DOI.Resolver.MasterURL" select="'https://doi.org/'"/>
 
   <xsl:template match="mods:identifier" mode="metadataView">
     <xsl:call-template name="metadataLabelContent">
       <xsl:with-param name="label" select="concat('editor.label.identifier.', @type)" />
       <xsl:with-param name="content">
-        <xsl:value-of select="." />
-      </xsl:with-param>
+          <xsl:choose>
+            <xsl:when test="@type='doi'">
+              <a href="{$MCR.DOI.Resolver.MasterURL}{text()}"><xsl:value-of select="text()" /></a>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="text()" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
