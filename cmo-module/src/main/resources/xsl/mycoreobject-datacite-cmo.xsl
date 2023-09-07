@@ -234,12 +234,12 @@
               <xsl:value-of select="$name" />
             </xsl:when>
             <xsl:otherwise>
-              <xsl:value-of select="$MCR.DOI.HostingInstitution" />
+              <xsl:value-of select="'Corpus Musicae Ottomanicae'" />
             </xsl:otherwise>
           </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="$MCR.DOI.HostingInstitution" />
+          <xsl:value-of select="'Corpus Musicae Ottomanicae'" />
         </xsl:otherwise>
       </xsl:choose>
     </publisher>
@@ -250,7 +250,7 @@
   </xsl:template>
   
   <xsl:template name="meiPublisher">
-    <publisher>Prof. Dr. Ralf Martin Jäger, Westfälische Wilhelms-Universität Münster</publisher>
+    <publisher>Corpus Musicae Ottomanicae</publisher>
   </xsl:template>
 
   <!-- ========== publicationYear (1) ========== -->
