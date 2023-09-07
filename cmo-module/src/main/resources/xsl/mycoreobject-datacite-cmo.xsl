@@ -298,12 +298,12 @@
 
   <xsl:template name="hostingInstitution">
     <contributor contributorType="HostingInstitution">
-      <contributorName>
+      <contributorName nameType="Organizational">
         <xsl:value-of select="$MCR.DOI.HostingInstitution" />
-        <xsl:if test="string-length($MCR.DOI.HostingInstitution.ROR) &gt; 0">
-          <nameIdentifier nameIdentifierScheme="ROR" schemeURI="https://ror.org"><xsl:value-of select="$MCR.DOI.HostingInstitution.ROR" /></nameIdentifier>
-        </xsl:if>
       </contributorName>
+      <xsl:if test="string-length($MCR.DOI.HostingInstitution.ROR) &gt; 0">
+        <nameIdentifier nameIdentifierScheme="ROR" schemeURI="https://ror.org"><xsl:value-of select="$MCR.DOI.HostingInstitution.ROR" /></nameIdentifier>
+        </xsl:if>
     </contributor>
   </xsl:template>
 
