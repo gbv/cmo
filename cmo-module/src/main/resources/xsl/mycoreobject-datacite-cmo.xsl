@@ -19,6 +19,7 @@
   <xsl:output method="xml" encoding="UTF-8" indent="yes" xalan:indent-amount="2" />
 
   <xsl:param name="MCR.DOI.HostingInstitution" select="''" />
+  <xsl:param name="MCR.DOI.HostingInstitution.ROR" select="''" />
   <xsl:param name="MCR.Metadata.DefaultLang" />
   <xsl:variable name="marcrelator" select="document('classification:metadata:-1:children:marcrelator')" />
 
@@ -43,6 +44,9 @@
       <xsl:call-template name="resourceType" />
       <xsl:call-template name="descriptions" />
       <xsl:call-template name="alternateIdentifiers" />
+      <rightsList>
+        <rights rightsURI="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">Creative Commons Attribution Non Commercial Share Alike 4.0 International</rights>
+      </rightsList>
     </resource>
   </xsl:template>
   
@@ -296,6 +300,9 @@
     <contributor contributorType="HostingInstitution">
       <contributorName>
         <xsl:value-of select="$MCR.DOI.HostingInstitution" />
+        <xsl:if test="string-length($MCR.DOI.HostingInstitution.ROR) &gt; 0">
+          <nameIdentifier nameIdentifierScheme="ROR" schemeURI="https://ror.org"><xsl:value-of select="$MCR.DOI.HostingInstitution.ROR" /></nameIdentifier>
+        </xsl:if>
       </contributorName>
     </contributor>
   </xsl:template>
@@ -378,11 +385,20 @@
   <!-- ========== subjects (0-n)========== -->
 
   <xsl:template name="subjects">
-    <xsl:if test="mods:subject/mods:topic">
-      <subjects>
-        <xsl:apply-templates select="mods:subject/mods:topic" />
-      </subjects>
-    </xsl:if>
+    <xsl:choose>
+      <xsl:when test="mods:subject/mods:topic">
+        <subjects>
+          <xsl:apply-templates select="mods:subject/mods:topic" />
+        </subjects>
+      </xsl:when>
+      <xsl:otherwise>
+        <subjects>
+          <subject subjectScheme="Fields of Science and Technology (FOS)" schemeURI="http://www.oecd.org/science/inno/38235147.pdf">FOS: Humanities</subject>
+          <subject subjectScheme="Fields of Science and Technology (FOS)" schemeURI="http://www.oecd.org/science/inno/38235147.pdf">FOS: Arts (arts, history of arts, performing arts, music)</subject>
+        </subjects>
+      </xsl:otherwise>
+    </xsl:choose>
+    
   </xsl:template>
 
   <xsl:template match="mods:subject/mods:topic">
@@ -395,19 +411,23 @@
   <!-- ========== language (0-n) ========== -->
 
   <xsl:template name="language">
-    <xsl:if test="mods:language/mods:languageTerm[@authority='rfc5646' and @type='code']">
-      <language>
-        <xsl:value-of select="mods:language/mods:languageTerm[@authority='rfc5646' and @type='code']" />
-      </language>
-    </xsl:if>
+    <xsl:choose>
+      <xsl:when test="mods:language/mods:languageTerm[@authority='rfc5646' and @type='code']">
+        <language>
+          <xsl:value-of select="mods:language/mods:languageTerm[@authority='rfc5646' and @type='code']" />
+        </language>
+      </xsl:when>
+      <xsl:otherwise>
+        <language>en</language>
+      </xsl:otherwise>
+    </xsl:choose>
+
   </xsl:template>
 
   <!-- ========== resourceType (0-n) ========== -->
 
   <xsl:template name="resourceType">
-    <resourceType resourceTypeGeneral="Text">
-      <xsl:value-of select="substring-after(mods:genre/@valueURI, '#')" />
-    </resourceType>
+    <resourceType resourceTypeGeneral="Collection" />
   </xsl:template>
 
   <!-- ========== descriptions (0-n) ========== -->
