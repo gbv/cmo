@@ -45,7 +45,7 @@
       <xsl:call-template name="descriptions" />
       <xsl:call-template name="alternateIdentifiers" />
       <rightsList>
-        <rights rightsURI="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">Creative Commons Attribution Non Commercial Share Alike 4.0 International</rights>
+        <rights rightsURI="https://creativecommons.org/licenses/by-sa/4.0/legalcode">Creative Commons Attribution Share Alike 4.0 International</rights>
       </rightsList>
     </resource>
   </xsl:template>

@@ -464,8 +464,8 @@
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="contains(/mycoreobject/@ID, '_mods_') and contains(/mycoreobject/metadata/def.modsContainer/modsContainer/mods:mods/mods:classification/@valueURI, '#edition')">
-            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.{$CurrentLang}" rel="license">
-              <img src="//i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+            <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.{$CurrentLang}" rel="license">
+              <img src="//i.creativecommons.org/l/by-sa/4.0/88x31.png" />
             </a>
           </xsl:when>
           <xsl:otherwise>
