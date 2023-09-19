@@ -45,6 +45,8 @@
           $("input").each(function(i,elem){ if($(elem).prop("value").length==0){ $(elem).prop("disabled", "disabled"); } });
       });
 
+      $('.confirm_deletion').confirm();
+
   }); // end document ready
 
     function setPiModalDataAndShow(button) {

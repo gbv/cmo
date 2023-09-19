@@ -96,7 +96,7 @@
             </xsl:if>
             <xsl:if test="$accessdelete">
               <li class="dropdown-item" role="presentation">
-                <a class="dropdown-link" href="{$ServletsBaseURL}object/delete{$HttpSession}?id={$id}" role="menuitem" tabindex="-1">
+                <a class="confirm_deletion dropdown-link" href="{$ServletsBaseURL}object/delete{$HttpSession}?id={$id}" role="menuitem" tabindex="-1">
                   <xsl:value-of select="i18n:translate('object.delObject')" />
                 </a>
               </li>
