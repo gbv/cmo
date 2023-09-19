@@ -189,6 +189,8 @@
     <xsl:param name="content" />
     <xsl:variable name="rTree" select="exslt:node-set($content)" />
     <xsl:copy-of select="$rTree" />
+    <link rel="stylesheet" href="{$WebApplicationBaseURL}css/jquery-confirm.min.css" />
+    <script type="text/javascript" src="{$WebApplicationBaseURL}js/jquery-confirm.min.js"></script>
     <script type="text/javascript" src="{$WebApplicationBaseURL}js/cmo_metadata.js"></script>
   </xsl:template>
 
