@@ -16,7 +16,7 @@
     <MCR.AppName>cmo</MCR.AppName>
     <solr.location>${user.home}/.mycore/dev-cmo/data/solr</solr.location>
     <!-- solr.location>${user.home}/AppData/Local/MyCoRe/dev-cmo/data/solr</solr.location -->
-    <solr-runner.solrMirrorURL>http://mirror.23media.de/apache/lucene/solr/</solr-runner.solrMirrorURL>
+    <solr-runner.solrMirrorURL>https://archive.apache.org/dist/lucene/solr/</solr-runner.solrMirrorURL>
     <solr-runner.solrVersionString>7.7.3</solr-runner.solrVersionString>
   </properties>
   <build>
