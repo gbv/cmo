@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.vzg.cmo</groupId>
     <artifactId>cmo-parent</artifactId>
-    <version>2021.06-SNAPSHOT</version>
+    <version>2023.06-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>cmo-webapp</artifactId>
@@ -18,6 +18,18 @@
     <!-- solr.location>${user.home}/AppData/Local/MyCoRe/dev-cmo/data/solr</solr.location -->
     <solr-runner.solrMirrorURL>https://archive.apache.org/dist/lucene/solr/</solr-runner.solrMirrorURL>
     <solr-runner.solrVersionString>7.7.3</solr-runner.solrVersionString>
+    <tomcat.version>10.1.11</tomcat.version>
+    <cargo.container.zipUrlInstaller.downloadDir>${settings.localRepository}/../cargo/containers</cargo.container.zipUrlInstaller.downloadDir>
+    <cargo.debug.address>8295</cargo.debug.address>
+    <cargo.debug.suspend>n</cargo.debug.suspend>
+    <cargo.deployable.default.artifactId>${project.artifactId}</cargo.deployable.default.artifactId>
+    <cargo.deployable.default.context>/</cargo.deployable.default.context>
+    <cargo.deployable.default.groupId>${project.groupId}</cargo.deployable.default.groupId>
+    <cargo.rmi.port>8290</cargo.rmi.port>
+    <cargo.servlet.port>8291</cargo.servlet.port>
+    <cargo.start.jvmargs />
+    <cargo.tomcat.ajp.port>8292</cargo.tomcat.ajp.port>
+    <cargo.tomcat.connector.maxHttpHeaderSize>8192</cargo.tomcat.connector.maxHttpHeaderSize>
   </properties>
   <build>
     <finalName>cmo-${project.version}</finalName>
@@ -39,30 +51,60 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>${jetty.version}</version>
+        <groupId>org.codehaus.cargo</groupId>
+        <artifactId>cargo-maven3-plugin</artifactId>
+        <version>1.10.9</version>
         <configuration>
-          <scanIntervalSeconds>3</scanIntervalSeconds>
-          <systemProperties>
-            <systemProperty>
-              <name>MCR.AppName</name>
-              <value>${MCR.AppName}</value>
-            </systemProperty>
-            <systemProperty>
-              <name>MCR.DataPrefix</name>
-              <value>dev</value>
-            </systemProperty>
-            <systemProperty>
-              <name>MCR.SASS.DeveloperMode</name>
-              <value>false</value>
-            </systemProperty>
-            <systemProperty>
-              <name>project.basedir</name>
-              <value>${project.basedir}</value>
-            </systemProperty>
-          </systemProperties>
-          <contextXml>${project.basedir}/src/etc/jetty-context.xml</contextXml>
+          <deployables>
+            <deployable>
+              <groupId>${project.groupId}</groupId>
+              <artifactId>${project.artifactId}</artifactId>
+              <properties>
+                <context>/cmo</context>
+              </properties>
+            </deployable>
+          </deployables>
+          <configuration>
+            <users>
+              <user>
+                <name>submitter</name>
+                <password>submitter123</password>
+                <roles>
+                  <role>submitter</role>
+                  <role>users</role>
+                </roles>
+              </user>
+              <user>
+                <name>editor</name>
+                <password>editor123</password>
+                <roles>
+                  <role>editor</role>
+                  <role>users</role>
+                </roles>
+              </user>
+            </users>
+            <home>${project.build.directory}/catalina-base</home>
+            <properties>
+              <cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
+              <cargo.servlet.port>${cargo.servlet.port}</cargo.servlet.port>
+              <cargo.tomcat.ajp.port>${cargo.tomcat.ajp.port}</cargo.tomcat.ajp.port>
+              <cargo.tomcat.uriencoding>UTF-8</cargo.tomcat.uriencoding>
+              <cargo.tomcat.connector.maxHttpHeaderSize>${cargo.tomcat.connector.maxHttpHeaderSize}</cargo.tomcat.connector.maxHttpHeaderSize>
+              <!-- fixes IIIF identifier encoding issues -->
+              <cargo.start.jvmargs>-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true -DMCR.AppName=${MCR.AppName} -DMCR.DataPrefix=dev -DMCR.SASS.DeveloperMode=false</cargo.start.jvmargs>
+            </properties>
+          </configuration>
+            <container>
+              <containerId>tomcat10x</containerId>
+              <artifactInstaller>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat</artifactId>
+                <version>${tomcat.version}</version>
+                <type>tar.gz</type>
+              </artifactInstaller>
+            </container>
+
+
         </configuration>
       </plugin>
       <plugin>
