@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.vzg.cmo</groupId>
     <artifactId>cmo-parent</artifactId>
-    <version>2021.06-SNAPSHOT</version>
+    <version>2023.06-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
   <artifactId>cmo-cli</artifactId>

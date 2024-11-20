@@ -20,8 +20,8 @@ More information about MyCoRe are available at http://www.mycore.org
  - Go to cmo-webapp
  - Install solr with the command: `mvn solr-runner:copyHome solr-runner:installSolrPlugins`
  - Run solr with the command `mvn solr-runner:start` (End with mvn solr-runner:stop)
- - Run Jetty with the command: `mvn jetty:run` (End with ctrl+c)
- - Fast rebuild and Jetty restart `mvn clean install -DskipTests -pl cmo-module && mvn jetty:run -pl cmo-webapp` (End with ctrl+c)
+ - Run Tomcat with the command: `mvn org.codehaus.cargo:cargo-maven3-plugin:run` (End with ctrl+c)
+ - Fast rebuild and Jetty restart `mvn clean install -pl cmo-module && mvn clean install org.codehaus.cargo:cargo-maven3-plugin:run -pl cmo-webapp` (End with ctrl+c)
 
 ## Update
 

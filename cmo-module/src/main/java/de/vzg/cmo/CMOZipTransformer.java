@@ -48,7 +48,7 @@ public class CMOZipTransformer extends MCRContentTransformer {
             final Document xml = mcrContent.asXML();
             final List<Element> zipXMLEntry = xml.getRootElement().getChildren("entry", ZIP_NAMESPACE);
             return new MCRZipContent(zipXMLEntry);
-        } catch (JDOMException | SAXException e) {
+        } catch (JDOMException e) {
             throw new MCRException("Error while getting xml of source", e);
         }
     }

@@ -10,7 +10,7 @@ import org.xml.sax.SAXException;
 public class MEIPostProcessor extends MCRPostProcessorXSL {
 
     @Override
-    public Document process(Document xml) throws IOException, JDOMException, SAXException {
+    public Document process(Document xml) throws IOException, JDOMException {
         Document returns = super.process(xml);
 
         MEIWrapper.getWrapper(returns.getRootElement()).orderTopLevelElement();
