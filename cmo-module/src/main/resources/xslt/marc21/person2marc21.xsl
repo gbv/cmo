@@ -119,7 +119,7 @@
 
                 <!-- Weitere Namensformen -->
 
-                <xsl:for-each select="mei:name[not (@type='CMO')]">
+                <xsl:for-each select="mei:persName/mei:name[not (@type='CMO')]">
 
                     <marc:datafield tag="400" ind1="1" ind2=" ">
                         <marc:subfield code="a">
