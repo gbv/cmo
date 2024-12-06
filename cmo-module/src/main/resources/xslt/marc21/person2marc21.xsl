@@ -17,40 +17,30 @@
         <xsl:for-each select="metadata/def.meiContainer/meiContainer">
             <xsl:variable name="gnd" select="string(mei:persName/mei:identifier[@type='GND']/text())"/>
             <xsl:variable name="json" select="document(concat('notnull:cmo_gnd_lobid:', $gnd))"/>
+            <xsl:variable name="gnd_xml" select="fn:json-to-xml($json)"/>
+
             <xsl:variable name="gnd_date">
-                <xsl:variable name="gnd_xml" select="fn:json-to-xml($json)"/>
-                <xsl:if test="$gnd_xml">
-                    <xsl:variable name="deathElementCount"
-                                  select="count($gnd_xml/fn:map/fn:array[@key='dateOfDeath']/fn:string)"/>
-                    <xsl:variable name="birthElementCount"
-                                  select="count($gnd_xml/fn:map/fn:array[@key='dateOfBirth']/fn:string)"/>
-                    <xsl:variable name="largerElement"
-                                  select="if ($deathElementCount &gt; $birthElementCount) then $gnd_xml/fn:map/fn:array[@key='dateOfDeath'] else $gnd_xml/fn:map/fn:array[@key='dateOfBirth']"/>
-                    <xsl:for-each select="$largerElement">
-                        <xsl:variable name="birthDate"
-                                      select="$gnd_xml/fn:map/fn:array[@key='dateOfBirth']/fn:string[position()]"/>
-                        <xsl:variable name="deathDate"
-                                      select="$gnd_xml/fn:map/fn:array[@key='dateOfDeath']/fn:string[position()]"/>
-                        <xsl:choose>
-                            <xsl:when test="$birthDate and $deathDate">
-                                <xsl:value-of select="$birthDate"/>
-                                <xsl:text>-</xsl:text>
-                                <xsl:value-of select="$deathDate"/>
-                            </xsl:when>
-                            <xsl:when test="$deathDate">
-                                <xsl:text>-</xsl:text>
-                                <xsl:value-of select="$deathDate"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="$birthDate"/>
-                                <xsl:text>-</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:if test="position() != last()">
-                            <xsl:text> </xsl:text>
-                        </xsl:if>
-                    </xsl:for-each>
-                </xsl:if>
+                <xsl:variable name="gnd_date_birth" select="$gnd_xml/fn:map/fn:array[@key='dateOfBirth']/fn:string[1]"/>
+                <xsl:variable name="gnd_date_death" select="$gnd_xml/fn:map/fn:array[@key='dateOfDeath']/fn:string[1]"/>
+                <xsl:choose>
+                    <xsl:when test="$gnd_date_birth and $gnd_date_death">
+                        <xsl:variable name="gnd_short_birth" select="if (contains($gnd_date_birth, '-')) then substring-before($gnd_date_birth, '-') else $gnd_date_birth"/>
+                        <xsl:variable name="gnd_short_death" select="if (contains($gnd_date_death, '-')) then substring-before($gnd_date_death, '-') else $gnd_date_death"/>
+                        <xsl:value-of select="$gnd_short_birth"/>
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="$gnd_short_death"/>
+                    </xsl:when>
+                    <xsl:when test="$gnd_date_death">
+                        <xsl:variable name="gnd_short_death" select="if (contains($gnd_date_death, '-')) then substring-before($gnd_date_death, '-') else $gnd_date_death"/>
+                        <xsl:value-of select="$gnd_short_death"/>
+                        <xsl:text>a</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$gnd_date_birth">
+                        <xsl:variable name="gnd_short_birth" select="if (contains($gnd_date_birth, '-')) then substring-before($gnd_date_birth, '-') else $gnd_date_birth"/>
+                        <xsl:value-of select="$gnd_short_birth"/>
+                        <xsl:text>p</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
             </xsl:variable>
             <marc:record>
                 <marc:leader>00000nz 2200000nu 4500</marc:leader>
@@ -80,7 +70,7 @@
                             <xsl:value-of select="mei:persName/mei:name[@type='CMO']"/>
                         </marc:subfield>
                         <xsl:choose>
-                            <xsl:when test="mei:persName/mei:name/mei:date or mei:persName/mei:date">
+                            <xsl:when test="string-length($gnd_date) &gt; 0">
                                 <xsl:choose>
                                     <xsl:when test="mei:persName/mei:name/mei:date or mei:persName/mei:date">
                                         <marc:subfield code="d">
@@ -100,12 +90,28 @@
                             <xsl:value-of select="'CMO'"></xsl:value-of>
                         </marc:subfield>
                         <xsl:choose>
-                            <xsl:when test="mei:persName/mei:name/mei:date or mei:persName/mei:date">
+
+                            <xsl:when
+                                    test="mei:persName/mei:date[@type='birth'] and mei:persName/mei:date[@type='death']">
                                 <marc:subfield code="y">
-                                    <xsl:value-of select="//mei:date"/>
+                                    <xsl:value-of select="mei:persName/mei:date[@type='birth']"/>
+                                    <xsl:text>-</xsl:text>
+                                    <xsl:value-of select="mei:persName/mei:date[@type='death']"/>
                                 </marc:subfield>
                             </xsl:when>
-                            <xsl:otherwise></xsl:otherwise>
+                            <xsl:when test="mei:persName/mei:date[@type='birth']">
+                                <marc:subfield code="y">
+                                    <xsl:value-of select="mei:persName/mei:date[@type='birth']"/>
+                                    <xsl:text>-</xsl:text>
+                                </marc:subfield>
+                            </xsl:when>
+                            <xsl:when test="mei:persName/mei:date[@type='death']">
+                                <marc:subfield code="y">
+                                    <xsl:text>-</xsl:text>
+                                    <xsl:value-of select="mei:persName/mei:date[@type='death']"/>
+                                </marc:subfield>
+                            </xsl:when>
+
                         </xsl:choose>
                     </marc:datafield>
                 </xsl:if>
@@ -113,33 +119,16 @@
 
                 <!-- Weitere Namensformen -->
 
-                <xsl:for-each select="mei:persName[not (@type='CMO')]">
+                <xsl:for-each select="mei:name[not (@type='CMO')]">
 
                     <marc:datafield tag="400" ind1="1" ind2=" ">
                         <marc:subfield code="a">
-                            <xsl:value-of select="mei:name"/>
+                            <xsl:value-of select="."/>
                         </marc:subfield>
-                        <xsl:choose>
-                            <xsl:when test="mei:name/mei:date or mei:date">
-                                <marc:subfield code="d">
-                                    <xsl:value-of select="$gnd_date"/>
-                                </marc:subfield>
-                            </xsl:when>
-
-                            <xsl:otherwise>
-                                <marc:subfield code="d">
-                                    <xsl:value-of select="'19.sc'"/>
-                                </marc:subfield>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:if test="./@source">
-                            <marc:subfield code="w">
-                                <xsl:value-of select="./@source"/>
-                            </marc:subfield>
-                        </xsl:if>
+                        <marc:subfield code="j">
+                            <xsl:text>xx</xsl:text>
+                        </marc:subfield>
                     </marc:datafield>
-
-
                 </xsl:for-each>
 
 
