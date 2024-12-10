@@ -69,50 +69,33 @@
                         <marc:subfield code="a">
                             <xsl:value-of select="mei:persName/mei:name[@type='CMO']"/>
                         </marc:subfield>
-                        <xsl:choose>
-                            <xsl:when test="string-length($gnd_date) &gt; 0">
-                                <xsl:choose>
-                                    <xsl:when test="mei:persName/mei:name/mei:date or mei:persName/mei:date">
-                                        <marc:subfield code="d">
-                                            <xsl:value-of select="$gnd_date"/>
-                                        </marc:subfield>
-                                    </xsl:when>
-                                </xsl:choose>
-                            </xsl:when>
-
-                            <xsl:otherwise>
-                                <marc:subfield code="d">
-                                    <xsl:value-of select="'19.sc'"/>
-                                </marc:subfield>
-                            </xsl:otherwise>
-                        </xsl:choose>
+                        <marc:subfield code="d">
+                          <xsl:choose>
+                              <xsl:when test="string-length($gnd_date) &gt; 0">
+                                      <xsl:value-of select="$gnd_date"/>
+                              </xsl:when>
+                              <xsl:when
+                                      test="mei:persName/mei:date[@type='birth'][@isodate] and mei:persName/mei:date[@type='death'][@isodate]">
+                                      <xsl:value-of select="substring(mei:persName/mei:date[@type='birth']/@isodate, 1, 4)"/>
+                                      <xsl:text>-</xsl:text>
+                                      <xsl:value-of select="substring(mei:persName/mei:date[@type='death']/@isodate, 1, 4)"/>
+                              </xsl:when>
+                              <xsl:when test="mei:persName/mei:date[@type='birth'][@isodate]">
+                                      <xsl:value-of select="substring(mei:persName/mei:date[@type='birth']/@isodate, 1, 4)"/>
+                                      <xsl:text>p</xsl:text>
+                              </xsl:when>
+                              <xsl:when test="mei:persName/mei:date[@type='death'][@isodate]">
+                                      <xsl:value-of select="substring(mei:persName/mei:date[@type='death']/@isodate, 1, 4)"/>
+                                      <xsl:text>a</xsl:text>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                      <xsl:value-of select="'19.sc'"/>
+                              </xsl:otherwise>
+                          </xsl:choose>
+                        </marc:subfield>
                         <marc:subfield code="0">
                             <xsl:value-of select="'CMO'"></xsl:value-of>
                         </marc:subfield>
-                        <xsl:choose>
-
-                            <xsl:when
-                                    test="mei:persName/mei:date[@type='birth'] and mei:persName/mei:date[@type='death']">
-                                <marc:subfield code="y">
-                                    <xsl:value-of select="mei:persName/mei:date[@type='birth']"/>
-                                    <xsl:text>-</xsl:text>
-                                    <xsl:value-of select="mei:persName/mei:date[@type='death']"/>
-                                </marc:subfield>
-                            </xsl:when>
-                            <xsl:when test="mei:persName/mei:date[@type='birth']">
-                                <marc:subfield code="y">
-                                    <xsl:value-of select="mei:persName/mei:date[@type='birth']"/>
-                                    <xsl:text>-</xsl:text>
-                                </marc:subfield>
-                            </xsl:when>
-                            <xsl:when test="mei:persName/mei:date[@type='death']">
-                                <marc:subfield code="y">
-                                    <xsl:text>-</xsl:text>
-                                    <xsl:value-of select="mei:persName/mei:date[@type='death']"/>
-                                </marc:subfield>
-                            </xsl:when>
-
-                        </xsl:choose>
                     </marc:datafield>
                 </xsl:if>
 
