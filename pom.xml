@@ -22,7 +22,7 @@
   <properties>
     <java.target.version>17</java.target.version>
     <jetty.version>11.0.24</jetty.version>
-    <mycore.version>2023.06.2-SNAPSHOT</mycore.version>
+    <mycore.version>2023.06.3-SNAPSHOT</mycore.version>
     <site.suffix />
   </properties>
   <repositories>
