@@ -17,7 +17,7 @@
       $( document ).ready(function() {
         $.ajax({
           type: "GET",
-          url: "../../api/v1/search?q=objectType:expression&amp;rows=0&amp;facet.field=title.type.alt&amp;facet.query=objectType:expression&amp;facet.sort=index&amp;facet.limit=-1&amp;facet=on&amp;wt=json&amp;json.wrf=?",
+          url: "../../api/v1/search?q=objectType%3Aexpression&amp;rows=0&amp;facet.field=title.type.alt&amp;facet.query=objectType%3Aexpression&amp;facet.sort=index&amp;facet.limit=-1&amp;facet=on&amp;wt=json&amp;json.wrf=?",
           dataType: "jsonp",
           success: function (data) {
             var poetTitle = "";

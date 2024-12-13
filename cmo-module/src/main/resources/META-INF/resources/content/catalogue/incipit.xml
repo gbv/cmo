@@ -19,7 +19,7 @@
 
     $.ajax({
         type: "GET",
-        url: "../../api/v1/search?q=objectType:" + objectType + "&rows=0&facet.field=" + field + "&facet.query=objectType:expression&facet.sort=index&facet=on&facet.limit=-1&wt=json&json.wrf=?",
+        url: "../../api/v1/search?q=objectType%3A" + objectType + "&rows=0&facet.field=" + field + "&facet.query=objectType%3Aexpression&facet.sort=index&facet=on&facet.limit=-1&wt=json&json.wrf=?",
         dataType: "jsonp",
         success: function (data) {
             var unsorted = data.facet_counts.facet_fields[field];

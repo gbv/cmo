@@ -233,7 +233,7 @@
   <xsl:template match="children" mode="metadataView">
     <xsl:if test="child">
       <xsl:variable name="sortCriteria">
-        <xsl:value-of select="'&amp;sort=displayTitleSort asc'"/>
+        <xsl:value-of select="'&amp;sort=displayTitleSort%20asc'"/>
       </xsl:variable>
 
       <xsl:call-template name="metadataLabelContent">
@@ -250,7 +250,7 @@
                 </xsl:if>
                 <xsl:value-of select="@xlink:href"/>
                 <xsl:variable name="grandChildren"
-                              select="document(concat('solr:q=parent:', @xlink:href, '&amp;rows=1000&amp;fl=id'))/response/result"/>
+                              select="document(concat('solr:q=parent%3A', @xlink:href, '&amp;rows=1000&amp;fl=id'))/response/result"/>
                 <xsl:if test="$grandChildren/@numFound &gt; 0">
                   <xsl:for-each select="$grandChildren/doc">
                     <xsl:value-of select="concat(',', str[@name='id'])"/>
@@ -262,14 +262,14 @@
           </xsl:element>
           <ul class="list-unstyled">
             <xsl:for-each
-                select="document(concat('solr:q=parent:', ../../@ID, '&amp;rows=1000&amp;fl=id', $sortCriteria))/response/result/doc">
+                select="document(concat('solr:q=parent%3A', ../../@ID, '&amp;rows=1000&amp;fl=id', $sortCriteria))/response/result/doc">
               <li>
                 <xsl:call-template name="objectLink">
                   <xsl:with-param select="str[@name='id']" name="obj_id"/>
                 </xsl:call-template>
 
                 <xsl:variable name="grandChildren"
-                  select="document(concat('solr:q=parent:', str[@name='id'], '&amp;rows=1000&amp;fl=id', $sortCriteria))/response/result" />
+                  select="document(concat('solr:q=parent%3A', str[@name='id'], '&amp;rows=1000&amp;fl=id', $sortCriteria))/response/result" />
                 <xsl:if test="$grandChildren/@numFound &gt; 0">
                   <ul class="list-unstyled">
                     <xsl:for-each select="$grandChildren/doc">
@@ -292,7 +292,7 @@
   <xsl:template match="children" mode="expression">
     <xsl:if test="child">
       <xsl:variable name="sortCriteria">
-        <xsl:value-of select="'&amp;sort=identifier.type.CMO asc'"/>
+        <xsl:value-of select="'&amp;sort=identifier.type.CMO%20asc'"/>
       </xsl:variable>
 
       <xsl:call-template name="metadataLabelContent">
@@ -309,7 +309,7 @@
                 </xsl:if>
                 <xsl:value-of select="@xlink:href"/>
                 <xsl:variable name="grandChildren"
-                              select="document(concat('solr:q=parent:', @xlink:href, '&amp;rows=1000&amp;fl=id'))/response/result"/>
+                              select="document(concat('solr:q=parent%3A', @xlink:href, '&amp;rows=1000&amp;fl=id'))/response/result"/>
                 <xsl:if test="$grandChildren/@numFound &gt; 0">
                   <xsl:for-each select="$grandChildren/doc">
                     <xsl:value-of select="concat(',', str[@name='id'])"/>
@@ -321,14 +321,14 @@
           </xsl:element>
           <ul class="list-unstyled">
             <xsl:for-each
-                    select="document(concat('solr:q=parent:', ../../@ID, '&amp;rows=1000&amp;fl=id,identifier.type.CMO,displayTitle', $sortCriteria))/response/result/doc">
+                    select="document(concat('solr:q=parent%3A', ../../@ID, '&amp;rows=1000&amp;fl=id,identifier.type.CMO,displayTitle', $sortCriteria))/response/result/doc">
               <li>
                 <a href="{$WebApplicationBaseURL}/receive/{str[@name='id']}">
                   <xsl:value-of select="arr[@name='identifier.type.CMO']/str" /> - <xsl:value-of select="str[@name='displayTitle']" />
                 </a>
 
                 <xsl:variable name="grandChildren"
-                              select="document(concat('solr:q=parent:', str[@name='id'], '&amp;rows=1000&amp;fl=id,identifier.type.CMO,displayTitle', $sortCriteria))/response/result" />
+                              select="document(concat('solr:q=parent%3A', str[@name='id'], '&amp;rows=1000&amp;fl=id,identifier.type.CMO,displayTitle', $sortCriteria))/response/result" />
                 <xsl:if test="$grandChildren/@numFound &gt; 0">
                   <ul class="list-unstyled">
                     <xsl:for-each select="$grandChildren/doc">
