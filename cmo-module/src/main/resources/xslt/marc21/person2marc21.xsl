@@ -101,12 +101,16 @@
 
 
                 <!-- Weitere Namensformen -->
-
-                <xsl:for-each select="mei:persName/mei:name[not (@type='CMO')]">
+                <xsl:variable name="mei" select="."/>
+                <xsl:for-each
+                        select="distinct-values(mei:persName/mei:name[not (@type='CMO') and not(fn:lower-case(text()) = ../mei:name[@type='CMO']/fn:lower-case(text()))]/lower-case(text()))">
+                    <xsl:variable name="name" select="."/>
+                    <xsl:variable name="matchingName"
+                                  select="$mei/mei:persName/mei:name[not (@type='CMO') and lower-case(text())=$name][1]"/>
 
                     <marc:datafield tag="400" ind1="1" ind2=" ">
                         <marc:subfield code="a">
-                            <xsl:value-of select="."/>
+                            <xsl:value-of select="$matchingName"/>
                         </marc:subfield>
                         <marc:subfield code="j">
                             <xsl:text>xx</xsl:text>
