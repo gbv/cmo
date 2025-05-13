@@ -13,6 +13,8 @@ export class BasketDisplay {
 
     }
 
+    private static exportLimit = 300;
+
     private static mergeLinkFields = (...arr: string[][]) => {
         let namesLinkMap = {};
         arr.forEach((namesRefsArray: string[]) => {
@@ -181,6 +183,12 @@ export class BasketDisplay {
                 const transformer = el.getAttribute("data-export-transformer");
 
                 el.addEventListener("click", (e) => {
+                    if (idList.length > BasketDisplay.exportLimit) {
+                        I18N.translate("cmo.basket.export.limit", (translation)=> {
+                            alert(translation.replace("{0}", BasketDisplay.exportLimit.toString()));
+                        });
+                        return false;
+                    }
                     if (idList.length > 0) {
                         window.location.href = `${Utils.getBaseURL()}rsc/cmo/object/export/${transformer}/${idList}`;
                     }
