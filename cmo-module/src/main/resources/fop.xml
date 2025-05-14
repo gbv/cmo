@@ -3,8 +3,19 @@
     <renderers>
         <renderer mime="application/pdf">
             <fonts>
-                <directory recursive="true">/usr/share/fonts/</directory>
-                <auto-detect/>
+                <!-- Korrigierte Carlito Schriftarten-Konfiguration -->
+                <font embed-url="META-INF/resources/font/Carlito-Regular.ttf" kerning="yes">
+                    <font-triplet name="Carlito" style="normal" weight="normal"/>
+                </font>
+                <font embed-url="META-INF/resources/font/Carlito-Bold.ttf" kerning="yes">
+                    <font-triplet name="Carlito" style="normal" weight="bold"/>
+                </font>
+                <font embed-url="META-INF/resources/font/Carlito-Italic.ttf" kerning="yes">
+                    <font-triplet name="Carlito" style="italic" weight="normal"/>
+                </font>
+                <font embed-url="META-INF/resources/font/Carlito-BoldItalic.ttf" kerning="yes">
+                    <font-triplet name="Carlito" style="italic" weight="bold"/>
+                </font>
             </fonts>
         </renderer>
     </renderers>

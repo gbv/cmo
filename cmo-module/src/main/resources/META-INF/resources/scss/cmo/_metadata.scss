@@ -9,8 +9,16 @@
   direction: rtl;
   display: flex;
 }
+.cmo_metadata-title {
+  font-family: "CarlitoRegular", Helvetica, Arial, sans-serif;
+  font-size: 3rem;
+}
 
 #cmo_metadataSection {
+  td {
+    font-family: "CarlitoRegular", Helvetica, Arial, sans-serif;
+    font-size: 1.1rem;
+  }
   td>ol {
     padding-left: 0;
   }

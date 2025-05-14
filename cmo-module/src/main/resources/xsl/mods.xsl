@@ -20,7 +20,7 @@
 
         <xsl:apply-templates select="response" />
 
-        <h1>
+        <h1 class="cmo_metadata-title">
           <xsl:apply-templates select="//mods:mods" mode="mods.title">
             <xsl:with-param name="asHTML" select="true()" />
             <xsl:with-param name="withSubtitle" select="true()" />
