@@ -1,9 +1,9 @@
-import {CMOBaseDocument, SolrSearcher} from "../other/Solr";
+import {CMOBaseDocument, Response, SolrSearcher} from "../other/Solr";
 
 export class BasketStore {
 
     private static BASKET_STORE_KEY = "BasketStore";
-    public static BASKET_LIMIT = 300;
+    public static BASKET_LIMIT = 3000;
 
     private static _instance: BasketStore = (() => BasketStore.load())();
 
@@ -89,20 +89,44 @@ export class BasketStore {
     public getDocumentsGrouped(groupBy: string, callback: (docs: any, sort:string) => void, sortBy:string= "displayTitle asc"): void {
         let updateSearcher = new SolrSearcher();
         if (this.count() > 0) {
-            updateSearcher.search([
-                [ "q", "id:(" + this._store.join(" ") + ")" ],
-                [ "start", "0" ],
-                [ "rows", "99999" ],
-                [ "sort", sortBy],
-                [ "group", "true" ],
-                [ "group.limit", "9999" ],
-                [ "group.field", groupBy ] ], (result) => {
-                let groups = result.grouped[ groupBy ].groups;
-                let groupMap = {};
-                for (let groupIndex in groups) {
-                    if (groups.hasOwnProperty(groupIndex)) {
-                        let group = groups[ groupIndex ];
-                        groupMap[ group.groupValue ] = group.doclist.docs;
+            // build slice ranges to avoid too many documents in one request
+            let sliceRanges: { start: number, rows: number }[] = [];
+
+            const sliceSize = 100;
+            for (let i = 0; i < this._store.length; i += sliceSize) {
+                let start = i;
+                let rows = Math.min(sliceSize, this._store.length - i);
+                sliceRanges.push({ start, rows });
+            }
+
+            console.log(["Slice ranges", sliceRanges]);
+
+
+            // make requests for each slice
+            let requests: Promise<CMOBaseDocument[]>[] = sliceRanges.map(slice => {
+                return new Promise<CMOBaseDocument[]>((resolve) => {
+                    updateSearcher.search([
+                        [ "q", "id:(" + this._store.slice(slice.start, slice.start + slice.rows).join(" ") + ")" ],
+                        [ "start", "0" ],
+                        [ "rows", sliceSize.toString()],
+                        [ "sort", sortBy]
+                    ], (result) => {
+                        resolve(result.response.docs);
+                    });
+                });
+            });
+
+            // wait for all requests to complete
+            Promise.all(requests).then((results)=> {
+                console.log("Results", results);
+                const groupMap = {};
+                for (const result of results) {
+                    for (let doc of result) {
+                        let groupValue = doc[ groupBy ];
+                        if (groupMap[ groupValue ] == null) {
+                            groupMap[ groupValue ] = [];
+                        }
+                        groupMap[ groupValue ].push(doc);
                     }
                 }
 
