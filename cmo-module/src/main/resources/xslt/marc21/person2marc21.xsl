@@ -15,32 +15,43 @@
     <xsl:template match="mycoreobject" mode="person2marc21">
         <xsl:variable name="CMO_ID" select="./@ID"/>
         <xsl:for-each select="metadata/def.meiContainer/meiContainer">
-            <xsl:variable name="gnd" select="string(mei:persName/mei:identifier[@type='GND']/text())"/>
-            <xsl:variable name="json" select="document(concat('notnull:cmo_gnd_lobid:', $gnd))"/>
-            <xsl:variable name="gnd_xml" select="fn:json-to-xml($json)"/>
+
 
             <xsl:variable name="gnd_date">
-                <xsl:variable name="gnd_date_birth" select="$gnd_xml/fn:map/fn:array[@key='dateOfBirth']/fn:string[1]"/>
-                <xsl:variable name="gnd_date_death" select="$gnd_xml/fn:map/fn:array[@key='dateOfDeath']/fn:string[1]"/>
-                <xsl:choose>
-                    <xsl:when test="$gnd_date_birth and $gnd_date_death">
-                        <xsl:variable name="gnd_short_birth" select="if (contains($gnd_date_birth, '-')) then substring-before($gnd_date_birth, '-') else $gnd_date_birth"/>
-                        <xsl:variable name="gnd_short_death" select="if (contains($gnd_date_death, '-')) then substring-before($gnd_date_death, '-') else $gnd_date_death"/>
-                        <xsl:value-of select="$gnd_short_birth"/>
-                        <xsl:text>-</xsl:text>
-                        <xsl:value-of select="$gnd_short_death"/>
-                    </xsl:when>
-                    <xsl:when test="$gnd_date_death">
-                        <xsl:variable name="gnd_short_death" select="if (contains($gnd_date_death, '-')) then substring-before($gnd_date_death, '-') else $gnd_date_death"/>
-                        <xsl:value-of select="$gnd_short_death"/>
-                        <xsl:text>a</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="$gnd_date_birth">
-                        <xsl:variable name="gnd_short_birth" select="if (contains($gnd_date_birth, '-')) then substring-before($gnd_date_birth, '-') else $gnd_date_birth"/>
-                        <xsl:value-of select="$gnd_short_birth"/>
-                        <xsl:text>p</xsl:text>
-                    </xsl:when>
-                </xsl:choose>
+                <xsl:variable name="gnd" select="string(mei:persName/mei:identifier[@type='GND']/text())"/>
+                <xsl:if test="$gnd">
+                    <xsl:variable name="json" select="document(concat('notnull:cmo_gnd_lobid:', $gnd))"/>
+                    <xsl:if test="$json">
+                        <xsl:variable name="gnd_xml" select="fn:json-to-xml($json)"/>
+                        <xsl:variable name="gnd_date_birth"
+                                      select="$gnd_xml/fn:map/fn:array[@key='dateOfBirth']/fn:string[1]"/>
+                        <xsl:variable name="gnd_date_death"
+                                      select="$gnd_xml/fn:map/fn:array[@key='dateOfDeath']/fn:string[1]"/>
+                        <xsl:choose>
+                            <xsl:when test="$gnd_date_birth and $gnd_date_death">
+                                <xsl:variable name="gnd_short_birth"
+                                              select="if (contains($gnd_date_birth, '-')) then substring-before($gnd_date_birth, '-') else $gnd_date_birth"/>
+                                <xsl:variable name="gnd_short_death"
+                                              select="if (contains($gnd_date_death, '-')) then substring-before($gnd_date_death, '-') else $gnd_date_death"/>
+                                <xsl:value-of select="$gnd_short_birth"/>
+                                <xsl:text>-</xsl:text>
+                                <xsl:value-of select="$gnd_short_death"/>
+                            </xsl:when>
+                            <xsl:when test="$gnd_date_death">
+                                <xsl:variable name="gnd_short_death"
+                                              select="if (contains($gnd_date_death, '-')) then substring-before($gnd_date_death, '-') else $gnd_date_death"/>
+                                <xsl:value-of select="$gnd_short_death"/>
+                                <xsl:text>a</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="$gnd_date_birth">
+                                <xsl:variable name="gnd_short_birth"
+                                              select="if (contains($gnd_date_birth, '-')) then substring-before($gnd_date_birth, '-') else $gnd_date_birth"/>
+                                <xsl:value-of select="$gnd_short_birth"/>
+                                <xsl:text>p</xsl:text>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:if>
+                </xsl:if>
             </xsl:variable>
             <marc:record>
                 <marc:leader>00000nz 2200000nu 4500</marc:leader>
@@ -101,12 +112,16 @@
 
 
                 <!-- Weitere Namensformen -->
-
-                <xsl:for-each select="mei:persName/mei:name[not (@type='CMO')]">
+                <xsl:variable name="mei" select="."/>
+                <xsl:for-each
+                        select="distinct-values(mei:persName/mei:name[not (@type='CMO') and not(fn:lower-case(text()) = ../mei:name[@type='CMO']/fn:lower-case(text()))]/lower-case(text()))">
+                    <xsl:variable name="name" select="."/>
+                    <xsl:variable name="matchingName"
+                                  select="$mei/mei:persName/mei:name[not (@type='CMO') and lower-case(text())=$name][1]"/>
 
                     <marc:datafield tag="400" ind1="1" ind2=" ">
                         <marc:subfield code="a">
-                            <xsl:value-of select="."/>
+                            <xsl:value-of select="$matchingName"/>
                         </marc:subfield>
                         <marc:subfield code="j">
                             <xsl:text>xx</xsl:text>
