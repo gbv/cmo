@@ -212,7 +212,7 @@
   -->
 
   <xsl:template match="*" mode="metadataHeader">
-    <h1>
+    <h1 class="cmo_metadata-title">
       <xsl:value-of select="." />
     </h1>
   </xsl:template>

@@ -16,7 +16,7 @@
 
         <xsl:apply-templates select="response" />
         
-        <h1>
+        <h1 class="cmo_metadata-title">
           <xsl:choose>
             <xsl:when test="//mei:title[@type='main']">
               <xsl:value-of select="//mei:title[@type='main']" />
