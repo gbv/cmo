@@ -15,8 +15,10 @@
 }
 
 #cmo_metadataSection {
-  font-family: "CarlitoRegular", Helvetica, Arial, sans-serif;
-  font-size: 1.1rem;
+  td {
+    font-family: "CarlitoRegular", Helvetica, Arial, sans-serif;
+    font-size: 1.1rem;
+  }
   td>ol {
     padding-left: 0;
   }
