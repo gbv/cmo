@@ -34,6 +34,7 @@
                 </xsl:if>
                 <xsl:apply-templates select="//mei:persName" mode="printAnnot" />
                 <xsl:call-template name="license"/>
+                <xsl:call-template name="printCreatorAndUpdater" />
               </xsl:with-param>
             </xsl:call-template>
           </xsl:with-param>

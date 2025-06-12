@@ -63,6 +63,7 @@
     </xsl:call-template>
     <xsl:apply-templates select="mei:notesStmt" mode="printAnnot" />
     <xsl:call-template name="license"/>
+    <xsl:call-template name="printCreatorAndUpdater" />
 
     <xsl:call-template name="contentContainer" />
   </xsl:template>

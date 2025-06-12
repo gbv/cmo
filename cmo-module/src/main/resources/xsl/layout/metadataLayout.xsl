@@ -29,6 +29,7 @@
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
                 xmlns:mods="http://www.loc.gov/mods/v3"
                 xmlns:exslt="http://exslt.org/common"
+                xmlns:mcrxsl="xalan://org.mycore.common.xml.MCRXMLFunctions"
                 exclude-result-prefixes="xalan xlink acl i18n mei mods exslt">
 
 
@@ -478,6 +479,54 @@
         </xsl:choose>
       </xsl:with-param>
     </xsl:call-template>
+  </xsl:template>
+
+
+  <xsl:template name="printCreatorAndUpdater">
+    <xsl:if test="not(mcrxsl:isCurrentUserGuestUser())">
+      <xsl:for-each
+              select="/mycoreobject/service/servflags[@class='MCRMetaLangText']/servflag[@type='createdby' and string-length(text()) &gt; 0]">
+
+        <xsl:call-template name="metadataLabelContent">
+          <xsl:with-param name="label" select="'editor.label.creator'"/>
+          <xsl:with-param name="content">
+            <xsl:variable name="creatorXML" select="document(concat('notnull:user:', text()))/user"/>
+            <xsl:choose >
+              <xsl:when test="$creatorXML/realName and string-length($creatorXML/realName/text()) &gt; 0">
+                <xsl:value-of select="$creatorXML/realName/text()" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="text()"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:with-param>
+        </xsl:call-template>
+
+      </xsl:for-each>
+
+
+      <xsl:for-each
+              select="/mycoreobject/service/servflags[@class='MCRMetaLangText']/servflag[@type='modifiedby' and string-length(text()) &gt; 0]">
+
+        <xsl:call-template name="metadataLabelContent">
+          <xsl:with-param name="label" select="'editor.label.modifier'"/>
+          <xsl:with-param name="content">
+            <xsl:variable name="creatorXML" select="document(concat('notnull:user:', text()))/user"/>
+            <xsl:choose >
+              <xsl:when test="$creatorXML/realName and string-length($creatorXML/realName/text()) &gt; 0">
+                <xsl:value-of select="$creatorXML/realName/text()" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="text()"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:with-param>
+        </xsl:call-template>
+
+      </xsl:for-each>
+
+    </xsl:if>
+
   </xsl:template>
 
 </xsl:stylesheet>
