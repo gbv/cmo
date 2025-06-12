@@ -52,6 +52,7 @@
                 <xsl:apply-templates select="//mods:mods/mods:note" mode="metadataView" />
                 <xsl:apply-templates select="//mods:mods/mods:relatedItem[@type='original']" mode="metadataView" />
                 <xsl:call-template name="license"/>
+                <xsl:call-template name="printCreatorAndUpdater" />
 
                 <xsl:apply-templates select="structure/children" mode="metadataView" />
               </xsl:with-param>
