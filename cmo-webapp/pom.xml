@@ -110,7 +110,7 @@
       <plugin>
         <groupId>org.mycore.plugins</groupId>
         <artifactId>solr-runner-maven-plugin</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.5-SNAPSHOT</version>
         <configuration>
           <solrHome>${solr.location}</solrHome>
           <solrPort>8983</solrPort>
