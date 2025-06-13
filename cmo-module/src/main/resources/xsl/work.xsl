@@ -9,7 +9,7 @@
   exclude-result-prefixes="xalan xlink acl i18n mei" version="1.0">
 
   <xsl:template match="/mycoreobject[contains(@ID,'_work_')]">
-
+    <xsl:variable name="objectId" select="@ID"/>
     <xsl:call-template name="metadataPage">
       <xsl:with-param name="content">
         <xsl:apply-templates select="response" />
@@ -33,7 +33,9 @@
                 <xsl:apply-templates select="//mei:notesStmt" mode="printAnnot" />
                 <xsl:call-template name="license"/>
 
-                <xsl:call-template name="expressionContainer" />
+                <xsl:call-template name="expressionContainer" >
+                  <xsl:with-param name="objectId" select="$objectId" />
+                </xsl:call-template>
               </xsl:with-param>
             </xsl:call-template>
 
@@ -46,39 +48,50 @@
   </xsl:template>
   
   <xsl:template name="expressionContainer">
+    <xsl:param name="objectId"/>
+
     <xsl:call-template name="metadataSoloContent">
       <xsl:with-param name="label" select="'editor.label.expressionList'" />
       <xsl:with-param name="content">
-        <xsl:call-template name="listExpressions" />
+        <xsl:call-template name="listExpressions">
+          <xsl:with-param name="objectId" select="$objectId" />
+        </xsl:call-template>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
 
 
-  <xsl:template match="mei:expressionList/mei:expression" mode="buildLink">
+  <xsl:template match="doc" mode="buildLink">
     <xsl:if test="not(position()=1)">
       <xsl:value-of select="','" />
     </xsl:if>
-    <xsl:value-of select="@codedval" />
+    <xsl:value-of select="str[@name='id']/text()" />
   </xsl:template>
 
   <xsl:template name="listExpressions">
+    <xsl:param name="objectId" />
+
+    <xsl:variable name="query" select="concat('reference:', $objectId)" />
+    <xsl:variable name="hits" xmlns:encoder="xalan://java.net.URLEncoder" select="document(concat('solr:q=',encoder:encode($query), '&amp;rows=1000'))" />
+
+
     <xsl:element name="a">
       <xsl:attribute name="class">
         cmo_addToBasket
       </xsl:attribute>
       <xsl:attribute name="data-basket">
-        <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression" mode="buildLink" />
+        <xsl:apply-templates select="$hits/response/result[@name='response']/doc" mode="buildLink" />
       </xsl:attribute>
       <xsl:value-of select="'Add all to Basket!'" />
     </xsl:element>
     <ol class="cmo_clear">
-      <xsl:for-each select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression">
+      <xsl:for-each select="$hits/response/result[@name='response']/doc">
         <li>
-          <xsl:variable name="expression" select="document(concat('mcrobject:', @codedval))" />
+          <xsl:variable name="expressionId" select="str[@name='id']/text()" />
+          <xsl:variable name="expression" select="document(concat('mcrobject:', $expressionId))" />
           <xsl:variable name="expressionElement"
                         select="$expression/mycoreobject/metadata/def.meiContainer/meiContainer/mei:expression" />
-          <xsl:variable name="pageNumber" select="@n" />
+          <!-- <xsl:variable name="pageNumber" select="@n" /> i can not find this in the data, there is no expression/@n -->
   
   
           <xsl:variable name="makam">
@@ -102,7 +115,7 @@
             </xsl:call-template>
           </xsl:variable>
   
-          <a href="{concat($WebApplicationBaseURL, 'receive/',@codedval)}">
+          <a href="{concat($WebApplicationBaseURL, 'receive/', $expressionId)}">
             <xsl:choose>
               <xsl:when test="$expression//mei:expression/mei:title[@type='main']">
                 <xsl:value-of select="$expression//mei:expression/mei:title[@type='main']" />
@@ -121,14 +134,14 @@
             </xsl:choose>
           </a>
           <span class="standardized">
-            <xsl:choose>
+            <!-- see comment above for pageNumber<xsl:choose>
               <xsl:when test="$pageNumber">
                 <xsl:value-of select="$pageNumber" />
               </xsl:when>
-              <xsl:otherwise>
+              <xsl:otherwise> -->
                 <xsl:value-of select="$expression//mei:expression/mei:identifier[@type='CMO']" />
-              </xsl:otherwise>
-            </xsl:choose>
+              <!--</xsl:otherwise>
+            </xsl:choose> -->
           </span>
           <xsl:if test="$expressionElement/mei:composer/mei:persName/@nymref">
             <xsl:text>, </xsl:text>
