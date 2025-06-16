@@ -15,6 +15,7 @@ import {BasketStore} from "./BasketStore";
 import {BasketUtil} from "./BasketUtil";
 import {I18N} from "../other/I18N";
 import {ClassificationResolver} from "../other/Classification";
+import {attachKeyboard} from "../keyboard/keyboard";
 
 window.addEventListener('load', () => {
 
@@ -932,5 +933,15 @@ window.addEventListener('load', () => {
         node.onfocus = () => {
             search();
         };
+    });
+
+
+    const nodeList = document.querySelectorAll('input[data-on-screen-keyboard], textarea[data-on-screen-keyboard]');
+    Array.prototype.forEach.call(nodeList, (input) => {
+        input.addEventListener('focus', () => {
+            if (input.getAttribute("data-on-screen-keyboard") === "true") {
+                attachKeyboard(input);
+            }
+        });
     });
 });

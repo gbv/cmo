@@ -163,7 +163,7 @@
                       </xsl:if>
                     </label>
                     <div class="col-md-6">
-                      <textarea class="form-control">
+                      <textarea class="form-control" data-on-screen-keyboard="true">
                         <xsl:copy-of select="@rows" />
                         <xsl:copy-of select="@placeholder" />
                       </textarea>
@@ -189,7 +189,7 @@
                     </xsl:if>
                   </label>
                   <div class="col-md-6">
-                    <textarea class="form-control">
+                    <textarea class="form-control" data-on-screen-keyboard="true">
                       <xsl:copy-of select="@rows" />
                       <xsl:copy-of select="@placeholder" />
                     </textarea>
@@ -223,7 +223,7 @@
                 </xsl:if>
               </label>
               <div class="col-md-6">
-                <textarea class="form-control">
+                <textarea class="form-control" data-on-screen-keyboard="true">
                   <xsl:copy-of select="@rows" />
                   <xsl:copy-of select="@placeholder" />
                 </textarea>
@@ -579,7 +579,7 @@
         <xsl:choose>
           <xsl:when test="@rootBind">
             <xed:bind xpath="{@rootBind}">
-              <input id="{@id}" type="text" class="form-control">
+              <input id="{@id}" type="text" data-on-screen-keyboard="true" class="form-control">
                 <xsl:if test="@autocomplete">
                   <xsl:attribute name="data-autocomplete-field"><xsl:value-of select="@autocomplete" /></xsl:attribute>
                 </xsl:if>
@@ -589,7 +589,7 @@
             </xed:bind>
           </xsl:when>
           <xsl:otherwise>
-            <input id="{@id}" type="text" class="form-control">
+            <input id="{@id}" type="text" data-on-screen-keyboard="true" class="form-control">
               <xsl:if test="@autocomplete">
                 <xsl:attribute name="data-autocomplete-field"><xsl:value-of select="@autocomplete" /></xsl:attribute>
               </xsl:if>
