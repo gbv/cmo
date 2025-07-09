@@ -183,7 +183,7 @@ export class BasketDisplay {
                 const transformer = el.getAttribute("data-export-transformer");
 
                 el.addEventListener("click", (e) => {
-                    if (idList.length > BasketDisplay.exportLimit) {
+                    if (idList.split(",").length > BasketDisplay.exportLimit) {
                         I18N.translate("cmo.basket.export.limit", (translation)=> {
                             alert(translation.replace("{0}", BasketDisplay.exportLimit.toString()));
                         });
