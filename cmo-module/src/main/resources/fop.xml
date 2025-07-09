@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <fop>
+    <complex-scripts disabled="true"/>
+
     <renderers>
         <renderer mime="application/pdf">
             <fonts>
-                <!-- Korrigierte Carlito Schriftarten-Konfiguration -->
-                <font embed-url="META-INF/resources/font/Carlito-Regular.ttf" kerning="yes">
-                    <font-triplet name="Carlito" style="normal" weight="normal"/>
+                <font embed-url="META-INF/resources/font/NotoSans-SemiCondensed.ttf" kerning="yes">
+                    <font-triplet name="Noto Sans" style="normal" weight="normal"/>
                 </font>
-                <font embed-url="META-INF/resources/font/Carlito-Bold.ttf" kerning="yes">
-                    <font-triplet name="Carlito" style="normal" weight="bold"/>
+                <font embed-url="META-INF/resources/font/NotoSans-SemiCondensedBold.ttf" kerning="yes">
+                    <font-triplet name="Noto Sans" style="normal" weight="bold"/>
                 </font>
-                <font embed-url="META-INF/resources/font/Carlito-Italic.ttf" kerning="yes">
-                    <font-triplet name="Carlito" style="italic" weight="normal"/>
+                <font embed-url="META-INF/resources/font/NotoSans-SemiCondensedItalic.ttf" kerning="yes">
+                    <font-triplet name="Noto Sans" style="italic" weight="normal"/>
                 </font>
-                <font embed-url="META-INF/resources/font/Carlito-BoldItalic.ttf" kerning="yes">
-                    <font-triplet name="Carlito" style="italic" weight="bold"/>
+                <font embed-url="META-INF/resources/font/NotoSans-SemiCondensedBoldItalic.ttf" kerning="yes">
+                    <font-triplet name="Noto Sans" style="italic" weight="bold"/>
+                </font>
+                <font embed-url="META-INF/resources/font/OpenSans-Regular.ttf" kerning="yes">
+                    <font-triplet name="Open Sans" style="normal" weight="normal"/>
+                </font>
+                <font embed-url="META-INF/resources/font/OpenSans-Bold.ttf" kerning="yes">
+                    <font-triplet name="Open Sans" style="normal" weight="bold"/>
+                </font>
+                <font embed-url="META-INF/resources/font/OpenSans-Italic.ttf" kerning="yes">
+                    <font-triplet name="Open Sans" style="italic" weight="normal"/>
+                </font>
+                <font embed-url="META-INF/resources/font/OpenSans-BoldItalic.ttf" kerning="yes">
+                    <font-triplet name="Open Sans" style="italic" weight="bold"/>
                 </font>
             </fonts>
         </renderer>
