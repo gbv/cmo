@@ -1,37 +1,31 @@
 @font-face {
-  font-family: 'CarlitoBold';
-  src: url('../../../font/Carlito-Bold.ttf') format('truetype');
-  font-weight: bold;
+  font-family: 'Noto Sans SemiCondensed';
+  src: url('../../../font/NotoSans-SemiCondensed.ttf') format('truetype');
+  font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'CarlitoBoldItalic';
-  src: url('../../../font/Carlito-BoldItalic.ttf') format('truetype');
-  font-weight: bold;
+  font-family: 'Noto Sans SemiCondensed';
+  src: url('../../../font/NotoSans-SemiCondensedItalic.ttf') format('truetype');
+  font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
-  font-family: 'CarlitoItalic';
-  src: url('../../../font/Carlito-Italic.ttf') format('truetype');
-  font-weight: normal;
+  font-family: 'Noto Sans SemiCondensed';
+  src: url('../../../font/NotoSans-SemiCondensedBold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans SemiCondensed';
+  src: url('../../../font/NotoSans-SemiCondensedBoldItalic.ttf') format('truetype');
+  font-weight: 700;
   font-style: italic;
 }
 
-@font-face {
-  font-family: 'CarlitoRegular';
-  src: url('../../../font/Carlito-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Carlito';
-  src: url('../../../font/Carlito-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
 /* cyrillic-ext */
 @font-face {
   font-family: 'Open Sans';
