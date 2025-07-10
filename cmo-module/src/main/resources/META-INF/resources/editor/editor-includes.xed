@@ -29,7 +29,7 @@
 
   <xed:template id="cmo_title">
     <cmo:textfield xpath="mei:titleStmt/mei:title" label="editor.label.title" type="cmo_titleType" lang="rfc5646"
-                   repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
+                   on-screen-keyboard="true" repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" />
   </xed:template>
 
   <xed:template id="cmo_emptyTitle">
@@ -39,7 +39,7 @@
   </xed:template>
 
   <xed:template id="cmo_titleExpression">
-    <cmo:textfield xpath="mei:title" label="editor.label.title" type="cmo_titleTypeExpression" lang="iso15924"
+    <cmo:textfield xpath="mei:title" label="editor.label.title" type="cmo_titleTypeExpression" lang="iso15924" on-screen-keyboard="true"
                    repeat="true" min="1" max="10" help-text="{i18n:cmo.help.title}" required="false" required-i18n="cmo.validation.titleExpression" />
   </xed:template>
 
@@ -51,9 +51,9 @@
   <xed:template id="cmo_incip">
     <xed:bind xpath="mei:incip">
       <cmo:textfield xpath="mei:incipText[@label='normalized']" rootBind="mei:p" label="editor.label.incip.normalized" lang="iso15924" textLabelFixed="normalized" autocomplete="incip.normalized.autocomplete"
-                     repeat="true" min="1" max="10" help-text="{i18n:cmo.help.incip}" />
+                     repeat="true" min="1" max="10" help-text="{i18n:cmo.help.incip}" on-screen-keyboard="true" />
       <cmo:textfield xpath="mei:incipText[not(@label='normalized')]" rootBind="mei:p" label="editor.label.incip" lang="iso15924" textLabelOptions="main|original"
-                     repeat="true" min="1" max="10" help-text="{i18n:cmo.help.incip}" />
+                     repeat="true" min="1" max="10" help-text="{i18n:cmo.help.incip}" on-screen-keyboard="true" />
     </xed:bind>
   </xed:template>
 

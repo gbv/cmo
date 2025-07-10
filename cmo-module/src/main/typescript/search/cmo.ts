@@ -15,7 +15,7 @@ import {BasketStore} from "./BasketStore";
 import {BasketUtil} from "./BasketUtil";
 import {I18N} from "../other/I18N";
 import {ClassificationResolver} from "../other/Classification";
-import {attachKeyboard} from "../keyboard/keyboard";
+import {enableKeyboard} from "../keyboard/keyboard";
 
 window.addEventListener('load', () => {
 
@@ -936,12 +936,10 @@ window.addEventListener('load', () => {
     });
 
 
-    const nodeList = document.querySelectorAll('input[data-on-screen-keyboard], textarea[data-on-screen-keyboard]');
-    Array.prototype.forEach.call(nodeList, (input) => {
-        input.addEventListener('focus', () => {
-            if (input.getAttribute("data-on-screen-keyboard") === "true") {
-                attachKeyboard(input);
-            }
-        });
+    const nodeList = document.querySelectorAll('div[data-on-screen-keyboard]');
+    Array.from(nodeList).forEach((inputGroup) => {
+        const input = inputGroup.querySelector('input[data-on-screen-keyboard-input], textarea[data-on-screen-keyboard-input]') as HTMLInputElement | HTMLTextAreaElement;
+        const toggle = inputGroup.querySelector('button[data-on-screen-keyboard-toggle]') as HTMLButtonElement;
+        enableKeyboard(input, toggle);
     });
 });

@@ -163,7 +163,7 @@
                       </xsl:if>
                     </label>
                     <div class="col-md-6">
-                      <textarea class="form-control" data-on-screen-keyboard="true">
+                      <textarea class="form-control">
                         <xsl:copy-of select="@rows" />
                         <xsl:copy-of select="@placeholder" />
                       </textarea>
@@ -189,7 +189,7 @@
                     </xsl:if>
                   </label>
                   <div class="col-md-6">
-                    <textarea class="form-control" data-on-screen-keyboard="true">
+                    <textarea class="form-control">
                       <xsl:copy-of select="@rows" />
                       <xsl:copy-of select="@placeholder" />
                     </textarea>
@@ -223,7 +223,7 @@
                 </xsl:if>
               </label>
               <div class="col-md-6">
-                <textarea class="form-control" data-on-screen-keyboard="true">
+                <textarea class="form-control">
                   <xsl:copy-of select="@rows" />
                   <xsl:copy-of select="@placeholder" />
                 </textarea>
@@ -579,23 +579,63 @@
         <xsl:choose>
           <xsl:when test="@rootBind">
             <xed:bind xpath="{@rootBind}">
-              <input id="{@id}" type="text" data-on-screen-keyboard="true" class="form-control">
-                <xsl:if test="@autocomplete">
-                  <xsl:attribute name="data-autocomplete-field"><xsl:value-of select="@autocomplete" /></xsl:attribute>
-                </xsl:if>
-                <xsl:call-template name="addSubselectTarget"/>
-                <xsl:copy-of select="@placeholder" />
-              </input>
+              <xsl:choose>
+                <xsl:when test="@on-screen-keyboard">
+                  <div class="input-group" data-on-screen-keyboard="true">
+                    <input id="{@id}" data-on-screen-keyboard-input="true" type="text" class="form-control">
+                      <xsl:if test="@autocomplete">
+                        <xsl:attribute name="data-autocomplete-field"><xsl:value-of select="@autocomplete" /></xsl:attribute>
+                      </xsl:if>
+                      <xsl:call-template name="addSubselectTarget"/>
+                      <xsl:copy-of select="@placeholder" />
+                    </input>
+                    <div class="input-group-append">
+                      <button data-on-screen-keyboard-toggle="true" class="btn btn-secondary btn-sm" type="button">
+                        <span class="fas fa-keyboard" />
+                      </button>
+                    </div>
+                  </div>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input id="{@id}" type="text" class="form-control">
+                    <xsl:if test="@autocomplete">
+                      <xsl:attribute name="data-autocomplete-field"><xsl:value-of select="@autocomplete" /></xsl:attribute>
+                    </xsl:if>
+                    <xsl:call-template name="addSubselectTarget"/>
+                    <xsl:copy-of select="@placeholder" />
+                  </input>
+                </xsl:otherwise>
+              </xsl:choose>
             </xed:bind>
           </xsl:when>
           <xsl:otherwise>
-            <input id="{@id}" type="text" data-on-screen-keyboard="true" class="form-control">
-              <xsl:if test="@autocomplete">
-                <xsl:attribute name="data-autocomplete-field"><xsl:value-of select="@autocomplete" /></xsl:attribute>
-              </xsl:if>
-              <xsl:call-template name="addSubselectTarget"/>
-              <xsl:copy-of select="@placeholder" />
-            </input>
+            <xsl:choose>
+              <xsl:when test="@on-screen-keyboard">
+                <div class="input-group" data-on-screen-keyboard="true">
+                  <input id="{@id}" data-on-screen-keyboard-input="true" type="text" class="form-control">
+                    <xsl:if test="@autocomplete">
+                      <xsl:attribute name="data-autocomplete-field"><xsl:value-of select="@autocomplete" /></xsl:attribute>
+                    </xsl:if>
+                    <xsl:call-template name="addSubselectTarget"/>
+                    <xsl:copy-of select="@placeholder" />
+                  </input>
+                  <div class="input-group-append">
+                    <button data-on-screen-keyboard-toggle="true" class="btn btn-secondary btn-sm" type="button">
+                      <span class="fas fa-keyboard" />
+                    </button>
+                  </div>
+                </div>
+              </xsl:when>
+              <xsl:otherwise>
+                <input id="{@id}" type="text" class="form-control">
+                  <xsl:if test="@autocomplete">
+                    <xsl:attribute name="data-autocomplete-field"><xsl:value-of select="@autocomplete" /></xsl:attribute>
+                  </xsl:if>
+                  <xsl:call-template name="addSubselectTarget"/>
+                  <xsl:copy-of select="@placeholder" />
+                </input>
+              </xsl:otherwise>
+            </xsl:choose>
           </xsl:otherwise>
         </xsl:choose>
       </div>
