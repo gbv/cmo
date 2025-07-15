@@ -63,7 +63,7 @@ export class BasketDisplay {
             "editor.label.corpName": (doc) => doc["repo.corpName.library"] || "",
             "editor.label.title": (doc: CMOBaseDocument) =>
                 `<a href="${Utils.getBaseURL()}receive/${doc["id"]}">${Utils.encodeHtmlEntities((doc["displayTitle"] || "") + "")}</a>`,
-
+            "editor.label.alt.title": (doc: CMOBaseDocument) => (doc["title.type.alt"]||[]).join("<br/>"),
             "editor.label.publisher": (doc: CMOBaseDocument) => doc["publisher"] || "",
             "editor.label.creation.date": (doc: CMOBaseDocument) => doc["creation.date.content"] || "",
             "editor.label.editorAndAuthor": (doc: CMOBaseDocument) => {
@@ -91,7 +91,8 @@ export class BasketDisplay {
             "editor.label.series": (doc: CMOBaseDocument) => (doc["series"] || []).join(", "),
             "cmo.sourceType": (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_sourceType"),
             "cmo.contentType": (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_contentType"),
-            "cmo.notationType": (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_notationType")
+            "cmo.notationType": (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_notationType"),
+            "cmo.hasFiles": (doc: CMOBaseDocument) => doc["hasFiles"] ? `<span data-i18n="cmo.yes"></span>` : `<span data-i18n="cmo.no"></span>`,
         },
         "source-mods": {
             "editor.label.identifier": (doc) => (doc["mods.identifier"] || [])
