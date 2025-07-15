@@ -18,6 +18,9 @@
 
 package de.vzg.cmo.resources;
 
+import jakarta.persistence.Entity;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.POST;
 import java.io.IOException;
 import java.util.stream.Stream;
 
@@ -47,10 +50,11 @@ public class CMOObjectResource {
     public static final Namespace EXPORT_NAMESPACE = Namespace
         .getNamespace("export", "http://www.corpus-musicae-ottomanicae.de/ns/export");
 
-    @Path("export/{transformer}/{ids}")
+    @Path("export/{transformer}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    @GET
-    public Response export(@PathParam("transformer") String transformer, @PathParam("ids") String idListString)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @POST
+    public Response export(@PathParam("transformer") String transformer, String idListString)
         throws IOException {
         Document doc = new Document(new Element("export", EXPORT_NAMESPACE));
         final Element exportElement = doc.getRootElement();

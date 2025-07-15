@@ -13,7 +13,7 @@ export class BasketDisplay {
 
     }
 
-    private static exportLimit = 300;
+    private static exportLimit = 3000;
 
     private static mergeLinkFields = (...arr: string[][]) => {
         let namesLinkMap = {};
@@ -119,6 +119,28 @@ export class BasketDisplay {
 
     };
 
+    private static DOWNLOAD_MODAL = `
+    <div class="modal show" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" data-i18n="cmo.basket.modal.download.title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p data-i18n="cmo.basket.modal.download"></p>
+            <span data-id="status-line"></span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-i18n="cmo.basket.modal.download.close"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+
     private static getCategorySpan(doc: CMOBaseDocument, clazz: string): string {
         let rightCategoryField = BasketDisplay.findRightCategoryField(doc, clazz);
         return `${rightCategoryField.map(field => `<span data-clazz="${clazz}" data-category="${field.category}" class="value"></span>`).join(", ")}`
@@ -179,18 +201,75 @@ export class BasketDisplay {
             });
 
             Array.prototype.slice.call(this._container.querySelectorAll("[data-export-ids]")).forEach(function (el) {
-                const idList = el.getAttribute("data-export-ids");
+                const idListString = el.getAttribute("data-export-ids");
                 const transformer = el.getAttribute("data-export-transformer");
 
                 el.addEventListener("click", (e) => {
-                    if (idList.split(",").length > BasketDisplay.exportLimit) {
+                    let idList = idListString.split(",");
+                    if (idList.length > BasketDisplay.exportLimit) {
                         I18N.translate("cmo.basket.export.limit", (translation)=> {
                             alert(translation.replace("{0}", BasketDisplay.exportLimit.toString()));
                         });
                         return false;
                     }
                     if (idList.length > 0) {
-                        window.location.href = `${Utils.getBaseURL()}rsc/cmo/object/export/${transformer}/${idList}`;
+                        const modalWrapper = document.createElement("div");
+                        document.body.appendChild(modalWrapper);
+                        modalWrapper.innerHTML = BasketDisplay.DOWNLOAD_MODAL;
+                        I18N.translateElements(modalWrapper);
+
+                        let modalElement = (window as any).$(modalWrapper.firstElementChild).modal({
+                            keyboard: true,
+                            focus: true,
+                            show: true
+                        });
+
+                        try {
+                            const responsePromise = fetch(`${Utils.getBaseURL()}rsc/cmo/object/export/${transformer}`, {
+                                method: "POST",
+                                body: idList.join(",")
+                            });
+
+                            responsePromise.then(async response => {
+                                const contentDisposition = response.headers.get("Content-disposition");
+                                const regexp = /filename="([^"]*)"/;
+                                const filename = regexp.exec(contentDisposition)[1];
+                                const blob = await response.blob();
+
+                                if((window as any).showSaveFilePicker) {
+                                    try {
+                                        const fileHandle = await (window as any).showSaveFilePicker(
+                                            {
+                                                startIn: "downloads",
+                                                suggestedName: filename,
+                                            }
+                                        );
+                                        const writableStream = await fileHandle.createWritable();
+                                        await writableStream.write(blob);
+                                        await writableStream.close();
+                                    } catch (e) {
+                                        modalElement.modal("hide");
+                                    }
+                                } else {
+                                    const url = window.URL.createObjectURL(blob);
+                                    const a = document.createElement("a");
+                                    a.style.display = "none";
+                                    a.href = url;
+                                    a.download = filename;
+                                    document.body.appendChild(a);
+                                    a.click();
+                                    window.URL.revokeObjectURL(url);
+                                    a.remove();
+                                }
+
+                                modalElement.modal("hide");
+                            });
+                        } catch (e) {
+                            I18N.translate("cmo.basket.export.error", (translation) => {
+                                (modalWrapper.querySelector("[data-id='status-line']") as HTMLSpanElement).innerText = translation + "\n " + e.message;
+                            });
+                            modalElement.modal("hide");
+                        }
                     }
                     e.preventDefault();
                     e.stopPropagation();
