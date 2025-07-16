@@ -120,11 +120,11 @@ const KEYBOARD_ENTRIES: KeyboardTab[] = [
 ];
 
 const MODIFIER_KEYBOARD = [
-    '\u02CA', // ˊ MODIFIER LETTER ACUTE ACCENT https://unicode-explorer.com/c/02CA
+    '\u0341', // ◌́ Combining Acute Tone Mark https://www.compart.com/de/unicode/U+0341
     '\u0340', // ̀ COMBINING GRAVE TONE MARK https://unicode-explorer.com/c/0340
     '\u0342', // ͂ COMBINING GREEK PERISPOMENI https://unicode-explorer.com/c/0342
     '\u0308', // ̈ COMBINING DIAERESIS https://unicode-explorer.com/c/0308
-    '\u02BE', // ʾ MODIFIER LETTER RIGHT HALF RING https://unicode-explorer.com/c/02BE
+    '\u0343', // ◌̓ Combining Greek Koronis https://www.compart.com/de/unicode/U+0343
     '\u0351', // ͑ COMBINING LEFT HALF RING ABOVE https://unicode-explorer.com/c/0351
     '\u0345', // ͅ COMBINING GREEK YPOGEGRAMMENI https://unicode-explorer.com/c/345
 ];
