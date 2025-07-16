@@ -7,8 +7,15 @@
   width: 130px;
 }*/
 
+/* only displayed in editor */
+.on-screen-keyboard .on-screen-keyboard-btn {
+  font-family: "Noto Sans SemiCondensed", "Open Sans", Helvetica, Arial, sans-serif;
+}
 
 #cmo_xeditor {
+  input, textarea {
+    font-family: "Noto Sans SemiCondensed", "Open Sans", Helvetica, Arial, sans-serif;
+  }
   font-size: 85%;
   select, .form-control {
     font-size: 90%;
