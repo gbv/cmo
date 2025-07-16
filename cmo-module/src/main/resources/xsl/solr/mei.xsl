@@ -370,11 +370,6 @@
     <field name="reference">
       <xsl:value-of select="@target" />
     </field>
-    <xsl:if test="@rel">
-      <field name="reference.rel.{@type}">
-        <xsl:value-of select="@target" />
-      </field>
-    </xsl:if>
   </xsl:template>
 
   <xsl:template match="mei:persName/mei:name" mode="solrIndex">
