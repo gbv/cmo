@@ -159,7 +159,7 @@ function attachKeyboard(keyboardPanel: HTMLDivElement, input: HTMLInputElement |
     keyboardPanel.style.position = 'absolute';
     keyboardPanel.style.background = '#fff';
     keyboardPanel.style.zIndex = '1000';
-    keyboardPanel.classList.add("card", "shadow-sm");
+    keyboardPanel.classList.add("card", "shadow-sm", "on-screen-keyboard");
 
     // Create keyboard header for tabs
     const keyboardHeader = document.createElement('div');
@@ -259,7 +259,7 @@ function attachKeyboard(keyboardPanel: HTMLDivElement, input: HTMLInputElement |
     function createButton(text: string, onClick: () => void): HTMLButtonElement {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.classList.add("btn", "btn-secondary", "btn-sm", "d-flex", "align-items-center", "justify-content-center");
+        btn.classList.add("on-screen-keyboard-btn", "btn", "btn-secondary", "btn-sm", "d-flex", "align-items-center", "justify-content-center");
         btn.textContent = text;
         btn.style.height = `${BUTTON_HEIGHT}em`;
         btn.onclick = onClick;
