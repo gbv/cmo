@@ -12,7 +12,9 @@ export class BasketUtil {
         basketElements.forEach((basketElement: HTMLElement) => {
             let inactive = basketElement.getAttribute("data-basket-activated") !== "true";
             if (inactive) {
-                let ids: Array<string> = basketElement.getAttribute("data-basket").split(",");
+                let ids: Array<string> = basketElement.getAttribute("data-basket")
+                .split(",")
+                .filter(s=> s.trim().length > 0);
 
                 let changed = () => {
                     let containsAll = !ids.map(id => BasketUtil.basket.contains(id)).some(isInBasket => !isInBasket);
