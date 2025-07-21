@@ -21,11 +21,11 @@ package de.vzg.cmo.resources;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.Consumes;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import jakarta.ws.rs.GET;
@@ -68,10 +68,11 @@ public class CMOObjectResource {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    @Path("export/{transformer}/{ids}")
+    @Path("export/{transformer}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    @GET
-    public Response export(@PathParam("transformer") String transformer, @PathParam("ids") String idListString)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @POST
+    public Response export(@PathParam("transformer") String transformer, String idListString)
         throws IOException {
         Document doc = new Document(new Element("export", EXPORT_NAMESPACE));
         final Element exportElement = doc.getRootElement();
@@ -297,9 +298,9 @@ public class CMOObjectResource {
         if (expressionWrapper == null) {
             throw new IllegalArgumentException("Given expression does not contain a MEI wrapper!");
         }
-        
+
         String expressionCMOId = getCMOIdentifier(expressionWrapper);
-        
+
         MCRObject work = MCRMetadataManager.retrieveMCRObject(fromID);
         MEIWorkWrapper workWrapper = (MEIWorkWrapper) MEIWrapper.getWrapper(work);
         if (workWrapper == null) {
