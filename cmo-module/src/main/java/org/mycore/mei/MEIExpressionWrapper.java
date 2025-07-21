@@ -40,41 +40,41 @@ public class MEIExpressionWrapper extends MEIWrapper {
     private static final String SECOND_CLASS_IN_TITLE = "cmo_musictype";
 
     static {
-        TOP_LEVEL_ELEMENT_ORDER.add("identifier");
-        TOP_LEVEL_ELEMENT_ORDER.add("title");
-        TOP_LEVEL_ELEMENT_ORDER.add("arranger");
-        TOP_LEVEL_ELEMENT_ORDER.add("author");
-        TOP_LEVEL_ELEMENT_ORDER.add("composer");
-        TOP_LEVEL_ELEMENT_ORDER.add("contributor");
-        TOP_LEVEL_ELEMENT_ORDER.add("editor");
-        TOP_LEVEL_ELEMENT_ORDER.add("funder");
-        TOP_LEVEL_ELEMENT_ORDER.add("librettist");
-        TOP_LEVEL_ELEMENT_ORDER.add("lyricist");
-        TOP_LEVEL_ELEMENT_ORDER.add("sponsor");
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.IDENTIFIER);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.TITLE);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.ARRANGER);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.AUTHOR);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.COMPOSER);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.CONTRIBUTOR);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.EDITOR);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.FUNDER);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.LIBRETTIST);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.LYRICIST);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.SPONSOR);
 
-        TOP_LEVEL_ELEMENT_ORDER.add("key");
-        TOP_LEVEL_ELEMENT_ORDER.add("mesuration");
-        TOP_LEVEL_ELEMENT_ORDER.add("meter");
-        TOP_LEVEL_ELEMENT_ORDER.add("tempo");
-        TOP_LEVEL_ELEMENT_ORDER.add("incip");
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.KEY);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.MESURATION);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.METER);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.TEMPO);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.INCIP);
 
-        TOP_LEVEL_ELEMENT_ORDER.add("otherChar");
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.OTHER_CHAR);
 
-        TOP_LEVEL_ELEMENT_ORDER.add("creation");
-        TOP_LEVEL_ELEMENT_ORDER.add("history");
-        TOP_LEVEL_ELEMENT_ORDER.add("langUsage");
-        TOP_LEVEL_ELEMENT_ORDER.add("perfMedium");
-        TOP_LEVEL_ELEMENT_ORDER.add("perfDuration");
-        TOP_LEVEL_ELEMENT_ORDER.add("extent");
-        TOP_LEVEL_ELEMENT_ORDER.add("scoreFormat");
-        TOP_LEVEL_ELEMENT_ORDER.add("contents");
-        TOP_LEVEL_ELEMENT_ORDER.add("context");
-        TOP_LEVEL_ELEMENT_ORDER.add("biblList");
-        TOP_LEVEL_ELEMENT_ORDER.add("notesStmt");
-        TOP_LEVEL_ELEMENT_ORDER.add("classification");
-        TOP_LEVEL_ELEMENT_ORDER.add("componentGrp");
-        TOP_LEVEL_ELEMENT_ORDER.add("relationList");
-        TOP_LEVEL_ELEMENT_ORDER.add("extMeta");
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.CREATION);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.HISTORY);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.LANG_USAGE);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.PERF_MEDIUM);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.PERF_DURATION);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.EXTENT);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.SCORE_FORMAT);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.CONTENTS);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.CONTEXT);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.BIBL_LIST);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.NOTES_STMT);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.CLASSIFICATION);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.COMPONENT_GRP);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.RELATION_LIST);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.EXT_META);
 
     }
 
@@ -89,9 +89,9 @@ public class MEIExpressionWrapper extends MEIWrapper {
 
     @Override
     protected boolean isElementRelevant(Element element) {
-        final boolean isTitleElement = element.getName().equals("title");
+        final boolean isTitleElement = element.getName().equals(MEIElementConstants.TITLE);
         if (isTitleElement) {
-            boolean singleTitle = element.getParentElement().getChildren("title", MEI_NAMESPACE).size() <= 1;
+            boolean singleTitle = element.getParentElement().getChildren(MEIElementConstants.TITLE, MEI_NAMESPACE).size() <= 1;
             return singleTitle || element.getTextTrim().length() > 0;
         }
 

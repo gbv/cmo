@@ -339,10 +339,34 @@ window.addEventListener('load', () => {
                 return childExtra;
             };
 
+            const getLinkExtra = (label:string) => {
+                const childExtra = document.createElement("div");
+                const buttonClass = "cmo-abort-button";
+                const textClass = "cmo-add-label-description-text";
+
+                childExtra.classList.add('well');
+                childExtra.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
+
+                I18N.translate('cmo.link.'+label+'.description', (translation) => {
+                    const replaceText: HTMLSpanElement = <HTMLSpanElement>childExtra.querySelector("." + textClass);
+                    replaceText.innerText = translation;
+                });
+
+                const replaceButton: HTMLElement = <HTMLElement>childExtra.querySelector("." + buttonClass);
+                I18N.translate('cmo.abort', (translation) => {
+                    replaceButton.innerText = translation;
+                    replaceButton.addEventListener('click', () => {
+                        window.location.hash = "";
+                    });
+                });
+                return childExtra;
+            };
+
             switch (action) {
                 case "add-child":
                 case "subselect":
                 case "set-parent":
+                case "add-expression2work":
                 case "subselect-insert":
 
                     sideBar.classList.remove("d-none");
@@ -361,6 +385,9 @@ window.addEventListener('load', () => {
                             break;
                         case"set-parent":
                             extra = getSetParentExtra();
+                            break;
+                        case "add-expression2work":
+                            extra = getLinkExtra("expression2work");
                             break;
                     }
                 case "init_search":
@@ -520,7 +547,7 @@ window.addEventListener('load', () => {
 
         currentTimeOut = window.setTimeout(() => {
             let [, action] = StateController.getState().filter(([key, value]) => key == "action")[0] || [undefined, undefined];
-            if (action != "search" && action != "subselect" && action != "subselect-insert" && action != "set-parent" && action != "add-child") {
+            if (action != "search" && action != "subselect" && action != "subselect-insert" && action != "set-parent" && action != "add-child" && action != "add-expression2work") {
                 action = "search";
             }
 
@@ -707,6 +734,39 @@ window.addEventListener('load', () => {
                         }
                     });
                 };
+            case "add-expression2work":
+                return (doc) => {
+                    const work = params.filter(([key, value]) => key == "work")[0][1];
+                    const expressionTitle = doc.displayTitle;
+                    const expression = doc.id;
+                    if(doc["objectType"] == "expression"){
+                        I18N.translate("cmo.link.expression2work.confirm", async (translation) => {
+                            const message = translation.replace("{0}", expressionTitle);
+                            const replace = confirm(message);
+
+                            if(replace){
+                                const url = `${Utils.getBaseURL()}rsc/cmo/object/link/${work}/${expression}`;
+                                const resp = await fetch(url,{
+                                    method: "POST"
+                                });
+                                if(resp.status == 200){
+                                    I18N.translate("cmo.link.expression2work.success", (translation) => {
+                                        alert(translation);
+                                        aditionalQuery = null;
+                                        window.location.hash = "";
+                                        window.location.reload(true);
+                                    });
+                                }
+                            }
+
+                        });
+                    } else {
+                        I18N.translate("cmo.link.expression2work.error.wrong.Type", (translation) => {
+                            alert(translation);
+                        });
+                    }
+
+                }
         }
     };
 
@@ -827,6 +887,33 @@ window.addEventListener('load', () => {
     });
 
     BasketUtil.activateLinks(window.document.body);
+
+    const linkActionAttribute = "data-link-action";
+    const linkFromAttribute = "data-link-from";
+    const linkToAttribute = "data-link-to";
+
+    Array.from(document.querySelectorAll(`[${linkActionAttribute}]`)).forEach(element => {
+       const action = element.getAttribute(linkActionAttribute);
+       const from = element.getAttribute(linkFromAttribute);
+       const to = element.getAttribute(linkToAttribute);
+       if(action == 'remove' && from && to){
+           element.addEventListener('click', async () => {
+                const confirmDeleteMessage = await I18N.translatePromise("editor.label.expression.list.confirm.remove");
+                const confirmDelete = confirm(confirmDeleteMessage);
+                if(confirmDelete){
+                    const url = `${Utils.getBaseURL()}rsc/cmo/object/unlink/${from}/${to}`;
+                    const resp = await fetch(url,{
+                        method: "DELETE"
+                    });
+                    if(resp.status == 200){
+                        alert(await I18N.translatePromise("editor.label.expression.list.remove.success"));
+                        window.location.reload(true);
+                    }
+                }
+           });
+       }
+
+    });
 
     const autoCompleteAttr = "data-autocomplete-field";
     Array.prototype.slice.call(document.querySelectorAll(`[${autoCompleteAttr}]`)).forEach((node) => {

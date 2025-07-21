@@ -40,24 +40,24 @@ public class MEISourceWrapper extends MEIWrapper {
         .compile(".//mei:relation", Filters.element(), null, MEI_NAMESPACE);
 
     static {
-        TOP_LEVEL_ELEMENT_ORDER.add("identifier");
-        TOP_LEVEL_ELEMENT_ORDER.add("titleStmt");
-        TOP_LEVEL_ELEMENT_ORDER.add("editionStmt");
-        TOP_LEVEL_ELEMENT_ORDER.add("pubStmt");
-        TOP_LEVEL_ELEMENT_ORDER.add("physDesc");
-        TOP_LEVEL_ELEMENT_ORDER.add("physLoc");
-        TOP_LEVEL_ELEMENT_ORDER.add("creation");
-        TOP_LEVEL_ELEMENT_ORDER.add("seriesStmt");
-        TOP_LEVEL_ELEMENT_ORDER.add("history");
-        TOP_LEVEL_ELEMENT_ORDER.add("langUsage");
-        TOP_LEVEL_ELEMENT_ORDER.add("contents");
-        TOP_LEVEL_ELEMENT_ORDER.add("biblList");
-        TOP_LEVEL_ELEMENT_ORDER.add("notesStmt");
-        TOP_LEVEL_ELEMENT_ORDER.add("classification");
-        TOP_LEVEL_ELEMENT_ORDER.add("itemList");
-        TOP_LEVEL_ELEMENT_ORDER.add("componentGrp");
-        TOP_LEVEL_ELEMENT_ORDER.add("componentList");
-        TOP_LEVEL_ELEMENT_ORDER.add("relationList");
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.IDENTIFIER);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.TITLE_STMT);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.EDITION_STMT);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.PUB_STMT);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.PHYS_DESC);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.PHYS_LOC);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.CREATION);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.SERIES_STMT);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.HISTORY);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.LANG_USAGE);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.CONTENTS);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.BIBL_LIST);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.NOTES_STMT);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.CLASSIFICATION);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.ITEM_LIST);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.COMPONENT_GRP);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.COMPONENT_LIST);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.RELATION_LIST);
     }
 
     public MEISourceWrapper(Element sourceRoot) {

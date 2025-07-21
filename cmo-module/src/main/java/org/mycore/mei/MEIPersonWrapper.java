@@ -36,13 +36,13 @@ public class MEIPersonWrapper extends MEIWrapper {
     private static final List<String> TOP_LEVEL_ELEMENT_ORDER = new ArrayList<>();
 
     static {
-        TOP_LEVEL_ELEMENT_ORDER.add("addName");
-        TOP_LEVEL_ELEMENT_ORDER.add("famName");
-        TOP_LEVEL_ELEMENT_ORDER.add("foreName");
-        TOP_LEVEL_ELEMENT_ORDER.add("genName");
-        TOP_LEVEL_ELEMENT_ORDER.add("nameLink");
-        TOP_LEVEL_ELEMENT_ORDER.add("roleName");
-        TOP_LEVEL_ELEMENT_ORDER.add("annot");
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.ADD_NAME);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.FAM_NAME);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.FORE_NAME);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.GEN_NAME);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.NAME_LINK);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.ROLE_NAME);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.ANNOT);
     }
 
     public MEIPersonWrapper(Element root) {

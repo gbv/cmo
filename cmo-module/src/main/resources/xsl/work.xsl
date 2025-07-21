@@ -63,15 +63,30 @@
   </xsl:template>
 
   <xsl:template name="listExpressions">
-    <xsl:element name="a">
-      <xsl:attribute name="class">
-        cmo_addToBasket
-      </xsl:attribute>
-      <xsl:attribute name="data-basket">
-        <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression" mode="buildLink" />
-      </xsl:attribute>
-      <xsl:value-of select="'Add all to Basket!'" />
-    </xsl:element>
+    <xsl:variable name="id" select="/mycoreobject/@ID" />
+    <xsl:variable name="canWriteExpression" select="acl:checkPermission($id,'writedb')" />
+    <div class="nav">
+      <xsl:if test="$canWriteExpression">
+        <li class="nav-item">
+          <a class="nav-link" href="#action=add-expression2work&amp;work={$id}&amp;q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=cmoType%3Aexpression">
+            <xsl:value-of select="i18n:translate('editor.label.expression.list.add')" />
+          </a>
+        </li>
+      </xsl:if>
+      <li class="nav-item">
+        <xsl:element name="a">
+          <xsl:attribute name="class">
+            cmo_addToBasket nav-link
+          </xsl:attribute>
+          <xsl:attribute name="data-basket">
+            <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression" mode="buildLink" />
+          </xsl:attribute>
+          <xsl:value-of select="'Add all to Basket!'" />
+        </xsl:element>
+      </li>
+
+    </div>
+
     <ol class="cmo_clear">
       <xsl:for-each select="metadata/def.meiContainer/meiContainer/mei:work/mei:expressionList/mei:expression">
         <li>
@@ -135,6 +150,11 @@
             <xsl:call-template name="objectLink">
               <xsl:with-param name="obj_id" select="$expressionElement/mei:composer/mei:persName/@nymref" />
             </xsl:call-template>
+          </xsl:if>
+          <xsl:if test="$canWriteExpression">
+            <a data-link-action="remove" data-link-from="{$id}" data-link-to="{@codedval}" href="#" title="{i18n:translate('editor.label.expression.list.remove')}">
+              <span class="fa fa-unlink text-danger ml-2"> </span>
+            </a>
           </xsl:if>
         </li>
       </xsl:for-each>
