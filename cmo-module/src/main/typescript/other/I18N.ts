@@ -9,6 +9,14 @@ export class I18N {
 
     private static currentLanguage: string = null;
 
+    static translatePromise(key: string): Promise<string> {
+        return new Promise((resolve, reject) => {
+            I18N.translate(key, translation => {
+                resolve(translation);
+            });
+        });
+    }
+
     static translate(key: string, callback: (translation: string) => void) {
         let baseUrl: string = Utils.getBaseURL();
         let resourceUrl = baseUrl + "rsc/locale/translate/" + this.getCurrentLanguage() + "/";

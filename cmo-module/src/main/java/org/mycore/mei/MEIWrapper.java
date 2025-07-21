@@ -382,6 +382,21 @@ public abstract class MEIWrapper {
         }
     }
 
+    public Element getXpath(String xpath) {
+        XPathExpression<Element> expression = XPathFactory.instance().compile(xpath, Filters.element(), null, MEI_NAMESPACE);
+        return expression.evaluateFirst(this.root);
+    }
+
+
+    public Element getOrCreateElement(String name) {
+        Element element = this.root.getChild(name, MEI_NAMESPACE);
+        if (element == null) {
+            element = new Element(name, MEI_NAMESPACE);
+            this.root.addContent(element);
+        }
+        return element;
+    }
+
     public void deleteClassification() {
         this.root.getChildren("classification", MEI_NAMESPACE).forEach(Element::detach);
     }

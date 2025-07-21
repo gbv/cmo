@@ -1,0 +1,57 @@
+package org.mycore.mei;
+
+public class MEIElementConstants {
+
+  public static final String RELATION_LIST = "relationList";
+  public static final String EXT_META = "extMeta";
+  public static final String IDENTIFIER = "identifier";
+  public static final String TITLE = "title";
+  public static final String KEY = "key";
+  public static final String MENSURATION = "mensuration";
+  public static final String METER = "meter";
+  public static final String TEMPO = "tempo";
+  public static final String INCIP = "incip";
+  public static final String OTHER_CHAR = "otherChar";
+  public static final String CREATION = "creation";
+  public static final String HISTORY = "history";
+  public static final String LANG_USAGE = "langUsage";
+  public static final String PERF_MEDIUM = "perfMedium";
+  public static final String PERF_DURATION = "perfDuration";
+  public static final String AUDIENCE = "audience";
+  public static final String CONTENTS = "contents";
+  public static final String CONTEXT = "context";
+  public static final String BIBL_LIST = "biblList";
+  public static final String NOTES_STMT = "notesStmt";
+  public static final String CLASSIFICATION = "classification";
+  public static final String EXPRESSION_LIST = "expressionList";
+  public static final String COMPONENT_GRP = "componentGrp";
+  public static final String TITLE_STMT = "titleStmt";
+  public static final String EDITION_STMT = "editionStmt";
+  public static final String PUB_STMT = "pubStmt";
+  public static final String PHYS_DESC = "physDesc";
+  public static final String PHYS_LOC = "physLoc";
+  public static final String SERIES_STMT = "seriesStmt";
+  public static final String ITEM_LIST = "itemList";
+  public static final String COMPONENT_LIST = "componentList";
+  public static final String ARRANGER = "arranger";
+  public static final String AUTHOR = "author";
+  public static final String COMPOSER = "composer";
+  public static final String CONTRIBUTOR = "contributor";
+  public static final String EDITOR = "editor";
+  public static final String FUNDER = "funder";
+  public static final String LIBRETTIST = "librettist";
+  public static final String LYRICIST = "lyricist";
+  public static final String SPONSOR = "sponsor";
+  public static final String EXTENT = "extent";
+  public static final String SCORE_FORMAT = "scoreFormat";
+  public static final String MESURATION = "mesuration";
+  public static final String ADD_NAME = "addName";
+  public static final String FAM_NAME = "famName";
+  public static final String FORE_NAME = "foreName";
+  public static final String GEN_NAME = "genName";
+  public static final String NAME_LINK = "nameLink";
+  public static final String ROLE_NAME = "roleName";
+  public static final String ANNOT = "annot";
+  public static final String EXPRESSION = "expression";
+  public static final String RELATION = "relation";
+}

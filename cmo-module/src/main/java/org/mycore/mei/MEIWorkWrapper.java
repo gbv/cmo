@@ -56,29 +56,29 @@ public class MEIWorkWrapper extends MEIWrapper {
     private static final List<String> TOP_LEVEL_ELEMENT_ORDER = new ArrayList<>();
 
     static {
-        TOP_LEVEL_ELEMENT_ORDER.add("identifier");
-        TOP_LEVEL_ELEMENT_ORDER.add("title");
-        TOP_LEVEL_ELEMENT_ORDER.add("key");
-        TOP_LEVEL_ELEMENT_ORDER.add("mensuration");
-        TOP_LEVEL_ELEMENT_ORDER.add("meter");
-        TOP_LEVEL_ELEMENT_ORDER.add("tempo");
-        TOP_LEVEL_ELEMENT_ORDER.add("incip");
-        TOP_LEVEL_ELEMENT_ORDER.add("otherChar");
-        TOP_LEVEL_ELEMENT_ORDER.add("creation");
-        TOP_LEVEL_ELEMENT_ORDER.add("history");
-        TOP_LEVEL_ELEMENT_ORDER.add("langUsage");
-        TOP_LEVEL_ELEMENT_ORDER.add("perfMedium");
-        TOP_LEVEL_ELEMENT_ORDER.add("perfDuration");
-        TOP_LEVEL_ELEMENT_ORDER.add("audience");
-        TOP_LEVEL_ELEMENT_ORDER.add("contents");
-        TOP_LEVEL_ELEMENT_ORDER.add("context");
-        TOP_LEVEL_ELEMENT_ORDER.add("biblList");
-        TOP_LEVEL_ELEMENT_ORDER.add("notesStmt");
-        TOP_LEVEL_ELEMENT_ORDER.add("classification");
-        TOP_LEVEL_ELEMENT_ORDER.add("expressionList");
-        TOP_LEVEL_ELEMENT_ORDER.add("componentGrp");
-        TOP_LEVEL_ELEMENT_ORDER.add("relationList");
-        TOP_LEVEL_ELEMENT_ORDER.add("extMeta");
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.IDENTIFIER);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.TITLE);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.KEY);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.MENSURATION);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.METER);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.TEMPO);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.INCIP);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.OTHER_CHAR);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.CREATION);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.HISTORY);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.LANG_USAGE);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.PERF_MEDIUM);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.PERF_DURATION);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.AUDIENCE);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.CONTENTS);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.CONTEXT);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.BIBL_LIST);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.NOTES_STMT);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.CLASSIFICATION);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.EXPRESSION_LIST);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.COMPONENT_GRP);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.RELATION_LIST);
+        TOP_LEVEL_ELEMENT_ORDER.add(MEIElementConstants.EXT_META);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class MEIWorkWrapper extends MEIWrapper {
 
     @Override
     protected boolean isElementRelevant(Element element) {
-        boolean relevantForMe = element.getName().equals("title");
+        boolean relevantForMe = element.getName().equals(MEIElementConstants.TITLE);
         return relevantForMe || super.isElementRelevant(element);
     }
 
