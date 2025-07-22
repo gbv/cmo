@@ -61,9 +61,31 @@
                         <xsl:variable name="expressionId" select="str[@name='id']"/>
                       <xsl:for-each select="arr[@name='composer.display.ref']/str[substring(text(), string-length(text()) - string-length($personID) + 1) = $personID]">
                         <li>
-                          <xsl:call-template name="objectLink">
-                            <xsl:with-param name="obj_id" select="$expressionId" />
-                          </xsl:call-template>
+                          <xsl:variable name="expressionXML" select="document(concat('mcrobject:', $expressionId))" />
+
+                          <xsl:variable name="title">
+                            <xsl:choose>
+                              <xsl:when test="$expressionXML/.//mei:title[@type='main']">
+                                <xsl:value-of select="$expressionXML/.//mei:title[@type='main']" />
+                                <xsl:if test="$expressionXML/.//mei:title[@type='sub']">
+                                  <xsl:text> : </xsl:text>
+                                  <xsl:value-of select="$expressionXML/.//mei:title[@type='sub']" />
+                                </xsl:if>
+                              </xsl:when>
+                              <xsl:when test="$expressionXML/.//mei:title[@type='uniform']">
+                                <xsl:value-of select="$expressionXML/.//mei:title[@type='uniform']" />
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:for-each select="$expressionXML/.//mei:expression">
+                                  <xsl:call-template name="printStandardizedTerm" />
+                                </xsl:for-each>
+                              </xsl:otherwise>
+                            </xsl:choose>
+                          </xsl:variable>
+
+                          <a href="{concat($WebApplicationBaseURL, 'receive/', $expressionId)}">
+                            <xsl:value-of select="$title" />
+                          </a>
                         </li>
                       </xsl:for-each>
                       </xsl:for-each>
