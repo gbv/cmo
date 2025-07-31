@@ -42,9 +42,7 @@ const KEYBOARD_ENTRIES: KeyboardTab[] = [
             {character: {uppercase: ["Π͘"], lowercase: ["π͘"]}},
             {character: {uppercase: ["Σ͘"], lowercase: ["σ͘", "ς͘"]}},
             {character: {uppercase: ["Σ̈"], lowercase: ["σ̈"]}},
-            {character: {uppercase: ["Σ˙"], lowercase: ["σ˙"]}},
             {character: {uppercase: ["Ṫ"], lowercase: ["τ͘"]}},
-            {character: {uppercase: ["T˙"], lowercase: ["τ˙"]}},
             {character: {uppercase: ["Ẋ"], lowercase: ["ẋ"]}}
         ]
     },
