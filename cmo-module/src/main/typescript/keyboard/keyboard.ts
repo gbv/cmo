@@ -125,6 +125,7 @@ const MODIFIER_KEYBOARD = [
     '\u0343', // ◌̓ Combining Greek Koronis https://www.compart.com/de/unicode/U+0343
     '\u0351', // ͑ COMBINING LEFT HALF RING ABOVE https://unicode-explorer.com/c/0351
     '\u0345', // ͅ COMBINING GREEK YPOGEGRAMMENI https://unicode-explorer.com/c/345
+    '\u0302' // Combining Circumflex Accent  https://www.compart.com/en/unicode/U+0302
 ];
 
 export function enableKeyboard(input: HTMLInputElement | HTMLTextAreaElement, toggle: HTMLButtonElement) {
