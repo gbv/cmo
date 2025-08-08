@@ -122,7 +122,7 @@ const MODIFIER_KEYBOARD = [
     '\u0340', // ̀ COMBINING GRAVE TONE MARK https://unicode-explorer.com/c/0340
     '\u0342', // ͂ COMBINING GREEK PERISPOMENI https://unicode-explorer.com/c/0342
     '\u0308', // ̈ COMBINING DIAERESIS https://unicode-explorer.com/c/0308
-    '\u0343', // ◌̓ Combining Greek Koronis https://www.compart.com/de/unicode/U+0343
+    '\u0357', // ◌̓ Combining Right Half Ring Above https://www.compart.com/de/unicode/U+0357
     '\u0351', // ͑ COMBINING LEFT HALF RING ABOVE https://unicode-explorer.com/c/0351
     '\u0345', // ͅ COMBINING GREEK YPOGEGRAMMENI https://unicode-explorer.com/c/345
     '\u0302' // Combining Circumflex Accent  https://www.compart.com/en/unicode/U+0302
