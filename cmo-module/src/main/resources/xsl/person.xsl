@@ -81,6 +81,11 @@
                                 </xsl:for-each>
                               </xsl:otherwise>
                             </xsl:choose>
+                            <xsl:if test="$expressionXML/.//mei:identifier[@type='CMO']">
+                              <xsl:text> (</xsl:text>
+                              <xsl:value-of select="$expressionXML/.//mei:identifier[@type='CMO']" />
+                              <xsl:text>)</xsl:text>
+                            </xsl:if>
                           </xsl:variable>
 
                           <a href="{concat($WebApplicationBaseURL, 'receive/', $expressionId)}">
