@@ -91,7 +91,7 @@
               <cargo.tomcat.uriencoding>UTF-8</cargo.tomcat.uriencoding>
               <cargo.tomcat.connector.maxHttpHeaderSize>${cargo.tomcat.connector.maxHttpHeaderSize}</cargo.tomcat.connector.maxHttpHeaderSize>
               <!-- fixes IIIF identifier encoding issues -->
-              <cargo.start.jvmargs>-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true -DMCR.AppName=${MCR.AppName} -DMCR.DataPrefix=dev -DMCR.SASS.DeveloperMode=false</cargo.start.jvmargs>
+              <cargo.start.jvmargs>-Xms4g -Xmx4g -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true -DMCR.AppName=${MCR.AppName} -DMCR.DataPrefix=dev -DMCR.SASS.DeveloperMode=false -agentlib:jdwp=transport=dt_socket,server=y,suspend=${cargo.debug.suspend},address=*:${cargo.debug.address}</cargo.start.jvmargs>
             </properties>
           </configuration>
             <container>

@@ -588,6 +588,11 @@
   <field name="cmo_makamler" type="string" multiValued="true" />
   <field name="cmo_musictype" type="string" multiValued="true" />
 
+  <!-- extra fields for basket and export -->
+  <field name="expression.work.number" type="string" stored="true" multiValued="true" />
+  <field name="expression.source.notationType" type="string" stored="true" multiValued="true" />
+  <field name="expression.source.hasFiles" type="boolean" stored="true" multiValued="true" />
+
   <!-- mycore-mods -->
     <field name="mods.type" type="string" />
     <field name="mods.title" type="text_general" multiValued="true" />

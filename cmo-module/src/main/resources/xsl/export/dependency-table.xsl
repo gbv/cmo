@@ -97,6 +97,9 @@
                     <xsl:value-of select="$i18n/i18n/translation[@key='editor.label.title']"/>
                 </table:th>
                 <table:th>
+                  <xsl:value-of select="$i18n/i18n/translation[@key='editor.label.alt.title']"/>
+                </table:th>
+              <table:th>
                     <xsl:value-of select="$i18n/i18n/translation[@key='editor.label.composer']"/>
                 </table:th>
                 <table:th>
@@ -111,6 +114,15 @@
                 <table:th>
                     <xsl:value-of select="$i18n/i18n/translation[@key='editor.label.incip']"/>
                 </table:th>
+              <table:th>
+                <xsl:value-of select="$i18n/i18n/translation[@key='cmo.worknumber']"/>
+              </table:th>
+              <table:th>
+                <xsl:value-of select="$i18n/i18n/translation[@key='cmo.notationType']"/>
+              </table:th>
+              <table:th>
+                <xsl:value-of select="$i18n/i18n/translation[@key='cmo.hasFiles']"/>
+              </table:th>
             </table:thead>
 
             <table:tbody>
@@ -130,6 +142,11 @@
                                 </xsl:when>
                             </xsl:choose>
                         </table:td>
+                      <table:td>
+                        <xsl:if test="mei:title[@type='alt']">
+                          <xsl:value-of select="mei:title[@type='alt']"/>
+                        </xsl:if>
+                      </table:td>
                         <table:td>
                             <xsl:for-each select="mei:composer/mei:persName">
                                 <xsl:if test="position()>1">
@@ -164,6 +181,62 @@
                                 <xsl:value-of select="mei:p/text()" />
                             </xsl:for-each>
                         </table:td>
+                      <table:td>
+                        <xsl:for-each
+                          select="mei:relationList/mei:relation[@rel='isRealizationOf' and contains(@target, '_work_')]">
+                          <xsl:if test="@target">
+                            <xsl:variable name="work"
+                              select="document(concat('mcrobject:', @target))"/>
+
+                            <!-- work number -->
+                            <xsl:for-each
+                              select="$work/mycoreobject/metadata/def.meiContainer/meiContainer/mei:work/mei:identifier[@type='CMO']">
+                              <xsl:if test="string-length(text()) &gt; 0">
+                                <xsl:value-of select="text()"/>
+                              </xsl:if>
+                            </xsl:for-each>
+                          </xsl:if>
+                          <xsl:if test="position() != last()">
+                            <xsl:text>, </xsl:text>
+                          </xsl:if>
+                        </xsl:for-each>
+                      </table:td>
+
+                      <xsl:variable name="ID" select="../@id"/>
+                      <xsl:variable name="firstLinkedSource" select="document(concat('cmo_relation:sourcesByLinkToExpression:', $ID))/objects/object[1]/@id" />
+
+                      <xsl:variable name="sourceId" select="$firstLinkedSource"/>
+
+                      <xsl:choose>
+                        <xsl:when test="string-length($sourceId) &gt;0">
+                          <xsl:variable name="source"
+                            select="document(concat('mcrobject:', $sourceId))"/>
+                          <table:td>
+                            <xsl:call-template name="printTermList">
+                              <xsl:with-param name="tl"
+                                select="$source/mycoreobject/metadata/def.meiContainer/meiContainer/mei:manifestation/mei:classification/mei:termList[contains(@class, 'cmo_notationType')]"/>
+                            </xsl:call-template>
+                          </table:td>
+                          <table:td>
+                            <xsl:variable name="hasFiles"
+                              select="count($source/mycoreobject/structure/derobjects/derobject) &gt; 0"/>
+                            <xsl:choose>
+                              <xsl:when test="$hasFiles">
+                                <xsl:value-of select="$i18n/i18n/translation[@key='cmo.yes']"/>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:value-of select="$i18n/i18n/translation[@key='cmo.no']"/>
+                              </xsl:otherwise>
+                            </xsl:choose>
+                          </table:td>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <table:td>
+                          </table:td>
+                          <table:td>
+                          </table:td>
+                        </xsl:otherwise>
+                      </xsl:choose>
                     </table:tr>
                 </xsl:for-each>
             </table:tbody>
@@ -472,7 +545,7 @@
                     <xsl:value-of select="$class/label[@xml:lang=$CurrentLang]/@text"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="$class/label/@text"/>
+                    <xsl:value-of select="$class/label[1]/@text"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>

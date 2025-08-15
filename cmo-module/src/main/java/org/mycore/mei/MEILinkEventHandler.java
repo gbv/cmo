@@ -145,7 +145,12 @@ public class MEILinkEventHandler extends MCREventHandlerBase {
         handleObjectCreated(evt, obj);
     }
 
-    private void deleteOldLinks(final MCRObjectID objectId) {
+  @Override
+  protected void handleObjectUpdated(MCREvent evt, MCRObject obj) {
+      handleObjectCreated(evt, obj);
+  }
+
+  private void deleteOldLinks(final MCRObjectID objectId) {
         LOGGER.info("Remove all references form {} from Database!", objectId);
         linkTable.deleteReferenceLink(objectId);
     }

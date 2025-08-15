@@ -35,6 +35,7 @@ export class BasketDisplay {
             "editor.label.identifier": (doc: CMOBaseDocument) => doc["identifier.type.CMO"][0],
             "editor.label.title": (doc: CMOBaseDocument) =>
                 `<a href="${Utils.getBaseURL()}receive/${doc["id"]}">${Utils.encodeHtmlEntities(doc["displayTitle"] + "")}</a>`,
+            "editor.label.alt.title": (doc: CMOBaseDocument) => (doc["title.type.alt"]||[]).join("<br/>"),
             "editor.label.composer": (doc: CMOBaseDocument) => {
                 let composerMap = BasketDisplay.mergeLinkFields(doc["composer.display.ref"]);
                 let html = [];
@@ -50,7 +51,10 @@ export class BasketDisplay {
             "cmo.genre": (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_musictype"),
             "cmo.makam": (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_makamler"),
             "cmo.usul": (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_usuler"),
-            "editor.label.incip": (doc: CMOBaseDocument) => (doc["incip.normalized"] || []).join(", ")
+            "editor.label.incip": (doc: CMOBaseDocument) => (doc["incip.normalized"] || []).join(", "),
+            "cmo.worknumber": (doc: CMOBaseDocument) => (doc["expression.work.number"] || []).join(", "),
+            "cmo.notationType": (doc: CMOBaseDocument) =>  (doc["expression.source.notationType"] || []).map((field) => `<span data-clazz="cmo_notationType" data-category="${field}" class="value"></span>`).join(", "),
+            "cmo.hasFiles": (doc: CMOBaseDocument) => doc["expression.source.hasFiles"] ? `<span data-i18n="cmo.yes"></span>` : `<span data-i18n="cmo.no"></span>`,
         },
         "person": {
             "editor.label.name": (doc: CMOBaseDocument) => ((doc["name"] instanceof Array) ? doc["name"] : [doc["name"]]).map((name) => `<a href="${Utils.getBaseURL()}receive/${doc["id"]}">${name || ""}</a>`).join("<br/>"),

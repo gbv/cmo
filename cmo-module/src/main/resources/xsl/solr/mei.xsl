@@ -4,6 +4,7 @@
                 xmlns:mods="http://www.loc.gov/mods/v3"
                 xmlns:mei="http://www.music-encoding.org/ns/mei"
                 xmlns:meiDate="xalan://org.mycore.mei.MCRDateHelper"
+                xmlns:indexUtils="xalan://org.mycore.mei.indexing.MEIIndexUtils"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 exclude-result-prefixes="mods mei xlink">
   <xsl:import href="xslImport:solr-document:solr/mei.xsl" />
@@ -45,6 +46,54 @@
         </xsl:otherwise>
       </xsl:choose>
     </field>
+
+    <!-- special fields for the basket -->
+    <xsl:for-each
+      select="mei:relationList/mei:relation[@rel='isRealizationOf' and contains(@target, '_work_')]">
+      <xsl:if test="@target">
+        <xsl:variable name="work" select="document(concat('mcrobject:', @target))"/>
+
+        <!-- work number -->
+        <xsl:for-each
+          select="$work/mycoreobject/metadata/def.meiContainer/meiContainer/mei:work/mei:identifier[@type='CMO']">
+          <xsl:if test="string-length(text()) &gt; 0">
+            <field name="expression.work.number">
+              <xsl:value-of select="text()"/>
+            </field>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:if>
+    </xsl:for-each>
+
+    <!-- need to find the linked source with link table -->
+    <!-- go all ancestors and find the first mycoreobject to resolve the id attribute-->
+    <xsl:variable name="id" select="ancestor-or-self::mycoreobject/@ID" />
+    <xsl:variable name="sourceList" select="indexUtils:getLinkedSources($id)" />
+
+    <xsl:for-each select="$sourceList">
+      <xsl:variable name="sourceId" select="@id" />
+      <xsl:variable name="source" select="document(concat('mcrobject:', $sourceId))" />
+
+      <!-- source notation type -->
+      <xsl:for-each select="$source/mycoreobject/metadata/def.meiContainer/meiContainer/mei:manifestation/mei:classification/mei:termList[contains(@class, 'v1/classifications/cmo_notationType')]/mei:term">
+        <xsl:if test="string-length(text()) &gt; 0">
+          <field name="expression.source.notationType">
+            <xsl:value-of select="text()"/>
+          </field>
+        </xsl:if>
+      </xsl:for-each>
+
+      <!-- only use it from the first source -->
+      <xsl:if test="position() = 1">
+        <xsl:variable name="hasFiles" select="count($source/mycoreobject/structure/derobjects/derobject) &gt; 0" />
+        <field name="expression.source.hasFiles">
+          <xsl:value-of select="$hasFiles" />
+        </field>
+      </xsl:if>
+
+    </xsl:for-each>
+
+
     <xsl:apply-templates mode="solrIndex" />
   </xsl:template>
 
