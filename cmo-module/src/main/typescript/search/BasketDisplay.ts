@@ -54,7 +54,7 @@ export class BasketDisplay {
             "editor.label.incip": (doc: CMOBaseDocument) => (doc["incip.normalized"] || []).join(", "),
             "cmo.worknumber": (doc: CMOBaseDocument) => (doc["expression.work.number"] || []).join(", "),
             "cmo.notationType": (doc: CMOBaseDocument) =>  (doc["expression.source.notationType"] || []).map((field) => `<span data-clazz="cmo_notationType" data-category="${field}" class="value"></span>`).join(", "),
-            "cmo.hasFiles": (doc: CMOBaseDocument) => doc["expression.source.hasFiles"][0] ? `<span data-i18n="cmo.yes"></span>` : `<span data-i18n="cmo.no"></span>`,
+            "cmo.hasFiles": (doc: CMOBaseDocument) => ((doc["expression.source.hasFiles"] || []).find(val => val) || false) ? `<span data-i18n="cmo.yes"></span>` : `<span data-i18n="cmo.no"></span>`,
         },
         "person": {
             "editor.label.name": (doc: CMOBaseDocument) => ((doc["name"] instanceof Array) ? doc["name"] : [doc["name"]]).map((name) => `<a href="${Utils.getBaseURL()}receive/${doc["id"]}">${name || ""}</a>`).join("<br/>"),
