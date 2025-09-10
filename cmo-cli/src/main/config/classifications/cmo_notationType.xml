@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_notationType">
   <label xml:lang="en" text="Notation Type" />
-  <label xml:lang="x-uri" text="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_notationType" />
   <label xml:lang="tr" text=" Nota sistemi türü" />
+  <label xml:lang="x-uri" text="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_notationType" />
   <categories>
     <category ID="d1613080-3155-4073-a854-99c6cb48f08f">
-      <label xml:lang="en" text="Hampartsum notation with implicit rhythmic structure" />
-      <label xml:lang="tr" text="Hampartsum notation with implicit rhythmic structure" />
       <label xml:lang="de" text="Hampartsum Notation mit impliziter rhythmischen Struktur" />
+      <label xml:lang="en" text="Hampartsum notation with implicit rhythmic structure" />
+      <label xml:lang="tr" text="Örtük ritmik yapılı Hampartsum nota sistemi" />
     </category>
     <category ID="HNER">
       <label xml:lang="de" text="Hampartsum Notation mit expliziter rhythmischen Struktur" />
-      <label xml:lang="tr" text="Hampartsum notation with explicit rhythmic structure" />
       <label xml:lang="en" text="Hampartsum notation with explicit rhythmic structure" />
+      <label xml:lang="tr" text="Açık ritmik yapılı Hampartsum nota sistemi" />
     </category>
     <category ID="Hampartsum_notation">
-      <label xml:lang="tr" text="Hamparsum nota sistemi" />
       <label xml:lang="en" text="Hampartsum notation" />
+      <label xml:lang="tr" text="Hamparsum nota sistemi" />
     </category>
     <category ID="Staff_notation">
       <label xml:lang="en" text="Staff notation" />
       <label xml:lang="tr" text="Batı nota sistemi" />
     </category>
     <category ID="Cantemir_notation">
-      <label xml:lang="tr" text="Kantemir nota sistemi" />
       <label xml:lang="en" text="Cantemir notation" />
+      <label xml:lang="tr" text="Kantemir nota sistemi" />
     </category>
     <category ID="Ebced_notation">
       <label xml:lang="en" text="Ebced notation" />
       <label xml:lang="tr" text="Ebced nota sistemi" />
     </category>
     <category ID="Post-Byzantine_notation">
-      <label xml:lang="tr" text="Post Bizans nota sistemi" />
       <label xml:lang="en" text="Post-Byzantine notation" />
+      <label xml:lang="tr" text="Post Bizans nota sistemi" />
     </category>
     <category ID="Letter-based_notation">
-      <label xml:lang="tr" text="Harf nota sistemi" />
       <label xml:lang="en" text="Letter-based notation" />
+      <label xml:lang="tr" text="Harf nota sistemi" />
     </category>
     <category ID="Early_Hampartsum_notation">
-      <label xml:lang="tr" text="Erken Hamparsum nota sistemi " />
       <label xml:lang="en" text="Early Hampartsum notation" />
+      <label xml:lang="tr" text="Erken Hamparsum nota sistemi " />
     </category>
     <category ID="Chrysanthine_notation">
-      <label xml:lang="tr" text="Hrisantos nota sistemi" />
       <label xml:lang="en" text="Chrysanthine notation" />
+      <label xml:lang="tr" text="Hrisantos nota sistemi" />
     </category>
   </categories>
 </mycoreclass>
