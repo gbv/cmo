@@ -43,7 +43,7 @@ export class SearchDisplay {
     private actions: Array<{ dataKey, runnable: () => void }>;
 
     public displayResult(result: SolrSearchResult, descriptions: Array<SearchDescription>, pageChangeHandler: (newPage: number, field: string, asc: boolean, rows: number) => void,
-                         onResultClickHandler: (doc: CMOBaseDocument, result: SolrSearchResult, hitOnPage) => void, formManipulateHandler:()=>void,extra: HTMLElement) {
+                         onResultClickHandler: (doc: CMOBaseDocument, result: SolrSearchResult, hitOnPage, event: MouseEvent) => void, formManipulateHandler:()=>void,extra: HTMLElement) {
         this.actions = [];
         let getSort = (result: SolrSearchResult) => {
             if ("sort" in result.responseHeader.params) {
@@ -122,8 +122,11 @@ export class SearchDisplay {
 
         Array.prototype.slice.call(this._container.querySelectorAll("[data-sd-onclick]")).forEach((node) => {
             let index = parseInt((<HTMLElement>node).getAttribute("data-sd-onclick"), 10);
-            node.addEventListener("click", () => {
-                onResultClickHandler(result.response.docs[ index ], result, index);
+            node.addEventListener("click", (event: MouseEvent) => {
+              if(event.button == 0 && !event.ctrlKey){
+                event.preventDefault();
+                onResultClickHandler(result.response.docs[ index ], result, index, event);
+              }
             });
         });
 
@@ -250,7 +253,7 @@ export class SearchDisplay {
         let field = fieldResolver(doc);
         return `
 <div class="col-md-12">
-    <a class="hitTitle" data-sd-onclick="${currentIndex}"><span>${field}</span></a>
+    <a class="hitTitle" data-sd-onclick="${currentIndex}" href="${Utils.getBaseURL()}receive/${doc.id}"><span>${field}</span></a>
 </div>`;
 
     }
