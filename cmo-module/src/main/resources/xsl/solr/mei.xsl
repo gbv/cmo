@@ -83,14 +83,6 @@
         </xsl:if>
       </xsl:for-each>
 
-      <!-- only use it from the first source -->
-      <xsl:if test="position() = 1">
-        <xsl:variable name="hasFiles" select="count($source/mycoreobject/structure/derobjects/derobject) &gt; 0" />
-        <field name="expression.source.hasFiles">
-          <xsl:value-of select="$hasFiles" />
-        </field>
-      </xsl:if>
-
     </xsl:for-each>
 
 
