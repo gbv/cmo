@@ -10,6 +10,14 @@ export class BasketUtil {
 
 
         basketElements.forEach((basketElement: HTMLElement) => {
+            let labelElement = document.createElement("span");
+            let iconElement = document.createElement("span");
+            basketElement.innerText = "";
+            iconElement.classList.add("fa");
+            iconElement.classList.add("mr-2");
+            basketElement.appendChild(iconElement);
+            basketElement.appendChild(labelElement);
+
             let inactive = basketElement.getAttribute("data-basket-activated") !== "true";
             if (inactive) {
                 let ids: Array<string> = basketElement.getAttribute("data-basket")
@@ -20,12 +28,16 @@ export class BasketUtil {
                     let containsAll = !ids.map(id => BasketUtil.basket.contains(id)).some(isInBasket => !isInBasket);
 
                     if (containsAll) {
-                        basketElement.setAttribute("data-i18n", ids.length > 1 ? "cmo.basket.remove.multi" : "cmo.basket.remove");
-                    } else{
-                        basketElement.setAttribute("data-i18n", ids.length > 1 ? "cmo.basket.add.multi" : "cmo.basket.add");
+                      iconElement.classList.add("fa-minus-square");
+                      iconElement.classList.remove("fa-plus-square");
+                      labelElement.setAttribute("data-i18n", ids.length > 1 ? "cmo.basket.remove.multi" : "cmo.basket.remove");
+                    } else {
+                      iconElement.classList.add("fa-plus-square");
+                      iconElement.classList.remove("fa-minus-square");
+                      labelElement.setAttribute("data-i18n", ids.length > 1 ? "cmo.basket.add.multi" : "cmo.basket.add");
                     }
 
-                    I18N.translateElements(basketElement.parentElement);
+                    I18N.translateElements(basketElement);
                 };
 
                 basketElement.addEventListener("click", () => {

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreobject xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="datamodel-work.xsd" ID="cmo_work_00000002"
+  label="cmo_work_00000002" version="2.0">
+  <structure/>
+  <metadata>
+    <def.meiContainer class="MCRMetaXML" heritable="false" notinherit="true">
+      <meiContainer inherited="0">
+        <work xmlns="http://www.music-encoding.org/ns/mei">
+          <title>test2</title>
+          <expressionList>
+          </expressionList>
+        </work>
+      </meiContainer>
+    </def.meiContainer>
+  </metadata>
+  <service>
+  </service>
+</mycoreobject>

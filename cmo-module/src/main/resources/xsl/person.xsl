@@ -44,10 +44,8 @@
                     <xsl:variable name="hits" xmlns:encoder="xalan://java.net.URLEncoder"
                                   select="document(concat('solr:q=',encoder:encode($query), '&amp;sort=identifier%20asc', '&amp;rows=1000'))"/>
 
-                    <xsl:element name="a">
-                      <xsl:attribute name="class">
-                        cmo_addToBasket
-                      </xsl:attribute>
+                    <xsl:element name="button">
+                      <xsl:attribute name="class">cmo_addToBasket btn btn-light btn-sm mb-2</xsl:attribute>
                       <xsl:attribute name="data-basket">
                         <xsl:for-each select="$hits/response/result/doc">
                           <xsl:if test="position() > 1">,</xsl:if>

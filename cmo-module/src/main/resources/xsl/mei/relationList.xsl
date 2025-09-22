@@ -36,6 +36,18 @@
       <xsl:with-param name="label" select="'editor.label.relatedSources'" />
       <xsl:with-param name="content">
         <xsl:for-each select="mei:relation">
+          <xsl:if test="@rel='isRealizationOf' and count(ancestor-or-self::mei:expression)=1 and contains(@target, '_work_')">
+            <xsl:variable name="expressionId" select="ancestor-or-self::mycoreobject/@ID" />
+            <xsl:variable name="canWriteExpression" select="acl:checkPermission($expressionId,'writedb')" />
+            <xsl:if test="$canWriteExpression">
+              <a class="text-info small mr-2" data-link-action="remove" data-link-from="{@target}"
+                data-link-to="{$expressionId}"
+                href="#" title="{i18n:translate('editor.label.expression.list.remove')}">
+                <span class="fa fa-unlink"></span>
+              </a>
+            </xsl:if>
+          </xsl:if>
+
           <xsl:call-template name="objectLink">
             <xsl:with-param select="./@target" name="obj_id" />
           </xsl:call-template>
