@@ -9,7 +9,7 @@ import {Utils} from "../other/Utils";
 import {SearchDisplay} from "./SearchDisplay";
 import {SearchFacetController} from "./SearchFacet";
 import {StateController} from "./StateController";
-import {SolrSearcher} from "../other/Solr";
+import {CMOBaseDocument, SolrSearcher} from "../other/Solr";
 import {BasketDisplay} from "./BasketDisplay";
 import {BasketStore} from "./BasketStore";
 import {BasketUtil} from "./BasketUtil";
@@ -273,8 +273,8 @@ window.addEventListener('load', () => {
                 const buttonClass = "cmo-abort-button";
                 const textClass = "cmo-replace-parent-description-text";
 
-                parentExtra.classList.add('well');
-                parentExtra.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
+                parentExtra.classList.add('card');
+                parentExtra.innerHTML = `<div class="card-body text-white bg-info"><div class="card-text ${textClass}"></div><a class="btn btn-primary mt-2 ${buttonClass}"></a></div>`;
 
                 I18N.translate('cmo.replace.parent.description', (translation) => {
                     const replaceText: HTMLSpanElement = <HTMLSpanElement>parentExtra.querySelector("." + textClass);
@@ -297,8 +297,8 @@ window.addEventListener('load', () => {
                 const buttonClass = "cmo-abort-button";
                 const textClass = "cmo-subselect-description-text";
 
-                subSelect.classList.add('well');
-                subSelect.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
+                subSelect.classList.add('card');
+                subSelect.innerHTML = `<div class="card-body text-white bg-info"><div class="card-text ${textClass}"></div><a class="btn btn-primary mt-2 ${buttonClass}"></a></div>`;
 
                 I18N.translate('cmo.subselect.description', (translation) => {
                     const replaceText: HTMLSpanElement = <HTMLSpanElement>subSelect.querySelector("." + textClass);
@@ -321,8 +321,8 @@ window.addEventListener('load', () => {
                 const buttonClass = "cmo-abort-button";
                 const textClass = "cmo-add-child-description-text";
 
-                childExtra.classList.add('well');
-                childExtra.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
+                childExtra.classList.add('card');
+                childExtra.innerHTML = `<div class="card-body text-white bg-info"><div class="card-text ${textClass}"></div><a class="btn btn-primary mt-2 ${buttonClass}"></a></div>`;
 
                 I18N.translate('cmo.add.child.description', (translation) => {
                     const replaceText: HTMLSpanElement = <HTMLSpanElement>childExtra.querySelector("." + textClass);
@@ -344,8 +344,9 @@ window.addEventListener('load', () => {
                 const buttonClass = "cmo-abort-button";
                 const textClass = "cmo-add-label-description-text";
 
-                childExtra.classList.add('well');
-                childExtra.innerHTML = `<span class="${textClass}"></span><a class="${buttonClass}"></a>`;
+                childExtra.classList.add('card');
+                childExtra.innerHTML = `<div class="card-body text-white bg-info"><div class="card-text ${textClass}"></div><a class="btn btn-primary mt-2 ${buttonClass}"></a></div>`;
+
 
                 I18N.translate('cmo.link.'+label+'.description', (translation) => {
                     const replaceText: HTMLSpanElement = <HTMLSpanElement>childExtra.querySelector("." + textClass);
@@ -1029,4 +1030,61 @@ window.addEventListener('load', () => {
         const toggle = inputGroup.querySelector('button[data-on-screen-keyboard-toggle]') as HTMLButtonElement;
         enableKeyboard(input, toggle);
     });
+
+
+  const addAllBasketExpressionsToWorkNodeList = document.querySelectorAll('[data-add-all-basket-expressions-to-work]');
+  Array.from(addAllBasketExpressionsToWorkNodeList).forEach((node) => {
+    const work = node.getAttribute('data-add-all-basket-expressions-to-work');
+    const alreadyLinkedExpressions = node.getAttribute('data-add-all-basket-expression-linked').split(",");
+    node.addEventListener('click', async (e) => {
+      e.preventDefault()
+      const basket = BasketStore.getInstance();
+
+      let expressions = await new Promise<CMOBaseDocument[]>((resolve, reject) => {
+        basket.getDocumentsGrouped("cmoType", (docs, sort) => {
+          resolve(docs.expression);
+        });
+      });
+
+      // filter already linked expressions
+      expressions = expressions.filter(e => alreadyLinkedExpressions.indexOf(e.id) == -1);
+
+      if (expressions.length == 0) {
+        const noExpressionInBasketMessage = await I18N.translatePromise("cmo.link.expression2work.error.no.expression");
+        alert(noExpressionInBasketMessage);
+        return;
+      } else {
+        const expressionIds = expressions.map(e => e.id);
+        const expressionTitles = expressions.map(e => e["displayTitle"]).join(",\n ");
+        I18N.translate("cmo.link.expression2work.confirmMulti", async (translation) => {
+          const message = translation.replace("{0}", expressionTitles);
+          const replace = confirm(message);
+
+          if(replace){
+            const url = `${Utils.getBaseURL()}rsc/cmo/object/link/${work}/${expressionIds.join(",")}`;
+            const resp = await fetch(url,{
+              method: "POST"
+            });
+            if(resp.status == 200){
+              I18N.translate("cmo.link.expression2work.success", (translation) => {
+                alert(translation);
+                aditionalQuery = null;
+                window.location.hash = "";
+                window.location.reload(true);
+              });
+            } else {
+              const respJson = await resp.json();
+              I18N.translate("cmo.link.expression2work.error.linking.failed", (translation) => {
+                alert(translation + "\n" + respJson["message"]);
+                console.error(respJson);
+              });
+            }
+          }
+
+        });
+
+      }
+    });
+  });
+
 });

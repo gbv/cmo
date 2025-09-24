@@ -21,6 +21,7 @@
 
 package org.mycore.mei;
 
+import static org.mycore.mei.MEIAttributeConstants.IS_REALIZATION_OF;
 import static org.mycore.mei.MEIUtils.MEI_NAMESPACE;
 
 import java.util.ArrayList;
@@ -146,5 +147,21 @@ public class MEIExpressionWrapper extends MEIWrapper {
     @Override
     protected int getRankOf(Element topLevelElement) {
         return TOP_LEVEL_ELEMENT_ORDER.indexOf(topLevelElement.getName());
+    }
+
+    public List<RealizationOf> getRealizations() {
+        final Element relationList = this.getElement(MEIElementConstants.RELATION_LIST);
+        if (relationList == null) {
+            return List.of();
+        }
+      return relationList.getChildren(MEIElementConstants.RELATION, MEI_NAMESPACE)
+            .stream()
+            .filter(rel -> IS_REALIZATION_OF.equals(rel.getAttributeValue(MEIAttributeConstants.REL)))
+            .map(rel -> new RealizationOf(rel.getAttributeValue(MEIAttributeConstants.TARGET),
+                rel.getAttributeValue(MEIAttributeConstants.LABEL)))
+            .toList();
+    }
+
+    public static record RealizationOf(String target, String label) {
     }
 }

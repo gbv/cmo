@@ -80,26 +80,36 @@ public abstract class MEIWrapper {
         return getWrappedElementName().equals(rootName);
     }
 
+    @Deprecated(forRemoval = true)
     public static MEIWrapper getWrapper(Element rootElement) {
+        return getWrapper(rootElement, MEIWrapper.class);
+    }
+
+    public static <T extends MEIWrapper> T getWrapper(Element rootElement, Class<T> wrapperClass) {
         String id = rootElement.getName();
         switch (id) {
             case "manifestation":
-                return new MEIManifestationWrapper(rootElement);
+                return wrapperClass.cast(new MEIManifestationWrapper(rootElement));
             case "source":
-                return new MEISourceWrapper(rootElement);
+              return wrapperClass.cast(new MEISourceWrapper(rootElement));
             case "expression":
-                return new MEIExpressionWrapper(rootElement);
+              return wrapperClass.cast(new MEIExpressionWrapper(rootElement));
             case "persName":
-                return new MEIPersonWrapper(rootElement);
+              return wrapperClass.cast(new MEIPersonWrapper(rootElement));
             case "work":
-                return new MEIWorkWrapper(rootElement);
+              return wrapperClass.cast(new MEIWorkWrapper(rootElement));
             case "mycoreobject":
                 return getWrapper(
                     XPathFactory.instance()
                         .compile("metadata/def.meiContainer/meiContainer/*", Filters.element())
-                        .evaluateFirst(rootElement));
+                        .evaluateFirst(rootElement), wrapperClass);
         }
         return null;
+    }
+
+    @Deprecated(forRemoval = true)
+    public static MEIWrapper getWrapper(MCRObject object) {
+        return getWrapper(object, MEIWrapper.class);
     }
 
     /**
@@ -107,13 +117,13 @@ public abstract class MEIWrapper {
      * @param object
      * @return the wrapper or null if it cannot be wrapped
      */
-    public static MEIWrapper getWrapper(MCRObject object) {
+    public static <T extends MEIWrapper> T getWrapper(MCRObject object, Class<T> wrapperClass) {
         MCRMetaElement metadataElement = object.getMetadata().getMetadataElement("def.meiContainer");
         if (metadataElement != null) {
             MCRMetaXML mx = (MCRMetaXML) (metadataElement.getElement(0));
             for (Content content : mx.getContent()) {
                 if (content instanceof Element) {
-                    return getWrapper((Element) content);
+                    return getWrapper((Element) content, wrapperClass);
                 }
             }
         }
@@ -121,10 +131,15 @@ public abstract class MEIWrapper {
         return null;
     }
 
+    @Deprecated(forRemoval = true)
     public static MEIWrapper getWrapper(String objectIdString) {
+      return getWrapper(objectIdString, MEIWrapper.class);
+    }
+
+    public static <T extends MEIWrapper> T getWrapper(String objectIdString, Class<T> wrapperClass) {
         MCRObjectID objectID = MCRObjectID.getInstance(objectIdString);
         MCRObject object = MCRMetadataManager.retrieveMCRObject(objectID);
-        return getWrapper(object);
+        return getWrapper(object, wrapperClass);
     }
 
     /**
@@ -387,6 +402,9 @@ public abstract class MEIWrapper {
         return expression.evaluateFirst(this.root);
     }
 
+    public Element getElement(String name) {
+        return this.root.getChild(name, MEI_NAMESPACE);
+    }
 
     public Element getOrCreateElement(String name) {
         Element element = this.root.getChild(name, MEI_NAMESPACE);

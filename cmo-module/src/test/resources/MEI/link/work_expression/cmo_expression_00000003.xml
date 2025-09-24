@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreobject
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="datamodel-expression.xsd" ID="cmo_expression_00000003"
+  version="2.0" label="cmo_expression_00000003">
+  <structure/>
+  <metadata>
+    <def.meiContainer class="MCRMetaXML" heritable="false" notinherit="true">
+      <meiContainer inherited="0">
+        <expression xmlns="http://www.music-encoding.org/ns/mei"
+          xmlns:cmo="http://www.corpus-musicae-ottomanicae.de/ns/cmo">
+          <identifier type="CMO">Example 3</identifier>
+          <title>Test3</title>
+        </expression>
+      </meiContainer>
+    </def.meiContainer>
+  </metadata>
+  <service>
+  </service>
+</mycoreobject>

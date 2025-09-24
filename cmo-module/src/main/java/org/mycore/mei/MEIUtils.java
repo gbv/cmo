@@ -136,9 +136,12 @@ public class MEIUtils {
     }
 
     public static void resolveLinkTargets(Element root, Consumer<String> consumer) {
-        Stream<Element> linkTargetElementStream = getLinkElementStream(root);
+        List<Element> linkTargetElementStream = getLinkElementStream(root).toList();
         Function<Element, String> valueMapper = MEIUtils::getLinkTarget;
-        linkTargetElementStream.map(valueMapper).forEach(consumer);
+      for (Element element : linkTargetElementStream) {
+        String s = valueMapper.apply(element);
+        consumer.accept(s);
+      }
     }
 
     public static void clearCircularDependency(Element root) {
@@ -158,13 +161,16 @@ public class MEIUtils {
             case "relation":
             case "ref":
             case "bibl":
+            case "expression":
                 if (linkElement.getAttributeValue("data") != null) {
                     return linkElement.getAttributeValue("data");
                 }
-                if (linkElement.getAttributeValue("target") != null) {
-                    return linkElement.getAttributeValue("target");
+                if (linkElement.getAttributeValue(MEIAttributeConstants.TARGET) != null) {
+                    return linkElement.getAttributeValue(MEIAttributeConstants.TARGET);
                 }
-            case "expression":
+                if (linkElement.getAttributeValue(MEIAttributeConstants.CODEDVAL) != null) {
+                    return linkElement.getAttributeValue(MEIAttributeConstants.CODEDVAL);
+                }
                 return linkElement.getAttributeValue("data");
             case "persName":
                 if (linkElement.getAttribute("nymref") != null) {

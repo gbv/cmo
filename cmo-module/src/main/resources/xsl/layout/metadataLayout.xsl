@@ -240,10 +240,8 @@
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="label" select="'editor.label.contents'" />
         <xsl:with-param name="content">
-          <xsl:element name="a">
-            <xsl:attribute name="class">
-              cmo_addToBasket
-            </xsl:attribute>
+          <xsl:element name="button">
+            <xsl:attribute name="class">cmo_addToBasket btn btn-light btn-sm mb-2</xsl:attribute>
             <xsl:attribute name="data-basket">
               <xsl:for-each select="child">
                 <xsl:if test="not(position()=1)">
@@ -299,10 +297,8 @@
       <xsl:call-template name="metadataLabelContent">
         <xsl:with-param name="label" select="'editor.label.contents'" />
         <xsl:with-param name="content">
-          <xsl:element name="a">
-            <xsl:attribute name="class">
-              cmo_addToBasket
-            </xsl:attribute>
+          <xsl:element name="button">
+            <xsl:attribute name="class">cmo_addToBasket btn btn-light btn-sm mb-2</xsl:attribute>
             <xsl:attribute name="data-basket">
               <xsl:for-each select="child">
                 <xsl:if test="not(position()=1)">

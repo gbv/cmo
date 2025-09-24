@@ -100,10 +100,8 @@
 
   <xsl:template name="displayBasketOptions">
     <xsl:if test="count(mei:relationList/mei:relation)&gt;0">
-      <xsl:element name="a">
-        <xsl:attribute name="class">
-          cmo_addToBasket
-        </xsl:attribute>
+      <xsl:element name="button">
+        <xsl:attribute name="class">cmo_addToBasket btn btn-light btn-sm mb-2</xsl:attribute>
         <xsl:attribute name="data-basket">
           <xsl:apply-templates select="mei:relationList/mei:relation" mode="buildLink"/>
         </xsl:attribute>
