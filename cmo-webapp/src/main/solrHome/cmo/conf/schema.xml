@@ -591,7 +591,6 @@
   <!-- extra fields for basket and export -->
   <field name="expression.work.number" type="string" stored="true" multiValued="true" />
   <field name="expression.source.notationType" type="string" stored="true" multiValued="true" />
-  <field name="expression.source.hasFiles" type="boolean" stored="true" multiValued="true" />
 
   <!-- mycore-mods -->
     <field name="mods.type" type="string" />
