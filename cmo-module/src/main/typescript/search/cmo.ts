@@ -579,7 +579,7 @@ window.addEventListener('load', () => {
         switch (action) {
             case "init_search":
             case "search":
-                return (doc, result, hitOnPage) => {
+                return (doc, result, hitOnPage, event:MouseEvent) => {
                     let param = "";
                     for (let i in result.responseHeader.params) {
                         if (i == "wt" || i == "start" || i == "rows") {
