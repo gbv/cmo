@@ -137,6 +137,11 @@
                    help-text="{i18n:cmo.help.gnd}" />
   </xed:template>
 
+  <xed:template id="cmo_identifierULAN">
+    <cmo:textfield xpath="mei:identifier[@type='ULAN']" label="editor.label.identifier.ULAN"
+                   help-text="{i18n:cmo.help.ulan}" />
+  </xed:template>
+
   <xed:template id="cmo_identifierSimple">
     <cmo:textfield xpath="mei:identifier" label="editor.label.identifierSimple"
                    help-text="{i18n:cmo.help.identifierSimple}"
