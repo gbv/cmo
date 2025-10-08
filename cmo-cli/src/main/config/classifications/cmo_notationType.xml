@@ -4,19 +4,23 @@
   <label xml:lang="tr" text=" Nota sistemi türü" />
   <label xml:lang="x-uri" text="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_notationType" />
   <categories>
-    <category ID="d1613080-3155-4073-a854-99c6cb48f08f">
-      <label xml:lang="de" text="Hampartsum Notation mit impliziter rhythmischen Struktur" />
-      <label xml:lang="en" text="Hampartsum notation with implicit rhythmic structure" />
-      <label xml:lang="tr" text="Örtük ritmik yapılı Hampartsum nota sistemi" />
-    </category>
-    <category ID="HNER">
-      <label xml:lang="de" text="Hampartsum Notation mit expliziter rhythmischen Struktur" />
-      <label xml:lang="en" text="Hampartsum notation with explicit rhythmic structure" />
-      <label xml:lang="tr" text="Açık ritmik yapılı Hampartsum nota sistemi" />
-    </category>
     <category ID="Hampartsum_notation">
       <label xml:lang="en" text="Hampartsum notation" />
       <label xml:lang="tr" text="Hamparsum nota sistemi" />
+      <category ID="Early_Hampartsum_notation">
+        <label xml:lang="en" text="Early Hampartsum notation" />
+        <label xml:lang="tr" text="Erken Hamparsum nota sistemi " />
+      </category>
+      <category ID="Implicit_Hampartsum_notation">
+        <label xml:lang="de" text="Hampartsum Notation mit impliziter rhythmischen Struktur" />
+        <label xml:lang="en" text="Hampartsum notation with implicit rhythmic structure" />
+        <label xml:lang="tr" text="Örtük ritmik yapılı Hampartsum nota sistemi" />
+      </category>
+      <category ID="Explicit_Hampartsum_notation">
+        <label xml:lang="de" text="Hampartsum Notation mit expliziter rhythmischen Struktur" />
+        <label xml:lang="en" text="Hampartsum notation with explicit rhythmic structure" />
+        <label xml:lang="tr" text="Açık ritmik yapılı Hampartsum nota sistemi" />
+      </category>
     </category>
     <category ID="Staff_notation">
       <label xml:lang="en" text="Staff notation" />
@@ -37,10 +41,6 @@
     <category ID="Letter-based_notation">
       <label xml:lang="en" text="Letter-based notation" />
       <label xml:lang="tr" text="Harf nota sistemi" />
-    </category>
-    <category ID="Early_Hampartsum_notation">
-      <label xml:lang="en" text="Early Hampartsum notation" />
-      <label xml:lang="tr" text="Erken Hamparsum nota sistemi " />
     </category>
     <category ID="Chrysanthine_notation">
       <label xml:lang="en" text="Chrysanthine notation" />
