@@ -49,6 +49,9 @@
             <xsl:when test="@type='GND'">
               <a href="http://d-nb.info/gnd/{text()}"><xsl:value-of select="text()" /></a>
             </xsl:when>
+            <xsl:when test="@type='ULAN'">
+              <a href="https://vocab.getty.edu/page/ulan/{text()}"><xsl:value-of select="text()" /></a>
+            </xsl:when>
             <xsl:otherwise>
               <xsl:value-of select="text()" />
             </xsl:otherwise>

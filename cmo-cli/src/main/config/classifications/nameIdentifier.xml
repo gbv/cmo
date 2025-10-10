@@ -8,17 +8,22 @@
     <category ID="gnd">
       <label xml:lang="en" text="GND" />
       <label xml:lang="de" text="GND" />
-      <label xml:lang="x-uri" text="http://d-nb.info/gnd/" />
+      <label xml:lang="x-uri" text="https://d-nb.info/gnd/" />
     </category>
     <category ID="viaf">
       <label xml:lang="en" text="VIAF" />
       <label xml:lang="de" text="VIAF" />
-      <label xml:lang="x-uri" text="http://www.viaf.org/" />
+      <label xml:lang="x-uri" text="https://www.viaf.org/" />
     </category>
     <category ID="orcid">
       <label xml:lang="en" text="ORCID" />
       <label xml:lang="de" text="ORCID" />
-      <label xml:lang="x-uri" text="http://orcid.org/" />
+      <label xml:lang="x-uri" text="https://orcid.org/" />
+    </category>
+    <category ID="ulan">
+      <label xml:lang="en" text="ULAN" />
+      <label xml:lang="de" text="ULAN" />
+      <label xml:lang="x-uri" text="https://www.getty.edu/research/tools/vocabularies/ulan/" />
     </category>
   </categories>
 </mycoreclass>
