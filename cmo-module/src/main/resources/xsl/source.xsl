@@ -191,5 +191,16 @@
   <xsl:template priority="1" mode="resulttitle" match="mycoreobject[contains(@ID,'_source_')]">
     <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:manifestation/mei:identifier" />
   </xsl:template>
+  
+  <xsl:template priority="1" mode="pageTitle" match="/mycoreobject[contains(@ID,'_source_')]" >
+    <xsl:choose>
+      <xsl:when test="metadata/def.meiContainer/meiContainer/*[local-name()='source' or local-name()='manifestation']/mei:identifier[@type='RISM']">
+        <xsl:value-of select="metadata/def.meiContainer/meiContainer/*[local-name()='source' or local-name()='manifestation']/mei:identifier[@type='RISM']" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="metadata/def.meiContainer/meiContainer/*[local-name()='source' or local-name()='manifestation']/mei:identifier[@type='CMO']" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 
 </xsl:stylesheet>

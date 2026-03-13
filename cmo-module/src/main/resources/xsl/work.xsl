@@ -183,4 +183,8 @@
     <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:work/mei:identifier" />
   </xsl:template>
 
+  <xsl:template priority="1" mode="pageTitle" match="/mycoreobject[contains(@ID,'_work_')]" >
+    <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:work/mei:identifier" />
+  </xsl:template>
+
 </xsl:stylesheet>

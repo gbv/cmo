@@ -119,5 +119,19 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template priority="1" mode="pageTitle" match="/mycoreobject[contains(@ID,'_person_')]" >
+    <xsl:choose>
+      <xsl:when test="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='CMO']">
+        <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='CMO']" />
+      </xsl:when>
+      <xsl:when test="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMAS-main']">
+        <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMAS-main']" />
+      </xsl:when>
+      <xsl:when test="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMAS-other']">
+        <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='TMAS-other']" />
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
 
 </xsl:stylesheet>

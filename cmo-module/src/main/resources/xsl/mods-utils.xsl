@@ -278,6 +278,15 @@
     </xsl:variable>
     <xsl:value-of select="mcrxml:shortenText($completeTitle,70)" />
   </xsl:template>
+  
+  <xsl:template priority="1" mode="pageTitle" match="/mycoreobject[contains(@ID,'_mods_')]" >
+    <xsl:variable name="completeTitle">
+      <xsl:apply-templates select="./metadata/def.modsContainer/modsContainer/mods:mods" mode="mods.title" >
+        <xsl:with-param name="withSubtitle" select="true()" />
+      </xsl:apply-templates>
+    </xsl:variable>
+    <xsl:value-of select="mcrxml:shortenText($completeTitle,50)" />
+  </xsl:template>
 
   <!--Template for access conditions -->
   <xsl:template match="mods:accessCondition" mode="cc-logo">
