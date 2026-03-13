@@ -83,4 +83,8 @@
     <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:expression/mei:identifier" />
   </xsl:template>
 
+  <xsl:template priority="1" mode="pageTitle" match="/mycoreobject[contains(@ID,'_expression_')]" >
+    <xsl:value-of select="./metadata/def.meiContainer/meiContainer/mei:expression/mei:identifier" />
+  </xsl:template>
+
 </xsl:stylesheet>
