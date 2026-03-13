@@ -15,8 +15,17 @@
 
         <xsl:apply-templates select="response" />
 
-        <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/*[local-name()='source' or local-name()='manifestation']/mei:identifier[@type='CMO']"
-                             mode="metadataHeader" />
+        <xsl:choose>
+          <xsl:when test="metadata/def.meiContainer/meiContainer/*[local-name()='source' or local-name()='manifestation']/mei:identifier[@type='RISM']">
+            <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/*[local-name()='source' or local-name()='manifestation']/mei:identifier[@type='RISM']"
+                                 mode="metadataHeader" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates select="metadata/def.meiContainer/meiContainer/*[local-name()='source' or local-name()='manifestation']/mei:identifier[@type='CMO']"
+                                 mode="metadataHeader" />
+          </xsl:otherwise>
+        </xsl:choose>
+
 
         <!--Show metadata -->
         <xsl:call-template name="metadataSection">
