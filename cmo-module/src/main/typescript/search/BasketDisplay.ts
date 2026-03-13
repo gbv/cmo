@@ -51,7 +51,15 @@ export class BasketDisplay {
             "cmo.genre": (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_musictype"),
             "cmo.makam": (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_makamler"),
             "cmo.usul": (doc: CMOBaseDocument) => BasketDisplay.getCategorySpan(doc, "cmo_usuler"),
-            "editor.label.incip": (doc: CMOBaseDocument) => (doc["incip.normalized"] || []).join(", "),
+            "editor.label.incip": (doc: CMOBaseDocument) => {
+              const value =
+                doc["incip.normalized"] ||
+                doc["incip.main"] ||
+                doc["incip"];
+
+              const arr = Array.isArray(value) ? value : value ? [value] : [];
+              return arr.join(", ");
+            },
             "cmo.worknumber": (doc: CMOBaseDocument) => (doc["expression.work.number"] || []).join(", "),
             "cmo.notationType": (doc: CMOBaseDocument) =>  (doc["expression.source.notationType"] || []).map((field) => `<span data-clazz="cmo_notationType" data-category="${field}" class="value"></span>`).join(", "),
             "cmo.hasFiles": (doc: CMOBaseDocument) => doc["hasFiles"] ? `<span data-i18n="cmo.yes"></span>` : `<span data-i18n="cmo.no"></span>`,
