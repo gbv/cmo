@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE MyCoReWebPage>
-
-<MyCoReWebPage>
-
-  <section i18n="cmo.browse.music_type" xml:lang="all">
-
-    <div class="row">
-      <div class="col-md-8" lang="de">
-        <h3><i18n key="cmo.browse.music_type" /></h3>
-        <classificationbrowser classification="cmo_musictype"
-                                        field="category.top"
-                                 countresults="true"
-                                   addclassid="true"
-                                  emptyleaves="true"
-                               style="bootstrap-cmo"
-                                 addParameter="XSL.template=template_cmo"
-        />
-      </div>
-    </div>
-  </section>
-
-</MyCoReWebPage>
+<MyCoReWebPage><section xml:lang="de" title="Genre"><div class="row">
+<div class="col-md-8" lang="de">
+<h3><i18n key="cmo.browse.music_type" /></h3>
+<classificationbrowser addclassid="true" addparameter="XSL.template=template_cmo" classification="cmo_musictype" countresults="true" emptyleaves="true" field="category.top" style="bootstrap-cmo"> </classificationbrowser></div>
+</div>
+</section><section xml:lang="en" title="Genre" /><meta><log lastEditor="zhelvaci" date="2018-10-03" time="20:53" /></meta></MyCoReWebPage>

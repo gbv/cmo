@@ -1,50 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage><section xml:lang="en" title="Incipit"><div>
+<div class="row">
+<div class="col-md-12">
+<h2>Browse by incipit</h2>
 
-<MyCoReWebPage>
-
-  <section i18n="cmo.browse.incipit" xml:lang="all">
-
-    <div class="row">
-      <div class="col-md-12">
-        <h3><i18n key="cmo.browse.incipit" /></h3>
-        <ul id="cmo_incipitList">
-        </ul>
-      </div>
-    </div>
-    <script type="text/javascript"><![CDATA[$(document).ready(function () {
-
-    var field = "incip.normalized.facet";
-    var objectType = "expression"
-
-    $.ajax({
-        type: "GET",
-        url: "../../api/v1/search?q=objectType%3A" + objectType + "&rows=0&facet.field=" + field + "&facet.query=objectType%3Aexpression&facet.sort=index&facet=on&facet.limit=-1&wt=json&json.wrf=?",
-        dataType: "jsonp",
-        success: function (data) {
-            var unsorted = data.facet_counts.facet_fields[field];
-            var sorted = [];
-            for (var i = 0; i < unsorted.length; i++) {
-                if (i % 2 === 1) {
-                    var count = unsorted[i], incip = unsorted[i - 1];
-                    sorted.push([incip, count]);
-                }
-            }
-
-            sorted.sort(function (a, b) {
-                var a1 = a[0], b1 = b[0];
-                return a1.localeCompare(b1, 'tr', {sensitivity: "base"});
+<ul id="cmo_incipitList">
+</ul>
+</div>
+</div>
+<script>
+      <!-- TODO: make sort case insensitive -->
+      $( document ).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "../../api/v1/search?q=objectType:expression&amp;rows=0&amp;facet.field=incip.main&amp;facet.query=objectType:expression&amp;facet.sort=index&amp;facet=on&amp;facet.limit=-1&amp;wt=json&amp;json.wrf=?",
+          dataType: "jsonp",
+          success: function (data) {
+            var incipit = "";
+            $(data.facet_counts.facet_fields["incip.main"]).each(function(i, int){
+              if (i % 2 === 0) {
+                incipit = int;
+              }
+              else {
+                $('#cmo_incipitList').append($('<li />')
+                  .append('[ ' + int + ' ] <a href="#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=incip.main%3A%22'+incipit+'%22&amp;start=0&amp;action=init_search&amp;sort=score%20desc&amp;rows=10">' + incipit + '</a>')); <!-- TODO: add incipit search here -->
+              }
             });
+          },
+        });
+      });
+    </script></div>
+</section><section xml:lang="de" title="Incipit"><div>
+<div class="row">
+<div class="col-md-12">
+<h2>Nach Incipit blättern</h2>
 
-            sorted.forEach(function (value) {
-                var count = value[1];
-                var value = value[0];
-                $('#cmo_incipitList')
-                    .append($('<li></li>')
-                        .append('[ ' + count + ' ] <a href="#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=' + field + '%3A%22' + value + '%22&amp;start=0&amp;action=init_search&amp;sort=score%20desc&amp;rows=10">' + value + '</a>'));
+<ul id="cmo_incipitList">
+</ul>
+</div>
+</div>
+<script>
+      <!-- TODO: make sort case insensitive -->
+      $( document ).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "../../api/v1/search?q=objectType:expression&amp;rows=0&amp;facet.field=incip.main&amp;facet.query=objectType:expression&amp;facet.sort=index&amp;facet=on&amp;facet.limit=-1&amp;wt=json&amp;json.wrf=?",
+          dataType: "jsonp",
+          success: function (data) {
+            var incipit = "";
+            $(data.facet_counts.facet_fields["incip.main"]).each(function(i, int){
+              if (i % 2 === 0) {
+                incipit = int;
+              }
+              else {
+                $('#cmo_incipitList').append($('<li />')
+                  .append('[ ' + int + ' ] <a href="#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=incip.main%3A%22'+incipit+'%22&amp;start=0&amp;action=init_search&amp;sort=score%20desc&amp;rows=10">' + incipit + '</a>')); <!-- TODO: add incipit search here -->
+              }
             });
-        }
-    });
-});]]></script>
-  </section>
-</MyCoReWebPage>
+          },
+        });
+      });
+    </script></div>
+</section><section xml:lang="tr" title="Güfte başlangıcı"><div>
+<div class="row">
+<div class="col-md-12">
+<h2>Güfte dizini</h2>
+
+<ul id="cmo_incipitList">
+</ul>
+</div>
+</div>
+<script>
+      <!-- TODO: make sort case insensitive -->
+      $( document ).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "../../api/v1/search?q=objectType:expression&amp;rows=0&amp;facet.field=incip.main&amp;facet.query=objectType:expression&amp;facet.sort=index&amp;facet=on&amp;facet.limit=-1&amp;wt=json&amp;json.wrf=?",
+          dataType: "jsonp",
+          success: function (data) {
+            var incipit = "";
+            $(data.facet_counts.facet_fields["incip.main"]).each(function(i, int){
+              if (i % 2 === 0) {
+                incipit = int;
+              }
+              else {
+                $('#cmo_incipitList').append($('<li />')
+                  .append('[ ' + int + ' ] <a href="#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=incip.main%3A%22'+incipit+'%22&amp;start=0&amp;action=init_search&amp;sort=score%20desc&amp;rows=10">' + incipit + '</a>')); <!-- TODO: add incipit search here -->
+              }
+            });
+          },
+        });
+      });
+    </script></div>
+</section><meta><log lastEditor="zhelvaci" date="2018-10-01" time="20:42" /></meta></MyCoReWebPage>

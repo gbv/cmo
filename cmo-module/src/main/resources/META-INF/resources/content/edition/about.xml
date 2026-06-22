@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE MyCoReWebPage>
-<MyCoReWebPage>
-  <section xml:lang="all" title="Edition">
-    <div class="row">
-      <div class="col-md-12">
-        <h1>Edition</h1>
-        <p>
-          The CMO edition aims to provide, firstly, historically and textually accurate transcriptions of the
-          available repertoire of Ottoman music as it was documented during the nineteenth century. These
-          transcriptions, which reflect the original sources as closely as possible, will be made freely
-          available to scholars as well as to musicians interested in historical performance practice.
-          Secondly, the CMO project will publish critically edited texts from the corpus of Ottoman vocal
-          music, following as faithfully as possible the original arrangement and orthography of the music
-          manuscript sources, thus provide unique documentation of Ottoman poetry in its performative aspect.
-        </p>
-        <p>
-          Musical transcriptions will be fully digitized, taking into account the special notational
-          requirements of the musics of the Middle East and eastern Mediterranean. The data of both music
-          and text editions will be stored in a variety of formats in order to provide access to the edition
-          in both graphic (human readable) and semantic (machine readable) forms. Additionally, metadata for
-          the manuscripts will be entered into the CMO source catalogue. Printed editions of single
-          manuscripts will also be available as book-on-demand publications.
-        </p>
-        <p>
-          Users can explore the edition according to the publication plan through the <u>browsing function</u>,
-          or use the search field above to search for specific editions. The <u>guidelines</u> explain the
-          methods of transcription and provide the necessary information to comprehend editorial decisions.
-          See also the <u>list of abbreviations</u> for a better understanding of the transcriptions and critical
-          commentaries. <u>User guide</u> gives detailed information on how to use the different functions on this
-          web platform.
-        </p>
-      </div>
-    </div>
-  </section>
-  <meta>
-    <log date="2017-07-31" time="11:59" labelPath=" » About Edition" lastEditor="Kathleen Neumann" />
-  </meta>
-</MyCoReWebPage>
+<MyCoReWebPage><section xml:lang="en" title="About"><div class="row">
+<div class="col-md-12">
+<h1>About the Edition</h1>
+
+<p>The CMO edition aims to provide, firstly, historically and textually accurate transcriptions of the available repertoire of Ottoman music as it was documented during the nineteenth century. These transcriptions, which reflect the original sources as closely as possible, will be made freely available to scholars as well as to musicians interested in historical performance practice.</p>
+
+<p>Secondly, the CMO project will publish critically edited texts from the corpus of Ottoman vocal music, following as faithfully as possible the original arrangement and orthography of the music manuscript sources, thus provide unique documentation of Ottoman poetry in its performative aspect.</p>
+
+<p>Musical transcriptions will be fully digitized, taking into account the special notational requirements of the musics of the Middle East and eastern Mediterranean. The data of both music and text editions will be stored in a variety of formats in order to provide access to the edition in both graphic (human readable) and semantic (machine readable) forms. Additionally, metadata for the manuscripts will be entered into the CMO source catalogue. Printed editions of single manuscripts will also be available as book-on-demand publications.</p>
+
+<p>Users can explore the edition according to the publication plan through the browsing function, or use the search field above to search for specific editions. The guidelines explain the methods of transcription and provide the necessary information to comprehend editorial decisions. See also the list of abbreviations for a better understanding of the transcriptions and critical commentaries. User guide gives detailed information on how to use the different functions on this web platform.</p>
+</div>
+</div>
+</section><section xml:lang="tr" title="Hakkında"><div>
+<h1>Edisyon Hakkında</h1>
+
+<p>CMO edisyonları öncelikle Osmanlı sanat müziğinin bilinen literatürünün, 19. yüzyılda yazıya geçirildiği haliyle ve özgün kaynaklara mümkün olan en yakın biçimiyle, hem gelecek araştırmalar hem de tarihsel icra için erişilebilir hale getirilmesini hedeflemektedir.</p>
+
+<p>Söz konusu el yazmalarında yer alan güftelerin edisyonları da, yine orijinal yazım ve düzenlenme biçimlerine olabildiğince sadık kalarak gerçekleştirilerek, ilk kez sadece metin içeren şiir antolojilerine göre değil, icra edildikleri biçimleriyle yayınlanmış olacak.</p>
+
+<p>Müzik transkripsiyonları, Yakındoğu ve Doğu Akdeniz müziklerinin özgün niteliklerini dikkate alan bir yöntemle tamamen dijitalleştirilecek. Müzik ve güfte edisyonları grafik ve semantik formatlarda kaydedilerek hem insan tarafından okunabilir hem de bilgisayar tarafından okunabilir ve işlenebilir biçimleri ile kullanıma sunulacak. Her bir yazmanın edisyonu ayrıca “talep üzerine basım” sistemi ile basılı olarak da edinilebilecek.</p>
+
+<p>Bu çevrimiçi platformda, edisyonlara yayın planına göre göz atabilir, belirli bir edisyonu veya içeriklerini aramak için yukarıdaki ilgili arama kutusunu kullanabilirsiniz. Transkripsiyonda kullanılan yöntemleri açıklayan ana ilkeler, edisyon sürecinde alınan kararları takip edebilmenizi sağlayacaktır. Transkripsiyon ve eleştirel yorumlarda kullanılan tüm kısaltmaların anlamları, kısaltmalar listesinde görülebilir. Platformda yer alan tarama ve arama işlevlerinin ayrıntıları kullanım kılavuzunda açıklanmıştır. </p>
+</div>
+</section><section xml:lang="de" title="Über"><div>
+<h1>Über die Editionen</h1>
+
+<p>Das Ziel der CMO Editionen ist in erster Linie die Herausgabe des heute in Forschung und historischer Aufführungspraxis bekannten Korpus historischer Transkriptionen osmanischer Kunstmusik. Dies soll in größtmöglicher Nähe, d.h. wie sie im 19. Jahrhundert aufgezeichnet wurden, zu den Originalquellen geschehen.</p>
+
+<p>Auch die den Vokalwerken unterlegten Texte werden erstmalig nicht nach reinen Textanthologien herausgegeben, sondern möglichst treu in ihren Aufführungsvarianten sowie gemäß der originalen Orthographie und Bearbeitung.</p>
+
+<p>Musikeditionen werden vollständig digitalisiert. Hierfür erfolgt vorab die Eingabe der Notentexte entsprechend aller Vorgaben vorderorientalischer und ostmediterraner Musiken ohne Informationsverlust. Musik- und Texteditionen werden in mehreren Formaten digital gespeichert, so dass die Editionen erstens in graphischer und damit menschenlesbarer, zweitens in semantischer und damit maschinell verarbeitbarer Form vorliegen. Editionen der einzelnen Handschriften werden zudem als Book-on-Demand-Ausgaben erhältlich sein.</p>
+
+<p>Auf diese Plattform haben die Nutzer die Möglichkeit, die Editionen dem Veröffentlichungsplan entsprechend durchzublättern oder durch das Suchfeld oben nach spezifischen Editionen und deren Inhalten zu suchen. Die Editionsrichtlinien erklären die Methoden der Transkription und enthalten somit notwendige Informationen, um redaktionelle Entscheidungen nachvollziehen zu können. Das Abkürzungsverzeichnis dient zum besseren Verständnis der Transkriptionen sowie kritischen Kommentare. Ausführliche Informationen über die unterschiedlichen Funktionen dieser Plattform finden Sie unter Nutzerhandbuch.</p>
+</div>
+</section><meta><log lastEditor="zhelvaci" date="2019-03-06" time="14:56" /></meta></MyCoReWebPage>

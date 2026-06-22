@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage><section xml:lang="en" title="Title"><div>
+<div class="row">
+<div class="col-md-12">
+<h2>Browse by title</h2>
 
-<MyCoReWebPage>
-
-  <section i18n="cmo.browse.poetic_title" xml:lang="all">
-
-    <div class="row">
-      <div class="col-md-12">
-        <h3><i18n key="cmo.browse.poetic_title" /></h3>
-        <ul id="cmo_titleList">
-        </ul>
-      </div>
-    </div>
-    <script>
+<ul id="cmo_titleList">
+</ul>
+</div>
+</div>
+<script>
       <!-- TODO: make sort case insensitive -->
       $( document ).ready(function() {
         $.ajax({
           type: "GET",
-          url: "../../api/v1/search?q=objectType%3Aexpression&amp;rows=0&amp;facet.field=title.type.alt&amp;facet.query=objectType%3Aexpression&amp;facet.sort=index&amp;facet.limit=-1&amp;facet=on&amp;wt=json&amp;json.wrf=?",
+          url: "../../api/v1/search?q=objectType:expression&amp;rows=0&amp;facet.field=title.type.alt&amp;facet.query=objectType:expression&amp;facet.sort=index&amp;facet.limit=-1&amp;facet=on&amp;wt=json&amp;json.wrf=?",
           dataType: "jsonp",
           success: function (data) {
             var poetTitle = "";
@@ -26,13 +22,73 @@
                 poetTitle = int;
               }
               else {
-                $('#cmo_titleList').append($('<li></li>')
+                $('#cmo_titleList').append($('<li />')
                 .append('[ ' + int + ' ] <a href="#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=title.type.alt%3A%22'+poetTitle+'%22&amp;start=0&amp;action=init_search&amp;sort=score%20desc&amp;rows=10">' + poetTitle + '</a>')); <!-- TODO: add incipit search here -->
               }
             });
           },
         });
       });
-    </script>
-  </section>
-</MyCoReWebPage>
+    </script></div>
+</section><section xml:lang="tr" title="Başlık"><div>
+<div class="row">
+<div class="col-md-12">
+<h2>Başlık dizini</h2>
+
+<ul id="cmo_titleList">
+</ul>
+</div>
+</div>
+<script>
+      <!-- TODO: make sort case insensitive -->
+      $( document ).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "../../api/v1/search?q=objectType:expression&amp;rows=0&amp;facet.field=title.type.alt&amp;facet.query=objectType:expression&amp;facet.sort=index&amp;facet.limit=-1&amp;facet=on&amp;wt=json&amp;json.wrf=?",
+          dataType: "jsonp",
+          success: function (data) {
+            var poetTitle = "";
+            $(data.facet_counts.facet_fields["title.type.alt"]).each(function(i, int){
+              if (i % 2 === 0) {
+                poetTitle = int;
+              }
+              else {
+                $('#cmo_titleList').append($('<li />')
+                .append('[ ' + int + ' ] <a href="#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=title.type.alt%3A%22'+poetTitle+'%22&amp;start=0&amp;action=init_search&amp;sort=score%20desc&amp;rows=10">' + poetTitle + '</a>')); <!-- TODO: add incipit search here -->
+              }
+            });
+          },
+        });
+      });
+    </script></div>
+</section><section xml:lang="de" title="Titel"><div>
+<div class="row">
+<div class="col-md-12">
+<h2>Nach Titel blättern</h2>
+
+<ul id="cmo_titleList">
+</ul>
+</div>
+</div>
+<script>
+      <!-- TODO: make sort case insensitive -->
+      $( document ).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "../../api/v1/search?q=objectType:expression&amp;rows=0&amp;facet.field=title.type.alt&amp;facet.query=objectType:expression&amp;facet.sort=index&amp;facet.limit=-1&amp;facet=on&amp;wt=json&amp;json.wrf=?",
+          dataType: "jsonp",
+          success: function (data) {
+            var poetTitle = "";
+            $(data.facet_counts.facet_fields["title.type.alt"]).each(function(i, int){
+              if (i % 2 === 0) {
+                poetTitle = int;
+              }
+              else {
+                $('#cmo_titleList').append($('<li />')
+                .append('[ ' + int + ' ] <a href="#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)&amp;fq=title.type.alt%3A%22'+poetTitle+'%22&amp;start=0&amp;action=init_search&amp;sort=score%20desc&amp;rows=10">' + poetTitle + '</a>')); <!-- TODO: add incipit search here -->
+              }
+            });
+          },
+        });
+      });
+    </script></div></section><meta><log lastEditor="zhelvaci" date="2018-10-01" time="18:26" /></meta></MyCoReWebPage>

@@ -1,213 +1,204 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<navigation dir="/content" href="navigation" hrefStartingPage="/content/index.xml" template="template_cmo">
-  <menu id="cmo_main">
-    <label xml:lang="de">Menü</label>
-    <label xml:lang="en">Menu</label>
-    <item href="/content/index.xml" type="intern">
-      <label xml:lang="de">Start</label>
-      <label xml:lang="en">Start</label>
-    </item>
-  </menu>
-  <menu id="cmo_below" dir="/content/below">
-    <item href="/content/below/about.xml" type="intern">
-      <label xml:lang="de">Über uns</label>
-      <label xml:lang="en">About</label>
-      <label xml:lang="tr">Hakkımızda</label>
-    </item>
-    <item href="/content/below/imprint.xml" type="intern">
-      <label xml:lang="de">Impressum</label>
-      <label xml:lang="en">Imprint</label>
-      <label xml:lang="tr">Yasal uyarı</label>
-    </item>
-    <item href="/content/below/privacy.xml" type="intern">
-      <label xml:lang="de">Datenschutzbestimmungen</label>
-      <label xml:lang="en">Privacy Policy</label>
-      <label xml:lang="tr">Gizlilik Politikası</label>
-    </item>
-    <item href="/content/below/accessibility.xml" type="intern">
-      <label xml:lang="de">Barrierefreiheit</label>
-      <label xml:lang="en">Accessibility</label>
-      <label xml:lang="tr">Ulaşılabilirlik</label>
-    </item>
-    <item href="/content/below/contact.xml" type="intern">
-      <label xml:lang="de">Kontakt</label>
-      <label xml:lang="en">Contact</label>
-      <label xml:lang="tr">İletişim</label>
-    </item>
-    <item href="/content/below/contributors.xml" type="intern">
-      <label xml:lang="de">Beteiligte</label>
-      <label xml:lang="en">Contributors</label>
-      <label xml:lang="tr">Katkıda bulunanlar</label>
-    </item>
-  </menu>
-  <menu id="cmo_edition" dir="/content/edition">
-    <!-- CMO edition menu  -->
-    <label xml:lang="de">Edition</label>
-    <label xml:lang="en">Edition</label>
-    <label xml:lang="tr">Edisyon</label>
-    <item href="/content/edition/about.xml" type="intern">
-      <label xml:lang="de">Über</label>
-      <label xml:lang="en">About</label>
-    </item>
-    <item href="/content/edition/browse.xml" type="intern">
-      <label xml:lang="de">Blättern</label>
-      <label xml:lang="en">Browse edition</label>
-      <label xml:lang="tr">Göz at</label>
-    </item>
-    <item href="/content/edition/guidelines.xml" type="intern">
-      <label xml:lang="de">Leitlinien</label>
-      <label xml:lang="en">Edition guidelines</label>
-      <label xml:lang="tr">Ana ilkeler</label>
-    </item>
-    <item href="/content/edition/abbreviations.xml" type="intern">
-      <label xml:lang="de">Abkürzungsverzeichnis</label>
-      <label xml:lang="en">List of abbreviations</label>
-      <label xml:lang="tr">Kısaltmalar</label>
-    </item>
-  </menu>
-  <menu id="cmo_catalogue" dir="/content/catalogue">
-    <!-- CMO catalogue menu  -->
-    <label xml:lang="de">Quellenkatalog</label>
-    <label xml:lang="en">Source Catalogue</label>
-    <label xml:lang="tr">Kaynak Kataloğu</label>
-    <item href="/content/catalogue/about.xml" type="intern">
-      <label xml:lang="de">Über</label>
-      <label xml:lang="en">About</label>
-      <label xml:lang="tr">Hakkında</label>
-    </item>
-    <item href="/content/catalogue/source.xml" type="intern">
-      <label xml:lang="de">Blättern nach Quellen-Typ</label>
-      <label xml:lang="en">Browse by source type</label>
-      <label xml:lang="tr">Kaynak türü </label>
-    </item>
-    <item href="/content/catalogue/makam.xml" type="intern">
-      <label xml:lang="de">Blättern nach Makâm</label>
-      <label xml:lang="en">Browse by makâm</label>
-      <label xml:lang="tr">Makâm dizini</label>
-    </item>
-    <item href="/content/catalogue/usul.xml" type="intern">
-      <label xml:lang="de">Blättern nach Usûl</label>
-      <label xml:lang="en">Browse by usûl</label>
-      <label xml:lang="tr">Usûl dizini</label>
-    </item>
-    <item href="/content/catalogue/music_type.xml" type="intern">
-      <label xml:lang="de">Blättern nach Genre</label>
-      <label xml:lang="en">Browse by genre</label>
-      <label xml:lang="tr">Tür/form dizini</label>
-    </item>
-    <item href="/content/catalogue/literary_form.xml" type="intern">
-      <label xml:lang="de">Blättern nach literarischer Form</label>
-      <label xml:lang="en">Browse by literary form</label>
-      <label xml:lang="tr">Edebi form dizini</label>
-    </item>
-    <item href="/content/catalogue/incipit.xml" type="intern">
-      <label xml:lang="de">Blättern nach Incipit</label>
-      <label xml:lang="en">Browse by incipit</label>
-      <label xml:lang="tr">Güfte dizini</label>
-    </item>
-    <item href="/content/catalogue/poetic_title.xml" type="intern">
-      <label xml:lang="de">Blättern nach Titel</label>
-      <label xml:lang="en">Browse by title</label>
-      <label xml:lang="tr">Başlık dizini</label>
-    </item>
-  </menu>
-  <menu id="cmo_help" dir="/content/help">
-    <!-- CMO help menu  -->
-    <label xml:lang="de">Hilfe</label>
-    <label xml:lang="en">Help</label>
-    <item id="cmo_userGuide" href="/content/help/user_guide.xml" type="intern">
-      <label xml:lang="de">Nutzerhandbuch</label>
-      <label xml:lang="en">User Guide</label>
-      <label xml:lang="tr">Kullanım kılavuzu</label>
-    </item>
-    <item id="cmo_tutorial" href="/content/help/tutorial.xml" type="intern">
-      <label xml:lang="de">Tutorials</label>
-      <label xml:lang="en">Tutorials</label>
-    </item>
-  </menu>
-  <menu id="cmo_publish" dir="/content/publish">
-    <!-- work with content menu  -->
-    <label xml:lang="de">Bearbeiter</label>
-    <label xml:lang="en">Editor</label>
-    <label xml:lang="tr">Editör</label>
-    <item href="/content/publish/catalogue.xml" type="intern">
-      <label xml:lang="de">Neuen Katalog-Eintrag erstellen</label>
-      <label xml:lang="en">Create new catalogue entry</label>
-      <label xml:lang="tr">Yeni katalog girişi oluştur</label>
-    </item>
-    <item href="/editor/edition.xed" type="intern">
-      <label xml:lang="de">Neuen Editions-Eintrag erstellen</label>
-      <label xml:lang="en">Create new edition entry</label>
-      <label xml:lang="tr">Yeni edisyon girişi oluştur</label>
-    </item>
-    <item href="/search/search-expert.xed" type="intern">
-      <label xml:lang="de">Expertensuche</label>
-      <label xml:lang="en">expert search</label>
-      <label xml:lang="tr">uzman araması</label>
-    </item>
-  </menu>
-  <menu id="cmo_user">
-    <label xml:lang="de">Nutzermenü</label>
-    <label xml:lang="en">User menu</label>
-    <group id="thisuser">
-      <item href="/authorization/change-password.xed?action=password" type="intern">
-        <label xml:lang="de">Passwort ändern</label>
-        <label xml:lang="en">Change Password</label>
-      </item>
-      <item href="/servlets/MCRUserServlet?action=show" type="intern">
-        <label xml:lang="de">Benutzerdaten anzeigen</label>
-        <label xml:lang="en">Show User Data</label>
-      </item>
-      <item href="/authorization/change-current-user.xed?action=saveCurrentUser" type="intern">
-        <label xml:lang="de">Kontaktdaten ändern</label>
-        <label xml:lang="en">Change user contact</label>
-      </item>
-    </group>
-    <group id="contentadmin">
-      <item href="/modules/classeditor/classificationEditor.xml" type="intern">
-        <label xml:lang="de">Klassifikationseditor</label>
-        <label xml:lang="en">Edit Classifications</label>
-      </item>
-      <item href="/rsc/ACLE/start" type="intern">
-        <label xml:lang="de">ACL-Editor</label>
-        <label xml:lang="en">ACL Editor</label>
-      </item>
-    </group>
-    <group id="useradmin">
-      <item href="/servlets/MCRUserServlet" type="intern">
-        <label xml:lang="de">Nutzerverwaltung</label>
-        <label xml:lang="en">Admin Users</label>
-      </item>
-      <item href="/authorization/new-user.xed?action=save" type="intern">
-        <label xml:lang="de">Nutzer anlegen</label>
-        <label xml:lang="en">Create User</label>
-      </item>
-      <item href="/authorization/roles-editor.xml" type="intern">
-        <label xml:lang="de">Rollen administrieren</label>
-        <label xml:lang="en">Manage roles</label>
-      </item>
-    </group>
-    <group id="miscadmin">
-      <item href="/modules/webcli/launchpad.xml" type="intern">
-        <label xml:lang="de">WebCLI</label>
-        <label xml:lang="en">WebCLI</label>
-      </item>
-      <item href="/modules/webtools/session/sessionListing.xml" type="intern">
-        <label xml:lang="de">Aktive Sitzungen</label>
-        <label xml:lang="en">Session Management</label>
-      </item>
-      <item href="/modules/webtools/processing/processing.xml" type="intern">
-        <label xml:lang="de">Aktive Prozesse</label>
-        <label xml:lang="en">Processing</label>
-      </item>
-      <item href="/modules/wcms2/wcms2.xml?XSL.useMT=false" type="intern">
-        <label xml:lang="de">WCMS</label>
-        <label xml:lang="en">WCMS</label>
-      </item>
-    </group>
-    <item href="/servlets/logout?url=../content/index.xml" type="intern">
-      <label xml:lang="de">Abmelden</label>
-      <label xml:lang="en">Logout</label>
-    </item>
-  </menu>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<navigation hrefStartingPage="/content/index.xml" dir="/content" template="template_cmo">
+    <menu id="cmo_main">
+        <label xml:lang="de">Menü</label>
+        <label xml:lang="en">Menu</label>
+        <item href="/content/index.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Start</label>
+            <label xml:lang="en">Home</label>
+            <label xml:lang="tr">Ana sayfa</label>
+        </item>
+    </menu>
+    <menu id="cmo_below" dir="/content/below">
+        <item href="/content/below/about.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Über uns</label>
+            <label xml:lang="en">About</label>
+            <label xml:lang="tr">Hakkımızda</label>
+        </item>
+        <item href="/content/below/imprint.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Impressum</label>
+            <label xml:lang="en">Legal notice</label>
+            <label xml:lang="tr">Yasal uyarı</label>
+        </item>
+        <item href="/content/below/privacy.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Datenschutzbestimmungen</label>
+            <label xml:lang="en">Privacy Policy</label>
+            <label xml:lang="tr">Gizlilik Politikası</label>
+        </item>
+        <item href="/content/below/contact.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Kontakt</label>
+            <label xml:lang="en">Contact</label>
+            <label xml:lang="tr">İletişim</label>
+        </item>
+        <item href="/content/below/contributors.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Beteiligte</label>
+            <label xml:lang="en">Contributors</label>
+            <label xml:lang="tr">Katkıda bulunanlar</label>
+        </item>
+    </menu>
+    <menu id="cmo_edition" dir="/content/edition">
+        <label xml:lang="de">Edition</label>
+        <label xml:lang="en">Editions</label>
+        <label xml:lang="tr">Edisyon</label>
+        <item href="/content/edition/about.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Über</label>
+            <label xml:lang="en">About</label>
+            <label xml:lang="tr">Hakkında</label>
+        </item>
+        <item href="/content/edition/browse.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Blättern</label>
+            <label xml:lang="en">Browse editions</label>
+            <label xml:lang="tr">Göz at</label>
+        </item>
+        <item href="/content/edition/guidelines.xml" type="intern" target="_self" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Editionsrichtlinien</label>
+            <label xml:lang="en">Edition guidelines</label>
+            <label xml:lang="tr">Ana ilkeler</label>
+        </item>
+        <item href="/content/edition/abbreviations.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Abkürzungsverzeichnis</label>
+            <label xml:lang="en">List of abbreviations</label>
+            <label xml:lang="tr">Kısaltmalar</label>
+        </item>
+    </menu>
+    <menu id="cmo_catalogue" dir="/content/catalogue">
+        <label xml:lang="de">Quellenkatalog</label>
+        <label xml:lang="en">Source Catalogue</label>
+        <label xml:lang="tr">Kaynak Kataloğu</label>
+        <item href="/content/catalogue/about.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Über</label>
+            <label xml:lang="en">About</label>
+            <label xml:lang="tr">Hakkında</label>
+        </item>
+        <group id="new-group">
+            <label xml:lang="de">Blättern nach</label>
+            <label xml:lang="en">Browse by</label>
+            <label xml:lang="tr">Göz at</label>
+            <item href="/content/catalogue/source.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Art der Quelle</label>
+                <label xml:lang="en">Source</label>
+                <label xml:lang="tr">Kaynak türü</label>
+            </item>
+            <item href="/content/catalogue/makam.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Makâm</label>
+                <label xml:lang="en">Makâm</label>
+                <label xml:lang="tr">Makâm</label>
+            </item>
+            <item href="/content/catalogue/usul.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Usûl</label>
+                <label xml:lang="en">Usûl</label>
+                <label xml:lang="tr">Usûl</label>
+            </item>
+            <item href="/content/catalogue/music_type.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Genre</label>
+                <label xml:lang="en">Genre</label>
+                <label xml:lang="tr">Eser türü</label>
+            </item>
+            <item href="/content/catalogue/incipit.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Incipit</label>
+                <label xml:lang="en">Incipit</label>
+                <label xml:lang="tr">Güfte başlangıcı</label>
+            </item>
+        </group>
+    </menu>
+    <menu id="cmo_help" dir="/content/help">
+        <label xml:lang="de">Hilfe</label>
+        <label xml:lang="en">Help</label>
+        <label xml:lang="tr">Yardım</label>
+        <item href="/content/help/user_guide.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Nutzerhandbuch - Wiki</label>
+            <label xml:lang="en">User Guide - Wiki</label>
+            <label xml:lang="tr">Kullanım kılavuzu - Viki</label>
+        </item>
+        <item href="/content/help/tutorial.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Tutorials</label>
+            <label xml:lang="en">Tutorials</label>
+            <label xml:lang="tr">Tutorials</label>
+        </item>
+    </menu>
+    <menu id="cmo_publish" dir="/content/publish">
+        <label xml:lang="de">Bearbeiter</label>
+        <label xml:lang="en">Editor</label>
+        <label xml:lang="tr">Editör</label>
+        <item href="/content/publish/catalogue.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Neuen Katalog-Eintrag erstellen</label>
+            <label xml:lang="en">Create new catalogue entry</label>
+            <label xml:lang="tr">Yeni katalog verisi oluştur</label>
+        </item>
+        <item href="/editor/edition.xed" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Neuen Editions-Eintrag erstellen</label>
+            <label xml:lang="en">Create new edition entry</label>
+            <label xml:lang="tr">Yeni edisyon verisi oluştur</label>
+        </item>
+        <item href="/search/search-expert.xed" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Expertensuche</label>
+            <label xml:lang="en">Expert search</label>
+            <label xml:lang="tr">Gelişmiş arama</label>
+        </item>
+    </menu>
+    <menu id="cmo_user">
+        <label xml:lang="de">Nutzermenü</label>
+        <label xml:lang="en">User menu</label>
+        <group id="thisuser">
+            <item href="/authorization/change-password.xed?action=password" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Passwort ändern</label>
+                <label xml:lang="en">Change Password</label>
+            </item>
+            <item href="/servlets/MCRUserServlet?action=show" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Benutzerdaten anzeigen</label>
+                <label xml:lang="en">Show User Data</label>
+            </item>
+            <item href="/authorization/change-current-user.xed?action=saveCurrentUser" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Kontaktdaten ändern</label>
+                <label xml:lang="en">Change user contact</label>
+            </item>
+        </group>
+        <group id="contentadmin">
+            <item href="/modules/classeditor/classificationEditor.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Klassifikationseditor</label>
+                <label xml:lang="en">Edit Classifications</label>
+            </item>
+            <item href="/rsc/ACLE/start" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">ACL-Editor</label>
+                <label xml:lang="en">ACL Editor</label>
+            </item>
+        </group>
+        <group id="useradmin">
+            <item href="/servlets/MCRUserServlet" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Nutzerverwaltung</label>
+                <label xml:lang="en">Admin Users</label>
+            </item>
+            <item href="/authorization/new-user.xed?action=save" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Nutzer anlegen</label>
+                <label xml:lang="en">Create User</label>
+            </item>
+            <item href="/authorization/roles-editor.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Rollen administrieren</label>
+                <label xml:lang="en">Manage roles</label>
+            </item>
+        </group>
+        <group id="miscadmin">
+            <item href="/modules/webcli/launchpad.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">WebCLI</label>
+                <label xml:lang="en">WebCLI</label>
+            </item>
+            <item href="/modules/webtools/session/sessionListing.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Aktive Sitzungen</label>
+                <label xml:lang="en">Session Management</label>
+            </item>
+            <item href="/modules/webtools/processing/processing.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">Aktive Prozesse</label>
+                <label xml:lang="en">Processing</label>
+            </item>
+            <item href="/modules/wcms2/wcms2.xml?XSL.useMT=false" type="intern" replaceMenu="false" constrainPopUp="false">
+                <label xml:lang="de">WCMS</label>
+                <label xml:lang="en">WCMS</label>
+            </item>
+        </group>
+        <item href="/servlets/logout?url=../content/index.xml" type="intern" replaceMenu="false" constrainPopUp="false">
+            <label xml:lang="de">Abmelden</label>
+            <label xml:lang="en">Logout</label>
+        </item>
+        <insert uri="component:search"/>
+    </menu>
 </navigation>

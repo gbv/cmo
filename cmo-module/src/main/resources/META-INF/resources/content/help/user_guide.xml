@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE MyCoReWebPage>
-<MyCoReWebPage>
-  <section xml:lang="de" title="User guide">
-    <div class="row">
-      <div class="col-md-12">
-        <h1>User guide</h1>
-        <p>
-          The user guide is not available yet; it will be prepared after the
-          search functions and methods are defined more clearly.
-        </p>
-      </div>
-    </div>
-  </section>
-  <meta>
-    <log date="2017-01-30" time="11:59" labelPath=" » User guide" lastEditor="Kathleen Neumann" />
-  </meta>
-</MyCoReWebPage>
+<MyCoReWebPage><section xml:lang="en" title="User guide"><div class="row">
+<div class="col-md-12">
+<p>A detailed user guide outlining CMO workflows and frameworks is available through the Project Wiki. The Project Wiki is continuously being improved and enhanced.</p>
+<p>Please click on the link below to access the CMO Project Wiki</p>
+<p><a href="https://projects.academiccloud.de/projects/corpus-musicae-ottomanicae-cmo-public-wiki/" target="_blank" rel="noopener">Project Wiki</a></p>
+</div>
+</div></section><section xml:lang="tr" title="Kullanım kılavuzu"><body xmlns="http://www.w3.org/1999/xhtml"><div>
+<p>Ayrıntılı kullanım kılavuzu hazırlanmaktadır. </p>
+
+<p>Projenin <a href="http://projects.academiccloud.de/projects/corpus-musicae-ottomanicae-cmo-public-wiki/" target="_blank">Wiki sayfası</a> sürekli güncellenmekte ve genişletilmektedir. </p>
+</div></body></section><section xml:lang="de" title="Nutzerhandbuch"><body xmlns="http://www.w3.org/1999/xhtml"><div>
+<p>Das ausführliche Nutzerhandbuch ist noch in Vorbereitung.</p>
+
+<p>Das <a href="http://projects.academiccloud.de/projects/corpus-musicae-ottomanicae-cmo-public-wiki/" target="_blank">Projekt-Wiki</a> wird kontinuierlich verbessert und erweitert.</p>
+</div></body></section><meta><log lastEditor="wsumits" date="2026-06-02" time="15:54" /></meta></MyCoReWebPage>

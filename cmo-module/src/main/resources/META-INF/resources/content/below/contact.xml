@@ -1,20 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE MyCoReWebPage>
-<MyCoReWebPage>
-  <section xml:lang="all" title="Contact">
-    <h1>Contact</h1>
-    <p>
-      Corpus Musicae Ottomanicae <br />
-      Westfälische Wilhelms-Universität Münster <br />
-      Philippistr. 3 <br />
-      48149 Münster <br />
-      Tel.: +49-(0)251-83-24111 <br />
-      Fax: +49-(0)251-83-24450 <br />
-      Email: <span class="madress">cmo [at] uni-muenster.de</span><br />
-      Project management: <span class="madress">ralf.jaeger [at] uni-muenster.de</span>
-    </p>
-  </section>
-  <meta>
-    <log date="2017-01-30" time="11:59" labelPath=" » Contact" lastEditor="Kathleen Neumann" />
-  </meta>
-</MyCoReWebPage>
+<MyCoReWebPage><section xml:lang="all" title="Contact"><h1>Contact</h1><p>Corpus Musicae Ottomanicae <br />Universität Münster <br />Domplatz 6 <br />48143 Münster <br />Tel.: +49-(0)251-83-24111 <br />Fax: +49-(0)251-83-24450 <br />Email: <span class="madress"><a href="mailto:cmo@uni-muenster.de">cmo@uni-muenster.de</a> </span><br />Project management: <span class="madress"><a href="mailto:ralf.jaeger@uni-muenster.de">ralf.jaeger@uni-muenster.de</a> </span></p></section><meta><log lastEditor="ntahtaisleyen" date="2026-03-04" time="16:25" /></meta></MyCoReWebPage>

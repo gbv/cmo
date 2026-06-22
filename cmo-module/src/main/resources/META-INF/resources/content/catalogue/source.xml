@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage><section xml:lang="de" title="Art der Quelle"><div class="row">
+<div class="col-md-8" lang="de">
+<h3><i18n key="cmo.browse.source" /></h3>
+<classificationbrowser addclassid="true" addparameter="XSL.template=template_cmo" classification="cmo_sourceType" countresults="true" emptyleaves="true" field="category.top" style="bootstrap-cmo"> </classificationbrowser></div>
+</div>
+</section><section xml:lang="tr" title="Kaynak türü"><p><strong><span style="font-size:14px;"><a href="https://corpus-musicae-ottomanicae.de/content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">CMO Kaynak Kataloğu'ndakı tüm kaynakları göz at</a></span></strong></p>
 
-<MyCoReWebPage>
+<p> </p>
 
-  <section i18n="cmo.browse.source" xml:lang="all">
+<p><strong><span style="font-size:14px;"><u>Farklı kaynak türlerine göre göz at:</u></span></strong></p>
 
-    <div class="row">
-      <div class="col-md-8" lang="de">
-        <h3><i18n key="cmo.browse.source" /></h3>
-        <classificationbrowser classification="cmo_sourceType"
-                                        field="category.top"
-                                 countresults="true"
-                                   addclassid="true"
-                                  emptyleaves="true"
-                                        style="bootstrap-cmo"
-                                 addParameter="XSL.template=template_cmo"
-        />
-      </div>
-    </div>
-  </section>
+<p><strong><span style="font-size:14px;"><a href="https://corpus-musicae-ottomanicae.de/content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20category.top%3A%22cmo_sourceType%3APrinted_source%22&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Basılı kaynaklar</a></span></strong></p>
 
-</MyCoReWebPage>
+<p><strong><span style="font-size:14px;"><a href="https://corpus-musicae-ottomanicae.de/content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20category.top%3A%22cmo_sourceType%3AManuscript%22&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Yazma kaynaklar</a></span></strong></p>
+
+<p><strong><span style="font-size:14px;"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_person_00000600#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20hasFiles%3Atrue&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Notasyonların resimlerini içeren kaynaklar</a></span></strong></p>
+
+<p><strong><span style="font-size:14px;"><a href="https://corpus-musicae-ottomanicae.de/content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Amods&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Bibliyografik maddeler</a></span></strong></p>
+</section><section xml:lang="en" title="Source"><p><strong style="font-size: 14px;"><a href="https://corpus-musicae-ottomanicae.de/content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Browse all sources in the CMO Source Catalog</a></strong></p>
+
+<p> </p>
+
+<p><u><span style="font-size:14px;"><strong>Browse by different source types:</strong></span></u></p>
+
+<p><span style="font-size:14px;"><strong><a href="https://corpus-musicae-ottomanicae.de/content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20category.top%3A%22cmo_sourceType%3APrinted_source%22&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Print sources</a></strong></span></p>
+
+<p><span style="font-size:14px;"><strong><a href="https://corpus-musicae-ottomanicae.de/content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20category.top%3A%22cmo_sourceType%3AManuscript%22&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Manuscript sources</a></strong></span></p>
+
+<p><span style="font-size:14px;"><strong><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_person_00000600#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20hasFiles%3Atrue&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Sources that include images of notations</a></strong></span></p>
+
+<p><span style="font-size:14px;"><strong><a href="https://corpus-musicae-ottomanicae.de/content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Amods&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Bibliographic and secondary sources</a></strong></span></p>
+</section><meta><log lastEditor="wsumits" date="2024-11-04" time="16:11" /></meta></MyCoReWebPage>

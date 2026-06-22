@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE MyCoReWebPage>
-<MyCoReWebPage>
-  <section xml:lang="all" title="Source Catalogue">
-    <div class="row">
-      <div class="col-md-12">
-        <h1>Source Catalogue</h1>
-        <p>
-          The online database CMO Source Catalogue is based on the sources used for the critical edition
-          of the music pieces and song texts to find concordances, which serve as a reference and basis
-          to compare different versions of a work. It provides access to the metadata of numerous printed,
-          manuscript and online sources, works included in these sources, as well as basic biographical
-          information on their composers and lyricists. Additionally, it contains metadata of bibliographical
-          sources used as references for the edition and the catalogue itself. The metadata of CMO editions
-          incorporated into the catalogue enables the user to access critical editions through the original
-          sources they are based on. 
-        </p>
-        <p>
-          Users can browse the contents of the catalogue through various indexes on the left side pane, or
-          use the search field above to search for specific contents. Detailed information on how to use
-          the different functions are provided in the <u>user guide</u>.
-        </p>
-      </div>
-    </div>
-  </section>
-  <meta>
-    <log date="2017-07-31" time="11:59" labelPath=" » Source Catalogue" lastEditor="Kathleen Neumann" />
-  </meta>
-</MyCoReWebPage>
+<MyCoReWebPage><section xml:lang="en" title="About"><div class="row">
+<div class="col-md-12">
+<h1>About the Source Catalogue</h1>
+
+<p>The online database CMO Source Catalogue is based on the sources used for the critical edition of the music pieces and song texts to find concordances, which serve as a reference and basis to compare different versions of a work. It provides access to the metadata of numerous printed, manuscript and online sources, works included in these sources, as well as basic biographical information on their composers and lyricists. Additionally, it contains metadata of bibliographical sources used as references for the edition and the catalogue itself. The metadata of CMO editions incorporated into the catalogue enables the user to access critical editions through the original sources they are based on.</p>
+
+<p>Users can browse the contents of the catalogue through various indexes on the left side panel, or use the search field above to search for specific contents. Detailed information on how to use the different functions are provided in the user guide.</p>
+</div>
+</div>
+</section><section xml:lang="tr" title="Hakkında"><div>
+<h1>Kaynak Kataloğu Hakkında</h1>
+
+<p>CMO Kaynak Kataloğu, yazmalarda yer alan beste ve güftelerin edisyonu sırasında her bir eserin farklı versiyonlarını karşılaştırmak için ve referans olarak kullanılan kaynaklara dayanan bir çevrimiçi veri bankası. Katalog, pek çok basılı, el yazması ve çevrimiçi kaynağa ait üst verilerin yanı sıra, bu kaynaklarda yer alan eserlerin bilgileri ile, adı geçen besteci ve güfte yazarlarına ait temel biyografik bilgilere de erişim sağlıyor. Edisyon ve kataloğun hazırlanmasında yararlanan kaynaklara ilişkin üst veriler de katalogda yer alıyor. CMO edisyonlarına ait üst verilerin de kataloğa kaydedilmesi sayesinde kullanıcılar, edisyonu yapılan orijinal yazma eserler üzerinden de edisyonlara erişebiliyor.</p>
+
+<p>Kaynak kataloğunun içeriğine sayfanın sol tarafında bulunan dizinler üzerinden göz atabilir, ya da belirli içerikleri aramak için yukarıdaki ilgili arama kutusunu kullanabilirsiniz. Tarama ve arama işlevlerinin ayrıntıları kullanım kılavuzunda açıklanmıştır.</p>
+</div></section><section xml:lang="de" title="Über"><div>
+<h1>Über den Quellenkatalog</h1>
+
+<p>CMO Quellenkatalog ist basiert auf die bei dem Editionsprozess verwendeten Quellen. Konkordanzen aus dieser Quellen dienen zum Vergleich unterschiedlicher Varianten von einzelnen Musikwerken und Liedtexten. Der Quellenkatalog stellt Metadaten von zahlreichen gedruckten, handschriftlichen und online Quellen, in diesen Quellen beinhalteten einzelnen Werken, und die Lebensdaten von entsprechenden Komponisten und Dichter zur Verfügung. Zudem enthält die Datenbank Metadaten von während der Vorbereitung der Edition oder des Quellenkatalogs verwendeten bibliographischen Quellen. In den Quellenkatalog integrierten Metadaten der CMO Editionen ermöglichen einen Zugriff auf die Editionen über die originalen handschriftlichen Quellen, auf die sie basieren.</p>
+
+<p>Inhalte des Quellenkatalogs können über die Indizes auf der linken Seite durchgeblättert werden. Um nach spezifischen Inhalten zu suchen, kann das entsprechende Suchfeld oben verwendet werden. Ausführliche Informationen über die unterschiedlichen Funktionen dieser Plattform finden Sie unter Nutzerhandbuch.</p>
+</div></section><meta><log lastEditor="zhelvaci" date="2019-09-03" time="07:47" /></meta></MyCoReWebPage>
