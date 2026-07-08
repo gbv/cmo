@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_timeSignature">
+  <label xml:lang="de" text="Taktangabe" />
+  <label xml:lang="x-uri" text="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_timeSignature" />
+  <label xml:lang="en" text="Time Signature" />
+  <categories>
+    <category ID="2_4">
+      <label xml:lang="de" text="2/4" />
+      <label xml:lang="en" text="2/4" />
+    </category>
+    <category ID="2_8">
+      <label xml:lang="de" text="2/8" />
+      <label xml:lang="en" text="2/8" />
+    </category>
+    <category ID="2_2">
+      <label xml:lang="de" text="2/2" />
+      <label xml:lang="en" text="2/2" />
+    </category>
+    <category ID="2_16">
+      <label xml:lang="de" text="2/16" />
+      <label xml:lang="en" text="2/16" />
+    </category>
+    <category ID="3_4">
+      <label xml:lang="de" text="3/4" />
+      <label xml:lang="en" text="3/4" />
+    </category>
+    <category ID="3_8">
+      <label xml:lang="de" text="3/8" />
+      <label xml:lang="en" text="3/8" />
+    </category>
+    <category ID="3_2">
+      <label xml:lang="de" text="3/2" />
+      <label xml:lang="en" text="3/2" />
+    </category>
+    <category ID="3_16">
+      <label xml:lang="de" text="3/16" />
+      <label xml:lang="en" text="3/16" />
+    </category>
+    <category ID="4_4">
+      <label xml:lang="de" text="4/4" />
+      <label xml:lang="en" text="4/4" />
+    </category>
+    <category ID="4_8">
+      <label xml:lang="de" text="4/8" />
+      <label xml:lang="en" text="4/8" />
+    </category>
+    <category ID="4_2">
+      <label xml:lang="de" text="4/2" />
+      <label xml:lang="en" text="4/2" />
+    </category>
+    <category ID="4_16">
+      <label xml:lang="de" text="4/16" />
+      <label xml:lang="en" text="4/16" />
+    </category>
+    <category ID="6_8">
+      <label xml:lang="de" text="6/8" />
+      <label xml:lang="en" text="6/8" />
+    </category>
+    <category ID="6_4">
+      <label xml:lang="de" text="6/4" />
+      <label xml:lang="en" text="6/4" />
+    </category>
+    <category ID="9_8">
+      <label xml:lang="de" text="9/8" />
+      <label xml:lang="en" text="9/8" />
+    </category>
+    <category ID="9_4">
+      <label xml:lang="de" text="9/4" />
+      <label xml:lang="en" text="9/4" />
+    </category>
+  </categories>
+</mycoreclass>
