@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_vezinler">
+  <label xml:lang="de" text="Vezin"/>
+  <label xml:lang="en" text="Vezin"/>
+  <label xml:lang="x-uri" text="http://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_vezinler"/>
+  <categories>
+    <category ID="Cedid_1">
+      <label xml:lang="tr" text="Cedîd 1"/>
+    </category>
+    <category ID="Hezec_1">
+      <label xml:lang="tr" text="Hezec 1"/>
+    </category>
+    <category ID="Hezec_2">
+      <label xml:lang="tr" text="Hezec 2"/>
+    </category>
+    <category ID="Hezec_3">
+      <label xml:lang="tr" text="Hezec 3"/>
+    </category>
+    <category ID="Hezec_4">
+      <label xml:lang="tr" text="Hezec 4"/>
+    </category>
+    <category ID="Hecez_5">
+      <label xml:lang="tr" text="Hecez 5"/>
+    </category>
+    <category ID="Hezec_6">
+      <label xml:lang="tr" text="Hezec 6"/>
+    </category>
+    <category ID="Hezec_7">
+      <label xml:lang="tr" text="Hezec 7"/>
+    </category>
+    <category ID="Hezec_8">
+      <label xml:lang="tr" text="Hezec 8"/>
+    </category>
+    <category ID="Hezec_Ahreb_1_Rubai_Meter">
+      <label xml:lang="tr" text="Hezec (Ahreb) 1 (Rubâî Meter)"/>
+    </category>
+    <category ID="Hezec_Ahreb_2_Rubai_Meter">
+      <label xml:lang="tr" text="Hezec (Ahreb) 2 (Rubâî Meter)"/>
+    </category>
+    <category ID="Hezec_Ahreb_3_Rubai_Meter">
+      <label xml:lang="tr" text="Hezec (Ahreb) 3 (Rubâî Meter)"/>
+    </category>
+    <category ID="Hezec_Ahreb_4_Rubai_Meter">
+      <label xml:lang="tr" text="Hezec (Ahreb) 4 (Rubâî Meter)"/>
+    </category>
+    <category ID="Hezec_Ahreb_5_Rubai_Meter">
+      <label xml:lang="tr" text="Hezec (Ahreb) 5 (Rubâî Meter)"/>
+    </category>
+    <category ID="Hezec_Ahreb_6_Rubai_Meter">
+      <label xml:lang="tr" text="Hezec (Ahreb) 6 (Rubâî Meter)"/>
+    </category>
+    <category ID="Hezec_Ahrem_1_Rubai_Meter">
+      <label xml:lang="tr" text="Hezec (Ahrem) 1 (Rubâî Meter)"/>
+    </category>
+    <category ID="Hezec_Ahrem_2_Rubai_Meter">
+      <label xml:lang="tr" text="Hezec (Ahrem) 2 (Rubâî Meter)"/>
+    </category>
+    <category ID="Hezec_Ahrem_3_Rubai_Meter">
+      <label xml:lang="tr" text="Hezec (Ahrem) 3 (Rubâî Meter)"/>
+    </category>
+    <category ID="Hezec_Ahrem_4_Rubai_Meter">
+      <label xml:lang="tr" text="Hezec (Ahrem) 4 (Rubâî Meter)"/>
+    </category>
+    <category ID="Kamil_1">
+      <label xml:lang="tr" text="Kâmil 1"/>
+    </category>
+    <category ID="Muzari_1">
+      <label xml:lang="tr" text="Muzâri 1"/>
+    </category>
+    <category ID="Muzari_2">
+      <label xml:lang="tr" text="Muzâri 2"/>
+    </category>
+    <category ID="Muzari_3">
+      <label xml:lang="tr" text="Muzâri 3"/>
+    </category>
+    <category ID="Muctes_1">
+      <label xml:lang="tr" text="Müctes 1"/>
+    </category>
+    <category ID="Munserih_1">
+      <label xml:lang="tr" text="Münserih 1"/>
+    </category>
+    <category ID="Munserih_2">
+      <label xml:lang="tr" text="Münserih 2"/>
+    </category>
+    <category ID="Recez_1">
+      <label xml:lang="tr" text="Recez 1"/>
+    </category>
+    <category ID="Recez_2">
+      <label xml:lang="tr" text="Recez 2"/>
+    </category>
+    <category ID="Recez_3">
+      <label xml:lang="tr" text="Recez 3"/>
+    </category>
+    <category ID="Remel_1">
+      <label xml:lang="tr" text="Remel 1"/>
+    </category>
+    <category ID="Remel_2">
+      <label xml:lang="tr" text="Remel 2"/>
+    </category>
+    <category ID="Remel_3">
+      <label xml:lang="tr" text="Remel 3"/>
+    </category>
+    <category ID="Seri_1">
+      <label xml:lang="tr" text="Serî 1"/>
+    </category>
+  </categories>
+</mycoreclass>
