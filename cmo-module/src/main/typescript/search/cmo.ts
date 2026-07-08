@@ -111,11 +111,14 @@ window.addEventListener('load', () => {
     };
 
     window.document.body.addEventListener("click", (evt: any) => {
-        if (eSearch.isExtendedSearchOpen() && evt.path.indexOf(eContainer) == -1) {
+        // evt.path is a non-standard, Chrome-only legacy property (undefined in Firefox);
+        // composedPath() is the standard equivalent
+        const path = typeof evt.composedPath === "function" ? evt.composedPath() : (evt.path || []);
+        if (eSearch.isExtendedSearchOpen() && path.indexOf(eContainer) == -1) {
             eSearch.openExtendedSearch(false);
         }
 
-        if (kSearch.isExtendedSearchOpen() && evt.path.indexOf(kContainer) == -1) {
+        if (kSearch.isExtendedSearchOpen() && path.indexOf(kContainer) == -1) {
             kSearch.openExtendedSearch(false);
         }
     });
@@ -138,6 +141,7 @@ window.addEventListener('load', () => {
                 baseQuery: ["objectType:mods", "-complex:*"],
                 fields: [
                     new ClassificationSearchField("category.top", "diniPublType"),
+                    new ClassificationSearchField("category.top", "cmo_vezinler"),
                     new SearchField("editor.label.title", ["mods.title", "mods.title.main", "mods.title.subtitle"]),
                     new SearchField("editor.label.name", ["mods.nameIdentifier", "mods.name"])
 
@@ -152,6 +156,7 @@ window.addEventListener('load', () => {
                     new SearchField("editor.label.publisher", ["mods.publisher"]),
                     new ClassificationSearchField("category.top", "DDC"),
                     new ClassificationSearchField("category.top", "diniPublType"),
+                    new ClassificationSearchField("category.top", "cmo_vezinler"),
                     new DateSearchField("editor.legend.pubDate", ["mods.dateIssued.range", "mods.dateIssued.host.range"]),
                 ]
             }
