@@ -422,6 +422,32 @@
               </a>
             </li>
           </xsl:if>
+          <xsl:if test="key('rights', $deriv)/@write">
+            <li class="dropdown-header">
+              <xsl:variable name="typeClassLabels"
+                select="document('classification:metadata:0:children:derivate_types')/mycoreclass/label" />
+              <xsl:choose>
+                <xsl:when test="$typeClassLabels[@xml:lang=$CurrentLang]">
+                  <xsl:value-of select="$typeClassLabels[@xml:lang=$CurrentLang]/@text" />
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="$typeClassLabels[@xml:lang='en']/@text" />
+                </xsl:otherwise>
+              </xsl:choose>
+            </li>
+            <xsl:variable name="currentType"
+              select="$derivate/mycorederivate/derivate/classifications/classification[@classid='derivate_types']/@categid" />
+            <xsl:call-template name="derivateTypeMenuItem">
+              <xsl:with-param name="deriv" select="$deriv" />
+              <xsl:with-param name="typeId" select="'content'" />
+              <xsl:with-param name="currentType" select="$currentType" />
+            </xsl:call-template>
+            <xsl:call-template name="derivateTypeMenuItem">
+              <xsl:with-param name="deriv" select="$deriv" />
+              <xsl:with-param name="typeId" select="'edition_tei'" />
+              <xsl:with-param name="currentType" select="$currentType" />
+            </xsl:call-template>
+          </xsl:if>
           <xsl:if test="key('rights', $deriv)/@read">
             <li class="dropdown-item">
               <a href="{$ServletsBaseURL}MCRZipServlet/{$deriv}" class="option dropdown-link">
@@ -439,6 +465,39 @@
         </ul>
       </div>
     </div>
+  </xsl:template>
+
+  <!-- Renders one entry of the derivate type selector. Marks the currently set type with a check icon. -->
+  <xsl:template name="derivateTypeMenuItem">
+    <xsl:param name="deriv" />
+    <xsl:param name="typeId" />
+    <xsl:param name="currentType" />
+    <li class="dropdown-item">
+      <a href="{$WebApplicationBaseURL}rsc/cmo/derivate/{$deriv}/set-type/{$typeId}" class="option dropdown-link">
+        <xsl:choose>
+          <xsl:when test="$currentType = $typeId">
+            <span class="fas fa-check"></span>
+          </xsl:when>
+          <xsl:otherwise>
+            <span class="fas fa-fw"></span>
+          </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text> </xsl:text>
+        <xsl:variable name="typeCategory"
+          select="document(concat('classification:metadata:0:children:derivate_types:', $typeId))//category[@ID=$typeId]" />
+        <xsl:choose>
+          <xsl:when test="$typeCategory/label[@xml:lang=$CurrentLang]">
+            <xsl:value-of select="$typeCategory/label[@xml:lang=$CurrentLang]/@text" />
+          </xsl:when>
+          <xsl:when test="$typeCategory/label[@xml:lang='en']">
+            <xsl:value-of select="$typeCategory/label[@xml:lang='en']/@text" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$typeId" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </a>
+    </li>
   </xsl:template>
 
 

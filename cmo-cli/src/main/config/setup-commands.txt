@@ -1,4 +1,5 @@
 update all classifications from directory ${app.home}/config/classifications
+update classification from file ${app.home}/config/classifications/derivate_types.xml
 update classification from url https://mycore.de/classifications/diniPublType.xml
 update classification from url https://mycore.de/classifications/state.xml
 update classification from url https://mycore.de/classifications/mcr-roles.xml
