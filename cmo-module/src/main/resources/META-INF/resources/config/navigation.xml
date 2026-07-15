@@ -132,6 +132,10 @@
       <label xml:lang="de">Tutorials</label>
       <label xml:lang="en">Tutorials</label>
     </item>
+    <item href="/content/help/project_guidelines.xml" type="intern">
+      <label xml:lang="de">Projektrichtlinien</label>
+      <label xml:lang="en">Project Guidelines</label>
+    </item>
   </menu>
   <menu id="cmo_publish" dir="/content/publish">
     <!-- work with content menu  -->
