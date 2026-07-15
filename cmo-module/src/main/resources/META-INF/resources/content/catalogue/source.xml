@@ -4,20 +4,12 @@
 <MyCoReWebPage>
 
   <section i18n="cmo.browse.source" xml:lang="de">
-
-    <div class="row">
-      <div class="col-md-8" lang="de">
-        <h3><i18n key="cmo.browse.source" /></h3>
-        <classificationbrowser classification="cmo_sourceType"
-                                        field="category.top"
-                                 countresults="true"
-                                   addclassid="true"
-                                  emptyleaves="true"
-                                        style="bootstrap-cmo"
-                                 addParameter="XSL.template=template_cmo"
-        />
-      </div>
-    </div>
+    <p><strong><a href="https://corpus-musicae-ottomanicae.de/content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Alle Quellen im CMO-Quellenkatalog durchblättern</a></strong></p>
+    <p><strong><u>Nach verschiedenen Quellentypen blättern:</u></strong></p>
+    <p><strong><a href="https://corpus-musicae-ottomanicae.de/content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20category.top%3A%22cmo_sourceType%3APrinted_source%22&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Gedruckte Quellen</a></strong></p>
+    <p><strong><a href="https://corpus-musicae-ottomanicae.de/content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20category.top%3A%22cmo_sourceType%3AManuscript%22&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Handschriftliche Quellen</a></strong></p>
+    <p><strong><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_person_00000600#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20hasFiles%3Atrue&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Quellen mit Notenabbildungen</a></strong></p>
+    <p><strong><a href="https://corpus-musicae-ottomanicae.de/content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Amods&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Bibliografische und Sekundärquellen</a></strong></p>
   </section>
 
   <section i18n="cmo.browse.source" xml:lang="tr">
