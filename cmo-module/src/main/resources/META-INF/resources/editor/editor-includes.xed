@@ -346,14 +346,20 @@
   </xed:template>
 
   <xed:template id="cmo_notationType">
-    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_notationType']"
-                              label="editor.search.notationType"
+    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_notationType']" repeat="true" min="1"
+                              max="10" label="editor.search.notationType"
                               classification="cmo_notationType" help-text="{i18n:cmo.help.notationType}" />
   </xed:template>
 
   <xed:template id="cmo_tempo">
     <cmo:selectClassification xpath="mei:tempo" label="editor.label.tempo" classification="cmo_tempo"
                               help-text="{i18n:cmo.help.tempo}" />
+  </xed:template>
+
+  <xed:template id="cmo_timeSignature">
+    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_timeSignature']" repeat="true" min="1"
+                              max="10" label="editor.label.timeSignature"
+                              classification="cmo_timeSignature" help-text="{i18n:cmo.help.timeSignature}" />
   </xed:template>
 
   <xed:template id="cmo_usuler">

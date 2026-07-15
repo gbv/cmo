@@ -8,9 +8,11 @@ import org.junit.Test;
 
 public class MEIWorkCodedvalMigratorTest extends MEIMigratorTestBase {
 
+    private static final String BASE_URL = "https://127.0.0.1/";
+
     @Override protected Map<String, String> getTestProperties() {
         final Map<String, String> testProperties = super.getTestProperties();
-        testProperties.put("MCR.baseurl","https://corpus-musicae-ottomanicae.de/");
+        testProperties.put("MCR.baseurl", BASE_URL);
         return testProperties;
     }
 

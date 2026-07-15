@@ -587,6 +587,7 @@
   <field name="cmo_usuler" type="string" multiValued="true" />
   <field name="cmo_makamler" type="string" multiValued="true" />
   <field name="cmo_musictype" type="string" multiValued="true" />
+  <field name="cmo_timeSignature" type="string" multiValued="true" />
 
   <!-- extra fields for basket and export -->
   <field name="expression.work.number" type="string" stored="true" multiValued="true" />

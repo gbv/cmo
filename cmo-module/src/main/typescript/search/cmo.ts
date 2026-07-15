@@ -46,6 +46,10 @@ window.addEventListener('load', () => {
         {
             field: "cmo_musictype",
             type: "class"
+        },
+        {
+            field: "cmo_timeSignature",
+            type: "class"
         });
 
     const eSearchBaseQuery = "category.top:\"cmo_kindOfData:edition\"";
@@ -111,11 +115,14 @@ window.addEventListener('load', () => {
     };
 
     window.document.body.addEventListener("click", (evt: any) => {
-        if (eSearch.isExtendedSearchOpen() && evt.path.indexOf(eContainer) == -1) {
+        // evt.path is a non-standard, Chrome-only legacy property (undefined in Firefox);
+        // composedPath() is the standard equivalent
+        const path = typeof evt.composedPath === "function" ? evt.composedPath() : (evt.path || []);
+        if (eSearch.isExtendedSearchOpen() && path.indexOf(eContainer) == -1) {
             eSearch.openExtendedSearch(false);
         }
 
-        if (kSearch.isExtendedSearchOpen() && evt.path.indexOf(kContainer) == -1) {
+        if (kSearch.isExtendedSearchOpen() && path.indexOf(kContainer) == -1) {
             kSearch.openExtendedSearch(false);
         }
     });
@@ -138,6 +145,7 @@ window.addEventListener('load', () => {
                 baseQuery: ["objectType:mods", "-complex:*"],
                 fields: [
                     new ClassificationSearchField("category.top", "diniPublType"),
+                    new ClassificationSearchField("category.top", "cmo_vezinler"),
                     new SearchField("editor.label.title", ["mods.title", "mods.title.main", "mods.title.subtitle"]),
                     new SearchField("editor.label.name", ["mods.nameIdentifier", "mods.name"])
 
@@ -152,6 +160,7 @@ window.addEventListener('load', () => {
                     new SearchField("editor.label.publisher", ["mods.publisher"]),
                     new ClassificationSearchField("category.top", "DDC"),
                     new ClassificationSearchField("category.top", "diniPublType"),
+                    new ClassificationSearchField("category.top", "cmo_vezinler"),
                     new DateSearchField("editor.legend.pubDate", ["mods.dateIssued.range", "mods.dateIssued.host.range"]),
                 ]
             }
@@ -168,6 +177,7 @@ window.addEventListener('load', () => {
                     new ClassificationSearchField("category.top", "cmo_musictype"),
                     new ClassificationSearchField("category.top", "cmo_makamler", 1),
                     new ClassificationSearchField("category.top", "cmo_usuler", 1),
+                    new ClassificationSearchField("category.top", "cmo_timeSignature"),
                     new SearchField("editor.label.incip", ["incip"])],
             }
             ,
@@ -181,6 +191,7 @@ window.addEventListener('load', () => {
                     new ClassificationSearchField("category.top", "cmo_musictype"),
                     new ClassificationSearchField("category.top", "cmo_makamler", 1),
                     new ClassificationSearchField("category.top", "cmo_usuler", 1),
+                    new ClassificationSearchField("category.top", "cmo_timeSignature"),
                     new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_sourceType"),
                     new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_notationType"),
                     new DateSearchField("editor.label.publishingDate", ["{!join from=reference to=id}publish.date.range"]),
@@ -248,6 +259,7 @@ window.addEventListener('load', () => {
                     new ClassificationSearchField("category.top", "cmo_litform"),
                     new ClassificationSearchField("category.top", "cmo_makamler", 1),
                     new ClassificationSearchField("category.top", "cmo_usuler", 1),
+                    new ClassificationSearchField("category.top", "cmo_timeSignature"),
                     new SearchField("editor.label.lyricist", ["{!join from=id to=lyricist.ref.pure}name"]),
                     new DateSearchField("editor.label.lifeData", ["{!join from=id to=lyricist.ref.pure}date.range"]),
                     new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_sourceType"),

@@ -113,6 +113,28 @@
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="mods:classification[@displayLabel='cmo_vezinler']" mode="metadataView">
+    <xsl:call-template name="metadataLabelContent">
+      <xsl:with-param name="label" select="'editor.label.mods.vezin'" />
+      <xsl:with-param name="content">
+        <xsl:variable name="vezin">
+          <xsl:value-of select="substring-after(@valueURI, '#')" />
+        </xsl:variable>
+        <xsl:variable name="category"
+                      select="document(concat('classification:metadata:0:children:cmo_vezinler:', $vezin))//category" />
+        <!-- Vezin categories only carry a 'tr' label (transliterated names), fall back to it when the current language is missing -->
+        <xsl:choose>
+          <xsl:when test="$category/label[@xml:lang=$CurrentLang]">
+            <xsl:value-of select="$category/label[@xml:lang=$CurrentLang]/@text" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$category/label[@xml:lang='tr']/@text" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+
   <xsl:template match="mods:originInfo[@eventType='publication']/mods:publisher" mode="metadataView">
     <xsl:call-template name="metadataLabelContent">
       <xsl:with-param name="label" select="'editor.label.publisher'" />
