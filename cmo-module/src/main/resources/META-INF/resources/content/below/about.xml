@@ -1,30 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE MyCoReWebPage>
 <MyCoReWebPage>
-  <section xml:lang="de" title="About">
-    <h1>About</h1>
+  <section xml:lang="de" title="Über uns">
+    <h1>Über uns</h1>
     <p>
-      german version is coming soon
+      Das Ziel der CMO Editionen sind, in der ersten Linie, der Forschung ebenso wie der historischen
+      Aufführungspraxis das heute bekannte Korpus historischer Transkriptionen osmanischer Kunstmusik, wie diese im
+      19. Jahrhundert aufgezeichnet worden sind, in größtmöglicher Nähe zu den Originalquellen zur Verfügung zu
+      stellen. Auch die den Vokalwerken unterlegten Texte werden erstmalig nicht nach reinen Textanthologien, sondern
+      in ihren Aufführungsvarianten, der originalen Orthographie und Bearbeitung möglichst treu herausgegeben.
+    </p>
+    <p>
+      Musikeditionen werden vollständig digitalisiert. Hierfür erfolgt vorab die Eingabe der Notentexte entsprechend
+      aller Vorgaben vorderorientalischer und ostmediterraner Musiken ohne Informationsverlust. Musik- und
+      Texteditionen werden in mehreren Formaten digital gespeichert, so dass dıe Editionen erstens in graphischer und
+      damit menschenlesbarer, zweitens in semantischer und damit maschinell verarbeitbarer Form vorliegen. Editionen
+      der einzelnen Handschriften werden zudem als Book-on-Demand-Ausgaben erhältlich sein. Außerdem werden der
+      Metadaten zu den Manuskripten sowie den Editionen in CMO Quellenkatalog eingegeben.
+    </p>
+    <p>
+      CMO Quellenkatalog ist basiert auf die bei dem Editionsprozess verwendeten Quellen. Konkordanzen aus dieser
+      Quellen dienen zum Vergleich unterschiedlicher Varianten von einzelnen Musikwerken und Liedtexten. Der
+      Quellenkatalog stellt Metadaten von zahlreichen gedruckten, handschriftlichen und online Quellen, in diesen
+      Quellen beinhalteten einzelnen Werken, und die Lebensdaten von entsprechenden Komponisten und Dichter zur
+      Verfügung. Zudem enthält die Datenbank Metadaten von während der Vorbereitung der Edition oder des
+      Quellenkatalogs verwendeten bibliographischen Quellen. In den Quellenkatalog integrierten Metadaten der CMO
+      Editionen ermöglichen einen Zugriff auf die Editionen über die originalen handschriftlichen Quellen, auf die
+      sie basieren.
+    </p>
+    <p>
+      Auf diese Plattform haben die Nutzern die Möglichkeit, die Editionen dem Veröffentlichungsplan entsprechend
+      durchzublättern oder durch den Suchfeld oben nach spezifischen Editionen und deren Inhalten zu suchen. Die
+      Editionsrichtlinien erklären die Methoden der Transkription und enthalten somit notwendige Informationen, um
+      redaktionelle Entscheidungen nachvollziehen zu können. Das Abkürzungsverzeichnis dient zum besseren Verständnis
+      der Transkriptionen sowie kritischen Kommentare.
+    </p>
+    <p>
+      Inhalte des Quellenkatalogs können über die Indizes auf der linken Seite durchgeblättert werden. Um nach
+      spezifischen Inhalten zu suchen, kann das entsprechende Suchfeld oben verwendet werden.
+    </p>
+    <p>
+      Ausführliche Informationen über die unterschiedlichen Funktionen dieser Plattform finden Sie unter
+      Nutzerhandbuch.
     </p>
   </section>
 
   <section xml:lang="en" title="About">
     <h1>About</h1>
     <p>
-      Includes general information on the project, partner institutions, the
-      contents of the website, and a link to the <a
-      href="https://www.uni-muenster.de/CMO-Edition/">CMO homepage</a> on the
-      university website (available in three languages).
+      The CMO edition aims to provide, firstly, historically and textually accurate transcriptions of the available
+      repertoire of Ottoman music as it was documented during the nineteenth century. These transcriptions, which
+      reflect the original sources as closely as possible, will be made freely available to scholars as well as to
+      musicians interested in historical performance practice. Secondly, the CMO project will publish critically
+      edited texts from the corpus of Ottoman vocal music, following as faithfully as possible the original
+      arrangement and orthography of the music manuscript sources, thus provide unique documentation of Ottoman
+      poetry in its performative aspect.
+    </p>
+    <p>
+      Musical transcriptions will be fully digitized, taking into account the special notational requirements of the
+      musics of the Middle East and eastern Mediterranean. Both music and text editions will be stored in a variety
+      of formats in order to provide access to the edition in both graphic (human readable) and semantic (machine
+      readable) forms. Printed editions of single manuscripts will also be available as book-on-demand publications.
+      Additionally, metadata for the manuscripts and the editions will be entered into the CMO source catalogue.
+    </p>
+    <p>
+      The online database CMO Source Catalogue is based on the sources used for the critical edition of the music
+      pieces and song texts to find concordances, which serve as a reference and basis to compare different versions
+      of a work. It provides access to the metadata of numerous printed, manuscript and online sources, works
+      included in these sources, as well as basic biographical information on their composers and lyricists.
+      Additionally, it contains metadata of bibliographical sources used as references for the edition and the
+      catalogue itself. The metadata of CMO editions incorporated into the catalogue enables the user to access
+      critical editions through the original sources they are based on.
+    </p>
+    <p>
+      On this platform, users can explore the edition according to the publication plan through the browsing
+      function, or use the search field above to search for specific editions and their contents. The guidelines
+      explain the methods of transcription and provide the necessary information to comprehend editorial decisions.
+      See also the list of abbreviations for a better understanding of the transcriptions and critical commentaries.
+    </p>
+    <p>
+      You can also browse the contents of the catalogue through various indexes on the left side pane, or use the
+      search field above to search for specific contents.
+    </p>
+    <p>
+      User guide gives detailed information on how to use the different functions on this web platform.
     </p>
   </section>
 
-  <section xml:lang="tr" title="About">
-    <h1>About</h1>
+  <section xml:lang="tr" title="Hakkımızda">
+    <h1>Hakkımızda</h1>
     <p>
-      turkish version is coming soon
+      CMO projesi öncelikle Osmanlı sanat müziğinin bilinen literatürünün, 19. yüzyılda yazıya geçirildiği haliyle ve
+      özgün kaynaklara mümkün olan en yakın biçimiyle, hem gelecek araştırmalar hem de tarihsel icra için erişilebilir
+      hale getirilmesini hedeflemektedir. Söz konusu el yazmalarında yer alan güftelerin edisyonları da, yine orijinal
+      yazım ve düzenlenme biçimlerine olabildiğince sadık kalarak gerçekleştirilerek, ilk kez sadece metin içeren şiir
+      antolojilerine göre değil, icra edildikleri biçimleriyle yayınlanmış olacak.
+    </p>
+    <p>
+      Müzik transkripsiyonları, Yakındoğu ve Doğu Akdeniz müziklerinin özgün niteliklerini dikkate alan bir yöntemle
+      tamamen dijitalleştirilecek. Müzik ve güfte edisyonları grafik ve semantik formatlarda kaydedilerek hem insan
+      tarafından okunabilir hem de bilgisayar tarafından okunabilir ve işlenebilir biçimleri ile kullanıma sunulacak.
+      Her bir yazmanın edisyonu ayrıca “talep üzerine basım” sistemi ile basılı olarak da edinilebilecek. Ayrıca, hem
+      yazma eserlere hem de edisyonlara ilişkin üst veriler CMO Kaynak Kataloğu’na girilecek.
+    </p>
+    <p>
+      CMO Kaynak Kataloğu, yazmalarda yer alan beste ve güftelerin edisyonu sırasında her bir eserin farklı
+      versiyonlarını karşılaştırmak için ve referans olarak kullanılan kaynaklara dayanan bir çevrimiçi veri bankası.
+      Katalog, pek çok basılı, el yazması ve çevrimiçi kaynağa ait üst verilerin yanı sıra, bu kaynaklarda yer alan
+      eserlerin bilgileri ile, adı geçen besteci ve güfte yazarlarına ait temel biyografik bilgilere de erişim
+      sağlıyor. Edisyon ve kataloğun hazırlanmasında yararlanan kaynaklara ilişkin üst veriler de katalogda yer alıyor.
+      CMO edisyonlarına ait üst verilerin de kataloğa kaydedilmesi sayesinde kullanıcılar, edisyonu yapılan orijinal
+      yazma eserler üzerinden de edisyonlara erişebiliyor.
+    </p>
+    <p>
+      Bu çevrimiçi platformda edisyonlara yayın planına göre göz atabilir, belirli bir edisyonu veya içeriklerini
+      aramak için yukarıdaki ilgili arama kutusunu kullanabilirsiniz. Transkripsiyonda kullanılan yöntemleri açıklayan
+      ana ilkeler, edisyon sürecinde alınan kararları takip edebilmenizi sağlayacaktır. Transkripsiyon ve eleştirel
+      yorumlarda kullanılan tüm kısaltmaların anlamları, kısaltmalar listesinde görülebilir.
+    </p>
+    <p>
+      Kaynak kataloğunun içeriğine sayfanın sol tarafında bulunan dizinler üzerinden göz atabilir, ya da belirli
+      içerikleri aramak için yukarıdaki ilgili arama kutusunu kullanabilirsiniz.
+    </p>
+    <p>
+      Tarama ve arama işlevlerinin ayrıntıları kullanım kılavuzunda açıklanmıştır.
     </p>
   </section>
+
   <meta>
-    <log date="2017-07-31" time="11:59" labelPath=" » About" lastEditor="Kathleen Neumann" />
+    <log lastEditor="zhelvaci" date="2018-10-03" time="12:58" />
   </meta>
 </MyCoReWebPage>

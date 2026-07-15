@@ -1,101 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE MyCoReWebPage>
-<MyCoReWebPage>
-  <section xml:lang="de" title="Datenschutzerklärung">
-    <h1>Datenschutz</h1>
+<MyCoReWebPage><section xml:lang="de" title="Datenschutzerklärung"><div>
+<h1>Datenschutz</h1>
 
-    <p>Die Max Weber Stiftung (MWS) nimmt den Schutz personenbezogener Daten ernst. Bitte informieren Sie sich im
-      Folgenden
-      über den Datenschutz auf unserem Webauftritt.
-    </p>
+<p>Die Max Weber Stiftung (MWS) nimmt den Schutz personenbezogener Daten ernst. Bitte informieren Sie sich im Folgenden über den Datenschutz auf unserem Webauftritt.</p>
 
-    <p>Diese Datenschutzerklärung bezieht sich auf die Website corpus-musicae-ottomanicae.de.</p>
+<p>Diese Datenschutzerklärung bezieht sich auf die Website corpus-musicae-ottomanicae.de.</p>
 
-    <h2>Personenbezogene Daten</h2>
-    <p>Personenbezogene Daten sind Informationen, die dazu genutzt werden können, Ihre Identität zu erfahren. Darunter
-      fallen Informationen wie Ihr Name, Adresse, Postanschrift, Telefonnummer und E-Mail-Adresse, aber auch die
-      IP-Adresse, die Ihr Rechner hat, wenn Sie auf unsere Seiten zugreifen. Informationen, die nicht mit Ihrer
-      Identität
-      in Verbindung gebracht werden (wie zum Beispiel Anzahl der Nutzer der Site), fallen nicht darunter.
-      Personenbezogene
-      Daten werden auf unseren Webseiten nur im technisch notwendigen Umfang erhoben und gespeichert.
-    </p>
+<h2>Personenbezogene Daten</h2>
 
-    <h2>IP-Adresse</h2>
-    <p>Für den Abruf unserer Webseiten ist die Registrierung Ihrer IP-Adresse erforderlich. Eine IP-Adresse ist eine
-      eindeutige, weltweit gültige Kennung Ihres Computers. Als privater Nutzer benutzen Sie in der Regel keine
-      gleichbleibende IP-Adresse, da Ihr Provider Ihnen nur vorübergehend eine IP-Adresse zuweist. Dennoch ist dabei
-      eine
-      eindeutige Zuordnung der Nutzerdaten über dieses Merkmal im Prinzip möglich. Unsere Webserver speichern die
-      Zugriffszeit, die IP-Adresse(vollständig), den aufgerufenen Pfad bzw. die Seite und den Browser-Agent, um Angriffe
-      auf unsere Website analysieren und ggf. abwehren zu können. Die Speicherdauer beträgt maximal 15 Tage. Daten, die
-      wir einem Angriff zuordnen, speichern wir so lange wie nötig.
-    </p>
+<p>Personenbezogene Daten sind Informationen, die dazu genutzt werden können, Ihre Identität zu erfahren. Darunter fallen Informationen wie Ihr Name, Adresse, Postanschrift, Telefonnummer und E-Mail-Adresse, aber auch die IP-Adresse, die Ihr Rechner hat, wenn Sie auf unsere Seiten zugreifen. Informationen, die nicht mit Ihrer Identität in Verbindung gebracht werden (wie zum Beispiel Anzahl der Nutzer der Site), fallen nicht darunter. Personenbezogene Daten werden auf unseren Webseiten nur im technisch notwendigen Umfang erhoben und gespeichert.</p>
 
-    <h2>Statistische Auswertungen mit Matomo</h2>
-    <p>Diese Website benutzt Matomo, eine Open-Source-Software zur statistischen Auswertung der Besucherzugriffe. Die
-      IP-Adresse wird sofort nach der Verarbeitung und vor deren Speicherung anonymisiert. Tracking-Cookies werden nicht
-      eingesetzt.
-    </p>
+<h2>IP-Adresse</h2>
 
-    <h2>Kontaktaufnahme</h2>
-    <p>Bei der Kontaktaufnahme mit uns per E-Mail werden die Angaben des Nutzers zwecks Bearbeitung der Anfrage sowie
-      für
-      den Fall, dass Anschlussfragen entstehen, gespeichert.
-    </p>
+<p>Für den Abruf unserer Webseiten ist die Registrierung Ihrer IP-Adresse erforderlich. Eine IP-Adresse ist eine eindeutige, weltweit gültige Kennung Ihres Computers. Als privater Nutzer benutzen Sie in der Regel keine gleichbleibende IP-Adresse, da Ihr Provider Ihnen nur vorübergehend eine IP-Adresse zuweist. Dennoch ist dabei eine eindeutige Zuordnung der Nutzerdaten über dieses Merkmal im Prinzip möglich. Unsere Webserver speichern die Zugriffszeit, die IP-Adresse (vollständig), den aufgerufenen Pfad bzw. die Seite und den Browser-Agent, um Angriffe auf unsere Website analysieren und ggf. abwehren zu können. Die Speicherdauer beträgt maximal 15 Tage. Daten, die wir einem Angriff zuordnen, speichern wir so lange wie nötig.</p>
 
-    <h2>Datenübermittlung</h2>
-    <p>Ihre personenbezogenen Daten werden nur in den gesetzlich erforderlichen Fällen bzw. zur Strafverfolgung aufgrund
-      von Angriffen auf unsere Netzinfrastruktur an staatliche Einrichtungen und Behörden übermittelt. Eine Weitergabe
-      zu
-      anderen als den oben beschriebenen Zwecken an Dritte findet nicht statt.
-    </p>
+<h2>Statistische Auswertungen mit Matomo</h2>
 
-    <h2>Auskunftsrecht</h2>
-    <p>Sie haben jederzeit das Recht auf Auskunft über die bezüglich Ihrer Person gespeicherten Daten, deren Herkunft
-      und
-      Empfänger sowie den Zweck der Speicherung. Auskunft über die gespeicherten Daten gibt der Datenschutzbeauftragte
-      der
-      Max Weber Stiftung.
-    </p>
+<p>Diese Website benutzt Matomo, eine Open-Source-Software zur statistischen Auswertung der Besucherzugriffe. Die IP-Adresse wird sofort nach der Verarbeitung und vor deren Speicherung anonymisiert. Tracking-Cookies werden nicht eingesetzt.</p>
 
-    <h2>Berichtigung</h2>
-    <p>Sie haben das Recht, unrichtige personenbezogene Daten berichtigen zu lassen. Wenn die MWS Zweifel an der
-      Richtigkeit der Berichtigung hat, ist sie berechtigt, bis zur Klärung des Sachverhaltes die Berichtigung nicht
-      vorzunehmen.
-    </p>
+<h2>Kontaktaufnahme</h2>
 
-    <h2>Löschung</h2>
-    <p>Sie haben das Recht, personenbezogene Daten löschen zu lassen. Wenn die MWS rechtlich verpflichtet ist, die Daten
-      zu
-      speichern, löscht sie die Daten nicht. Wenn die MWS Zweifel an der Richtigkeit des Löschauftrages hat, ist sie
-      berechtigt, bis zur Klärung des Sachverhaltes die Löschung nicht vorzunehmen.
-    </p>
+<p>Bei der Kontaktaufnahme mit uns per E-Mail werden die Angaben des Nutzers zwecks Bearbeitung der Anfrage sowie für den Fall, dass Anschlussfragen entstehen, gespeichert.</p>
 
-    <h2>Recht auf Einschränkung der Verarbeitung</h2>
-    <p>Sie haben das Recht auf Einschränkung der Verarbeitung, wenn Sie die Richtigkeit der Daten in Frage stellen (bis
-      zur
-      Klärung der Frage), wenn die Verarbeitung unrechtmäßig ist, wenn Sie Daten noch zur Geltendmachung von
-      Rechtsansprüchen benötigen (nachdem sich der Zweck der Datenverarbeitung erledigt hat) oder wenn Sie Widerspruch
-      nach Art. 21 DSGVO einlegen. Das gilt nicht, wenn die MWS zwingende schutzwürdige Gründe für die Verarbeitung hat.
-    </p>
+<h2>Datenübermittlung</h2>
 
-    <h2>Recht auf Datenübertragbarkeit</h2>
-    <p>Sie haben das Recht, Ihre bei uns gespeicherten Daten in einem maschinenlesbaren Format mitzunehmen. Als Formate
-      bieten wir das Txt-Format (UTF-8 oder ANSI) und PDF an.
-    </p>
+<p>Ihre personenbezogenen Daten werden nur in den gesetzlich erforderlichen Fällen bzw. zur Strafverfolgung aufgrund von Angriffen auf unsere Netzinfrastruktur an staatliche Einrichtungen und Behörden übermittelt. Eine Weitergabe zu anderen als den oben beschriebenen Zwecken an Dritte findet nicht statt.</p>
 
-    <h2>Widerruf einer Einwilligung</h2>
-    <p>Sie haben jederzeit das Recht, Einwilligungen zu widerrufen. Der Widerruf erfolgt in derselben Weise wie die
-      Einwilligung oder durch eine E-Mail an den Datenschutzbeauftragten (s.u.) mit einer Erläuterung, welche
-      Einwilligung
-      Sie zurückziehen. Datenverarbeitungen, die vor Widerruf der Einwilligung erfolgt sind, bleiben rechtmäßig.
-    </p>
+<h2>Auskunftsrecht</h2>
 
-    <h2>Kontakt</h2>
-    <p>Verantwortlich für diesen Webauftritt ist Prof. Dr. Ralf Martin Jäger, Westfälische Wilhelms-Universität Münster,
-      musik [at] uni-muenster.de.
-    </p>
+<p>Sie haben jederzeit das Recht auf Auskunft über die bezüglich Ihrer Person gespeicherten Daten, deren Herkunft und Empfänger sowie den Zweck der Speicherung. Auskunft über die gespeicherten Daten gibt der Datenschutzbeauftragte der Max Weber Stiftung.</p>
 
-  </section>
-</MyCoReWebPage>
+<h2>Berichtigung</h2>
+
+<p>Sie haben das Recht, unrichtige personenbezogene Daten berichtigen zu lassen. Wenn die MWS Zweifel an der Richtigkeit der Berichtigung hat, ist sie berechtigt, bis zur Klärung des Sachverhaltes die Berichtigung nicht vorzunehmen.</p>
+
+<h2>Löschung</h2>
+
+<p>Sie haben das Recht, personenbezogene Daten löschen zu lassen. Wenn die MWS rechtlich verpflichtet ist, die Daten zu speichern, löscht sie die Daten nicht. Wenn die MWS Zweifel an der Richtigkeit des Löschauftrages hat, ist sie berechtigt, bis zur Klärung des Sachverhaltes die Löschung nicht vorzunehmen.</p>
+
+<h2>Recht auf Einschränkung der Verarbeitung</h2>
+
+<p>Sie haben das Recht auf Einschränkung der Verarbeitung, wenn Sie die Richtigkeit der Daten in Frage stellen (bis zur Klärung der Frage), wenn die Verarbeitung unrechtmäßig ist, wenn Sie Daten noch zur Geltendmachung von Rechtsansprüchen benötigen (nachdem sich der Zweck der Datenverarbeitung erledigt hat) oder wenn Sie Widerspruch nach Art. 21 DSGVO einlegen. Das gilt nicht, wenn die MWS zwingende schutzwürdige Gründe für die Verarbeitung hat.</p>
+
+<h2>Recht auf Datenübertragbarkeit</h2>
+
+<p>Sie haben das Recht, Ihre bei uns gespeicherten Daten in einem maschinenlesbaren Format mitzunehmen. Als Formate bieten wir das Txt-Format (UTF-8 oder ANSI) und PDF an.</p>
+
+<h2>Widerruf einer Einwilligung</h2>
+
+<p>Sie haben jederzeit das Recht, Einwilligungen zu widerrufen. Der Widerruf erfolgt in derselben Weise wie die Einwilligung oder durch eine E-Mail an den Datenschutzbeauftragten (s.u.) mit einer Erläuterung, welche Einwilligung Sie zurückziehen. Datenverarbeitungen, die vor Widerruf der Einwilligung erfolgt sind, bleiben rechtmäßig.</p>
+
+<h2>Kontakt</h2>
+
+<p>Verantwortlich für diesen Webauftritt ist Prof. Dr. Ralf Martin Jäger (Universität Münster, ralf.jaeger [at] uni-muenster.de).</p>
+</div>
+</section><section xml:lang="en" title="Privacy Policy"><div>
+<div><u><strong>This English translation is for information purposes only. Please note that in case of legal dispute only the official German version of this document is legally binding.</strong></u></div>
+
+<h1>Data Protection</h1>
+
+<p>The Max Weber Stiftung (MWS) [Max Weber Foundation] takes the protection of personal data seriously. Please inform yourself below about data protection on our website.</p>
+
+<p>This Data Privacy Statement relates to the domain www.corpus-musicae-ottomanicae.de.</p>
+
+<h2>Personal Data</h2>
+
+<p>Personal data is information that can be used to find out your identity. This includes information such as your name, address, postal address, telephone number and email address, but also your computer's IP address when you access our websites. Information not linked to your identity (e.g. the number of users of the site) is not included therein.</p>
+
+<p>Personal data is collected on our websites, and stored, only to the extent technically necessary.</p>
+
+<h2>IP Address</h2>
+
+<p>To access our websites, you will need to register your IP address. An IP address is a unique, globally valid identifier of your computer. As a private user, you will normally not use a non-changing IP address, as your provider will allocate a temporary IP address to you. Nevertheless, it is, in principle, possible to uniquely allocate user data via this attribute. Our web servers store the access time, the (full) IP address, the path or website accessed and the browser agent to enable attacks on our website to be analysed and, if possible, averted. The maximum storage period is 15 days. Data that we allocate to an attack is stored by us as long as necessary.</p>
+
+<h2>Statistical Analysis With Matomo</h2>
+
+<p>This website uses Matomo, a web analytics open-source software for visitors’ access. The IP-address will be anonymized immediately after processing and prior to its storage. Tracking cookies will not be used.</p>
+
+<h2>Contact</h2>
+
+<p>When the user contacts us by email, the user's details will be stored for the purpose of processing the enquiry and in case of follow-up questions.</p>
+
+<h2>Transmission of Data</h2>
+
+<p>Your personal data will be transmitted to state institutions and public authorities only in cases where this is necessary according to the law or for criminal prosecution purposes owing to attacks on our network infrastructure. Your personal data will not be passed on to third parties for purposes other than those described above.</p>
+
+<h2>Your Rights</h2>
+
+<h2>Right to disclosure</h2>
+
+<p>You have the right to request at any time information on your data stored, the origin and recipients of your data and the purpose for which your data is being stored. Information on the data stored is provided by the data protection officer of the Max Weber Stiftung.</p>
+
+<h2>Correction</h2>
+
+<p>You have the right to have incorrect personal data corrected. If the MWS has doubts about the accuracy of such correction, it will be entitled to refrain from carrying out the correction until the facts of the matter have been cleared up.</p>
+
+<h2>Erasure</h2>
+
+<p>You have the right to have personal data erased. The MWS will not erase the data if it is legally obliged to store the data. If the MWS has doubts about the legitimacy of an erasure instruction, it will be entitled to refrain from carrying out the erasure until the facts of the matter have been cleared up.</p>
+
+<h2>Right to restriction of the processing</h2>
+
+<p>You have the right to have the processing restricted in cases where you call into question the accuracy of the data (until the issue has been cleared up), the processing is unlawful, you still need the data for the assertion of legal claims (after the purpose for which the data was being processed has ceased to exist), or you opt out in accordance with Article 21 GDPR. This will not apply if the MWS's reasons for the processing are compelling and worthy of protection.</p>
+
+<h2>Right to data portability</h2>
+
+<p>You have the right to receive in machine-readable format your data stored by us. As formats, we offer the txt format (UTF-8 or ANSI) and pdf.</p>
+
+<h2>Revocation of consent</h2>
+
+<p>You have the right to revoke your consent at any time. Revocation takes effect in the same way as the consent or by sending an email to the data protection officer (see below), explaining which consent you are withdrawing. Any data processing undertaken prior to the revocation of consent will remain lawful.</p>
+
+<h2>Contact</h2>
+
+<p>Prof. Dr. Ralf Martin Jäger (University of Münster, ralf.jaeger [at] uni-muenster.de) is responsible for this website.  </p>
+
+</div>
+</section><section xml:lang="tr" title="Gizlilik Politikası"><div>
+<p><strong><u>Bu Türkçe çeviri yalnızca bilgilendirme amaçlıdır. Hukuki ihtilaf halinde sadece metnin resmi Almanca nüshası yasal olarak bağlayıcıdır.  </u></strong></p>
+
+<h1>Veri Koruma</h1>
+
+<p>Max Weber Stiftung (MWS) [Max Weber Vakfı] kişisel verilerin korunmasını önemsemektedir. Aşağıda internet sitemizde geçerli olan verilerin korunması kuralları hakkında bilgi edinebilirsiniz.</p>
+
+<p>Bu Veri Koruma Bildirimi www.corpus-musicae-ottomanicae.de alan adı için geçerlidir.</p>
+
+<h2>Kişisel Veriler</h2>
+
+<p>Kişisel veriler, kimiğinizi belirlemek için kullanılabilecek, adınız, adresiniz, posta adresiniz, telefon numaranız ve elektronik posta adresiniz gibi bilgilerin yanı sıra, internet sitelerimize girdiğinizde kullandığınız bilgisayarın IP adresini de içerir. Kimliğinizle bağlantılı olmayan bilgiler (örneğin site ziyaretçilerinin sayısı) kişisel veri kapsamında değildir.</p>
+
+<p>Sitelerimizde kişisel veriler sadece teknik bakımdan gerekli olduğu ölçüde kayıt edilmekte ve depolanmaktadır.</p>
+
+<h2>IP Adresi</h2>
+
+<p>İnternet sitelerimizi kullanabilmeniz için IP adresinizin kayıt altına alınması gerekmektedir. IP adresi, bilgisayarınızın özgün ve tüm dünyada geçerli kimliğidir. Servis sağlayıcıları geçici IP adresleri tahsis ettiği için bireysel kullanıcı olarak normalde değişmez bir IP adresiniz olmayacaktır. Yine de bu özelliğe dayanarak kullanıcı verilerinin açıkça belirlenebilmesi temelde mümkündür. Sunucularımız erişim süresi, (tüm) IP adresi, ziyaret edilen internet sitesi ve tarayıcı ajanı bilgilerini, internet sitelerimize yapılan saldırıların analiz edilebilmesi ve mümkünse önlenebilmesi için depolar. Azami depolama süresi 15 gündür. Bir saldırıyla ilişkilendirdiğimiz veriler, gerekli olduğu sürece depolanır.  </p>
+
+<h2>Matomo ile İstatistiksel Analiz</h2>
+
+<p>Bu internet sitesinde, ziyaretçi erişimi istatistiksel analizi için bir açık kaynak yazılımı olan Matomo kullanılmaktadır. IP adresleri, işlendikten hemen sonra ve depolanmadan önce anonim hale getirilir. Takip çerezleri kullanılmamaktadır.  </p>
+
+<h2>İletişim</h2>
+
+<p>Kullanıcı bizimle elektronik posta yoluyla iletişim kurduğunda, kullanıcı verileri, talebin işleme konulması ve gerekirse takibinin yapılması için depolanacaktır.  </p>
+
+<h2>Verilerin Aktarılması</h2>
+
+<p>Kişisel verileriniz sadece kanunların zorunlu kıldığı veya ağ altyapımıza yönelik saldırıların cezai takibatının gerektirdiği durumlarda ilgili devlet kuruluşlarına ve kamu yetkililerine aktarılacaktır. Kişisel verileriniz, yukarıda belirtilen amaçlar dışında üçüncü kişilere aktarılmayacaktır.</p>
+
+<h2>Haklarınız</h2>
+
+<h2>Bilgi talep etme</h2>
+
+<p>Kullanıcı olarak her zaman depolanan verileriniz, bu verilerin kaynağı ve alıcıları ile verilerinizin depolanmasının amacı hakkında bilgi talep etme hakkına sahipsiniz. Depolanan veriler hakkındaki bilgi, Max Weber Vakfı veri koruma yetkilisi tarafından sağlanmaktadır.</p>
+
+<h2>Düzeltme</h2>
+
+<p>Hatalı kişisel verileri düzelttirme hakkına sahipsiniz. MWS, talep edilen düzeltmeye ilişkin şüpheler olması halinde, gerçek durum açıklığa kavuşturulana kadar düzeltmeyi yapmama hakkına sahiptir.</p>
+
+<h2>Sildirme</h2>
+
+<p>Kişisel verilerinizin sildirilmesi hakkına sahipsiniz. MWS, yasal olarak depolamak zorunda olduğu verileri silmeyecektir. Sildirme talebinin doğruluğu hakkında şüpheler olması halinde, MWS gerçek durum açıklığa kavuşturulana kadar verileri silmeme hakkında sahiptir.</p>
+
+<h2>Veri işlemenin sınırlandırılması</h2>
+
+<p>Verilerin doğruluğundan şüphe duyduğunuz durumlarda (gerçek durum açıklığa kavuşturulana kadar), verilerinizin yasa dışı bir şekilde işlendiğinden kuşkulandığınızda, bir yasal hak talebinin değerlendirilmesi için (veri işlemenin amacı ortadan kalktıktan sonra) verilere halen ihtiyaç duymanız halinde, veya Genel Veri Koruma Tüzüğü’nün 21. maddesi uyarınca onayınızı geri çekmeniz halinde, verilerinizin işlenmesini sınırlandırma hakkına sahipsiniz. Max Weber Vakfı’nın veri işleme gerekçelerinin korunmaya değer ve makul olduğu durumlarda bu geçerli değildir.</p>
+
+<h2>Verilerin taşınabilirliği</h2>
+
+<p>Tarafımızdan depolanan verilerinizi makinece okunabilir formatta almak hakkına sahipsiniz. Format olarak TXT (UTF-8 veya ANSI) ile PDF olanaklarını sunuyoruz.</p>
+
+<h2>Rızanın geri çekilmesi</h2>
+
+<p>Her zaman rızanızı geri çekme hakkına sahipsiniz. Geri çekme de onay verme gibi veri koruma yetkilisine, hangi rızayı geri çektiğinizi belirten bir elektronik posta yoluyla (aşağıya bkz.) yürürlüğe girer. Rızanın geri çekilmesinden önce gerçekleştirilen işlemlerin hukuki durumları etkilenmeyecektir.</p>
+
+<h2>İletişim</h2>
+
+<p>Prof. Dr. Ralf Martin Jäger (Münster Üniversitesi, ralf.jaeger [at] uni-muenster.de) bu internet sitesinden sorumludur.</p>
+</div></section><meta><log lastEditor="zhelvaci" date="2018-10-06" time="10:33" /></meta></MyCoReWebPage>

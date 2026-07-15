@@ -56,6 +56,17 @@
     margin-bottom:30px;
 }
 
+/* content headings: keep compact (migrated from the inline font-sizes used across content pages) */
+/* abbreviation / sigla tables: full width, narrow first column so the two columns don't stick together */
+.cmo_abbreviations {
+    td:first-child {
+        width: 15%;
+    }
+    td p {
+        margin-bottom: 0;
+    }
+}
+
 /*
  fix for https://github.com/gbv/cmo/issues/62
  */

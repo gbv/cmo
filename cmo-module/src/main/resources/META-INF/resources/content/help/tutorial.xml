@@ -4,16 +4,28 @@
   <section xml:lang="de" title="Tutorial">
     <div class="row">
       <div class="col-md-12">
-        <h1>Tutorial</h1>
-        <p>
-          This section should be included only if it is possible to add video
-          tutorials on how to use the website/search functions in the future.
-          Details must be clarified with the technical team.
-        </p>
+        <h3>In Kürze verfügbar</h3>
       </div>
     </div>
   </section>
+
+  <section xml:lang="en" title="Tutorials">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Content will be available soon</h3>
+      </div>
+    </div>
+  </section>
+
+  <section xml:lang="tr" title="Rehberler">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>İçerik hazırlanıyor</h3>
+      </div>
+    </div>
+  </section>
+
   <meta>
-    <log date="2017-01-30" time="11:59" labelPath=" » Tutorial" lastEditor="Kathleen Neumann" />
+    <log lastEditor="zhelvaci" date="2018-10-01" time="18:05" />
   </meta>
 </MyCoReWebPage>

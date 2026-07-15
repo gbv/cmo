@@ -1,18 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE MyCoReWebPage>
 <MyCoReWebPage>
-  <section xml:lang="de" title="User guide">
+  <section xml:lang="en" title="User guide">
     <div class="row">
       <div class="col-md-12">
-        <h1>User guide</h1>
         <p>
-          The user guide is not available yet; it will be prepared after the
-          search functions and methods are defined more clearly.
+          A detailed user guide outlining CMO workflows and frameworks is available through the
+          Project Wiki. The Project Wiki is continuously being improved and enhanced.
         </p>
+        <p>Please click on the link below to access the CMO Project Wiki</p>
+        <p><a href="https://projects.academiccloud.de/projects/corpus-musicae-ottomanicae-cmo-public-wiki/" target="_blank" rel="noopener">Project Wiki</a></p>
       </div>
     </div>
   </section>
+
+  <section xml:lang="de" title="Nutzerhandbuch">
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          Ein detailliertes Benutzerhandbuch, das die Arbeitsabläufe und Rahmenbedingungen von
+          CMO beschreibt, ist über das Projekt-Wiki verfügbar. Das Projekt-Wiki wird
+          kontinuierlich verbessert und erweitert.
+        </p>
+        <p>Bitte klicken Sie auf den untenstehenden Link, um auf das CMO-Projekt-Wiki zuzugreifen.</p>
+        <p><a href="http://projects.academiccloud.de/projects/corpus-musicae-ottomanicae-cmo-public-wiki/" target="_blank" rel="noopener">Projekt-Wiki</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section xml:lang="tr" title="Kullanım kılavuzu">
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          CMO iş akışlarını ve çerçevelerini ana hatlarıyla açıklayan ayrıntılı bir kullanıcı
+          kılavuzuna Proje Wiki’si üzerinden erişilebilir. Proje Wiki’si sürekli olarak
+          geliştirilmekte ve zenginleştirilmektedir.
+        </p>
+        <p>CMO Proje Wiki’sine erişmek için lütfen aşağıdaki bağlantıya tıklayın.</p>
+        <p><a href="http://projects.academiccloud.de/projects/corpus-musicae-ottomanicae-cmo-public-wiki/" target="_blank" rel="noopener">Wiki sayfası</a></p>
+      </div>
+    </div>
+  </section>
+
   <meta>
-    <log date="2017-01-30" time="11:59" labelPath=" » User guide" lastEditor="Kathleen Neumann" />
+    <log lastEditor="wsumits" date="2026-06-30" time="15:04" />
   </meta>
 </MyCoReWebPage>

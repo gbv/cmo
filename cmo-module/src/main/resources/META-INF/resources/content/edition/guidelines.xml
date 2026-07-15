@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE MyCoReWebPage>
 <MyCoReWebPage>
-  <section xml:lang="de" title="Edition guidelines">
+  <section xml:lang="en" title="Edition guidelines">
     <div class="row">
       <div class="col-md-12">
-        <h1>Edition guidelines</h1>
         <p>
-          Guidelines are displayed as text, including a list of “Bibliography”
-          (data derived from CMO Catalogue), and a “List of abbreviations” as
-          text, both of which will be updated from time to time.
-        </p>
-        <p>
-          “Standard List of Musical Terms” will be explained in text and will also
-          be available to download as PDF.
+          The edition <a
+          href="https://projects.academiccloud.de/projects/corpus-musicae-ottomanicae-cmo-public-wiki/wiki/6-guidelines">guidelines</a>
+          are available as a part of the Project Wiki.
         </p>
       </div>
     </div>
   </section>
+
+  <section xml:lang="de" title="Editionsrichtlinien">
+    <h3><a
+      href="https://projects.academiccloud.de/projects/corpus-musicae-ottomanicae-cmo-public-wiki/wiki/6-guidelines">Editionsrichtlinien</a>
+      sind in Vorbereitung.</h3>
+  </section>
+
+  <section xml:lang="tr" title="Ana ilkeler">
+    <h3><a
+      href="https://projects.academiccloud.de/projects/corpus-musicae-ottomanicae-cmo-public-wiki/wiki/6-guidelines">İçerik</a>
+      hazırlanıyor</h3>
+  </section>
+
   <meta>
-    <log date="2017-01-30" time="11:59" labelPath=" » Edition guidelines" lastEditor="Kathleen Neumann" />
+    <log lastEditor="wsumits" date="2026-07-07" time="15:29" />
   </meta>
 </MyCoReWebPage>

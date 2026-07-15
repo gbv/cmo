@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE MyCoReWebPage>
 <MyCoReWebPage>
-  <section xml:lang="all" title="Contributors">
+  <section xml:lang="en" title="Contributors">
     <h1>Contributors</h1>
     <h2>Institutions</h2>
     <dl>
@@ -11,14 +11,14 @@
           <li><a href="http://www.dfg.de/en/index.jsp">DFG – German Research Foundation</a></li>
         </ul>
       </dd>
-      
+
       <dt>Management</dt>
       <dd>
         <ul class="list-unstyled">
           <li><a href="http://www.uni-muenster.de/Musikwissenschaft/">WWU Institute for Musicology</a></li>
         </ul>
       </dd>
-      
+
       <dt>Project partners</dt>
       <dd>
         <ul class="list-unstyled">
@@ -28,7 +28,7 @@
           <li><a href="https://www.gbv.de/Verbundzentrale-en?set_language=en">GBV | VZG – Verbundzentrale des gemeinsamen Bibliothekverbunds</a></li>
         </ul>
       </dd>
-      
+
       <dt>Cooperation partners</dt>
       <dd>
         <ul class="list-unstyled">
@@ -40,8 +40,8 @@
         </ul>
       </dd>
     </dl>
-    
-    <h2>Contributors</h2>
+
+    <h2>Individuals</h2>
     <dl>
       <dt>Project Management:</dt>
       <dd>
@@ -49,64 +49,88 @@
           <li>Prof. Dr. Ralf Martin Jäger</li>
           <li>Prof. Dr. Thomas Bauer</li>
           <li>Prof. Dr. Raoul Motika</li>
+          <li>Dr. Michael Kaiser</li>
         </ul>
       </dd>
-      
+
       <dt>Academic Advisory Board:</dt>
       <dd>
         <ul class="list-unstyled">
-          <li>Prof. Rûhî Ayangil</li>
+          <li>Prof. Rûhî Ayangil (2015 – 2027)</li>
           <li>Prof. Dr. Thomas Bauer</li>
           <li>Prof. Ş. Şehvar Beşiroĝlu (†)</li>
-          <li>Prof. Dr. Nilgün Doğrusöz-Dişiaçık</li>
+          <li>Prof. Dr. Nilgün Doğrusöz-Dişiaçık (2018 – 2027)</li>
           <li>Prof. Dr. Walter Feldman</li>
-          <li>Dr. habil. Martin Greve</li>
+          <li>Prof. Dr. Raoul Motika (2018 – 2020)</li>
+          <li>Dr. habil. Martin Greve (2015 – 2018)</li>
           <li>Dr. Michael Kaiser</li>
-          <li>Prof. Dr. Mehmet Kalpaklı</li>
-          <li>Prof. Songül Karahasanoğlu</li>
+          <li>Prof. Dr. Mehmet Kalpaklı (2015 – 2027)</li>
+          <li>Prof. Songül Karahasanoğlu (2015 – 2027)</li>
+          <li>Prof. Dr. Andreas Münzmay (2022 – )</li>
+          <li>Prof. Dr. Sonia Tamar Seeman (2022 – 2024)</li>
+          <li>Prof. Dr. Judith I. Haug (2025 – 2027)</li>
+          <li>Prof. Dr. Christoph Neumann (2024 – 2027)</li>
         </ul>
       </dd>
-      
+
       <dt>External contributors with advisory functions:</dt>
       <dd>
         <ul class="list-unstyled">
           <li>Prof. Dr. Fikret Turan</li>
-          <li>Assoc. Prof. Dr. Cenk Güray</li>
+          <li>Prof. Dr. Cenk Güray</li>
+          <li>Prof. Dr. Evi Nika-Sampson</li>
         </ul>
       </dd>
-      
+
       <dt>WWU Münster:</dt>
       <dd>
         <ul class="list-unstyled">
-          <li>Dr. Malek Sharif</li>
-          <li>Dr. Salah Eddin Maraqa</li>
-          <li>Dr. Jacob Olley</li>
-          <li>Ersin Mıhçı</li>
-          <li>Zeynep Helvacı</li>
-          <li>Monika Zimmermann</li>
-          <li>Marco Dimitriou</li>
-          <li>Benjamin Sturm</li>
+          <li>Dr. Malek Sharif (2015 – 2019)</li>
+          <li>Dr. Salah Eddin Maraqa (2016 – 2019)</li>
+          <li>Dr. Jacob Olley (2015 – 2020)</li>
+          <li>Dr. Ersin Mıhçı (2015 – 2024)</li>
+          <li>Marco Dimitriou (2020 – 2027)</li>
+          <li>Dr. Neslihan Demirkol (2019 – 2024)</li>
+          <li>Dr. Semih Pelen (2020 – 2027)</li>
+          <li>Dr. Nejla Melike Atalay (2021 – 2027)</li>
+          <li>Dr. Yaprak Melike Uyar (2021)</li>
+          <li>Zeynep Helvacı (2015 – 2027)</li>
+          <li>Monika Zimmermann (2015 – 2027)</li>
+          <li>Benjamin Sturm (2022 – 2027)</li>
+          <li>Melek Göksu (2021 – )</li>
+          <li>Tolgahan Tekeli (2021 – )</li>
+          <li>Benedikt Münch (2022 – )</li>
+          <li>Dr. Nazlı Vatansever (2024 – 2027)</li>
         </ul>
       </dd>
-      
+
       <dt>Oriental Institute Istanbul:</dt>
       <dd>
         <ul class="list-unstyled">
-          <li>Assoc. Prof. Dr. Elif Damla Yavuz (2015-2017)</li>
-          <li>PD. Dr. Judith I. Haug (since 2016)</li>
+          <li>Assoc. Prof. Dr. Elif Damla Yavuz (2015 – 2017)</li>
+          <li>PD. Dr. Judith I. Haug (2016 – 2018)</li>
+          <li>Dr. Nevin Şahin (2018 – 2021)</li>
+          <li>Salih Demirtaş (2019 – 2027)</li>
+          <li>Dr. Will Sumits (2021 – 2027)</li>
+          <li>Dr. Nihan Tahtaiṣleyen (2022 – 2027)</li>
         </ul>
       </dd>
-      
+
       <dt>Max Weber Foundation:</dt>
       <dd>
         <ul class="list-unstyled">
           <li>Dr. Michael Kaiser</li>
-          <li>Fabian Cremer</li>
-          <li>Anna Plaksin (2015-2017)</li>
+          <li>Fabian Cremer (2015 – 2019)</li>
+          <li>Dr. Jan Rohden (2019 – 2021)</li>
+          <li>Julian Schulz (2021 – 2023)</li>
+          <li>Dr. Sven Gronemeyer (2022 – 2027)</li>
+          <li>PD Dr. Nanette Rißler-Pipka (2023 – 2027)</li>
+          <li>Dr. Anna Plaksin (2015 – 2017) (2019 – 2021)</li>
+          <li>Frauke Ludwig (2019)</li>
         </ul>
       </dd>
-      
-      <dt>GBV | VZG</dt>
+
+      <dt>GBV | VZG:</dt>
       <dd>
         <ul class="list-unstyled">
           <li>Frank Dührkohp</li>
@@ -115,9 +139,313 @@
           <li>Sebastian Hofmann</li>
         </ul>
       </dd>
+
+      <dt>Other individual contributors:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>G. Hande Betül Ünal (internship, August – October 2018)</li>
+          <li>Dr. Agata Pawlina (internship, September 2021)</li>
+          <li>Sammy Park (internship, July – September 2023)</li>
+        </ul>
+      </dd>
     </dl>
   </section>
+
+  <section xml:lang="de" title="Beteiligte">
+    <h1>Beteiligte</h1>
+    <h2>Institutionen</h2>
+    <dl>
+      <dt>Förderer</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li><a href="http://www.dfg.de/index.jsp">Deutsche Forschungsgemeinschaft (DFG)</a></li>
+        </ul>
+      </dd>
+
+      <dt>Leitung</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li><a href="http://www.uni-muenster.de/Musikwissenschaft/">WWU Institut für Musikwissenschaft</a></li>
+        </ul>
+      </dd>
+
+      <dt>Projektpartner</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li><a href="https://www.uni-muenster.de/ArabistikIslam/">WWU Institut für Arabistik und Islamwissenschaft</a></li>
+          <li><a href="http://www.maxweberstiftung.de/startseite.html">Max Weber Stiftung</a></li>
+          <li><a href="https://www.oiist.org/">Orient-Institut Istanbul</a></li>
+          <li><a href="https://www.gbv.de/">GBV | VZG – Verbundzentrale des gemeinsamen Bibliothekverbunds</a></li>
+        </ul>
+      </dd>
+
+      <dt>Kooperationspartner</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li><a href="http://turkiyat.istanbul.edu.tr/en/">Istanbul Universität – Forschungsinstitut für Turkologie</a></li>
+          <li><a href="http://www.tmdk.itu.edu.tr/en/main/index">Technische Universität Istanbul – Staatliches Konservatorium für Türkische Musik</a></li>
+          <li><a href="http://web2.bilkent.edu.tr/turkedeb/english/">Bilkent Universität – Institut für Türkische Literatur</a></li>
+          <li><a href="http://www.uni-muenster.de/MAMO/index.html">MAMO – Münsterisches Archiv zur Musik des Orients</a></li>
+          <li><a href="https://www.bsb-muenchen.de/">Bayerische Staatsbibliothek</a></li>
+        </ul>
+      </dd>
+    </dl>
+
+    <h2>Personen</h2>
+    <dl>
+      <dt>Projektmanagement:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Prof. Dr. Ralf Martin Jäger</li>
+          <li>Prof. Dr. Thomas Bauer</li>
+          <li>Prof. Dr. Raoul Motika</li>
+          <li>Dr. Michael Kaiser</li>
+        </ul>
+      </dd>
+
+      <dt>Wissenschaftlicher Beirat:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Prof. Rûhî Ayangil</li>
+          <li>Prof. Dr. Thomas Bauer</li>
+          <li>Prof. Ş. Şehvar Beşiroĝlu (†)</li>
+          <li>Prof. Dr. Nilgün Doğrusöz-Dişiaçık</li>
+          <li>Prof. Dr. Walter Feldman</li>
+          <li>Prof. Dr. Raoul Motika (2018 – 2020)</li>
+          <li>Dr. habil. Martin Greve (2015 – 2018)</li>
+          <li>Dr. Michael Kaiser</li>
+          <li>Prof. Dr. Mehmet Kalpaklı</li>
+          <li>Prof. Songül Karahasanoğlu</li>
+          <li>Prof. Dr. Andreas Münzmay (2022 – )</li>
+          <li>Prof. Dr. Sonia Tamar Seeman (2022 – )</li>
+        </ul>
+      </dd>
+
+      <dt>Externe Berater:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Prof. Dr. Fikret Turan</li>
+          <li>Doç. Dr. Cenk Güray</li>
+          <li>Prof. Dr. Evi Nika-Sampson</li>
+        </ul>
+      </dd>
+
+      <dt>WWU Münster:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Dr. Malek Sharif (2015 – 2019)</li>
+          <li>Dr. Salah Eddin Maraqa (2016 – 2019)</li>
+          <li>Dr. Jacob Olley (2015 – 2020)</li>
+          <li>Dr. des. Ersin Mıhçı</li>
+          <li>Marco Dimitriou</li>
+          <li>Dr. Neslihan Demirkol (2019 – )</li>
+          <li>Semih Pelen (2020 – )</li>
+          <li>Dr. Nejla Melike Atalay (2021 – )</li>
+          <li>Dr. Yaprak Melike Uyar (2021)</li>
+          <li>Zeynep Helvacı</li>
+          <li>Monika Zimmermann</li>
+          <li>Benjamin Sturm</li>
+          <li>Melek Göksu (2021 – )</li>
+          <li>Tolgahan Tekeli (2021 – )</li>
+          <li>Benedikt Münch (2022 – )</li>
+        </ul>
+      </dd>
+
+      <dt>Orient-Institut Istanbul:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Doç. Dr. Elif Damla Yavuz (2015 – 2017)</li>
+          <li>PD. Dr. Judith I. Haug (2016 – 2018)</li>
+          <li>Dr. Nevin Şahin (2018 – )</li>
+          <li>Salih Demirtaş</li>
+          <li>Dr. Will Sumits (2021 – )</li>
+          <li>Dr. Nihan Tahtaiṣleyen (2022 – )</li>
+        </ul>
+      </dd>
+
+      <dt>Max Weber Stiftung:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Dr. Michael Kaiser</li>
+          <li>Fabian Cremer (2015 – 2019)</li>
+          <li>Dr. Jan Rohden (2019 – 2021)</li>
+          <li>Julian Schulz (2021 – 2023)</li>
+          <li>Dr. Sven Gronemeyer (2022 – )</li>
+          <li>PD Dr. Nanette Rißler-Pipka (2023 – )</li>
+          <li>Dr. Anna Plaksin (2015 – 2017) (2019 – 2021)</li>
+          <li>Frauke Ludwig (2019)</li>
+        </ul>
+      </dd>
+
+      <dt>GBV | VZG:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Frank Dührkohp</li>
+          <li>Kathleen Neumann</li>
+          <li>Thomas Konradi</li>
+          <li>Sebastian Hofmann</li>
+        </ul>
+      </dd>
+
+      <dt>Sonstige Personen:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>G. Hande Betül Ünal (Praktikum, August – Oktober 2018)</li>
+          <li>Dr. Agata Pawlina (internship, September 2021)</li>
+          <li>Sammy Park (internship, July – September 2023)</li>
+        </ul>
+      </dd>
+    </dl>
+  </section>
+
+  <section xml:lang="tr" title="Katkıda bulunanlar">
+    <h1>Katkıda Bulunanlar</h1>
+    <h2>Kurumlar</h2>
+    <dl>
+      <dt>Finansman</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li><a href="http://www.dfg.de/en/index.jsp">Alman Araştırma Cemiyeti (DFG)</a></li>
+        </ul>
+      </dd>
+
+      <dt>Yönetim</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li><a href="http://www.uni-muenster.de/Musikwissenschaft/">WWU Müzikoloji Bölümü</a></li>
+        </ul>
+      </dd>
+
+      <dt>Proje ortakları</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li><a href="https://www.uni-muenster.de/ArabistikIslam/">WWU Arap ve İslam Bilimleri Bölümü</a></li>
+          <li><a href="http://www.maxweberstiftung.de/en/startseite.html">Max Weber Vakfı</a></li>
+          <li><a href="https://www.oiist.org/">İstanbul Alman Şarkiyat Enstitüsü</a></li>
+          <li><a href="https://www.gbv.de/?set_language=en">GBV | VZG – Müşterek Kütüphaneler Ağı Genel Merkezi</a></li>
+        </ul>
+      </dd>
+
+      <dt>İşbirlikleri</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li><a href="http://turkiyat.istanbul.edu.tr/">İstanbul Üniversitesi Türkiyat Araştırmaları Enstitüsü</a></li>
+          <li><a href="http://www.tmdk.itu.edu.tr/en/main/index">İstanbul Teknik Üniversitesi Türk Musikisi Devlet Konservatuarı</a></li>
+          <li><a href="http://web2.bilkent.edu.tr/turkedeb/">Bilkent Üniversitesi Türk Edebiyatı Bölümü</a></li>
+          <li><a href="http://www.uni-muenster.de/MAMO/index.html">MAMO – Münster Şark Müziği Arşivi</a></li>
+          <li><a href="https://www.bsb-muenchen.de/en/">Bavyera Devlet Kütüphanesi</a></li>
+        </ul>
+      </dd>
+    </dl>
+
+    <h2>Kişiler</h2>
+    <dl>
+      <dt>Proje yönetimi:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Prof. Dr. Ralf Martin Jäger</li>
+          <li>Prof. Dr. Thomas Bauer</li>
+          <li>Prof. Dr. Raoul Motika</li>
+          <li>Dr. Michael Kaiser</li>
+        </ul>
+      </dd>
+
+      <dt>Bilimsel Danışma Kurulu:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Prof. Rûhî Ayangil</li>
+          <li>Prof. Dr. Thomas Bauer</li>
+          <li>Prof. Ş. Şehvar Beşiroĝlu (†)</li>
+          <li>Prof. Dr. Nilgün Doğrusöz-Dişiaçık</li>
+          <li>Prof. Dr. Walter Feldman</li>
+          <li>Prof. Dr. Raoul Motika (2018 – 2020)</li>
+          <li>Dr. habil. Martin Greve (2015 – 2018)</li>
+          <li>Dr. Michael Kaiser</li>
+          <li>Prof. Dr. Mehmet Kalpaklı</li>
+          <li>Prof. Songül Karahasanoğlu</li>
+          <li>Prof. Dr. Andreas Münzmay (2022 – )</li>
+          <li>Prof. Dr. Sonia Tamar Seeman (2022 – )</li>
+        </ul>
+      </dd>
+
+      <dt>Danışmanlık desteği:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Prof. Dr. Fikret Turan</li>
+          <li>Doç. Dr. Cenk Güray</li>
+          <li>Prof. Dr. Evi Nika-Sampson</li>
+        </ul>
+      </dd>
+
+      <dt>WWU Münster:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Dr. Malek Sharif (2015 – 2019)</li>
+          <li>Dr. Salah Eddin Maraqa (2016 – 2019)</li>
+          <li>Dr. Jacob Olley (2015 – 2020)</li>
+          <li>Dr. des. Ersin Mıhçı</li>
+          <li>Marco Dimitriou</li>
+          <li>Dr. Neslihan Demirkol (2019 – )</li>
+          <li>Semih Pelen (2020 – )</li>
+          <li>Dr. Nejla Melike Atalay (2021 – )</li>
+          <li>Dr. Yaprak Melike Uyar (2021)</li>
+          <li>Zeynep Helvacı</li>
+          <li>Monika Zimmermann</li>
+          <li>Benjamin Sturm</li>
+          <li>Melek Göksu (2021 – )</li>
+          <li>Tolgahan Tekeli (2021 – )</li>
+          <li>Benedikt Münch (2022 – )</li>
+        </ul>
+      </dd>
+
+      <dt>İstanbul Alman Şarkiyat Enstitüsü:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Doç. Dr. Elif Damla Yavuz (2015 – 2017)</li>
+          <li>PD. Dr. Judith I. Haug (2016 – 2018)</li>
+          <li>Dr. Nevin Şahin (2018 – )</li>
+          <li>Salih Demirtaş</li>
+          <li>Dr. Will Sumits (2021 – )</li>
+          <li>Dr. Nihan Tahtaiṣleyen (2022 – )</li>
+        </ul>
+      </dd>
+
+      <dt>Max Weber Vakfı:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Dr. Michael Kaiser</li>
+          <li>Fabian Cremer (2015 – 2019)</li>
+          <li>Dr. Jan Rohden (2019 – 2021)</li>
+          <li>Julian Schulz (2021 – 2023)</li>
+          <li>Dr. Sven Gronemeyer (2022 – )</li>
+          <li>PD Dr. Nanette Rißler-Pipka (2023 – )</li>
+          <li>Dr. Anna Plaksin (2015 – 2017) (2019 – 2021)</li>
+          <li>Frauke Ludwig (2019)</li>
+        </ul>
+      </dd>
+
+      <dt>GBV | VZG:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>Frank Dührkohp</li>
+          <li>Kathleen Neumann</li>
+          <li>Thomas Konradi</li>
+          <li>Sebastian Hofmann</li>
+        </ul>
+      </dd>
+
+      <dt>Diğer:</dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li>G. Hande Betül Ünal (staj, Ağustos – Ekim 2018)</li>
+          <li>Dr. Agata Pawlina (staj, September 2021)</li>
+          <li>Sammy Park (staj, July – September 2023)</li>
+        </ul>
+      </dd>
+    </dl>
+  </section>
+
   <meta>
-    <log date="2017-06-26" time="11:59" labelPath=" » Contact" lastEditor="Kathleen Neumann" />
+    <log lastEditor="ntahtaisleyen" date="2026-03-10" time="11:59" />
   </meta>
 </MyCoReWebPage>
