@@ -2,61 +2,61 @@
 <!DOCTYPE MyCoReWebPage>
 <MyCoReWebPage><section xml:lang="de" title="Blättern"><div class="row">
 <div class="col-md-12">
-<h1 class="h2"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000989">Corpus Musicae Ottomanicae<span class="subtitle">: Critical Editions of Near Eastern Music Manuscripts</span></a></h1>
-<h2 class="h3"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000047">Part 1: Edition of the Manuscripts in Hampartsum Notation</a></h2>
-<h3 class="h4"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000049">Series I: The Manuscript Sources from İstanbul Üniversitesi Nadir Eserler Kütüphanesi</a></h3>
+<h1 class="h2"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000989">Corpus Musicae Ottomanicae<span class="subtitle">: Critical Editions of Near Eastern Music Manuscripts</span></a></h1>
+<h2 class="h3"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000047">Part 1: Edition of the Manuscripts in Hampartsum Notation</a></h2>
+<h3 class="h4"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000049">Series I: The Manuscript Sources from İstanbul Üniversitesi Nadir Eserler Kütüphanesi</a></h3>
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000341">Volume 1: Codex TR-Iüne 203-1: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000341">Volume 1: Codex TR-Iüne 203-1: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000412">a. Transcription and b. Commentary</a> (Two volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000412">a. Transcription and b. Commentary</a> (Two volumes)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000061">Volume 2: Codex TR-Iüne 204-2: Transcriptions/Critical Reports/Text</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000061">Volume 2: Codex TR-Iüne 204-2: Transcriptions/Critical Reports/Text</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000062">a. Instrumental and b. Vocal Transcriptions and c. Commentary</a> (Three volumes)</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000064">d. Text and e. Supplement</a> (Two volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000062">a. Instrumental and b. Vocal Transcriptions and c. Commentary</a> (Three volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000064">d. Text and e. Supplement</a> (Two volumes)</li>
 </ul>
 </li>
 <li>Volume 3: Codex TR-Iüne 205-3</li>
 <li>Volume 4: Codex TR-Iüne 206-4</li>
 <li>Volume 5: Codex TR-Iüne 207-5</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001270?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 6: Codex TR-Iüne 208-6: Transcriptions/Critical Reports/Text</a> (Individual pieces)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001270?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 6: Codex TR-Iüne 208-6: Transcriptions/Critical Reports/Text</a> (Individual pieces)</li>
 <li>Volume 7: Codex TR-Iüne 209-7</li>
 <li>Volume 8: Codex TR-Iüne 210-8</li>
 <li>Volume 9: Codex TR-Iüne 211-9</li>
 <li>Volume 10: Codex TR-Iüne 213-11</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000415">Volume 11: Codex TR-Iüne 214-12: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000415">Volume 11: Codex TR-Iüne 214-12: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000773?lang=de">a. Transcription and b. Commentary</a> (Two volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000773?lang=de">a. Transcription and b. Commentary</a> (Two volumes)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000300">Volume 12: Codex TR-Iüne 215-13: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000300">Volume 12: Codex TR-Iüne 215-13: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000891">Transcription &amp; Commentary</a> (One volume)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000891">Transcription &amp; Commentary</a> (One volume)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000766">Volume 13: Codex TR-Iüne 216-14: Transcriptions/Critical Reports/Text</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000766">Volume 13: Codex TR-Iüne 216-14: Transcriptions/Critical Reports/Text</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000913">Transcription &amp; Commentary</a> (One volume)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000913">Transcription &amp; Commentary</a> (One volume)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000323">Volume 14: Codex TR-Iüne 217-15: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000323">Volume 14: Codex TR-Iüne 217-15: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000890">Transcription &amp; Commentary</a> (One volume)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000890">Transcription &amp; Commentary</a> (One volume)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001279?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=de">Volume 15: Codex TR-Iüne 212-10: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001279?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=de">Volume 15: Codex TR-Iüne 212-10: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001293?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Transcription &amp; Commentary</a> (One Volume) </li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001293?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Transcription &amp; Commentary</a> (One Volume) </li>
 </ul>
 </li>
 </ul>
-<h3 class="h4"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000763">Series II: The Manuscript Sources from İstanbul Üniversitesi Türkiyat Araştırmaları Enstitüsü Arel Kütüphanesi</a></h3>
+<h3 class="h4"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000763">Series II: The Manuscript Sources from İstanbul Üniversitesi Türkiyat Araştırmaları Enstitüsü Arel Kütüphanesi</a></h3>
 <ul>
 <li>Volume 1: Codex TR-Iütae 107</li>
 <li>Volume 2: Codex TR-Iütae 108</li>
 <li>Volume 3: Codex TR-Iütae 109</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000990?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 4: Codex TR-Iütae 110: Transcriptions/Critical Reports</a> (Individual pieces)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000990?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 4: Codex TR-Iütae 110: Transcriptions/Critical Reports</a> (Individual pieces)</li>
 <li>Volume 5: Collections of Loose Sheets</li>
 </ul>
 <h3 class="h4">Series III: The Manuscript Sources from İstanbul Büyükşehir Belediyesi Atatürk Kitaplığı</h3>
@@ -78,33 +78,33 @@
 <li>Volume 2: Codex HMP_2</li>
 <li>Volume 3: Codex HMP_3</li>
 </ul>
-<h3 class="h4"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000764">Series VI: Single Manuscript Sources from Various Collections</a></h3>
+<h3 class="h4"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000764">Series VI: Single Manuscript Sources from Various Collections</a></h3>
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000767">Volume 1: İstanbul Arkeoloji Müzeleri Kütüphanesi, Codex TR-Iam EY_1537</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000767">Volume 1: İstanbul Arkeoloji Müzeleri Kütüphanesi, Codex TR-Iam EY_1537</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001292">a. Transcription and b. Commentary</a> (Two volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001292">a. Transcription and b. Commentary</a> (Two volumes)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000431">Volume 2: <span class="subtitle">Private Archive of Ali Rifat Çağatay, </span>Codex TR-Içağatay YZPER2</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000431">Volume 2: <span class="subtitle">Private Archive of Ali Rifat Çağatay, </span>Codex TR-Içağatay YZPER2</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000914?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Transcription &amp; Commentary</a> (One volume) </li>
-</ul>
-</li>
-</ul>
-<h3 class="h4"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000765">Series VII: The Manuscript Sources from Osmanlı Arşivleri, Istanbul</a></h3>
-<ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000892">Volume 1: Codex TR-Iboa TRT.MD.d.405: Transcriptions/Critical Reports</a> (Individual pieces)
-<ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001384?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=de">Transcription &amp; Commentary</a> (One volume)</li>
-</ul>
-</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001053?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 2: Codex TR-Iboa TRT.MD.d.521: Transcriptions/Critical Reports</a> (Individual pieces)
-<ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001385?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=de">Transcription &amp; Commentary</a> (One volume)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000914?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Transcription &amp; Commentary</a> (One volume) </li>
 </ul>
 </li>
 </ul>
-<h2 class="h3"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000048">Part 2: Edition of Manuscripts in Staff Notation</a></h2>
+<h3 class="h4"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000765">Series VII: The Manuscript Sources from Osmanlı Arşivleri, Istanbul</a></h3>
+<ul>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000892">Volume 1: Codex TR-Iboa TRT.MD.d.405: Transcriptions/Critical Reports</a> (Individual pieces)
+<ul>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001384?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=de">Transcription &amp; Commentary</a> (One volume)</li>
+</ul>
+</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001053?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 2: Codex TR-Iboa TRT.MD.d.521: Transcriptions/Critical Reports</a> (Individual pieces)
+<ul>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001385?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=de">Transcription &amp; Commentary</a> (One volume)</li>
+</ul>
+</li>
+</ul>
+<h2 class="h3"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000048">Part 2: Edition of Manuscripts in Staff Notation</a></h2>
 <h3 class="h4">Series I: The Manuscript Sources from İstanbul Üniversitesi Nadir Eserler Kütüphanesi</h3>
 <ul>
 <li>Volume 1: Manuscript Y.6</li>
@@ -153,61 +153,61 @@
 </div>
 </div></section><section xml:lang="tr" title="Göz at"><div class="row">
 <div class="col-md-12">
-<h1 class="h2"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000989">Corpus Musicae Ottomanicae<span class="subtitle">: Critical Editions of Near Eastern Music Manuscripts</span></a></h1>
-<h2 class="h3"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000047">Part 1: Edition of the Manuscripts in Hampartsum Notation</a></h2>
-<h3 class="h4"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000049">Series I: The Manuscript Sources from İstanbul Üniversitesi Nadir Eserler Kütüphanesi</a></h3>
+<h1 class="h2"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000989">Corpus Musicae Ottomanicae<span class="subtitle">: Critical Editions of Near Eastern Music Manuscripts</span></a></h1>
+<h2 class="h3"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000047">Part 1: Edition of the Manuscripts in Hampartsum Notation</a></h2>
+<h3 class="h4"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000049">Series I: The Manuscript Sources from İstanbul Üniversitesi Nadir Eserler Kütüphanesi</a></h3>
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000341">Volume 1: Codex TR-Iüne 203-1: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000341">Volume 1: Codex TR-Iüne 203-1: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000412">a. Transcription and b. Commentary</a> (Two volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000412">a. Transcription and b. Commentary</a> (Two volumes)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000061">Volume 2: Codex TR-Iüne 204-2: Transcriptions/Critical Reports/Text</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000061">Volume 2: Codex TR-Iüne 204-2: Transcriptions/Critical Reports/Text</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000062">a. Instrumental and b. Vocal Transcriptions and c. Commentary</a> (Three volumes)</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000064">d. Text and e. Supplement</a> (Two volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000062">a. Instrumental and b. Vocal Transcriptions and c. Commentary</a> (Three volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000064">d. Text and e. Supplement</a> (Two volumes)</li>
 </ul>
 </li>
 <li>Volume 3: Codex TR-Iüne 205-3</li>
 <li>Volume 4: Codex TR-Iüne 206-4</li>
 <li>Volume 5: Codex TR-Iüne 207-5</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001270?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=tr">Volume 6: Codex TR-Iüne 208-6: Transcriptions/Critical Reports/Text</a> (Individual pieces)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001270?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=tr">Volume 6: Codex TR-Iüne 208-6: Transcriptions/Critical Reports/Text</a> (Individual pieces)</li>
 <li>Volume 7: Codex TR-Iüne 209-7</li>
 <li>Volume 8: Codex TR-Iüne 210-8</li>
 <li>Volume 9: Codex TR-Iüne 211-9</li>
 <li>Volume 10: Codex TR-Iüne 213-11</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000415">Volume 11: Codex TR-Iüne 214-12: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000415">Volume 11: Codex TR-Iüne 214-12: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000773?lang=tr">a. Transcription and b. Commentary</a> (Two Volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000773?lang=tr">a. Transcription and b. Commentary</a> (Two Volumes)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000300">Volume 12: Codex TR-Iüne 215-13: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000300">Volume 12: Codex TR-Iüne 215-13: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000891?lang=tr">Transcription &amp; Commentary</a> (One Volume)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000891?lang=tr">Transcription &amp; Commentary</a> (One Volume)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000766">Volume 13: Codex TR-Iüne 216-14: Transcriptions/Critical Reports/Text</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000766">Volume 13: Codex TR-Iüne 216-14: Transcriptions/Critical Reports/Text</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000913">Transcription &amp; Commentary</a> (One volume)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000913">Transcription &amp; Commentary</a> (One volume)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000323">Volume 14: Codex TR-Iüne 217-15: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000323">Volume 14: Codex TR-Iüne 217-15: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li> <a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000890?lang=tr">Transcription &amp; Commentary</a> (One Volume)</li>
+<li> <a href="{$webApplicationBaseURL}receive/cmo_mods_00000890?lang=tr">Transcription &amp; Commentary</a> (One Volume)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001279?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=tr">Volume 15: Codex TR-Iüne 212-10: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001279?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=tr">Volume 15: Codex TR-Iüne 212-10: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001293?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Transcription &amp; Commentary</a> (One Volume)   </li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001293?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Transcription &amp; Commentary</a> (One Volume)   </li>
 </ul>
 </li>
 </ul>
-<h3 class="h4"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000763">Series II: The Manuscript Sources from İstanbul Üniversitesi Türkiyat Araştırmaları Enstitüsü Arel Kütüphanesi</a></h3>
+<h3 class="h4"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000763">Series II: The Manuscript Sources from İstanbul Üniversitesi Türkiyat Araştırmaları Enstitüsü Arel Kütüphanesi</a></h3>
 <ul>
 <li>Volume 1: Codex TR-Iütae 107</li>
 <li>Volume 2: Codex TR-Iütae 108</li>
 <li>Volume 3: Codex TR-Iütae 109</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000990?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 4: Codex TR-Iütae 110: Transcriptions/Critical Reports</a> (Individual pieces)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000990?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 4: Codex TR-Iütae 110: Transcriptions/Critical Reports</a> (Individual pieces)</li>
 <li>Volume 5: Collections of Loose Sheets</li>
 </ul>
 <h3 class="h4">Series III: The Manuscript Sources from İstanbul Büyükşehir Belediyesi Atatürk Kitaplığı</h3>
@@ -229,33 +229,33 @@
 <li>Volume 2: Codex HMP_2</li>
 <li>Volume 3: Codex HMP_3</li>
 </ul>
-<h3 class="h4"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000764">Series VI: Single Manuscript Sources from Various Collections</a></h3>
+<h3 class="h4"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000764">Series VI: Single Manuscript Sources from Various Collections</a></h3>
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000767">Volume 1: İstanbul Arkeoloji Müzeleri Kütüphanesi, Codex TR-Iam EY_1537</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000767">Volume 1: İstanbul Arkeoloji Müzeleri Kütüphanesi, Codex TR-Iam EY_1537</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001292">a. Transcription and b. Commentary</a> (Two volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001292">a. Transcription and b. Commentary</a> (Two volumes)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000431">Volume 2: <span class="subtitle">Private Archive of Ali Rifat Çağatay, </span>Codex TR-Içağatay YZPER2</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000431">Volume 2: <span class="subtitle">Private Archive of Ali Rifat Çağatay, </span>Codex TR-Içağatay YZPER2</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000914?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Transcription &amp; Commentary</a> (One volume) </li>
-</ul>
-</li>
-</ul>
-<h3 class="h4"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000765">Series VII: The Manuscript Sources from Osmanlı Arşivleri, Istanbul</a></h3>
-<ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000892?lang=tr">Volume 1: Codex TR-Iboa TRT.MD.d.405: Transcriptions/Critical Reports</a> (Individual pieces)
-<ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001384?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=tr">Transcription &amp; Commentary</a> (One volume)</li>
-</ul>
-</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001053?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 2: Codex TR-Iboa TRT.MD.d.521: Transcriptions/Critical Reports</a> (Individual pieces)
-<ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001385?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=tr">Transcription &amp; Commentary</a> (One volume)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000914?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Transcription &amp; Commentary</a> (One volume) </li>
 </ul>
 </li>
 </ul>
-<h2 class="h3"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000048">Part 2: Edition of Manuscripts in Staff Notation</a></h2>
+<h3 class="h4"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000765">Series VII: The Manuscript Sources from Osmanlı Arşivleri, Istanbul</a></h3>
+<ul>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000892?lang=tr">Volume 1: Codex TR-Iboa TRT.MD.d.405: Transcriptions/Critical Reports</a> (Individual pieces)
+<ul>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001384?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=tr">Transcription &amp; Commentary</a> (One volume)</li>
+</ul>
+</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001053?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 2: Codex TR-Iboa TRT.MD.d.521: Transcriptions/Critical Reports</a> (Individual pieces)
+<ul>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001385?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=tr">Transcription &amp; Commentary</a> (One volume)</li>
+</ul>
+</li>
+</ul>
+<h2 class="h3"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000048">Part 2: Edition of Manuscripts in Staff Notation</a></h2>
 <h3 class="h4">Series I: The Manuscript Sources from İstanbul Üniversitesi Nadir Eserler Kütüphanesi</h3>
 <ul>
 <li>Volume 1: Manuscript Y.6</li>
@@ -304,61 +304,61 @@
 </div>
 </div></section><section xml:lang="en" title="Browse"><div class="row">
 <div class="col-md-12">
-<h1 class="h2"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000989">Corpus Musicae Ottomanicae<span class="subtitle">: Critical Editions of Near Eastern Music Manuscripts</span></a></h1>
-<h2 class="h3"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000047">Part 1: Edition of the Manuscripts in Hampartsum Notation</a></h2>
-<h3 class="h4"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000049">Series I: The Manuscript Sources from İstanbul Üniversitesi Nadir Eserler Kütüphanesi</a></h3>
+<h1 class="h2"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000989">Corpus Musicae Ottomanicae<span class="subtitle">: Critical Editions of Near Eastern Music Manuscripts</span></a></h1>
+<h2 class="h3"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000047">Part 1: Edition of the Manuscripts in Hampartsum Notation</a></h2>
+<h3 class="h4"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000049">Series I: The Manuscript Sources from İstanbul Üniversitesi Nadir Eserler Kütüphanesi</a></h3>
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000341">Volume 1: Codex TR-Iüne 203-1: Transcriptions/Critical Reports</a> (Individual pieces) 
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000341">Volume 1: Codex TR-Iüne 203-1: Transcriptions/Critical Reports</a> (Individual pieces) 
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000412">a. Transcription and b. Commentary</a> (Two volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000412">a. Transcription and b. Commentary</a> (Two volumes)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000061">Volume 2: Codex TR-Iüne 204-2: Transcriptions/Critical Reports/Text</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000061">Volume 2: Codex TR-Iüne 204-2: Transcriptions/Critical Reports/Text</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000062">a. Instrumental and b. Vocal Transcriptions and c. Commentary</a> (Three volumes)</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000064">d. Text and e. Supplement</a> (Two volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000062">a. Instrumental and b. Vocal Transcriptions and c. Commentary</a> (Three volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000064">d. Text and e. Supplement</a> (Two volumes)</li>
 </ul>
 </li>
 <li>Volume 3: Codex TR-Iüne 205-3</li>
 <li>Volume 4: Codex TR-Iüne 206-4</li>
 <li>Volume 5: Codex TR-Iüne 207-5</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001270?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=en">Volume 6: Codex TR-Iüne 208-6: Transcriptions/Critical Reports/Text</a> (Individual pieces)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001270?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=en">Volume 6: Codex TR-Iüne 208-6: Transcriptions/Critical Reports/Text</a> (Individual pieces)</li>
 <li>Volume 7: Codex TR-Iüne 209-7 </li>
 <li>Volume 8: Codex TR-Iüne 210-8</li>
 <li>Volume 9: Codex TR-Iüne 211-9</li>
 <li>Volume 10: Codex TR-Iüne 213-11</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000415">Volume 11: Codex TR-Iüne 214-12: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000415">Volume 11: Codex TR-Iüne 214-12: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000773?lang=en">a. Transcription and b. Commentary</a> (Two Volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000773?lang=en">a. Transcription and b. Commentary</a> (Two Volumes)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000300">Volume 12: Codex TR-Iüne 215-13: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000300">Volume 12: Codex TR-Iüne 215-13: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000891?lang=en">Transcription &amp; Commentary</a> (One Volume)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000891?lang=en">Transcription &amp; Commentary</a> (One Volume)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000766">Volume 13: Codex TR-Iüne 216-14: Transcriptions/Critical Reports/Text</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000766">Volume 13: Codex TR-Iüne 216-14: Transcriptions/Critical Reports/Text</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000913">Transcription &amp; Commentary</a> (One volume)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000913">Transcription &amp; Commentary</a> (One volume)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000323">Volume 14: Codex TR-Iüne 217-15: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000323">Volume 14: Codex TR-Iüne 217-15: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000890?lang=en">Transcription &amp; Commentary</a> (One Volume)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000890?lang=en">Transcription &amp; Commentary</a> (One Volume)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001279?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=en">Volume 15: Codex TR-Iüne 212-10: Transcriptions/Critical Reports</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001279?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=en">Volume 15: Codex TR-Iüne 212-10: Transcriptions/Critical Reports</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001293?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Transcription &amp; Commentary</a> (One Volume)   </li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001293?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Transcription &amp; Commentary</a> (One Volume)   </li>
 </ul>
 </li>
 </ul>
-<h3 class="h4"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000763">Series II: The Manuscript Sources from İstanbul Üniversitesi Türkiyat Araştırmaları Enstitüsü Arel Kütüphanesi</a></h3>
+<h3 class="h4"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000763">Series II: The Manuscript Sources from İstanbul Üniversitesi Türkiyat Araştırmaları Enstitüsü Arel Kütüphanesi</a></h3>
 <ul>
 <li>Volume 1: Codex TR-Iütae 107</li>
 <li>Volume 2: Codex TR-Iütae 108</li>
 <li>Volume 3: Codex TR-Iütae 109</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000990?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 4: Codex TR-Iütae 110: Transcriptions/Critical Reports</a> (Individual pieces)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000990?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 4: Codex TR-Iütae 110: Transcriptions/Critical Reports</a> (Individual pieces)</li>
 <li>Volume 5: Collections of Loose Sheets</li>
 </ul>
 <h3 class="h4">Series III: The Manuscript Sources from İstanbul Büyükşehir Belediyesi Atatürk Kitaplığı</h3>
@@ -380,33 +380,33 @@
 <li>Volume 2: Codex HMP_2</li>
 <li>Volume 3: Codex HMP_3</li>
 </ul>
-<h3 class="h4"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000764">Series VI: Single Manuscript Sources from Various Collections</a></h3>
+<h3 class="h4"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000764">Series VI: Single Manuscript Sources from Various Collections</a></h3>
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000767">Volume 1: İstanbul Arkeoloji Müzeleri Kütüphanesi, Codex TR-Iam EY_1537</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000767">Volume 1: İstanbul Arkeoloji Müzeleri Kütüphanesi, Codex TR-Iam EY_1537</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001292">a. Transcription and b. Commentary</a> (Two volumes)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001292">a. Transcription and b. Commentary</a> (Two volumes)</li>
 </ul>
 </li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000431">Volume 2: <span class="subtitle">Private Archive of Ali Rifat Çağatay, </span>Codex TR-Içağatay YZPER2</a> (Individual pieces)
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000431">Volume 2: <span class="subtitle">Private Archive of Ali Rifat Çağatay, </span>Codex TR-Içağatay YZPER2</a> (Individual pieces)
 <ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000914?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Transcription &amp; Commentary</a> (One volume) </li>
-</ul>
-</li>
-</ul>
-<h3 class="h4"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000765">Series VII: The Manuscript Sources from Osmanlı Arşivleri, Istanbul</a></h3>
-<ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000892?lang=en">Volume 1: Codex TR-Iboa TRT.MD.d.405: Transcriptions/Critical Reports</a> (Individual pieces)
-<ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001384?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=en">Transcription &amp; Commentary</a> (One volume)</li>
-</ul>
-</li>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001053?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 2: Codex TR-Iboa TRT.MD.d.521: Transcriptions/Critical Reports</a> (Individual pieces)
-<ul>
-<li><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00001385?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=en">Transcription &amp; Commentary</a> (One volume)</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000914?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Transcription &amp; Commentary</a> (One volume) </li>
 </ul>
 </li>
 </ul>
-<h2 class="h3"><a href="https://corpus-musicae-ottomanicae.de/receive/cmo_mods_00000048">Part 2: Edition of Manuscripts in Staff Notation</a></h2>
+<h3 class="h4"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000765">Series VII: The Manuscript Sources from Osmanlı Arşivleri, Istanbul</a></h3>
+<ul>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00000892?lang=en">Volume 1: Codex TR-Iboa TRT.MD.d.405: Transcriptions/Critical Reports</a> (Individual pieces)
+<ul>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001384?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=en">Transcription &amp; Commentary</a> (One volume)</li>
+</ul>
+</li>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001053?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success">Volume 2: Codex TR-Iboa TRT.MD.d.521: Transcriptions/Critical Reports</a> (Individual pieces)
+<ul>
+<li><a href="{$webApplicationBaseURL}receive/cmo_mods_00001385?XSL.Status.Style=success&amp;XSL.Status.Message=cmo.editstatus.success&amp;lang=en">Transcription &amp; Commentary</a> (One volume)</li>
+</ul>
+</li>
+</ul>
+<h2 class="h3"><a href="{$webApplicationBaseURL}receive/cmo_mods_00000048">Part 2: Edition of Manuscripts in Staff Notation</a></h2>
 <h3 class="h4">Series I: The Manuscript Sources from İstanbul Üniversitesi Nadir Eserler Kütüphanesi</h3>
 <ul>
 <li>Volume 1: Manuscript Y.6</li>
