@@ -65,19 +65,6 @@
           window["webApplicationBaseURL" ] = '<xsl:value-of select="$WebApplicationBaseURL" />';
           window["mcrLanguage" ] = '<xsl:value-of select="$CurrentLang" />';
         </script>
-        <script>
-          // resolve the {$webApplicationBaseURL} placeholder used in static web content links
-          document.addEventListener("DOMContentLoaded", function () {
-            var base = window["webApplicationBaseURL"] || "";
-            var placeholder = "{$webApplicationBaseURL}";
-            document.querySelectorAll("a[href]").forEach(function (link) {
-              var href = link.getAttribute("href");
-              if (href.indexOf(placeholder) !== -1) {
-                link.setAttribute("href", href.split(placeholder).join(base));
-              }
-            });
-          });
-        </script>
         <xsl:copy-of select="head/*" />
       </head>
 
