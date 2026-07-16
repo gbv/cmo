@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="derivate_types">
+  <label xml:lang="de" text="Dateibereichtyp" />
+  <label xml:lang="en" text="Type of file area" />
+  <label xml:lang="tr" text="Dosya alanı türü" />
+  <categories>
+    <category ID="content">
+      <label xml:lang="de" text="Inhalt" />
+      <label xml:lang="en" text="Content" />
+      <label xml:lang="tr" text="İçerik" />
+    </category>
+    <category ID="edition_tei">
+      <label xml:lang="de" text="Textedition" />
+      <label xml:lang="en" text="Text Edition" />
+      <label xml:lang="tr" text="Metin Baskısı" />
+    </category>
+  </categories>
+</mycoreclass>
