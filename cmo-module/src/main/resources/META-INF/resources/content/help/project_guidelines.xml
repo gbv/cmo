@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MyCoReWebPage>
+<MyCoReWebPage>
+  <section xml:lang="all" title="Project Guidelines">
+    <h2>Project Guidelines</h2>
+    <p>
+      The Corpus Musicae Ottomanicae (CMO) project's guidelines for transcription of scripts used in Ottoman music
+      manuscripts can be found below, along with lists of standardized terms developed as part of the CMO Project.
+    </p>
+
+    <h2>CMO Guidelines for the transcription of Karamanlidika</h2>
+    <div class="subhead">Online Publication, 31st October 2025</div>
+    <p>
+      The PDF-file can be downloaded here: <a class="int" href="https://www.uni-muenster.de/imperia/md/content/cmo-edition/publikationen/karamanlidika_transcription_final_last_31.10.2025.pdf">CMO Guidelines for the transcription of Karamanlidika</a>
+    </p>
+
+    <h2>Guidelines for the Transcription of the Ottoman Lyrics from Arabic into Latin Characters - Revised edition</h2>
+    <div class="subhead">Online Publication, 19th January 2022 / Updated 29th September 2025</div>
+    <p>
+      The PDF-file can be downloaded here: <a class="download" href="https://www.uni-muenster.de/imperia/md/content/cmo-edition/publikationen/guidelines_for_transcription_ver003_september_25.pdf">Guidelines for the Transcription of the Ottoman Lyrics from Arabic into Latin Characters</a>
+    </p>
+
+    <h2>Standard List of Musical Terms - Revised edition</h2>
+    <div class="subhead">Online Publication, 17 November 2021</div>
+    <p>*Updated 17th November 2021*<br />*Updated 8th March 2023*</p>
+    <p>
+      A standard list was prepared to overcome the issues caused by variant spellings of Ottoman-Turkish musical terms
+      during the preparation of CMO source catalogue in 2016. After several years of work, it became necessary to
+      enhance and revise the terminology.
+    </p>
+    <p>
+      We are grateful to Prof. Dr. Mehmet Kalpaklı (Bilkent University - Department of Turkish Literature) and Assoc.
+      Prof. Dr. Cenk Güray (Hacettepe University - State Conservatory) for their valuable support during the revision.
+    </p>
+    <p>
+      The PDF-file can be downloaded here: <a class="download" href="https://www.uni-muenster.de/imperia/md/content/cmo-edition/medien/standard_list_of_musical_terms_revised_edition__v3.0_for_the_homepage_.pdf">Standard List of Musical Terms</a>
+    </p>
+
+    <h2>Truetype fonts for Hampartsum-Notation</h2>
+    <div class="subhead">New Fonts</div>
+    <p>
+      The Hampartsum truetype fonts VF OttoAneumatic were developed by Vladimír Faltus and Haig Utidjian, supported by
+      CMO project team. The fonts, which were developed to be used in CMO editions, are constantly supplemented on
+      behalf of CMO according to the state of current research.
+    </p>
+    <p>
+      The fonts are now available on the DARIAH-EU (Digital Research Infrastructure for the Arts and Humanities)
+      repository under a Creative Commons licence: <a class="ext" href="https://doi.org/10.20375/0000-000E-5CAE-8" target="_blank" rel="noopener">VF OttoAneumatic</a>
+    </p>
+  </section>
+  <meta>
+    <log lastEditor="wsumits" date="2026-07-07" time="15:26" />
+  </meta>
+</MyCoReWebPage>

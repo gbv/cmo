@@ -3,21 +3,34 @@
 
 <MyCoReWebPage>
 
-  <section i18n="cmo.browse.source" xml:lang="all">
-
-    <div class="row">
-      <div class="col-md-8" lang="de">
-        <h3><i18n key="cmo.browse.source" /></h3>
-        <classificationbrowser classification="cmo_sourceType"
-                                        field="category.top"
-                                 countresults="true"
-                                   addclassid="true"
-                                  emptyleaves="true"
-                                        style="bootstrap-cmo"
-                                 addParameter="XSL.template=template_cmo"
-        />
-      </div>
-    </div>
+  <section i18n="cmo.browse.source" xml:lang="de">
+    <p><strong><a href="{$webApplicationBaseURL}content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Alle Quellen im CMO-Quellenkatalog durchblättern</a></strong></p>
+    <p><strong><u>Nach verschiedenen Quellentypen blättern:</u></strong></p>
+    <p><strong><a href="{$webApplicationBaseURL}content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20category.top%3A%22cmo_sourceType%3APrinted_source%22&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Gedruckte Quellen</a></strong></p>
+    <p><strong><a href="{$webApplicationBaseURL}content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20category.top%3A%22cmo_sourceType%3AManuscript%22&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Handschriftliche Quellen</a></strong></p>
+    <p><strong><a href="{$webApplicationBaseURL}receive/cmo_person_00000600#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20hasFiles%3Atrue&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Quellen mit Notenabbildungen</a></strong></p>
+    <p><strong><a href="{$webApplicationBaseURL}content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Amods&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Bibliografische und Sekundärquellen</a></strong></p>
   </section>
 
+  <section i18n="cmo.browse.source" xml:lang="tr">
+    <p><strong><a href="{$webApplicationBaseURL}content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">CMO Kaynak Kataloğu'ndakı tüm kaynakları göz at</a></strong></p>
+    <p><strong><u>Farklı kaynak türlerine göre göz at:</u></strong></p>
+    <p><strong><a href="{$webApplicationBaseURL}content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20category.top%3A%22cmo_sourceType%3APrinted_source%22&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Basılı kaynaklar</a></strong></p>
+    <p><strong><a href="{$webApplicationBaseURL}content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20category.top%3A%22cmo_sourceType%3AManuscript%22&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Yazma kaynaklar</a></strong></p>
+    <p><strong><a href="{$webApplicationBaseURL}receive/cmo_person_00000600#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20hasFiles%3Atrue&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Notasyonların resimlerini içeren kaynaklar</a></strong></p>
+    <p><strong><a href="{$webApplicationBaseURL}content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Amods&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Bibliyografik maddeler</a></strong></p>
+  </section>
+
+  <section i18n="cmo.browse.source" xml:lang="en">
+    <p><strong><a href="{$webApplicationBaseURL}content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Browse all sources in the CMO Source Catalog</a></strong></p>
+    <p><strong><u>Browse by different source types:</u></strong></p>
+    <p><strong><a href="{$webApplicationBaseURL}content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20category.top%3A%22cmo_sourceType%3APrinted_source%22&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Print sources</a></strong></p>
+    <p><strong><a href="{$webApplicationBaseURL}content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20category.top%3A%22cmo_sourceType%3AManuscript%22&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Manuscript sources</a></strong></p>
+    <p><strong><a href="{$webApplicationBaseURL}receive/cmo_person_00000600#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Asource%20AND%20hasFiles%3Atrue&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Sources that include images of notations</a></strong></p>
+    <p><strong><a href="{$webApplicationBaseURL}content/index.xml#q=(category.top%3A%22cmo_kindOfData%3Asource%22%20OR%20cmoType%3Aperson)%20AND%20objectType%3Amods&amp;&amp;start=0&amp;action=search&amp;sort=score%20desc&amp;rows=10">Bibliographic and secondary sources</a></strong></p>
+  </section>
+
+  <meta>
+    <log lastEditor="wsumits" date="2024-11-04" time="16:11" />
+  </meta>
 </MyCoReWebPage>

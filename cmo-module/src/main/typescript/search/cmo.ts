@@ -16,8 +16,11 @@ import {BasketUtil} from "./BasketUtil";
 import {I18N} from "../other/I18N";
 import {ClassificationResolver} from "../other/Classification";
 import {enableKeyboard} from "../keyboard/keyboard";
+import {replaceBaseUrlPlaceholder} from "../other/replace-baseurl";
 
 window.addEventListener('load', () => {
+
+    replaceBaseUrlPlaceholder();
 
     let eContainer = <HTMLElement>document.querySelector("#e_suche");
     let kContainer = <HTMLElement>document.querySelector("#k_suche");
