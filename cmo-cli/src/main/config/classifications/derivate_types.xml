@@ -10,9 +10,9 @@
       <label xml:lang="tr" text="İçerik" />
     </category>
     <category ID="edition_tei">
-      <label xml:lang="de" text="Editions TEI" />
-      <label xml:lang="en" text="Edition TEI" />
-      <label xml:lang="tr" text="Edisyon TEI" />
+      <label xml:lang="de" text="Textedition" />
+      <label xml:lang="en" text="Text Edition" />
+      <label xml:lang="tr" text="Metin Baskısı" />
     </category>
   </categories>
 </mycoreclass>
