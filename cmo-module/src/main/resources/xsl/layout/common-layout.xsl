@@ -96,6 +96,7 @@
 
   <xsl:template match="/navigation//label">
   </xsl:template>
+
   <xsl:template match="/navigation//menu[@id and (group[item] or item)]">
     <xsl:param name="active" select="descendant-or-self::item[@href = $browserAddress ]" />
     <xsl:variable name="menuId" select="generate-id(.)" />
@@ -131,6 +132,7 @@
       </div>
     </li>
   </xsl:template>
+
   <xsl:template match="/navigation//group[@id and item]">
     <xsl:param name="rootNode" select="." />
     <xsl:if test="name(preceding-sibling::*[1])='item'">
@@ -176,6 +178,11 @@
           <a class="dropdown-link" href="{$url}">
             <xsl:apply-templates select="." mode="linkText" />
           </a>
+          <xsl:if test="item">
+            <ul class="dropdown-menu show" role="menu">
+              <xsl:apply-templates select="item" />
+            </ul>
+          </xsl:if>
         </li>
       </xsl:when>
       <xsl:otherwise>
@@ -184,6 +191,26 @@
         </xsl:comment>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <!-- level 2 entry: label and submenu -->
+  <xsl:template match="/navigation//item[not(@href)]">
+    <xsl:param name="active" select="descendant-or-self::item[@href = $browserAddress ]" />
+    <li class="dropdown-item cmo-submenu-title">
+      <xsl:if test="$active">
+        <xsl:attribute name="class">
+          <xsl:value-of select="'dropdown-item cmo-submenu-title active'" />
+        </xsl:attribute>
+      </xsl:if>
+      <span>
+        <xsl:apply-templates select="." mode="linkText" />
+      </span>
+      <xsl:if test="item">
+        <ul class="dropdown-menu cmo-submenu show" role="menu">
+          <xsl:apply-templates select="item" />
+        </ul>
+      </xsl:if>
+    </li>
   </xsl:template>
 
   <xsl:template match="/navigation//*[label]" mode="linkText">
