@@ -17,6 +17,23 @@
     <xsl:variable name="readableDerivates"
       select="derobjects/derobject[key('rights', @xlink:href)/@read
                                    and string(mcrxsl:getMainDocName(@xlink:href)) != '']" />
+    <!-- the tei/xml edition is shown by default; only if none exists the first derivate wins -->
+    <xsl:variable name="teiDerivates"
+      select="$readableDerivates[
+                translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
+                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = 'xml'
+             or translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
+                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = 'tei']" />
+    <xsl:variable name="defaultHref">
+      <xsl:choose>
+        <xsl:when test="$teiDerivates">
+          <xsl:value-of select="$teiDerivates[1]/@xlink:href" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$readableDerivates[1]/@xlink:href" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
     <xsl:if test="count($readableDerivates) &gt; 0">
       <div id="cmo-viewer">
         <div class="row cmo-preview">
@@ -38,7 +55,7 @@
                 <li class="nav-item" role="presentation">
                   <a class="nav-link" role="tab" data-toggle="tab" href="#{$tabId}"
                      id="{$tabId}-label" aria-controls="{$tabId}">
-                    <xsl:if test="position() = 1">
+                    <xsl:if test="@xlink:href = $defaultHref">
                       <xsl:attribute name="class">nav-link active</xsl:attribute>
                       <xsl:attribute name="aria-selected">true</xsl:attribute>
                     </xsl:if>
@@ -65,7 +82,7 @@
                                     'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
                 <div class="tab-pane fade" id="{$tabId}" role="tabpanel"
                      aria-labelledby="{$tabId}-label">
-                  <xsl:if test="position() = 1">
+                  <xsl:if test="@xlink:href = $defaultHref">
                     <xsl:attribute name="class">tab-pane fade show active</xsl:attribute>
                   </xsl:if>
                   <xsl:call-template name="viewerTabPane" />
@@ -164,7 +181,13 @@
     </div>
   </xsl:template>
 
-  <!-- lazily loads the TEI edition into its tab and relayouts image viewers on tab change -->
+  <!--
+    Lazily loads the TEI edition into its tab, relayouts image viewers on tab change
+    and wires up the annotation interaction: hovering a marked text span (.cmo-tei-anno)
+    highlights and shows a popover with the matching critical apparatus entries, and
+    hovering an apparatus entry highlights the marked span in the text. Because the TEI
+    html is loaded lazily, all handlers are delegated from the static #cmo-viewer.
+  -->
   <xsl:template name="loadTeiScript">
     <script type="text/javascript">
       (function() {
@@ -175,6 +198,106 @@
           el.setAttribute('data-loaded', '1');
           $(el).load(el.getAttribute('data-tei-src'));
         }
+
+        var popover = null;
+        var hideTimer = null;
+
+        function getPopover() {
+          if (!popover) {
+            popover = document.createElement('div');
+            popover.className = 'cmo-tei-popover';
+            popover.style.display = 'none';
+            document.body.appendChild(popover);
+            popover.addEventListener('mouseenter', function() {
+              clearTimeout(hideTimer);
+            });
+            popover.addEventListener('mouseleave', hidePopover);
+          }
+          return popover;
+        }
+
+        function hidePopover() {
+          if (popover) {
+            popover.style.display = 'none';
+          }
+        }
+
+        function clearActive(edition) {
+          $(edition).find('.is-active').removeClass('is-active');
+        }
+
+        function positionPopover(pop, span) {
+          pop.style.left = '0px';
+          pop.style.top = '0px';
+          pop.style.display = 'block';
+          var rect = span.getBoundingClientRect();
+          var pw = pop.offsetWidth;
+          var docW = document.documentElement.clientWidth;
+          var left = rect.left + window.pageXOffset;
+          left = Math.max(8, Math.min(left, docW - pw - 8));
+          var top = rect.bottom + window.pageYOffset + 6;
+          pop.style.left = left + 'px';
+          pop.style.top = top + 'px';
+        }
+
+        function showAnno(span) {
+          clearTimeout(hideTimer);
+          var edition = span.closest('.cmo-tei-edition');
+          if (!edition) {
+            return;
+          }
+          var id = span.getAttribute('data-anno');
+          clearActive(edition);
+          span.classList.add('is-active');
+          var entries = edition.querySelectorAll('.cmo-tei-app-entry[data-anno="' + id + '"]');
+          if (!entries.length) {
+            hidePopover();
+            return;
+          }
+          var pop = getPopover();
+          pop.innerHTML = '';
+          entries.forEach(function(entry) {
+            entry.classList.add('is-active');
+            var item = document.createElement('div');
+            item.className = 'cmo-tei-pop-item';
+            var group = entry.closest('.cmo-tei-app-group');
+            var heading = group ? group.querySelector('.cmo-tei-app-heading') : null;
+            if (heading) {
+              var kind = document.createElement('span');
+              kind.className = 'cmo-tei-pop-kind';
+              kind.textContent = heading.textContent;
+              item.appendChild(kind);
+            }
+            var body = document.createElement('div');
+            body.innerHTML = entry.innerHTML;
+            item.appendChild(body);
+            pop.appendChild(item);
+          });
+          positionPopover(pop, span);
+          pop.style.display = 'block';
+        }
+
+        function scheduleHide(span) {
+          hideTimer = setTimeout(function() {
+            hidePopover();
+            var edition = span.closest('.cmo-tei-edition');
+            if (edition) {
+              clearActive(edition);
+            }
+          }, 200);
+        }
+
+        function toggleSpans(entry, on) {
+          var edition = entry.closest('.cmo-tei-edition');
+          if (!edition) {
+            return;
+          }
+          var id = entry.getAttribute('data-anno');
+          edition.querySelectorAll('.cmo-tei-anno[data-anno="' + id + '"]').forEach(function(s) {
+            s.classList.toggle('is-active', on);
+          });
+        }
+
         $(function() {
           $('#cmo-viewer .tab-pane.active .cmo-tei[data-tei-src]').each(function() {
             loadTei(this);
@@ -184,8 +307,33 @@
             pane.find('.cmo-tei[data-tei-src]').each(function() {
               loadTei(this);
             });
+            hidePopover();
             // image viewers that were initialised while hidden need a relayout
             $(window).trigger('resize');
+          });
+
+          var viewer = $('#cmo-viewer');
+          viewer.on('mouseenter focusin', '.cmo-tei-anno', function() {
+            showAnno(this);
+          });
+          viewer.on('mouseleave focusout', '.cmo-tei-anno', function() {
+            scheduleHide(this);
+          });
+          viewer.on('click', '.cmo-tei-anno', function() {
+            var edition = this.closest('.cmo-tei-edition');
+            if (!edition) {
+              return;
+            }
+            var entry = edition.querySelector('.cmo-tei-app-entry[data-anno="' + this.getAttribute('data-anno') + '"]');
+            if (entry) {
+              entry.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          });
+          viewer.on('mouseenter', '.cmo-tei-app-entry', function() {
+            toggleSpans(this, true);
+          });
+          viewer.on('mouseleave', '.cmo-tei-app-entry', function() {
+            toggleSpans(this, false);
           });
         });
       })();

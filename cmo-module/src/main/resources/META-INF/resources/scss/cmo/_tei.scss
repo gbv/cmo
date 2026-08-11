@@ -166,6 +166,185 @@
 }
 
 /* ---------------------------------------------------------------------------
+   TEI edition: links, editors, metre, witnesses, apparatus and annotations
+----------------------------------------------------------------------------*/
+.cmo-tei-edition {
+
+  /* small tag next to a supplied title */
+  .cmo-tei-title-tag {
+    margin-left: .6rem;
+    padding: .1rem .4rem;
+    border-radius: 3px;
+    background-color: $gray-lighter;
+    color: $gray;
+    font-size: .7rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    vertical-align: middle;
+  }
+
+  /* references become links, coloured by their target kind */
+  .cmo-tei-ref {
+    &.cmo-tei-ref-object {
+      color: $info;
+    }
+
+    &.cmo-tei-ref-ext {
+      color: $body-color;
+    }
+
+    .fas {
+      font-size: .75em;
+    }
+  }
+
+  .cmo-tei-editor {
+    cursor: default;
+  }
+
+  /* rhyme scheme + metre badges above a verse group */
+  .cmo-tei-lg-info {
+    margin-bottom: .4rem;
+  }
+
+  .cmo-tei-met {
+    display: inline-block;
+    margin-left: .5rem;
+    color: $info;
+    font-size: .75rem;
+    letter-spacing: .03em;
+  }
+
+  .cmo-tei-lyrics-tag {
+    margin: 0 0 .75rem;
+    color: $gray;
+    font-size: .8rem;
+    font-style: italic;
+  }
+
+  /* text spans that carry a critical apparatus entry */
+  .cmo-tei-anno {
+    cursor: help;
+    border-bottom: 1px dotted rgba($info, .55);
+    transition: background-color .12s ease;
+
+    &:hover,
+    &:focus,
+    &.is-active {
+      outline: none;
+      background-color: rgba($primary, .22);
+      border-radius: 2px;
+    }
+  }
+
+  /* critical apparatus */
+  .cmo-tei-app-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .cmo-tei-app-heading {
+    margin: 1rem 0 .5rem;
+    color: $gray;
+    font-size: .85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+
+  .cmo-tei-app-entry {
+    margin: 0 0 .35rem;
+    padding: .2rem .4rem;
+    border-left: 2px solid transparent;
+    transition: background-color .12s ease, border-color .12s ease;
+
+    &.is-active {
+      border-left-color: $primary;
+      background-color: rgba($primary, .12);
+    }
+  }
+
+  .cmo-tei-app-note {
+    margin-left: .4rem;
+  }
+
+  /* sources and their sigla */
+  .cmo-tei-witnesses {
+    margin-top: 2rem;
+  }
+
+  .cmo-tei-witness-list {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: .3rem 1rem;
+    margin: 0;
+    font-size: .9rem;
+
+    dt {
+      color: $body-color;
+      font-weight: 600;
+    }
+
+    dd {
+      margin: 0;
+      color: $gray;
+    }
+
+    .cmo-tei-witness-title {
+      color: $body-color;
+    }
+  }
+
+  /* publication / licence footer */
+  .cmo-tei-edition-info {
+    margin-top: 2rem;
+    padding-top: .75rem;
+    border-top: 1px solid $cmo_shadow;
+    color: $gray;
+    font-size: .8rem;
+
+    .cmo-tei-edition-part + .cmo-tei-edition-part::before {
+      content: " · ";
+    }
+  }
+}
+
+/* floating popover with the apparatus of a hovered annotation */
+.cmo-tei-popover {
+  position: absolute;
+  z-index: 1080;
+  max-width: 340px;
+  padding: .6rem .75rem;
+  background-color: #fff;
+  border: 1px solid $cmo_shadow;
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .16);
+  color: $body-color;
+  font-size: .82rem;
+  line-height: 1.5;
+
+  .cmo-tei-pop-item + .cmo-tei-pop-item {
+    margin-top: .5rem;
+    padding-top: .5rem;
+    border-top: 1px solid $gray-lighter;
+  }
+
+  .cmo-tei-pop-kind {
+    display: block;
+    margin-bottom: .15rem;
+    color: $info;
+    font-size: .68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .cmo-tei-lemma {
+    font-weight: 600;
+  }
+}
+
+/* ---------------------------------------------------------------------------
    raw XML source view (see xsl/TEI-cmosource.xsl)
 ----------------------------------------------------------------------------*/
 .cmo-xml-source {
