@@ -77,7 +77,7 @@
       <label xml:lang="en">About</label>
       <label xml:lang="tr">Hakkında</label>
     </item>
-    <group id="cmo_browse">
+    <item>
       <label xml:lang="de">Blättern nach</label>
       <label xml:lang="en">Browse by</label>
       <label xml:lang="tr">Göz at</label>
@@ -116,7 +116,7 @@
         <label xml:lang="en">Title</label>
         <label xml:lang="tr">Başlık</label>
       </item>
-    </group>
+    </item>
   </menu>
   <menu id="cmo_help" dir="/content/help">
     <!-- CMO help menu  -->
@@ -132,7 +132,7 @@
       <label xml:lang="de">Tutorials</label>
       <label xml:lang="en">Tutorials</label>
     </item>
-    <item href="/content/help/project_guidelines.xml" type="intern">
+    <item id="cmo_guidelines" href="/content/help/project_guidelines.xml" type="intern">
       <label xml:lang="de">Projektrichtlinien</label>
       <label xml:lang="en">Project Guidelines</label>
     </item>

@@ -159,6 +159,9 @@ footer {
 
   #subnav #bottom_menu {
     border-left: 1px solid #ccc;
+    .row {
+      height: 100%;
+    }
   }
 
   #subnav #bottom_menu .logo-box  {
