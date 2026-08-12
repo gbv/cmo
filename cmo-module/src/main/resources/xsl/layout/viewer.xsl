@@ -182,82 +182,90 @@
   </xsl:template>
 
   <!--
-    Lazily loads the TEI edition into its tab, relayouts image viewers on tab change
-    and wires up the annotation interaction: hovering a marked text span (.cmo-tei-anno)
-    highlights and shows a popover with the matching critical apparatus entries, and
-    hovering an apparatus entry highlights the marked span in the text. Because the TEI
-    html is loaded lazily, all handlers are delegated from the static #cmo-viewer.
+    Lazily loads the TEI edition into its tab and, once loaded, initialises the Bootstrap
+    popovers used throughout the edition: the info popovers (metre, supplied, editors,
+    reading types, catalogue links) take their content from a hidden .cmo-tei-pop-src child,
+    while hovering a marked text span (.cmo-tei-anno) opens a popover with the matching
+    critical apparatus entries and highlights the linked span(s) and entries. All popovers
+    share the .cmo-tei-bs-popover theme; the annotation popover stays open while the pointer
+    is over it so its source links remain clickable.
   -->
   <xsl:template name="loadTeiScript">
     <script type="text/javascript">
       (function() {
+        var openAnno = null;
+
         function loadTei(el) {
           if (el.getAttribute('data-loaded')) {
             return;
           }
           el.setAttribute('data-loaded', '1');
-          $(el).load(el.getAttribute('data-tei-src'));
+          $(el).load(el.getAttribute('data-tei-src'), function() {
+            initEdition(el);
+          });
         }
 
-        var popover = null;
-        var hideTimer = null;
+        function initEdition(el) {
+          var edition = el.querySelector('.cmo-tei-edition') || el;
+          initInfoPopovers(edition);
+          initAnnoPopovers(edition);
+        }
 
-        function getPopover() {
-          if (!popover) {
-            popover = document.createElement('div');
-            popover.className = 'cmo-tei-popover';
-            popover.style.display = 'none';
-            document.body.appendChild(popover);
-            popover.addEventListener('mouseenter', function() {
-              clearTimeout(hideTimer);
+        // applies the shared theme class to a trigger's Bootstrap popover
+        function themePopover(trigger) {
+          var id = trigger.getAttribute('aria-describedby');
+          if (!id) {
+            return;
+          }
+          var tip = document.getElementById(id);
+          if (tip) {
+            tip.classList.add('cmo-tei-bs-popover');
+          }
+        }
+
+        // metre, supplied, editors, catalogue and reading popovers keep their
+        // content in a hidden .cmo-tei-pop-src child (optional head plus body)
+        function initInfoPopovers(edition) {
+          $(edition).find('.cmo-tei-pop-src').each(function() {
+            var src = $(this);
+            var trigger = src.parent();
+            var head = src.children('.cmo-tei-pop-head');
+            var body = src.children('.cmo-tei-pop-body');
+            trigger.on('inserted.bs.popover', function() {
+              themePopover(this);
             });
-            popover.addEventListener('mouseleave', hidePopover);
-          }
-          return popover;
+            trigger.popover({
+              html: true,
+              sanitize: false,
+              trigger: 'hover focus',
+              placement: 'top',
+              container: 'body',
+              title: head.length ? head.html() : '',
+              content: body.length ? body.html() : ''
+            });
+          });
         }
 
-        function hidePopover() {
-          if (popover) {
-            popover.style.display = 'none';
-          }
-        }
-
-        function clearActive(edition) {
-          $(edition).find('.is-active').removeClass('is-active');
-        }
-
-        function positionPopover(pop, span) {
-          pop.style.left = '0px';
-          pop.style.top = '0px';
-          pop.style.display = 'block';
-          var rect = span.getBoundingClientRect();
-          var pw = pop.offsetWidth;
-          var docW = document.documentElement.clientWidth;
-          var left = rect.left + window.pageXOffset;
-          left = Math.max(8, Math.min(left, docW - pw - 8));
-          var top = rect.bottom + window.pageYOffset + 6;
-          pop.style.left = left + 'px';
-          pop.style.top = top + 'px';
-        }
-
-        function showAnno(span) {
-          clearTimeout(hideTimer);
+        // true if a marked span has matching critical apparatus entries
+        function hasApparatus(span) {
           var edition = span.closest('.cmo-tei-edition');
           if (!edition) {
-            return;
+            return false;
           }
           var id = span.getAttribute('data-anno');
-          clearActive(edition);
-          span.classList.add('is-active');
-          var entries = edition.querySelectorAll('.cmo-tei-app-entry[data-anno="' + id + '"]');
-          if (!entries.length) {
-            hidePopover();
-            return;
+          return !!edition.querySelectorAll('.cmo-tei-app-entry[data-anno="' + id + '"]').length;
+        }
+
+        // builds the popover body (a DOM node) from the apparatus of a marked span
+        function annoContent(span) {
+          var edition = span.closest('.cmo-tei-edition');
+          var frag = document.createElement('div');
+          if (!edition) {
+            return frag;
           }
-          var pop = getPopover();
-          pop.innerHTML = '';
+          var id = span.getAttribute('data-anno');
+          var entries = edition.querySelectorAll('.cmo-tei-app-entry[data-anno="' + id + '"]');
           entries.forEach(function(entry) {
-            entry.classList.add('is-active');
             var item = document.createElement('div');
             item.className = 'cmo-tei-pop-item';
             var group = entry.closest('.cmo-tei-app-group');
@@ -271,20 +279,46 @@
             var body = document.createElement('div');
             body.innerHTML = entry.innerHTML;
             item.appendChild(body);
-            pop.appendChild(item);
+            frag.appendChild(item);
           });
-          positionPopover(pop, span);
-          pop.style.display = 'block';
+          return frag;
         }
 
-        function scheduleHide(span) {
-          hideTimer = setTimeout(function() {
-            hidePopover();
-            var edition = span.closest('.cmo-tei-edition');
-            if (edition) {
-              clearActive(edition);
+        function setActive(span, on) {
+          var edition = span.closest('.cmo-tei-edition');
+          if (!edition) {
+            return;
+          }
+          var id = span.getAttribute('data-anno');
+          edition.querySelectorAll('.cmo-tei-anno[data-anno="' + id + '"]').forEach(function(s) {
+            s.classList.toggle('is-active', on);
+          });
+          edition.querySelectorAll('.cmo-tei-app-entry[data-anno="' + id + '"]').forEach(function(en) {
+            en.classList.toggle('is-active', on);
+          });
+        }
+
+        function hideAnno(span) {
+          $(span).popover('hide');
+          setActive(span, false);
+          if (openAnno === span) {
+            openAnno = null;
+          }
+        }
+
+        // hides after a short delay unless the pointer moved onto the popover itself
+        function scheduleHideAnno(span) {
+          clearTimeout(span.cmoHideTimer);
+          span.cmoHideTimer = setTimeout(function() {
+            var id = span.getAttribute('aria-describedby');
+            var tip = id ? document.getElementById(id) : null;
+            var overTip = tip ? tip.matches(':hover') : false;
+            if (!span.matches(':hover')) {
+              if (!overTip) {
+                hideAnno(span);
+              }
             }
-          }, 200);
+          }, 180);
         }
 
         function toggleSpans(entry, on) {
@@ -298,6 +332,73 @@
           });
         }
 
+        function initAnnoPopovers(edition) {
+          $(edition).find('.cmo-tei-anno').each(function() {
+            var span = this;
+            if (!hasApparatus(span)) {
+              return;
+            }
+            span.setAttribute('tabindex', '0');
+            $(span).on('inserted.bs.popover', function() {
+              themePopover(span);
+            });
+            $(span).popover({
+              html: true,
+              sanitize: false,
+              trigger: 'manual',
+              placement: 'bottom',
+              container: 'body',
+              content: function() {
+                return annoContent(span);
+              }
+            });
+            $(span).on('mouseenter focusin', function() {
+              clearTimeout(span.cmoHideTimer);
+              if (openAnno) {
+                if (openAnno !== span) {
+                  hideAnno(openAnno);
+                }
+              }
+              openAnno = span;
+              $(span).popover('show');
+              setActive(span, true);
+            });
+            $(span).on('mouseleave focusout', function() {
+              scheduleHideAnno(span);
+            });
+            $(span).on('shown.bs.popover', function() {
+              var id = span.getAttribute('aria-describedby');
+              var tip = id ? document.getElementById(id) : null;
+              if (tip) {
+                tip.addEventListener('mouseleave', function() {
+                  scheduleHideAnno(span);
+                });
+              }
+            });
+            $(span).on('click', function() {
+              var edition2 = span.closest('.cmo-tei-edition');
+              if (!edition2) {
+                return;
+              }
+              var entry = edition2.querySelector('.cmo-tei-app-entry[data-anno="' + span.getAttribute('data-anno') + '"]');
+              if (entry) {
+                entry.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            });
+          });
+
+          // hovering an apparatus entry highlights the marked span(s) in the text
+          $(edition).find('.cmo-tei-app-entry').each(function() {
+            var entry = this;
+            $(entry).on('mouseenter', function() {
+              toggleSpans(entry, true);
+            });
+            $(entry).on('mouseleave', function() {
+              toggleSpans(entry, false);
+            });
+          });
+        }
+
         $(function() {
           $('#cmo-viewer .tab-pane.active .cmo-tei[data-tei-src]').each(function() {
             loadTei(this);
@@ -307,33 +408,11 @@
             pane.find('.cmo-tei[data-tei-src]').each(function() {
               loadTei(this);
             });
-            hidePopover();
+            if (openAnno) {
+              hideAnno(openAnno);
+            }
             // image viewers that were initialised while hidden need a relayout
             $(window).trigger('resize');
-          });
-
-          var viewer = $('#cmo-viewer');
-          viewer.on('mouseenter focusin', '.cmo-tei-anno', function() {
-            showAnno(this);
-          });
-          viewer.on('mouseleave focusout', '.cmo-tei-anno', function() {
-            scheduleHide(this);
-          });
-          viewer.on('click', '.cmo-tei-anno', function() {
-            var edition = this.closest('.cmo-tei-edition');
-            if (!edition) {
-              return;
-            }
-            var entry = edition.querySelector('.cmo-tei-app-entry[data-anno="' + this.getAttribute('data-anno') + '"]');
-            if (entry) {
-              entry.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-          });
-          viewer.on('mouseenter', '.cmo-tei-app-entry', function() {
-            toggleSpans(this, true);
-          });
-          viewer.on('mouseleave', '.cmo-tei-app-entry', function() {
-            toggleSpans(this, false);
           });
         });
       })();

@@ -121,6 +121,14 @@
     <xsl:sequence select="concat('cmo-app-', $kind, '-', cmo:annoId($ref))" />
   </xsl:function>
 
+  <!-- translates a message key, falling back to the given text when the key is unknown -->
+  <xsl:function name="cmo:i18n" as="xs:string">
+    <xsl:param name="key" as="xs:string" />
+    <xsl:param name="fallback" as="xs:string" />
+    <xsl:variable name="t" select="mcri18n:translate($key)" />
+    <xsl:sequence select="if ($t = '' or starts-with($t, '???')) then $fallback else $t" />
+  </xsl:function>
+
   <!-- ============================ root ============================ -->
 
   <xsl:template match="/TEI">
@@ -140,14 +148,6 @@
   <xsl:template name="editionHeader">
     <xsl:variable name="titleWrap" select="$titleStmt/title[1]" />
     <div class="cmo-tei-header">
-      <h2 class="cmo-tei-title" lang="ota">
-        <xsl:value-of select="$titleWrap/title[@type = 'titleTranscription']" />
-        <xsl:if test="$titleWrap/@type = 'desc'">
-          <span class="cmo-tei-title-tag" title="{mcri18n:translate('cmo.tei.title.supplied.hint')}">
-            <xsl:value-of select="mcri18n:translate('cmo.tei.title.supplied')" />
-          </span>
-        </xsl:if>
-      </h2>
       <dl class="cmo-tei-meta">
         <xsl:call-template name="metaRow">
           <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.makam')" />
@@ -158,8 +158,18 @@
           <xsl:with-param name="nodes" select="$titleWrap/note[@type = 'usulTranscription']/node()" />
         </xsl:call-template>
         <xsl:call-template name="metaRow">
-          <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.genre')" />
+          <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.musicGenre')" />
           <xsl:with-param name="nodes" select="$titleWrap/note[@type = 'genreTranscription']" />
+          <xsl:with-param name="separator" select="', '" />
+        </xsl:call-template>
+        <xsl:call-template name="metaRow">
+          <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.textGenre')" />
+          <xsl:with-param name="nodes" select="$titleWrap/note[@type = 'poeticGenre']" />
+          <xsl:with-param name="separator" select="', '" />
+        </xsl:call-template>
+        <xsl:call-template name="metaRow">
+          <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.textForm')" />
+          <xsl:with-param name="nodes" select="$titleWrap/note[@type = 'poeticForm']" />
           <xsl:with-param name="separator" select="', '" />
         </xsl:call-template>
         <xsl:call-template name="metaRow">
@@ -169,10 +179,6 @@
         <xsl:call-template name="metaRow">
           <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.metre')" />
           <xsl:with-param name="nodes" select="$titleWrap/note[@type = 'meter']/node()" />
-        </xsl:call-template>
-        <xsl:call-template name="metaRow">
-          <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.shelfmark')" />
-          <xsl:with-param name="nodes" select="$titleWrap/idno/node()" />
         </xsl:call-template>
         <xsl:call-template name="metaRow">
           <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.lyricist')" />
@@ -194,14 +200,31 @@
           <xsl:if test="position() &gt; 1">
             <xsl:text> · </xsl:text>
           </xsl:if>
+          <xsl:variable name="resolved" select="cmo:resolveName(@corresp)" />
+          <xsl:variable name="roleLabel"
+                        select="if (@role != '')
+                                then cmo:i18n(concat('cmo.tei.role.', lower-case(@role)), @role)
+                                else ''" />
           <span class="cmo-tei-editor">
-            <xsl:variable name="resolved" select="cmo:resolveName(@corresp)" />
-            <xsl:if test="@role or $resolved">
-              <xsl:attribute name="title">
-                <xsl:value-of select="normalize-space(string-join((@role, $resolved), ': '))" />
-              </xsl:attribute>
+            <xsl:if test="$roleLabel != '' or $resolved">
+              <xsl:attribute name="tabindex">0</xsl:attribute>
+              <xsl:attribute name="role">button</xsl:attribute>
             </xsl:if>
             <xsl:value-of select="normalize-space(.)" />
+            <xsl:if test="$roleLabel != '' or $resolved">
+              <span class="cmo-tei-pop-src" hidden="hidden">
+                <xsl:if test="$roleLabel != ''">
+                  <span class="cmo-tei-pop-head">
+                    <xsl:value-of select="$roleLabel" />
+                  </span>
+                </xsl:if>
+                <xsl:if test="$resolved">
+                  <span class="cmo-tei-pop-body">
+                    <xsl:value-of select="$resolved" />
+                  </span>
+                </xsl:if>
+              </span>
+            </xsl:if>
           </span>
         </xsl:for-each>
       </dd>
@@ -292,13 +315,23 @@
       <xsl:if test="@rhyme or $met">
         <div class="cmo-tei-lg-info">
           <xsl:if test="@rhyme">
-            <span class="cmo-tei-rhyme" title="{mcri18n:translate('cmo.tei.rhyme')}">
-              <xsl:value-of select="@rhyme" />
+            <span class="cmo-tei-rhyme">
+              <span class="cmo-tei-info-label">
+                <xsl:value-of select="mcri18n:translate('cmo.tei.rhyme')" />
+              </span>
+              <span class="cmo-tei-info-value">
+                <xsl:value-of select="@rhyme" />
+              </span>
             </span>
           </xsl:if>
           <xsl:if test="$met">
-            <span class="cmo-tei-met" title="{mcri18n:translate('cmo.tei.metre')}">
-              <xsl:value-of select="$met" />
+            <span class="cmo-tei-met">
+              <span class="cmo-tei-info-label">
+                <xsl:value-of select="mcri18n:translate('cmo.tei.metre')" />
+              </span>
+              <span class="cmo-tei-info-value">
+                <xsl:value-of select="$met" />
+              </span>
             </span>
           </xsl:if>
         </div>
@@ -310,15 +343,28 @@
   <xsl:template match="l">
     <p class="cmo-tei-line" lang="ota">
       <span class="cmo-tei-line-no">
-        <xsl:value-of select="@n" />
-      </span>
-      <span class="cmo-tei-line-text">
-        <xsl:if test="@real">
-          <xsl:attribute name="title">
-            <xsl:value-of select="concat(mcri18n:translate('cmo.tei.meta.metre'), ': ', @real)" />
-          </xsl:attribute>
+        <xsl:if test="@n[number(.) mod 2 = 0]">
+          <xsl:value-of select="@n" />
         </xsl:if>
-        <xsl:call-template name="flow" />
+      </span>
+      <span class="cmo-tei-line-body">
+        <span class="cmo-tei-line-text">
+          <xsl:call-template name="flow" />
+        </span>
+        <xsl:if test="@real">
+          <span class="cmo-tei-meter" tabindex="0" role="button">
+            <span class="cmo-tei-pop-src" hidden="hidden">
+              <span class="cmo-tei-pop-head">
+                <xsl:value-of select="mcri18n:translate('cmo.tei.meta.metre')" />
+              </span>
+              <span class="cmo-tei-pop-body">
+                <code class="cmo-tei-mono">
+                  <xsl:value-of select="@real" />
+                </code>
+              </span>
+            </span>
+          </span>
+        </xsl:if>
       </span>
     </p>
   </xsl:template>
@@ -373,7 +419,21 @@
                   </dt>
                   <xsl:for-each select="rdg">
                     <dd class="cmo-tei-rdg" lang="ota">
+                      <xsl:if test="@type">
+                        <xsl:attribute name="tabindex">0</xsl:attribute>
+                        <xsl:attribute name="role">button</xsl:attribute>
+                      </xsl:if>
                       <xsl:call-template name="flow" />
+                      <xsl:if test="@type">
+                        <span class="cmo-tei-pop-src" hidden="hidden">
+                          <span class="cmo-tei-pop-head">
+                            <xsl:value-of select="mcri18n:translate('cmo.tei.apparatus.readings')" />
+                          </span>
+                          <span class="cmo-tei-pop-body">
+                            <xsl:value-of select="cmo:i18n(concat('cmo.tei.reading.', @type), @type)" />
+                          </span>
+                        </span>
+                      </xsl:if>
                     </dd>
                   </xsl:for-each>
                 </div>
@@ -447,9 +507,13 @@
               <xsl:if test="$catalogUri">
                 <xsl:text> </xsl:text>
                 <a class="cmo-tei-ref cmo-tei-ref-ext" href="{normalize-space($catalogUri)}"
-                   target="_blank" rel="noopener noreferrer"
-                   title="{mcri18n:translate('cmo.tei.witnesses.catalogue')}">
+                   target="_blank" rel="noopener noreferrer">
                   <span class="fas fa-external-link-alt"></span>
+                  <span class="cmo-tei-pop-src" hidden="hidden">
+                    <span class="cmo-tei-pop-body">
+                      <xsl:value-of select="mcri18n:translate('cmo.tei.witnesses.catalogue')" />
+                    </span>
+                  </span>
                 </a>
               </xsl:if>
             </dd>
@@ -545,16 +609,31 @@
     </span>
   </xsl:template>
 
-  <!-- editorial addition; the tooltip names the responsible editor when known -->
+  <!--
+    Editorial addition: the supplied text is wrapped in square brackets ([...]) and a popup
+    names the reason (@reason) and the responsible editor (@resp), both resolved to readable text.
+  -->
   <xsl:template match="supplied" mode="inline">
     <xsl:variable name="who" select="cmo:resolveName(@resp)" />
-    <span class="cmo-tei-supplied">
-      <xsl:attribute name="title">
-        <xsl:value-of select="normalize-space(concat(
-            mcri18n:translate('cmo.tei.supplied'),
-            (if ($who) then concat(' (', $who, ')') else '')))" />
-      </xsl:attribute>
+    <span class="cmo-tei-supplied" tabindex="0" role="button">
+      <span class="cmo-tei-supplied-bracket">[</span>
       <xsl:call-template name="flow" />
+      <span class="cmo-tei-supplied-bracket">]</span>
+      <span class="cmo-tei-pop-src" hidden="hidden">
+        <span class="cmo-tei-pop-head">
+          <xsl:value-of select="mcri18n:translate('cmo.tei.supplied')" />
+        </span>
+        <span class="cmo-tei-pop-body">
+          <xsl:if test="@reason != ''">
+            <xsl:value-of select="cmo:i18n(concat('cmo.tei.supplied.reason.', @reason), @reason)" />
+          </xsl:if>
+          <xsl:if test="$who">
+            <span class="cmo-tei-pop-sub">
+              <xsl:value-of select="$who" />
+            </span>
+          </xsl:if>
+        </span>
+      </span>
     </span>
   </xsl:template>
 

@@ -65,16 +65,13 @@
     }
   }
 
-  /* verse groups and single lines */
+  /* verse groups and single lines, centred to mirror the printed edition */
   .cmo-tei-lg {
-    margin: 1.25rem 0;
-    padding-left: 1rem;
-    border-left: 2px solid $gray-lighter;
+    margin: 1.5rem 0;
+    text-align: center;
   }
 
-  .cmo-tei-rhyme {
-    display: inline-block;
-    margin-bottom: .4rem;
+  .cmo-tei-rhyme .cmo-tei-info-value {
     color: $gray-light;
     font-size: .75rem;
     letter-spacing: .15em;
@@ -82,46 +79,84 @@
   }
 
   .cmo-tei-line {
-    display: flex;
+    position: relative;
     margin: 0;
-    line-height: 1.8;
+    padding: 0 2.5rem;
+    line-height: 2;
+    text-align: center;
   }
 
+  /* line numbers sit in the left margin (only rendered for even lines) */
   .cmo-tei-line-no {
-    flex: 0 0 2rem;
-    padding-right: .75rem;
-    color: $gray-lighter;
-    font-size: .75rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2rem;
+    color: $body-color;
+    font-size: .85rem;
     text-align: right;
     user-select: none;
   }
 
-  .cmo-tei-line-text {
-    flex: 1 1 auto;
+  .cmo-tei-line-body {
+    display: inline;
   }
 
-  /* terennüm / vocables sit back from the sung main text */
+  /* the sung main text is set bold, as in the printed edition */
+  .cmo-tei-seg-main {
+    font-weight: 700;
+  }
+
+  /* terennüm / vocables are set regular, distinguished from the main text by weight */
   .cmo-tei-seg-terennum {
-    color: $gray;
-    font-style: italic;
+    font-weight: 400;
   }
 
-  /* performance directions (mükerrer, miyānḫāne, ...) */
+  /* performance directions (mükerrer, miyānḫāne, ...) are set in italics */
   .cmo-tei-stage {
-    display: inline-block;
-    margin: 0 .25rem;
-    padding: 0 .4rem;
-    border-radius: 3px;
-    background-color: #eeeef3;
-    color: $info;
-    font-size: .8rem;
-    font-style: normal;
-    vertical-align: middle;
+    font-style: italic;
+    color: $gray;
   }
 
-  /* editorial additions */
+  /* metre trigger chip (l/@real); the scansion lives in the hover popover */
+  .cmo-tei-meter {
+    display: inline-block;
+    margin-left: .4rem;
+    padding: .05rem .5rem;
+    border-radius: 10px;
+    background-color: rgba($info, .12);
+    color: $info;
+    line-height: 1.4;
+    vertical-align: middle;
+    cursor: help;
+    transition: background-color .12s ease;
+
+    &::before {
+      content: "\00AF\02D8";
+      font-size: .9rem;
+      letter-spacing: .05em;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: rgba($info, .28);
+    }
+  }
+
+  /* popover content is generated into this hidden holder and read by the viewer JS */
+  .cmo-tei-pop-src {
+    display: none;
+  }
+
+  /* editorial additions, wrapped in square brackets */
   .cmo-tei-supplied {
     border-bottom: 1px dotted $gray-light;
+    cursor: help;
+  }
+
+  .cmo-tei-supplied-bracket {
+    font-weight: 400;
+    color: $gray-light;
   }
 
   /* critical apparatus */
@@ -147,10 +182,18 @@
     }
   }
 
+  /* piece title above the verses, centred like the printed edition */
+  .cmo-tei-lyrics-head {
+    margin: 2.5rem 0 1.25rem;
+    text-align: center;
+    font-size: 1.3rem;
+  }
+
   .cmo-tei-piece-note {
     margin-top: 1.5rem;
     color: $gray;
     font-size: .9rem;
+    text-align: right;
   }
 }
 
@@ -199,20 +242,34 @@
     }
   }
 
-  .cmo-tei-editor {
-    cursor: default;
+  /* elements that carry a popover show the help cursor */
+  .cmo-tei-editor[role="button"],
+  .cmo-tei-rdg[role="button"] {
+    cursor: help;
   }
 
-  /* rhyme scheme + metre badges above a verse group */
+  /* rhyme scheme + metre, each on its own labelled row above a verse group */
   .cmo-tei-lg-info {
-    margin-bottom: .4rem;
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    margin-bottom: .5rem;
   }
 
-  .cmo-tei-met {
+  .cmo-tei-info-label {
     display: inline-block;
-    margin-left: .5rem;
+    min-width: 6.5rem;
+    margin-right: .5rem;
+    color: $gray-light;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .cmo-tei-met .cmo-tei-info-value {
     color: $info;
-    font-size: .75rem;
+    font-size: .8rem;
     letter-spacing: .03em;
   }
 
@@ -309,19 +366,31 @@
   }
 }
 
-/* floating popover with the apparatus of a hovered annotation */
-.cmo-tei-popover {
-  position: absolute;
-  z-index: 1080;
+/*
+  Shared theme for all Bootstrap popovers used in the TEI edition (metre, supplied,
+  editors, variant readings, catalogue links and the annotation apparatus preview).
+  They are appended to <body>, so this block sits outside .cmo-tei-edition.
+*/
+.cmo-tei-bs-popover {
   max-width: 340px;
-  padding: .6rem .75rem;
-  background-color: #fff;
-  border: 1px solid $cmo_shadow;
-  border-radius: 4px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, .16);
-  color: $body-color;
   font-size: .82rem;
-  line-height: 1.5;
+
+  .popover-header {
+    padding: .5rem .75rem .1rem;
+    background-color: transparent;
+    border-bottom: 0;
+    color: $info;
+    font-size: .68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .popover-body {
+    padding: .4rem .75rem .6rem;
+    color: $body-color;
+    line-height: 1.5;
+  }
 
   .cmo-tei-pop-item + .cmo-tei-pop-item {
     margin-top: .5rem;
@@ -339,8 +408,28 @@
     letter-spacing: .05em;
   }
 
+  .cmo-tei-pop-sub {
+    display: block;
+    margin-top: .15rem;
+    color: $gray;
+    font-size: .72rem;
+  }
+
   .cmo-tei-lemma {
     font-weight: 600;
+  }
+
+  .cmo-tei-mono {
+    font-family: monospace;
+    letter-spacing: .03em;
+  }
+
+  .cmo-tei-ref-object {
+    color: $info;
+  }
+
+  .cmo-tei-ref-ext {
+    color: $body-color;
   }
 }
 
