@@ -193,9 +193,6 @@
   <xsl:template name="loadTeiScript">
     <script type="text/javascript">
       (function() {
-        // the trigger whose popover is currently open (only one at a time)
-        var openPop = null;
-
         function loadTei(el) {
           if (el.getAttribute('data-loaded')) {
             return;
@@ -212,43 +209,51 @@
           initAnnoPopovers(edition);
         }
 
-        // applies the shared theme class to a trigger's Bootstrap popover
+        // applies the shared theme class to a trigger's Bootstrap popover and
+        // adds a close button (click popovers do not close on outside click)
         function themePopover(trigger) {
           var id = trigger.getAttribute('aria-describedby');
           if (!id) {
             return;
           }
           var tip = document.getElementById(id);
-          if (tip) {
-            tip.classList.add('cmo-tei-bs-popover');
+          if (!tip) {
+            return;
           }
+          tip.classList.add('cmo-tei-bs-popover');
+          addCloseButton(tip, trigger);
         }
 
-        // keeps only one popover open: opening a trigger closes the previous one
-        function registerPopover(trigger) {
-          // a click on a nested trigger must not also toggle its ancestor triggers,
-          // otherwise several popovers open at once and only the tracked one closes
-          $(trigger).on('click', function(e) {
-            e.stopPropagation();
-          });
-          $(trigger).on('show.bs.popover', function() {
-            if (openPop) {
-              if (openPop !== trigger) {
-                $(openPop).popover('hide');
+        // a small close button in the top right corner of a click popover; hover
+        // tooltips (catalogue links) close on their own and get none
+        function addCloseButton(tip, trigger) {
+          var inst = $(trigger).data('bs.popover');
+          if (inst) {
+            if (inst.config) {
+              if (inst.config.trigger.indexOf('click') === -1) {
+                return;
               }
             }
-            openPop = trigger;
+          }
+          if (tip.querySelector('.cmo-tei-pop-close')) {
+            return;
+          }
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'cmo-tei-pop-close';
+          btn.setAttribute('aria-label', 'Close');
+          btn.textContent = '×';
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            $(trigger).popover('hide');
           });
-          $(trigger).on('hide.bs.popover', function() {
-            if (openPop === trigger) {
-              openPop = null;
-            }
-          });
+          tip.appendChild(btn);
         }
 
         // metre, supplied, editors, catalogue and reading popovers keep their
         // content in a hidden .cmo-tei-pop-src child (optional head plus body);
-        // opened by click so they stay open and any links stay clickable
+        // opened by click (native bootstrap toggle) so they stay open and their
+        // links stay clickable; clicking the trigger again closes them
         function initInfoPopovers(edition) {
           $(edition).find('.cmo-tei-pop-src').each(function() {
             var src = $(this);
@@ -270,9 +275,6 @@
               title: head.length ? head.html() : '',
               content: body.length ? body.html() : ''
             });
-            if (!isLink) {
-              registerPopover(trigger[0]);
-            }
           });
         }
 
@@ -362,7 +364,6 @@
                 return annoContent(span);
               }
             });
-            registerPopover(span);
             $(span).on('show.bs.popover', function() {
               setActive(span, true);
             });
@@ -373,7 +374,9 @@
               setActive(span, true);
             });
             $(span).on('mouseleave', function() {
-              if (openPop !== span) {
+              // keep the highlight while the popover is open (bootstrap marks the
+              // trigger with aria-describedby), otherwise drop the hover preview
+              if (!span.getAttribute('aria-describedby')) {
                 setActive(span, false);
               }
             });
@@ -391,27 +394,7 @@
           });
         }
 
-        // a click outside the open popover (and its trigger) closes it
-        function closePopoverOutside(e) {
-          if (!openPop) {
-            return;
-          }
-          var tgt = e.target;
-          if (openPop.contains(tgt)) {
-            return;
-          }
-          var id = openPop.getAttribute('aria-describedby');
-          var tip = id ? document.getElementById(id) : null;
-          if (tip) {
-            if (tip.contains(tgt)) {
-              return;
-            }
-          }
-          $(openPop).popover('hide');
-        }
-
         $(function() {
-          $(document).on('click', closePopoverOutside);
           $('#cmo-viewer .tab-pane.active .cmo-tei[data-tei-src]').each(function() {
             loadTei(this);
           });
@@ -420,9 +403,6 @@
             pane.find('.cmo-tei[data-tei-src]').each(function() {
               loadTei(this);
             });
-            if (openPop) {
-              $(openPop).popover('hide');
-            }
             // image viewers that were initialised while hidden need a relayout
             $(window).trigger('resize');
           });

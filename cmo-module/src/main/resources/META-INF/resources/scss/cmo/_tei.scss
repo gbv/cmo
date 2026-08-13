@@ -376,7 +376,7 @@
   font-size: .82rem;
 
   .popover-header {
-    padding: .5rem .75rem .1rem;
+    padding: .5rem 1.4rem .1rem .75rem;
     background-color: transparent;
     border-bottom: 0;
     color: $info;
@@ -387,9 +387,29 @@
   }
 
   .popover-body {
-    padding: .4rem .75rem .6rem;
+    padding: .4rem 1.4rem .6rem .75rem;
     color: $body-color;
     line-height: 1.5;
+  }
+
+  /* close button in the top right corner (added by the viewer JS) */
+  .cmo-tei-pop-close {
+    position: absolute;
+    top: .1rem;
+    right: .3rem;
+    padding: 0 .25rem;
+    border: 0;
+    background: transparent;
+    color: $gray-light;
+    font-size: 1.15rem;
+    line-height: 1;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      color: $body-color;
+      outline: none;
+    }
   }
 
   .cmo-tei-pop-item + .cmo-tei-pop-item {
