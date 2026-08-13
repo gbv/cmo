@@ -128,7 +128,7 @@
     color: $info;
     line-height: 1.4;
     vertical-align: middle;
-    cursor: help;
+    cursor: pointer;
     transition: background-color .12s ease;
 
     &::before {
@@ -151,7 +151,7 @@
   /* editorial additions, wrapped in square brackets */
   .cmo-tei-supplied {
     border-bottom: 1px dotted $gray-light;
-    cursor: help;
+    cursor: pointer;
   }
 
   .cmo-tei-supplied-bracket {
@@ -242,10 +242,10 @@
     }
   }
 
-  /* elements that carry a popover show the help cursor */
+  /* elements that carry a click popover show the pointer cursor */
   .cmo-tei-editor[role="button"],
   .cmo-tei-rdg[role="button"] {
-    cursor: help;
+    cursor: pointer;
   }
 
   /* rhyme scheme + metre, each on its own labelled row above a verse group */
@@ -280,9 +280,9 @@
     font-style: italic;
   }
 
-  /* text spans that carry a critical apparatus entry */
+  /* text spans that carry a critical apparatus entry (click to open the apparatus) */
   .cmo-tei-anno {
-    cursor: help;
+    cursor: pointer;
     border-bottom: 1px dotted rgba($info, .55);
     transition: background-color .12s ease;
 

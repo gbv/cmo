@@ -129,6 +129,15 @@
     <xsl:sequence select="if ($t = '' or starts-with($t, '???')) then $fallback else $t" />
   </xsl:function>
 
+  <!-- resolves a witness reference (#cmo_source_...) to its CMO siglum via the listWit -->
+  <xsl:function name="cmo:witSiglum" as="xs:string">
+    <xsl:param name="ref" as="xs:string" />
+    <xsl:variable name="id" select="replace(normalize-space($ref), '^#', '')" />
+    <xsl:variable name="wit" select="key('byId', $id, $root)[self::witness][1]" />
+    <xsl:variable name="siglum" select="normalize-space($wit/idno[@type = 'CMO'][1])" />
+    <xsl:sequence select="if ($siglum != '') then $siglum else $id" />
+  </xsl:function>
+
   <!-- ============================ root ============================ -->
 
   <xsl:template match="/TEI">
@@ -418,19 +427,31 @@
                     <xsl:value-of select="lem" />
                   </dt>
                   <xsl:for-each select="rdg">
+                    <xsl:variable name="hasPop" select="@type or normalize-space(@wit) != ''" />
                     <dd class="cmo-tei-rdg" lang="ota">
-                      <xsl:if test="@type">
+                      <xsl:if test="$hasPop">
                         <xsl:attribute name="tabindex">0</xsl:attribute>
                         <xsl:attribute name="role">button</xsl:attribute>
                       </xsl:if>
                       <xsl:call-template name="flow" />
-                      <xsl:if test="@type">
+                      <xsl:if test="$hasPop">
                         <span class="cmo-tei-pop-src" hidden="hidden">
                           <span class="cmo-tei-pop-head">
                             <xsl:value-of select="mcri18n:translate('cmo.tei.apparatus.readings')" />
                           </span>
                           <span class="cmo-tei-pop-body">
-                            <xsl:value-of select="cmo:i18n(concat('cmo.tei.reading.', @type), @type)" />
+                            <xsl:if test="@type">
+                              <xsl:value-of select="cmo:i18n(concat('cmo.tei.reading.', @type), @type)" />
+                            </xsl:if>
+                            <xsl:if test="normalize-space(@wit) != ''">
+                              <span class="cmo-tei-pop-sub">
+                                <xsl:value-of select="mcri18n:translate('cmo.tei.reading.witnesses')" />
+                                <xsl:text>: </xsl:text>
+                                <xsl:value-of select="string-join(
+                                    for $w in tokenize(normalize-space(@wit), '\s+')[. != '']
+                                    return cmo:witSiglum($w), ' &#183; ')" />
+                              </span>
+                            </xsl:if>
                           </span>
                         </span>
                       </xsl:if>
