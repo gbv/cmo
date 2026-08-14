@@ -739,8 +739,8 @@ window.addEventListener('load', () => {
                 return (doc, result, hitOnPage, event:MouseEvent) => {
                     let param = "";
                     for (let i in result.responseHeader.params) {
-                        /* json.facet and facet only describe the sidebar, the single hit view has none */
-                        if (i == "wt" || i == "start" || i == "rows" || i == "json.facet" || i == "facet") {
+                        /* the parameters of the facets only describe the sidebar, the single hit view has none */
+                        if (i == "wt" || i == "start" || i == "rows" || SearchFacetController.isFacetParam(i)) {
                             continue;
                         }
                         if (result.responseHeader.params[i] instanceof Array) {

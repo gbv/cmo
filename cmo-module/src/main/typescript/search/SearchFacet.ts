@@ -145,6 +145,28 @@ export class SearchFacetController {
         return facetParams;
     }
 
+    /**
+     * Returns whether the given parameter of a request only describes the facets, so that a request which needs
+     * none of them can leave it out: the json facet itself, the switch of the classic facets and the filters
+     * which the counters of a facet point at.
+     */
+    public static isFacetParam(name: string): boolean {
+        if (name == "json.facet" || name == "facet") {
+            return true;
+        }
+        let prefix = SearchFacetController.FILTER_PARAM_PREFIX;
+        if (name.indexOf(prefix) != 0 || name.length == prefix.length) {
+            return false;
+        }
+        let number = name.substring(prefix.length);
+        for (let index = 0; index < number.length; index++) {
+            if ("0123456789".indexOf(number.charAt(index)) == -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private hasJsonFacets(): boolean {
         return this.facetFields.filter(description => description.json != null).length > 0;
     }
