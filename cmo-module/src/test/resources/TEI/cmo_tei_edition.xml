@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://gitlab.gwdg.de/perspectivia.net/ospot/-/raw/master/CMOtextschema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://gitlab.gwdg.de/perspectivia.net/ospot/-/raw/master/CMOtextschema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>
+          <title type="titleTranscription" xml:lang="ota">Semāʿī Ḥāfıẓ Rifʿat</title>
+          <note type="makamTranscription" xml:lang="ota">Ṣabā</note>
+          <note type="usulStandardized" xml:lang="ota">
+            <supplied reason="provided-by-editor" cert="1" resp="#CM">Aksak semâî</supplied>
+          </note>
+          <note type="genreTranscription" xml:lang="ota">
+            <ref target="https://uri.gbv.de/terminology/cmo_genre/semai">Semāʿī</ref>
+          </note>
+          <note type="bahir" xml:lang="ota" corresp="#hezec1">
+            <supplied reason="provided-by-editor" cert="1" resp="#ND">Hezec</supplied>
+          </note>
+          <note type="meter" xml:lang="ota" corresp="#mefulu #mefailu #mefailu #feulun">
+            <supplied reason="provided-by-editor" cert="1" resp="#ND">Mef’ûlü / mefâ’îlü / mefâ’îlü / fe’ûlün</supplied>
+          </note>
+          <idno>TR-Iüne 204-2, Piece no. 144, Ms. page no. 190</idno>
+        </title>
+        <author role="composer" cert="1" resp="#ND">
+          <persName ref="https://corpus-musicae-ottomanicae.de/receive/cmo_person_00000225">Sermüezzin Rifʼat Bey</persName>
+        </author>
+        <editor role="author" corresp="#ND">Dr. Neslihan Demirkol</editor>
+        <editor role="contributor" corresp="#MS">Dr. Malek Sharif</editor>
+      </titleStmt>
+      <editionStmt>
+        <edition>First Edition</edition>
+        <funder ref="https://www.dfg.de">Deutsche Forschungsgemeinschaft</funder>
+        <sponsor ref="https://www.uni-muenster.de">Universität Münster</sponsor>
+        <respStmt>
+          <resp key="ged">General Editor</resp>
+          <name>
+            <persName corresp="#RJ" ref="https://explore.gnd.network/gnd/122654099">Prof. Dr. Ralf Martin Jäger</persName>
+            <affiliation>Universität Münster</affiliation>
+          </name>
+        </respStmt>
+        <respStmt>
+          <resp key="edi">Editors</resp>
+          <name>
+            <persName corresp="#ND" ref="https://orcid.org/0000-0002-8602-1704">Dr. Neslihan Demirkol</persName>
+          </name>
+          <name>
+            <persName xml:id="MS" ref="https://explore.gnd.network/gnd/106049969X">Dr. Malek Sharif</persName>
+          </name>
+        </respStmt>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>Corpus Musicae Ottomanicae</publisher>
+        <distributor>perspectiva.net - Die Publikationsplattform der Max Weber Stiftung</distributor>
+        <date>2021</date>
+        <pubPlace>online</pubPlace>
+        <availability>
+          <licence target="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Licence: Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</licence>
+        </availability>
+      </publicationStmt>
+      <seriesStmt>
+        <title>Corpus Musicae Ottomanicae</title>
+        <respStmt>
+          <resp key="edc">Editor of Digital Corpus</resp>
+          <name xml:id="CMO">
+            <orgName xml:lang="en">Corpus Musicae Ottomanicae, Research Center of the German Research Foundation at the University of Münster, Institute of Musicology.</orgName>
+          </name>
+        </respStmt>
+        <respStmt>
+          <resp key="oth">Cooperation Partners</resp>
+          <name xml:id="MWS">
+            <orgName>Max Weber Stiftung</orgName>
+            <idno xml:base="https://explore.gnd.network/gnd/" type="GND">1028661126</idno>
+          </name>
+          <name xml:id="OII">
+            <orgName>Orient-Institut Istanbul</orgName>
+          </name>
+        </respStmt>
+        <respStmt>
+          <resp key="pdr">Project Director</resp>
+          <name xml:id="RJ">
+            <persName>Ralf Martin Jäger</persName>
+            <affiliation corresp="#CMO"/>
+            <idno xml:base="https://explore.gnd.network/gnd/" type="GND">122654099</idno>
+          </name>
+        </respStmt>
+        <respStmt>
+          <resp key="oth">Research Assistant</resp>
+          <name xml:id="ZH">
+            <persName>Zeynep Helvacı</persName>
+            <affiliation corresp="#CMO"/>
+            <idno xml:base="https://explore.gnd.network/gnd/" type="GND">1080200312</idno>
+          </name>
+        </respStmt>
+        <respStmt>
+          <resp key="edt">Editors</resp>
+          <name xml:id="NA">
+            <persName>Nejla Melike Atalay</persName>
+            <affiliation corresp="#CMO"/>
+            <idno xml:base="https://explore.gnd.network/gnd/" type="GND">1244416428</idno>
+          </name>
+          <name xml:id="ND">
+            <persName>Neslihan Demirkol</persName>
+            <affiliation corresp="#CMO"/>
+            <idno xml:base="https://orcid.org/" type="ORCID">0000-0002-8602-1704</idno>
+          </name>
+          <name xml:id="MD">
+            <persName>Marco Dimitriou</persName>
+            <affiliation corresp="#CMO"/>
+          </name>
+          <name xml:id="CM">
+            <persName>C. Ersin Mıhçı</persName>
+            <affiliation corresp="#CMO"/>
+          </name>
+          <name xml:id="SP">
+            <persName>Semih Pelen</persName>
+            <affiliation corresp="#CMO"/>
+          </name>
+        </respStmt>
+        <respStmt>
+          <resp key="edt">Student Assistants</resp>
+          <name xml:id="MG">
+            <persName>Melek Göksu</persName>
+            <affiliation corresp="#CMO"/>
+          </name>
+          <name xml:id="OO">
+            <persName>Orçun Öztürk</persName>
+            <affiliation corresp="#CMO"/>
+          </name>
+        </respStmt>
+        <respStmt>
+          <resp key="led">Head of Section perspectivia.net, IT, Library Affairs</resp>
+          <name xml:id="MK">
+            <persName>Michael Kaiser</persName>
+            <affiliation corresp="#MWS"/>
+            <idno xml:base="https://explore.gnd.network/gnd/" type="GND">139213147</idno>
+            <idno xml:base="https://orcid.org/" type="ORCID">0000-0001-9520-8119</idno>
+          </name>
+        </respStmt>
+        <respStmt>
+          <resp key="oth">Research Managers Digital Editions and Data Management</resp>
+          <name xml:id="SG">
+            <persName>Sven Gronemeyer</persName>
+            <affiliation corresp="#MWS"/>
+            <affiliation>La Trobe University, Melbourne</affiliation>
+            <idno xml:base="https://explore.gnd.network/gnd/" type="GND">1155600487</idno>
+            <idno xml:base="https://orcid.org/" type="ORCID">0000-0002-9066-0461</idno>
+          </name>
+          <name xml:id="JS">
+            <persName>Julian Schulz</persName>
+            <affiliation corresp="#MWS"/>
+            <idno xml:base="https://explore.gnd.network/gnd/" type="GND">1161130233</idno>
+          </name>
+        </respStmt>
+      </seriesStmt>
+      <sourceDesc>
+        <listWit>
+          <witness xml:id="cmo_source_00000030">
+            <idno type="CMO">NE204</idno>
+            <idno type="RISM">TR-Iüne 204-2</idno>
+            <biblFull>
+              <fileDesc>
+                <titleStmt>
+                  <title/>
+                  <author/>
+                </titleStmt>
+                <publicationStmt>
+                  <ab/>
+                </publicationStmt>
+                <sourceDesc>
+                  <bibl>Source description originates from CMO Source Catalogue:<ref type="uri">https://corpus-musicae-ottomanicae.de/receive/cmo_source_00000030</ref>.</bibl>
+                </sourceDesc>
+              </fileDesc>
+              <profileDesc>
+                <textClass>
+                  <keywords>
+                    <term target="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_sourceType#Manuscript" type="cmo_sourceType">Manuscript</term>
+                    <term target="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_kindOfData#source" type="cmo_kindOfData">Source Catalogue</term>
+                    <term target="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_notationType#Hampartsum_notation" type="cmo_notationType">Hampartsum notation</term>
+                    <term target="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_contentType#Mixed_musical_collection" type="cmo_contentType">Mixed musical collection</term>
+                  </keywords>
+                </textClass>
+                <langUsage>
+                  <language ident="ota-Arab">Ottoman Turkish in Arabic script</language>
+                </langUsage>
+              </profileDesc>
+            </biblFull>
+            <msDesc>
+              <msIdentifier>
+                <country>Turkey</country>
+                <settlement>Istanbul</settlement>
+                <repository>İstanbul Üniversitesi Nadir Eserler Kütüphanesi</repository>
+                <idno>Y. 204-2</idno>
+              </msIdentifier>
+              <msContents>
+                <summary>Collection of instrumental and vocal music in Ottoman Turkish dating from late nineteenth or early twentieth century.</summary>
+              </msContents>
+              <history>
+                <p>Origination:<geogName>Istanbul?</geogName>
+                           <date notBefore="1880" notAfter="1920" calendar="#gregorian">After ca. 1880</date>
+                        </p>
+              </history>
+            </msDesc>
+          </witness>
+          <witness xml:id="cmo_source_00000092">
+            <idno type="CMO">Ha</idno>
+            <idno type="RISM"/>
+            <biblFull>
+              <fileDesc>
+                <titleStmt>
+                  <title type="main">Hanende</title>
+                  <author/>
+                </titleStmt>
+                <publicationStmt>
+                  <ab/>
+                </publicationStmt>
+                <sourceDesc>
+                  <bibl>Source description originates from CMO Source Catalogue:<ref type="uri">https://corpus-musicae-ottomanicae.de/receive/cmo_source_00000092</ref>.</bibl>
+                </sourceDesc>
+              </fileDesc>
+              <profileDesc>
+                <textClass>
+                  <keywords>
+                    <term target="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_kindOfData#source" type="cmo_kindOfData">Source Catalogue</term>
+                    <term target="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_sourceType#Printed_source" type="cmo_sourceType">Printed source</term>
+                  </keywords>
+                </textClass>
+              </profileDesc>
+            </biblFull>
+          </witness>
+          <witness xml:id="cmo_expression_00005685">
+            <idno type="CMO">FAS_MUN_SA</idno>
+            <idno type="RISM"/>
+            <biblFull>
+              <fileDesc>
+                <titleStmt>
+                  <title/>
+                  <author/>
+                </titleStmt>
+                <publicationStmt>
+                  <ab/>
+                </publicationStmt>
+                <sourceDesc>
+                  <bibl>Source description originates from CMO Source Catalogue:<ref type="uri">https://corpus-musicae-ottomanicae.de/receive/cmo_expression_00005685</ref>.</bibl>
+                </sourceDesc>
+              </fileDesc>
+              <profileDesc>
+                <textClass>
+                  <keywords>
+                    <term target="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_kindOfData#source" type="cmo_kindOfData">Source Catalogue</term>
+                    <term target="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_usuler#[Various]" type="cmo_usuler"/>
+                    <term target="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_makamler#Saba" type="cmo_makamler"/>
+                    <term target="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_musictype#Fasl" type="cmo_musictype"/>
+                  </keywords>
+                </textClass>
+              </profileDesc>
+            </biblFull>
+          </witness>
+        </listWit>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <variantEncoding method="double-end-point" location="external"/>
+      <tagsDecl/>
+      <metDecl xml:id="symbols" pattern="((u|-|x|U|Z|I|M){1,5}[|]){1,4}">
+        <metSym xml:id="u" value="u">short syllable which can be in the form of cv or v</metSym>
+        <metSym xml:id="-" value="-">long syllable which can be in the form of cV, cVc, cvc, cVcc, cvcc, vc, or V</metSym>
+        <metSym xml:id="x" value="x">anceps, the position in the metrical pattern can either be short or long</metSym>
+        <metSym xml:id="U" value="U">merge (ulama/vasl)</metSym>
+        <metSym xml:id="Z" value="Z">shortening (zihâf/kısaltma)</metSym>
+        <metSym xml:id="I" value="I">lengthening (imâle/uzatma)</metSym>
+        <metSym xml:id="M" value="M">insertion (med)</metSym>
+        <metSym xml:id="|" value="|">foot division</metSym>
+      </metDecl>
+      <metDecl xml:id="feet" corresp="#symbols" type="met">
+        <metSym xml:id="feulun" value="fe’ûlün" terminal="false">u--|</metSym>
+        <metSym xml:id="mefulu" value="mef’ûlü" terminal="false">--u|</metSym>
+        <metSym xml:id="mefailu" value="mefâ’îlü" terminal="false">u--u|</metSym>
+      </metDecl>
+      <metDecl xml:id="vezin" corresp="#symbols" type="met">
+        <metSym xml:id="hezec1" value="Hezec 1" terminal="false">--u|u--u|u--u|u--|</metSym>
+      </metDecl>
+    </encodingDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div type="newPieceStart">
+        <milestone unit="cite" source="#cmo_mods_00000719"/>
+        <msDesc>
+          <msIdentifier>
+            <idno>TR-Iüne 204-2</idno>
+          </msIdentifier>
+          <msContents>
+            <msItem n="144">
+              <locus from="190" to="190">p. 190</locus>
+              <rubric type="pieceNumber" subtype="red-pencil">144</rubric>
+              <incipit>
+                <supplied reason="derived-from-lyrics" cert="1" resp="#ND">Dildārı görüb naġme-i şehnāz ėdelim gel</supplied>
+              </incipit>
+            </msItem>
+          </msContents>
+        </msDesc>
+      </div>
+      <div type="blockLyricsTranscription" rend="direction:ltr;">
+        <head n="1"><anchor xml:id="w7176s"/><anchor xml:id="w7174s"/>Semāʿī<anchor xml:id="w7174e"/>Ḥāfıẓ Rifʿat<anchor xml:id="w7176e"/>
+            </head>
+        <lg n="1" decls="hezec1" rhyme="a-a-b-a">
+          <l n="1">
+            <seg type="vocal" ana="mainPartLyrics">Dildārı görüb naġme-i şehnāz ėdelim gel</seg>
+          </l>
+          <l n="2">
+            <seg type="vocal" ana="mainPartLyrics">Muṭrib demidir nāle ve <anchor xml:id="w7192s"/>āġāz<anchor xml:id="w7192e"/> ėdelim gel</seg>
+          </l>
+          <l n="3" real="--u|u-Iu|uI-u|UI-|">
+            <seg type="vocal" ana="mainPartLyrics">Ben bāde-i ʿaşḳ <anchor xml:id="w7198s"/>ile<anchor xml:id="w7198e"/> mey-i naḫvet <anchor xml:id="w7201s"/>ile<anchor xml:id="w7201e"/> sen</seg>
+          </l>
+          <l n="4">
+            <seg type="vocal" ana="mainPartLyrics">Mestāne niyāz eyleyelim nāz ėdelim gel</seg>
+          </l>
+          <l n="5">
+            <seg type="vocal" ana="terennüm">ʿömrüm amān cānım āh ėdelim gel</seg>
+          </l>
+        </lg>
+      </div>
+    </body>
+    <back>
+      <div type="provenance">
+        <app from="#w7176s" to="#w7176e">
+          <lem>Semāʿī Ḥāfıẓ Rifʿat</lem>
+          <note>The lyrics appear in <ref target="#cmo_source_00000092">Ha</ref>, page 233 and <ref target="#cmo_expression_00005685">FAS_MUN_SA</ref>, page 11.</note>
+        </app>
+      </div>
+      <div type="readings">
+        <app from="#w7174s" to="#w7174e">
+          <lem>Semāʿī</lem>
+          <rdg wit="#cmo_source_00000092" type="variant-reading">Aḳṣaḳ semāʿī <ref target="#cmo_source_00000092">Ha</ref></rdg>
+          <rdg wit="#cmo_expression_00005685" type="variant-reading">Ağır semāʿī <ref target="#cmo_expression_00005685">FAS_MUN_SA</ref></rdg>
+        </app>
+        <app from="#w7192s" to="#w7192e">
+          <lem>nāle ve āġāz</lem>
+          <rdg wit="#cmo_source_00000092 #cmo_expression_00005685" type="variant-reading">nāleye āġāz<ref target="#cmo_source_00000092">Ha</ref>, <ref target="#cmo_expression_00005685">FAS_MUN_SA</ref>
+               </rdg>
+        </app>
+        <app from="#w7198s" to="#w7198e">
+          <lem>ʿaşḳ ile</lem>
+          <rdg wit="#cmo_source_00000092 #cmo_expression_00005685" type="variant-reading">ʿaşḳ eyle<ref target="#cmo_source_00000092">Ha</ref>, <ref target="#cmo_expression_00005685">FAS_MUN_SA</ref>
+               </rdg>
+        </app>
+        <app from="#w7201s" to="#w7201e">
+          <lem>naḫvet ile</lem>
+          <rdg wit="#cmo_source_00000092 #cmo_expression_00005685" type="variant-reading">naḫvet eyle<ref target="#cmo_source_00000092">Ha</ref>, <ref target="#cmo_expression_00005685">FAS_MUN_SA</ref>
+               </rdg>
+        </app>
+      </div>
+      <div type="annotations"/>
+    </back>
+  </text>
+</TEI>

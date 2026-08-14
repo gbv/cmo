@@ -1,9 +1,10 @@
 import {I18N} from 'other/I18N'
 import {Classification, ClassificationResolver} from 'other/Classification'
 import {
-    CheckboxSearchFieldInput, ClassificationSearchFieldInput, DateSearchFieldInput, SearchGUI,
-    TextSearchFieldInput
+    AutoCompleteTextSearchFieldInput, CheckboxSearchFieldInput, ClassificationSearchFieldInput,
+    DateSearchFieldInput, SearchGUI, TextSearchFieldInput
 } from "./SearchFormGUI";
+import {AutoCompleteSource, SolrFacetSuggestSource, SolrHighlightSuggestSource} from "./AutoComplete";
 import {Utils} from "../other/Utils";
 import {SearchFacetController} from "./SearchFacet";
 import {SearchDescription} from "./SearchDescription";
@@ -97,7 +98,6 @@ export class SearchController {
     }
 
     public getSolrQuery(): Array<Array<string>> {
-        let fqs = this.facetController.getQuery();
         let qps = this.view.getSolrQuery();
         let filterQueries = [ "fq" ];
 
@@ -110,7 +110,7 @@ export class SearchController {
         });
 
         let queries = [ "q", qps.join(" AND ") ];
-        fqs.map(fq => `${fq.field}:${fq.value}`).forEach(fq => filterQueries.push(fq));
+        this.facetController.getFilterQueries().forEach(fq => filterQueries.push(fq));
         let allQueries = [ queries, filterQueries ];
 
         return allQueries;
@@ -148,6 +148,10 @@ export class SearchController {
             } else if (input instanceof CheckboxSearchField) {
                 let osf = <CheckboxSearchField>input;
                 this.view.addExtendedField(name, new CheckboxSearchFieldInput(osf.solrSearchFields, input.label, osf.value))
+            } else if (input instanceof AutoCompleteSearchField) {
+                let suggestField = <AutoCompleteSearchField>input;
+                this.view.addExtendedField(name, new AutoCompleteTextSearchFieldInput(
+                    suggestField.solrSearchFields, input.label, suggestField.createSource()));
             } else if (input instanceof SearchField) {
                 let textField = <SearchField> input;
                 this.view.addExtendedField(name, new TextSearchFieldInput(textField.solrSearchFields, input.label));
@@ -206,6 +210,49 @@ export class DateSearchField extends SearchField {
     constructor(label: string, solrSearchFields: string[]) {
         super(label, solrSearchFields);
     }
+}
+
+/**
+ * Text field which suggests the values of the index while the user types. Meant for the fields whose values
+ * are hard to guess, the transcribed names of poets and composers or the sigla of the sources.
+ */
+export class AutoCompleteSearchField extends SearchField {
+
+    constructor(label: string, solrSearchFields: string[], private _suggest: SuggestDescription = {}) {
+        super(label, solrSearchFields);
+    }
+
+    get suggest(): SuggestDescription {
+        return this._suggest;
+    }
+
+    /**
+     * Returns the fields the suggestions are read from: the ones the description states, or the search fields
+     * without their joins. A join leads to the hit documents, the values stand at the joined ones.
+     */
+    get suggestFields(): string[] {
+        return this._suggest.fields != null
+            ? this._suggest.fields
+            : this.solrSearchFields.map(searchField => Utils.splitLocalParams(searchField).rest);
+    }
+
+    public createSource(): AutoCompleteSource {
+        return this._suggest.exact
+            ? new SolrFacetSuggestSource(this.suggestFields, this._suggest.filter)
+            : new SolrHighlightSuggestSource(this.suggestFields, this._suggest.filter);
+    }
+}
+
+export interface SuggestDescription {
+    /** fields the values are read from, needed if they are not the search fields themselves */
+    fields?: string[];
+    /** narrows the documents the values are taken from, a join to the persons who composed for example */
+    filter?: string;
+    /**
+     * set for a string field, whose values are matched as they stand, the case ignored. Left out for a text
+     * field, where the analyzer decides and a value is found without its diacritics as well.
+     */
+    exact?: boolean;
 }
 
 export class ClassificationSearchField extends SearchField {

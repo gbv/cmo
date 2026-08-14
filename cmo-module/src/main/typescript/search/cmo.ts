@@ -1,4 +1,5 @@
 import {
+    AutoCompleteSearchField,
     CheckboxSearchField,
     ClassificationSearchField,
     DateSearchField,
@@ -32,7 +33,8 @@ window.addEventListener('load', () => {
     let subselectTarget = null;
     let aditionalQuery = [];
 
-    let facet = new SearchFacetController(sideBar, translationMap,
+    /* facets of the catalogue search, computed by the classic facet api as configured in the solrconfig */
+    let kFacet = new SearchFacetController(sideBar, translationMap,
         {
             field: "cmoType",
             type: "translate",
@@ -55,11 +57,92 @@ window.addEventListener('load', () => {
             type: "class"
         });
 
+    /*
+     * Joins of the edition search. A hit is a text edition, everything it can be filtered by stands at another
+     * document: the musical classifications at the expression of the piece, two steps away over the catalogue,
+     * and everything taken from the TEI at the document of the file.
+     */
+    const pieceToExpressionJoins = [
+        {from: "parent", to: "id"},                    /* text edition -> piece */
+        {from: "mods.relatedItem.original", to: "id"}  /* piece -> expression */
+    ];
+    const teiFileJoins = [
+        {from: "id", to: "returnId"}                   /* text edition -> document of the TEI file */
+    ];
+
+    /* facets of the edition search, computed by the json facet api, because each of them needs a join */
+    let eFacet = new SearchFacetController(sideBar, translationMap,
+        {
+            field: "cmo_makamler",
+            type: "class",
+            json: {
+                facetField: "category.top",
+                classification: "cmo_makamler",
+                joins: pieceToExpressionJoins
+            }
+        },
+        {
+            field: "cmo_usuler",
+            type: "class",
+            json: {
+                facetField: "category.top",
+                classification: "cmo_usuler",
+                joins: pieceToExpressionJoins
+            }
+        },
+        {
+            field: "cmo_musictype",
+            type: "class",
+            json: {
+                facetField: "category.top",
+                classification: "cmo_musictype",
+                joins: pieceToExpressionJoins
+            }
+        },
+        {
+            field: "tei_poeticForm",
+            type: "plain",
+            label: "cmo.tei.search.poeticForm",
+            json: {
+                facetField: "tei.facet.category.cmo_poetic",
+                joins: teiFileJoins
+            }
+        },
+        {
+            field: "tei_rhyme",
+            type: "plain",
+            label: "cmo.tei.search.rhyme",
+            json: {
+                facetField: "tei.facet.rhyme",
+                joins: teiFileJoins
+            }
+        },
+        {
+            field: "tei_vezin",
+            type: "plain",
+            label: "cmo.tei.search.metre",
+            json: {
+                facetField: "tei.facet.vezin",
+                joins: teiFileJoins
+            }
+        });
+
     const eSearchBaseQuery = "category.top:\"cmo_kindOfData:edition\"";
     const kSearchBaseQuery = "(category.top:\"cmo_kindOfData:source\" OR cmoType:person)";
 
-    const eSearch = new SearchController(eContainer, facet, "cmo.edition.search", eSearchBaseQuery);
-    const kSearch = new SearchController(kContainer, facet, "cmo.catalog.search", kSearchBaseQuery);
+    /*
+     * A search field for a composer or a poet looks for the name at the person documents, so the autocomplete
+     * of it reads its suggestions there as well. Only the persons who really hold that role are asked, which
+     * are the ones an expression points at.
+     */
+    const composerFilter = "{!join from=composer.ref.pure to=id}composer.ref.pure:*";
+    const lyricistFilter = "{!join from=lyricist.ref.pure to=id}lyricist.ref.pure:*";
+
+    const eSearch = new SearchController(eContainer, eFacet, "cmo.edition.search", eSearchBaseQuery);
+    const kSearch = new SearchController(kContainer, kFacet, "cmo.catalog.search", kSearchBaseQuery);
+
+    const getActiveFacet = (searchController: SearchController) =>
+        searchController === eSearch ? eFacet : kFacet;
 
     /* enable/disable search on click */
     eContainer.addEventListener('click', () => {
@@ -103,16 +186,11 @@ window.addEventListener('load', () => {
         let normalClass = ["col-md-9", "col-lg-9"];
         let largeClass = ["col-md-12", "col-lg-12"];
 
-        if (kSearch.enable) {
+        /* both searches have their own facets now, so both of them need the sidebar */
+        if (kSearch.enable || eSearch.enable) {
             largeClass.forEach(token => mainContainer.classList.remove(token));
             normalClass.forEach(token => mainContainer.classList.add(token));
             sideBar.style.display = 'block';
-        }
-
-        if (eSearch.enable) {
-            normalClass.forEach(token => mainContainer.classList.remove(token));
-            largeClass.forEach(token => mainContainer.classList.add(token));
-            sideBar.style.display = 'none';
         }
 
     };
@@ -150,7 +228,8 @@ window.addEventListener('load', () => {
                     new ClassificationSearchField("category.top", "diniPublType"),
                     new ClassificationSearchField("category.top", "cmo_vezinler"),
                     new SearchField("editor.label.title", ["mods.title", "mods.title.main", "mods.title.subtitle"]),
-                    new SearchField("editor.label.name", ["mods.nameIdentifier", "mods.name"])
+                    new AutoCompleteSearchField("editor.label.name", ["mods.nameIdentifier", "mods.name"],
+                        {fields: ["mods.name"]})
 
                 ]
             },
@@ -159,12 +238,59 @@ window.addEventListener('load', () => {
                 baseQuery: ["objectType:mods"],
                 fields: [
                     new SearchField("editor.label.title", ["mods.title", "mods.title.main", "mods.title.subtitle"]),
-                    new SearchField("editor.label.name", ["mods.nameIdentifier", "mods.name"]),
-                    new SearchField("editor.label.publisher", ["mods.publisher"]),
+                    new AutoCompleteSearchField("editor.label.name", ["mods.nameIdentifier", "mods.name"],
+                        {fields: ["mods.name"]}),
+                    new AutoCompleteSearchField("editor.label.publisher", ["mods.publisher"]),
                     new ClassificationSearchField("category.top", "DDC"),
                     new ClassificationSearchField("category.top", "diniPublType"),
                     new ClassificationSearchField("category.top", "cmo_vezinler"),
                     new DateSearchField("editor.legend.pubDate", ["mods.dateIssued.range", "mods.dateIssued.host.range"]),
+                ]
+            },
+            /*
+             * Search mask of the TEI text edition. A hit is the text edition itself, the searched fields stand
+             * at the document of its TEI file, joined over returnId.
+             * <p>
+             * Everything the sidebar offers as a facet is left out here: makam, usul and music genre from the
+             * catalogue, text form, metre and rhyme scheme from the TEI. Their values are categories and codes
+             * and are better picked than typed, and the facets show how many hits each of them has.
+             */
+            tei_edition: {
+                type: "mods",
+                baseQuery: ["objectType:mods", "category.top:\"cmo_editionTypes:text\""],
+                fields: [
+                    /* full text */
+                    new SearchField("cmo.tei.search.fulltext", ["{!join from=returnId to=id}tei.text",
+                        "tei.lang.de.text", "tei.lang.en.text", "tei.lang.tr.text"]),
+                    new SearchField("cmo.tei.search.apparatus",
+                        ["{!join from=returnId to=id}tei.text.apparatus", "tei.lang.de.text.apparatus",
+                            "tei.lang.en.text.apparatus", "tei.lang.tr.text.apparatus"]),
+
+                    /* lyrics */
+                    new SearchField("cmo.tei.search.lyrics", ["{!join from=returnId to=id}tei.lyrics.primary",
+                        "tei.lang.de.lyrics.primary", "tei.lang.en.lyrics.primary",
+                        "tei.lang.tr.lyrics.primary"]),
+                    new SearchField("cmo.tei.search.incipit", ["{!join from=returnId to=id}tei.incipit"]),
+                    new AutoCompleteSearchField("cmo.tei.search.rdgType",
+                        ["{!join from=returnId to=id}tei.rdg.type"], {exact: true}),
+
+                    /* metrics */
+                    new ClassificationSearchField("category.top", "cmo_vezinler"),
+                    new SearchField("cmo.tei.search.symbol", ["{!join from=returnId to=id}tei.real.symbol"]),
+
+                    /* authorship */
+                    new AutoCompleteSearchField("editor.label.lyricist",
+                        ["{!join from=returnId to=id}tei.author.lyricist"]),
+                    new AutoCompleteSearchField("editor.label.composer",
+                        ["{!join from=returnId to=id}tei.author.composer"]),
+                    new DateSearchField("editor.label.lifeData",
+                        ["{!join from=returnId to=id}{!join from=id to=tei.ref.person.lyricist}date.range"]),
+                    new CheckboxSearchField("cmo.tei.search.uncertainPoet",
+                        "{!join from=returnId to=id}tei.cert.lyricist", "(0.5 OR 0.75)"),
+
+                    /* sources */
+                    new AutoCompleteSearchField("cmo.tei.search.witness",
+                        ["{!join from=returnId to=id}tei.witness"], {exact: true}),
                 ]
             }
         });
@@ -198,9 +324,11 @@ window.addEventListener('load', () => {
                     new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_sourceType"),
                     new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_notationType"),
                     new DateSearchField("editor.label.publishingDate", ["{!join from=reference to=id}publish.date.range"]),
-                    new SearchField("editor.label.composer", ["{!join from=id to=composer.ref.pure}name"]),
+                    new AutoCompleteSearchField("editor.label.composer",
+                        ["{!join from=id to=composer.ref.pure}name"], {filter: composerFilter}),
                     new DateSearchField("editor.label.lifeData", ["{!join from=id to=composer.ref.pure}date.range"]),
-                    new SearchField("editor.label.lyricist", ["{!join from=id to=lyricist.ref.pure}name"]),
+                    new AutoCompleteSearchField("editor.label.lyricist",
+                        ["{!join from=id to=lyricist.ref.pure}name"], {filter: lyricistFilter}),
                     new DateSearchField("editor.label.lifeData", ["{!join from=id to=lyricist.ref.pure}date.range"]),
                     new SearchField("editor.label.incip", ["incip"]),
                     new CheckboxSearchField("cmo.hasFiles", "{!join from=reference to=id}hasFiles", "true"),
@@ -218,9 +346,11 @@ window.addEventListener('load', () => {
                     new ClassificationSearchField("category.top", "iso15924"),
                     new ClassificationSearchField("category.top", "rfc5646"),
                     new DateSearchField("editor.label.publishingDate", ["publish.date.range"]),
-                    new SearchField("editor.label.contributer", ["editor", "author", "respStmt", "hand.name"]),
-                    new SearchField("editor.label.publishingInformation", ["publisher", "publisher.place", "series",
-                        "repo.corpName", "repo.identifier", "repo.geogName", "history.event.eventGeogName"]),
+                    new AutoCompleteSearchField("editor.label.contributer",
+                        ["editor", "author", "respStmt", "hand.name"]),
+                    new AutoCompleteSearchField("editor.label.publishingInformation",
+                        ["publisher", "publisher.place", "series", "repo.corpName", "repo.identifier",
+                            "repo.geogName", "history.event.eventGeogName"]),
                     new CheckboxSearchField("cmo.hasFiles", "hasFiles", "true"),
                     new CheckboxSearchField("cmo.hasReference", "{!join from=mods.relatedItem to=id}*", "*")
                 ]
@@ -230,10 +360,12 @@ window.addEventListener('load', () => {
                 baseQuery: ["objectType:mods"],
                 fields: [
                     new SearchField("editor.label.title", ["mods.title", "mods.title.main", "mods.title.subtitle"]),
-                    new SearchField("editor.label.name", ["mods.nameIdentifier", "mods.name"]),
-                    new SearchField("editor.label.publishingInformation", ["mods.publisher", "mods.place",
+                    new AutoCompleteSearchField("editor.label.name", ["mods.nameIdentifier", "mods.name"],
+                        {fields: ["mods.name"]}),
+                    new AutoCompleteSearchField("editor.label.publishingInformation", ["mods.publisher", "mods.place",
                         "mods.title.de.series", "mods.title.en.series", "mods.title.tr.series",
-                        "mods.title.de.host", "mods.title.en.host", "mods.title.tr.host"]),
+                        "mods.title.de.host", "mods.title.en.host", "mods.title.tr.host"],
+                        {fields: ["mods.publisher", "mods.place"]}),
                     /* new ClassificationSearchField("mods.ddc", "DDC"), */
                     /* new ClassificationSearchField("mods.type", "diniPublType"), */
                     new DateSearchField("editor.legend.pubDate", ["mods.dateIssued.range", "mods.dateIssued.host.range"])
@@ -243,7 +375,8 @@ window.addEventListener('load', () => {
                 type: "person",
                 baseQuery: ["objectType:person"],
                 fields: [
-                    new SearchField("editor.label.name", ["name", "name.general"]),
+                    new AutoCompleteSearchField("editor.label.name", ["name", "name.general"],
+                        {fields: ["name"]}),
                     new DateSearchField("editor.label.lifeData", ["date.range"]),
                     new CheckboxSearchField("editor.label.composer", "{!join from=composer.ref.pure to=id}composer.ref.pure", "*"),
                     new CheckboxSearchField("editor.label.lyricist", "{!join from=lyricist.ref.pure to=id}lyricist.ref.pure", "*")
@@ -263,7 +396,8 @@ window.addEventListener('load', () => {
                     new ClassificationSearchField("category.top", "cmo_makamler", 1),
                     new ClassificationSearchField("category.top", "cmo_usuler", 1),
                     new ClassificationSearchField("category.top", "cmo_timeSignature"),
-                    new SearchField("editor.label.lyricist", ["{!join from=id to=lyricist.ref.pure}name"]),
+                    new AutoCompleteSearchField("editor.label.lyricist",
+                        ["{!join from=id to=lyricist.ref.pure}name"], {filter: lyricistFilter}),
                     new DateSearchField("editor.label.lifeData", ["{!join from=id to=lyricist.ref.pure}date.range"]),
                     new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_sourceType"),
                     new CheckboxSearchField("cmo.hasFiles", "{!join from=reference to=id}hasFiles", "true"),
@@ -433,11 +567,17 @@ window.addEventListener('load', () => {
                             ctrl.setSolrQuery(params);
                         }
 
+                        const activeFacet = getActiveFacet(ctrl);
                         searchDisplay.save();
-                        facet.save();
+                        activeFacet.save();
                         searchDisplay.loading();
+                        /*
+                         * The parameters of the json facet api are not part of the state: they only describe
+                         * how the facets are counted and are computed from the query and the filters, which
+                         * are in the state.
+                         */
                         solrSearcher.search(
-                            params
+                            params.concat(activeFacet.getFacetParams(params))
                             , (result => {
                                 searchDisplay.displayResult(result, ctrl.getSearchDescription(), (start, sortField, asc, rows) => {
                                     window.scrollTo(0, 0);
@@ -446,7 +586,7 @@ window.addEventListener('load', () => {
                                     ctrl.openExtendedSearch(true);
                                     onQueryChanged(ctrl);
                                 }, extra);
-                                facet.displayFacet(result);
+                                activeFacet.displayFacet(result);
                             }));
                     }
                     break;
@@ -547,7 +687,8 @@ window.addEventListener('load', () => {
 
     let resetJS = () => {
         baskedDisplay.reset();
-        facet.reset();
+        kFacet.reset();
+        eFacet.reset();
         searchDisplay.reset();
     };
 
@@ -598,7 +739,8 @@ window.addEventListener('load', () => {
                 return (doc, result, hitOnPage, event:MouseEvent) => {
                     let param = "";
                     for (let i in result.responseHeader.params) {
-                        if (i == "wt" || i == "start" || i == "rows") {
+                        /* the parameters of the facets only describe the sidebar, the single hit view has none */
+                        if (i == "wt" || i == "start" || i == "rows" || SearchFacetController.isFacetParam(i)) {
                             continue;
                         }
                         if (result.responseHeader.params[i] instanceof Array) {
