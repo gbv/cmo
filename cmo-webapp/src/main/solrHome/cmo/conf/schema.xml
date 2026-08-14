@@ -593,6 +593,131 @@
   <field name="expression.work.number" type="string" stored="true" multiValued="true" />
   <field name="expression.source.notationType" type="string" stored="true" multiValued="true" />
 
+  <!-- TEI text edition, filled by de.vzg.cmo.solr.CMOTEIFileIndexAccumulator on the document of the TEI file -->
+
+  <!--
+    The text of an edition mixes the Ottoman transcription of the piece with German, English and Turkish
+    prose of the editors, and the TEI carries no reliable xml:lang for the prose. The base fields below are
+    therefore analysed language independently: tokenized, lower cased and folded, so that a search for
+    "Semai" finds "Semāʿī", but not stemmed. Every base field is copied into a stemmed field per project
+    language (see the copyFields at the end of this block), so the search mask can stem in de, en and tr.
+  -->
+  <fieldType name="text_cmo" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+      <tokenizer class="solr.ICUTokenizerFactory"/>
+      <filter class="solr.TurkishLowerCaseFilterFactory"/>
+      <filter class="solr.ICUFoldingFilterFactory"/>
+      <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+    </analyzer>
+  </fieldType>
+
+  <!-- bundles for the search mask: standard search, standard search including apparatus, primary text -->
+  <field name="tei.text" type="text_cmo" multiValued="true" stored="false" />
+  <field name="tei.text.apparatus" type="text_cmo" multiValued="true" stored="false" />
+  <field name="tei.lyrics.primary" type="text_cmo" multiValued="true" stored="false" />
+
+  <!-- tei:teiHeader -->
+  <field name="tei.title" type="text_cmo" multiValued="true" />
+  <field name="tei.title.transcription" type="text_cmo" multiValued="true" />
+  <field name="tei.idno" type="text_cmo" multiValued="true" />
+  <field name="tei.witness" type="string" multiValued="true" />
+  <field name="tei.witness.id" type="string" multiValued="true" />
+  <field name="tei.author" type="text_cmo" multiValued="true" />
+  <field name="tei.author.ref" type="string" multiValued="true" />
+  <dynamicField name="tei.author.*" type="text_cmo" multiValued="true" />
+  <field name="tei.editor" type="text_cmo" multiValued="true" />
+
+  <!-- tei.language.text is the language of the piece, tei.language.witness the one of its sources -->
+  <field name="tei.language.text" type="string" multiValued="true" />
+  <field name="tei.language.witness" type="string" multiValued="true" />
+
+  <!--
+    How certain the editors are about an attribution, one field per role of the tei:author. 1 is certain,
+    every lower value is not, so a filter for pieces with an uncertain poet reads -tei.cert.lyricist:1.
+  -->
+  <dynamicField name="tei.cert.*" type="string" multiValued="true" />
+
+  <!--
+    Classifications of the piece as <classification>:<category>, taken from the terminology links of the
+    notes. tei.category.cmo_genre holds the categories of that classification alone, ready to facet on.
+    Only the music genre and the poetic form and genre are linked, makam and usul are stated as text only.
+  -->
+  <field name="tei.category" type="string" multiValued="true" />
+  <dynamicField name="tei.category.*" type="string" multiValued="true" />
+
+  <!--
+    Ids of the MyCoRe objects the edition links to, for joining the file document with those objects:
+    tei.ref holds every id of the file, tei.ref.person(.composer|.lyricist) the persons of the tei:author,
+    tei.ref.source the witnesses and tei.ref.mods the mods object the edition belongs to. A query for the
+    pieces of all poets who died in the 18th century joins the person documents on tei.ref.person.lyricist.
+  -->
+  <field name="tei.ref" type="string" multiValued="true" />
+  <dynamicField name="tei.ref.*" type="string" multiValued="true" />
+
+  <!-- tei:note, tei.note.* holds one field per @type (poeticForm, poeticGenre, makamTranscription, ...) -->
+  <field name="tei.note" type="text_cmo" multiValued="true" />
+  <dynamicField name="tei.note.*" type="text_cmo" multiValued="true" />
+
+  <!--
+    Prosody: named feet and metres with their syllable patterns, rhyme scheme and scansion. The .id fields
+    hold the metSym ids the piece refers to, which identify a metre independently of how its name is spelled.
+    tei.real.symbol lists the metrical symbols in use, so the deviations from the standard which the metDecl
+    declares (I lengthening, Z shortening, U merge, M insertion) can be offered for selection.
+  -->
+  <field name="tei.feet" type="string" multiValued="true" />
+  <field name="tei.feet.id" type="string" multiValued="true" />
+  <field name="tei.feet.pattern" type="string" multiValued="true" />
+  <field name="tei.vezin" type="string" multiValued="true" />
+  <field name="tei.vezin.id" type="string" multiValued="true" />
+  <field name="tei.vezin.pattern" type="string" multiValued="true" />
+  <field name="tei.rhyme" type="string" multiValued="true" />
+  <field name="tei.real" type="string" multiValued="true" />
+  <field name="tei.real.symbol" type="string" multiValued="true" />
+
+  <!-- text of the edition, tei.piece and tei.page state where it stands in its source -->
+  <field name="tei.rubric" type="string" multiValued="true" />
+  <field name="tei.piece" type="string" multiValued="true" />
+  <field name="tei.page" type="string" multiValued="true" />
+  <field name="tei.incipit" type="text_cmo" multiValued="true" />
+  <field name="tei.head" type="text_cmo" multiValued="true" />
+  <field name="tei.lyrics" type="text_cmo" multiValued="true" />
+  <field name="tei.terennum" type="text_cmo" multiValued="true" />
+  <field name="tei.stage" type="text_cmo" multiValued="true" />
+  <field name="tei.stage.type" type="string" multiValued="true" />
+  <field name="tei.supplied" type="text_cmo" multiValued="true" />
+
+  <!-- critical apparatus and annotations -->
+  <field name="tei.lem" type="text_cmo" multiValued="true" />
+  <field name="tei.rdg" type="text_cmo" multiValued="true" />
+  <field name="tei.rdg.type" type="string" multiValued="true" />
+  <field name="tei.rdg.wit" type="string" multiValued="true" />
+  <field name="tei.annotation" type="text_cmo" multiValued="true" />
+  <field name="tei.provenance" type="text_cmo" multiValued="true" />
+
+  <!--
+    Stemmed variant of every TEI field, one per project language: tei.title is copied to tei.lang.de.title,
+    tei.lang.en.title and tei.lang.tr.title, tei.note.poeticForm to tei.lang.de.note.poeticForm and so on.
+    The copy is done by wildcard, so a new tei field is stemmed in all project languages without touching
+    this schema. A search mask ORs the base field and its three language variants.
+  -->
+  <dynamicField name="tei.lang.de.*" type="text_de" multiValued="true" stored="false" />
+  <dynamicField name="tei.lang.en.*" type="text_en" multiValued="true" stored="false" />
+  <dynamicField name="tei.lang.tr.*" type="text_tr" multiValued="true" stored="false" />
+
+  <copyField source="tei.*" dest="tei.lang.de.*" />
+  <copyField source="tei.*" dest="tei.lang.en.*" />
+  <copyField source="tei.*" dest="tei.lang.tr.*" />
+
+  <!--
+    Exact variant of every TEI field: tei.facet.note.makamTranscription holds "Ṣabā" as one untouched value,
+    while tei.note.makamTranscription holds it tokenized and folded for searching. Facets, drop downs and
+    grouping read the facet variant, only it can list the entries of a classification or group the pieces of
+    one incipit. Copied by wildcard, so a new tei field is facetable without touching this schema.
+  -->
+  <dynamicField name="tei.facet.*" type="string" multiValued="true" stored="false" />
+
+  <copyField source="tei.*" dest="tei.facet.*" />
+
   <!-- mycore-mods -->
     <field name="mods.type" type="string" />
     <field name="mods.title" type="text_general" multiValued="true" />
