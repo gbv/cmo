@@ -129,6 +129,18 @@
   }
 }
 
+/* autocomplete of a search mask: the list hangs under its own input, not in the gutter of the whole mask */
+.cmo-autocomplete {
+  position: relative;
+
+  .autocomplete-list {
+    left: 0;
+    right: 0;
+    max-height: 40vh;
+    overflow-y: auto;
+  }
+}
+
 .searchFacet{
   border: 1px solid #cccccc;
   border-radius: 2px;

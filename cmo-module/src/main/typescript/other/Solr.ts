@@ -31,6 +31,11 @@ export interface SolrSearchResult {
     response: Response;
     grouped: any;
     facet_counts: FacetHeader;
+    /**
+     * Result of the json facet api, filled if the request carried a json.facet parameter. Every facet appears
+     * under its own name, a terms facet as {"buckets": [{"val": "Rast_7", "count": 2}, ...]}.
+     */
+    facets?: any;
     highlighting: any;
 }
 
