@@ -30,6 +30,7 @@ const KEYBOARD_ENTRIES: KeyboardTab[] = [
             {character: {uppercase: ["Ι̠"], lowercase: ["ι̠"]}},
             {character: {uppercase: ["Ϊ"], lowercase: ["ϊ"]}},
             {character: {uppercase: ["Ι̮"], lowercase: ["ɩ̮"]}},
+            {character: {uppercase: ["Ι͜"], lowercase: ["ι͜"]}},
             {character: {uppercase: ["Ο̠"], lowercase: ["ο̠"]}},
             {character: {uppercase: ["Ȯ"], lowercase: ["ȯ"]}},
             {character: {uppercase: ["Υ̠"], lowercase: ["υ̠"]}},
@@ -40,11 +41,12 @@ const KEYBOARD_ENTRIES: KeyboardTab[] = [
             {character: {uppercase: ["ᴕ̇"], lowercase: ["ᴕ̇"]}},
             {character: {uppercase: ["ᴕ́"], lowercase: ["ᴕ́"]}},
             {character: {uppercase: ["ᴕ̲"], lowercase: ["ᴕ̲"]}},
+            {character: {uppercase: ["ᴕ̮"], lowercase: ["ᴕ̮"]}},
             {character: {uppercase: ["Π͘"], lowercase: ["π͘"]}},
             {character: {uppercase: ["Σ͘"], lowercase: ["σ͘", "ς͘"]}},
             {character: {uppercase: ["Σ̈"], lowercase: ["σ̈"]}},
             {character: {uppercase: ["Ṫ"], lowercase: ["τ͘"]}},
-            {character: {uppercase: ["Ẋ"], lowercase: ["ẋ"]}}
+            {character: {uppercase: ["Ẋ"], lowercase: ["ẋ", "χ̇"]}}
         ]
     },
     {
@@ -52,6 +54,7 @@ const KEYBOARD_ENTRIES: KeyboardTab[] = [
         entries: [
             {character: {uppercase: ["Ā"], lowercase: ["ā"]}},
             {character: {uppercase: ["Ā̲"], lowercase: ["ā̲"]}},
+            {character: {uppercase: ["C̣"], lowercase: ["c̣"]}},
             {character: {uppercase: ["Ĉ"], lowercase: ["ĉ"]}},
             {character: {uppercase: ["Ċ"], lowercase: ["ċ"]}},
             {character: {uppercase: ["Ç"], lowercase: ["ç"]}},
