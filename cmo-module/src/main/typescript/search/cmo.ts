@@ -5,6 +5,7 @@ import {
     DateSearchField,
     SearchController,
     SearchField,
+    SelectSearchField,
 } from './SearchComponent';
 import {Utils} from "../other/Utils";
 import {SearchDisplay} from "./SearchDisplay";
@@ -78,7 +79,9 @@ window.addEventListener('load', () => {
             json: {
                 facetField: "category.top",
                 classification: "cmo_makamler",
-                joins: pieceToExpressionJoins
+                joins: pieceToExpressionJoins,
+                topLevelOnly: true,
+                limit: 100
             }
         },
         {
@@ -87,7 +90,9 @@ window.addEventListener('load', () => {
             json: {
                 facetField: "category.top",
                 classification: "cmo_usuler",
-                joins: pieceToExpressionJoins
+                joins: pieceToExpressionJoins,
+                topLevelOnly: true,
+                limit: 100
             }
         },
         {
@@ -104,7 +109,8 @@ window.addEventListener('load', () => {
             type: "plain",
             label: "cmo.tei.search.poeticForm",
             json: {
-                facetField: "tei.facet.category.cmo_poetic",
+                /* the text form as the edition writes it, "Gazel"; the category of it is only an id, "gazel" */
+                facetField: "tei.facet.note.poeticForm",
                 joins: teiFileJoins
             }
         },
@@ -119,13 +125,24 @@ window.addEventListener('load', () => {
         },
         {
             field: "tei_vezin",
-            type: "plain",
+            type: "structure",
             label: "cmo.tei.search.metre",
             json: {
-                facetField: "tei.facet.vezin",
+                /* name and pattern of the metre, "Hezec 1 (--u|u--u|u--u|u--|)", the pattern is shown below */
+                facetField: "tei.facet.vezin.structure",
                 joins: teiFileJoins
             }
         });
+
+    /* the closed list of the types of a reading (tei:rdg/@type) of the CMO TEI schema */
+    const readingTypes = ["orthographic-variant", "omission", "misspelled", "addition", "variant-reading"];
+
+    /*
+     * The symbols of a scansion (tei:l/@real) as the metDecl "symbols" of every CMO TEI file declares them, each
+     * with the name of its i18n key. The foot divider "|" is left out, it is no syllable.
+     */
+    const metricalSymbols = [["u", "short"], ["-", "long"], ["x", "anceps"], ["U", "merge"], ["Z", "shortening"],
+        ["I", "lengthening"], ["M", "insertion"]];
 
     const eSearchBaseQuery = "category.top:\"cmo_kindOfData:edition\"";
     const kSearchBaseQuery = "(category.top:\"cmo_kindOfData:source\" OR cmoType:person)";
@@ -137,6 +154,21 @@ window.addEventListener('load', () => {
      */
     const composerFilter = "{!join from=composer.ref.pure to=id}composer.ref.pure:*";
     const lyricistFilter = "{!join from=lyricist.ref.pure to=id}lyricist.ref.pure:*";
+
+    /*
+     * A text edition is titled "Text edition" in its mods, a hit list of them would read the same in every line.
+     * The idno of its TEI title states the source and the place in it, "TR-Iüne 204-2, Piece no. 99, Ms. page no.
+     * 132", so it is fetched along from the document of the TEI file by a subquery and shown as the title.
+     */
+    const teiTitleSubquery = "teiFile";
+    const teiTitleParams = [
+        ["fl", `*,${teiTitleSubquery}:[subquery]`],
+        [`${teiTitleSubquery}.q`, "{!terms f=returnId v=$row.id}"],
+        [`${teiTitleSubquery}.fq`, "tei.idno:*"],
+        [`${teiTitleSubquery}.fl`, "tei.idno"],
+        [`${teiTitleSubquery}.rows`, "1"]
+    ];
+    const isTeiTitleParam = (name: string) => name == "fl" || name.indexOf(`${teiTitleSubquery}.`) == 0;
 
     const eSearch = new SearchController(eContainer, eFacet, "cmo.edition.search", eSearchBaseQuery);
     const kSearch = new SearchController(kContainer, kFacet, "cmo.catalog.search", kSearchBaseQuery);
@@ -271,12 +303,14 @@ window.addEventListener('load', () => {
                         "tei.lang.de.lyrics.primary", "tei.lang.en.lyrics.primary",
                         "tei.lang.tr.lyrics.primary"]),
                     new SearchField("cmo.tei.search.incipit", ["{!join from=returnId to=id}tei.incipit"]),
-                    new AutoCompleteSearchField("cmo.tei.search.rdgType",
-                        ["{!join from=returnId to=id}tei.rdg.type"], {exact: true}),
+                    new SelectSearchField("cmo.tei.search.rdgType", ["{!join from=returnId to=id}tei.rdg.type"],
+                        readingTypes.map(type => ({value: type, label: `cmo.tei.reading.${type}`}))),
 
                     /* metrics */
                     new ClassificationSearchField("category.top", "cmo_vezinler"),
-                    new SearchField("cmo.tei.search.symbol", ["{!join from=returnId to=id}tei.real.symbol"]),
+                    new SelectSearchField("cmo.tei.search.symbol", ["{!join from=returnId to=id}tei.real.symbol"],
+                        metricalSymbols.map(([symbol, name]) =>
+                            ({value: symbol, label: `cmo.tei.symbol.${name}`, prefix: symbol}))),
 
                     /* authorship */
                     new AutoCompleteSearchField("editor.label.lyricist",
@@ -578,6 +612,7 @@ window.addEventListener('load', () => {
                          */
                         solrSearcher.search(
                             params.concat(activeFacet.getFacetParams(params))
+                                .concat(ctrl === eSearch ? teiTitleParams : [])
                             , (result => {
                                 searchDisplay.displayResult(result, ctrl.getSearchDescription(), (start, sortField, asc, rows) => {
                                     window.scrollTo(0, 0);
@@ -739,8 +774,12 @@ window.addEventListener('load', () => {
                 return (doc, result, hitOnPage, event:MouseEvent) => {
                     let param = "";
                     for (let i in result.responseHeader.params) {
-                        /* the parameters of the facets only describe the sidebar, the single hit view has none */
-                        if (i == "wt" || i == "start" || i == "rows" || SearchFacetController.isFacetParam(i)) {
+                        /*
+                         * the parameters of the facets only describe the sidebar and the ones of the title of a
+                         * text edition only the hit list, the single hit view has neither
+                         */
+                        if (i == "wt" || i == "start" || i == "rows" || SearchFacetController.isFacetParam(i)
+                            || isTeiTitleParam(i)) {
                             continue;
                         }
                         if (result.responseHeader.params[i] instanceof Array) {

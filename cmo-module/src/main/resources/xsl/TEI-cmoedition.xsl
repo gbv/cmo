@@ -109,6 +109,47 @@
     <xsl:sequence select="if (exists($parts)) then string-join($parts, ' / ') else ()" />
   </xsl:function>
 
+  <!--
+    resolves the metrical references of a bahir or meter note (e.g. '#mefailun2 #feulun') to the
+    structures stated as text of the referenced metSyms, joined by a blank
+  -->
+  <xsl:function name="cmo:resolveMetStructure" as="xs:string?">
+    <xsl:param name="refs" as="xs:string?" />
+    <xsl:variable name="parts" as="xs:string*">
+      <xsl:for-each select="tokenize(normalize-space(string($refs)), '\s+')[. != '']">
+        <xsl:sequence select="normalize-space(key('byId', replace(., '^#', ''), $root)[self::metSym][1])" />
+      </xsl:for-each>
+    </xsl:variable>
+    <xsl:sequence select="if (exists($parts[. != ''])) then string-join($parts[. != ''], ' ') else ()" />
+  </xsl:function>
+
+  <!--
+    collects the authority records (GND, ORCID, others) of the person or organisation behind an id
+    reference (e.g. #ND): the idno of the referenced element, its own @ref and the @ref of its name and of
+    every name which points at it by @corresp. The GND comes first, then the ORCID, then all others.
+  -->
+  <xsl:function name="cmo:authorityUris" as="xs:string*">
+    <xsl:param name="ref" as="xs:string?" />
+    <xsl:variable name="id" select="replace(normalize-space(string($ref)), '^#', '')" />
+    <xsl:variable name="el" select="if ($id = '') then () else key('byId', $id, $root)[1]" />
+    <xsl:variable name="uris" as="xs:string*"
+                  select="distinct-values((
+                            $el/idno[normalize-space(.) != ''] ! concat(string(@xml:base), normalize-space(.)),
+                            $el/@ref, $el/persName/@ref, $el/orgName/@ref,
+                            $root//persName[@corresp = concat('#', $id)]/@ref
+                          )[normalize-space(.) != ''] ! normalize-space(.))" />
+    <xsl:sequence select="($uris[cmo:authorityKind(.) = 'GND'], $uris[cmo:authorityKind(.) = 'ORCID'],
+                           $uris[cmo:authorityKind(.) = ''])" />
+  </xsl:function>
+
+  <!-- names the authority of an uri: GND, ORCID or an empty string for any other -->
+  <xsl:function name="cmo:authorityKind" as="xs:string">
+    <xsl:param name="uri" as="xs:string" />
+    <xsl:sequence select="if (contains($uri, 'orcid.org/')) then 'ORCID'
+                          else if (contains($uri, '/gnd/')) then 'GND'
+                          else ''" />
+  </xsl:function>
+
   <!-- the annotation id shared by a body span and its apparatus entries -->
   <xsl:function name="cmo:annoId" as="xs:string">
     <xsl:param name="ref" as="xs:string?" />
@@ -183,11 +224,13 @@
         </xsl:call-template>
         <xsl:call-template name="metaRow">
           <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.bahir')" />
-          <xsl:with-param name="nodes" select="$titleWrap/note[@type = 'bahir']/node()" />
+          <xsl:with-param name="nodes" select="$titleWrap/note[@type = 'bahir']" />
+          <xsl:with-param name="separator" select="', '" />
         </xsl:call-template>
         <xsl:call-template name="metaRow">
           <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.metre')" />
-          <xsl:with-param name="nodes" select="$titleWrap/note[@type = 'meter']/node()" />
+          <xsl:with-param name="nodes" select="$titleWrap/note[@type = 'meter']" />
+          <xsl:with-param name="separator" select="', '" />
         </xsl:call-template>
         <xsl:call-template name="metaRow">
           <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.lyricist')" />
@@ -230,6 +273,9 @@
                 <xsl:if test="$resolved">
                   <span class="cmo-tei-pop-body">
                     <xsl:value-of select="$resolved" />
+                    <xsl:call-template name="authorityLinks">
+                      <xsl:with-param name="ref" select="@corresp" />
+                    </xsl:call-template>
                   </span>
                 </xsl:if>
               </span>
@@ -237,6 +283,25 @@
           </span>
         </xsl:for-each>
       </dd>
+    </xsl:if>
+  </xsl:template>
+
+  <!-- links the authority records of the person behind an id reference, GND first, then ORCID -->
+  <xsl:template name="authorityLinks">
+    <xsl:param name="ref" as="xs:string?" />
+    <xsl:variable name="uris" select="cmo:authorityUris($ref)" />
+    <xsl:if test="exists($uris)">
+      <span class="cmo-tei-pop-links">
+        <xsl:for-each select="$uris">
+          <xsl:if test="position() &gt; 1">
+            <xsl:text> · </xsl:text>
+          </xsl:if>
+          <xsl:variable name="kind" select="cmo:authorityKind(.)" />
+          <a class="cmo-tei-ref cmo-tei-ref-authority" href="{.}" target="_blank" rel="noopener noreferrer">
+            <xsl:value-of select="if ($kind != '') then $kind else ." />
+          </a>
+        </xsl:for-each>
+      </span>
     </xsl:if>
   </xsl:template>
 
@@ -636,6 +701,9 @@
   -->
   <xsl:template match="supplied" mode="inline">
     <xsl:variable name="who" select="cmo:resolveName(@resp)" />
+    <!-- in the bahir and meter of the header the popup also states the structure of the metre -->
+    <xsl:variable name="structure"
+                  select="cmo:resolveMetStructure(ancestor::note[@type = ('bahir', 'meter')][1]/@corresp)" />
     <span class="cmo-tei-supplied" tabindex="0" role="button">
       <span class="cmo-tei-supplied-bracket">[</span>
       <xsl:call-template name="flow" />
@@ -645,12 +713,24 @@
           <xsl:value-of select="mcri18n:translate('cmo.tei.supplied')" />
         </span>
         <span class="cmo-tei-pop-body">
+          <xsl:if test="$structure">
+            <code class="cmo-tei-mono cmo-tei-pop-structure">
+              <xsl:value-of select="$structure" />
+            </code>
+          </xsl:if>
           <xsl:if test="@reason != ''">
             <xsl:value-of select="cmo:i18n(concat('cmo.tei.supplied.reason.', @reason), @reason)" />
           </xsl:if>
           <xsl:if test="$who">
             <span class="cmo-tei-pop-sub">
               <xsl:value-of select="$who" />
+              <!-- inside a link (the text form for example) a link of its own would break the outer one -->
+              <xsl:if test="not(ancestor::ref[cmo:linkKind(@target) = ('object', 'external')]
+                                or ancestor::persName[cmo:linkKind(@ref) = 'external'])">
+                <xsl:call-template name="authorityLinks">
+                  <xsl:with-param name="ref" select="@resp" />
+                </xsl:call-template>
+              </xsl:if>
             </span>
           </xsl:if>
         </span>

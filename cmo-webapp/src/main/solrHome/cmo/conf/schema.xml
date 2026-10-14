@@ -604,6 +604,13 @@
   -->
   <fieldType name="text_cmo" class="solr.TextField" positionIncrementGap="100">
     <analyzer>
+      <!--
+        the signs of the transcription which stand for no letter of their own (ayn, hamza, apostrophes) and the
+        hyphens are dropped before tokenizing, so "Izzet" finds "ʿIzzet" and "devri" finds "devr-i" (see #250)
+      -->
+      <charFilter class="org.apache.lucene.analysis.pattern.PatternReplaceCharFilterFactory"
+                  pattern="[\u02BF\u02BE\u02BC\u02BB\u02B9\u0027\u2018\u2019\u00B4\u0060\u002D\u2010\u2011]"
+                  replacement=""/>
       <tokenizer class="solr.ICUTokenizerFactory"/>
       <filter class="solr.TurkishLowerCaseFilterFactory"/>
       <filter class="solr.ICUFoldingFilterFactory"/>
@@ -670,6 +677,8 @@
   <field name="tei.vezin" type="string" multiValued="true" />
   <field name="tei.vezin.id" type="string" multiValued="true" />
   <field name="tei.vezin.pattern" type="string" multiValued="true" />
+  <!-- name and pattern of a metre in one value, the name followed by the pattern in parentheses, for the facet -->
+  <field name="tei.vezin.structure" type="string" multiValued="true" />
   <field name="tei.rhyme" type="string" multiValued="true" />
   <field name="tei.real" type="string" multiValued="true" />
   <field name="tei.real.symbol" type="string" multiValued="true" />

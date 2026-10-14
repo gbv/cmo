@@ -446,11 +446,25 @@ export class SearchDisplay {
 
 
         return `${doc["cmoType"] == "source-mods" ? `<span class="col-md-12"><span data-i18n="editor.cmo.select.source-mods" class="badge badge-pill"></span></span>`: ``}
-               ${this.displayHitTitle(doc, index, result, (doc) => doc[ "displayTitle" ])}
+               ${this.displayHitTitle(doc, index, result, (doc) => this.getTeiTitle(doc) || doc[ "displayTitle" ])}
                ${doc["cmoType"] == "source-mods" && "mods.identifier.CMO" in doc ? `<span class="col-md-12">${doc["mods.identifier.CMO"]}</span>` : ``}
                   ${fieldsLine2.length > 0 ? `<span class="col-md-12">${fieldsLine2.join(" | ")}</span>` : ""}
                   ${fieldsLine3.length > 0 ? `<span class="col-md-12">${fieldsLine3.join(" : ")}</span>` : ""}
                  ${this.displayBasketButton(doc)}`;
+    }
+
+    /**
+     * Returns the idno of the TEI title of a text edition, which the edition search fetches along by the
+     * subquery teiFile, or null for any other hit. It comes first of the idnos of the TEI file, the one of the
+     * manuscript follows.
+     */
+    private getTeiTitle(doc: CMOBaseDocument): string {
+        let teiFile = doc[ "teiFile" ];
+        if (teiFile == null || teiFile.docs == null || teiFile.docs.length == 0) {
+            return null;
+        }
+        let idnos = teiFile.docs[ 0 ][ "tei.idno" ];
+        return idnos != null && idnos.length > 0 ? Utils.encodeHtmlEntities(idnos[ 0 ]) : null;
     }
 
     private displayPerson(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {

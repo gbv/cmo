@@ -63,6 +63,17 @@
     dd {
       margin: 0;
     }
+
+    /* linked values (music genre, text form, lyricist) are marked like the other clickable values */
+    dd a.cmo-tei-ref {
+      border-bottom: 1px dotted $gray-light;
+      text-decoration: none;
+
+      /* an editorial addition inside the link is already underlined by it */
+      .cmo-tei-supplied {
+        border-bottom: 0;
+      }
+    }
   }
 
   /* verse groups and single lines, centred to mirror the printed edition */
@@ -325,6 +336,11 @@
     margin-left: .4rem;
   }
 
+  /* references in the notes (secondary literature) are highlighted like the sigla */
+  .cmo-tei-app-note .cmo-tei-ref-ext {
+    color: $info;
+  }
+
   /* sources and their sigla */
   .cmo-tei-witnesses {
     margin-top: 2rem;
@@ -435,8 +451,35 @@
     font-size: .72rem;
   }
 
+  /* the lemma of an apparatus entry stands on a line of its own above its note */
   .cmo-tei-lemma {
+    display: block;
     font-weight: 600;
+  }
+
+  .cmo-tei-app-note {
+    display: block;
+  }
+
+  .cmo-tei-app-note .cmo-tei-ref-ext {
+    color: $info;
+  }
+
+  /* structure of the metre above the reason of an editorial addition */
+  .cmo-tei-pop-structure {
+    display: block;
+    margin-bottom: .2rem;
+    color: $body-color;
+  }
+
+  /* links to the authority records (GND, ORCID) of a person */
+  .cmo-tei-pop-links {
+    display: block;
+    margin-top: .15rem;
+  }
+
+  .cmo-tei-ref-authority {
+    color: $info;
   }
 
   .cmo-tei-mono {
