@@ -390,6 +390,15 @@ public class CMOTEIFileIndexAccumulator implements MCRSolrFileIndexAccumulator {
             metSyms.forEach(metSym -> addValue(names, metSym.getAttributeValue("value")));
             standardSearch.addAll(addField(document, field, names));
             standardSearch.addAll(addField(document, field + ".pattern", textValues(metSyms)));
+
+            // name and pattern of a metre in one value, so a facet can state the structure next to the name
+            if (MET_DECL_VEZIN.equals(metDeclId)) {
+                Set<String> structures = new LinkedHashSet<>();
+                for (Element metSym : metSyms) {
+                    addValue(structures, structureOf(metSym));
+                }
+                addField(document, field + ".structure", structures);
+            }
         }
 
         // ids of the metSyms the piece actually uses, stated by the verse groups and by the bahir and meter
@@ -553,6 +562,20 @@ public class CMOTEIFileIndexAccumulator implements MCRSolrFileIndexAccumulator {
      * Adds every value to the given field of the solr document and returns the added values, so they can be
      * collected in one of the bundles.
      */
+    /**
+     * Returns the name of the given metrical symbol followed by its pattern in parentheses, for example
+     * {@code Hezec 1 (--u|u--u|u--u|u--|)}, or only the name if it states no pattern. The pattern holds no
+     * parentheses, so the last opening one of the value is where the pattern starts.
+     */
+    private static String structureOf(Element metSym) {
+        String name = metSym.getAttributeValue("value");
+        if (name == null || normalize(name).isEmpty()) {
+            return null;
+        }
+        String pattern = normalize(textOf(metSym));
+        return pattern.isEmpty() ? name : name + " (" + pattern + ")";
+    }
+
     private static Collection<String> addField(SolrInputDocument document, String field, Collection<String> values) {
         values.forEach(value -> document.addField(field, value));
         return values;

@@ -266,6 +266,13 @@
             trigger.on('inserted.bs.popover', function() {
               themePopover(this);
             });
+            // a link inside a click popover trigger (the sigla of a reading) only navigates, its click
+            // must not open the popover, which would otherwise show up again on going back to the page
+            if (!isLink) {
+              trigger.find('a').on('click', function(e) {
+                e.stopPropagation();
+              });
+            }
             trigger.popover({
               html: true,
               sanitize: false,

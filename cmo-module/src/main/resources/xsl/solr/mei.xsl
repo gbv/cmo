@@ -256,6 +256,14 @@
         <field name="composer.ref.pure">
           <xsl:value-of select="@nymref"/>
         </field>
+        <!-- the CMO name of the person, the hit list shows it after the name of the expression -->
+        <xsl:variable name="personTitle"
+                      select="document(concat('mcrobject:', @nymref))/mycoreobject/metadata/def.meiContainer/meiContainer/mei:persName/mei:name[@type='CMO']"/>
+        <xsl:if test="string-length(normalize-space($personTitle)) &gt; 0">
+          <field name="composer.ref.title">
+            <xsl:value-of select="concat(normalize-space($personTitle),'|',@nymref)"/>
+          </field>
+        </xsl:if>
       </xsl:when>
       <xsl:otherwise>
         <field name="composer.display.ref">

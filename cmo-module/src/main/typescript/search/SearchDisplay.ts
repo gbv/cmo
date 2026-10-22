@@ -336,14 +336,27 @@ export class SearchDisplay {
         return `<span class="col-md-12 text-right"><a data-basket="${doc.id}"></a></span>`;
     }
 
+    /**
+     * Shows the persons of a field like the metadata page does: the name as the object states it, followed by
+     * the CMO name of the linked person (field.ref.title) if it differs, "h Hampartsum Limonciyan" for example.
+     */
     private displayCombinedField(doc: CMOBaseDocument, field: string) {
         let alreadyInRef = [];
+        let titles = {};
+        (doc[ `${field}.ref.title` ] || [])
+            .map(title => title.split("|", 2))
+            .forEach(([ title, ref ]) => titles[ ref ] = title);
 
         let refEntries = (doc[ `${field}.ref` ] || [])
             .map(composer => composer.split("|", 2))
             .map(([ value, ref ]) => {
                 alreadyInRef.push(value);
-                return `<span><a href="${Utils.getBaseURL()}receive/${ref}">${Utils.encodeHtmlEntities(value)}</a></span>`
+                let title = titles[ ref ];
+                if (title == null || title == value) {
+                    return `<span><a href="${Utils.getBaseURL()}receive/${ref}">${Utils.encodeHtmlEntities(value)}</a></span>`
+                }
+                return `<span>${Utils.encodeHtmlEntities(value)} <a href="${Utils.getBaseURL()}receive/${ref}">` +
+                    `${Utils.encodeHtmlEntities(title)}</a></span>`
             })
             .concat((doc[ field ] || [])
                 .filter((field) => alreadyInRef.indexOf(field) === -1)
@@ -446,11 +459,25 @@ export class SearchDisplay {
 
 
         return `${doc["cmoType"] == "source-mods" ? `<span class="col-md-12"><span data-i18n="editor.cmo.select.source-mods" class="badge badge-pill"></span></span>`: ``}
-               ${this.displayHitTitle(doc, index, result, (doc) => doc[ "displayTitle" ])}
+               ${this.displayHitTitle(doc, index, result, (doc) => this.getTeiTitle(doc) || doc[ "displayTitle" ])}
                ${doc["cmoType"] == "source-mods" && "mods.identifier.CMO" in doc ? `<span class="col-md-12">${doc["mods.identifier.CMO"]}</span>` : ``}
                   ${fieldsLine2.length > 0 ? `<span class="col-md-12">${fieldsLine2.join(" | ")}</span>` : ""}
                   ${fieldsLine3.length > 0 ? `<span class="col-md-12">${fieldsLine3.join(" : ")}</span>` : ""}
                  ${this.displayBasketButton(doc)}`;
+    }
+
+    /**
+     * Returns the idno of the TEI title of a text edition, which the edition search fetches along by the
+     * subquery teiFile, or null for any other hit. It comes first of the idnos of the TEI file, the one of the
+     * manuscript follows.
+     */
+    private getTeiTitle(doc: CMOBaseDocument): string {
+        let teiFile = doc[ "teiFile" ];
+        if (teiFile == null || teiFile.docs == null || teiFile.docs.length == 0) {
+            return null;
+        }
+        let idnos = teiFile.docs[ 0 ][ "tei.idno" ];
+        return idnos != null && idnos.length > 0 ? Utils.encodeHtmlEntities(idnos[ 0 ]) : null;
     }
 
     private displayPerson(doc: CMOBaseDocument, index: number, result: SolrSearchResult) {
