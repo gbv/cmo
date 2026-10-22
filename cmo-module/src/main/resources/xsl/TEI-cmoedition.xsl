@@ -236,10 +236,12 @@
         <xsl:call-template name="metaRow">
           <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.composer')" />
           <xsl:with-param name="nodes" select="$titleStmt/author[@role = 'composer']/persName" />
+          <xsl:with-param name="separator" select="', '" />
         </xsl:call-template>
         <xsl:call-template name="metaRow">
           <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.lyricist')" />
           <xsl:with-param name="nodes" select="$titleStmt/author[@role = 'lyricist']/persName" />
+          <xsl:with-param name="separator" select="', '" />
         </xsl:call-template>
         <xsl:call-template name="editorsRow" />
       </dl>
@@ -324,7 +326,7 @@
           <xsl:if test="position() &gt; 1 and $separator != ''">
             <xsl:value-of select="$separator" />
           </xsl:if>
-          <xsl:apply-templates select="if ($separator != '') then node() else ." mode="inline" />
+          <xsl:apply-templates select="." mode="inline" />
         </xsl:for-each>
       </dd>
     </xsl:if>
@@ -885,6 +887,9 @@
 
   <!-- stray anchors and milestones carry no visible text -->
   <xsl:template match="anchor | milestone" mode="inline" />
+
+  <!-- the idno of the title is not shown, also when a note of the title wrongly encloses it -->
+  <xsl:template match="titleStmt//note//idno" mode="inline" />
 
   <!-- fallback: keep the text of any other inline element -->
   <xsl:template match="*" mode="inline">
