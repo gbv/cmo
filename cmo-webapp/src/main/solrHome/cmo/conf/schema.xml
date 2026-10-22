@@ -521,6 +521,8 @@
   <field name="composer" type="text_tr" multiValued="true" />
   <field name="composer.ref" type="string" multiValued="true" />
   <field name="composer.ref.pure" type="string" multiValued="true" />
+  <!-- the CMO name of the person behind composer.ref, "name|id" -->
+  <field name="composer.ref.title" type="string" multiValued="true" />
   <field name="composer.display.ref" type="string" multiValued="true" />
 
   <field name="author" type="text_tr" multiValued="true" />

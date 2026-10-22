@@ -205,7 +205,8 @@
         </xsl:call-template>
         <xsl:call-template name="metaRow">
           <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.usul')" />
-          <xsl:with-param name="nodes" select="$titleWrap/note[@type = 'usulTranscription']/node()" />
+          <xsl:with-param name="nodes" select="($titleWrap/note[@type = 'usulTranscription'],
+            $titleWrap/note[@type = 'usulStandardized'])[1]/node()" />
         </xsl:call-template>
         <xsl:call-template name="metaRow">
           <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.musicGenre')" />
@@ -231,6 +232,10 @@
           <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.metre')" />
           <xsl:with-param name="nodes" select="$titleWrap/note[@type = 'meter']" />
           <xsl:with-param name="separator" select="', '" />
+        </xsl:call-template>
+        <xsl:call-template name="metaRow">
+          <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.composer')" />
+          <xsl:with-param name="nodes" select="$titleStmt/author[@role = 'composer']/persName" />
         </xsl:call-template>
         <xsl:call-template name="metaRow">
           <xsl:with-param name="label" select="mcri18n:translate('cmo.tei.meta.lyricist')" />
@@ -379,7 +384,8 @@
           </xsl:for-each>
         </h3>
       </xsl:if>
-      <xsl:apply-templates select="lg" />
+      <!-- lines of the terennüm may stand outside of a line group -->
+      <xsl:apply-templates select="lg | l" />
     </div>
   </xsl:template>
 
@@ -410,7 +416,7 @@
           </xsl:if>
         </div>
       </xsl:if>
-      <xsl:apply-templates select="l" />
+      <xsl:apply-templates select="l | lg" />
     </div>
   </xsl:template>
 
@@ -577,19 +583,43 @@
               </xsl:choose>
             </dt>
             <dd class="cmo-tei-witness-desc">
-              <xsl:variable name="titleDesc"
-                            select="normalize-space(biblFull//titleStmt/title[@type = ('desc', 'alt')][1])" />
-              <xsl:if test="$titleDesc != ''">
-                <span class="cmo-tei-witness-title" lang="ota">
-                  <xsl:value-of select="$titleDesc" />
-                </span>
-                <xsl:text> </xsl:text>
-              </xsl:if>
-              <span class="cmo-tei-witness-loc">
-                <xsl:value-of select="normalize-space(string-join(
-                    ($msId/repository, $msId/settlement, $msId/country, $msId/idno) ! normalize-space(.),
-                    ', '))" />
-              </span>
+              <xsl:variable name="bibl" select="biblFull/fileDesc" />
+              <xsl:variable name="parts" as="element()*">
+                <xsl:call-template name="witnessTitle">
+                  <xsl:with-param name="titles" select="$bibl/titleStmt/title[normalize-space(.) != '']" />
+                </xsl:call-template>
+                <xsl:call-template name="witnessPersons">
+                  <xsl:with-param name="persons" select="$bibl/titleStmt/author[normalize-space(.) != '']" />
+                </xsl:call-template>
+                <xsl:call-template name="witnessPersons">
+                  <xsl:with-param name="persons" select="$bibl/titleStmt/editor[normalize-space(.) != '']" />
+                  <xsl:with-param name="prefix" select="mcri18n:translate('cmo.tei.witnesses.editor')" />
+                </xsl:call-template>
+                <xsl:call-template name="witnessText">
+                  <xsl:with-param name="class" select="'cmo-tei-witness-pub'" />
+                  <xsl:with-param name="values" select="($bibl/publicationStmt/pubPlace, $bibl/publicationStmt/publisher,
+                      $bibl/publicationStmt/date)" />
+                </xsl:call-template>
+                <xsl:call-template name="witnessText">
+                  <xsl:with-param name="class" select="'cmo-tei-witness-loc'" />
+                  <xsl:with-param name="values" select="($msId/repository, $msId/collection, $msId/settlement,
+                      $msId/country, $msId/idno)" />
+                </xsl:call-template>
+                <!-- the date of a manuscript, a print states it in its publicationStmt -->
+                <xsl:if test="not($bibl/publicationStmt/date[normalize-space(.) != ''])">
+                  <xsl:call-template name="witnessText">
+                    <xsl:with-param name="class" select="'cmo-tei-witness-date'" />
+                    <xsl:with-param name="values"
+                                    select="(msDesc/history/p/date, biblFull/profileDesc/creation/date)[1]" />
+                  </xsl:call-template>
+                </xsl:if>
+              </xsl:variable>
+              <xsl:for-each select="$parts">
+                <xsl:if test="position() &gt; 1">
+                  <xsl:text>. </xsl:text>
+                </xsl:if>
+                <xsl:sequence select="." />
+              </xsl:for-each>
               <xsl:if test="$catalogUri">
                 <xsl:text> </xsl:text>
                 <a class="cmo-tei-ref cmo-tei-ref-ext" href="{normalize-space($catalogUri)}"
@@ -606,6 +636,67 @@
           </xsl:for-each>
         </dl>
       </div>
+    </xsl:if>
+  </xsl:template>
+
+  <!--
+    the title of a witness: the main title with its sub title, otherwise the first other title
+    (alternative or descriptive title, or one without a type)
+  -->
+  <xsl:template name="witnessTitle">
+    <xsl:param name="titles" as="element()*" />
+    <xsl:variable name="main" select="$titles[@type = 'main'][1]" />
+    <xsl:variable name="title" select="if ($main) then $main else $titles[not(@type = 'sub')][1]" />
+    <xsl:if test="$title">
+      <span class="cmo-tei-witness-title" lang="{($title/@xml:lang, 'ota')[1]}">
+        <xsl:value-of select="normalize-space($title)" />
+        <xsl:if test="$main">
+          <xsl:for-each select="$titles[@type = 'sub']">
+            <xsl:value-of select="concat(': ', normalize-space(.))" />
+          </xsl:for-each>
+        </xsl:if>
+      </span>
+    </xsl:if>
+  </xsl:template>
+
+  <!-- the authors or editors of a witness, a person of the CMO catalogue is linked to its object page -->
+  <xsl:template name="witnessPersons">
+    <xsl:param name="persons" as="element()*" />
+    <xsl:param name="prefix" as="xs:string" select="''" />
+    <xsl:if test="$persons">
+      <span class="cmo-tei-witness-persons">
+        <xsl:if test="$prefix != ''">
+          <xsl:value-of select="concat($prefix, ' ')" />
+        </xsl:if>
+        <xsl:for-each select="$persons">
+          <xsl:if test="position() &gt; 1">
+            <xsl:text>, </xsl:text>
+          </xsl:if>
+          <xsl:variable name="name" select="(persName, .)[1]" />
+          <xsl:choose>
+            <xsl:when test="cmo:isObjectId($name/@key)">
+              <a class="cmo-tei-ref cmo-tei-ref-object" href="{cmo:href($name/@key)}">
+                <xsl:value-of select="normalize-space($name)" />
+              </a>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space($name)" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:for-each>
+      </span>
+    </xsl:if>
+  </xsl:template>
+
+  <!-- the non empty values joined by a comma, nothing if all of them are empty -->
+  <xsl:template name="witnessText">
+    <xsl:param name="class" as="xs:string" />
+    <xsl:param name="values" as="node()*" />
+    <xsl:variable name="texts" select="$values ! normalize-space(.)[. != '']" />
+    <xsl:if test="exists($texts)">
+      <span class="{$class}">
+        <xsl:value-of select="string-join($texts, ', ')" />
+      </span>
     </xsl:if>
   </xsl:template>
 

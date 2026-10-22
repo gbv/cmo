@@ -336,14 +336,27 @@ export class SearchDisplay {
         return `<span class="col-md-12 text-right"><a data-basket="${doc.id}"></a></span>`;
     }
 
+    /**
+     * Shows the persons of a field like the metadata page does: the name as the object states it, followed by
+     * the CMO name of the linked person (field.ref.title) if it differs, "h Hampartsum Limonciyan" for example.
+     */
     private displayCombinedField(doc: CMOBaseDocument, field: string) {
         let alreadyInRef = [];
+        let titles = {};
+        (doc[ `${field}.ref.title` ] || [])
+            .map(title => title.split("|", 2))
+            .forEach(([ title, ref ]) => titles[ ref ] = title);
 
         let refEntries = (doc[ `${field}.ref` ] || [])
             .map(composer => composer.split("|", 2))
             .map(([ value, ref ]) => {
                 alreadyInRef.push(value);
-                return `<span><a href="${Utils.getBaseURL()}receive/${ref}">${Utils.encodeHtmlEntities(value)}</a></span>`
+                let title = titles[ ref ];
+                if (title == null || title == value) {
+                    return `<span><a href="${Utils.getBaseURL()}receive/${ref}">${Utils.encodeHtmlEntities(value)}</a></span>`
+                }
+                return `<span>${Utils.encodeHtmlEntities(value)} <a href="${Utils.getBaseURL()}receive/${ref}">` +
+                    `${Utils.encodeHtmlEntities(title)}</a></span>`
             })
             .concat((doc[ field ] || [])
                 .filter((field) => alreadyInRef.indexOf(field) === -1)
