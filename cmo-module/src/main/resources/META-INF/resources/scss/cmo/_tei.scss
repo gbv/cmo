@@ -1,0 +1,509 @@
+/* ---------------------------------------------------------------------------
+   viewer tabs (image / pdf viewer and TEI text edition)
+----------------------------------------------------------------------------*/
+#cmo-viewer {
+  margin-bottom: 30px;
+
+  .cmo-viewer-tabs {
+    border-bottom-color: $cmo_shadow;
+  }
+
+  .cmo-viewer-tab-content {
+    border: 1px solid $cmo_shadow;
+    border-top: 0;
+    padding: 24px;
+  }
+
+  .viewer {
+    margin-bottom: 0 !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   TEI text edition rendering (see xsl/TEI-cmoedition.xsl)
+----------------------------------------------------------------------------*/
+.cmo-tei-loading {
+  padding: 48px 0;
+  text-align: center;
+  color: $gray;
+}
+
+.cmo-tei-edition {
+  color: $body-color;
+  line-height: $line-height-base;
+
+  .cmo-tei-title {
+    margin: 0 0 1.25rem;
+    font-size: 1.6rem;
+    color: $headings-color;
+  }
+
+  .cmo-tei-section-heading {
+    margin: 2rem 0 1rem;
+    padding-bottom: .3rem;
+    border-bottom: 2px solid $info;
+    color: $headings-color;
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+
+  /* metadata as label / value rows */
+  .cmo-tei-meta {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: .35rem 1.5rem;
+    margin: 0;
+
+    dt {
+      color: $gray;
+      font-weight: 600;
+    }
+
+    dd {
+      margin: 0;
+    }
+  }
+
+  /* verse groups and single lines, centred to mirror the printed edition */
+  .cmo-tei-lg {
+    margin: 1.5rem 0;
+    text-align: center;
+  }
+
+  .cmo-tei-rhyme .cmo-tei-info-value {
+    color: $gray-light;
+    font-size: .75rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+
+  .cmo-tei-line {
+    position: relative;
+    margin: 0;
+    padding: 0 2.5rem;
+    line-height: 2;
+    text-align: center;
+  }
+
+  /* line numbers sit in the left margin (only rendered for even lines) */
+  .cmo-tei-line-no {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2rem;
+    color: $body-color;
+    font-size: .85rem;
+    text-align: right;
+    user-select: none;
+  }
+
+  .cmo-tei-line-body {
+    display: inline;
+  }
+
+  /* the sung main text is set bold, as in the printed edition */
+  .cmo-tei-seg-main {
+    font-weight: 700;
+  }
+
+  /* terennüm / vocables are set regular, distinguished from the main text by weight */
+  .cmo-tei-seg-terennum {
+    font-weight: 400;
+  }
+
+  /* performance directions (mükerrer, miyānḫāne, ...) are set in italics */
+  .cmo-tei-stage {
+    font-style: italic;
+    color: $gray;
+  }
+
+  /* metre trigger chip (l/@real); the scansion lives in the hover popover */
+  .cmo-tei-meter {
+    display: inline-block;
+    margin-left: .4rem;
+    padding: .05rem .5rem;
+    border-radius: 10px;
+    background-color: rgba($info, .12);
+    color: $info;
+    line-height: 1.4;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: background-color .12s ease;
+
+    &::before {
+      content: "\00AF\02D8";
+      font-size: .9rem;
+      letter-spacing: .05em;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: rgba($info, .28);
+    }
+  }
+
+  /* popover content is generated into this hidden holder and read by the viewer JS */
+  .cmo-tei-pop-src {
+    display: none;
+  }
+
+  /* editorial additions, wrapped in square brackets */
+  .cmo-tei-supplied {
+    border-bottom: 1px dotted $gray-light;
+    cursor: pointer;
+  }
+
+  .cmo-tei-supplied-bracket {
+    font-weight: 400;
+    color: $gray-light;
+  }
+
+  /* critical apparatus */
+  .cmo-tei-apparatus {
+    font-size: .9rem;
+
+    .cmo-tei-lemma {
+      font-weight: 600;
+      color: $body-color;
+    }
+
+    .cmo-tei-readings {
+      margin: 0;
+
+      dt {
+        margin-top: .5rem;
+      }
+
+      dd {
+        margin: 0 0 0 1rem;
+        color: $gray;
+      }
+    }
+  }
+
+  /* piece title above the verses, centred like the printed edition */
+  .cmo-tei-lyrics-head {
+    margin: 2.5rem 0 1.25rem;
+    text-align: center;
+    font-size: 1.3rem;
+  }
+
+  .cmo-tei-piece-note {
+    margin-top: 1.5rem;
+    color: $gray;
+    font-size: .9rem;
+    text-align: right;
+  }
+}
+
+@media (max-width: 576px) {
+  .cmo-tei-edition .cmo-tei-meta {
+    grid-template-columns: 1fr;
+    gap: 0;
+
+    dt {
+      margin-top: .5rem;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   TEI edition: links, editors, metre, witnesses, apparatus and annotations
+----------------------------------------------------------------------------*/
+.cmo-tei-edition {
+
+  /* small tag next to a supplied title */
+  .cmo-tei-title-tag {
+    margin-left: .6rem;
+    padding: .1rem .4rem;
+    border-radius: 3px;
+    background-color: $gray-lighter;
+    color: $gray;
+    font-size: .7rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    vertical-align: middle;
+  }
+
+  /* references become links, coloured by their target kind */
+  .cmo-tei-ref {
+    &.cmo-tei-ref-object {
+      color: $info;
+    }
+
+    &.cmo-tei-ref-ext {
+      color: $body-color;
+    }
+
+    .fas {
+      font-size: .75em;
+    }
+  }
+
+  /* elements that carry a click popover show the pointer cursor */
+  .cmo-tei-editor[role="button"],
+  .cmo-tei-rdg[role="button"] {
+    cursor: pointer;
+  }
+
+  /* rhyme scheme + metre, each on its own labelled row above a verse group */
+  .cmo-tei-lg-info {
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    margin-bottom: .5rem;
+  }
+
+  .cmo-tei-info-label {
+    display: inline-block;
+    min-width: 6.5rem;
+    margin-right: .5rem;
+    color: $gray-light;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .cmo-tei-met .cmo-tei-info-value {
+    color: $info;
+    font-size: .8rem;
+    letter-spacing: .03em;
+  }
+
+  .cmo-tei-lyrics-tag {
+    margin: 0 0 .75rem;
+    color: $gray;
+    font-size: .8rem;
+    font-style: italic;
+  }
+
+  /* text spans that carry a critical apparatus entry (click to open the apparatus) */
+  .cmo-tei-anno {
+    cursor: pointer;
+    border-bottom: 1px dotted rgba($info, .55);
+    transition: background-color .12s ease;
+
+    &:hover,
+    &:focus,
+    &.is-active {
+      outline: none;
+      background-color: rgba($primary, .22);
+      border-radius: 2px;
+    }
+  }
+
+  /* critical apparatus */
+  .cmo-tei-app-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .cmo-tei-app-heading {
+    margin: 1rem 0 .5rem;
+    color: $gray;
+    font-size: .85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+
+  .cmo-tei-app-entry {
+    margin: 0 0 .35rem;
+    padding: .2rem .4rem;
+    border-left: 2px solid transparent;
+    transition: background-color .12s ease, border-color .12s ease;
+
+    &.is-active {
+      border-left-color: $primary;
+      background-color: rgba($primary, .12);
+    }
+  }
+
+  .cmo-tei-app-note {
+    margin-left: .4rem;
+  }
+
+  /* sources and their sigla */
+  .cmo-tei-witnesses {
+    margin-top: 2rem;
+  }
+
+  .cmo-tei-witness-list {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: .3rem 1rem;
+    margin: 0;
+    font-size: .9rem;
+
+    dt {
+      color: $body-color;
+      font-weight: 600;
+    }
+
+    dd {
+      margin: 0;
+      color: $gray;
+    }
+
+    .cmo-tei-witness-title {
+      color: $body-color;
+    }
+  }
+
+  /* publication / licence footer */
+  .cmo-tei-edition-info {
+    margin-top: 2rem;
+    padding-top: .75rem;
+    border-top: 1px solid $cmo_shadow;
+    color: $gray;
+    font-size: .8rem;
+
+    .cmo-tei-edition-part + .cmo-tei-edition-part::before {
+      content: " · ";
+    }
+  }
+}
+
+/*
+  Shared theme for all Bootstrap popovers used in the TEI edition (metre, supplied,
+  editors, variant readings, catalogue links and the annotation apparatus preview).
+  They are appended to <body>, so this block sits outside .cmo-tei-edition.
+*/
+.cmo-tei-bs-popover {
+  max-width: 340px;
+  font-size: .82rem;
+
+  .popover-header {
+    padding: .5rem 1.4rem .1rem .75rem;
+    background-color: transparent;
+    border-bottom: 0;
+    color: $info;
+    font-size: .68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .popover-body {
+    padding: .4rem 1.4rem .6rem .75rem;
+    color: $body-color;
+    line-height: 1.5;
+  }
+
+  /* close button in the top right corner (added by the viewer JS) */
+  .cmo-tei-pop-close {
+    position: absolute;
+    top: .1rem;
+    right: .3rem;
+    padding: 0 .25rem;
+    border: 0;
+    background: transparent;
+    color: $gray-light;
+    font-size: 1.15rem;
+    line-height: 1;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      color: $body-color;
+      outline: none;
+    }
+  }
+
+  .cmo-tei-pop-item + .cmo-tei-pop-item {
+    margin-top: .5rem;
+    padding-top: .5rem;
+    border-top: 1px solid $gray-lighter;
+  }
+
+  .cmo-tei-pop-kind {
+    display: block;
+    margin-bottom: .15rem;
+    color: $info;
+    font-size: .68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .cmo-tei-pop-sub {
+    display: block;
+    margin-top: .15rem;
+    color: $gray;
+    font-size: .72rem;
+  }
+
+  .cmo-tei-lemma {
+    font-weight: 600;
+  }
+
+  .cmo-tei-mono {
+    font-family: monospace;
+    letter-spacing: .03em;
+  }
+
+  .cmo-tei-ref-object {
+    color: $info;
+  }
+
+  .cmo-tei-ref-ext {
+    color: $body-color;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   raw XML source view (see xsl/TEI-cmosource.xsl)
+----------------------------------------------------------------------------*/
+.cmo-xml-source {
+  pre.cmo-xml {
+    margin: 0;
+    padding: 1rem 1.25rem;
+    max-height: 75vh;
+    overflow: auto;
+    background-color: $cmo_purple_footerBack;
+    border: 1px solid $cmo_shadow;
+    border-radius: 4px;
+    font-size: .82rem;
+    line-height: 1.6;
+    tab-size: 2;
+
+    code {
+      white-space: pre;
+      color: $body-color;
+      background: none;
+      padding: 0;
+    }
+  }
+
+  /* syntax colours, kept on theme */
+  .cmo-xml-tag {
+    color: $info;
+  }
+
+  .cmo-xml-attr-name {
+    color: $success;
+  }
+
+  .cmo-xml-attr-value {
+    color: $danger;
+  }
+
+  .cmo-xml-punct {
+    color: $gray-light;
+  }
+
+  .cmo-xml-text {
+    color: $body-color;
+  }
+
+  .cmo-xml-comment {
+    color: $gray;
+    font-style: italic;
+  }
+
+  .cmo-xml-pi {
+    color: $gray;
+  }
+}

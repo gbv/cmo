@@ -13,22 +13,402 @@
   <xsl:param name="WebApplicationBaseURL" />
 
   <xsl:template match="structure" mode="showViewer">
-    <xsl:if test="derobjects/derobject">
+    <!-- only derivates that are readable and actually have a main file get a tab -->
+    <xsl:variable name="readableDerivates"
+      select="derobjects/derobject[key('rights', @xlink:href)/@read
+                                   and string(mcrxsl:getMainDocName(@xlink:href)) != '']" />
+    <!-- the tei/xml edition is shown by default; only if none exists the first derivate wins -->
+    <xsl:variable name="teiDerivates"
+      select="$readableDerivates[
+                translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
+                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = 'xml'
+             or translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
+                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = 'tei']" />
+    <xsl:variable name="defaultHref">
+      <xsl:choose>
+        <xsl:when test="$teiDerivates">
+          <xsl:value-of select="$teiDerivates[1]/@xlink:href" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$readableDerivates[1]/@xlink:href" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="count($readableDerivates) &gt; 0">
       <div id="cmo-viewer">
-          <xsl:if test="count(derobjects/derobject[key('rights', @xlink:href)/@read]) > 0">
-            <div class="row cmo-preview">
-              <div class="col-md-12">
-                <h3 class="cmo-viewer">Vorschau</h3>
-                <!-- show one viewer for each derivate -->
-                <xsl:for-each select="derobjects/derobject[key('rights', @xlink:href)/@read]">
-                  <xsl:call-template name="createViewer" />
-                </xsl:for-each>
-              </div>
+        <div class="row cmo-preview">
+          <div class="col-md-12">
+            <!-- one tab per readable derivate; the tab title is the derivate_types label.
+                 xml/tei main files get an extra "<label> (XML)" tab with the raw source -->
+            <ul class="nav nav-tabs cmo-viewer-tabs" role="tablist">
+              <xsl:for-each select="$readableDerivates">
+                <xsl:variable name="tabId" select="concat('cmo-tab-', @xlink:href)" />
+                <xsl:variable name="ext"
+                  select="translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
+                                    'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
+                <xsl:variable name="label">
+                  <xsl:call-template name="viewerTabLabel">
+                    <xsl:with-param name="categid"
+                      select="classification[@classid='derivate_types']/@categid" />
+                  </xsl:call-template>
+                </xsl:variable>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" role="tab" data-toggle="tab" href="#{$tabId}"
+                     id="{$tabId}-label" aria-controls="{$tabId}">
+                    <xsl:if test="@xlink:href = $defaultHref">
+                      <xsl:attribute name="class">nav-link active</xsl:attribute>
+                      <xsl:attribute name="aria-selected">true</xsl:attribute>
+                    </xsl:if>
+                    <xsl:copy-of select="$label" />
+                  </a>
+                </li>
+                <xsl:if test="$ext = 'xml' or $ext = 'tei'">
+                  <xsl:variable name="xmlTabId" select="concat('cmo-tab-', @xlink:href, '-xml')" />
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link" role="tab" data-toggle="tab" href="#{$xmlTabId}"
+                       id="{$xmlTabId}-label" aria-controls="{$xmlTabId}">
+                      <xsl:copy-of select="$label" />
+                      <xsl:text> (XML)</xsl:text>
+                    </a>
+                  </li>
+                </xsl:if>
+              </xsl:for-each>
+            </ul>
+            <div class="tab-content cmo-viewer-tab-content">
+              <xsl:for-each select="$readableDerivates">
+                <xsl:variable name="tabId" select="concat('cmo-tab-', @xlink:href)" />
+                <xsl:variable name="ext"
+                  select="translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
+                                    'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
+                <div class="tab-pane fade" id="{$tabId}" role="tabpanel"
+                     aria-labelledby="{$tabId}-label">
+                  <xsl:if test="@xlink:href = $defaultHref">
+                    <xsl:attribute name="class">tab-pane fade show active</xsl:attribute>
+                  </xsl:if>
+                  <xsl:call-template name="viewerTabPane" />
+                </div>
+                <xsl:if test="$ext = 'xml' or $ext = 'tei'">
+                  <xsl:variable name="xmlTabId" select="concat('cmo-tab-', @xlink:href, '-xml')" />
+                  <div class="tab-pane fade" id="{$xmlTabId}" role="tabpanel"
+                       aria-labelledby="{$xmlTabId}-label">
+                    <xsl:call-template name="viewerXmlPane" />
+                  </div>
+                </xsl:if>
+              </xsl:for-each>
             </div>
-          </xsl:if>
+          </div>
+        </div>
+        <xsl:call-template name="loadTeiScript" />
       </div>
     </xsl:if>
     <xsl:apply-imports />
+  </xsl:template>
+
+  <!-- resolves the tab title from the derivate_types classification label -->
+  <xsl:template name="viewerTabLabel">
+    <xsl:param name="categid" />
+    <xsl:choose>
+      <xsl:when test="string($categid) != ''">
+        <xsl:variable name="cat"
+          select="document(concat('classification:metadata:0:children:derivate_types:', $categid))//category[@ID=$categid]" />
+        <xsl:choose>
+          <xsl:when test="$cat/label[@xml:lang=$CurrentLang]">
+            <xsl:value-of select="$cat/label[@xml:lang=$CurrentLang]/@text" />
+          </xsl:when>
+          <xsl:when test="$cat/label[@xml:lang='en']">
+            <xsl:value-of select="$cat/label[@xml:lang='en']/@text" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$categid" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="i18n:translate('cmo.viewer.preview')" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <!--
+    Renders the content of a single viewer tab. The rendering is chosen by the file
+    extension of the main file, not by the derivate type: an xml/tei main file is shown
+    as a TEI edition, everything else (pdf, images, ...) uses the mycore image viewer.
+    The derivate type is only used for the tab title.
+  -->
+  <xsl:template name="viewerTabPane">
+    <xsl:variable name="derId" select="@xlink:href" />
+    <xsl:variable name="mainFile" select="mcrxsl:getMainDocName($derId)" />
+    <xsl:variable name="ext"
+      select="translate(FilenameUtils:getExtension($mainFile),
+                        'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
+    <xsl:choose>
+      <xsl:when test="$ext = 'xml' or $ext = 'tei'">
+        <xsl:variable name="teiSrc"
+          select="concat($ServletsBaseURL, 'MCRDerivateContentTransformerServlet/', $derId, '/',
+                         mcrxsl:encodeURIPath($mainFile), '?XSL.Style=cmoedition')" />
+        <!-- the actual TEI html is loaded lazily by loadTeiScript when the tab is shown -->
+        <div class="cmo-tei" data-tei-src="{$teiSrc}">
+          <div class="cmo-tei-loading text-muted">
+            <span class="fas fa-spinner fa-spin"></span>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="i18n:translate('cmo.viewer.tei.loading')" />
+          </div>
+        </div>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="createViewer" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <!--
+    Renders the "(XML)" tab: the raw main file is transformed to a pretty printed and
+    syntax highlighted html fragment (XSL.Style=cmosource) and loaded lazily, reusing
+    the same mechanism as the TEI edition tab (see loadTeiScript).
+  -->
+  <xsl:template name="viewerXmlPane">
+    <xsl:variable name="derId" select="@xlink:href" />
+    <xsl:variable name="mainFile" select="mcrxsl:getMainDocName($derId)" />
+    <xsl:variable name="xmlSrc"
+      select="concat($ServletsBaseURL, 'MCRDerivateContentTransformerServlet/', $derId, '/',
+                     mcrxsl:encodeURIPath($mainFile), '?XSL.Style=cmosource')" />
+    <div class="cmo-tei" data-tei-src="{$xmlSrc}">
+      <div class="cmo-tei-loading text-muted">
+        <span class="fas fa-spinner fa-spin"></span>
+        <xsl:text> </xsl:text>
+        <xsl:value-of select="i18n:translate('cmo.viewer.xml.loading')" />
+      </div>
+    </div>
+  </xsl:template>
+
+  <!--
+    Lazily loads the TEI edition into its tab and, once loaded, initialises the Bootstrap
+    popovers used throughout the edition: the info popovers (metre, supplied, editors,
+    reading types, catalogue links) take their content from a hidden .cmo-tei-pop-src child,
+    while hovering a marked text span (.cmo-tei-anno) opens a popover with the matching
+    critical apparatus entries and highlights the linked span(s) and entries. All popovers
+    share the .cmo-tei-bs-popover theme; the annotation popover stays open while the pointer
+    is over it so its source links remain clickable.
+  -->
+  <xsl:template name="loadTeiScript">
+    <script type="text/javascript">
+      (function() {
+        function loadTei(el) {
+          if (el.getAttribute('data-loaded')) {
+            return;
+          }
+          el.setAttribute('data-loaded', '1');
+          $(el).load(el.getAttribute('data-tei-src'), function() {
+            initEdition(el);
+          });
+        }
+
+        function initEdition(el) {
+          var edition = el.querySelector('.cmo-tei-edition') || el;
+          initInfoPopovers(edition);
+          initAnnoPopovers(edition);
+        }
+
+        // applies the shared theme class to a trigger's Bootstrap popover and
+        // adds a close button (click popovers do not close on outside click)
+        function themePopover(trigger) {
+          var id = trigger.getAttribute('aria-describedby');
+          if (!id) {
+            return;
+          }
+          var tip = document.getElementById(id);
+          if (!tip) {
+            return;
+          }
+          tip.classList.add('cmo-tei-bs-popover');
+          addCloseButton(tip, trigger);
+        }
+
+        // a small close button in the top right corner of a click popover; hover
+        // tooltips (catalogue links) close on their own and get none
+        function addCloseButton(tip, trigger) {
+          var inst = $(trigger).data('bs.popover');
+          if (inst) {
+            if (inst.config) {
+              if (inst.config.trigger.indexOf('click') === -1) {
+                return;
+              }
+            }
+          }
+          if (tip.querySelector('.cmo-tei-pop-close')) {
+            return;
+          }
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'cmo-tei-pop-close';
+          btn.setAttribute('aria-label', 'Close');
+          btn.textContent = '×';
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            $(trigger).popover('hide');
+          });
+          tip.appendChild(btn);
+        }
+
+        // metre, supplied, editors, catalogue and reading popovers keep their
+        // content in a hidden .cmo-tei-pop-src child (optional head plus body);
+        // opened by click (native bootstrap toggle) so they stay open and their
+        // links stay clickable; clicking the trigger again closes them
+        function initInfoPopovers(edition) {
+          $(edition).find('.cmo-tei-pop-src').each(function() {
+            var src = $(this);
+            var trigger = src.parent();
+            var head = src.children('.cmo-tei-pop-head');
+            var body = src.children('.cmo-tei-pop-body');
+            // a real link must still navigate on click, so its label stays a hover
+            // tooltip; every other info popover opens on click and stays open
+            var isLink = trigger.is('a');
+            trigger.on('inserted.bs.popover', function() {
+              themePopover(this);
+            });
+            trigger.popover({
+              html: true,
+              sanitize: false,
+              trigger: isLink ? 'hover focus' : 'click',
+              placement: 'top',
+              container: 'body',
+              title: head.length ? head.html() : '',
+              content: body.length ? body.html() : ''
+            });
+          });
+        }
+
+        // true if a marked span has matching critical apparatus entries
+        function hasApparatus(span) {
+          var edition = span.closest('.cmo-tei-edition');
+          if (!edition) {
+            return false;
+          }
+          var id = span.getAttribute('data-anno');
+          return !!edition.querySelectorAll('.cmo-tei-app-entry[data-anno="' + id + '"]').length;
+        }
+
+        // builds the popover body (a DOM node) from the apparatus of a marked span
+        function annoContent(span) {
+          var edition = span.closest('.cmo-tei-edition');
+          var frag = document.createElement('div');
+          if (!edition) {
+            return frag;
+          }
+          var id = span.getAttribute('data-anno');
+          var entries = edition.querySelectorAll('.cmo-tei-app-entry[data-anno="' + id + '"]');
+          entries.forEach(function(entry) {
+            var item = document.createElement('div');
+            item.className = 'cmo-tei-pop-item';
+            var group = entry.closest('.cmo-tei-app-group');
+            var heading = group ? group.querySelector('.cmo-tei-app-heading') : null;
+            if (heading) {
+              var kind = document.createElement('span');
+              kind.className = 'cmo-tei-pop-kind';
+              kind.textContent = heading.textContent;
+              item.appendChild(kind);
+            }
+            var body = document.createElement('div');
+            body.innerHTML = entry.innerHTML;
+            item.appendChild(body);
+            frag.appendChild(item);
+          });
+          return frag;
+        }
+
+        function setActive(span, on) {
+          var edition = span.closest('.cmo-tei-edition');
+          if (!edition) {
+            return;
+          }
+          var id = span.getAttribute('data-anno');
+          edition.querySelectorAll('.cmo-tei-anno[data-anno="' + id + '"]').forEach(function(s) {
+            s.classList.toggle('is-active', on);
+          });
+          edition.querySelectorAll('.cmo-tei-app-entry[data-anno="' + id + '"]').forEach(function(en) {
+            en.classList.toggle('is-active', on);
+          });
+        }
+
+        function toggleSpans(entry, on) {
+          var edition = entry.closest('.cmo-tei-edition');
+          if (!edition) {
+            return;
+          }
+          var id = entry.getAttribute('data-anno');
+          edition.querySelectorAll('.cmo-tei-anno[data-anno="' + id + '"]').forEach(function(s) {
+            s.classList.toggle('is-active', on);
+          });
+        }
+
+        function initAnnoPopovers(edition) {
+          $(edition).find('.cmo-tei-anno').each(function() {
+            var span = this;
+            if (!hasApparatus(span)) {
+              return;
+            }
+            span.setAttribute('tabindex', '0');
+            $(span).on('inserted.bs.popover', function() {
+              themePopover(span);
+            });
+            // click to open so the popover stays open and its links stay clickable;
+            // hover only previews the highlight (bootstrap hover popovers close on the
+            // gap between trigger and tip, which makes reaching the links impossible)
+            $(span).popover({
+              html: true,
+              sanitize: false,
+              trigger: 'click',
+              placement: 'bottom',
+              container: 'body',
+              content: function() {
+                return annoContent(span);
+              }
+            });
+            $(span).on('show.bs.popover', function() {
+              setActive(span, true);
+            });
+            $(span).on('hide.bs.popover', function() {
+              setActive(span, false);
+            });
+            $(span).on('mouseenter', function() {
+              setActive(span, true);
+            });
+            $(span).on('mouseleave', function() {
+              // keep the highlight while the popover is open (bootstrap marks the
+              // trigger with aria-describedby), otherwise drop the hover preview
+              if (!span.getAttribute('aria-describedby')) {
+                setActive(span, false);
+              }
+            });
+          });
+
+          // hovering an apparatus entry highlights the marked span(s) in the text
+          $(edition).find('.cmo-tei-app-entry').each(function() {
+            var entry = this;
+            $(entry).on('mouseenter', function() {
+              toggleSpans(entry, true);
+            });
+            $(entry).on('mouseleave', function() {
+              toggleSpans(entry, false);
+            });
+          });
+        }
+
+        $(function() {
+          $('#cmo-viewer .tab-pane.active .cmo-tei[data-tei-src]').each(function() {
+            loadTei(this);
+          });
+          $('#cmo-viewer a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            var pane = $($(e.target).attr('href'));
+            pane.find('.cmo-tei[data-tei-src]').each(function() {
+              loadTei(this);
+            });
+            // image viewers that were initialised while hidden need a relayout
+            $(window).trigger('resize');
+          });
+        });
+      })();
+    </script>
   </xsl:template>
 
   <xsl:template name="createViewer">
