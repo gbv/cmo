@@ -113,6 +113,7 @@ public class CMOTEIFileIndexAccumulatorTest extends MCRTestCase {
         assertContains("tei.feet.pattern", "--u|");
         assertContains("tei.vezin", "Hezec 1");
         assertContains("tei.vezin.pattern", "--u|u--u|u--u|u--|");
+        assertContains("tei.vezin.structure", "Hezec 1 (--u|u--u|u--u|u--|)");
         assertContains("tei.rhyme", "a-a-b-a");
         assertContains("tei.real", "--u|u-Iu|uI-u|UI-|");
     }

@@ -148,6 +148,42 @@
   margin-bottom: 20px;
   margin-top: 16px;
 
+  /* an entry with a metrical structure keeps its checkbox beside the label, however the label wraps */
+  li.facetEntryStructure {
+    display: flex;
+    align-items: baseline;
+    gap: .3em;
+
+    > input {
+      flex: none;
+    }
+
+    > label {
+      flex: 1 1 auto;
+      min-width: 0;
+      margin: 0;
+    }
+  }
+
+  /* metrical structure of a metre, below its name in a narrow sidebar */
+  .facetStructure {
+    display: block;
+    white-space: nowrap;
+    color: $gray;
+    font-family: monospace;
+    font-size: .8em;
+    letter-spacing: .03em;
+    line-height: 1.2;
+  }
+
+  /* from this width on the sidebar holds the name, the count and the structure in one line */
+  @media (min-width: 1700px) {
+    .facetStructure {
+      display: inline-block;
+      margin-left: .5em;
+    }
+  }
+
   .facetHeader {
     border-bottom: 1px solid #cccccc;
     margin-left: -20px;

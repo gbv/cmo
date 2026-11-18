@@ -31,6 +31,9 @@ export class SearchFacetController {
     private changedHandlerList: Array<() => void> = [];
     private enabled = true;
 
+    /** ids of the top level categories of every classification a facet is restricted to, filled on demand */
+    private topLevelIds: { [classification: string]: Array<string> } = {};
+
     constructor(facetContainer: HTMLElement, private translationKeys: any, ...facetFields: FacetDescription[]) {
         if (facetContainer == null || typeof facetContainer == "undefined") {
             this.enabled = false;
@@ -45,9 +48,37 @@ export class SearchFacetController {
     public displayFacet(searchResult: SolrSearchResult) {
         if (this.enabled) {
             this.view.save();
-            this.view.displayFacet(this.getFacetHeader(searchResult),
-                this.getLocked(searchResult.responseHeader.params));
+            this.resolveTopLevelIds(() => this.view.displayFacet(this.getFacetHeader(searchResult),
+                this.getLocked(searchResult.responseHeader.params)));
         }
+    }
+
+    /**
+     * Loads the classifications of the facets which only list the top level categories and calls the given
+     * function once all of them are known. Below the top level a classification like cmo_makamler holds the
+     * spellings of the sources, they lead to the same hits as their top level category and are left out.
+     */
+    private resolveTopLevelIds(done: () => void) {
+        let pending: Array<string> = [];
+        for (let description of this.facetFields) {
+            let json = description.json;
+            if (json != null && json.topLevelOnly && json.classification != null
+                && !(json.classification in this.topLevelIds) && pending.indexOf(json.classification) == -1) {
+                pending.push(json.classification);
+            }
+        }
+        if (pending.length == 0) {
+            done();
+            return;
+        }
+        let remaining = pending.length;
+        pending.forEach(classification => ClassificationResolver.resolve(classification, clazz => {
+            this.topLevelIds[ classification ] = (clazz.categories || []).map(category => category.ID);
+            remaining--;
+            if (remaining == 0) {
+                done();
+            }
+        }));
     }
 
     public getFacetFields(): Array<string> {
@@ -253,7 +284,8 @@ export class SearchFacetController {
                 }
                 continue;
             }
-            let counts = SearchFacetController.readJsonFacet(searchResult.facets, index, description);
+            let counts = SearchFacetController.readJsonFacet(searchResult.facets, index, description,
+                this.topLevelIds);
             if (counts != null) {
                 facetFields[ description.field ] = counts;
             }
@@ -261,7 +293,8 @@ export class SearchFacetController {
         return {facet_fields : facetFields};
     }
 
-    private static readJsonFacet(facets: any, index: number, description: FacetDescription): Array<any> {
+    private static readJsonFacet(facets: any, index: number, description: FacetDescription,
+                                 topLevelIds: { [classification: string]: Array<string> }): Array<any> {
         if (facets == null) {
             return null;
         }
@@ -278,6 +311,11 @@ export class SearchFacetController {
         for (let bucket of current.buckets) {
             let value = SearchFacetController.getBucketValue(bucket, description);
             if (value == null) {
+                continue;
+            }
+            let json = description.json;
+            if (json.topLevelOnly && json.classification in topLevelIds
+                && topLevelIds[ json.classification ].indexOf(value) == -1) {
                 continue;
             }
             entries.push({value : value, count : SearchFacetController.getBucketCount(bucket, joins.length)});
@@ -558,10 +596,12 @@ ${facetEntries.length > 5 ? `<a data-i18n="cmo.search.facet.showMore" data-facet
     }
 
     public displayEntry(field: FacetDescription, key, map, lock, index) {
-        let entry = `<li data-facet-entry="${field.field}" ${index > 5 ? `data-facet-hidden='${field.field}'` : ""}>`;
+        let entry = `<li data-facet-entry="${field.field}" ${index > 5 ? `data-facet-hidden='${field.field}'` : ""}` +
+            `${field.type == "structure" ? ` class="facetEntryStructure"` : ""}>`;
         entry += ` <input id="facet_${field.field}${key}" type="checkbox" data-field="${field.field}" data-value="${key}" ${lock ? "checked='checked'" : ""}>`;
         entry += `<label for="#facet_${field.field}${key}"> <span`;
         let text = "";
+        let below = "";
         switch (field.type) {
             case "translate":
                 entry += ` data-i18n="${field.translate}${key}" `;
@@ -573,8 +613,20 @@ ${facetEntries.length > 5 ? `<a data-i18n="cmo.search.facet.showMore" data-facet
                 // the value has no label anywhere, it is shown as it stands in the index
                 text = Utils.encodeHtmlEntities(key);
                 break;
+            case "structure":
+                // "Hezec 1 (--u|u--u|u--u|u--|)": the name with its count, followed by the pattern in the last
+                // parentheses, which stands beside them in a wide window and below them in a narrow one
+                let patternStart = key.lastIndexOf(" (");
+                if (patternStart != -1 && key.charAt(key.length - 1) == ")") {
+                    text = Utils.encodeHtmlEntities(key.substring(0, patternStart));
+                    below = `<span class="facetStructure">` +
+                        Utils.encodeHtmlEntities(key.substring(patternStart + 2, key.length - 1)) + `</span>`;
+                } else {
+                    text = Utils.encodeHtmlEntities(key);
+                }
+                break;
         }
-        entry += `>${text}</span> [${map[ key ]}]</label>`;
+        entry += `>${text}</span> [${map[ key ]}]${below}</label>`;
         entry += "</li>";
         return entry;
     }
@@ -589,7 +641,10 @@ export interface FacetDescription {
      * categories it lists. It has to be usable in a css selector, so it must not hold a dot.
      */
     field: string;
-    /** translate, class or plain, decides where the label of an entry comes from */
+    /**
+     * translate, class, plain or structure, decides where the label of an entry comes from; structure shows a
+     * value "name (pattern)" as the name with the pattern below it
+     */
     type: string;
     /** prefix of the i18n key of an entry, used by the type translate */
     translate?: string;
@@ -608,6 +663,8 @@ export interface JsonFacetDescription {
     classification?: string;
     /** number of buckets solr returns, the gui shows the first five and hides the rest */
     limit?: number;
+    /** set if only the top level categories of the classification are listed */
+    topLevelOnly?: boolean;
 }
 
 export interface SolrJoin {

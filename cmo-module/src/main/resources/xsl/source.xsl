@@ -54,12 +54,10 @@
 
   <xsl:template match="mei:source|mei:manifestation" mode="metadataView">
     <xsl:apply-templates select="mei:identifier[@type='CMO']" mode="metadataView" />
-    <xsl:apply-templates select="mei:classification" mode="metadataView" />
-    <xsl:apply-templates select="mei:physLoc/mei:repository/mei:corpName[@type='library']" mode="metadataView" />
-    <xsl:apply-templates select="mei:physLoc/mei:repository/mei:geogName" mode="metadataView" />
-    <xsl:apply-templates select="mei:physLoc/mei:repository/mei:identifier " mode="metadataView" />
-    <xsl:apply-templates select="mei:creation/mei:date " mode="metadataView" />
     <xsl:apply-templates select="mei:identifier[@type='RISM']" mode="metadataView" />
+    <xsl:apply-templates select="mei:classification" mode="metadataView" />
+    <xsl:apply-templates select="mei:physLoc/mei:repository" mode="metadataView" />
+    <xsl:apply-templates select="mei:creation/mei:date " mode="metadataView" />
     <xsl:apply-templates select="mei:titleStmt" mode="metadataView" />
     <xsl:apply-templates select="mei:seriesStmt" mode="metadataView" />
     <xsl:apply-templates select="mei:pubStmt" mode="metadataView" />
@@ -77,6 +75,53 @@
     <xsl:call-template name="contentContainer" />
   </xsl:template>
   
+
+  <!-- the library, the location and the identifiers of the repository, listed below one label like the description -->
+  <xsl:template match="mei:physLoc/mei:repository" mode="metadataView">
+    <xsl:comment>source.xsl > mei:repository</xsl:comment>
+    <xsl:call-template name="metadataLabelContent">
+      <xsl:with-param name="label" select="'editor.label.repository'" />
+      <xsl:with-param name="content">
+        <dl>
+          <xsl:for-each select="mei:corpName[@type='library'][string-length(normalize-space(.)) &gt; 0]">
+            <dt><xsl:value-of select="concat(i18n:translate('editor.label.corpName'), ':')" /></dt>
+            <dd><xsl:value-of select="." /></dd>
+          </xsl:for-each>
+          <xsl:for-each select="mei:geogName[mei:geogName[string-length(normalize-space(.)) &gt; 0]]">
+            <dt><xsl:value-of select="concat(i18n:translate('editor.label.geogName'), ':')" /></dt>
+            <dd>
+              <xsl:choose>
+                <xsl:when test="mei:geogName[@type='country'] and mei:geogName[@type='city']">
+                  <xsl:value-of select="concat(mei:geogName[@type='city'], ', ', mei:geogName[@type='country'])" />
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:for-each select="mei:geogName">
+                    <xsl:value-of select="." />
+                    <xsl:if test="position() != last()">
+                      <xsl:text> </xsl:text>
+                    </xsl:if>
+                  </xsl:for-each>
+                </xsl:otherwise>
+              </xsl:choose>
+            </dd>
+          </xsl:for-each>
+          <xsl:for-each select="mei:identifier[string-length(normalize-space(.)) &gt; 0]">
+            <dt>
+              <xsl:choose>
+                <xsl:when test="@type">
+                  <xsl:value-of select="concat(i18n:translate(concat('editor.label.identifier.', @type)), ':')" />
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="concat(i18n:translate('editor.label.identifier'), ':')" />
+                </xsl:otherwise>
+              </xsl:choose>
+            </dt>
+            <dd><xsl:value-of select="." /></dd>
+          </xsl:for-each>
+        </dl>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
 
   <xsl:template name="contentContainer">
     <xsl:if test="mei:componentList|mei:relationList">

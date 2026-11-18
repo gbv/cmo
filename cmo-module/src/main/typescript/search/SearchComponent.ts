@@ -2,7 +2,7 @@ import {I18N} from 'other/I18N'
 import {Classification, ClassificationResolver} from 'other/Classification'
 import {
     AutoCompleteTextSearchFieldInput, CheckboxSearchFieldInput, ClassificationSearchFieldInput,
-    DateSearchFieldInput, SearchGUI, TextSearchFieldInput
+    DateSearchFieldInput, SearchGUI, SelectSearchFieldInput, SelectSearchFieldOption, TextSearchFieldInput
 } from "./SearchFormGUI";
 import {AutoCompleteSource, SolrFacetSuggestSource, SolrHighlightSuggestSource} from "./AutoComplete";
 import {Utils} from "../other/Utils";
@@ -148,6 +148,10 @@ export class SearchController {
             } else if (input instanceof CheckboxSearchField) {
                 let osf = <CheckboxSearchField>input;
                 this.view.addExtendedField(name, new CheckboxSearchFieldInput(osf.solrSearchFields, input.label, osf.value))
+            } else if (input instanceof SelectSearchField) {
+                let selectField = <SelectSearchField>input;
+                this.view.addExtendedField(name, new SelectSearchFieldInput(selectField.solrSearchFields, input.label,
+                    selectField.options));
             } else if (input instanceof AutoCompleteSearchField) {
                 let suggestField = <AutoCompleteSearchField>input;
                 this.view.addExtendedField(name, new AutoCompleteTextSearchFieldInput(
@@ -275,6 +279,20 @@ export class ClassificationSearchField extends SearchField {
     }
 }
 
+
+/**
+ * Drop down of a fixed list of values, meant for the fields whose values form a closed list, the types of the
+ * readings of the TEI schema for example. A value is matched as it stands.
+ */
+export class SelectSearchField extends SearchField {
+    constructor(label: string, solrSearchFields: string[], private _options: Array<SelectSearchFieldOption>) {
+        super(label, solrSearchFields);
+    }
+
+    get options(): Array<SelectSearchFieldOption> {
+        return this._options;
+    }
+}
 
 export class CheckboxSearchField extends SearchField {
     constructor(label: string, searchfield: string, private _value: string) {

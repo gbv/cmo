@@ -645,6 +645,115 @@ export class CheckboxSearchFieldInput extends SearchFieldInput {
 
 }
 
+export interface SelectSearchFieldOption {
+    /** value as it stands in the index */
+    value: string;
+    /** i18n key of the label of the value */
+    label: string;
+    /** text shown in front of the label, the symbol itself for a metrical symbol for example */
+    prefix?: string;
+}
+
+/**
+ * Drop down of a fixed list of values. The first entry selects nothing, so the field adds no condition until a
+ * value is picked.
+ */
+export class SelectSearchFieldInput extends SearchFieldInput {
+
+    constructor(searchFields: string[], label: string, private options: Array<SelectSearchFieldOption>) {
+        super(searchFields, label);
+        this.init();
+    }
+
+    private root: HTMLElement;
+    private labelElement: HTMLElement;
+    private select: HTMLSelectElement;
+    private attached: boolean = false;
+
+    public init() {
+        this.root = <HTMLElement>document.createElement("div");
+        this.root.classList.add("row");
+        this.root.innerHTML = `
+              <div class="form-group col-12 row">
+                  <label class="col-12 col-md-4 col-form-label form-inline"></label>
+                  <div class="col-12 col-md-8 controls">
+                    <select class="form-control form-control-inline"><option value=""></option></select>
+                  </div>
+              </div>
+            `;
+        this.labelElement = <HTMLElement>this.root.querySelector("label");
+        this.select = <HTMLSelectElement>this.root.querySelector("select");
+
+        I18N.translate(this.label, (translation) => {
+            this.labelElement.innerText = translation;
+        });
+
+        for (let option of this.options) {
+            let element = <HTMLOptionElement>document.createElement("option");
+            element.value = option.value;
+            element.text = option.prefix != null ? option.prefix : option.value;
+            this.select.appendChild(element);
+            I18N.translate(option.label, (translation) => {
+                element.text = option.prefix != null ? `${option.prefix} \u00B7 ${translation}` : translation;
+                this.updateChosen();
+            });
+        }
+    }
+
+    public attach(to: HTMLElement) {
+        to.appendChild(this.root);
+        if (!this.attached) {
+            this.attached = true;
+            window[ "$" ](this.select).chosen({disable_search_threshold : 10, width : "95%"});
+            window[ "$" ](this.select).on("change", () => this.changed());
+        }
+    }
+
+    public detach(from: HTMLElement) {
+        from.removeChild(this.root);
+    }
+
+    private updateChosen() {
+        if (this.attached) {
+            window[ "$" ](this.select).trigger("chosen:updated");
+        }
+    }
+
+    public getSolrQueryPart(): string {
+        if (this.select.value.length == 0) {
+            return null;
+        }
+        return SearchFieldInput.buildFieldQuery(this.searchFields, `"${this.select.value}"`);
+    }
+
+    setValue(value: any) {
+        let matching = this.options.filter(option => option.value == value);
+        if (matching.length > 0) {
+            this.select.value = matching[ 0 ].value;
+            this.updateChosen();
+        }
+    }
+
+    reset() {
+        this.select.value = "";
+        this.updateChosen();
+    }
+
+    public getSearchDescription(): SearchDescription {
+        if (this.select.value.length == 0) {
+            return null;
+        }
+        const that = this;
+        return {
+            key : this.label,
+            value : this.select.options[ this.select.selectedIndex ].text,
+            reset() {
+                that.reset();
+            }
+        }
+    }
+}
+
 export class ClassificationSearchFieldInput extends SearchFieldInput {
 
     constructor(searchField: string, private className: string, private level) {
