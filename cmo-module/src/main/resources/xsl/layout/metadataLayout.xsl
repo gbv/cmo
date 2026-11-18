@@ -420,16 +420,22 @@
         <div data-upload-object="{$objID}" data-upload-target="/">
           <xsl:choose>
             <xsl:when test="count(structure/derobjects/derobject)=0">
-              <xsl:attribute name="class">drop-to-object cmo-file-upload-box card</xsl:attribute>
+              <xsl:attribute name="class">drop-to-object cmo-file-upload-box cmo-file-upload-box--new card</xsl:attribute>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:attribute name="class">drop-to-object-optional cmo-file-upload-box card</xsl:attribute>
+              <xsl:attribute name="class">drop-to-object-optional cmo-file-upload-box cmo-file-upload-box--new card</xsl:attribute>
               <xsl:attribute name="style">display:none;</xsl:attribute>
             </xsl:otherwise>
           </xsl:choose>
           <div class="card-body text-center">
-            <i class="fas fa-upload"></i>
-            <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
+            <div class="cmo-file-upload-box__title">
+              <i class="fas fa-folder-plus"></i>
+              <xsl:value-of select="concat(' ', i18n:translate('cmo.upload.drop.title.new'))"/>
+            </div>
+            <div class="cmo-file-upload-box__hint">
+              <i class="fas fa-upload"></i>
+              <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
+            </div>
           </div>
         </div>
     </xsl:if>
@@ -447,10 +453,16 @@
         </xsl:call-template>
       </xsl:if>
       <xsl:if test="acl:checkPermission(@xlink:href, 'writedb')">
-        <div data-upload-object="{@xlink:href}" data-upload-target="/" class="drop-to-derivate cmo-file-upload-box card">
+        <div data-upload-object="{@xlink:href}" data-upload-target="/" class="drop-to-derivate cmo-file-upload-box cmo-file-upload-box--existing card">
           <div class="card-body text-center">
-            <i class="fas fa-upload"></i>
-            <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
+            <div class="cmo-file-upload-box__title">
+              <i class="fas fa-folder-open"></i>
+              <xsl:value-of select="concat(' ', i18n:translate('cmo.upload.drop.title.existing'))"/>
+            </div>
+            <div class="cmo-file-upload-box__hint">
+              <i class="fas fa-upload"></i>
+              <xsl:value-of disable-output-escaping="yes" select="concat(' ', i18n:translate('cmo.upload.drop.derivate'))"/>
+            </div>
           </div>
         </div>
       </xsl:if>

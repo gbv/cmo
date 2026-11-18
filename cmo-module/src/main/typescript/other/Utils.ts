@@ -13,6 +13,24 @@ export class Utils {
         return stripped;
     }
 
+    /**
+     * Splits the leading solr local parameter blocks of a query from the rest of it, so that
+     * "{!join from=returnId to=id}tei.text" is split into the prefix "{!join from=returnId to=id}" and the
+     * rest "tei.text". All leading blocks are taken, a query may state more than one, as the nested joins of
+     * the text edition search do.
+     */
+    static splitLocalParams(query: string): { prefix: string; rest: string } {
+        let end = 0;
+        while (query.indexOf("{!", end) == end) {
+            let close = query.indexOf("}", end);
+            if (close == -1) {
+                break;
+            }
+            end = close + 1;
+        }
+        return {prefix : query.substring(0, end), rest : query.substring(end)};
+    }
+
     static encodeHtmlEntities = function(str) {
         return str.replace(/[\u00A0-\u99999<>\&]/gim, function(i) {
             return '&#'+i.charCodeAt(0)+';';

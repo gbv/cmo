@@ -85,3 +85,44 @@ span.standardized {
 [data-upload-target].well {
   text-align: center;
 }
+
+/* Upload boxes: visually separate "upload into an existing file container" from
+   "create a new file container" so it is clear what an upload will do. */
+.cmo-file-upload-box {
+  border-style: dashed;
+  border-width: 2px;
+
+  .cmo-file-upload-box__title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .cmo-file-upload-box__hint {
+    font-size: 0.9em;
+    color: $gray;
+  }
+}
+
+/* Upload into the already existing file container shown above: muted and pulled
+   up so it reads as belonging to that container. */
+.cmo-file-upload-box--existing {
+  border-color: $gray-lighter;
+  background-color: $cmo_purple_footerBack;
+  margin-top: -20px;
+  margin-bottom: 30px;
+
+  .cmo-file-upload-box__title {
+    color: $gray;
+  }
+}
+
+/* Create a brand new file container: accent coloured so it clearly is a
+   different action from uploading into an existing container. */
+.cmo-file-upload-box--new {
+  border-color: $info;
+  margin-bottom: 30px;
+
+  .cmo-file-upload-box__title {
+    color: $info;
+  }
+}
