@@ -2,6 +2,7 @@ import {UserInputParser, Utils} from "../other/Utils";
 import {I18N} from "../other/I18N";
 import {Classification, ClassificationCategory, ClassificationResolver} from "../other/Classification";
 import {SearchDescription} from "./SearchDescription";
+import {AutoComplete, AutoCompleteSource} from "./AutoComplete";
 
 export class SearchGUI {
     get extenderIcon(): HTMLImageElement {
@@ -233,26 +234,47 @@ export class SearchGUI {
         return solrQueryParts;
     }
 
-    public setSolrQuery(query: string[]) {
+    /**
+     * Reads the fields and their values out of the given queries, so that the form can be filled with them
+     * again. The keys are the search fields as the mask configures them, a leading local parameter block
+     * included, because the configuration states it there as well.
+     */
+    public static toFieldValueMap(query: string[]): {} {
         let kvMap = {};
-
-        let bqMap = this.nameBaseQueryMap;
 
         let process = (queryParts) => {
             for (let queryPart of queryParts) {
-                if (queryPart.indexOf("(") != 0) {
-                    let [ field ] = queryPart.split(":", 1);
-                    let value = field != "allMeta" ?
-                        Utils.stripSurrounding(queryPart.substring(queryPart.indexOf(":") + 1, queryPart.length), '"')
-                        : queryPart.substring(queryPart.indexOf(":") + 1, queryPart.length);
-                    kvMap[ field ] = value;
+                // a query may start with local parameter blocks, "{!join from=returnId to=id}tei.text:x"
+                let split = Utils.splitLocalParams(queryPart);
+                let prefix = split.prefix;
+                let rest = split.rest;
+
+                if (rest.indexOf("(") != 0) {
+                    let colonIndex = rest.indexOf(":");
+                    if (colonIndex == -1) {
+                        continue;
+                    }
+                    let field = prefix + rest.substring(0, colonIndex);
+                    let value = rest.substring(colonIndex + 1, rest.length);
+                    kvMap[ field ] = field != "allMeta" ? Utils.stripSurrounding(value, '"') : value;
                 } else {
-                    let clean = Utils.stripSurrounding(Utils.stripSurrounding(queryPart, "("), ")");
-                    process(clean.split(" OR "));
+                    // "{!join ...}(a:v OR b:v)": the prefix applies to the whole group, but it is configured
+                    // at the first of the ORed fields, so it is given back to that one
+                    let clean = Utils.stripSurrounding(Utils.stripSurrounding(rest, "("), ")");
+                    let branches = clean.split(" OR ");
+                    branches[ 0 ] = prefix + branches[ 0 ];
+                    process(branches);
                 }
             }
         };
-        query.map(s=>s.split(" AND ")).forEach(process);
+        query.map(s => s.split(" AND ")).forEach(process);
+        return kvMap;
+    }
+
+    public setSolrQuery(query: string[]) {
+        let kvMap = SearchGUI.toFieldValueMap(query);
+
+        let bqMap = this.nameBaseQueryMap;
         let sortedByComplexity = [];
 
         for (let name in bqMap) {
@@ -272,6 +294,8 @@ export class SearchGUI {
 
             let v = kvMap[ k ];
             kvSet.push(`${k}:${v}`);
+            // a base query may state its value in quotes, "category.top:\"cmo_editionTypes:text\""
+            kvSet.push(`${k}:"${v}"`);
         }
         sortedByComplexity = sortedByComplexity.sort(([ , bq1 ], [ , bq2 ]) => bq2.length - bq1.length);
 
@@ -415,6 +439,21 @@ export abstract class SearchFieldInput {
     public abstract reset();
 
     public abstract getSearchDescription(): SearchDescription;
+
+    /**
+     * Builds the query which looks for the given value in all search fields of this input. A leading local
+     * parameter block of the first field, a join for example, is pulled in front of the parentheses: inside
+     * them it would only apply to the first of the ORed fields, the others would silently run against the hit
+     * documents, which do not hold the joined field at all.
+     */
+    protected static buildFieldQuery(searchFields: string[], value: string): string {
+        let first = Utils.splitLocalParams(searchFields[ 0 ]);
+        if (searchFields.length == 1) {
+            return `${first.prefix}${first.rest}:${value}`;
+        }
+        let fields = searchFields.map(searchField => Utils.splitLocalParams(searchField).rest);
+        return `${first.prefix}(${fields.map(field => `${field}:${value}`).join(" OR ")})`;
+    }
 }
 
 export class TextSearchFieldInput extends SearchFieldInput {
@@ -471,11 +510,8 @@ export class TextSearchFieldInput extends SearchFieldInput {
 
     public getSolrQueryPart(): string {
         if (this.input.value.trim().length > 0) {
-            if (this.searchFields.length > 1) {
-                return `(${this.searchFields.map(sf => `${sf}:${this.input.value.indexOf(" ")==-1 ? this.input.value:'"'+this.input.value + '"'}`).join(" OR ")})`
-            } else {
-                return `${this.searchFields}:${this.input.value.indexOf(" ")==-1 ? this.input.value:'"'+this.input.value + '"'}`
-            }
+            let value = this.input.value.indexOf(" ") == -1 ? this.input.value : '"' + this.input.value + '"';
+            return TextSearchFieldInput.buildFieldQuery(this.searchFields, value);
         } else {
             return null;
         }
@@ -501,6 +537,32 @@ export class TextSearchFieldInput extends SearchFieldInput {
                 that.reset()
             }
         }
+    }
+}
+
+/**
+ * Text field which suggests the values which really stand in the index while the user types. It is meant for
+ * the fields whose values nobody knows by heart, the transcribed names of the poets and composers or the
+ * sigla of the sources.
+ */
+export class AutoCompleteTextSearchFieldInput extends TextSearchFieldInput {
+
+    constructor(searchFields: string[], label: string, source: AutoCompleteSource) {
+        super(searchFields, label);
+        /* the input exists only now, init() runs inside the constructor of the base class */
+        new AutoComplete(this.input, source, () => this.changed());
+    }
+
+    /** The drop down hangs under the input, so the input needs a box of its own it can be placed in. */
+    public getTemplate() {
+        return `
+<div class="form-group col-12 row">
+    <label class="col-12 col-md-4 col-form-label form-inline"></label>
+    <div class="col-12 col-md-8 cmo-autocomplete">
+        <input class="form-control" type="search">
+    </div>
+</div>
+`;
     }
 }
 
@@ -581,6 +643,115 @@ export class CheckboxSearchFieldInput extends SearchFieldInput {
 
     }
 
+}
+
+export interface SelectSearchFieldOption {
+    /** value as it stands in the index */
+    value: string;
+    /** i18n key of the label of the value */
+    label: string;
+    /** text shown in front of the label, the symbol itself for a metrical symbol for example */
+    prefix?: string;
+}
+
+/**
+ * Drop down of a fixed list of values. The first entry selects nothing, so the field adds no condition until a
+ * value is picked.
+ */
+export class SelectSearchFieldInput extends SearchFieldInput {
+
+    constructor(searchFields: string[], label: string, private options: Array<SelectSearchFieldOption>) {
+        super(searchFields, label);
+        this.init();
+    }
+
+    private root: HTMLElement;
+    private labelElement: HTMLElement;
+    private select: HTMLSelectElement;
+    private attached: boolean = false;
+
+    public init() {
+        this.root = <HTMLElement>document.createElement("div");
+        this.root.classList.add("row");
+        this.root.innerHTML = `
+              <div class="form-group col-12 row">
+                  <label class="col-12 col-md-4 col-form-label form-inline"></label>
+                  <div class="col-12 col-md-8 controls">
+                    <select class="form-control form-control-inline"><option value=""></option></select>
+                  </div>
+              </div>
+            `;
+        this.labelElement = <HTMLElement>this.root.querySelector("label");
+        this.select = <HTMLSelectElement>this.root.querySelector("select");
+
+        I18N.translate(this.label, (translation) => {
+            this.labelElement.innerText = translation;
+        });
+
+        for (let option of this.options) {
+            let element = <HTMLOptionElement>document.createElement("option");
+            element.value = option.value;
+            element.text = option.prefix != null ? option.prefix : option.value;
+            this.select.appendChild(element);
+            I18N.translate(option.label, (translation) => {
+                element.text = option.prefix != null ? `${option.prefix} \u00B7 ${translation}` : translation;
+                this.updateChosen();
+            });
+        }
+    }
+
+    public attach(to: HTMLElement) {
+        to.appendChild(this.root);
+        if (!this.attached) {
+            this.attached = true;
+            window[ "$" ](this.select).chosen({disable_search_threshold : 10, width : "95%"});
+            window[ "$" ](this.select).on("change", () => this.changed());
+        }
+    }
+
+    public detach(from: HTMLElement) {
+        from.removeChild(this.root);
+    }
+
+    private updateChosen() {
+        if (this.attached) {
+            window[ "$" ](this.select).trigger("chosen:updated");
+        }
+    }
+
+    public getSolrQueryPart(): string {
+        if (this.select.value.length == 0) {
+            return null;
+        }
+        return SearchFieldInput.buildFieldQuery(this.searchFields, `"${this.select.value}"`);
+    }
+
+    setValue(value: any) {
+        let matching = this.options.filter(option => option.value == value);
+        if (matching.length > 0) {
+            this.select.value = matching[ 0 ].value;
+            this.updateChosen();
+        }
+    }
+
+    reset() {
+        this.select.value = "";
+        this.updateChosen();
+    }
+
+    public getSearchDescription(): SearchDescription {
+        if (this.select.value.length == 0) {
+            return null;
+        }
+        const that = this;
+        return {
+            key : this.label,
+            value : this.select.options[ this.select.selectedIndex ].text,
+            reset() {
+                that.reset();
+            }
+        }
+    }
 }
 
 export class ClassificationSearchFieldInput extends SearchFieldInput {
@@ -868,7 +1039,7 @@ export class DateSearchFieldInput extends TextSearchFieldInput {
     }
 
     private getQueryForValue(value: any) {
-        return this.searchFields.length > 1 ? `(${this.searchFields.map(sf => `${sf}:${value}`).join(" OR ")})` : `${this.searchFields}:${value}`;
+        return DateSearchFieldInput.buildFieldQuery(this.searchFields, value);
     }
 
     setValue(value: any) {
