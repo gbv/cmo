@@ -1,0 +1,18 @@
+/* ---------------------------------------------------------------------------
+   MEI music edition rendered by the Verovio App (see js/cmo-mei-viewer.js)
+----------------------------------------------------------------------------*/
+.cmo-mei {
+  .cmo-mei-app {
+    position: relative;
+    width: 100%;
+    height: 75vh;
+    min-height: 480px;
+    border: 1px solid $cmo_shadow;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .cmo-mei-error {
+    margin: 0;
+  }
+}

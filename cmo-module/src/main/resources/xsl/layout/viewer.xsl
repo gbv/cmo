@@ -17,15 +17,25 @@
     <xsl:variable name="readableDerivates"
       select="derobjects/derobject[key('rights', @xlink:href)/@read
                                    and string(mcrxsl:getMainDocName(@xlink:href)) != '']" />
-    <!-- the tei/xml edition is shown by default; only if none exists the first derivate wins -->
+    <!-- a MEI music edition is recognised by its derivate type (or a .mei main file), see viewerKind -->
+    <xsl:variable name="meiDerivates"
+      select="$readableDerivates[
+                classification[@classid='derivate_types']/@categid = 'edition_mei'
+             or translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
+                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = 'mei']" />
     <xsl:variable name="teiDerivates"
       select="$readableDerivates[
-                translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
-                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = 'xml'
-             or translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
-                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = 'tei']" />
+                not(classification[@classid='derivate_types']/@categid = 'edition_mei')
+                and (translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
+                               'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = 'xml'
+                  or translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
+                               'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = 'tei')]" />
+    <!-- the music edition is shown by default, then the text edition; otherwise the first derivate wins -->
     <xsl:variable name="defaultHref">
       <xsl:choose>
+        <xsl:when test="$meiDerivates">
+          <xsl:value-of select="$meiDerivates[1]/@xlink:href" />
+        </xsl:when>
         <xsl:when test="$teiDerivates">
           <xsl:value-of select="$teiDerivates[1]/@xlink:href" />
         </xsl:when>
@@ -39,13 +49,13 @@
         <div class="row cmo-preview">
           <div class="col-md-12">
             <!-- one tab per readable derivate; the tab title is the derivate_types label.
-                 xml/tei main files get an extra "<label> (XML)" tab with the raw source -->
+                 tei and mei editions get an extra "<label> (XML)" tab with the raw source -->
             <ul class="nav nav-tabs cmo-viewer-tabs" role="tablist">
               <xsl:for-each select="$readableDerivates">
                 <xsl:variable name="tabId" select="concat('cmo-tab-', @xlink:href)" />
-                <xsl:variable name="ext"
-                  select="translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
-                                    'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
+                <xsl:variable name="kind">
+                  <xsl:call-template name="viewerKind" />
+                </xsl:variable>
                 <xsl:variable name="label">
                   <xsl:call-template name="viewerTabLabel">
                     <xsl:with-param name="categid"
@@ -62,7 +72,7 @@
                     <xsl:copy-of select="$label" />
                   </a>
                 </li>
-                <xsl:if test="$ext = 'xml' or $ext = 'tei'">
+                <xsl:if test="$kind = 'tei' or $kind = 'mei'">
                   <xsl:variable name="xmlTabId" select="concat('cmo-tab-', @xlink:href, '-xml')" />
                   <li class="nav-item" role="presentation">
                     <a class="nav-link" role="tab" data-toggle="tab" href="#{$xmlTabId}"
@@ -77,17 +87,19 @@
             <div class="tab-content cmo-viewer-tab-content">
               <xsl:for-each select="$readableDerivates">
                 <xsl:variable name="tabId" select="concat('cmo-tab-', @xlink:href)" />
-                <xsl:variable name="ext"
-                  select="translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
-                                    'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
+                <xsl:variable name="kind">
+                  <xsl:call-template name="viewerKind" />
+                </xsl:variable>
                 <div class="tab-pane fade" id="{$tabId}" role="tabpanel"
                      aria-labelledby="{$tabId}-label">
                   <xsl:if test="@xlink:href = $defaultHref">
                     <xsl:attribute name="class">tab-pane fade show active</xsl:attribute>
                   </xsl:if>
-                  <xsl:call-template name="viewerTabPane" />
+                  <xsl:call-template name="viewerTabPane">
+                    <xsl:with-param name="kind" select="$kind" />
+                  </xsl:call-template>
                 </div>
-                <xsl:if test="$ext = 'xml' or $ext = 'tei'">
+                <xsl:if test="$kind = 'tei' or $kind = 'mei'">
                   <xsl:variable name="xmlTabId" select="concat('cmo-tab-', @xlink:href, '-xml')" />
                   <div class="tab-pane fade" id="{$xmlTabId}" role="tabpanel"
                        aria-labelledby="{$xmlTabId}-label">
@@ -99,9 +111,35 @@
           </div>
         </div>
         <xsl:call-template name="loadTeiScript" />
+        <xsl:if test="$meiDerivates">
+          <script type="module" src="{$WebApplicationBaseURL}js/cmo-mei-viewer.js"></script>
+        </xsl:if>
       </div>
     </xsl:if>
     <xsl:apply-imports />
+  </xsl:template>
+
+  <!--
+    Returns how the main file of the current derobject is rendered:
+    'mei'   a MEI music edition (derivate type edition_mei or a .mei main file), Verovio App
+    'tei'   any other xml/tei main file, rendered as TEI text edition
+    'other' everything else (pdf, images, ...), mycore image viewer
+  -->
+  <xsl:template name="viewerKind">
+    <xsl:variable name="ext"
+      select="translate(FilenameUtils:getExtension(mcrxsl:getMainDocName(@xlink:href)),
+                        'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
+    <xsl:choose>
+      <xsl:when test="classification[@classid='derivate_types']/@categid = 'edition_mei' or $ext = 'mei'">
+        <xsl:text>mei</xsl:text>
+      </xsl:when>
+      <xsl:when test="$ext = 'xml' or $ext = 'tei'">
+        <xsl:text>tei</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>other</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <!-- resolves the tab title from the derivate_types classification label -->
@@ -130,19 +168,29 @@
   </xsl:template>
 
   <!--
-    Renders the content of a single viewer tab. The rendering is chosen by the file
-    extension of the main file, not by the derivate type: an xml/tei main file is shown
-    as a TEI edition, everything else (pdf, images, ...) uses the mycore image viewer.
-    The derivate type is only used for the tab title.
+    Renders the content of a single viewer tab, depending on the kind computed by viewerKind:
+    a MEI music edition is rendered by the Verovio App, an xml/tei main file is shown as a TEI
+    edition and everything else (pdf, images, ...) uses the mycore image viewer.
   -->
   <xsl:template name="viewerTabPane">
+    <xsl:param name="kind" />
     <xsl:variable name="derId" select="@xlink:href" />
     <xsl:variable name="mainFile" select="mcrxsl:getMainDocName($derId)" />
-    <xsl:variable name="ext"
-      select="translate(FilenameUtils:getExtension($mainFile),
-                        'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
     <xsl:choose>
-      <xsl:when test="$ext = 'xml' or $ext = 'tei'">
+      <xsl:when test="$kind = 'mei'">
+        <!-- the raw MEI file is fetched and rendered client side by js/cmo-mei-viewer.js
+             (Verovio App) when the tab is shown for the first time -->
+        <div class="cmo-mei"
+             data-mei-src="{concat($ServletsBaseURL, 'MCRFileNodeServlet/', $derId, '/', mcrxsl:encodeURIPath($mainFile))}"
+             data-mei-error="{i18n:translate('cmo.viewer.mei.error')}">
+          <div class="cmo-tei-loading cmo-mei-loading text-muted">
+            <span class="fas fa-spinner fa-spin"></span>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="i18n:translate('cmo.viewer.mei.loading')" />
+          </div>
+        </div>
+      </xsl:when>
+      <xsl:when test="$kind = 'tei'">
         <xsl:variable name="teiSrc"
           select="concat($ServletsBaseURL, 'MCRDerivateContentTransformerServlet/', $derId, '/',
                          mcrxsl:encodeURIPath($mainFile), '?XSL.Style=cmoedition')" />
