@@ -46,6 +46,10 @@ window.addEventListener('load', () => {
             type: "class"
         },
         {
+            field: "cmo_echoi",
+            type: "class"
+        },
+        {
             field: "cmo_usuler",
             type: "class"
         },
@@ -339,6 +343,7 @@ window.addEventListener('load', () => {
                     new ClassificationSearchField("category.top", "rfc5646"),
                     new ClassificationSearchField("category.top", "cmo_musictype"),
                     new ClassificationSearchField("category.top", "cmo_makamler", 1),
+                    new ClassificationSearchField("category.top", "cmo_echoi", 1),
                     new ClassificationSearchField("category.top", "cmo_usuler", 1),
                     new ClassificationSearchField("category.top", "cmo_timeSignature"),
                     new SearchField("editor.label.incip", ["incip"])],
@@ -353,6 +358,7 @@ window.addEventListener('load', () => {
                     new ClassificationSearchField("category.top", "rfc5646"),
                     new ClassificationSearchField("category.top", "cmo_musictype"),
                     new ClassificationSearchField("category.top", "cmo_makamler", 1),
+                    new ClassificationSearchField("category.top", "cmo_echoi", 1),
                     new ClassificationSearchField("category.top", "cmo_usuler", 1),
                     new ClassificationSearchField("category.top", "cmo_timeSignature"),
                     new ClassificationSearchField("{!join from=reference to=id}category.top", "cmo_sourceType"),
@@ -428,6 +434,7 @@ window.addEventListener('load', () => {
                     new ClassificationSearchField("category.top", "cmo_musictype"),
                     new ClassificationSearchField("category.top", "cmo_litform"),
                     new ClassificationSearchField("category.top", "cmo_makamler", 1),
+                    new ClassificationSearchField("category.top", "cmo_echoi", 1),
                     new ClassificationSearchField("category.top", "cmo_usuler", 1),
                     new ClassificationSearchField("category.top", "cmo_timeSignature"),
                     new AutoCompleteSearchField("editor.label.lyricist",
