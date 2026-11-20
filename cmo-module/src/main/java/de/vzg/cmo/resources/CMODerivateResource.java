@@ -45,7 +45,7 @@ import jakarta.servlet.http.HttpServletRequest;
  * Resource which allows to set the {@code derivate_types} classification of a derivate.
  * <p>
  * The type is used to distinguish the different file areas of a derivate (e.g. the actual
- * content or a TEI edition). The single supported classification is {@code derivate_types}.
+ * content, a TEI edition or a MEI edition). The single supported classification is {@code derivate_types}.
  */
 @Path("cmo/derivate/")
 public class CMODerivateResource {
