@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mycoreclass xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MCRClassification.xsd" ID="cmo_echoi">
+  <label xml:lang="en" text="Mode (Echos)" />
+  <label xml:lang="de" text="Modus (Echos)" />
+  <label xml:lang="x-uri" text="https://www.corpus-musicae-ottomanicae.de/api/v1/classifications/cmo_echoi" />
+  <categories>
+    <category ID="Protos">
+      <label xml:lang="en" text="First mode" />
+      <label xml:lang="de" text="Erster Modus" />
+      <label xml:lang="el" text="Ἦχος πρῶτος" />
+    </category>
+    <category ID="Deuteros">
+      <label xml:lang="en" text="Second mode" />
+      <label xml:lang="de" text="Zweiter Modus" />
+      <label xml:lang="el" text="Ἦχος δεύτερος" />
+    </category>
+    <category ID="Tritos">
+      <label xml:lang="en" text="Third mode" />
+      <label xml:lang="de" text="Dritter Modus" />
+      <label xml:lang="el" text="Ἦχος τρίτος" />
+    </category>
+    <category ID="Tetartos">
+      <label xml:lang="en" text="Fourth mode" />
+      <label xml:lang="de" text="Vierter Modus" />
+      <label xml:lang="el" text="Ἦχος τέταρτος" />
+    </category>
+    <category ID="Plagios_protos">
+      <label xml:lang="en" text="First plagal mode" />
+      <label xml:lang="de" text="Erster plagaler Modus" />
+      <label xml:lang="el" text="Ἦχος πλάγιος τοῦ πρώτου" />
+    </category>
+    <category ID="Plagios_deuteros">
+      <label xml:lang="en" text="Second plagal mode" />
+      <label xml:lang="de" text="Zweiter plagaler Modus" />
+      <label xml:lang="el" text="Ἦχος πλάγιος τοῦ δευτέρου" />
+    </category>
+    <category ID="Varys">
+      <label xml:lang="en" text="Varýs (third plagal) mode" />
+      <label xml:lang="de" text="Varýs (dritter plagaler Modus)" />
+      <label xml:lang="el" text="Ἦχος βαρύς" />
+    </category>
+    <category ID="Plagios_tetartos">
+      <label xml:lang="en" text="Fourth plagal mode" />
+      <label xml:lang="de" text="Vierter plagaler Modus" />
+      <label xml:lang="el" text="Ἦχος πλάγιος τοῦ τετάρτου" />
+    </category>
+  </categories>
+</mycoreclass>

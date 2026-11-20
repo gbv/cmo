@@ -310,6 +310,7 @@ export class SearchDisplay {
         let badges = `
         <span class="col-md-12">
             ${this.displayCategoryBadge(doc, "cmo_makamler", 0, 1)}
+            ${this.displayCategoryBadge(doc, "cmo_echoi")}
             ${this.displayCategoryBadge(doc, "cmo_usuler", 0, 1)}
             ${this.displayCategoryBadge(doc, "cmo_musictype", 1)}
             ${this.displayCategoryBadge(doc, "cmo_litform")}

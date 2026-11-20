@@ -374,6 +374,12 @@
                               classification="cmo_makamler" help-text="{i18n:cmo.help.makamler}" />
   </xed:template>
 
+  <xed:template id="cmo_echoi">
+    <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_echoi']" repeat="true" min="1"
+                              max="10" label="editor.search.echos"
+                              classification="cmo_echoi" help-text="{i18n:cmo.help.echoi}" />
+  </xed:template>
+
   <xed:template id="cmo_musictype">
     <cmo:selectClassification xpath="mei:classification/classEntry[@authority='cmo_musictype']"
                               label="editor.search.musictype"
