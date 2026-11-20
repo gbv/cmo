@@ -6,9 +6,12 @@
   "author": "Sebastian Hofmann <hofmann.s@uni-jena.de>",
   "license": "GPL-3.0",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack && node build-verovio-app.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "verovio": "6.4.1",
+    "verovio-editor": "https://codeload.github.com/rism-digital/verovio-editor/tar.gz/3a0213f43ae0ff940d13c48e9b8200094c3169ac"
+  },
   "devDependencies": {
     "ts-loader": "^6.1.0",
     "typescript": "^2.2.1",

@@ -14,5 +14,10 @@
       <label xml:lang="en" text="Text Edition" />
       <label xml:lang="tr" text="Metin Baskısı" />
     </category>
+    <category ID="edition_mei">
+      <label xml:lang="de" text="Musikedition" />
+      <label xml:lang="en" text="Music Edition" />
+      <label xml:lang="tr" text="Müzik Baskısı" />
+    </category>
   </categories>
 </mycoreclass>
