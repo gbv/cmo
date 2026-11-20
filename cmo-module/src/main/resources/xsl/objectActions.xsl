@@ -447,6 +447,11 @@
               <xsl:with-param name="typeId" select="'edition_tei'" />
               <xsl:with-param name="currentType" select="$currentType" />
             </xsl:call-template>
+            <xsl:call-template name="derivateTypeMenuItem">
+              <xsl:with-param name="deriv" select="$deriv" />
+              <xsl:with-param name="typeId" select="'edition_mei'" />
+              <xsl:with-param name="currentType" select="$currentType" />
+            </xsl:call-template>
           </xsl:if>
           <xsl:if test="key('rights', $deriv)/@read">
             <li class="dropdown-item">
